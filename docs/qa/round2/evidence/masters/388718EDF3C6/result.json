@@ -1,0 +1,11 @@
+{
+  "result": "FAIL",
+  "run_id": "388718EDF3C6",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [],
+  "browser_errors": [],
+  "failure": "Unexpected token 'I', \"\r\nIn prepare\"... is not valid JSON",
+  "screenshots": []
+}

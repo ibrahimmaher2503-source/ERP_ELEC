@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "run_id": "7F4A7DB22B0A",
+  "journey": "M01 company update and reload lifecycle",
+  "record": {
+    "code": "R2-D92B5490A959-CO",
+    "name": "Round2 synthetic company D92B5490A959",
+    "legal_name": "Company lifecycle revision three D92B5490A959"
+  },
+  "checks": [
+    "M01 company: updated existing company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; original value restored"
+  ],
+  "postgresql_verification": {
+    "name": "Round2 synthetic company D92B5490A959",
+    "code": "R2-D92B5490A959-CO",
+    "legal_name": "Company lifecycle revision three D92B5490A959"
+  }
+}

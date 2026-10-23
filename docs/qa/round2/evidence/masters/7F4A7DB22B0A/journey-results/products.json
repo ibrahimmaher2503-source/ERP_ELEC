@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "7F4A7DB22B0A",
+  "journey": "M02 product create and repeated edit lifecycle",
+  "record": {
+    "id": 175,
+    "sku": "R2-7F4A7DB22B0A-P",
+    "final_revision": "Revision two 7F4A7DB22B0A"
+  },
+  "checks": [
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 175",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save"
+  ],
+  "postgresql_verification": "Round2 product 7F4A7DB22B0A"
+}

@@ -1,0 +1,207 @@
+{
+    "check": "round2-master-lifecycle",
+    "database": "erp_elec_new_test",
+    "driver": "pgsql",
+    "started_at": "2026-10-21T19:52:33+00:00",
+    "assertions": [
+        {
+            "name": "M01 company save and three consecutive reopen/edit/save cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 branch create and three consecutive edit cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 duplicate branch recovery rejects duplicate without changing saved branch",
+            "passed": true
+        },
+        {
+            "name": "M01 branch remains editable after invalid attempt",
+            "passed": true
+        },
+        {
+            "name": "M01 managed user create and three consecutive edit cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 invalid email is rejected and a subsequent valid lifecycle remains usable",
+            "passed": true
+        },
+        {
+            "name": "M01 invalid create leaves existing user untouched",
+            "passed": true
+        },
+        {
+            "name": "M02 category rejects a multi-level ancestry cycle",
+            "passed": true
+        },
+        {
+            "name": "M02 category hierarchy survives repeat edits after rejected cycle",
+            "passed": true
+        },
+        {
+            "name": "M02 unit rejects a dimension change after creation",
+            "passed": true
+        },
+        {
+            "name": "M02 unit repeat edits persist while preserving immutable dimension",
+            "passed": true
+        },
+        {
+            "name": "M02 conversion factor rejects precision beyond eight decimal places",
+            "passed": true
+        },
+        {
+            "name": "M02 product repeats three saves while preserving exact eight-place conversion precision",
+            "passed": true
+        },
+        {
+            "name": "M02 stale product version is rejected and the latest version can still be edited",
+            "passed": true
+        },
+        {
+            "name": "M02 product can be deactivated with a versioned status transition",
+            "passed": true
+        },
+        {
+            "name": "M02 product can be reactivated after deactivation",
+            "passed": true
+        },
+        {
+            "name": "M02 duplicate barcode is rejected without creating a partial product",
+            "passed": true
+        },
+        {
+            "name": "M02 duplicate-input recovery leaves product version intact",
+            "passed": true
+        },
+        {
+            "name": "M02 media upload persists a private product-owned file",
+            "passed": true
+        },
+        {
+            "name": "M02 media removal preserves file and records removal history",
+            "passed": true
+        },
+        {
+            "name": "M03 customer optional contact text rejects NUL before persistence (field phone)",
+            "passed": true
+        },
+        {
+            "name": "M03 customer contact remains unchanged after NUL probe",
+            "passed": true
+        },
+        {
+            "name": "M03 rejected customer contact NUL attempt creates no audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 customer primary contact can switch without leaving two primaries",
+            "passed": true
+        },
+        {
+            "name": "M03 customer contact update rejects an ID owned by another customer",
+            "passed": true
+        },
+        {
+            "name": "M03 customer optional address text rejects NUL before persistence (field city)",
+            "passed": true
+        },
+        {
+            "name": "M03 customer address remains unchanged after NUL probe",
+            "passed": true
+        },
+        {
+            "name": "M03 rejected customer address NUL attempt creates no audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 customer repeated profile/contact/address edits preserve one switched primary relationship",
+            "passed": true
+        },
+        {
+            "name": "M03 stale customer version is rejected before recovering with the latest version",
+            "passed": true
+        },
+        {
+            "name": "M03 customer deactivation is persisted",
+            "passed": true
+        },
+        {
+            "name": "M03 customer reactivation is persisted",
+            "passed": true
+        },
+        {
+            "name": "M03 duplicate customer attempt is rejected and emits no success audit",
+            "passed": true
+        },
+        {
+            "name": "M03 failed customer write creates neither a row nor audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier optional address text rejects NUL before persistence (field city)",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier address remains unchanged after NUL probe",
+            "passed": true
+        },
+        {
+            "name": "M03 rejected supplier address NUL attempt creates no audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier optional contact text rejects NUL before persistence (field phone)",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier contact remains unchanged after NUL probe",
+            "passed": true
+        },
+        {
+            "name": "M03 rejected supplier contact NUL attempt creates no audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier primary contact can switch without leaving two primaries",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier contact update rejects an ID owned by another supplier",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier repeated profile/contact/address edits preserve one switched primary relationship",
+            "passed": true
+        },
+        {
+            "name": "M03 stale supplier version is rejected before recovering with the latest version",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier deactivation is persisted",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier reactivation is persisted",
+            "passed": true
+        },
+        {
+            "name": "M03 invalid supplier type is rejected and subsequent valid supplier lifecycle remains usable",
+            "passed": true
+        },
+        {
+            "name": "M02 revoked product update grant blocks a previously authorized actor",
+            "passed": true
+        },
+        {
+            "name": "M02 revoked write leaves product unchanged",
+            "passed": true
+        }
+    ],
+    "status": "passed",
+    "finished_at": "2026-10-21T19:52:35+00:00",
+    "assertion_count": 49
+}

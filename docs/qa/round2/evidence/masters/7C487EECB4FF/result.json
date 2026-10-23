@@ -1,0 +1,32 @@
+{
+  "result": "FAIL",
+  "run_id": "7C487EECB4FF",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "guest is redirected to login; Arabic RTL account session works"
+  ],
+  "browser_errors": [
+    {
+      "kind": "console",
+      "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+    }
+  ],
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form[wire\\\\:submit=\"save\"] button[type=\"submit\"]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"submit\" wire:loading.attr=\"disabled\" data-flux-button=\"data-flux-button\" data-flux-group-target=\"data-flux-group-target\" class=\"relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-3 pe-4 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--colo…>…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <svg fill=\"none\" data-slot=\"icon\" data-flux-icon=\"\" str",
+  "screenshots": [
+    "failure-state.png"
+  ]
+}

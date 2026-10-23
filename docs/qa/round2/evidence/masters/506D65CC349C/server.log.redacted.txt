@@ -1,0 +1,70 @@
+[Wed Oct 21 21:47:38 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8013) started
+[Wed Oct 21 21:47:38 2026] 127.0.0.1:55512 Accepted
+[Wed Oct 21 18:47:38 2026] 127.0.0.1:55512 [GET] URI: /login
+[Wed Oct 21 21:47:38 2026] 127.0.0.1:55512 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:54539 Accepted
+[Wed Oct 21 18:47:39 2026] 127.0.0.1:54539 [GET] URI: /products
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:54539 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:55994 Accepted
+[Wed Oct 21 18:47:39 2026] 127.0.0.1:55994 [GET] URI: /login
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:55994 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:65516 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:65516 [200]: GET /build/assets/app-RG0poB64.css
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:59498 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:59339 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:58754 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:59498 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 21 18:47:39 2026] 127.0.0.1:59339 [GET] URI: /flux/flux.min.js
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:59339 Closing
+[Wed Oct 21 18:47:39 2026] 127.0.0.1:58754 [GET] URI: /livewire-557588bd/livewire.min.js
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:58754 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:65516 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:59498 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:49916 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:49916 [200]: GET /favicon.svg
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:49916 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:57522 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:57522 [200]: GET /favicon.ico
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:57522 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:56220 Accepted
+[Wed Oct 21 18:47:39 2026] 127.0.0.1:56220 [GET] URI: /login
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:56220 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:63839 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:63839 [200]: GET /build/assets/app-RG0poB64.css
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:54208 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:54208 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:54208 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:63839 Closing
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:56046 Accepted
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:56046 [200]: GET /favicon.svg
+[Wed Oct 21 21:47:39 2026] 127.0.0.1:56046 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60125 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60125 [200]: GET /favicon.ico
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60125 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:59147 Accepted
+[Wed Oct 21 18:47:40 2026] 127.0.0.1:59147 [POST] URI: /login
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:59147 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:61000 Accepted
+[Wed Oct 21 18:47:40 2026] 127.0.0.1:61000 [GET] URI: /products
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:61000 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60255 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60255 [200]: GET /build/assets/app-RG0poB64.css
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:63767 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:63767 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49675 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:60255 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:63767 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49675 [200]: GET /images/avatars/avatar-01.webp
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49675 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:54155 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:54155 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49958 Accepted
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49958 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:54155 Closing
+[Wed Oct 21 21:47:40 2026] 127.0.0.1:49958 Closing
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:56779 Accepted
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:56779 [200]: GET /favicon.svg
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:56779 Closing
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:54153 Accepted
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:54153 [200]: GET /favicon.ico
+[Wed Oct 21 21:47:41 2026] 127.0.0.1:54153 Closing

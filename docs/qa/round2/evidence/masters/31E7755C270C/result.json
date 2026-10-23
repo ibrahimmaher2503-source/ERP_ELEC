@@ -1,0 +1,17 @@
+{
+  "result": "FAIL",
+  "run_id": "31E7755C270C",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state"
+  ],
+  "browser_errors": [],
+  "failure": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[wire\\\\:model=\"form.name\"]')\u001b[22m\n",
+  "screenshots": [
+    "failure-state.png",
+    "products-invalid-desktop.png"
+  ]
+}

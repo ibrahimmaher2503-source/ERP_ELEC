@@ -1,0 +1,219 @@
+{
+    "check": "round2-master-lifecycle",
+    "database": "erp_elec_new_test",
+    "driver": "pgsql",
+    "started_at": "2026-10-21T18:48:31+00:00",
+    "assertions": [
+        {
+            "name": "M01 company save and three consecutive reopen/edit/save cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 branch create and three consecutive edit cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 duplicate branch recovery rejects duplicate without changing saved branch",
+            "passed": true
+        },
+        {
+            "name": "M01 branch remains editable after invalid attempt",
+            "passed": true
+        },
+        {
+            "name": "M01 managed user create and three consecutive edit cycles persist expected versions",
+            "passed": true
+        },
+        {
+            "name": "M01 invalid email is rejected and a subsequent valid lifecycle remains usable",
+            "passed": true
+        },
+        {
+            "name": "M01 invalid create leaves existing user untouched",
+            "passed": true
+        },
+        {
+            "name": "M02 category rejects a multi-level ancestry cycle",
+            "passed": true
+        },
+        {
+            "name": "M02 category hierarchy survives repeat edits after rejected cycle",
+            "passed": true
+        },
+        {
+            "name": "M02 product repeats three saves while preserving exact eight-place conversion precision",
+            "passed": true
+        },
+        {
+            "name": "M02 stale product version is rejected and the latest version can still be edited",
+            "passed": true
+        },
+        {
+            "name": "M02 duplicate barcode is rejected without creating a partial product",
+            "passed": true
+        },
+        {
+            "name": "M02 duplicate-input recovery leaves product version intact",
+            "passed": true
+        },
+        {
+            "name": "M02 media upload persists a private product-owned file",
+            "passed": true
+        },
+        {
+            "name": "M02 media removal preserves file and records removal history",
+            "passed": true
+        },
+        {
+            "name": "M03 customer contact remains unchanged after NUL probe",
+            "passed": false
+        },
+        {
+            "name": "M03 customer address remains unchanged after NUL probe",
+            "passed": false
+        },
+        {
+            "name": "M03 customer repeated profile/contact/address edits preserve one primary relationship",
+            "passed": true
+        },
+        {
+            "name": "M03 stale customer version is rejected before recovering with the latest version",
+            "passed": true
+        },
+        {
+            "name": "M03 duplicate customer attempt is rejected and emits no success audit",
+            "passed": true
+        },
+        {
+            "name": "M03 failed customer write creates neither a row nor audit entry",
+            "passed": true
+        },
+        {
+            "name": "M03 supplier address remains unchanged after NUL probe",
+            "passed": false
+        },
+        {
+            "name": "M03 supplier contact remains unchanged after NUL probe",
+            "passed": false
+        },
+        {
+            "name": "M03 supplier repeated profile/contact/address edits preserve one primary relationship",
+            "passed": true
+        },
+        {
+            "name": "M03 stale supplier version is rejected before recovering with the latest version",
+            "passed": true
+        },
+        {
+            "name": "M03 invalid supplier type is rejected and subsequent valid supplier lifecycle remains usable",
+            "passed": true
+        },
+        {
+            "name": "M02 revoked product update grant blocks a previously authorized actor",
+            "passed": true
+        },
+        {
+            "name": "M02 revoked write leaves product unchanged",
+            "passed": true
+        }
+    ],
+    "status": "completed_with_defects",
+    "defects": [
+        {
+            "name": "M03 customer optional contact text rejects NUL before persistence",
+            "class": null,
+            "detail": "NUL input was accepted",
+            "readback": {
+                "id": 48,
+                "customer_id": 39,
+                "name": "Primary 4FD4C8340F",
+                "job_title": null,
+                "phone": "bad\u0000phone",
+                "mobile": null,
+                "email": null,
+                "active": true,
+                "is_primary": true,
+                "created_at": "2026-10-21 18:48:32+00",
+                "updated_at": "2026-10-21 18:48:32"
+            }
+        },
+        {
+            "name": "M03 customer contact remains unchanged after NUL probe",
+            "class": null,
+            "detail": "Observed state did not match the required lifecycle invariant"
+        },
+        {
+            "name": "M03 customer optional address text rejects NUL before persistence",
+            "class": null,
+            "detail": "NUL input was accepted",
+            "readback": {
+                "id": 42,
+                "customer_id": 39,
+                "label": "Billing",
+                "purpose": "billing",
+                "line": "5 Round2 Road",
+                "country": "Egypt",
+                "city": "bad\u0000city",
+                "region": null,
+                "postal_code": null,
+                "is_primary": true,
+                "created_at": "2026-10-21 18:48:32+00",
+                "updated_at": "2026-10-21 18:48:32"
+            }
+        },
+        {
+            "name": "M03 customer address remains unchanged after NUL probe",
+            "class": null,
+            "detail": "Observed state did not match the required lifecycle invariant"
+        },
+        {
+            "name": "M03 supplier optional address text rejects NUL before persistence",
+            "class": null,
+            "detail": "NUL input was accepted",
+            "readback": {
+                "id": 46,
+                "supplier_id": 24,
+                "label": "Registered",
+                "purpose": "registered",
+                "line": "5 Supplier Road",
+                "country": "Egypt",
+                "city": "bad\u0000city",
+                "region": null,
+                "postal_code": null,
+                "is_primary": true,
+                "created_at": "2026-10-21 18:48:32+00",
+                "updated_at": "2026-10-21 18:48:32"
+            }
+        },
+        {
+            "name": "M03 supplier address remains unchanged after NUL probe",
+            "class": null,
+            "detail": "Observed state did not match the required lifecycle invariant"
+        },
+        {
+            "name": "M03 supplier optional contact text rejects NUL before persistence",
+            "class": null,
+            "detail": "NUL input was accepted",
+            "readback": {
+                "id": 37,
+                "supplier_id": 24,
+                "name": "Supplier Primary 4FD4C8340F",
+                "job_title": null,
+                "phone": "bad\u0000phone",
+                "mobile": null,
+                "email": null,
+                "active": true,
+                "is_primary": true,
+                "created_at": "2026-10-21 18:48:32+00",
+                "updated_at": "2026-10-21 18:48:32"
+            }
+        },
+        {
+            "name": "M03 supplier contact remains unchanged after NUL probe",
+            "class": null,
+            "detail": "Observed state did not match the required lifecycle invariant"
+        }
+    ],
+    "finished_at": "2026-10-21T18:48:32+00:00",
+    "assertion_count": 28
+}

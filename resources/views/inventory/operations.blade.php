@@ -1,0 +1,24 @@
+<div class="space-y-5">
+<x-page.heading :title="match($screen){'serials'=>'الأرقام المسلسلة','isolations'=>'المخزون غير المتاح',default=>'تصحيح حركات المخزون'}" description="إجراءات محفوظة بأثر قابل للتتبع؛ لا تعديل مباشر للأرصدة أو للحركات المرحلة." :breadcrumbs="['المخزون']" />
+@include('inventory.navigation')
+@if($errors->any())<div role="alert" class="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">@foreach($errors->all() as $error)<p>{{ $error }}</p>@endforeach</div>@endif
+@if(session('status'))<flux:callout>{{ session('status') }}</flux:callout>@endif
+<x-ui.panel><div class="grid gap-3 sm:grid-cols-2"><flux:input label="بحث" wire:model.live.debounce.300ms="search" /><flux:select label="المستودع" wire:model.live="warehouse"><option value="">كل المستودعات المسموحة</option>@foreach($warehouses as $w)<option value="{{ $w->id }}">{{ $w->name }}</option>@endforeach</flux:select></div></x-ui.panel>
+@if($screen!=='serials' && $canExecute)
+<x-ui.panel><h2 class="mb-4 font-bold text-blue-900">{{ $screen==='isolations'?'عزل كمية من مخزون متاح':'طلب تصحيح مرتبط بالحركة الأصلية' }}</h2><form wire:submit="execute" class="grid gap-4 sm:grid-cols-2">
+<flux:select label="حركة المصدر" wire:model="form.source_movement_id"><option value="">اختر الحركة</option>@foreach($sources as $source)<option value="{{ $source->id }}">#{{ $source->id }} · {{ $source->sku }} · {{ $source->quantity }} · مستودع #{{ $source->warehouse_id }}</option>@endforeach</flux:select>
+<flux:input label="الكمية" inputmode="decimal" wire:model="form.quantity" required />
+<flux:textarea label="السبب الإلزامي" wire:model="form.reason" required rows="2" />
+<flux:textarea label="المسلسلات — رقم في كل سطر عند التتبع المسلسل" wire:model="form.serials" rows="2" />
+<div class="sm:col-span-2"><p class="mb-3 text-sm text-slate-600">{{ $screen==='isolations'?'العزل لا يغيّر الرصيد الفعلي. الإفراج إجراء مستقل مسجل ولا يحدث تلقائيًا.':'تفويض التصحيح ونطاق المستودع مطلوبان. لا يعتمد الاسم أو المسمى الوظيفي. أي أثر مالي إلزامي غير متاح يبقي الطلب معلقًا دون ترحيل مخزون.' }}</p><flux:button type="submit" variant="primary" wire:loading.attr="disabled" wire:confirm="تسجيل هذا الإجراء؟ لا يمكن تعديل السجل بعد التنفيذ.">تنفيذ وتسجيل الإجراء</flux:button></div>
+</form></x-ui.panel>
+@endif
+<x-ui.panel><div class="overflow-x-auto"><table class="w-full text-start text-sm"><thead class="bg-blue-50"><tr><th class="p-3">المرجع</th><th>{{ $screen==='serials'?'الرقم الأصلي':'الكمية' }}</th><th>{{ $screen==='serials'?'الحالة':'السبب' }}</th><th>{{ $screen==='serials'?'المستودع':'النتيجة' }}</th><th>الإجراء</th></tr></thead><tbody>
+@forelse($rows as $row)<tr wire:key="operation-{{ $row->id }}" class="border-b border-slate-100"><td class="p-3">#{{ $row->id }}</td>
+@if($screen==='serials')<td>{{ $row->entered }}<p class="text-xs text-slate-500">{{ $row->normalized }} · صنف #{{ $row->product_id }}</p></td><td>{{ ['available'=>'متاح','reserved'=>'محجوز','unavailable'=>'معزول','transit'=>'قيد النقل','issued'=>'مصروف'][$row->state] }}</td><td>{{ $row->warehouse_id??'قيد النقل' }}</td><td><flux:button wire:click="inspectSerial({{ $row->id }})">السجل</flux:button></td>
+@else<td>{{ $row->quantity }}</td><td>{{ $row->reason }}</td><td>{{ $screen==='isolations'?'المحرر: '.$row->released:($row->status==='posted'?'مرحّل':'بانتظار التكامل المالي') }}</td><td>
+@if($screen==='isolations' && bccomp($row->quantity,$row->released,8)>0 && $access->allows(auth()->id(),'isolation_release',$row->warehouse_id))<div class="min-w-56 space-y-2"><flux:input label="كمية الإفراج" wire:model="releaseQuantities.{{ $row->id }}" inputmode="decimal" /><flux:textarea label="مسلسلات الإفراج إن وجدت" wire:model="releaseSerials.{{ $row->id }}" rows="2" /><flux:button wire:click="release({{ $row->id }})" wire:confirm="الإفراج عن الكمية المحددة؟" wire:loading.attr="disabled">إفراج مسجل</flux:button></div>@endif
+</td>@endif</tr>@empty<tr><td colspan="5" class="p-6 text-center text-slate-500">لا توجد سجلات مطابقة في النطاق المسموح.</td></tr>@endforelse
+</tbody></table></div><div class="mt-4">{{ $rows->links() }}</div></x-ui.panel>
+@if($selectedSerial)<x-ui.panel><h2 class="font-bold text-blue-900">سجل الرقم المسلسل #{{ $selectedSerial }}</h2><ol class="divide-y divide-slate-100">@foreach($history as $event)<li class="py-3 text-sm">{{ $event->action }} · حركة #{{ $event->movement_id??'—' }} · مستخدم #{{ $event->actor_id }} · {{ \Carbon\CarbonImmutable::parse($event->occurred_at)->timezone('Africa/Cairo')->format('Y-m-d H:i') }}</li>@endforeach</ol></x-ui.panel>@endif
+</div>

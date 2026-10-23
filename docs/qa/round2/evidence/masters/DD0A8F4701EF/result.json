@@ -1,0 +1,39 @@
+{
+  "result": "FAIL",
+  "run_id": "DD0A8F4701EF",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 58",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 54",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 29",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "M01 company: updated existing company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; original value restored",
+    "M01 branch: empty required modal is rejected in the browser"
+  ],
+  "browser_errors": [],
+  "failure": "The expression evaluated to a falsy value:\n\n  assert.ok(href && /^\\/organization\\/branches\\/\\d+$/.test(href))\n",
+  "screenshots": [
+    "branch-create-desktop.png",
+    "branch-create-mobile.png",
+    "company-revision-one-desktop.png",
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "failure-state.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png"
+  ]
+}

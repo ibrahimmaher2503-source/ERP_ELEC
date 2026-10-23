@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\projects\ERP_ELEC_NEW\phpunit.xml" tests="37" assertions="91" errors="1" failures="0" skipped="0" time="11.575046">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.003335">
+      <testsuite name="Tests\Unit\ExampleTest" file="C:\projects\ERP_ELEC_NEW\tests\Unit\ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.003335">
+        <testcase name="test_that_true_is_true" file="C:\projects\ERP_ELEC_NEW\tests\Unit\ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.003335"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="36" assertions="90" errors="1" failures="0" skipped="0" time="11.571711">
+      <testsuite name="Tests\Feature\Auth\AuthenticationTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" tests="5" assertions="12" errors="1" failures="0" skipped="0" time="3.958859">
+        <testcase name="test_login_screen_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" line="14" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="0" time="0.000000">
+          <error type="Illuminate\Database\QueryException">Tests\Feature\Auth\AuthenticationTest::test_login_screen_can_be_rendered&#13;
+Illuminate\Database\QueryException: SQLSTATE[40P01]: Deadlock detected: 7 ERROR:  deadlock detected
+DETAIL:  Process 47516 waits for AccessExclusiveLock on relation 49494 of database 16386; blocked by process 15368.
+Process 15368 waits for RowExclusiveLock on relation 49341 of database 16386; blocked by process 47516.
+HINT:  See server log for query details. (Connection: pgsql, Host: 127.0.0.1, Port: 5443, Database: erp_elec_new_test, SQL: drop table "public"."access_audits", "public"."access_grants", "public"."audit_entries", "public"."branches", "public"."brands", "public"."cache", "public"."cache_locks", "public"."companies", "public"."customer_addresses", "public"."customer_contacts", "public"."customer_documents", "public"."customer_notes", "public"."customers", "public"."data_operation_items", "public"."data_operation_runs", "public"."failed_jobs", "public"."job_batches", "public"."jobs", "public"."migrations", "public"."passkeys", "public"."password_reset_tokens", "public"."permission_catalog", "public"."product_categories", "public"."product_media", "public"."product_unit_conversions", "public"."products", "public"."quotation_self_approval_policies", "public"."role_permissions", "public"."roles", "public"."sales_order_lines", "public"."sales_order_policies", "public"."sales_order_reviews", "public"."sales_orders", "public"."sales_quotation_approvals", "public"."sales_quotation_attachments", "public"."sales_quotation_lines", "public"."sales_quotation_policies", "public"."sales_quotation_terms", "public"."sales_quotations", "public"."sessions", "public"."supplier_addresses", "public"."supplier_categories", "public"."supplier_contacts", "public"."supplier_documents", "public"."supplier_notes", "public"."suppliers", "public"."units_of_measure", "public"."user_branch_scopes", "public"."user_roles", "public"."users" cascade)
+&#13;
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:864
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:820
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:597
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Schema\PostgresBuilder.php:32
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\WipeCommand.php:78
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\WipeCommand.php:53
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:68
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:41
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\FreshCommand.php:85
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\View\Components\Task.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\View\Components\Factory.php:61
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\FreshCommand.php:85
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:686
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\FreshCommand.php:75
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:1129
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:380
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:219
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Application.php:165
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php:450
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:452
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:676
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithConsole.php:85
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:119
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:84
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:25
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:237
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:107
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\TestCase.php:75</error>
+        </testcase>
+        <testcase name="test_users_can_authenticate_using_the_login_screen" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" line="23" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="4" time="3.675609"/>
+        <testcase name="test_users_can_not_authenticate_with_invalid_password" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" line="39" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="2" time="0.089187"/>
+        <testcase name="test_users_with_two_factor_enabled_are_redirected_to_two_factor_challenge" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" line="53" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="3" time="0.092596"/>
+        <testcase name="test_users_can_logout" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\AuthenticationTest.php" line="73" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="3" time="0.101466"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\EmailVerificationTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" tests="5" assertions="12" errors="0" failures="0" skipped="0" time="0.464309">
+        <testcase name="test_email_verification_screen_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" line="24" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="1" time="0.107866"/>
+        <testcase name="test_unverified_users_are_redirected_to_the_email_verification_prompt" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" line="33" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="2" time="0.094749"/>
+        <testcase name="test_email_can_be_verified" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" line="42" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="4" time="0.091608"/>
+        <testcase name="test_email_is_not_verified_with_invalid_hash" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" line="62" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="1" time="0.087949"/>
+        <testcase name="test_already_verified_user_visiting_verification_link_is_redirected_without_firing_event_again" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\EmailVerificationTest.php" line="77" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="4" time="0.082137"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordConfirmationTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordConfirmationTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.126337">
+        <testcase name="test_confirm_password_screen_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordConfirmationTest.php" line="13" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="1" time="0.126337"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordResetTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordResetTest.php" tests="4" assertions="8" errors="0" failures="0" skipped="0" time="1.166202">
+        <testcase name="test_reset_password_link_screen_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordResetTest.php" line="23" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="1" time="0.141354"/>
+        <testcase name="test_reset_password_link_can_be_requested" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordResetTest.php" line="30" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="1" time="0.363767"/>
+        <testcase name="test_reset_password_screen_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordResetTest.php" line="41" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="2" time="0.355179"/>
+        <testcase name="test_password_can_be_reset_with_valid_token" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\PasswordResetTest.php" line="58" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="4" time="0.305903"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\TwoFactorChallengeTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\TwoFactorChallengeTest.php" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.224423">
+        <testcase name="test_two_factor_challenge_redirects_to_login_when_not_authenticated" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\TwoFactorChallengeTest.php" line="21" class="Tests\Feature\Auth\TwoFactorChallengeTest" classname="Tests.Feature.Auth.TwoFactorChallengeTest" assertions="2" time="0.106578"/>
+        <testcase name="test_two_factor_challenge_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Auth\TwoFactorChallengeTest.php" line="28" class="Tests\Feature\Auth\TwoFactorChallengeTest" classname="Tests.Feature.Auth.TwoFactorChallengeTest" assertions="2" time="0.117845"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\DashboardTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\DashboardTest.php" tests="2" assertions="3" errors="0" failures="0" skipped="0" time="0.643454">
+        <testcase name="test_guests_are_redirected_to_the_login_page" file="C:\projects\ERP_ELEC_NEW\tests\Feature\DashboardTest.php" line="13" class="Tests\Feature\DashboardTest" classname="Tests.Feature.DashboardTest" assertions="2" time="0.116719"/>
+        <testcase name="test_authenticated_users_can_visit_the_dashboard" file="C:\projects\ERP_ELEC_NEW\tests\Feature\DashboardTest.php" line="19" class="Tests\Feature\DashboardTest" classname="Tests.Feature.DashboardTest" assertions="1" time="0.526736"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\ExampleTest.php" tests="1" assertions="2" errors="0" failures="0" skipped="0" time="0.205148">
+        <testcase name="test_returns_a_successful_response" file="C:\projects\ERP_ELEC_NEW\tests\Feature\ExampleTest.php" line="12" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="2" time="0.205148"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\FoundationTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\FoundationTest.php" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.758405">
+        <testcase name="test_public_registration_cannot_create_an_erp_account" file="C:\projects\ERP_ELEC_NEW\tests\Feature\FoundationTest.php" line="13" class="Tests\Feature\FoundationTest" classname="Tests.Feature.FoundationTest" assertions="3" time="0.098753"/>
+        <testcase name="test_operator_profile_does_not_offer_destructive_account_deletion" file="C:\projects\ERP_ELEC_NEW\tests\Feature\FoundationTest.php" line="26" class="Tests\Feature\FoundationTest" classname="Tests.Feature.FoundationTest" assertions="2" time="0.347976"/>
+        <testcase name="test_dashboard_renders_arabic_rtl_without_business_totals" file="C:\projects\ERP_ELEC_NEW\tests\Feature\FoundationTest.php" line="34" class="Tests\Feature\FoundationTest" classname="Tests.Feature.FoundationTest" assertions="4" time="0.311676"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\LocalUserCommandTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\LocalUserCommandTest.php" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.434476">
+        <testcase name="test_local_account_is_created_with_a_hashed_password_and_verified_email" file="C:\projects\ERP_ELEC_NEW\tests\Feature\LocalUserCommandTest.php" line="14" class="Tests\Feature\LocalUserCommandTest" classname="Tests.Feature.LocalUserCommandTest" assertions="4" time="0.269097"/>
+        <testcase name="test_local_account_command_is_unavailable_in_production" file="C:\projects\ERP_ELEC_NEW\tests\Feature\LocalUserCommandTest.php" line="25" class="Tests\Feature\LocalUserCommandTest" classname="Tests.Feature.LocalUserCommandTest" assertions="2" time="0.079800"/>
+        <testcase name="test_short_password_cannot_create_an_account" file="C:\projects\ERP_ELEC_NEW\tests\Feature\LocalUserCommandTest.php" line="32" class="Tests\Feature\LocalUserCommandTest" classname="Tests.Feature.LocalUserCommandTest" assertions="3" time="0.085579"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Settings\ProfileUpdateTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\ProfileUpdateTest.php" tests="3" assertions="7" errors="0" failures="0" skipped="0" time="0.983434">
+        <testcase name="test_profile_page_is_displayed" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\ProfileUpdateTest.php" line="14" class="Tests\Feature\Settings\ProfileUpdateTest" classname="Tests.Feature.Settings.ProfileUpdateTest" assertions="1" time="0.311175"/>
+        <testcase name="test_profile_information_can_be_updated" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\ProfileUpdateTest.php" line="21" class="Tests\Feature\Settings\ProfileUpdateTest" classname="Tests.Feature.Settings.ProfileUpdateTest" assertions="4" time="0.341412"/>
+        <testcase name="test_email_verification_status_is_unchanged_when_email_address_is_unchanged" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\ProfileUpdateTest.php" line="41" class="Tests\Feature\Settings\ProfileUpdateTest" classname="Tests.Feature.Settings.ProfileUpdateTest" assertions="2" time="0.330847"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Settings\SecurityTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" tests="7" assertions="23" errors="0" failures="0" skipped="0" time="2.606664">
+        <testcase name="test_security_settings_page_can_be_rendered" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="33" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="5" time="0.378689"/>
+        <testcase name="test_security_settings_page_requires_password_confirmation_when_enabled" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="53" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="2" time="0.198406"/>
+        <testcase name="test_security_settings_page_renders_without_two_factor_when_feature_is_disabled" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="63" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="5" time="0.356312"/>
+        <testcase name="test_two_factor_authentication_disabled_when_confirmation_abandoned_between_requests" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="81" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="2" time="0.229147"/>
+        <testcase name="test_password_can_be_updated" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="106" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="2" time="0.520041"/>
+        <testcase name="test_weak_password_is_rejected_without_replacing_the_existing_password" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="127" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="4" time="0.495567"/>
+        <testcase name="test_correct_password_must_be_provided_to_update_password" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Settings\SecurityTest.php" line="147" class="Tests\Feature\Settings\SecurityTest" classname="Tests.Feature.Settings.SecurityTest" assertions="3" time="0.428502"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

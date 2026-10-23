@@ -1,0 +1,2 @@
+@props(['model','label'])
+<div class="space-y-3"><h3 class="font-semibold">{{ $label }}</h3><flux:textarea wire:model.live="{{ $model }}.line" :label="$label" rows="3" /><div class="grid grid-cols-2 gap-3">@foreach(['country'=>'الدولة','city'=>'المدينة','region'=>'المنطقة','postal_code'=>'الرمز البريدي'] as $field=>$name)<flux:input wire:model="{{ $model }}.{{ $field }}" :label="$name" />@endforeach</div></div>

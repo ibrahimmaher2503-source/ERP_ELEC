@@ -1,0 +1,285 @@
+{
+    "check": "round2-sales-two-process-races",
+    "database": "erp_elec_new_test",
+    "driver": "pgsql",
+    "started_at": "2026-10-21T19:52:45+00:00",
+    "assertions": [
+        {
+            "name": "Quotation same-version two-process edit has exactly one winner and one stale rejection",
+            "passed": true,
+            "evidence": {
+                "outcomes": [
+                    {
+                        "task": "quotation-edit",
+                        "worker": "quotation-edit.0.ready",
+                        "status": "validation_rejected",
+                        "error_fields": [
+                            "quotation"
+                        ],
+                        "message": "تغير عرض السعر. أعد تحميل الصفحة قبل تنفيذ الإجراء."
+                    },
+                    {
+                        "task": "quotation-edit",
+                        "worker": "quotation-edit.1.ready",
+                        "status": "success",
+                        "record_id": 79,
+                        "version": 2,
+                        "project_name": "Quote winner B BPCAATGUK4C9",
+                        "event_count": 2
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Quotation committed value matches the unique winner and advances one version",
+            "passed": true,
+            "evidence": {
+                "database": {
+                    "id": 79,
+                    "version": 2,
+                    "project_name": "Quote winner B BPCAATGUK4C9",
+                    "status": "draft"
+                },
+                "winner": {
+                    "task": "quotation-edit",
+                    "worker": "quotation-edit.1.ready",
+                    "status": "success",
+                    "record_id": 79,
+                    "version": 2,
+                    "project_name": "Quote winner B BPCAATGUK4C9",
+                    "event_count": 2
+                }
+            }
+        },
+        {
+            "name": "Sales Order same-version two-process edit has exactly one winner and one stale rejection",
+            "passed": true,
+            "evidence": {
+                "outcomes": [
+                    {
+                        "task": "sales-order-edit",
+                        "worker": "sales-order-edit.0.ready",
+                        "status": "validation_rejected",
+                        "error_fields": [
+                            "order"
+                        ],
+                        "message": "تغير أمر البيع. أعد تحميله قبل تنفيذ الإجراء."
+                    },
+                    {
+                        "task": "sales-order-edit",
+                        "worker": "sales-order-edit.1.ready",
+                        "status": "success",
+                        "record_id": 40,
+                        "version": 2,
+                        "project_name": "SO winner B BPCAATGUK4C9",
+                        "event_count": 1
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sales Order committed value matches the unique winner and advances one version",
+            "passed": true,
+            "evidence": {
+                "database": {
+                    "id": 40,
+                    "version": 2,
+                    "project_name": "SO winner B BPCAATGUK4C9",
+                    "status": "draft"
+                },
+                "winner": {
+                    "task": "sales-order-edit",
+                    "worker": "sales-order-edit.1.ready",
+                    "status": "success",
+                    "record_id": 40,
+                    "version": 2,
+                    "project_name": "SO winner B BPCAATGUK4C9",
+                    "event_count": 1
+                }
+            }
+        },
+        {
+            "name": "Concurrent Sales Order creation-key replay normalizes blank delivery date and returns one committed draft and line to both workers",
+            "passed": true,
+            "evidence": {
+                "outcomes": [
+                    {
+                        "task": "sales-order-create",
+                        "worker": "sales-order-create-key.0.ready",
+                        "status": "success",
+                        "record_id": 42,
+                        "version": 1,
+                        "draft_key": "2044693f-17c6-4a22-9e07-7b6e07974d4d",
+                        "line_count": 1,
+                        "event_count": 1
+                    },
+                    {
+                        "task": "sales-order-create",
+                        "worker": "sales-order-create-key.1.ready",
+                        "status": "success",
+                        "record_id": 42,
+                        "version": 1,
+                        "draft_key": "2044693f-17c6-4a22-9e07-7b6e07974d4d",
+                        "line_count": 1,
+                        "event_count": 0
+                    }
+                ],
+                "database": {
+                    "id": 42,
+                    "draft_key": "2044693f-17c6-4a22-9e07-7b6e07974d4d",
+                    "version": 1,
+                    "project_name": "SO same-key BPCAATGUK4C9",
+                    "status": "draft",
+                    "requested_delivery_date": null
+                },
+                "draft_count": 1,
+                "line_count": 1
+            }
+        },
+        {
+            "name": "Concurrent cancellation transition has one winner and rejects the stale replay",
+            "passed": true,
+            "evidence": {
+                "outcomes": [
+                    {
+                        "task": "sales-order-cancel",
+                        "worker": "sales-order-transition.0.ready",
+                        "status": "validation_rejected",
+                        "error_fields": [
+                            "order"
+                        ],
+                        "message": "تغير أمر البيع. أعد تحميله قبل تنفيذ الإجراء."
+                    },
+                    {
+                        "task": "sales-order-cancel",
+                        "worker": "sales-order-transition.1.ready",
+                        "status": "success",
+                        "record_id": 41,
+                        "event_count": 1
+                    }
+                ],
+                "database": {
+                    "id": 41,
+                    "version": 2,
+                    "status": "cancelled"
+                }
+            }
+        },
+        {
+            "name": "Synthetic race operations leave no append-only audit entries after faking only quotation and order domain events",
+            "passed": true,
+            "evidence": {
+                "audit_count_before": 152,
+                "audit_count_after": 152
+            }
+        }
+    ],
+    "races": {
+        "quotation-edit": [
+            {
+                "task": "quotation-edit",
+                "worker": "quotation-edit.0.ready",
+                "status": "validation_rejected",
+                "error_fields": [
+                    "quotation"
+                ],
+                "message": "تغير عرض السعر. أعد تحميل الصفحة قبل تنفيذ الإجراء."
+            },
+            {
+                "task": "quotation-edit",
+                "worker": "quotation-edit.1.ready",
+                "status": "success",
+                "record_id": 79,
+                "version": 2,
+                "project_name": "Quote winner B BPCAATGUK4C9",
+                "event_count": 2
+            }
+        ],
+        "sales-order-edit": [
+            {
+                "task": "sales-order-edit",
+                "worker": "sales-order-edit.0.ready",
+                "status": "validation_rejected",
+                "error_fields": [
+                    "order"
+                ],
+                "message": "تغير أمر البيع. أعد تحميله قبل تنفيذ الإجراء."
+            },
+            {
+                "task": "sales-order-edit",
+                "worker": "sales-order-edit.1.ready",
+                "status": "success",
+                "record_id": 40,
+                "version": 2,
+                "project_name": "SO winner B BPCAATGUK4C9",
+                "event_count": 1
+            }
+        ],
+        "sales-order-create-key": [
+            {
+                "task": "sales-order-create",
+                "worker": "sales-order-create-key.0.ready",
+                "status": "success",
+                "record_id": 42,
+                "version": 1,
+                "draft_key": "2044693f-17c6-4a22-9e07-7b6e07974d4d",
+                "line_count": 1,
+                "event_count": 1
+            },
+            {
+                "task": "sales-order-create",
+                "worker": "sales-order-create-key.1.ready",
+                "status": "success",
+                "record_id": 42,
+                "version": 1,
+                "draft_key": "2044693f-17c6-4a22-9e07-7b6e07974d4d",
+                "line_count": 1,
+                "event_count": 0
+            }
+        ],
+        "sales-order-transition": [
+            {
+                "task": "sales-order-cancel",
+                "worker": "sales-order-transition.0.ready",
+                "status": "validation_rejected",
+                "error_fields": [
+                    "order"
+                ],
+                "message": "تغير أمر البيع. أعد تحميله قبل تنفيذ الإجراء."
+            },
+            {
+                "task": "sales-order-cancel",
+                "worker": "sales-order-transition.1.ready",
+                "status": "success",
+                "record_id": 41,
+                "event_count": 1
+            }
+        ]
+    },
+    "status": "passed",
+    "fixture_cleanup_before_start": {
+        "stale_race_tokens_removed": []
+    },
+    "fixture_ids_before_cleanup": {
+        "user": 287,
+        "users": [
+            287,
+            288
+        ],
+        "branch": 62,
+        "customer": 109,
+        "unit": 95,
+        "product": 174,
+        "product_category": 107,
+        "product_brand": 90,
+        "quotation": 79,
+        "sales_orders": [
+            40,
+            41,
+            42
+        ]
+    },
+    "cleanup": "completed",
+    "finished_at": "2026-10-21T19:52:54+00:00",
+    "assertion_count": 7
+}

@@ -1,0 +1,15 @@
+{
+  "result": "FAIL",
+  "run_id": "9C31752484BD",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor"
+  ],
+  "browser_errors": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"alert\"]').first() to be visible\u001b[22m\n\u001b[2m    62 × locator resolved to hidden <div role=\"alert\" aria-live=\"polite\" aria-atomic=\"true\" data-flux-error=\"\" class=\"mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden\">↵    </div>\u001b[22m\n",
+  "screenshots": [
+    "failure-state.png"
+  ]
+}

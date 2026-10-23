@@ -1,0 +1,110 @@
+{
+    "check": "round2-draft-amount-contract",
+    "database": "erp_elec_new_test",
+    "driver": "pgsql",
+    "started_at": "2026-10-21T19:53:00+00:00",
+    "assertions": [
+        {
+            "name": "Scale-eight minimum positive decimal is accepted",
+            "passed": true,
+            "evidence": []
+        },
+        {
+            "name": "Ten integer digits and eight fractional digits are accepted at the upper syntax bound",
+            "passed": true,
+            "evidence": []
+        },
+        {
+            "name": "Eleven integer digits are rejected on the submitted field",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "string"
+            }
+        },
+        {
+            "name": "Nine fractional digits are rejected on the submitted field",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "string"
+            }
+        },
+        {
+            "name": "Exponent notation is rejected on the submitted field",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "string"
+            }
+        },
+        {
+            "name": "Floating point input is rejected on the submitted field",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "float"
+            }
+        },
+        {
+            "name": "Zero is rejected when positive quantity is required",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "string"
+            }
+        },
+        {
+            "name": "Negative decimal is rejected",
+            "passed": true,
+            "evidence": {
+                "rejected_on": [
+                    "probe"
+                ],
+                "type": "string"
+            }
+        },
+        {
+            "name": "Draft multiplication preserves sixteen fractional places without inventing tax or official totals",
+            "passed": true,
+            "evidence": {
+                "gross": "0.0000000000000001000000000000000000000000",
+                "tax": null,
+                "total": null
+            }
+        },
+        {
+            "name": "Exact 100 percent line discount produces zero draft net",
+            "passed": true,
+            "evidence": []
+        },
+        {
+            "name": "Line discount above 100 percent is rejected on its field",
+            "passed": true,
+            "evidence": []
+        },
+        {
+            "name": "Fixed discount greater than its line base is rejected on its field",
+            "passed": true,
+            "evidence": []
+        },
+        {
+            "name": "Unpriced product line remains incomplete instead of inventing a suggested or approved price",
+            "passed": true,
+            "evidence": []
+        }
+    ],
+    "status": "passed",
+    "finished_at": "2026-10-21T19:53:00+00:00",
+    "assertion_count": 13
+}

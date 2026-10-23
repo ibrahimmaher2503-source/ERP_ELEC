@@ -1,0 +1,60 @@
+{
+  "result": "PASS",
+  "run_id": "A8A87FDC132F",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 50",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 46",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 27",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "direct PostgreSQL reads confirm original identities and final revisions persisted after the third save"
+  ],
+  "browser_errors": [],
+  "master_records": {
+    "product": {
+      "id": 50,
+      "sku": "R2-A8A87FDC132F-P",
+      "final_revision": "Revision two A8A87FDC132F"
+    },
+    "customer": {
+      "id": 46,
+      "code": "R2-A8A87FDC132F-C",
+      "final_revision": "Revision two A8A87FDC132F"
+    },
+    "supplier": {
+      "id": 27,
+      "code": "R2-A8A87FDC132F-S",
+      "final_revision": "Revision two A8A87FDC132F"
+    }
+  },
+  "postgresql_verification": {
+    "persisted": {
+      "product": "Round2 product A8A87FDC132F",
+      "product_revision": "Revision two A8A87FDC132F",
+      "customer": "Round2 customer A8A87FDC132F",
+      "customer_revision": "Revision two A8A87FDC132F",
+      "supplier": "Round2 supplier A8A87FDC132F",
+      "supplier_revision": "Revision two A8A87FDC132F"
+    }
+  },
+  "screenshots": [
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png"
+  ],
+  "note": "Synthetic test-database data only. The browser actor is a per-run test identity with explicit M02/M03 grants; no business postings or external services were created."
+}

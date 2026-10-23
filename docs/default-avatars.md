@@ -1,0 +1,11 @@
+# Default user portraits
+
+Fifteen generated, fictional portraits are used as placeholders, never as verified photos of account holders. Generated with the built-in ImageGen tool. Final assets: `public/images/avatars/avatar-01.webp` through `avatar-15.webp`; 96×96 WebP, quality 55, metadata stripped during downsampling. Original generated PNGs remain outside the public application directory.
+
+`App\Support\DefaultAvatar::url()` deterministically assigns persisted user IDs within a gender-specific reusable pool: male portraits 01/03/05/07/09/11/13/15; female portraits 02/04/06/08/10/12/14. The 15 WebP files total 14,370 bytes. No external avatar service. The Blade avatar component and Flux profile menus share this helper; an account keeps the same default across page loads.
+
+Owner-approved `users.gender` is male/female, required for managed create/edit. Existing accounts remain null until explicitly selected and use `neutral.svg`; never infer gender from a name. The active account holder can set their own value in profile settings without administrative account rights. Both managed and self-service changes increment the user version and record safe audit history.
+
+Generation prompt template: “One square photorealistic avatar headshot of a completely fictional adult. Natural professional Egyptian office portrait, centered face and shoulders, face occupying central 60%, soft even daylight, plain pale grey background, realistic skin and understated friendly expression, front facing. Clean camera photograph, no text, no logos, no borders, one person only. Intended to be downsampled to a tiny 96px user placeholder.”
+
+Individual prompt variants: man 32/dark hair/trimmed beard/blue shirt; woman 29/shoulder-length dark hair/cream blouse; man 45/salt-and-pepper hair/light-grey shirt; woman 38/navy hijab/pale-blue blouse; man 26/curly brown hair/white shirt; woman 45/short brown hair/green blouse; man 36/bald/short beard/blue shirt; woman 31/beige hijab/grey blouse; man 52/greying hair/glasses/navy shirt; woman 25/wavy dark hair/pink blouse; man 29/black hair/moustache/grey shirt; woman 42/grey hijab/white blouse; man 41/brown hair/green shirt; woman 34/curly black hair/navy blouse; man 57/grey hair/close beard/cream shirt. Output completion order does not imply identity or demographic assignment to users.

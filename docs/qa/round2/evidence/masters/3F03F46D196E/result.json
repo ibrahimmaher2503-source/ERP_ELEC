@@ -1,0 +1,20 @@
+{
+  "result": "FAIL",
+  "run_id": "3F03F46D196E",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [],
+  "browser_errors": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    }
+  ],
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================",
+  "screenshots": []
+}

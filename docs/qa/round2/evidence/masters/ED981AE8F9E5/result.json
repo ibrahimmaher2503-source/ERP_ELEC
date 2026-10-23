@@ -1,0 +1,34 @@
+{
+  "result": "FAIL",
+  "run_id": "ED981AE8F9E5",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 77",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 72",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 34",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save"
+  ],
+  "browser_errors": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[wire\\\\:click=\"edit\"]').first() to be visible\u001b[22m\n",
+  "screenshots": [
+    "company-revision-one-desktop.png",
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "failure-state.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png"
+  ]
+}

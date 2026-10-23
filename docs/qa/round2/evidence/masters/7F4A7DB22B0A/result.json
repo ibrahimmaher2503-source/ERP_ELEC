@@ -1,0 +1,94 @@
+{
+  "result": "PASS",
+  "run_id": "7F4A7DB22B0A",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 175",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 110",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 53",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "M01 company: updated existing company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; original value restored",
+    "M01 branch: empty required modal is rejected in the browser",
+    "M01 branch: first save created synthetic branch 65",
+    "M01 branch: create, navigate away, reopen edit, save, reload, second edit and save persisted",
+    "M01 user: empty required account modal is rejected in the browser",
+    "M01 user: account provisioned without roles or automatic business grants (294)",
+    "M01 user: create, navigate away, reopen edit, save, reload, second edit and final save",
+    "direct PostgreSQL reads confirm original identities and final revisions persisted after the third save"
+  ],
+  "browser_errors": [],
+  "master_records": {
+    "company": {
+      "code": "R2-D92B5490A959-CO",
+      "name": "Round2 synthetic company D92B5490A959",
+      "legal_name": "Company lifecycle revision three D92B5490A959"
+    },
+    "branch": {
+      "id": 65,
+      "code": "R2-7F4A7DB22B0A-B",
+      "final_revision": "Branch revision two 7F4A7DB22B0A"
+    },
+    "user": {
+      "id": 294,
+      "email": "round2-managed-7f4a7db22b0a@example.test",
+      "final_revision": "Managed user revision two 7F4A7DB22B0A"
+    },
+    "product": {
+      "id": 175,
+      "sku": "R2-7F4A7DB22B0A-P",
+      "final_revision": "Revision two 7F4A7DB22B0A"
+    },
+    "customer": {
+      "id": 110,
+      "code": "R2-7F4A7DB22B0A-C",
+      "final_revision": "Revision two 7F4A7DB22B0A"
+    },
+    "supplier": {
+      "id": 53,
+      "code": "R2-7F4A7DB22B0A-S",
+      "final_revision": "Revision two 7F4A7DB22B0A"
+    }
+  },
+  "postgresql_verification": {
+    "persisted": {
+      "product": "Round2 product 7F4A7DB22B0A",
+      "product_revision": "Revision two 7F4A7DB22B0A",
+      "customer": "Round2 customer 7F4A7DB22B0A",
+      "customer_revision": "Revision two 7F4A7DB22B0A",
+      "supplier": "Round2 supplier 7F4A7DB22B0A",
+      "supplier_revision": "Revision two 7F4A7DB22B0A",
+      "branch": "Branch revision two 7F4A7DB22B0A",
+      "managed_user": "Managed user revision two 7F4A7DB22B0A",
+      "company": {
+        "name": "Round2 synthetic company D92B5490A959",
+        "code": "R2-D92B5490A959-CO",
+        "legal_name": "Company lifecycle revision three D92B5490A959"
+      }
+    }
+  },
+  "screenshots": [
+    "branch-create-desktop.png",
+    "branch-create-mobile.png",
+    "company-revision-one-desktop.png",
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png",
+    "user-details-desktop.png"
+  ],
+  "note": "Synthetic test-database data only. The browser actor is a per-run test identity with explicit M02/M03 grants; no business postings or external services were created."
+}

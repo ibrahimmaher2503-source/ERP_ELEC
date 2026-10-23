@@ -1,0 +1,33 @@
+{
+  "result": "FAIL",
+  "run_id": "3CF60A4DD424",
+  "database": "erp_elec_new_test@127.0.0.1:5443",
+  "browser": "Microsoft Edge / Playwright",
+  "checks": [
+    "standalone sourcing actor has M05/M02/M03 authority but no warehouse scope or M06 Inventory grants"
+  ],
+  "errors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    },
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    }
+  ],
+  "screenshots": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('select[wire\\\\:model\\\\.live=\"form.source_type\"]') to be visible\u001b[22m\n\n    at main (C:\\projects\\ERP_ELEC_NEW\\tests\\E2E\\standalone-rfq.cjs:99:26)",
+  "server_log": "/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))\n#88 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))\n#89 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))\n#90 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))\n#91 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))\n#92 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))\n#93 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))\n#94 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))\n#95 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))\n#96 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1228): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))\n#97 C:/projects/ERP_ELEC_NEW/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))\n#98 C:/projects/ERP_ELEC_NEW/tests/E2E/support/laravel-static-router.php(8): require('C://projects//ERP...')\n#99 {main}\n\"} \n[Thu Oct 22 05:22:17 2026] 127.0.0.1:53381 Closing\n[Thu Oct 22 05:22:17 2026] 127.0.0.1:51344 Accepted\n[Thu Oct 22 05:22:17 2026] 127.0.0.1:51344 [200]: GET /favicon.ico\n[Thu Oct 22 05:22:17 2026] 127.0.0.1:51344 Closing\n",
+  "cleanup": {
+    "creator": {
+      "disabled": true,
+      "sessions_revoked": true
+    },
+    "reviewer": {
+      "disabled": true,
+      "sessions_revoked": true
+    }
+  },
+  "persistent_fixture_policy": "Only tagged synthetic business records remain in the dedicated test DB; both temporary users are disabled and their sessions revoked."
+}

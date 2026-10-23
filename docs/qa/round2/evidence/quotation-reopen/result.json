@@ -1,0 +1,59 @@
+{
+  "result": "FAIL",
+  "scenario": "open an existing draft, change notes, Save Draft",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "quotation_id": 22,
+  "login_url": "http://127.0.0.1:8012/login",
+  "login_title": "تسجيل الدخول - ERP Electrical Tests",
+  "login_inputs": [
+    {
+      "name": "_token",
+      "type": "hidden",
+      "placeholder": ""
+    },
+    {
+      "name": "email",
+      "type": "email",
+      "placeholder": "email@example.com"
+    },
+    {
+      "name": "password",
+      "type": "password",
+      "placeholder": "كلمة المرور"
+    }
+  ],
+  "url_after_save": "http://127.0.0.1:8012/quotations/22/edit",
+  "error_text": "انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nعروض الأسعار\nالمشتريات\nالمخزون\nالتسليم والمرتجعات\nالصيانة الميدانية\nإصلاحات الورشة\nعقود الخدمة\nالحسابات\nالذمم المدينة والدائنة\nالخزينة\nالموظفون والرواتب\nالحضور\nالتقارير\nالنظام\nSynthetic Round2 Quotation E2E 1AAF2E44\nالبحث في النظام، مخطط له\n2026-10-21\nERP Electrical Tests\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nتعديل المسودة\nتعديل عرض السعر\n\nإعداد العرض وحفظه كمسودة قبل المراجعة والإصدار\n\nالعودة إلى عروض الأسعار\nحفظ المسودة\nمعلومات العرض\nرقم العرض\nالعملة\nتاريخ العرض *\nتاريخ انتهاء الصلاحية\n\nمدة الصلاحية الافتراضية وحدودها لم تضبط بعد. لا توجد مدة مفترضة.\n\nمعلومات العميل\nالبحث عن عميل\nاسم العميل *\nاختر عميلًا نشطًا\nRound2 customer A8A87FDC132F (R2-A8A87FDC132F-C)\nSynthetic Round2 Customer 16981338 (R2-QE-CUSTOMER-16981338)\nSynthetic Round2 Customer 18632DBD (R2-QE-CUSTOMER-18632DBD)\nSynthetic Round2 Customer 1AAF2E44 (R2-QE-CUSTOMER-1AAF2E44)\nSynthetic Round2 Customer 65A87A23 (R2-QE-CUSTOMER-65A87A23)\nSynthetic Round2 Customer 97B15FFF (R2-QE-CUSTOMER-97B15FFF)\nSynthetic Round2 Customer 98F685E6 (R2-QE-CUSTOMER-98F685E6)\nSynthetic Round2 Customer BC42DE54 (R2-QE-CUSTOMER-BC42DE54",
+  "browser_errors": [],
+  "livewire_responses": [
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/livewire.min.js?id=8ea5922c"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/livewire.min.js?id=8ea5922c"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/livewire.min.js?id=8ea5922c"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    }
+  ],
+  "persisted": {
+    "id": 22,
+    "status": "draft",
+    "version": 2,
+    "valid_until": null,
+    "notes": "Browser reopened draft save regression",
+    "line_count": 1,
+    "line_quantity": "2.50000000",
+    "line_requested_price": "123.45000000"
+  },
+  "failure": "Save did not navigate to detail with expected persisted draft version and exact line values.",
+  "server_error_excerpt": "[Wed Oct 21 21:50:36 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8012) started\n[Wed Oct 21 21:50:36 2026] 127.0.0.1:53302 Accepted\n[Wed Oct 21 21:50:37 2026] 127.0.0.1:53302 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:64819 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:64819 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:53692 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:53692 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:60813 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:64625 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:52150 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:60813 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:64625 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:52150 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:53692 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:60813 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:59693 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:59693 [200]: GET /favicon.svg\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:59693 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:65231 Accepted\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:65231 [200]: GET /favicon.ico\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:65231 Closing\n[Wed Oct 21 21:50:38 2026] 127.0.0.1:62301 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:62301 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:55566 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:55566 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57551 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57551 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:51091 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:51091 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:59123 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:59123 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:51091 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57551 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:59123 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57852 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:64305 Accepted\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57852 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:64305 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:57852 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:64305 Closing\n[Wed Oct 21 21:50:39 2026] 127.0.0.1:56829 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:56829 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:57273 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:57273 [200]: GET /favicon.svg\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:57273 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:61396 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:61396 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:50975 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64908 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:50975 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64908 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:50975 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:61396 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64908 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:49912 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:49912 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:49912 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:60725 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:60725 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:60725 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64260 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64260 [200]: GET /favicon.svg\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:64260 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:56064 Accepted\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:56064 [200]: GET /favicon.ico\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:56064 Closing\n[Wed Oct 21 21:50:40 2026] 127.0.0.1:58754 Accepted\n[Wed Oct 21 21:50:41 2026] 127.0.0.1:58754 Closing\n"
+}

@@ -1,0 +1,8 @@
+# Requirements authority
+Read the supplied [module PRDs](MODULE_PRDS.md), [owners](03-DOMAIN-MODEL-BOUNDED-CONTEXTS.md), [schema](04-DATABASE-ARCHITECTURE.md), [contracts](05-MODULE-CONTRACTS-EVENTS.md) and [workflows](CROSS_MODULE_WORKFLOWS.md).
+The user on 2026-10-21 selected PostgreSQL, current stable Laravel/PHP, Livewire, legally available Flux components, Blade, Tailwind, optional Redis and Vite. This overrides inherited SQLite/Filament references in this new checkout.
+Imported documents refer to absent scope/ADR/policy/acceptance/pipeline files and historical code. Those references are unavailable and do not prove implementation here. Preserve requirement IDs COM-01–06 and M01–M17. Obtain the missing exact policy before implementing any dependent financial/statutory calculation; do not invent a tax rate, electrical test limit, approval threshold or payroll formula.
+Screenshots will define appearance only. Implement fields and effects from supplied requirements; show honest empty/unavailable states until real producers exist. Embedded AI is described in the PRDs but outside this foundation milestone.
+
+
+Latest owner authorization decision (2026-10-21): Administrator receives all current/future registered permissions automatically. This explicitly supersedes historical no-automatic-grant or security-only Administrator requirements, including quotation RBAC defaults. Other roles remain default-deny. Role membership must still be explicitly assigned; login/display names do not grant membership. Scopes, active/verified account checks, configured self-approval, business eligibility and missing integrations remain enforced. See AGENTS.md and docs/m01-rbac.md.

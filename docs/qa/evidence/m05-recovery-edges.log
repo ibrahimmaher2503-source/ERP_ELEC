@@ -1,0 +1,12 @@
+﻿M05/M06 recovery-edge campaign evidence
+
+Command: php .tools/check-m05-recovery-edges.php
+Result: PASS; 53 assertions; process exit code 0; runtime log ends with CAMPAIGN_COMPLETE=YES
+Environment: APP_ENV=testing; PostgreSQL; database=erp_elec_new_test; configured endpoint 127.0.0.1:5443
+Isolation: one outer transaction rolled back; synthetic company/branch and all fixtures rolled back; generated workbook and synthetic private upload removed
+
+Coverage: requisition line add/remove persistence, rejection/reopen/stale version, and missing branch scope; linked RFQ backward-compatible REQUISITION source; standalone RFQ justification, base-unit validation, product/unit/quantity snapshot and ceiling, dedicated capability denial and rechecks at issue/dispatch, issued immutability and UI display; issued RFQ response visibility with and without offer-view permission; private offer upload/hash/download, freeze immutability and revision lineage; latest-successor PUR01 stale proposal and approval denial; mixed USD/EGP comparison; expired/partial/duplicate award denial; inactive product/supplier approval rejection and Livewire field-error rendering; receipt warehouse-scope and foreign-order-line denial; XLSX preview/apply/save; draft requisition/order/offer/receipt factory graphs.
+
+Demo prerequisites were created inside the rollback transaction with synthetic DEMO-EG branch/product/supplier identities and a disabled, unverified user with no privileges. A synthetic company is inserted only if company ID 1 is absent. Offer and receipt factories used an RFQ actually issued and an order actually approved by a different authorized actor, with a matching active warehouse. PurchasingDemoSeeder was run twice: its requisition/order graph fingerprints matched across runs, prior requisition/order rows remained unchanged, and review, award, inventory, audit, role and grant table counts were unchanged.
+
+Full command output: m05-recovery-edges-runtime.log. The earlier fixture failure is preserved in m05-recovery-edges-runtime-before-fixture-fix.log.

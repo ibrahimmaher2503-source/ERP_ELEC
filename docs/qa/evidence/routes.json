@@ -1,0 +1,650 @@
+[
+  {
+    "method": "GET|HEAD",
+    "uri": ".well-known/passkey-endpoints",
+    "name": "well-known.passkeys",
+    "action": "Closure"
+  },
+  {
+    "method": "GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS|QUERY",
+    "uri": "/",
+    "name": "home",
+    "action": "Illuminate\\Routing\\RedirectController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers",
+    "name": "customers.index",
+    "action": "App\\Modules\\Parties\\Presentation\\CatalogPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers/create",
+    "name": "customers.create",
+    "action": "App\\Modules\\Parties\\Presentation\\CustomerFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers/import",
+    "name": "customers.import",
+    "action": "App\\Modules\\System\\Presentation\\DataOperationPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers/{customer}",
+    "name": "customers.show",
+    "action": "App\\Modules\\Parties\\Presentation\\CustomerDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers/{customer}/documents/{document}",
+    "name": "customers.documents",
+    "action": "App\\Modules\\Parties\\Presentation\\CustomerDocumentController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "customers/{customer}/edit",
+    "name": "customers.edit",
+    "action": "App\\Modules\\Parties\\Presentation\\CustomerFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "dashboard",
+    "name": "dashboard",
+    "action": "Illuminate\\Routing\\ViewController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "data-operations/import/{entity}",
+    "name": "operations.import",
+    "action": "App\\Modules\\System\\Presentation\\DataOperationPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "data-operations/{runId}",
+    "name": "operations.show",
+    "action": "App\\Modules\\System\\Presentation\\DataOperationPage"
+  },
+  {
+    "method": "POST",
+    "uri": "email/verification-notification",
+    "name": "verification.send",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationNotificationController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "email/verify",
+    "name": "verification.notice",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationPromptController@__invoke"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "email/verify/{id}/{hash}",
+    "name": "verification.verify",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\VerifyEmailController@__invoke"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/editor.css",
+    "name": null,
+    "action": "Flux\\AssetManager@editorCss"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/editor.js",
+    "name": null,
+    "action": "Flux\\AssetManager@editorJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/editor.min.js",
+    "name": null,
+    "action": "Flux\\AssetManager@editorMinJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/flags/{country}",
+    "name": "__flux.flag",
+    "action": "Flux\\AssetManager@flag"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/flux.js",
+    "name": null,
+    "action": "Flux\\AssetManager@fluxJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/flux.min.js",
+    "name": null,
+    "action": "Flux\\AssetManager@fluxMinJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/phone-utils.js",
+    "name": null,
+    "action": "Flux\\AssetManager@phoneUtilsJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/phone.js",
+    "name": null,
+    "action": "Flux\\AssetManager@phoneJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "flux/phone.min.js",
+    "name": null,
+    "action": "Flux\\AssetManager@phoneMinJs"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "forgot-password",
+    "name": "password.request",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@create"
+  },
+  {
+    "method": "POST",
+    "uri": "forgot-password",
+    "name": "password.email",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/css/{component}.css",
+    "name": null,
+    "action": "Closure"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/css/{component}.global.css",
+    "name": null,
+    "action": "Closure"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/js/{component}.js",
+    "name": null,
+    "action": "Closure"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/livewire.csp.min.js.map",
+    "name": null,
+    "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@cspMaps"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/livewire.js",
+    "name": null,
+    "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/livewire.min.js.map",
+    "name": null,
+    "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "livewire-c6214651/preview-file/{filename}",
+    "name": "livewire.preview-file",
+    "action": "Livewire\\Features\\SupportFileUploads\\FilePreviewController@handle"
+  },
+  {
+    "method": "POST",
+    "uri": "livewire-c6214651/update",
+    "name": "default-livewire.update",
+    "action": "Livewire\\Mechanisms\\HandleRequests\\HandleRequests@handleUpdate"
+  },
+  {
+    "method": "POST",
+    "uri": "livewire-c6214651/upload-file",
+    "name": "livewire.upload-file",
+    "action": "Livewire\\Features\\SupportFileUploads\\FileUploadController@handle"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "login",
+    "name": "login",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create"
+  },
+  {
+    "method": "POST",
+    "uri": "login",
+    "name": "login.store",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@store"
+  },
+  {
+    "method": "POST",
+    "uri": "logout",
+    "name": "logout",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@destroy"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/branches",
+    "name": "organization.branches",
+    "action": "App\\Modules\\Organization\\Presentation\\BranchesPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/branches/{branch}",
+    "name": "organization.branches.show",
+    "action": "App\\Modules\\Organization\\Presentation\\BranchDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/company",
+    "name": "organization.company",
+    "action": "App\\Modules\\Organization\\Presentation\\CompanyPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/company/logo",
+    "name": "organization.company.logo",
+    "action": "App\\Modules\\Organization\\Presentation\\CompanyLogoController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/permissions",
+    "name": "organization.permissions",
+    "action": "App\\Modules\\Organization\\Presentation\\RolesPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/roles",
+    "name": "organization.roles",
+    "action": "App\\Modules\\Organization\\Presentation\\RolesPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/roles/{role}",
+    "name": "organization.roles.show",
+    "action": "App\\Modules\\Organization\\Presentation\\RoleDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/users",
+    "name": "organization.users",
+    "action": "App\\Modules\\Organization\\Presentation\\UsersPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "organization/users/{user}",
+    "name": "organization.users.show",
+    "action": "App\\Modules\\Organization\\Presentation\\UserDetailsPage"
+  },
+  {
+    "method": "POST",
+    "uri": "passkeys/confirm",
+    "name": "passkey.confirm",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyConfirmationController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "passkeys/confirm/options",
+    "name": "passkey.confirm-options",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyConfirmationController@index"
+  },
+  {
+    "method": "POST",
+    "uri": "passkeys/login",
+    "name": "passkey.login",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyLoginController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "passkeys/login/options",
+    "name": "passkey.login-options",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyLoginController@index"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products",
+    "name": "products.index",
+    "action": "App\\Modules\\Products\\Presentation\\CatalogPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/brands",
+    "name": "products.brands",
+    "action": "App\\Modules\\Products\\Presentation\\MastersPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/categories",
+    "name": "products.categories",
+    "action": "App\\Modules\\Products\\Presentation\\MastersPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/create",
+    "name": "products.create",
+    "action": "App\\Modules\\Products\\Presentation\\ProductFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/import",
+    "name": "products.import",
+    "action": "App\\Modules\\System\\Presentation\\DataOperationPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/media/{media}",
+    "name": "products.media",
+    "action": "App\\Modules\\Products\\Presentation\\ProductMediaController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/media/{media}/download",
+    "name": "products.media.download",
+    "action": "App\\Modules\\Products\\Presentation\\ProductMediaController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/units",
+    "name": "products.units",
+    "action": "App\\Modules\\Products\\Presentation\\MastersPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/{product}",
+    "name": "products.show",
+    "action": "App\\Modules\\Products\\Presentation\\ProductDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "products/{product}/edit",
+    "name": "products.edit",
+    "action": "App\\Modules\\Products\\Presentation\\ProductFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations",
+    "name": "quotations.index",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/create",
+    "name": "quotations.create",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/policy",
+    "name": "quotations.policy",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationPolicyPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}",
+    "name": "quotations.show",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/acceptance",
+    "name": "quotations.acceptance",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationAcceptancePage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/approval",
+    "name": "quotations.approval",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationApprovalPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/convert",
+    "name": "quotations.convert",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationConversionPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/documents/{document}",
+    "name": "quotations.documents",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationDocumentController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/edit",
+    "name": "quotations.edit",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "quotations/{quotation}/pdf",
+    "name": "quotations.pdf",
+    "action": "App\\Modules\\Sales\\Presentation\\QuotationPdfPage"
+  },
+  {
+    "method": "POST",
+    "uri": "reset-password",
+    "name": "password.update",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "reset-password/{token}",
+    "name": "password.reset",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@create"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders",
+    "name": "sales-orders.index",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrdersPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders/create",
+    "name": "sales-orders.create",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrderFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders/policy",
+    "name": "sales-orders.policy",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrderPolicyPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders/{order}",
+    "name": "sales-orders.show",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrderDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders/{order}/edit",
+    "name": "sales-orders.edit",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrderFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-orders/{order}/{screen}",
+    "name": "sales-orders.screen",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesOrderDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "sales-returns",
+    "name": "sales-returns.index",
+    "action": "App\\Modules\\Sales\\Presentation\\SalesReturnsPage"
+  },
+  {
+    "method": "GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS|QUERY",
+    "uri": "settings",
+    "name": null,
+    "action": "Illuminate\\Routing\\RedirectController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "settings/appearance",
+    "name": "appearance.edit",
+    "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "settings/profile",
+    "name": "profile.edit",
+    "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "settings/security",
+    "name": "security.edit",
+    "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "storage/{path}",
+    "name": "storage.local",
+    "action": "Closure"
+  },
+  {
+    "method": "PUT",
+    "uri": "storage/{path}",
+    "name": "storage.local.upload",
+    "action": "Closure"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers",
+    "name": "suppliers.index",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierCatalogPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/categories",
+    "name": "suppliers.categories",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierCategoriesPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/create",
+    "name": "suppliers.create",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/import",
+    "name": "suppliers.import",
+    "action": "App\\Modules\\System\\Presentation\\DataOperationPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/{supplier}",
+    "name": "suppliers.show",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierDetailsPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/{supplier}/documents/{document}",
+    "name": "suppliers.documents",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierDocumentController"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "suppliers/{supplier}/edit",
+    "name": "suppliers.edit",
+    "action": "App\\Modules\\Parties\\Presentation\\SupplierFormPage"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "two-factor-challenge",
+    "name": "two-factor.login",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@create"
+  },
+  {
+    "method": "POST",
+    "uri": "two-factor-challenge",
+    "name": "two-factor.login.store",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "up",
+    "name": null,
+    "action": "Illuminate\\Foundation\\Http\\HealthCheck"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/confirm-password",
+    "name": "password.confirm",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@show"
+  },
+  {
+    "method": "POST",
+    "uri": "user/confirm-password",
+    "name": "password.confirm.store",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/confirmed-password-status",
+    "name": "password.confirmation",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedPasswordStatusController@show"
+  },
+  {
+    "method": "POST",
+    "uri": "user/confirmed-two-factor-authentication",
+    "name": "two-factor.confirm",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedTwoFactorAuthenticationController@store"
+  },
+  {
+    "method": "POST",
+    "uri": "user/passkeys",
+    "name": "passkey.store",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyRegistrationController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/passkeys/options",
+    "name": "passkey.registration-options",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyRegistrationController@index"
+  },
+  {
+    "method": "DELETE",
+    "uri": "user/passkeys/{passkey}",
+    "name": "passkey.destroy",
+    "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyRegistrationController@destroy"
+  },
+  {
+    "method": "POST",
+    "uri": "user/two-factor-authentication",
+    "name": "two-factor.enable",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@store"
+  },
+  {
+    "method": "DELETE",
+    "uri": "user/two-factor-authentication",
+    "name": "two-factor.disable",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@destroy"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/two-factor-qr-code",
+    "name": "two-factor.qr-code",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorQrCodeController@show"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/two-factor-recovery-codes",
+    "name": "two-factor.recovery-codes",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\RecoveryCodeController@index"
+  },
+  {
+    "method": "POST",
+    "uri": "user/two-factor-recovery-codes",
+    "name": "two-factor.regenerate-recovery-codes",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\RecoveryCodeController@store"
+  },
+  {
+    "method": "GET|HEAD",
+    "uri": "user/two-factor-secret-key",
+    "name": "two-factor.secret-key",
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorSecretKeyController@show"
+  }
+]

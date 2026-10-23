@@ -1,0 +1,13 @@
+{
+  "result": "FAIL",
+  "run_id": "506D65CC349C",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [],
+  "browser_errors": [],
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n  navigated to \"http://127.0.0.1:8013/products\"\n============================================================",
+  "screenshots": [
+    "failure-state.png"
+  ]
+}

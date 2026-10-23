@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "7F4A7DB22B0A",
+  "journey": "M01 branch create and repeated edit lifecycle",
+  "record": {
+    "id": 65,
+    "code": "R2-7F4A7DB22B0A-B",
+    "final_revision": "Branch revision two 7F4A7DB22B0A"
+  },
+  "checks": [
+    "M01 branch: empty required modal is rejected in the browser",
+    "M01 branch: first save created synthetic branch 65",
+    "M01 branch: create, navigate away, reopen edit, save, reload, second edit and save persisted"
+  ],
+  "postgresql_verification": "Branch revision two 7F4A7DB22B0A"
+}

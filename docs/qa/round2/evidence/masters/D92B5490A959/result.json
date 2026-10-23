@@ -1,0 +1,39 @@
+{
+  "result": "FAIL",
+  "run_id": "D92B5490A959",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 54",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 49",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 28",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "M01 company: created setup company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; synthetic setup remains identifiable",
+    "M01 branch: empty required modal is rejected in the browser"
+  ],
+  "browser_errors": [],
+  "failure": "locator.getAttribute: Error: strict mode violation: locator('tr').filter({ hasText: 'R2-D92B5490A959-B' }).locator('a') resolved to 2 elements:\n    1) <a wire:navigate=\"\" class=\"font-medium hover:text-blue-700\" href=\"http://127.0.0.1:8013/organization/branches/17\">Round2 branch D92B5490A959</a> aka getByRole('link', { name: 'Round2 branch D92B5490A959' })\n    2) <a tabindex=\"-1\" role=\"menuitem\" wire:navigate=\"\" id=\"lofi-menu-item-431df80ca5ed08\" data-flux-menu-item=\"data-flux-menu-item\" href=\"http://127.0.0.1:8013/organization/branches/17\" data-flux-menu-item-has-icon=\"data-flux-menu-item-has-icon\" class=\"flex items-center px-2 py-1.5 w-full focus:outline-hidden select-none rounded-md text-start text-sm font-medium [&[disabled]]:opacity-50 text-zinc-800 data-active:bg-zinc-50 dark:text-white dark:data-active:bg-zinc-600 **:data-flux-menu-item-icon:text-z…>…</a> aka getByText('تفاصيل الفرع')\n\nCall log:\n\u001b[2m  - waiting for locator('tr').filter({ hasText: 'R2-D92B5490A959-B' }).locator('a",
+  "screenshots": [
+    "branch-create-desktop.png",
+    "branch-create-mobile.png",
+    "company-revision-one-desktop.png",
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "failure-state.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png"
+  ]
+}

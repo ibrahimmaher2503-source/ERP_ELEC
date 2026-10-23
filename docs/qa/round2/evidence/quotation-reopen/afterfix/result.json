@@ -1,0 +1,225 @@
+{
+  "result": "PASS",
+  "scenario": "create two-line quotation, reopen, validate, amend, reload, and save again",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "fixture_quotation_id": 97,
+  "login_url": "http://127.0.0.1:8012/login",
+  "login_title": "تسجيل الدخول - ERP Electrical Tests",
+  "login_inputs": [
+    {
+      "name": "_token",
+      "type": "hidden",
+      "placeholder": ""
+    },
+    {
+      "name": "email",
+      "type": "email",
+      "placeholder": "email@example.com"
+    },
+    {
+      "name": "password",
+      "type": "password",
+      "placeholder": "كلمة المرور"
+    }
+  ],
+  "browser_errors": [],
+  "dialogs": [],
+  "create": {
+    "id": 98,
+    "status": "draft",
+    "version": 1,
+    "valid_until": null,
+    "notes": "Round2 first save",
+    "project_name": "Round2 Playwright 162B3F49",
+    "discount_mode": "percent",
+    "discount_value": "0.00000000",
+    "payment_terms": "Synthetic first draft payment proposal",
+    "delivery_terms": "Synthetic first draft delivery proposal",
+    "line_count": 2,
+    "lines": [
+      {
+        "product_id": 186,
+        "unit_id": 106,
+        "sku": "R2-QE-PRODUCT-162B3F49",
+        "quantity": "2.50000000",
+        "requested_price": "123.45000000",
+        "discount_mode": "percent",
+        "discount_value": "0.00000000",
+        "description": "كشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10"
+      },
+      {
+        "product_id": 187,
+        "unit_id": 107,
+        "sku": "R2-QE-PRODUCT2-162B3F49",
+        "quantity": "3.00000000",
+        "requested_price": "18.25000000",
+        "discount_mode": "percent",
+        "discount_value": "0.00000000",
+        "description": "حامل كابلات عرض 150 مم طول 2 م - سلسلة 2196 / فئة 3"
+      }
+    ]
+  },
+  "invalid_quantity_feedback": "الرئيسية\nالمبيعات\nعروض الأسعار\nتعديل المسودة\nتعديل عرض السعر\n\nإعداد العرض وحفظه كمسودة قبل المراجعة والإصدار\n\nالعودة إلى عروض الأسعار\nحفظ المسودة\nأدخل رقمًا عشريًا صالحًا أكبر من صفر.\nمعلومات العرض\nرقم العرض\nالعملة\nتاريخ العرض *\nتاريخ انتهاء الصلاحية\n\nمدة الصلاحية الافتراضية وحدودها لم تضبط بعد. لا توجد مدة مفترضة.\n\nمعلومات العميل\nالبحث عن عميل\nاسم العميل *\nاختر عميلًا نشطًا\nRound2 customer 10CFD6DDEF0B (R2-10CFD6DDEF0B-C)\nRound2 customer 2DD50C696A60 (R2-2DD50C696A60-C)\nRound2 customer 74A51A90C448 (R2-74A51A90C448-C)\nRound2 customer 7F4A7DB22B0A (R2-7F4A7DB22B0A-C)\nRound2 customer A8A87FDC132F (R2-A8A87FDC132F-C)\nRound2 customer C1DF6C7D7583 (R2-C1DF6C7D7583-C)\nRound2 customer D92B5490A959 (R2-D92B5490A959-C)\nRound2 customer DD0A8F4701EF (R2-DD0A8F4701EF-C)\nRound2 customer ED981AE8F9E5 (R2-ED981AE8F9E5-C)\nSynthetic Round2 Customer 162B3F49 (R2-QE-CUSTOMER-162B3F49)\nSynthetic Round2 Customer 16981338 (R2-QE-CUSTOMER-16981338)\nSynthetic Round2 Customer 18632DBD (R2-QE-CUSTOMER-18632DBD)\nSynthetic Round2 Customer 1AAF2E44 (R2-QE-CUSTOMER-1AAF2E44)\nSynthetic Round2 Customer 207F5EDD (R2-QE-CUSTOMER-207F5EDD)\nSynthetic Round2 Customer 2B5D20C3 (R2-QE-CUSTOMER-2B5D20C3)\nSynthetic Round2 Customer 3A803F41 (R2-QE-CUSTOMER-3A803F41)\nSynthetic Round2 Customer 65A87A23 (R2-QE-CUSTOMER-65A87A23)\nSynthetic Round2 Customer 741111BC (R2-QE-CUSTOMER-741111BC)\nSynthetic Round2 Customer 80D45703 (R2-QE-CUSTOMER-80D45703)\nSynthetic Round2 Customer 97B15FFF (R2-QE-CUSTOMER-97B15FFF)\nSynthetic Round2 Customer 98F685E6 (R2-QE-CUSTOMER-98F685E6)\nSynthetic Round2 Customer AB0A27D0 (R2-QE-CUSTOMER-AB0A27D0)\nSynthetic Round2 Customer B50785F7 (R2-QE-CUSTOMER-B50785F7)\nSynthetic Round2 Customer BC42DE54 (R2-QE-CUSTOMER-BC42DE54)\nSynthetic Round2 Customer BE3E4405 (R2-QE-CUSTOMER-BE3E4405)\nSynthetic Round2 Customer CC466BA4 (R2-QE-CUSTOMER-CC466BA4)\nSynthetic Round2 Customer D3C78D42 (R2-QE-CUSTOMER-D3C78D42)\nSynthetic Round2 Customer DC16DB2F (R2-QE-CUSTOMER-DC16DB2F)\nSynthetic Round2 Customer DD1F17A8 (R2-QE-CUSTOMER-DD1F17A8)\nSynthetic Round2 Customer F4F235A5 (R2-QE-CUSTOMER-F4F235A5)\n\nيعتمد العرض على هوية العميل المسجلة في دليل العملاء.\n\nمعلومات المشروع\nاسم المشروع (اختياري)\nمرجع طلب عرض السعر RFQ\n\nربط سجل مشروع قائم متاح عند اكتمال عقد المشاريع.\n\nبنود العرض\nإضافة بند جديد\nالبحث في كتالوج المنتجات\nمصدر السعر المقترح غير متاح. يمكنك إدخال سعر مطلوب للمسودة؛ الإصدار الرسمي ينتظر السعر المعتمد والضرائب والسياسات التجارية.\n#\tالمنتج *\tSKU\tالوحدة *\tالكمية *\tالسعر المقترح (ج.م)\tالسعر المطلوب (ج.م)\tنوع الخصم\tالخصم\tصافي البند (ج.م)\tالإجراءات\n1\t\nاختر صنفًا\nقاطع مصغر MCB أحادي 32 أمبير - سلسلة 2114 / فئة 6\nقاطع تسريب أرضي ثنائي 20 أمبير - سلسلة 3496 / فئة 4\nلوحة توزيع كهرباء 4 خط - سلسلة 2783 / فئة 1\nمحرك كهربائي ثلاثي 0.55 كيلووات - سلسلة 5103 / فئة 2\nمرحل حماية حراري نطاق 12-18 أمبير - سلسلة 1840 / فئة 7\nجلاند كابل مقاس M90 - سلسلة 1196 / فئة 10\nRound2 product A8A87FDC132F\nقاطع مصغر MCB أحادي 25 أمبير - سلسلة 550 / فئة 5\nمحرك كهربائي ثلاثي 2.2 كيلووات - سلسلة 5027 / فئة 6\nمحرك كهربائي ثلاثي 1.5 كيلووات - سلسلة 1799 / فئة 5\nRound2 product D92B5490A959\nقاطع مصغر MCB أحادي 100 أمبير - سلسلة 4766 / فئة 11\nRound2 product DD0A8F4701EF\nRound2 product 74A51A90C448\nكونتاكتور 150 أمبير ملف 230 فولت - سلسلة 1187 / فئة 12\nRound2 product 2DD50C696A60\nRound2 product 10CFD6DDEF0B\nكابل نحاس 4 × 120 مم² - سلسلة 2035 / فئة 12\nRound2 product C1DF6C7D7583\nماسورة PVC كهرباء قطر 125 مم طول 3 م - سلسلة 4353 / فئة 11\nمحرك كهربائي ثلاثي 0.75 كيلووات - سلسلة 3324 / فئة 3\nكابل نحاس 4 × 2.5 مم² - سلسلة 2616 / فئة 2\nلوحة توزيع كهرباء 4 خط - سلسلة 1824 / فئة 1\nRound2 product ED981AE8F9E5\nكابل نحاس 4 × 2.5 مم² - سلسلة 3246 / فئة 2\nقاطع مصغر MCB أحادي 10 أمبير - سلسلة 4298 / فئة 2\nلوحة توزيع كهرباء 18 خط - سلسلة 3382 / فئة 7\nمفتاح فصل دوار 34 أمبير - سلسلة 1117 / فئة 10\nجلاند كابل مقاس M110 - سلسلة 2480 / فئة 12\nقاطع مصبوب MCCB ثلاثي 1250 أمبير - سلسلة 3389 / فئة 12\nسلك نحاس مفرد 95 مم² بني - سلسلة 3730 / فئة 11\nلوحة توزيع كهرباء 20 خط - سلسلة 2616 / فئة 8\nقاطع تسريب أرضي ثنائي 25 أمبير - سلسلة 3189 / فئة 5\nقاطع مصغر MCB أحادي 80 أمبير - سلسلة 1984 / فئة 10\nRound2 product 7F4A7DB22B0A\nكشاف LED خارجي 110 وات - سلسلة 2726 / فئة 10\nسلك نحاس مفرد 2.5 مم² أزرق - سلسلة 715 / فئة 2\nكشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10\nحامل كابلات عرض 150 مم طول 2 م - سلسلة 2196 / فئة 3\n\tR2-QE-PRODUCT-162B3F49\t\nالوحدة\nساعة MERMO (R2-QE-UOM-65A87A23)\nلتر UDZXR (R2-QE-UOM-BC42DE54)\nساعة CNZTR (R2-QE-UOM-16981338)\nساعة L6612 (R2-QE-UOM-DD1F17A8)\nساعة NQDLG (R2-QE-UOM-18632DBD)\nكيلوجرام GA4AM (R2-QE-UOM-98F685E6)\nكيلوجرام VKEGG (R2-QE-UOM-97B15FFF)\nساعة RABHI (R2-QE-UOM-1AAF2E44)\nلتر ZU0XU (R2-QE-UOM-B50785F7)\nكيلوجرام IW71H (R2-QE-UOM-D3C78D42)\nساعة CJQZU (R2-QE-UOM-207F5EDD)\nقطعة I2P7H (R2-QE-UOM-741111BC)\nقطعة IWXZP (R2-QE-UOM-2B5D20C3)\nقطعة TLA5F (R2-QE-UOM2-2B5D20C3)\nساعة 20SVB (R2-QE-UOM-3A803F41)\nمتر NVUPI (R2-QE-UOM2-3A803F41)\nلتر A5ZNN (R2-QE-UOM-BE3E4405)\nمتر J0VPE (R2-QE-UOM2-BE3E4405)\nمتر UDWJ8 (R2-QE-UOM-80D45703)\nساعة IRUUD (R2-QE-UOM2-80D45703)\nقطعة AHP45 (R2-QE-UOM-DC16DB2F)\nلتر ZQQKZ (R2-QE-UOM2-DC16DB2F)\nساعة SPJGJ (R2-QE-UOM-F4F235A5)\nلتر CTOFP (R2-QE-UOM2-F4F235A5)\nلتر LZEWL (R2-QE-UOM-AB0A27D0)\nقطعة MXANR (R2-QE-UOM2-AB0A27D0)\nمتر EUASX (R2-QE-UOM-CC466BA4)\nقطعة KCAJI (R2-QE-UOM2-CC466BA4)\nقطعة ENGTV (R2-QE-UOM-162B3F49)\nلتر 0NOZW (R2-QE-UOM2-162B3F49)\n\t\n\tغير متاح\t\n\t\nنسبة %\nمبلغ ج.م\n\t\n\tغير محسوب\t\n\n\t\nوصف البند في العرض\n\t\nسبب السعر المطلوب / الاستثناء\n\n2\t\nاختر صنفًا\nقاطع مصغر MCB أحادي 32 أمبير - سلسلة 2114 / فئة 6\nقاطع تسريب أرضي ثنائي 20 أمبير - سلسلة 3496 / فئة 4\nلوحة توزيع كهرباء 4 خط - سلسلة 2783 / فئة 1\nمحرك كهربائي ثلاثي 0.55 كيلووات - سلسلة 5103 / فئة 2\nمرحل حماية حراري نطاق 12-18 أمبير - سلسلة 1840 / فئة 7\nجلاند كابل مقاس M90 - سلسلة 1196 / فئة 10\nRound2 product A8A87FDC132F\nقاطع مصغر MCB أحادي 25 أمبير - سلسلة 550 / فئة 5\nمحرك كهربائي ثلاثي 2.2 كيلووات - سلسلة 5027 / فئة 6\nمحرك كهربائي ثلاثي 1.5 كيلووات - سلسلة 1799 / فئة 5\nRound2 product D92B5490A959\nقاطع مصغر MCB أحادي 100 أمبير - سلسلة 4766 / فئة 11\nRound2 product DD0A8F4701EF\nRound2 product 74A51A90C448\nكونتاكتور 150 أمبير ملف 230 فولت - سلسلة 1187 / فئة 12\nRound2 product 2DD50C696A60\nRound2 product 10CFD6DDEF0B\nكابل نحاس 4 × 120 مم² - سلسلة 2035 / فئة 12\nRound2 product C1DF6C7D7583\nماسورة PVC كهرباء قطر 125 مم طول 3 م - سلسلة 4353 / فئة 11\nمحرك كهربائي ثلاثي 0.75 كيلووات - سلسلة 3324 / فئة 3\nكابل نحاس 4 × 2.5 مم² - سلسلة 2616 / فئة 2\nلوحة توزيع كهرباء 4 خط - سلسلة 1824 / فئة 1\nRound2 product ED981AE8F9E5\nكابل نحاس 4 × 2.5 مم² - سلسلة 3246 / فئة 2\nقاطع مصغر MCB أحادي 10 أمبير - سلسلة 4298 / فئة 2\nلوحة توزيع كهرباء 18 خط - سلسلة 3382 / فئة 7\nمفتاح فصل دوار 34 أمبير - سلسلة 1117 / فئة 10\nجلاند كابل مقاس M110 - سلسلة 2480 / فئة 12\nقاطع مصبوب MCCB ثلاثي 1250 أمبير - سلسلة 3389 / فئة 12\nسلك نحاس مفرد 95 مم² بني - سلسلة 3730 / فئة 11\nلوحة توزيع كهرباء 20 خط - سلسلة 2616 / فئة 8\nقاطع تسريب أرضي ثنائي 25 أمبير - سلسلة 3189 / فئة 5\nقاطع مصغر MCB أحادي 80 أمبير - سلسلة 1984 / فئة 10\nRound2 product 7F4A7DB22B0A\nكشاف LED خارجي 110 وات - سلسلة 2726 / فئة 10\nسلك نحاس مفرد 2.5 مم² أزرق - سلسلة 715 / فئة 2\nكشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10\nحامل كابلات عرض 150 مم طول 2 م - سلسلة 2196 / فئة 3\n\tR2-QE-PRODUCT2-162B3F49\t\nالوحدة\nساعة MERMO (R2-QE-UOM-65A87A23)\nلتر UDZXR (R2-QE-UOM-BC42DE54)\nساعة CNZTR (R2-QE-UOM-16981338)\nساعة L6612 (R2-QE-UOM-DD1F17A8)\nساعة NQDLG (R2-QE-UOM-18632DBD)\nكيلوجرام GA4AM (R2-QE-UOM-98F685E6)\nكيلوجرام VKEGG (R2-QE-UOM-97B15FFF)\nساعة RABHI (R2-QE-UOM-1AAF2E44)\nلتر ZU0XU (R2-QE-UOM-B50785F7)\nكيلوجرام IW71H (R2-QE-UOM-D3C78D42)\nساعة CJQZU (R2-QE-UOM-207F5EDD)\nقطعة I2P7H (R2-QE-UOM-741111BC)\nقطعة IWXZP (R2-QE-UOM-2B5D20C3)\nقطعة TLA5F (R2-QE-UOM2-2B5D20C3)\nساعة 20SVB (R2-QE-UOM-3A803F41)\nمتر NVUPI (R2-QE-UOM2-3A803F41)\nلتر A5ZNN (R2-QE-UOM-BE3E4405)\nمتر J0VPE (R2-QE-UOM2-BE3E4405)\nمتر UDWJ8 (R2-QE-UOM-80D45703)\nساعة IRUUD (R2-QE-UOM2-80D45703)\nقطعة AHP45 (R2-QE-UOM-DC16DB2F)\nلتر ZQQKZ (R2-QE-UOM2-DC16DB2F)\nساعة SPJGJ (R2-QE-UOM-F4F235A5)\nلتر CTOFP (R2-QE-UOM2-F4F235A5)\nلتر LZEWL (R2-QE-UOM-AB0A27D0)\nقطعة MXANR (R2-QE-UOM2-AB0A27D0)\nمتر EUASX (R2-QE-UOM-CC466BA4)\nقطعة KCAJI (R2-QE-UOM2-CC466BA4)\nقطعة ENGTV (R2-QE-UOM-162B3F49)\nلتر 0NOZW (R2-QE-UOM2-162B3F49)\n\t\n\tغير متاح\t\n\t\nنسبة %\nمبلغ ج.م\n\t\n\tغير محسوب\t\n\n\t\nوصف البند في العرض\n\t\nسبب السعر المطلوب / الاستثناء\nأدخل رقمًا عشريًا صالحًا أكبر من صفر.\nالشروط والملاحظات\n\nاختر قالبًا تجاريًا معتمدًا أو أدخل شروطًا استثنائية مع تسجيل السبب.\n\nقالب الدفع المعتمد\nشروط استثنائية / غير محدد\nقالب التسليم المعتمد\nشروط استثنائية / غير محدد\nشروط الدفع المقترحة\nشروط التسليم المقترحة\nملاحظات داخلية\nأسباب الاستثناءات التجارية\nملخص عرض السعر\nنوع خصم العرض\nنسبة %\nمبلغ ثابت ج.م\nقيمة خصم العرض\nالإجمالي قبل الخصم\nغير محسوب\nخصومات البنود\nغير محسوب\nخصم عرض السعر\nغير محسوب\nالصافي قبل الضريبة (ج.م)\nغير محسوب\nالضريبة\nبانتظار عقد الضرائب\nالإجمالي النهائي (ج.م)\nغير محسوب\n\nحساب مسودة دقيق دون تقريب رسمي. الأسعار المطلوبة لا تُعد أسعارًا معتمدة، والضريبة لم تُحسب.\n\nلا يوجد حفظ تلقائي\nحفظ المسودة",
+  "amended": {
+    "id": 98,
+    "status": "draft",
+    "version": 2,
+    "valid_until": null,
+    "notes": "Round2 first save",
+    "project_name": "Round2 Playwright 162B3F49",
+    "discount_mode": "fixed",
+    "discount_value": "4.25000000",
+    "payment_terms": "Synthetic amended payment proposal",
+    "delivery_terms": "Synthetic amended delivery proposal",
+    "line_count": 2,
+    "lines": [
+      {
+        "product_id": 186,
+        "unit_id": 106,
+        "sku": "R2-QE-PRODUCT-162B3F49",
+        "quantity": "4.00000000",
+        "requested_price": "123.45000000",
+        "discount_mode": "percent",
+        "discount_value": "0.00000000",
+        "description": "كشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10"
+      },
+      {
+        "product_id": 186,
+        "unit_id": 106,
+        "sku": "R2-QE-PRODUCT-162B3F49",
+        "quantity": "3.50000000",
+        "requested_price": "31.25000000",
+        "discount_mode": "fixed",
+        "discount_value": "1.25000000",
+        "description": "كشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10"
+      }
+    ]
+  },
+  "final_persisted": {
+    "id": 98,
+    "status": "draft",
+    "version": 3,
+    "valid_until": null,
+    "notes": "Round2 third edit after reload",
+    "project_name": "Round2 Playwright 162B3F49",
+    "discount_mode": "fixed",
+    "discount_value": "4.25000000",
+    "payment_terms": "Synthetic amended payment proposal",
+    "delivery_terms": "Synthetic amended delivery proposal",
+    "line_count": 2,
+    "lines": [
+      {
+        "product_id": 186,
+        "unit_id": 106,
+        "sku": "R2-QE-PRODUCT-162B3F49",
+        "quantity": "4.00000000",
+        "requested_price": "123.45000000",
+        "discount_mode": "percent",
+        "discount_value": "0.00000000",
+        "description": "كشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10"
+      },
+      {
+        "product_id": 186,
+        "unit_id": 106,
+        "sku": "R2-QE-PRODUCT-162B3F49",
+        "quantity": "3.50000000",
+        "requested_price": "31.25000000",
+        "discount_mode": "fixed",
+        "discount_value": "1.25000000",
+        "description": "كشاف LED خارجي 110 وات - سلسلة 2363 / فئة 10"
+      }
+    ]
+  },
+  "created_quotation_id": 98,
+  "livewire_responses": [
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update"
+    }
+  ],
+  "checks": [
+    "creator saves a two-product quotation draft with exact amounts, units, project identity, notes, and proposed terms",
+    "saved draft appears in quotations list and reopens with exact persisted line quantity",
+    "negative quantity is rejected visibly and leaves the persisted draft unchanged",
+    "reopened save persists quantity, product/unit changes, exact line and quotation discounts, and updated terms",
+    "detail reload then third edit saves without duplicate records or spurious unsaved-change confirmation"
+  ],
+  "server_error_excerpt": "[Wed Oct 21 23:32:24 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8012) started\n[Wed Oct 21 23:32:24 2026] 127.0.0.1:51356 Accepted\n[Wed Oct 21 23:32:25 2026] 127.0.0.1:51356 Closing\n[Wed Oct 21 23:32:25 2026] 127.0.0.1:60282 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:60282 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:61370 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:61370 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:55500 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:62253 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:50565 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:61370 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:55500 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:62253 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:50565 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:55500 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:63638 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:63638 [200]: GET /favicon.svg\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:63638 Closing\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:58342 Accepted\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:58342 [200]: GET /favicon.ico\n[Wed Oct 21 23:32:26 2026] 127.0.0.1:58342 Closing\n[Wed Oct 21 23:32:27 2026] 127.0.0.1:54709 Accepted\n[Wed Oct 21 23:32:27 2026] 127.0.0.1:54709 Closing\n[Wed Oct 21 23:32:27 2026] 127.0.0.1:63665 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:63665 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:60673 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:60673 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:49816 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:50775 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:49816 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:50775 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:49816 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:60673 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:50775 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:51337 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:51337 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:63063 Accepted\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:63063 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:51337 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:63063 Closing\n[Wed Oct 21 23:32:28 2026] 127.0.0.1:65385 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:65385 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56028 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56028 [200]: GET /favicon.svg\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56028 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61835 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61835 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:55011 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:49673 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61835 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:55011 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:49673 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:55011 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:49673 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56937 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56937 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:51924 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56937 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:51924 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:51924 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61209 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61209 [200]: GET /favicon.svg\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:61209 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56354 Accepted\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56354 [200]: GET /favicon.ico\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:56354 Closing\n[Wed Oct 21 23:32:29 2026] 127.0.0.1:57034 Accepted\n[Wed Oct 21 23:32:30 2026] 127.0.0.1:57034 Closing\n[Wed Oct 21 23:32:31 2026] 127.0.0.1:60296 Accepted\n[Wed Oct 21 23:32:31 2026] 127.0.0.1:60296 Closing\n[Wed Oct 21 23:32:32 2026] 127.0.0.1:65106 Accepted\n[Wed Oct 21 23:32:32 2026] 127.0.0.1:65106 Closing\n[Wed Oct 21 23:32:32 2026] 127.0.0.1:50225 Accepted\n[Wed Oct 21 23:32:33 2026] 127.0.0.1:50225 Closing\n[Wed Oct 21 23:32:33 2026] 127.0.0.1:64999 Accepted\n[Wed Oct 21 23:32:34 2026] 127.0.0.1:64999 Closing\n[Wed Oct 21 23:32:34 2026] 127.0.0.1:51715 Accepted\n[Wed Oct 21 23:32:35 2026] 127.0.0.1:51715 Closing\n[Wed Oct 21 23:32:35 2026] 127.0.0.1:63025 Accepted\n[Wed Oct 21 23:32:36 2026] 127.0.0.1:63025 Closing\n[Wed Oct 21 23:32:36 2026] 127.0.0.1:51368 Accepted\n[Wed Oct 21 23:32:37 2026] 127.0.0.1:51368 Closing\n[Wed Oct 21 23:32:37 2026] 127.0.0.1:50666 Accepted\n[Wed Oct 21 23:32:37 2026] 127.0.0.1:50666 Closing\n[Wed Oct 21 23:32:37 2026] 127.0.0.1:52075 Accepted\n[Wed Oct 21 23:32:37 2026] 127.0.0.1:52075 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 23:32:37 2026] 127.0.0."
+}

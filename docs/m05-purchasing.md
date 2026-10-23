@@ -1,0 +1,25 @@
+# M05 Purchasing
+
+Recovery 2026-10-22: current functional evidence and remaining operations are tracked in [M05/M06 coverage](qa/M05_M06_FUNCTIONAL_COVERAGE_MATRIX.md), [defects](qa/M05_M06_DEFECT_REGISTER.md) and [integration contract](qa/M05_M06_INTEGRATION_CONTRACTS.md). The recovery request explicitly authorizes regression tests and supersedes the historical test-deferral statement below for this campaign.
+
+Internal PO approval follows current M01 capability, scopes, exact document version and independent reviewer for both direct and awarded orders. The earlier action-level award-only blocker had no supporting owner policy and is removed. Awarded orders must still exactly match their approved supplier offer; current supplier/product/unit eligibility is rechecked at approval. Internal approval does not issue an official PO or authorize a stock/GRNI posting.
+
+RFQ/offer/PO/receipt Livewire saves now retain actual ID/version before navigation and server-owned creation/predecessor keys override form keys. Identical PO create retries compare canonical line payloads. Receipt submission is an immutable integration_pending request; repeat submission by its authorized creator has no duplicate audit or stock effect. Mandatory purchase receipt/GRNI and supplier-return credit producers remain absent, so successful receiving and returns are not claimed.
+
+Owner decision 2026-10-22: M01 dynamic permissions authorize requisition, award, PO and return approvals; document creators cannot approve their own documents. Administrator inherits registered capabilities, never bypasses scopes or business invariants.
+
+First vertical slice: requisitions with existing M02 products in base units, branch scope, request/required dates, justification, notes and exact positive quantities. Draft → submitted → approved/rejected; rejected requests may be returned to draft by their creator. Approved records and lines are immutable. A request is not a supplier commitment, stock receipt or accounting entry. Technical IDs are shown explicitly until official numbering is available.
+
+All writes use RBAC lock 10401 followed by Purchasing lock 50501, optimistic versions, transactional events and append-only review history. Creation keys prevent duplicate drafts; replay with changed payload is rejected. Product metadata is obtained through ProductsApi; branch authority through OrganizationApi. No cross-owner model reads.
+
+Second slice: RFQ list/draft/reopen/edit, linked to one actually approved requisition, bounded exact line allocations, active existing suppliers and immutable issued snapshot. Draft RFQs reserve sourcing allocation; editing a draft can remove/reduce its allocation. No multi-supplier award is inferred. Issue is an internal sourcing snapshot, not an officially numbered commercial document or delivery evidence. Actual dispatch is explicitly recorded once per invited supplier with actor/time/reference; no external messages are sent. Supplier/Product directory access requires existing M03.supplier_view/M02.product_view capabilities in addition to the applicable M05 permission.
+
+Implemented source scope now includes supplier offers/private originals/immutable revisions, native-currency line comparison and independent full-offer award, PO drafts/internal reviews, pending amendment proposals, partial receiving drafts and explicit integration-pending requests, scoped dashboard/reports, XLSX summaries/comparison and template-first direct PO line import. These are distinct from completed physical/financial operations. Physical purchase receipt requires the mandatory Inventory/GRNI contract. Accounting, AP, numbering and inspection dependencies must not be replaced by fake success.
+
+Continuation UX 2026-10-22: authorized source links preload approved requisition → RFQ → supplier offer/comparison → approved award → PO draft → receipt draft. Source IDs from URLs are validated and reauthorized; loading does not create records. Older selected RFQs/awards remain visible beyond the first 200 lookup results. Comparison export contains recorded offer lines, supplier terms and original currencies without automatic ranking/conversion. Original supplier files stay private and retained; imported Excel originals are deleted immediately after preview.
+
+Still unavailable: official PO issue/numbering/tax contract, applying formal commercial amendments, mandatory stock/GRNI purchase posting, confirmed receiving progress, eligible supplier return and concurrent supplier credit/AP settlement, official document PDFs and closure/cancellation policies. The returns screen is an explicit dependency state, not an implemented return workflow. No successful receiving or returns are claimed.
+
+Fixtures: three idempotent synthetic requisition drafts, no fabricated approval. RFQ factories require an actually approved synthetic source; no RFQ fixtures are forced into existence by fake approval. No operational authority is seeded.
+
+Automated tests remain deferred by owner instruction. No QA acceptance or visual parity claimed.

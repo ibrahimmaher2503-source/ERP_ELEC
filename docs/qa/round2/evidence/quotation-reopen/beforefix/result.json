@@ -1,0 +1,51 @@
+{
+  "result": "FAIL",
+  "scenario": "open an existing draft, change notes, Save Draft",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "quotation_id": 23,
+  "login_url": "http://127.0.0.1:8012/login",
+  "login_title": "تسجيل الدخول - ERP Electrical Tests",
+  "login_inputs": [
+    {
+      "name": "_token",
+      "type": "hidden",
+      "placeholder": ""
+    },
+    {
+      "name": "email",
+      "type": "email",
+      "placeholder": "email@example.com"
+    },
+    {
+      "name": "password",
+      "type": "password",
+      "placeholder": "كلمة المرور"
+    }
+  ],
+  "url_after_save": "http://127.0.0.1:8012/quotations/23/edit",
+  "error_text": "انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nعروض الأسعار\nالمشتريات\nالمخزون\nالتسليم والمرتجعات\nالصيانة الميدانية\nإصلاحات الورشة\nعقود الخدمة\nالحسابات\nالذمم المدينة والدائنة\nالخزينة\nالموظفون والرواتب\nالحضور\nالتقارير\nالنظام\nSynthetic Round2 Quotation E2E B50785F7\nالبحث في النظام، مخطط له\n2026-10-21\nERP Electrical Tests\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nتعديل المسودة\nتعديل عرض السعر\n\nإعداد العرض وحفظه كمسودة قبل المراجعة والإصدار\n\nالعودة إلى عروض الأسعار\nحفظ المسودة\nمعلومات العرض\nرقم العرض\nالعملة\nتاريخ العرض *\nتاريخ انتهاء الصلاحية\n\nمدة الصلاحية الافتراضية وحدودها لم تضبط بعد. لا توجد مدة مفترضة.\n\nمعلومات العميل\nالبحث عن عميل\nاسم العميل *\nاختر عميلًا نشطًا\nRound2 customer A8A87FDC132F (R2-A8A87FDC132F-C)\nSynthetic Round2 Customer 16981338 (R2-QE-CUSTOMER-16981338)\nSynthetic Round2 Customer 18632DBD (R2-QE-CUSTOMER-18632DBD)\nSynthetic Round2 Customer 1AAF2E44 (R2-QE-CUSTOMER-1AAF2E44)\nSynthetic Round2 Customer 65A87A23 (R2-QE-CUSTOMER-65A87A23)\nSynthetic Round2 Customer 97B15FFF (R2-QE-CUSTOMER-97B15FFF)\nSynthetic Round2 Customer 98F685E6 (R2-QE-CUSTOMER-98F685E6)\nSynthetic Round2 Customer B50785F7 (R2-QE-CUSTOMER-B50785F7",
+  "browser_errors": [
+    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+  ],
+  "livewire_responses": [
+    {
+      "status": 500,
+      "url": "http://127.0.0.1:8012/livewire-557588bd/update",
+      "redirect": null,
+      "body_start": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n        <title>Server Error</title>\n\n        <style>\n            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}code{font-family:monospace,monospace;font-size:1em}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}code{font-family:Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,2"
+    }
+  ],
+  "persisted": {
+    "id": 23,
+    "status": "draft",
+    "version": 1,
+    "valid_until": null,
+    "notes": "Synthetic Round2 reopen fixture.",
+    "line_count": 1,
+    "line_quantity": "2.50000000",
+    "line_requested_price": "123.45000000"
+  },
+  "failure": "Save did not return a successful Livewire response and persist the expected draft values.",
+  "server_error_excerpt": "[Wed Oct 21 21:52:26 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8012) started\n[Wed Oct 21 21:52:26 2026] 127.0.0.1:59207 Accepted\n[Wed Oct 21 21:52:26 2026] 127.0.0.1:59207 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:52124 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:52124 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:57850 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:57850 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:56173 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:52010 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:53472 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:57850 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:56173 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:52010 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:53472 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:56173 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:55013 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:55013 [200]: GET /favicon.svg\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:55013 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:53864 Accepted\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:53864 [200]: GET /favicon.ico\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:53864 Closing\n[Wed Oct 21 21:52:27 2026] 127.0.0.1:49368 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:49368 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:53822 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:53822 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:55766 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:51984 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64575 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:55766 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:51984 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64575 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:51984 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64575 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:55766 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56797 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56797 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:50297 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56797 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:50297 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:50297 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:55833 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:55833 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:58372 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:58372 [200]: GET /favicon.svg\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:58372 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54529 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54529 [200]: GET /build/assets/app-RG0poB64.css\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64248 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54187 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54529 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64248 [200]: GET /build/assets/app-BvRk9kiK.js\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54187 [200]: GET /images/avatars/neutral.svg\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64248 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:54187 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56881 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56881 [200]: GET /fonts/noto-sans-latin.woff2\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:56881 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64135 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64135 [200]: GET /fonts/noto-sans-arabic.woff2\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:64135 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:60974 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:60974 [200]: GET /favicon.svg\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:60974 Closing\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:65360 Accepted\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:65360 [200]: GET /favicon.ico\n[Wed Oct 21 21:52:28 2026] 127.0.0.1:65360 Closing\n[Wed Oct 21 21:52:29 2026] 127.0.0.1:50446 Accepted\n[2026-10-21 18:52:29] testing.ERROR: SQLSTATE[22007]: Invalid datetime format: 7 ERROR:  invalid input syntax for type date: \"\"\nCONTEXT:  unnamed portal parameter $2 = '' (Connection: pgsql, Host: 127.0.0.1, Port: 5443, Database: erp_elec_new_test, SQL: update \"sales_quotations\" set \"customer_snapshot\" = {\"id\":48,\"code\":\"R2-QE-CUSTOMER-B50785F7\",\"name\":\"Synthetic Round2 Customer B50785F7\",\"entityType\":\"organization\",\"status\":\"active\"}, \"valid_until\" = , \"version\" = 2, \"updated_by\" = 92, \"notes\" = Browser reopened draft save regression, \"calculation\" = {\"lines\":[{\"gross\":\"308.6250000000000000000000000000000000000000\",\"discount\":\"0.0000000000000000000000000000000000000000\",\"net\":\"308.6250000000000000000000000000000000000000\"}],\"complete\":true,\"gross\":\"308.6250000000000000000000000000000000000000\",\"line_discounts\":\"0.0000000000000000000000000000000000000000\",\"quotation_discount\":\"0.0000000000000000000000000000000000000000\",\"net\":\"308.6250000000000000000000000000000000000000\",\"tax\":null,\"total\":null,\"currency\":\"EGP\",\"official\":false}, "
+}
