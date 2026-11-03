@@ -1,0 +1,64 @@
+# Business journeys and financial release gate
+
+Audit: 2026-11-01. Financial Go-Live gate: **VERIFIED FAIL**. All financial/stock acceptance effects in this audit are synthetic, isolated PostgreSQL Actions and are rolled back or confined to explicitly disposable recovery fixtures. No operational balance, invoice, period or approval was altered.
+
+## Current positive evidence
+
+`evidence/production-readiness-20261101/phase1-financial-actions.json` records **all_pass=true** for its existing source-driven positive assertions. It was produced by a Luna-authored isolated adaptation of `tests/Support/check-phase1-financial-journeys.php`; original/adapted hashes and diff are in `financial-release-adaptation.json` and `financial-release-audit.diff`. Three additional negative release cases are independently reported as **FAIL**. Intentional final exit1 reflects those failures, not a green whole-finance claim.
+
+The positive run used owner Actions to configure and independently activate a synthetic test company, approve/issue genuine orders, receive partial goods, generate FIFO/GRNI, match/post actual supplier invoices, create Sales delivery/customer invoice sources, collect/pay through Treasury, post credits and reconcile current-date controls. No ledger totals were inserted to manufacture a reconciliation.
+
+Selected exact results (test values, never company defaults):
+
+- Three source supplier invoices matched **4.00000000** units: GRNI **40.00**, invoice net **44.00**, recoverable tax **6.16**, PPV **4.00**, AP **50.16**. Invoice posting left receipt stock/FIFO unchanged; journal debits/credits matched individually and PDF bytes/hashes were verified.
+- Two genuine AP payments settled the selected invoices to **0.00**; duplicate execution returned original effects. A real Sales delivery/customer invoice and two collections left selected AR **0.00**. An independently recorded excess collection left a real **1.00** customer advance.
+- Trial Balance debit/credit **318.30 / 318.30**; selected current-date AP, AR, GRNI, inventory, bank, cash and advance control/source differences **0.00**. This does not cure historical cutoff behavior.
+- Supplier/customer credit notes and unapplied credit rows, cash/bank transfer, role/foreign-branch profile denial, duplicate supplier number, supplier mismatch, receipt overmatch and closed-period posting rejection were exercised. The closed-period refusal left no partial AP/GL posting.
+
+Fresh broad 21 campaigns all exited0 (`broad-21-summary.json`), covering auth/RBAC/defaults, product/party/factory/import/privacy, quotation/order and regression slices. The original Laravel invocation had41 passed /16 target-guard refusals,111 assertions (`full-phpunit.txt`). The 16 are not hidden, not application failures and not accepted tests. Any later adapted/current owner-specific receipts retain their exact limits.
+
+Additional current owner evidence:
+
+- `m05-m06-roundtrip.txt` and `m06-inventory-canonical.txt`: current canonical Purchasing/Inventory roundtrip and Inventory assertions reached their successful rollback sentinels.
+- `phase2-projects-adapted.txt`: **36 assertions**, terminal `RESULT all_pass=true`; original `phase2-projects.txt` was an isolated-port guard refusal and is not a PASS. The adapted copy retains assertions and adds this private target guard.
+- `tender-actions-seeded-rerun.txt`: **58 PASS assertions** and the final full-fixture rollback sentinel; actual BOQ/approved worksheets/official bid/submission evidence/award/Project and M04 handoff, scope denials and immutable state are covered. The initial `tender-actions.txt` stopped at missing fixture prerequisites even though PHP returned exit0; it is **not** a passed campaign. Exit code alone was not accepted as success.
+- `phase3-maintenance-final.txt`: **26 assertions**, terminal `RESULT all_pass=true`; request/work-order/assignment/visit/checklist/labor/verification/reopen and append-only evidence slice passes after the required synthetic master/disabled-user fixtures were supplied. The earlier missing-fixture attempts remain separate.
+- `workshop-repairs-intake-seeded-rerun.txt` and subsequent final attempt: **25 lifecycle assertions then an exception; no successful terminal marker**. The old helper next sets company_owned equipment with a random serial string but no genuine Inventory serial/movement source (`check-workshop-repairs-intake.php:276`), incompatible with current192/195 equipment-source guards. Treat this as an incomplete/obsolete-fixture invocation, not a passed M09 campaign or a confirmed product regression. Remaining company-equipment/factory and full paid/warranty/goodwill financial journey were NOT TESTED by it.
+- `phase0-recovery-seed.json`:14/14 reported source-driven recovery fixture steps PASS; explicitly committed only in the disposable audit database so real dump/restore can contain business facts. This does not commit the three negative risk fixtures or mutate operational data.
+
+## Journey-level acceptance
+
+`VERIFIED PASS` below applies only to the stated executed slice. A requested complete workflow remains NOT TESTED or BLOCKED if any linked stage, variant, approval or required integration lacks current evidence.
+
+| Requested workflow | Current evidence status | Executed evidence and material limits |
+|---|---|---|
+| Sales: customer→quotation→approval→acceptance→order→reservation→delivery→invoice→collection→GL | **NOT TESTED as one complete current trace**; supported slices VERIFIED PASS | Broad quotation/order Actions and phase1 direct-order→delivery→invoice→collections/GL pass separately. The exact same quoted source was not followed through every required end stage in a single authenticated trace. Partial delivery, discount/revision/tax and duplicate cases have bounded owner evidence; physical returns remain disabled. |
+| Purchasing: supplier→requisition→RFQ→offer→PO→receipt→invoice→payment→GL | **VERIFIED PASS for PO→payment/GL slice; NOT TESTED as complete requested upstream trace** | Phase1 receipt/invoice/payment source graph passes, including partial receipts, exact GRNI/PPV and duplicate prevention. Requisition/RFQ/offer selectors/actions exist; this receipt does not prove the same upstream RFQ/offer chain through payment. Supplier returns are unavailable. |
+| Inventory: opening/receipt/reserve/FIFO/transfer/return/count/adjustment/serial/concurrency | **BLOCKED for full requested capability** | Fresh financial receipt, real FIFO issue and owner tests are bounded pass slices. Quantity-based valued flows exist; serialized financial opening/receipt/issue is refused. All concurrent movement/close interleavings and complete current browser flow not proven. Owner linked unused-part returns are distinct from commercial Sales/Purchasing returns. |
+| Projects lifecycle/cost/handover/closure | **VERIFIED PASS for36-assertion domain slice; NOT TESTED in full current browser/financial trace** | `phase2-projects-adapted.txt` reaches its successful terminal marker; this does not independently reproduce every Phase2 financial attribution, browser lifecycle or production behavior. Reading a draft detail is not a project acceptance journey. |
+| Tender: BOQ→technical/financial approval→official bid→submission→award→handoff | **VERIFIED PASS for58-assertion Action slice; NOT TESTED as complete fresh UI trace**; M10 handoff BLOCKED | `tender-actions-seeded-rerun.txt` covers real Project/M04 handoff plus permissions/immutable source negatives and rollback. Fresh draft Tender reader200/outsider403 adds only read-path evidence. Contract handoff is refused because M10 is absent. No external procurement portal was contacted; submission evidence is synthetic/local. |
+| Field: request→work order→assignment→visit→parts/labor→completion→invoice | **VERIFIED PASS for26-assertion domain slice; NOT TESTED in full current financial trace**; contract coverage BLOCKED | `phase3-maintenance-final.txt` passes request/work-order/assignment/visit/checklist/labor/verification/reopen/evidence checks. It does not complete the full fresh parts/FIFO/M12-invoice-to-closure financial/browser journey. M10 entitlement unavailable. |
+| Workshop: intake→custody→diagnosis→offer/approvals→parts/labor→QC→delivery→invoice→collection | **NOT TESTED in full current trace**; contract repairs BLOCKED | Latest individual M09 report records bounded paid/internal/warranty/goodwill local acceptance; original consolidated status is stale. Fresh draft-intake HTTP/denial is not custody/QC/billing acceptance. Current extra owner checks are separate receipts; four configured synthetic workshops do not supply real company configuration. |
+| Service contracts: signed contract→coverage→preventive work→usage→billing | **BLOCKED — NOT IMPLEMENTED** | M10 owner/producer absent. Do not infer coverage from text, prefixes or unavailable integrations. |
+| Financial operations: invoice→AR/AP→allocation→cash/bank→GL | **VERIFIED PASS for current-date executed source graph; VERIFIED FAIL overall release gate** | `phase1-financial-actions.json` proves actual source effects and selected current reconciliations; three current financial negative cases below FAIL. Advance application/refund and bank statement matching remain capability gaps. |
+| Attendance: employee→shift→punch→correction/leave/overtime→locked timesheet | **BLOCKED — NOT IMPLEMENTED** | M15 owner/lifecycle absent; M14 employee/payroll producer is also absent/conditional scope unresolved. |
+
+Each row's correctness/security/financial integrity is limited to the actual recorded checks. Permission denial in a sampled route does not establish all financial actions safe. The complete current-company workflows remain unaccepted despite positive subflows.
+
+## Three current financial release failures (G3)
+
+Authoritative fresh receipt: **`evidence/production-readiness-20261101/financial-release-risks.json`**, exact test target `erp_elec_new_test@127.0.0.1:49683`; source SHA-256 recorded. Overall **FAIL**, full selected 12-table row-count rollback verified. Negative effects used savepoints so the original positive reconciliation/period-close assertions were not polluted. Initial incomplete attempt (missing journal fixture grants) is retained separately; it is not a product failure.
+
+| Finding / original test ID | Expected invariant | Actual fresh result | Impact / closure |
+|---|---|---|---|
+| **PR-FIN-001 / FIN-P0-01** | Company period close must reconcile every company branch and refuse insufficient report authority. | **VERIFIED FAIL**: actor had no report authority; actual owner close Action closed the test period. | Missing/partial branch visibility can skip company reconciliation. Independently authorize full close, require complete branch/control evidence and close-vs-post locking. |
+| **PR-FIN-002 / FIN-P0-02** | Historical GL and source subledgers must share requested cutoff. | **VERIFIED FAIL** at2000-12-31: pre-cutoff journals0, inventory GL**0.00**, FIFO source**10.00**, difference**−10.00**. | Source calls omit cutoff while GL applies it. Add authoritative owner as-of projections and validate all later movements/settlements against earlier reports. |
+| **PR-FIN-003 / FIN-P0-03** | Manual journal must not alter source-owned advance control without an actual source advance. | **VERIFIED FAIL**: ordinary Actions created/submitted/independently approved/posted the manual journal. Advance GL**126.00**, source**1.00**, difference**125.00**; source advance count**1→1**, delta0. | Double-entry balance alone does not protect source/subledger integrity. Include optional customer-advance control in manual-post protection and validate correction paths. |
+
+The first two historical M11 blockers are therefore **currently reproduced and unresolved**, not merely repeated from an old report. The third is a newly reproduced control-protection gap. All three are Go-Live blockers under the requested financial scope. Recommended fixes and exact acceptance tests are in [the canonical register](PRODUCTION_READINESS_BLOCKERS.md); no fixes were applied.
+
+## Coverage still required
+
+Complete linked quotation and RFQ upstream journeys; physical commercial returns; serialized valued stock; required M10/M15; full advances/refunds/cash corrections/statement matching; cross-period/dated source balances; independent multi-worker receipt/issue/reservation/invoice/allocation/numbering/close races; every current role/object/private-download/export/state; complete browser business mutation traces and target-host behavior. Do not interpret missing evidence as a confirmed defect in every untested path, or reinterpret a controlled unsupported refusal as an implemented capability.
+
+Opening readiness is independently blocked by actual company inputs. Test tax rates/dates/accounts/workshops and synthetic balances in these receipts are not legal/tax policy recommendations or production configuration.

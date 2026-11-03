@@ -1,4 +1,5 @@
-<div class="space-y-6" dir="rtl">
+<div data-erp-archetype="list" class="space-y-6" dir="rtl">
+
     <x-page.heading title="الأصناف والمنتجات" description="إدارة بيانات الأصناف والتصنيفات والوحدات" :breadcrumbs="['المنتجات', 'الأصناف']">
         <x-slot:actions>
             @if ($canCreate)
@@ -6,13 +7,14 @@
             @endif
         </x-slot:actions>
     </x-page.heading>
+    <x-ui.validation-summary />
 
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
     <flux:error name="status" />
     <flux:error name="export" />
     <flux:error name="ids" />
 
-    <div class="grid gap-3 sm:grid-cols-3">
+    <div class="erp-kpi-summary grid gap-3 sm:grid-cols-3">
         @foreach ([['إجمالي الأصناف', 'total', 'cube', 'blue'], ['الأصناف النشطة', 'active', 'check-circle', 'emerald'], ['التصنيفات', 'categories', 'rectangle-stack', 'orange']] as [$label, $key, $icon, $tone])
             <x-erp.stat-card :label="$label" :value="$stats[$key]" :icon="$icon" :tone="$tone" />
         @endforeach
@@ -20,22 +22,16 @@
 
     <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_17rem]">
         <x-ui.panel class="!p-0 overflow-hidden">
-            <div class="erp-filters space-y-4 border-b border-[#E5E8EE] p-5">
-                <div class="flex flex-wrap items-end gap-3">
-                    <div class="min-w-48 flex-1"><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن صنف" placeholder="الاسم أو SKU أو الباركود..." /></div>
-                    <flux:select wire:model.live="brandFilter" label="العلامة التجارية" class="!w-44">
+            <x-ui.filters class="p-5 !mb-0 border-b border-[#E5E8EE]" id="product-filters" target="search,brandFilter,statusFilter,typeFilter,unitFilter,categoryFilter" :reset="['search' => '', 'brandFilter' => '', 'statusFilter' => '', 'typeFilter' => '', 'unitFilter' => '', 'categoryFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن صنف" placeholder="الاسم أو SKU أو الباركود..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+                    <flux:select wire:model.live="brandFilter" label="العلامة التجارية">
                         <option value="">كل العلامات التجارية</option>
                         @foreach ($brands as $brand)<option value="{{ $brand->id }}">{{ $brand->name }}</option>@endforeach
                     </flux:select>
-                    <flux:select wire:model.live="statusFilter" label="الحالة" class="!w-36">
+                    <flux:select wire:model.live="statusFilter" label="الحالة">
                         <option value="">كل الحالات</option><option value="active">نشط</option><option value="inactive">غير نشط</option>
                     </flux:select>
-                </div>
-                <details class="group">
-                    <summary class="inline-flex cursor-pointer list-none items-center gap-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                        <flux:icon name="funnel" class="size-4" /> فلاتر إضافية
-                    </summary>
-                    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+
                         <flux:select wire:model.live="typeFilter" label="نوع الصنف">
                             <option value="">كل الأنواع</option><option value="serialized_equipment">معدات برقم تسلسلي</option><option value="bulk">مواد بالكمية</option><option value="service">خدمة</option>
                         </flux:select>
@@ -43,44 +39,44 @@
                             <option value="">كل الوحدات</option>
                             @foreach ($units as $unit)<option value="{{ $unit->id }}">{{ $unit->name }}</option>@endforeach
                         </flux:select>
-                    </div>
-                </details>
-            </div>
+            </div></x-ui.filters>
             <x-erp.selection-toolbar :selected-count="count($selected)" :can-bulk="$canBulk" :can-import="$canImport" :can-export="$canExport" />
 
             <div class="overflow-x-auto" wire:loading.class="opacity-60">
-                <table class="w-full min-w-[1100px] text-start text-sm">
-                    <thead class="bg-slate-50 text-slate-500">
+
                         @php($visibleIds = $products->getCollection()->pluck('id')->map(fn ($id) => (string) $id)->all())
                         @php($selectedValues = collect($selected)->map(fn ($id) => (string) $id)->all())
                         @php($visibleSelectedCount = count(array_intersect($visibleIds, $selectedValues)))
                         @php($visibleSelected = $visibleIds !== [] && $visibleSelectedCount === count($visibleIds))
                         @php($visiblePartiallySelected = $visibleSelectedCount > 0 && ! $visibleSelected)
-                        <tr>
-                            <th class="p-4 text-start">
-                                <button type="button" role="checkbox" aria-label="تحديد الأصناف الظاهرة" aria-checked="{{ $visibleSelected ? 'true' : ($visiblePartiallySelected ? 'mixed' : 'false') }}" @disabled($products->count() === 0) wire:click="selectVisible" class="inline-flex size-6 items-center justify-center rounded border border-slate-300 bg-white text-white transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50 {{ $visibleSelected ? 'border-blue-600 bg-blue-600' : '' }}">
+<div class="erp-mobile-table-tools"><button type="button" role="checkbox" aria-label="تحديد الأصناف الظاهرة" aria-checked="{{ $visibleSelected ? 'true' : ($visiblePartiallySelected ? 'mixed' : 'false') }}" @disabled($products->count() === 0) wire:click="selectVisible" class="inline-flex size-6 items-center justify-center rounded border border-slate-300 bg-white text-white transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50 {{ $visibleSelected ? 'border-blue-600 bg-blue-600' : '' }}">
+                                    @if ($visibleSelected)<flux:icon name="check" class="size-4" aria-hidden="true" />@elseif ($visiblePartiallySelected)<span aria-hidden="true" class="h-0.5 w-3 rounded bg-blue-600"></span>@endif
+                                </button><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">SKU</button></div><x-ui.responsive-table class="erp-catalog-records" label="السجلات المعروضة"><table role="table" class="w-full min-w-[1100px] text-start text-sm">
+                    <thead role="rowgroup" class="bg-slate-50 text-slate-500">                        <tr role="row">
+                            <th role="columnheader" class="p-4 text-start">
+                                <span class="erp-mobile-column-label">التحديد</span><button type="button" role="checkbox" aria-label="تحديد الأصناف الظاهرة" aria-checked="{{ $visibleSelected ? 'true' : ($visiblePartiallySelected ? 'mixed' : 'false') }}" @disabled($products->count() === 0) wire:click="selectVisible" class="inline-flex size-6 items-center justify-center rounded border border-slate-300 bg-white text-white transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50 {{ $visibleSelected ? 'border-blue-600 bg-blue-600' : '' }}">
                                     @if ($visibleSelected)<flux:icon name="check" class="size-4" aria-hidden="true" />@elseif ($visiblePartiallySelected)<span aria-hidden="true" class="h-0.5 w-3 rounded bg-blue-600"></span>@endif
                                 </button>
                             </th>
-                            <th class="p-4 text-start">#</th>
-                            <th class="p-4 text-start"><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button></th>
-                            <th class="p-4 text-start"><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">SKU</button></th>
-                            <th class="p-4 text-start">الباركود</th>
-                            <th class="p-4 text-start">التصنيف</th>
-                            <th class="p-4 text-start">العلامة التجارية</th>
-                            <th class="p-4 text-start">الوحدة الأساسية</th>
-                            <th class="p-4 text-start">النوع</th>
-                            <th class="p-4 text-start">الحالة</th>
-                            <th class="p-4 text-start">الإجراءات</th>
+                            <th role="columnheader" class="p-4 text-start">#</th>
+                            <th role="columnheader" class="p-4 text-start"><span class="erp-mobile-column-label">الصنف</span><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button></th>
+                            <th role="columnheader" class="p-4 text-start"><span class="erp-mobile-column-label">SKU</span><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">SKU</button></th>
+                            <th role="columnheader" class="p-4 text-start">الباركود</th>
+                            <th role="columnheader" class="p-4 text-start">التصنيف</th>
+                            <th role="columnheader" class="p-4 text-start">العلامة التجارية</th>
+                            <th role="columnheader" class="p-4 text-start">الوحدة الأساسية</th>
+                            <th role="columnheader" class="p-4 text-start">النوع</th>
+                            <th role="columnheader" class="p-4 text-start">الحالة</th>
+                            <th role="columnheader" class="p-4 text-start">الإجراءات</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody role="rowgroup" class="divide-y divide-slate-100">
                         @forelse ($products as $product)
                             @php($productImage = isset($canMedia) && $canMedia ? $product->media->first(fn ($file) => $file->is_image) : null)
-                            <tr wire:key="product-{{ $product->id }}">
-                                <td class="p-4"><flux:checkbox wire:model.live="selected" value="{{ $product->id }}" :aria-label="'تحديد '.$product->name" /></td>
-                                <td class="p-4 text-slate-500">{{ $products->firstItem() + $loop->index }}</td>
-                                <td class="p-4">
+                            <tr role="row" wire:key="product-{{ $product->id }}">
+                                <td role="cell" data-label="التحديد" class="p-4"><div><flux:checkbox wire:model.live="selected" value="{{ $product->id }}" :aria-label="'تحديد '.$product->name" /></div></td>
+                                <td role="cell" data-label="الصف" class="p-4 text-slate-500"><div>{{ $products->firstItem() + $loop->index }}</div></td>
+                                <td role="cell" data-label="الصنف" class="p-4"><div>
                                     <a href="{{ route('products.show', $product->id) }}" wire:navigate class="flex items-center gap-3 font-medium text-slate-800 hover:text-blue-700">
                                         @if ($productImage)
                                             <img src="{{ route('products.media', $productImage->id) }}" alt="" class="size-10 rounded-md border border-slate-200 object-cover" loading="lazy">
@@ -89,15 +85,15 @@
                                         @endif
                                         <span class="min-w-0"><span class="block truncate">{{ $product->name }}</span><span class="mt-1 block text-xs font-normal text-slate-500">{{ $product->short_description ?: '—' }}</span></span>
                                     </a>
-                                </td>
-                                <td class="p-4"><bdi class="font-medium">{{ $product->sku }}</bdi></td>
-                                <td class="p-4"><bdi>{{ $product->barcode ?: '—' }}</bdi></td>
-                                <td class="p-4">{{ $product->category?->name ?: '—' }}</td>
-                                <td class="p-4">{{ $product->brand?->name ?: '—' }}</td>
-                                <td class="p-4">{{ $product->baseUnit?->name ?: '—' }}</td>
-                                <td class="p-4 text-xs">{{ ['serialized_equipment' => 'معدات برقم تسلسلي', 'bulk' => 'مواد بالكمية', 'service' => 'خدمة'][$product->kind] ?? '—' }}</td>
-                                <td class="p-4"><x-erp.status-badge :active="$product->active" /></td>
-                                <td class="p-4">
+                                </div></td>
+                                <td role="cell" data-label="SKU" class="p-4"><div><bdi class="font-medium">{{ $product->sku }}</bdi></div></td>
+                                <td role="cell" data-label="الباركود" class="p-4"><div><bdi>{{ $product->barcode ?: '—' }}</bdi></div></td>
+                                <td role="cell" data-label="التصنيف" class="p-4"><div>{{ $product->category?->name ?: '—' }}</div></td>
+                                <td role="cell" data-label="العلامة التجارية" class="p-4"><div>{{ $product->brand?->name ?: '—' }}</div></td>
+                                <td role="cell" data-label="الوحدة الأساسية" class="p-4"><div>{{ $product->baseUnit?->name ?: '—' }}</div></td>
+                                <td role="cell" data-label="النوع" class="p-4 text-xs"><div>{{ ['serialized_equipment' => 'معدات برقم تسلسلي', 'bulk' => 'مواد بالكمية', 'service' => 'خدمة'][$product->kind] ?? '—' }}</div></td>
+                                <td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$product->active" /></div></td>
+                                <td role="cell" data-label="الإجراءات" class="p-4"><div>
                                     <flux:dropdown>
                                         <flux:button icon="ellipsis-horizontal" variant="ghost" size="sm" aria-label="إجراءات {{ $product->name }}" />
                                         <flux:menu>
@@ -106,13 +102,13 @@
                                             @if ($canStatus)<flux:menu.item wire:click="changeStatus({{ $product->id }}, {{ $product->version }})" icon="power">{{ $product->active ? 'تعطيل الصنف' : 'تفعيل الصنف' }}</flux:menu.item>@endif
                                         </flux:menu>
                                     </flux:dropdown>
-                                </td>
+                                </div></td>
                             </tr>
                         @empty
-                            <tr><td colspan="11" class="p-8"><x-ui.empty-state title="لا توجد أصناف للعرض" description="عدّل معايير البحث أو أضف صنفًا بصلاحية مناسبة." icon="cube" /></td></tr>
+                            <tr role="row"><td colspan="11" class="p-8"><x-ui.empty-state title="لا توجد أصناف للعرض" description="عدّل معايير البحث أو أضف صنفًا بصلاحية مناسبة." icon="cube" /></td></tr>
                         @endforelse
                     </tbody>
-                </table>
+                </table></x-ui.responsive-table>
             </div>
 
             <div class="flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 px-5 py-4">

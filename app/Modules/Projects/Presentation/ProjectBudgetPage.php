@@ -21,7 +21,7 @@ final class ProjectBudgetPage extends Component
     #[Locked]
     public string $creationKey;
 
-    public array $form = ['currency' => '', 'total' => '', 'scope' => '', 'categories' => [['name' => '', 'amount' => '']], 'phases' => []];
+    public array $form = ['currency' => 'EGP', 'total' => '', 'scope' => '', 'categories' => [['name' => '', 'amount' => '']], 'phases' => []];
 
     public string $reason = '';
 
@@ -37,6 +37,8 @@ final class ProjectBudgetPage extends Component
         $baseline = DB::table('project_baselines')->where('project_id', $project)->orderByDesc('revision')->first();
         $this->form = $baseline ? json_decode($baseline->snapshot, true, 512, JSON_THROW_ON_ERROR) : array_replace($this->form, ['scope' => $p->description]);
         $this->form['structure'] = DB::table('project_phases')->where('project_id', $project)->orderBy('id')->get(['id', 'title', 'start_date', 'end_date', 'cancelled'])->map(fn ($row) => (array) $row)->all();
+        $this->form['start_date'] ??= $p->start_date;
+        $this->form['end_date'] ??= $p->end_date;
     }
 
     public function addPhaseProposal(): void
@@ -80,6 +82,6 @@ final class ProjectBudgetPage extends Component
         $a = app(ProjectAccess::class);
         $a->authorize(auth()->id(), $p, 'budget_view');
 
-        return view('projects.budget', ['project' => $p, 'canManage' => $a->allows(auth()->id(), $p, 'budget_manage'), 'baselines' => DB::table('project_baselines')->where('project_id', $p->id)->orderByDesc('revision')->get(), 'changes' => DB::table('project_changes')->where('project_id', $p->id)->orderByDesc('id')->get()])->layout('layouts::app', ['title' => 'ميزانية المشروع']);
+        return view('projects.budget', ['project' => $p, 'canManage' => in_array($p->status, ['draft', 'planned', 'active', 'in_progress'], true) && $a->allows(auth()->id(), $p, 'budget_manage'), 'canApprove' => $a->allows(auth()->id(), $p, 'budget_approve'), 'baselines' => DB::table('project_baselines')->where('project_id', $p->id)->orderByDesc('revision')->get(), 'changes' => DB::table('project_changes')->where('project_id', $p->id)->orderByDesc('id')->get()])->layout('layouts::app', ['title' => 'ميزانية المشروع']);
     }
 }

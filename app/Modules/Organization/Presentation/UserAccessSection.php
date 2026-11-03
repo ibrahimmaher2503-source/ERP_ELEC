@@ -44,7 +44,9 @@ class UserAccessSection extends Component
         $this->user = $user;
         $this->historyOnly = $historyOnly;
         $this->target();
-        $this->reloadVersions();
+        if (! $historyOnly) {
+            $this->reloadVersions();
+        }
     }
 
     protected function target(): User
@@ -126,13 +128,14 @@ class UserAccessSection extends Component
         $access = app(PermissionAccess::class);
         $branches = DB::table('branches')->orderBy('name')->get(['id', 'name', 'active']);
         $effective = [];
-        foreach (PermissionCatalog::DEFINITIONS as $code => [$label, $scope]) {
+        $warehouseScopes = $this->historyOnly ? collect() : DB::table('user_warehouse_scopes')->where('user_id', $target->id)->get();
+        foreach ($this->historyOnly ? [] : PermissionCatalog::DEFINITIONS as $code => [$label, $scope]) {
             if ($code === 'M01.security_admin' && ! $target->email_verified_at) {
                 continue;
             }
             if ($scope === 'warehouse') {
                 $warehouseLabels = [];
-                foreach (DB::table('user_warehouse_scopes')->where('user_id', $target->id)->get() as $w) {
+                foreach ($warehouseScopes as $w) {
                     if ($access->allows($target, $code, $w->branch_id, $w->warehouse_id)) {
                         $warehouseLabels[] = 'مستودع #'.$w->warehouse_id;
                     }
@@ -151,13 +154,13 @@ class UserAccessSection extends Component
         $roleIds = DB::table('user_roles')->where('user_id', $this->user)->pluck('role_id');
 
         $data = [
-            'warehouses' => collect(app(InventoryApi::class)->warehouseDirectory(Auth::id())),
-            'warehouseScopes' => DB::table('user_warehouse_scopes')->where('user_id', $this->user)->pluck('warehouse_id')->all(),
+            'warehouses' => $this->historyOnly ? collect() : collect(app(InventoryApi::class)->warehouseDirectory(Auth::id())),
+            'warehouseScopes' => $warehouseScopes->pluck('warehouse_id')->all(),
             'roles' => DB::table('roles')->whereIn('id', $roleIds)->get(),
             'availableRoles' => DB::table('roles')->whereNotIn('id', $roleIds)->orderBy('id')->get(),
             'branches' => $branches,
-            'scopes' => DB::table('user_branch_scopes as s')->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $this->user)->get(['b.id', 'b.name', 'b.active']),
-            'directGrants' => DB::table('access_grants as g')->leftJoin('permission_catalog as p', 'p.code', '=', 'g.permission_code')->leftJoin('branches as b', 'b.id', '=', 'g.branch_id')->where('g.user_id', $this->user)->get(['g.id', 'g.permission_code', 'p.label', 'b.name as branch_name']),
+            'scopes' => $this->historyOnly ? collect() : DB::table('user_branch_scopes as s')->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $this->user)->get(['b.id', 'b.name', 'b.active']),
+            'directGrants' => $this->historyOnly ? collect() : DB::table('access_grants as g')->leftJoin('permission_catalog as p', 'p.code', '=', 'g.permission_code')->leftJoin('branches as b', 'b.id', '=', 'g.branch_id')->where('g.user_id', $this->user)->get(['g.id', 'g.permission_code', 'p.label', 'b.name as branch_name']),
             'effective' => $effective, 'targetActive' => $target->active, 'targetVerified' => (bool) $target->email_verified_at, 'self' => $this->user === Auth::id(),
             'audits' => $this->historyOnly ? DB::table('access_audits')->leftJoin('users as audit_actor', 'audit_actor.id', '=', 'access_audits.actor_id')->where(function ($query) use ($roleIds) {
                 $query->where(function ($query) {

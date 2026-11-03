@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Electrical ERP scheduler every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+AccuracySec=1s
+Persistent=false
+Unit=electrical-erp-scheduler.service
+
+[Install]
+WantedBy=timers.target

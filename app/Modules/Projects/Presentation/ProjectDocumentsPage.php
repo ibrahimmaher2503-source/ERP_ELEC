@@ -23,7 +23,7 @@ final class ProjectDocumentsPage extends Component
 
     public $upload;
 
-    public array $form = ['number' => '', 'title' => '', 'classification' => '', 'required' => false, 'notes' => ''];
+    public array $form = ['number' => '', 'title' => '', 'classification' => '', 'task_id' => '', 'required' => false, 'notes' => ''];
 
     public string $reason = '';
 
@@ -31,7 +31,7 @@ final class ProjectDocumentsPage extends Component
     {
         $this->projectId = $project;
         $this->creationKey = (string) Str::uuid();
-        app(ProjectAccess::class)->authorize(auth()->id(), Project::findOrFail($project));
+        app(ProjectAccess::class)->authorize(auth()->id(), Project::findOrFail($project), 'document_view');
     }
 
     public function saveDocument(): void
@@ -52,8 +52,8 @@ final class ProjectDocumentsPage extends Component
     {
         $p = Project::findOrFail($this->projectId);
         $a = app(ProjectAccess::class);
-        $a->authorize(auth()->id(), $p);
+        $a->authorize(auth()->id(), $p, 'document_view');
 
-        return view('projects.documents', ['project' => $p, 'canManage' => $a->allows(auth()->id(), $p, 'document_manage'), 'rows' => DB::table('project_document_revisions as r')->join('project_documents as d', 'd.id', '=', 'r.document_id')->where('d.project_id', $p->id)->orderByDesc('r.id')->get(['r.*', 'd.number', 'd.title', 'd.classification', 'd.required'])])->layout('layouts::app', ['title' => 'مستندات المشروع']);
+        return view('projects.documents', ['tasks' => DB::table('project_tasks')->where('project_id', $p->id)->orderBy('id')->get(['id', 'title']), 'project' => $p, 'canManage' => ! in_array($p->status, ['closed', 'cancelled'], true) && $a->allows(auth()->id(), $p, 'document_manage'), 'canApprove' => ! in_array($p->status, ['closed', 'cancelled'], true) && $a->allows(auth()->id(), $p, 'document_approve'), 'rows' => DB::table('project_document_revisions as r')->join('project_documents as d', 'd.id', '=', 'r.document_id')->where('d.project_id', $p->id)->orderByDesc('r.id')->get(['r.*', 'd.number', 'd.title', 'd.classification', 'd.required', 'd.task_id'])])->layout('layouts::app', ['title' => 'مستندات المشروع']);
     }
 }

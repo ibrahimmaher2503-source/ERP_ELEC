@@ -1,8 +1,19 @@
 <?php
 
+use App\Http\Middleware\EnsureV2Available;
+use App\Modules\Accounting\Presentation\AccountingPage;
+use App\Modules\Accounting\Presentation\FinancialReportExportController;
+use App\Modules\Accounting\Presentation\FinancialReportsPage;
+use App\Modules\Accounting\Presentation\FinancialSetupPage;
+use App\Modules\Accounting\Presentation\JournalPdfController;
+use App\Modules\FieldMaintenance\Presentation\MaintenanceDownloadController;
+use App\Modules\FieldMaintenance\Presentation\MaintenancePage;
+use App\Modules\FieldMaintenance\Presentation\MaintenanceRequestPage;
+use App\Modules\FieldMaintenance\Presentation\MaintenanceWorkOrderPage;
 use App\Modules\Inventory\Presentation\InventoryDocumentPage;
 use App\Modules\Inventory\Presentation\InventoryDocumentsPage;
 use App\Modules\Inventory\Presentation\InventoryExportController;
+use App\Modules\Inventory\Presentation\InventoryOperationsPage;
 use App\Modules\Inventory\Presentation\InventoryPage;
 use App\Modules\Inventory\Presentation\WarehousesPage;
 use App\Modules\Organization\Presentation\BranchDetailsPage;
@@ -26,21 +37,28 @@ use App\Modules\Products\Presentation\MastersPage;
 use App\Modules\Products\Presentation\ProductDetailsPage;
 use App\Modules\Products\Presentation\ProductFormPage;
 use App\Modules\Products\Presentation\ProductMediaController;
+use App\Modules\Products\Presentation\ProductPricesPage;
+use App\Modules\Projects\Application\TenderDocuments;
 use App\Modules\Projects\Presentation\ProjectBudgetPage;
 use App\Modules\Projects\Presentation\ProjectClosurePage;
 use App\Modules\Projects\Presentation\ProjectDocumentsPage;
 use App\Modules\Projects\Presentation\ProjectDownloadController;
 use App\Modules\Projects\Presentation\ProjectExportController;
+use App\Modules\Projects\Presentation\ProjectFinancialExportController;
+use App\Modules\Projects\Presentation\ProjectFinancialPage;
 use App\Modules\Projects\Presentation\ProjectOperationsPage;
 use App\Modules\Projects\Presentation\ProjectPage;
 use App\Modules\Projects\Presentation\ProjectReportsPage;
-use App\Modules\Projects\Presentation\ProjectsDashboardPage;
 use App\Modules\Projects\Presentation\ProjectsPage;
+use App\Modules\Projects\Presentation\TenderExportController;
+use App\Modules\Projects\Presentation\TenderPage;
+use App\Modules\Projects\Presentation\TendersPage;
 use App\Modules\Purchasing\Presentation\ComparisonPage;
 use App\Modules\Purchasing\Presentation\OfferFileController;
 use App\Modules\Purchasing\Presentation\OfferPage;
 use App\Modules\Purchasing\Presentation\OffersPage;
 use App\Modules\Purchasing\Presentation\OrderPage;
+use App\Modules\Purchasing\Presentation\OrderPdfController;
 use App\Modules\Purchasing\Presentation\OrdersPage;
 use App\Modules\Purchasing\Presentation\PurchaseReturnsPage;
 use App\Modules\Purchasing\Presentation\PurchasingDashboard;
@@ -51,28 +69,51 @@ use App\Modules\Purchasing\Presentation\RequisitionPage;
 use App\Modules\Purchasing\Presentation\RequisitionsPage;
 use App\Modules\Purchasing\Presentation\RfqPage;
 use App\Modules\Purchasing\Presentation\RfqsPage;
+use App\Modules\ReceivablesPayables\Presentation\FinancialDocumentController;
+use App\Modules\ReceivablesPayables\Presentation\FinancialOperationsPage;
+use App\Modules\ReceivablesPayables\Presentation\InvoiceDetailsPage;
 use App\Modules\Sales\Presentation\QuotationAcceptancePage;
 use App\Modules\Sales\Presentation\QuotationApprovalPage;
 use App\Modules\Sales\Presentation\QuotationConversionPage;
 use App\Modules\Sales\Presentation\QuotationDetailsPage;
 use App\Modules\Sales\Presentation\QuotationDocumentController;
 use App\Modules\Sales\Presentation\QuotationFormPage;
+use App\Modules\Sales\Presentation\QuotationOfficialController;
 use App\Modules\Sales\Presentation\QuotationPdfPage;
 use App\Modules\Sales\Presentation\QuotationPolicyPage;
 use App\Modules\Sales\Presentation\QuotationsPage;
 use App\Modules\Sales\Presentation\SalesOrderDetailsPage;
 use App\Modules\Sales\Presentation\SalesOrderFormPage;
+use App\Modules\Sales\Presentation\SalesOrderOfficialController;
 use App\Modules\Sales\Presentation\SalesOrderPolicyPage;
 use App\Modules\Sales\Presentation\SalesOrdersPage;
 use App\Modules\Sales\Presentation\SalesReturnsPage;
 use App\Modules\System\Presentation\DataOperationPage;
+use App\Modules\Treasury\Presentation\TreasuryDocumentController;
+use App\Modules\Treasury\Presentation\TreasuryPage;
+use App\Modules\WorkshopRepairs\Application\WorkshopDocuments;
+use App\Modules\WorkshopRepairs\Presentation\IntakePage;
+use App\Modules\WorkshopRepairs\Presentation\JobPage;
+use App\Modules\WorkshopRepairs\Presentation\RepairDocumentController;
+use App\Modules\WorkshopRepairs\Presentation\WorkshopExportController;
+use App\Modules\WorkshopRepairs\Presentation\WorkshopsPage;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('service-contracts', \App\Modules\ServiceContracts\Presentation\ServiceContractsPage::class)->name('service-contracts.index');
+    Route::get('service-contracts/create', \App\Modules\ServiceContracts\Presentation\ServiceContractPage::class)->name('service-contracts.create');
+    Route::get('service-contracts/{contract}/billing', \App\Modules\ServiceContracts\Presentation\ServiceContractBillingPage::class)->whereNumber('contract')->name('service-contracts.billing');
+    Route::get('service-contracts/{contract}/report', \App\Modules\ServiceContracts\Presentation\ServiceContractReportPage::class)->whereNumber('contract')->name('service-contracts.report');
+    Route::get('service-contracts/{contract}', \App\Modules\ServiceContracts\Presentation\ServiceContractPage::class)->whereNumber('contract')->name('service-contracts.show');
+    Route::get('service-contract-evidence/{document}', [\App\Modules\ServiceContracts\Presentation\ServiceContractDownloadController::class, 'evidence'])->whereNumber('document')->name('service-contracts.evidence');
+    Route::get('service-contract-documents/{revision}', [\App\Modules\ServiceContracts\Presentation\ServiceContractDownloadController::class, 'official'])->whereNumber('revision')->name('service-contracts.official');
+    Route::get('attendance', \App\Modules\Attendance\Presentation\AttendancePage::class)->name('attendance.index');
+    Route::get('attendance/{employee}/{month}/export', \App\Modules\Attendance\Presentation\AttendanceExportController::class)->whereNumber('employee')->where('month', '[0-9]{4}-[0-9]{2}')->name('attendance.export');
+    Route::get('organization/employees', \App\Modules\Organization\Presentation\EmployeesPage::class)->name('organization.employees');
+    Route::get('products/{product}/prices', ProductPricesPage::class)->whereNumber('product')->name('products.prices');
     Route::get('purchasing', PurchasingDashboard::class)->name('purchasing.dashboard');
-    Route::get('purchasing/reports', PurchasingDashboard::class)->defaults('reports', true)->name('purchasing.reports');
     Route::get('purchasing/export/{entity}', PurchasingExportController::class)->name('purchasing.export');
     Route::get('purchasing/offers', OffersPage::class)->name('purchasing.offers.index');
     Route::get('purchasing/offers/create', OfferPage::class)->name('purchasing.offers.create');
@@ -85,7 +126,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('purchasing/receipts', ReceiptsPage::class)->name('purchasing.receipts.index');
     Route::get('purchasing/receipts/create', ReceiptPage::class)->name('purchasing.receipts.create');
     Route::get('purchasing/receipts/{receipt}', ReceiptPage::class)->whereNumber('receipt')->name('purchasing.receipts.show');
-    Route::get('purchasing/returns', PurchaseReturnsPage::class)->name('purchasing.returns');
     Route::get('purchasing/rfqs', RfqsPage::class)->name('purchasing.rfqs.index');
     Route::get('purchasing/rfqs/create', RfqPage::class)->name('purchasing.rfqs.create');
     Route::get('purchasing/rfqs/{rfq}', RfqPage::class)->whereNumber('rfq')->name('purchasing.rfqs.show');
@@ -94,9 +134,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('purchasing/requisitions/{requisition}', RequisitionPage::class)->whereNumber('requisition')->name('purchasing.requisitions.show');
     Route::get('inventory/export/{entity}', InventoryExportController::class)->name('inventory.export');
     Route::get('inventory/warehouses', WarehousesPage::class)->name('inventory.warehouses');
-    Route::get('inventory/isolations', \App\Modules\Inventory\Presentation\InventoryOperationsPage::class)->defaults('screen','isolations')->name('inventory.isolations');
-    Route::get('inventory/serials', \App\Modules\Inventory\Presentation\InventoryOperationsPage::class)->defaults('screen','serials')->name('inventory.serials');
-    Route::get('inventory/corrections', \App\Modules\Inventory\Presentation\InventoryOperationsPage::class)->defaults('screen','corrections')->name('inventory.corrections');
+    Route::get('inventory/isolations', InventoryOperationsPage::class)->defaults('screen', 'isolations')->name('inventory.isolations');
+    Route::get('inventory/serials', InventoryOperationsPage::class)->defaults('screen', 'serials')->name('inventory.serials');
+    Route::get('inventory/corrections', InventoryOperationsPage::class)->defaults('screen', 'corrections')->name('inventory.corrections');
     Route::get('inventory', InventoryPage::class)->defaults('screen', 'dashboard')->name('inventory.dashboard');
     Route::get('inventory/balances', InventoryPage::class)->defaults('screen', 'balances')->name('inventory.balances');
     Route::get('inventory/movements', InventoryPage::class)->defaults('screen', 'movements')->name('inventory.movements');
@@ -115,7 +155,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('sales-orders/{order}/edit', SalesOrderFormPage::class)->whereNumber('order')->name('sales-orders.edit');
     Route::get('sales-orders/{order}/{screen}', SalesOrderDetailsPage::class)->whereNumber('order')->whereIn('screen', ['review', 'amendment', 'delivery', 'invoices', 'closure'])->name('sales-orders.screen');
     Route::get('sales-orders/{order}', SalesOrderDetailsPage::class)->whereNumber('order')->name('sales-orders.show');
-    Route::get('sales-returns', SalesReturnsPage::class)->name('sales-returns.index');
     Route::get('quotations', QuotationsPage::class)->name('quotations.index');
     Route::get('quotations/policy', QuotationPolicyPage::class)->name('quotations.policy');
     Route::get('quotations/create', QuotationFormPage::class)->name('quotations.create');
@@ -152,23 +191,90 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('products/media/{media}/download', ProductMediaController::class)->whereNumber('media')->name('products.media.download');
     Route::get('products/{product}/edit', ProductFormPage::class)->whereNumber('product')->name('products.edit');
     Route::get('products/{product}', ProductDetailsPage::class)->whereNumber('product')->name('products.show');
-    Route::get('accounting/dashboard', \App\Modules\Accounting\Presentation\AccountingPage::class)->defaults('screen', 'dashboard')->name('accounting.dashboard');
-    Route::get('accounting/accounts', \App\Modules\Accounting\Presentation\AccountingPage::class)->defaults('screen', 'accounts')->name('accounting.accounts');
-    Route::get('accounting/periods', \App\Modules\Accounting\Presentation\AccountingPage::class)->defaults('screen', 'periods')->name('accounting.periods');
-    Route::get('accounting/journals', \App\Modules\Accounting\Presentation\AccountingPage::class)->defaults('screen', 'journals')->name('accounting.journals');
-    Route::get('projects', ProjectsPage::class)->name('projects.index');
-    Route::get('projects/dashboard', ProjectsDashboardPage::class)->name('projects.dashboard');
-    Route::get('projects/reports', ProjectReportsPage::class)->name('projects.reports');
-    Route::get('projects/export', ProjectExportController::class)->name('projects.export');
-    Route::get('projects/create', ProjectPage::class)->name('projects.create');
-    Route::get('projects/{project}/documents', ProjectDocumentsPage::class)->whereNumber('project')->name('projects.documents');
-    Route::get('projects/{project}/documents/{revision}', ProjectDownloadController::class)->whereNumber(['project', 'revision'])->name('projects.download');
-    Route::get('projects/{project}/operations', ProjectOperationsPage::class)->whereNumber('project')->name('projects.operations');
-    Route::get('projects/{project}/tasks', ProjectPage::class)->whereNumber('project')->defaults('screen', 'tasks')->name('projects.tasks');
-    Route::get('projects/{project}/closure', ProjectClosurePage::class)->whereNumber('project')->name('projects.closure');
-    Route::get('projects/{project}/budget', ProjectBudgetPage::class)->whereNumber('project')->name('projects.budget');
-    Route::get('projects/{project}', ProjectPage::class)->whereNumber('project')->name('projects.show');
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('accounting/setup', FinancialSetupPage::class)->name('accounting.setup');
+    Route::get('quotations/{quotation}/official-pdf', QuotationOfficialController::class)->whereNumber('quotation')->name('quotations.official-pdf');
+    Route::get('quotations/{quotation}/acceptance-evidence', [QuotationOfficialController::class, 'acceptance'])->whereNumber('quotation')->name('quotations.acceptance-evidence');
+    Route::get('sales-orders/{order}/pdf', SalesOrderOfficialController::class)->whereNumber('order')->name('sales-orders.pdf');
+    Route::get('sales-orders/{order}/deliveries/{instruction}/pdf', SalesOrderOfficialController::class)->whereNumber(['order', 'instruction'])->name('sales-orders.delivery-pdf');
+    Route::get('accounting/journals/{journal}/pdf', JournalPdfController::class)->whereNumber('journal')->name('accounting.journals.pdf');
+    Route::get('purchasing/orders/{order}/pdf', OrderPdfController::class)->whereNumber('order')->name('purchasing.orders.pdf');
+    Route::get('accounting/dashboard', AccountingPage::class)->defaults('screen', 'dashboard')->name('accounting.dashboard');
+    Route::get('accounting/accounts', AccountingPage::class)->defaults('screen', 'accounts')->name('accounting.accounts');
+    Route::get('accounting/periods', AccountingPage::class)->defaults('screen', 'periods')->name('accounting.periods');
+    Route::get('accounting/journals', AccountingPage::class)->defaults('screen', 'journals')->name('accounting.journals');
+    foreach (['ledger', 'trial-balance', 'income-statement', 'balance-sheet', 'grni', 'ppv', 'reconciliation', 'closing'] as $report) {
+        Route::get('accounting/'.$report, FinancialReportsPage::class)->defaults('screen', $report)->name('accounting.'.$report);
+    }
+    Route::get('accounting/reports/{report}/{format}', FinancialReportExportController::class)
+        ->whereIn('format', ['xlsx', 'pdf'])->name('accounting.reports.export');
+    Route::get('financial/advances', \App\Modules\ReceivablesPayables\Presentation\CustomerAdvancesPage::class)->name('financial.advances');
+    Route::get('financial/party-credits', \App\Modules\ReceivablesPayables\Presentation\PartyCreditsPage::class)->name('financial.party-credits');
+    foreach (['supplier-invoices', 'ap', 'customer-invoices', 'ar', 'credit-notes', 'aging'] as $screen) {
+        Route::get('financial/'.$screen, FinancialOperationsPage::class)->defaults('screen', $screen)->name('financial.'.$screen);
+    }
+    Route::get('financial/documents/{type}/{record}', FinancialDocumentController::class)
+        ->whereIn('type', ['supplier-invoice', 'customer-invoice', 'credit-note'])->whereNumber('record')->name('financial.documents');
+    Route::get('financial/{type}-invoices/{invoice}', InvoiceDetailsPage::class)->whereIn('type', ['supplier', 'customer'])
+        ->whereNumber('invoice')->name('financial.invoices.show');
+    foreach (['accounts', 'payments', 'collections', 'transfers'] as $screen) {
+        Route::get('treasury/'.$screen, TreasuryPage::class)->defaults('screen', $screen)->name('treasury.'.$screen);
+    }
+    Route::get('treasury/movements/{movement}/pdf', TreasuryDocumentController::class)->whereNumber('movement')->name('treasury.movements.pdf');
+    Route::get('treasury/statements', \App\Modules\Treasury\Presentation\TreasuryStatementsPage::class)->name('treasury.statements');
+    Route::get('treasury/statements/{statement}', \App\Modules\Treasury\Presentation\TreasuryStatementsPage::class)->whereNumber('statement')->name('treasury.statements.show');
+    Route::get('treasury/statements/{statement}/file', \App\Modules\Treasury\Presentation\TreasuryStatementDownloadController::class)->whereNumber('statement')->name('treasury.statements.file');
+    Route::get('treasury/movements/{movement}', \App\Modules\Treasury\Presentation\MovementDetailsPage::class)->whereNumber('movement')->name('treasury.movements.show');
+    Route::middleware(EnsureV2Available::class)->group(function () {
+        Route::get('purchasing/reports', PurchasingDashboard::class)->defaults('reports', true)->name('purchasing.reports');
+        Route::get('purchasing/returns', PurchaseReturnsPage::class)->name('purchasing.returns');
+        Route::get('sales-returns', SalesReturnsPage::class)->name('sales-returns.index');
+    });
+    Route::group([], function () {
+        Route::get('projects', ProjectsPage::class)->name('projects.index');
+        Route::get('projects/dashboard', fn () => redirect()->route('projects.index', request()->only('search', 'status')))->name('projects.dashboard');
+        Route::get('projects/reports', ProjectReportsPage::class)->name('projects.reports');
+        Route::get('projects/export', ProjectExportController::class)->name('projects.export');
+        Route::get('projects/create', ProjectPage::class)->name('projects.create');
+        Route::get('projects/{project}/documents', ProjectDocumentsPage::class)->whereNumber('project')->name('projects.documents');
+        Route::get('projects/{project}/documents/{revision}', ProjectDownloadController::class)->whereNumber(['project', 'revision'])->name('projects.download');
+        Route::get('projects/{project}/operations', ProjectOperationsPage::class)->whereNumber('project')->name('projects.operations');
+        Route::get('projects/{project}/tasks', ProjectPage::class)->whereNumber('project')->defaults('screen', 'tasks')->name('projects.tasks');
+        Route::get('projects/{project}/closure', ProjectClosurePage::class)->whereNumber('project')->name('projects.closure');
+        Route::get('projects/{project}/budget', ProjectBudgetPage::class)->whereNumber('project')->name('projects.budget');
+        Route::get('projects/{project}/financial', ProjectFinancialPage::class)->whereNumber('project')->name('projects.financial');
+        Route::get('projects/{project}/financial/{format}', ProjectFinancialExportController::class)->whereNumber('project')->whereIn('format', ['xlsx', 'pdf'])->name('projects.financial.export');
+        Route::get('projects/{project}', ProjectPage::class)->whereNumber('project')->name('projects.show');
+    });
+    foreach (['dashboard', 'requests', 'work-orders', 'assignments', 'schedule', 'checklists', 'reports'] as $screen) {
+        Route::get('maintenance/'.$screen, MaintenancePage::class)->defaults('screen', $screen)->name('maintenance.'.$screen);
+    }
+    Route::redirect('workshops', '/workshops/dashboard')->name('workshops.index');
+    foreach (['dashboard', 'settings', 'intakes', 'jobs', 'reports'] as $screen) {
+        Route::get('workshops/'.$screen, WorkshopsPage::class)->defaults('screen', $screen)->name('workshops.'.$screen);
+    }
+    Route::get('workshops/intakes/create', IntakePage::class)->name('workshops.intakes.create');
+    Route::get('workshops/exports/{format}', WorkshopExportController::class)->whereIn('format', ['xlsx', 'pdf'])->name('workshops.exports');
+    Route::get('workshops/intakes/{intake}', IntakePage::class)->whereNumber('intake')->name('workshops.intakes.show');
+    Route::get('workshops/jobs/{job}', JobPage::class)->whereNumber('job')->name('workshops.jobs.show');
+    Route::get('workshops/jobs/{job}/{type}/{record}/pdf', RepairDocumentController::class)->whereNumber(['job', 'record'])->whereIn('type', ['quote', 'delivery'])->name('workshops.official');
+    Route::get('workshops/documents/{document}', fn (int $document) => app(WorkshopDocuments::class)->download(auth()->id(), $document))->whereNumber('document')->name('workshops.documents');
+    Route::get('workshops/jobs/{job}/report', fn (int $job) => app(WorkshopDocuments::class)->report(auth()->id(), $job))->whereNumber('job')->name('workshops.reports.download');
+    Route::get('tenders', TendersPage::class)->name('tenders.index');
+    Route::get('tenders/dashboard', TendersPage::class)->defaults('screen', 'dashboard')->name('tenders.dashboard');
+    Route::get('tenders/reports', TendersPage::class)->defaults('screen', 'reports')->name('tenders.reports');
+    Route::get('tenders/exports/{format}', TenderExportController::class)->whereIn('format', ['xlsx', 'pdf'])->name('tenders.export');
+    Route::get('tenders/create', TenderPage::class)->name('tenders.create');
+    Route::get('tenders/documents/{document}', fn (int $document) => app(TenderDocuments::class)->download(auth()->id(), $document))->whereNumber('document')->name('tenders.document');
+    Route::get('tenders/{tender}/bids/{financial}/pdf', fn (int $tender, int $financial) => app(TenderDocuments::class)->bid(auth()->id(), $tender, $financial))->whereNumber(['tender', 'financial'])->name('tenders.bid');
+    Route::get('tenders/{tender}', TenderPage::class)->whereNumber('tender')->name('tenders.show');
+    Route::get('maintenance', MaintenancePage::class)->name('maintenance.index');
+    Route::get('maintenance/requests/create', MaintenanceRequestPage::class)->name('maintenance.requests.create');
+    Route::get('maintenance/work-orders/create', MaintenanceRequestPage::class)->defaults('standalone', true)->name('maintenance.work-orders.create');
+    Route::get('maintenance/requests/{request}', MaintenanceRequestPage::class)->whereNumber('request')->name('maintenance.requests.show');
+    Route::get('maintenance/work-orders/{workOrder}', MaintenanceWorkOrderPage::class)->whereNumber('workOrder')->name('maintenance.work-orders.show');
+    Route::get('maintenance/documents/{document}', [MaintenanceDownloadController::class, 'document'])->whereNumber('document')->name('maintenance.documents');
+    Route::get('maintenance/work-orders/{workOrder}/reports/{completion}', [MaintenanceDownloadController::class, 'report'])->whereNumber(['workOrder', 'completion'])->name('maintenance.report');
+    Route::get('dashboard', \App\Livewire\ExecutiveDashboardPage::class)->name('dashboard');
     Route::get('organization/company', CompanyPage::class)->name('organization.company');
     Route::get('organization/company/logo', CompanyLogoController::class)->name('organization.company.logo');
     Route::get('organization/branches', BranchesPage::class)->name('organization.branches');

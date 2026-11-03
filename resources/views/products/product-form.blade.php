@@ -1,4 +1,4 @@
-<div class="space-y-6" dir="rtl">
+<div data-erp-archetype="form" class="space-y-6" dir="rtl">
     @php
         $kindLabels = ['serialized_equipment' => 'معدات برقم تسلسلي', 'bulk' => 'مواد بالكمية', 'service' => 'خدمة'];
         $trackingLabels = ['serial' => 'تتبع الرقم التسلسلي', 'quantity' => 'تتبع الكمية', 'none' => 'بدون تتبع مخزني'];
@@ -18,12 +18,10 @@
         </x-slot:actions>
     </x-page.heading>
 
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
 
-    <form wire:submit="save" class="grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_19rem]">
-        @if ($errors->any())
-            <div class="xl:col-span-2" role="alert"><flux:callout variant="danger" heading="راجع البيانات قبل الحفظ">{{ $errors->first() }}</flux:callout></div>
-        @endif
+    <form wire:submit="save" class="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_19rem]">
+        <x-ui.validation-summary />
         <div class="space-y-5">
             <x-erp.section-card title="المعلومات الأساسية">
                 <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

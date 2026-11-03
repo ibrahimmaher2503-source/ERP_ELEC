@@ -1,5 +1,7 @@
 # M11 Accounting and Finance — 2026-10-22
 
+2026-10-27 continuation: approved V1 tax/rounding/cutover policy and [Financial activation delivery](v1-financial-activation.md) supersede historical missing-general-policy/producer statements below. Setup, tax calculations, private official numbering/PDF, controlled opening activation, journal posting, FIFO receipt/issue costing and atomic receipt/GRNI paths are implemented locally. Financial acceptance is deferred; actual company posting remains inactive. Earlier evidence below does not accept these additions.
+
 Status: PARTIAL IMPLEMENTATION — NOT ACCEPTED. Work remains local. No financial or stock posting has been enabled.
 
 ## Saved implementation

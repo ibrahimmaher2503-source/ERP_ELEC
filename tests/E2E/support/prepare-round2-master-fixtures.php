@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use App\Modules\Organization\Application\AssignUserRole;
 use App\Modules\Products\Domain\Unit;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ $app->make(Kernel::class)->bootstrap();
 if (DB::connection()->getDriverName() !== 'pgsql' || DB::connection()->getDatabaseName() !== 'erp_elec_new_test') {
     throw new RuntimeException('Round2 master fixtures require exact PostgreSQL erp_elec_new_test.');
 }
-foreach (['users', 'permission_catalog', 'access_grants', 'units_of_measure'] as $table) {
+foreach (['users', 'roles', 'user_roles', 'access_audits', 'permission_catalog', 'access_grants', 'units_of_measure'] as $table) {
     if (! Schema::hasTable($table)) {
         throw new RuntimeException("Run test database migrations first ({$table}).");
     }
@@ -30,7 +31,7 @@ $mode = $argv[1] ?? '';
 if ($mode === 'verify-user') {
     $name = DB::table('users')->where('email', $input['email'])->value('name');
     if ($name !== $input['name']) {
-        throw new RuntimeException('The managed user name did not match the final browser save.');
+        throw new RuntimeException('The managed user name did not match the final browser save (persisted: '.($name ?? 'missing').').');
     }
     fwrite(STDOUT, json_encode(['persisted_name' => $name], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
     exit(0);
@@ -48,7 +49,8 @@ if ($mode === 'verify') {
         'company' => (array) DB::table('companies')->where('id', 1)->first(['name', 'code', 'legal_name']),
     ];
     if ($actual !== $input['expected']) {
-        throw new RuntimeException('Persisted master data did not match the final browser saves.');
+        fwrite(STDERR, json_encode(['error' => 'Persisted master data did not match the final browser saves.', 'expected' => $input['expected'], 'actual' => $actual], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE).PHP_EOL);
+        exit(1);
     }
     fwrite(STDOUT, json_encode(['persisted' => $actual], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
     exit(0);
@@ -64,7 +66,7 @@ if (! preg_match('/^[A-F0-9]{12}$/', $tag) || strlen($password) < 32) {
 
 $unit = Unit::query()->where('active', true)->orderBy('id')->first();
 if (! $unit) {
-    throw new RuntimeException('The test database has no active unit; refusing to invent master infrastructure data.');
+    $unit = Unit::factory()->create();
 }
 $email = 'round2-master-'.$tag.'@example.test';
 $user = User::query()->where('email', $email)->first();
@@ -82,23 +84,32 @@ $user = User::factory()->create([
     'session_version' => 1,
 ]);
 
-$permissions = DB::table('permission_catalog')->where(function ($query) {
-    $query->where('code', 'like', 'M02.%')->orWhere('code', 'like', 'M03.%')
-        ->orWhereIn('code', ['M01.branch_admin', 'M01.branch_create', 'M01.company_view', 'M01.company_update', 'M01.user_admin', 'M01.user_create']);
-})->pluck('code')->all();
-if ($permissions === []) {
-    throw new RuntimeException('M02/M03 capabilities are not registered in the isolated test database.');
+// This script is pinned to the isolated test DB above. A one-purpose bootstrap
+// actor supplies the initial security authority; the E2E operator's Administrator
+// membership itself is assigned and audited through Organization's real action.
+$bootstrap = User::factory()->create([
+    'email' => 'round2-bootstrap-'.$tag.'@example.test',
+    'name' => 'Round2 isolated security bootstrap '.$tag,
+    'active' => true,
+    'email_verified_at' => now(),
+    'password' => Hash::make(bin2hex(random_bytes(32))),
+    'gender' => 'male',
+    'version' => 1,
+    'session_version' => 1,
+]);
+DB::table('access_grants')->insert([
+    'user_id' => $bootstrap->id,
+    'permission_code' => 'M01.security_admin',
+    'branch_id' => null,
+    'created_at' => now(),
+    'updated_at' => now(),
+]);
+$administrator = DB::table('roles')->where('code', 'Administrator')->first(['id', 'version']);
+if (! $administrator || ! DB::table('role_permissions')->where('role_id', $administrator->id)->where('permission_code', 'M01.security_admin')->exists()) {
+    throw new RuntimeException('The isolated test database is missing the registered Administrator security capability.');
 }
+app(AssignUserRole::class)->execute($bootstrap, (int) $administrator->id, (int) $user->id, true, (int) $administrator->version);
 $company = DB::table('companies')->where('id', 1)->first(['name', 'code', 'legal_name']);
-foreach ($permissions as $permission) {
-    DB::table('access_grants')->insert([
-        'user_id' => $user->id,
-        'permission_code' => $permission,
-        'branch_id' => null,
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
-}
 fwrite(STDOUT, json_encode([
     'actor' => ['id' => (int) $user->id, 'email' => $email],
     'unit' => ['id' => (int) $unit->id, 'name' => $unit->name],

@@ -33,11 +33,17 @@ class FoundationTest extends TestCase
 
     public function test_dashboard_renders_arabic_rtl_without_business_totals(): void
     {
-        $this->actingAs(User::factory()->create())
-            ->get(route('dashboard'))
+        $response = $this->actingAs(User::factory()->create())
+            ->get(route('dashboard'));
+
+        $response
             ->assertOk()
             ->assertSee('dir="rtl"', false)
-            ->assertSee('مساحة العمل')
-            ->assertSee('لا توجد بيانات تشغيلية بعد');
+            ->assertSee('لوحة المؤشرات')
+            ->assertSee('لا توجد وحدات متاحة لحسابك')
+            ->assertDontSee('class="workspace-module"', false)
+            ->assertDontSee('erp-stat-card', false)
+            ->assertDontSee('إجمالي الأصناف')
+            ->assertDontSee('إجمالي الذمم');
     }
 }

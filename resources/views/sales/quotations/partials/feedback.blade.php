@@ -1,2 +1,2 @@
-@if(session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
-@if($errors->any())<flux:callout variant="danger"><ul class="list-inside list-disc">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></flux:callout>@endif
+@if(session('status'))<flux:callout variant="success" role="status" aria-live="polite">{{ session('status') }}</flux:callout>@endif
+<x-ui.validation-summary />

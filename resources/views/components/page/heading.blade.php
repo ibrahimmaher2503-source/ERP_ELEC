@@ -10,8 +10,11 @@
         request()->routeIs('organization.company') => ['التنظيم', 'الشركة'],
         request()->routeIs('organization.branches') => ['التنظيم', 'الفروع'],
         request()->routeIs('organization.branches.show') => ['التنظيم', 'الفروع', 'تفاصيل الفرع'],
-        default => [],
+        default => [$title],
     };
+    if (($breadcrumbs[0] ?? null) === 'الرئيسية') {
+        array_shift($breadcrumbs);
+    }
     $breadcrumbRoutes = [
         'المشروعات' => 'projects.index',
         'المشتريات' => 'purchasing.dashboard',
@@ -45,6 +48,7 @@
         'الأدوار والصلاحيات' => 'organization.roles',
         'الصلاحيات' => 'organization.permissions',
     ];
+    $hasSecondaryActions = isset($secondaryActions) && trim((string) $secondaryActions) !== '';
 @endphp
 
 <header {{ $attributes->class(['erp-page-heading flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between']) }}>
@@ -55,7 +59,15 @@
                     <li><a href="{{ route('dashboard') }}" wire:navigate class="rounded hover:text-[#202B3D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#202B3D]">الرئيسية</a></li>
                     @foreach ($breadcrumbs as $breadcrumb)
                         <li aria-hidden="true"><flux:icon.chevron-left class="size-3" /></li>
-                        <li><a href="{{ isset($breadcrumbRoutes[$breadcrumb]) ? route($breadcrumbRoutes[$breadcrumb]) : request()->url() }}" wire:navigate @if($loop->last) aria-current="page" @endif>{{ $breadcrumb }}</a></li>
+                        <li>
+                            @if($loop->last)
+                                <span aria-current="page">{{ $breadcrumb }}</span>
+                            @elseif(isset($breadcrumbRoutes[$breadcrumb]))
+                                <a href="{{ route($breadcrumbRoutes[$breadcrumb]) }}" wire:navigate>{{ $breadcrumb }}</a>
+                            @else
+                                <span>{{ $breadcrumb }}</span>
+                            @endif
+                        </li>
                     @endforeach
                 </ol>
             </nav>
@@ -65,7 +77,17 @@
             <flux:text>{{ $description }}</flux:text>
         @endif
     </div>
-    @isset($actions)
-        <div class="flex flex-wrap items-center gap-2">{{ $actions }}</div>
-    @endisset
+    @if(isset($actions) || $hasSecondaryActions)
+        <div class="erp-page-actions flex flex-wrap items-center gap-2">
+            @isset($actions){{ $actions }}@endisset
+            @if($hasSecondaryActions)
+                <div class="erp-secondary-actions" x-data="{ expanded: false }" @click.outside="expanded = false" @keydown.escape.stop="expanded = false; $refs.toggle?.focus()">
+                    <button type="button" x-ref="toggle" class="erp-secondary-toggle" @click="expanded = !expanded" :aria-expanded="expanded.toString()" aria-controls="{{ $attributes->get('id', 'page-actions') }}-secondary">
+                        <flux:icon.ellipsis-horizontal class="size-5" aria-hidden="true" /><span>المزيد</span>
+                    </button>
+                    <div id="{{ $attributes->get('id', 'page-actions') }}-secondary" class="erp-secondary-menu" data-open="true" :data-open="expanded.toString()">{{ $secondaryActions }}</div>
+                </div>
+            @endif
+        </div>
+    @endif
 </header>

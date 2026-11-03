@@ -20,7 +20,7 @@ final class InventoryExportController
         $ids = $access->ids($actor, 'export');
         abort_unless($ids !== [], 403);
         [$q,$columns] = match ($entity) {
-            'balances' => [$query->balances($actor), ['sku' => 'SKU', 'product_name' => 'الصنف', 'warehouse_id' => 'المستودع', 'unit_name' => 'الوحدة', 'on_hand' => 'الرصيد الفعلي', 'unavailable'=>'Unavailable', 'reserved' => 'المحجوز', 'available' => 'المتاح', 'minimum' => 'الحد الأدنى']],
+            'balances' => [$query->balances($actor), ['sku' => 'SKU', 'product_name' => 'الصنف', 'warehouse_id' => 'المستودع', 'unit_name' => 'الوحدة', 'on_hand' => 'الرصيد الفعلي', 'unavailable' => 'Unavailable', 'reserved' => 'المحجوز', 'available' => 'المتاح', 'minimum' => 'الحد الأدنى']],
             'movements' => [$query->movements($actor), ['id' => 'الحركة', 'sku' => 'SKU', 'product_name' => 'الصنف', 'warehouse_id' => 'المستودع', 'quantity' => 'الكمية', 'operation' => 'العملية', 'source_module' => 'المصدر', 'source_id' => 'المرجع', 'posted_at' => 'وقت الترحيل UTC']],
             'reservations' => [$query->reservations($actor), ['id' => 'الحجز', 'product_id' => 'الصنف', 'warehouse_id' => 'المستودع', 'requested' => 'المطلوب', 'reserved' => 'المحجوز أصلًا', 'fulfilled' => 'المنفذ', 'released' => 'المحرر', 'source_id' => 'المصدر']],
             'warehouses' => [$query->warehouses($actor), ['code' => 'الكود', 'name' => 'المستودع', 'branch_id' => 'الفرع', 'address' => 'العنوان', 'active' => 'نشط']],
@@ -46,6 +46,6 @@ final class InventoryExportController
             }
         })());
 
-        return response()->download($path, 'inventory-'.$entity.'.xlsx', ['Cache-Control' => 'private, no-store'])->deleteFileAfterSend();
+        return response()->download($path, 'inventory-'.$entity.'.xlsx', ['Cache-Control' => 'private, no-store'])->setPrivate()->deleteFileAfterSend();
     }
 }

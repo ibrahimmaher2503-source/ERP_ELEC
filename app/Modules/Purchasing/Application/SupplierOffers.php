@@ -200,7 +200,9 @@ final class SupplierOffers
                 $this->fail('المقترح تمت معالجته أو نسخته قديمة.');
             }
             $offer = $this->record($actor, $row->offer_id);
-            if ($approve) { $this->assertCurrentRevision($offer); }
+            if ($approve) {
+                $this->assertCurrentRevision($offer);
+            }
             if ($approve && $offer->valid_until && $offer->valid_until < now('Africa/Cairo')->toDateString()) {
                 $this->fail('انتهت صلاحية العرض.');
             }

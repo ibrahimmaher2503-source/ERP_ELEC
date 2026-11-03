@@ -1,4 +1,4 @@
-<div class="quotation-page space-y-4">
+<div data-erp-archetype="form" class="quotation-page space-y-4">
  @include('sales.quotations.partials.detail-header',['heading'=>'مراجعة استثناءات عرض السعر'])
  @include('sales.quotations.partials.identity')
  @if($evaluation['blockers'])<flux:callout variant="warning" icon="shield-check">{{ implode(' ',$evaluation['blockers']) }}</flux:callout>@else<flux:callout icon="shield-check">{{ count($evaluation['exceptions']) }} استثناءات حسب السياسة الحالية. الاعتماد أو الرفض يشمل جميع الاستثناءات في قرار واحد.</flux:callout>@endif

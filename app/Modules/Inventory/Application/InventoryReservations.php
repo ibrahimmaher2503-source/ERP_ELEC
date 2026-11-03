@@ -2,9 +2,13 @@
 
 namespace App\Modules\Inventory\Application;
 
+use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
 use App\Modules\Inventory\Domain\InventoryChanged;
 use App\Modules\Products\Application\Contracts\ProductsApi;
+use App\Modules\Projects\Application\Contracts\ProjectsApi;
+use App\Modules\Sales\Application\Contracts\SalesDeliverySources;
 use App\Modules\Sales\Application\Contracts\SalesOrdersApi;
+use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
@@ -16,6 +20,10 @@ final class InventoryReservations
         $out = (array) $r;
         $out['outstanding'] = bcsub(bcsub($r->reserved, $r->fulfilled, 8), $r->released, 8);
         $out['unreserved'] = bcsub($r->requested, $r->reserved, 8);
+        if (in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true) && DB::table('inventory_reservation_events')->where('reservation_id', $r->id)->where('action', 'released')->exists()) {
+            $out['unreserved'] = '0.00000000';
+            $out['demand_cancelled'] = true;
+        }
 
         return $out;
     }
@@ -24,7 +32,7 @@ final class InventoryReservations
     {
         return DB::transaction(function () use ($actor, $data) {
             InventoryActions::lock();
-            $d = Validator::make($data, ['warehouse_id' => ['required', 'integer'], 'product_id' => ['required', 'integer'], 'quantity' => ['required', 'string'], 'source_module' => ['required', 'in:sales'], 'source_id' => ['required', 'string', 'max:100', 'not_regex:/\x00/'], 'source_line' => ['required', 'string', 'max:100', 'not_regex:/\x00/'], 'idempotency_key' => ['required', 'uuid']])->validate();
+            $d = Validator::make($data, ['warehouse_id' => ['required', 'integer'], 'product_id' => ['required', 'integer'], 'quantity' => ['required', 'string'], 'source_module' => ['required', 'in:sales,projects,maintenance,workshop'], 'source_id' => ['required', 'string', 'max:100', 'not_regex:/\x00/'], 'source_line' => ['required', 'string', 'max:100', 'not_regex:/\x00/'], 'idempotency_key' => ['required', 'uuid']])->validate();
             app(InventoryAccess::class)->authorize($actor, 'reservation_manage', (int) $d['warehouse_id']);
             $quantity = app(InventoryLedger::class)->quantity($d['quantity']);
             $existing = DB::table('inventory_reservations')->where('idempotency_key', $d['idempotency_key'])->first();
@@ -44,22 +52,28 @@ final class InventoryReservations
             if (! $w->active) {
                 InventoryActions::fail('المستودع غير نشط.');
             }
-            $demand = app(SalesOrdersApi::class)->inventoryDemand($actor, $d['source_id'], $d['source_line']);
+            $demand = $this->demand($actor, $d['source_module'], $d['source_id'], $d['source_line']);
             if (! $demand['eligible'] || $demand['product_id'] !== (int) $d['product_id'] || $demand['branch_id'] !== $w->branch_id) {
                 InventoryActions::fail('مصدر الحجز غير صالح للصنف أو الفرع.');
             }
             $already = '0';
             foreach (DB::table('inventory_reservations')->where('source_module', $d['source_module'])->where('source_id', $d['source_id'])->where('source_line', $d['source_line'])->get() as $r) {
-                $already = bcadd($already, bcsub($r->reserved, $r->released, 8), 8);
+                $claim = in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true) ? $r->requested : $r->reserved;
+                if (in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true) && DB::table('inventory_reservation_events')->where('reservation_id', $r->id)->where('action', 'released')->exists()) {
+                    $claim = bcadd($r->fulfilled, $r->released, 8);
+                }
+                $already = bcadd($already, bcsub($claim, $r->released, 8), 8);
             }
             if (bccomp(bcadd($already, $quantity, 8), $demand['quantity'], 8) > 0) {
-                InventoryActions::fail('الحجز المطلوب يتجاوز طلب البيع المسموح.');
+                InventoryActions::fail('الحجز المطلوب يتجاوز كمية المصدر المسموح بها.');
             }
             $b = app(InventoryLedger::class)->balance($actor, (int) $d['warehouse_id'], (int) $d['product_id']);
             $reserve = bccomp($quantity, $b->available, 8) > 0 ? $b->available : $quantity;
             $id = DB::table('inventory_reservations')->insertGetId(['idempotency_key' => $d['idempotency_key'], 'source_module' => $d['source_module'], 'source_id' => $d['source_id'], 'source_line' => $d['source_line'], 'warehouse_id' => $d['warehouse_id'], 'product_id' => $d['product_id'], 'requested' => $quantity, 'reserved' => $reserve, 'actor_id' => $actor, 'created_at' => now(), 'updated_at' => now()]);
-            $p=app(ProductsApi::class)->inventoryProduct($actor,(int)$d['product_id']);
-            if ($p['tracking']==='serial') { app(InventorySerials::class)->reserve($actor,$id,(int)$d['warehouse_id'],(int)$d['product_id'],$reserve); }
+            $p = app(ProductsApi::class)->inventoryProduct($actor, (int) $d['product_id']);
+            if ($p['tracking'] === 'serial') {
+                app(InventorySerials::class)->reserve($actor, $id, (int) $d['warehouse_id'], (int) $d['product_id'], $reserve);
+            }
             DB::table('inventory_balances')->where('id', $b->id)->update(['reserved' => bcadd($b->reserved, $reserve, 8), 'version' => $b->version + 1, 'updated_at' => now()]);
             DB::table('inventory_reservation_events')->insert(['reservation_id' => $id, 'action' => 'requested', 'quantity' => $reserve, 'idempotency_key' => $d['idempotency_key'], 'actor_id' => $actor, 'occurred_at' => now()]);
             $out = $this->result(DB::table('inventory_reservations')->where('id', $id)->first());
@@ -76,6 +90,46 @@ final class InventoryReservations
         app(InventoryAccess::class)->authorize($actor, 'reservation_view', $r->warehouse_id);
 
         return $this->result($r);
+    }
+
+    public function replenish(int $actor, int $id, string $quantity, string $key): array
+    {
+        return DB::transaction(function () use ($actor, $id, $quantity, $key) {
+            InventoryActions::lock();
+            Validator::make(['key' => $key], ['key' => 'required|uuid'])->validate();
+            $quantity = app(InventoryLedger::class)->quantity($quantity);
+            $r = DB::table('inventory_reservations')->lockForUpdate()->find($id);
+            abort_unless($r, 404);
+            app(InventoryAccess::class)->authorize($actor, 'reservation_manage', $r->warehouse_id);
+            $demand = $this->demand($actor, $r->source_module, $r->source_id, $r->source_line);
+            abort_if(in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true) && DB::table('inventory_reservation_events')->where('reservation_id', $r->id)->where('action', 'released')->exists(), 409, 'تم إلغاء بقية الطلب. أنشئ حجزاً جديداً.');
+            $old = DB::table('inventory_reservation_events')->where('idempotency_key', $key)->first();
+            if ($old) {
+                abort_unless($old->reservation_id === $id && $old->action === 'replenished' && bccomp($old->quantity, $quantity, 8) === 0, 409);
+
+                return $this->result($r);
+            }
+            $w = DB::table('inventory_warehouses')->where('active', true)->find($r->warehouse_id);
+            abort_unless($w && $demand['eligible'] && $demand['product_id'] === $r->product_id && $demand['branch_id'] === $w->branch_id, 409);
+            $already = '0';
+            foreach (DB::table('inventory_reservations')->where('source_module', $r->source_module)->where('source_id', $r->source_id)->where('source_line', $r->source_line)->get() as $existing) {
+                $already = bcadd($already, bcsub($existing->reserved, $existing->released, 8), 8);
+            }
+            $balance = app(InventoryLedger::class)->balance($actor, $r->warehouse_id, $r->product_id);
+            abort_unless(bccomp($quantity, bcsub($r->requested, $r->reserved, 8), 8) <= 0
+                && bccomp(bcadd($already, $quantity, 8), $demand['quantity'], 8) <= 0 && bccomp($quantity, $balance->available, 8) <= 0, 422, 'الكمية تتجاوز الطلب المؤجل أو المخزون المتاح.');
+            $product = app(ProductsApi::class)->inventoryProduct($actor, $r->product_id);
+            if ($product['tracking'] === 'serial') {
+                app(InventorySerials::class)->reserve($actor, $id, $r->warehouse_id, $r->product_id, $quantity);
+            }
+            DB::table('inventory_reservations')->where('id', $id)->update(['reserved' => bcadd($r->reserved, $quantity, 8), 'updated_at' => now()]);
+            DB::table('inventory_balances')->where('id', $balance->id)->update(['reserved' => bcadd($balance->reserved, $quantity, 8), 'version' => $balance->version + 1, 'updated_at' => now()]);
+            DB::table('inventory_reservation_events')->insert(['reservation_id' => $id, 'action' => 'replenished', 'quantity' => $quantity, 'idempotency_key' => $key, 'actor_id' => $actor, 'occurred_at' => now()]);
+            $result = $this->result(DB::table('inventory_reservations')->find($id));
+            event(new InventoryChanged($actor, 'reservation', $id, 'backorder_allocated', null, $result));
+
+            return $result;
+        });
     }
 
     /** Replaces only outstanding demand; already fulfilled stock remains immutable. */
@@ -129,7 +183,9 @@ final class InventoryReservations
 
                 return $this->result($r);
             }
-            if ($quantity === null && ! app(SalesOrdersApi::class)->inventoryReleaseAllowed($actor, $r->source_id, $r->source_line)) {
+            if ($quantity === null && ! (in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true) ? match ($r->source_module) {
+                'maintenance' => app(FieldMaintenanceApi::class)->releaseAllowed($actor, $r->source_id, $r->source_line), 'workshop' => app(WorkshopApi::class)->releaseAllowed($actor, $r->source_id, $r->source_line), default => app(ProjectsApi::class)->releaseAllowed($actor, $r->source_id, $r->source_line)
+            } : app(SalesOrdersApi::class)->inventoryReleaseAllowed($actor, $r->source_id, $r->source_line))) {
                 InventoryActions::fail('فك الحجز يحتاج إلغاءً أو تخفيضًا مؤهلًا من مصدر الطلب.');
             }
             $outstanding = $this->result($r)['outstanding'];
@@ -140,7 +196,18 @@ final class InventoryReservations
             $b = DB::table('inventory_balances')->where('warehouse_id', $r->warehouse_id)->where('product_id', $r->product_id)->lockForUpdate()->first();
             if ($quantity !== null) {
                 // Inventory does not infer delivery eligibility from a generic stock permission.
-                $demand = app(SalesOrdersApi::class)->inventoryDemand($actor, $r->source_id, $r->source_line);
+                if (in_array($r->source_module, ['projects', 'maintenance', 'workshop'], true)) {
+                    if ($r->source_module === 'workshop') {
+                        app(WorkshopApi::class)->authorizeIssue($actor, $r->source_id, $r->source_line, $key, $r->warehouse_id, $amount);
+                    } elseif ($r->source_module === 'maintenance') {
+                        app(FieldMaintenanceApi::class)->authorizeIssue($actor, $r->source_id, $r->source_line, $key, $r->warehouse_id, $amount);
+                    } else {
+                        app(ProjectsApi::class)->authorizeMaterialIssue($actor, $r->source_id, $r->source_line, $key, $r->warehouse_id, $amount);
+                    }
+                } else {
+                    app(SalesDeliverySources::class)->authorizeIssue($actor, $r->source_id, $r->source_line, $key, $r->warehouse_id, $amount);
+                }
+                $demand = $this->demand($actor, $r->source_module, $r->source_id, $r->source_line, 'material_issue');
                 $fulfilled = (string) DB::table('inventory_reservations')->where('source_module', $r->source_module)->where('source_id', $r->source_id)->where('source_line', $r->source_line)->sum('fulfilled');
                 if (! $demand['eligible'] || $demand['product_id'] !== $r->product_id || bccomp(bcadd($fulfilled, $amount, 8), $demand['quantity'], 8) > 0) {
                     InventoryActions::fail('مصدر الطلب لم يعد يسمح بصرف هذه الكمية.');
@@ -150,9 +217,13 @@ final class InventoryReservations
                 if (! $w->active) {
                     InventoryActions::fail('المستودع غير نشط.');
                 }
-                app(InventoryLedger::class)->post($actor, $r->warehouse_id, ['product_id' => $r->product_id, 'base_unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'reservation_id'=>$id, 'serials'=>$p['tracking']==='serial'?app(InventorySerials::class)->reserved($id,$amount):[]], bcsub('0', $amount, 8), 'reservation_issue', 'Sales', $r->source_id, $r->source_line, 'reservation:'.$key, null, $amount);
+                app(InventoryLedger::class)->post($actor, $r->warehouse_id, ['product_id' => $r->product_id, 'base_unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'reservation_id' => $id, 'serials' => $p['tracking'] === 'serial' ? app(InventorySerials::class)->reserved($id, $amount) : []], bcsub('0', $amount, 8), match ($r->source_module) {
+                    'workshop' => 'workshop_issue','maintenance' => 'maintenance_issue','projects' => 'project_issue',default => 'reservation_issue'
+                }, match ($r->source_module) {
+                    'workshop' => 'WorkshopRepairs','maintenance' => 'FieldMaintenance','projects' => 'Projects',default => 'Sales'
+                }, $r->source_id, $r->source_line, 'reservation:'.$key, null, $amount);
             } else {
-                app(InventorySerials::class)->releaseReservation($actor,$id);
+                app(InventorySerials::class)->releaseReservation($actor, $id);
                 DB::table('inventory_balances')->where('id', $b->id)->update(['reserved' => bcsub($b->reserved, $amount, 8), 'version' => $b->version + 1, 'updated_at' => now()]);
             }
             DB::table('inventory_reservations')->where('id', $id)->update([$action => bcadd($r->$action, $amount, 8), 'updated_at' => now()]);
@@ -162,5 +233,17 @@ final class InventoryReservations
 
             return $out;
         });
+    }
+
+    private function demand(int $actor, string $module, string $source, string $line, string $permission = 'material_manage'): array
+    {
+        if ($module === 'workshop') {
+            return app(WorkshopApi::class)->inventoryDemand($actor, $source, $line, $permission);
+        }
+        if ($module === 'maintenance') {
+            return app(FieldMaintenanceApi::class)->inventoryDemand($actor, $source, $line, $permission);
+        }
+
+        return $module === 'projects' ? app(ProjectsApi::class)->inventoryDemand($actor, $source, $line, $permission) : app(SalesOrdersApi::class)->inventoryDemand($actor, $source, $line);
     }
 }

@@ -1,0 +1,27 @@
+# Final deployment checklist
+
+Production activation: **BLOCKED**. No real deployment was activated. Checkpoints below distinguish source/configuration from runtime and production proof.
+
+| Area | Current evidence | Production verification / action |
+|---|---|---|
+| Exact release | Dirty `main` at `28cca25ef242bbcdcfcd29a976f8e3a552768a87`; original changes preserved | Select/review an exact release artifact including uncommitted modules, migrations and evidence. HEAD alone is insufficient. |
+| Runtime | Installed Laravel 13.38.0 / PHP 8.4.21 / PostgreSQL 17.11; Livewire/Flux/Tailwind/Vite from lockfiles | Verify supported target runtime/extensions and reproducible Composer/npm installation on a clean host. Local versions do not prove target versions. |
+| Database | Development loopback 5443; isolated checks use explicit 554xx clusters; `.env.testing` defaults to 5443 with a separate DB name | Pin every destructive check to a disposable target; use least-privilege production app/migration roles, TLS/network policy, migration backup and restore plan. |
+| Migrations | Baseline through 191; new forward 192–197 tested on isolated copies | Review/apply the complete forward chain on the selected release, verify no pending migration, and audit Administrator additions. Never rewrite applied migrations or reseed operating records. |
+| Secrets | Key/password presence captured without values in `evidence/final-20261030/deployment-config-sanitized.json`; `.env` is local | Inject unique production secrets, verify exclusion from version control/artifacts/logs and key recovery custody. Presence is not validation of rotation or storage security. |
+| Web / assets | Local server with actual asset router; Vite and Blade receipts; local fonts served from `public/fonts` | Configure real document root `public`, HTTPS, PHP process manager, cache/asset serving, upload limits and health checks. `artisan serve` is not the production server. |
+| Sessions | Source HTTP-only and SameSite lax defaults; local database sessions; local Secure-cookie unset | Confirm HTTPS-only secure cookies, trusted proxies/hosts, session lifetime/logout/revocation, active/verified-user policy on target host. |
+| Debug / logging | Local `.env` uses `APP_ENV=local`, debug true, debug logging and log mailer | Set production/debug false, redact logs, configure retention/access, operational alerts and verified mail delivery. Local debug is not a production configuration. |
+| Private documents | Owner authorization, hashes, private filesystem and DB-held official PDFs implemented | Verify filesystem outside web root, target permissions, encrypted backup, restore of attachments and APP_KEY, no direct public access. |
+| Scheduler | `routes/console.php` schedules `erp:cleanup-data-operations` every minute with overlap protection | Install/observe the real scheduler; verify locking/cache and cleanup retention. Source registration is not a running schedule. |
+| Queues | Local database queue configured; required stock/GL effects are synchronous | Inventory/background handlers must not be guessed. Verify actual pending jobs, retry/failure monitoring and supervised workers where used. |
+| Infrastructure | `compose.yaml` contains PostgreSQL and optional Redis only | No verified complete application/web/supervisor/monitoring deployment is provided by this file. Redis remains optional. |
+| Financial readiness | Exact EGP decimal/tax snapshots and synthetic journeys work; two financial P0 failures reproduced | Repair period-close authorization and historical cutoff reconciliation; rerun independent negative cases before financial activation. |
+| Company configuration | Baseline Go-Live/activation unset; synthetic data is identifiable | Obtain actual legal identity, branch/warehouse/workshop configuration, approved tax treatment, accounts, periods, cutover date and independently reconciled openings. Never adopt test-company numbers. |
+| Missing modules | M10 and M15 absent | Implement/accept, or obtain an explicit revised release scope. Do not label absent contract coverage or attendance operational. |
+| Egyptian documents | Local immutable numbering/PDF hashes implemented | Verify the company's applicable Egyptian tax/document obligations and actual required registration, signatures and integration. A local PDF/hash does not establish an accepted statutory submission. |
+| Backup / restore | Phase 0 clean recovery seed and historical Phase 3 recovery exist; final capability recovery receipt required | Test final schema plus official PDFs/private files and secrets on a new host, record elapsed recovery, reconcile controls, define RPO/RTO, retention, offsite copy and restore responsibility. |
+| Clean installation | Fresh disposable schema migration/financial campaigns executed | Full target-host installation, web access, storage/scheduler/queue/mail/HTTPS and restoration remain NOT TESTED. |
+| Rollout | No remote publish or company activation performed | Perform internal acceptance, operator training, documented cutover and support/rollback rehearsal. Activate only after all prerequisites pass. |
+
+Use `PHASE0_RECOVERY_RUNBOOK.md` as an existing reference, then update it for the final schema and measured recovery. The deployment must restore the database, private attachments, application key and configuration as one coherent release. Do not conflate a successful `pg_restore` into a local synthetic clone with verified production recovery.

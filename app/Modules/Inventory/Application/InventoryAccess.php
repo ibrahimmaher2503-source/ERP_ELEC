@@ -64,9 +64,10 @@ final class InventoryAccess
             }
         }
 
-        $links['serials']=$has('serial_view');
-        $links['isolations']=$has('isolation_manage') || $has('isolation_release');
-        $links['corrections']=$has('correction_execute');
+        $links['serials'] = $has('serial_view');
+        $links['isolations'] = $has('isolation_manage') || $has('isolation_release');
+        $links['corrections'] = $has('correction_execute');
+
         return $links;
     }
 }

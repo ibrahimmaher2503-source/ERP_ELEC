@@ -40,6 +40,7 @@ yarn-error.log
 /.tools
 /.env.testing
 /.local
+/.tmp
 
 # Local environment variants and private credentials.
 .env.*

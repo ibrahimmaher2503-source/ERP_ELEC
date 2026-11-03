@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<div data-erp-archetype="details" class="space-y-6">
     <x-page.heading :title="$record->name" description="تفاصيل الفرع وبياناته التنظيمية">
         <x-slot:actions>
             @if (app(\App\Modules\Organization\Application\OrganizationAccess::class)->allows(auth()->user(), 'M01.company_view') && \Illuminate\Support\Facades\Route::has('organization.company'))

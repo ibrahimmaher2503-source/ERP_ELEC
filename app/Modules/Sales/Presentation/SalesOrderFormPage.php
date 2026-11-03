@@ -4,6 +4,7 @@ namespace App\Modules\Sales\Presentation;
 
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
+use App\Modules\Sales\Application\Contracts\QuotationPricing;
 use App\Modules\Sales\Application\DraftAmounts;
 use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesOrderActions;
@@ -133,6 +134,11 @@ class SalesOrderFormPage extends Component
     public function updatedLines($value, $key): void
     {
         $this->authorizeCurrentAction();
+        if (preg_match('/^(\d+)\.unit_id$/D', $key, $match)) {
+            $this->refreshSuggestedPrice((int) $match[1]);
+
+            return;
+        }
         if (! preg_match('/^(\d+)\.product_id$/D', $key, $match)) {
             return;
         }
@@ -156,7 +162,32 @@ class SalesOrderFormPage extends Component
         $this->lines[$index]['discount_mode'] = 'percent';
         $this->lines[$index]['discount_value'] = '0';
         $this->lines[$index]['override_reason'] = '';
+        $this->refreshSuggestedPrice($index);
         $this->dispatch('sales-order-dirty');
+    }
+
+    public function updatedForm($value, $key): void
+    {
+        $this->authorizeCurrentAction();
+        if ($key === 'order_date') {
+            foreach (array_keys($this->lines) as $index) {
+                $this->refreshSuggestedPrice($index);
+            }
+        }
+    }
+
+    private function refreshSuggestedPrice(int $index): void
+    {
+        if (! isset($this->lines[$index])) {
+            return;
+        }
+        $line = $this->lines[$index];
+        $date = $this->form['order_date'] ?? '';
+        $valid = validator(['product' => $line['product_id'], 'unit' => $line['unit_id'], 'date' => $date],
+            ['product' => 'required|integer|min:1', 'unit' => 'required|integer|min:1', 'date' => 'required|date_format:Y-m-d'])->passes();
+        $price = $valid ? app(QuotationPricing::class)->suggested(auth()->id(), (int) $line['product_id'], (int) $line['unit_id'], $date) : null;
+        $this->lines[$index]['suggested_price'] = $price['amount'] ?? null;
+        $this->lines[$index]['price_source'] = $price;
     }
 
     private function authorizeCurrentAction(): void
@@ -225,7 +256,7 @@ class SalesOrderFormPage extends Component
             $customers[] = $catalog->customer($actor, (int) $this->form['customer_id']);
         }
 
-        $products = $catalog->products($actor, $this->productSearch);
+        $products = $catalog->products($actor, mb_substr($this->productSearch, 0, 200));
         foreach ($this->lines as $line) {
             if (empty($line['product_id']) || empty($line['unit_id']) || collect($products)->contains('id', (int) $line['product_id'])) {
                 continue;

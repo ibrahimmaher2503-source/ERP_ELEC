@@ -3,6 +3,7 @@
 namespace App\Modules\Purchasing\Presentation;
 
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use App\Modules\Purchasing\Application\PurchaseOrderProjection;
 use App\Modules\Purchasing\Application\PurchasingAccess;
 use App\Modules\System\Infrastructure\Spreadsheets\WorkbookCodec;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,11 @@ final class PurchasingExportController
         $ids = array_intersect(array_column($access->branches(auth()->id(), $permission), 'id'), array_column($access->branches(auth()->id(), 'export'), 'id'));
         abort_unless($ids, 403);
         $q = DB::table($table)->whereIn('branch_id', $ids);
+        if ($entity === 'orders') {
+            $q = app(PurchaseOrderProjection::class)->query()->whereIn('branch_id', $ids);
+            $columns['receiving_status'] = 'حالة الاستلام';
+            $columns['remaining_quantity'] = 'الكمية المتبقية للاستلام';
+        }
         $date = match ($entity) {
             'requisitions', 'rfqs' => 'request_date', 'offers' => 'document_date', 'orders' => 'order_date', 'receipts' => 'receipt_date',
         };
@@ -37,7 +43,7 @@ final class PurchasingExportController
             $q->where($date, '<=', request('to'));
         }
         if ($entity === 'orders' && request()->filled('status')) {
-            $q->where('status', request('status'));
+            app(PurchaseOrderProjection::class)->filter($q, (string) request('status'));
         }
         if (request()->filled('supplier')) {
             if (in_array($entity, ['orders', 'offers'], true)) {
@@ -59,7 +65,7 @@ final class PurchasingExportController
             }
         })());
 
-        return response()->download($path, 'purchasing-'.$entity.'.xlsx', ['Cache-Control' => 'private, no-store'])->deleteFileAfterSend();
+        return response()->download($path, 'purchasing-'.$entity.'.xlsx', ['Cache-Control' => 'private, no-store'])->setPrivate()->deleteFileAfterSend();
     }
 
     private function comparison()
@@ -79,6 +85,6 @@ final class PurchasingExportController
             }
         })());
 
-        return response()->download($path, 'supplier-comparison.xlsx', ['Cache-Control' => 'private, no-store'])->deleteFileAfterSend();
+        return response()->download($path, 'supplier-comparison.xlsx', ['Cache-Control' => 'private, no-store'])->setPrivate()->deleteFileAfterSend();
     }
 }

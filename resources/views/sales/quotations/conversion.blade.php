@@ -1,9 +1,23 @@
-<div class="quotation-page space-y-4">
- @include('sales.quotations.partials.detail-header',['heading'=>'تحويل عرض السعر إلى أمر بيع'])
- @include('sales.quotations.partials.identity')
- <flux:callout variant="warning" icon="information-circle">التحويل محظور: لم يصدر عرض السعر ولم يسجل قبول نسخة صادرة بإثبات مكتوب، وعقد إنشاء أوامر البيع غير متاح. لم يتم تحويل أي كمية.</flux:callout>
- <x-ui.panel class="quote-section"><h2>خيارات التحويل</h2><div class="flex flex-wrap gap-6 text-sm text-slate-500"><label class="flex gap-2"><input type="radio" disabled name="conversionMode" /> تحويل كامل الكميات المتبقية</label><label class="flex gap-2"><input type="radio" disabled name="conversionMode" /> تحويل كميات محددة</label></div></x-ui.panel>
- <x-ui.panel class="quote-section"><h2>أصناف عرض السعر</h2><div class="overflow-x-auto"><table class="quote-table w-full min-w-[850px]"><thead><tr><th>#</th><th>رمز الصنف</th><th>اسم الصنف</th><th>الوحدة</th><th>كمية المسودة</th><th>الكمية المقبولة</th><th>المحول سابقًا</th><th>المتبقي للتحويل</th><th>كمية التحويل</th></tr></thead><tbody>@foreach($record->lines as $line)<tr><td>{{ $loop->iteration }}</td><td>{{ $line->product_snapshot['sku'] }}</td><td>{{ $line->description }}</td><td>{{ $line->product_snapshot['unit_name'] }}</td><td>{{ \App\Modules\Sales\Application\DraftAmounts::display($line->quantity) }}</td><td>غير مقبولة بعد</td><td>0</td><td>غير متاح</td><td><input class="quote-disabled-input" type="text" disabled placeholder="غير متاح" aria-label="كمية التحويل غير متاحة" /></td></tr>@endforeach</tbody></table></div></x-ui.panel>
- <div class="grid gap-4 md:grid-cols-2"><x-ui.panel class="quote-section"><h2>ملخص التحويل</h2><dl class="quote-dl"><div><dt>أوامر البيع المرتبطة</dt><dd>لا يوجد</dd></div><div><dt>حالة التحويل</dt><dd>لم يتم التحويل</dd></div><div><dt>حجز المخزون</dt><dd>لا ينفذ من عرض السعر</dd></div></dl></x-ui.panel><x-ui.panel class="quote-section"><h2>متطلبات التحويل</h2><p class="text-sm leading-7">نسخة صادرة ومقبولة، إثبات قبول مكتوب أو استثناء شفهي معتمد، صلاحية حالية، وكميات متبقية تُخصص ذريًا عبر عقد أمر البيع الفعلي. لا يُنشأ أمر بيع وهمي.</p></x-ui.panel></div>
- @if($can('convert'))<flux:button wire:click="operation('convert')">التحقق من متطلبات التحويل</flux:button>@endif
+<div data-erp-archetype="form" class="quotation-page space-y-4">
+    @include('sales.quotations.partials.detail-header', ['heading' => 'تحويل عرض السعر إلى أمر بيع'])
+    @include('sales.quotations.partials.identity')
+    @include('sales.orders.partials.feedback')
+    <x-ui.panel>
+        @if($conversion)
+            <h2 class="mb-3 font-bold">تم تحويل كامل الكميات</h2>
+            <flux:button :href="route('sales-orders.show', $conversion->order_id)" wire:navigate>أمر البيع #{{ $conversion->order_id }}</flux:button>
+        @elseif($acceptanceRecord && $can('convert'))
+            <form wire:submit="convert" class="space-y-4">
+                <h2 class="font-bold">إنشاء أمر بيع بكامل كميات الإصدار المقبول</h2>
+                <p class="text-sm">تنتقل الأسعار والشروط والضريبة المحفوظة من الإصدار المقبول. يتطلب الحجز والتسليم اعتماد أمر البيع لاحقًا.</p>
+                <flux:select wire:model="conversionBranch" label="فرع أمر البيع">
+                    <option value="">اختر الفرع المصرح به</option>
+                    @foreach($conversionBranches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }}</option>@endforeach
+                </flux:select>
+                <flux:button type="submit" variant="primary" wire:loading.attr="disabled">تحويل كامل الكميات مرة واحدة</flux:button>
+            </form>
+        @else
+            <x-ui.empty-state title="التحويل غير متاح" description="يلزم إصدار رسمي وقبول مكتوب وصلاحية تحويل وإنشاء أمر بيع في الفرع." icon="document-text" />
+        @endif
+    </x-ui.panel>
 </div>

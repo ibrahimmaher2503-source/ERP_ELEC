@@ -11,7 +11,47 @@ permissions:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:17.11-bookworm
+        env:
+          POSTGRES_USER: erp_ci
+          POSTGRES_DB: erp_elec_new_test
+          POSTGRES_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-test-only
+        ports:
+          - '127.0.0.1:5432:5432'
+        options: >-
+          --health-cmd "pg_isready -U erp_ci -d erp_elec_new_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+    env:
+      APP_ENV: testing
+      APP_DEBUG: 'false'
+      APP_URL: http://127.0.0.1
+      APP_LOCALE: ar
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+      DB_DATABASE: erp_elec_new_test
+      DB_USERNAME: erp_ci
+      DB_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-test-only
+      DB_URL: ''
+      CACHE_STORE: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+      PULSE_ENABLED: 'false'
+      DEBUGBAR_ENABLED: 'false'
+      APP_CONFIG_CACHE: .tmp/ci-postgres/framework-cache/config.php
+      APP_ROUTES_CACHE: .tmp/ci-postgres/framework-cache/routes.php
+      APP_EVENTS_CACHE: .tmp/ci-postgres/framework-cache/events.php
+      APP_SERVICES_CACHE: .tmp/ci-postgres/framework-cache/services.php
+      APP_PACKAGES_CACHE: .tmp/ci-postgres/framework-cache/packages.php
 
     steps:
       - name: Checkout code
@@ -22,17 +62,65 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
+          extensions: bcmath, pdo_pgsql, pgsql, intl, mbstring, gd, zip, dom, xml, xmlreader, xmlwriter, fileinfo, curl
           tools: composer:v2
           coverage: none
 
       - name: Setup Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '22'
+          node-version: '24'
+          cache: npm
 
-      - name: Setup Application
-        run: composer setup
+      - name: Prepare isolated runtime
+        run: |
+          mkdir -p .tmp/ci-postgres/framework-cache .tmp/ci-postgres/artifacts
+          cp .env.testing.example .env.testing
+          php -r 'file_put_contents(getenv("GITHUB_ENV"), "APP_KEY=base64:".base64_encode(random_bytes(32)).PHP_EOL, FILE_APPEND);'
 
-      - name: Run CI Checks
-        run: composer ci:check
+      - name: Install locked dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          composer check-platform-reqs
+          npm ci
+
+      - name: Verify disposable PostgreSQL ownership
+        run: php tests/Support/bootstrap-ci-postgres.php
+
+      - name: Migrate clean PostgreSQL database
+        run: php artisan migrate --force --no-interaction
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Financial integrity gates
+        run: php tests/Support/run-gate1-ci.php
+
+      - name: Laravel regression and security tests
+        run: php vendor/bin/phpunit --log-junit .tmp/ci-postgres/artifacts/phpunit.xml
+
+      - name: Scoped source formatting
+        run: php vendor/bin/pint --test app config routes tests database/factories database/seeders bootstrap/app.php bootstrap/providers.php
+
+      - name: Composer security audit
+        run: composer audit --locked --no-interaction --format=json > .tmp/ci-postgres/artifacts/composer-audit.json
+
+      - name: npm security audit
+        run: npm audit --json > .tmp/ci-postgres/artifacts/npm-audit.json
+
+      - name: Record locked build hashes
+        run: sha256sum composer.lock package-lock.json public/build/manifest.json > .tmp/ci-postgres/artifacts/build-hashes.txt
+
+      - name: Upload sanitized test summaries
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: erp-ci-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            .tmp/ci-postgres/artifacts/*.json
+            .tmp/ci-postgres/artifacts/*.xml
+            .tmp/ci-postgres/artifacts/build-hashes.txt
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14

@@ -124,10 +124,10 @@ final class InventoryPage extends Component
         $transit = DB::table('inventory_document_lines as l')->join('inventory_documents as d', 'd.id', '=', 'l.document_id')->where('d.status', 'dispatched')->whereIn('d.destination_id', $scope)->select('l.*', 'd.id as transfer_id', 'd.destination_id')->limit(20)->get();
 
         foreach ($transit as $entry) {
-            $physical=(string)DB::table('inventory_transfer_receipt_lines')->where('line_id',$entry->id)->selectRaw('coalesce(sum(accepted+damaged),0) as physical')->value('physical');
-            $entry->quantity=bcsub($entry->quantity,$physical,8);
+            $physical = (string) DB::table('inventory_transfer_receipt_lines')->where('line_id', $entry->id)->selectRaw('coalesce(sum(accepted+damaged),0) as physical')->value('physical');
+            $entry->quantity = bcsub($entry->quantity, $physical, 8);
         }
-        $transit=$transit->filter(fn($e)=>bccomp($e->quantity,'0',8)>0);
+        $transit = $transit->filter(fn ($e) => bccomp($e->quantity, '0', 8) > 0);
 
         return view('inventory.overview', ['branches' => $branches, 'transit' => $transit, 'title' => self::TITLES[$this->screen], 'rows' => $query->orderByDesc('id')->paginate(15), 'stats' => $stats, 'canViewBalanceSummary' => $canViewBalanceSummary, 'warehouses' => $warehouses, 'distribution' => $distribution, 'recent' => $recent, 'categories' => (clone $balances)->whereNotNull('category_id')->select('category_id', 'category_name')->distinct()->get()])->layout('layouts::app', ['title' => self::TITLES[$this->screen]]);
     }

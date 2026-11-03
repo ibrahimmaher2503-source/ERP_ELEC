@@ -2,6 +2,7 @@
 
 namespace App\Modules\Inventory\Application;
 
+use App\Modules\Accounting\Domain\FinancialDecimal;
 use App\Modules\Inventory\Domain\InventoryChanged;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,8 @@ final class InventoryDocuments
                 'creation_key' => ['required', 'uuid'], 'warehouse_id' => ['required', 'integer', 'min:1'],
                 'destination_id' => [Rule::requiredIf($kind === 'transfer'), 'nullable', 'integer', 'different:warehouse_id'],
                 'reason' => ['required', 'string', 'max:2000', 'not_regex:/\x00/'], 'lines' => ['required', 'array', 'min:1', 'max:100'],
-                'lines.*.product_id' => ['required', 'integer', 'distinct', 'min:1'], 'lines.*.quantity' => ['required', 'string'], 'lines.*.serials'=>['sometimes'],
+                'lines.*.product_id' => ['required', 'integer', 'distinct', 'min:1'], 'lines.*.quantity' => ['required', 'string'], 'lines.*.serials' => ['sometimes'],
+                'lines.*.unit_cost' => ['nullable', 'string'], 'lines.*.cost_reference' => ['nullable', 'string', 'max:500', 'not_regex:/\x00/'],
             ])->validate();
             $warehouse = (int) $d['warehouse_id'];
             $destination = empty($d['destination_id']) ? null : (int) $d['destination_id'];
@@ -58,11 +60,18 @@ final class InventoryDocuments
             $existing = DB::table('inventory_documents')->where('creation_key', $d['creation_key'])->first();
             if (! $id && $existing) {
                 abort_unless($existing->created_by === $actor && $existing->kind === $kind && $existing->warehouse_id === $warehouse, 409);
-                $stored = DB::table('inventory_document_lines')->where('document_id', $existing->id)->orderBy('product_id')->get()->map(fn ($l) => [(int) $l->product_id, bcadd($l->quantity, '0', 8),json_decode($l->serials,true)])->all();
-                $incoming = array_map(fn ($l) => [(int) $l['product_id'], app(InventoryLedger::class)->quantity($l['quantity'], $kind === 'adjustment', $kind === 'count'), $this->serialValues($l['serials']??[])], $d['lines']);
+                $stored = DB::table('inventory_document_lines')->where('document_id', $existing->id)->orderBy('product_id')->get()->map(fn ($l) => [(int) $l->product_id, bcadd($l->quantity, '0', 8), json_decode($l->serials, true)])->all();
+                $incoming = array_map(fn ($l) => [(int) $l['product_id'], app(InventoryLedger::class)->quantity($l['quantity'], $kind === 'adjustment', $kind === 'count'), $this->serialValues($l['serials'] ?? [])], $d['lines']);
                 usort($incoming, fn ($a, $b) => $a[0] <=> $b[0]);
                 if ($stored !== $incoming || $existing->reason !== $d['reason'] || $existing->destination_id !== $destination) {
                     InventoryActions::fail('مرجع إنشاء المستند مستخدم لمحتوى مختلف.');
+                }
+                foreach ($d['lines'] as $input) {
+                    $saved = DB::table('inventory_document_lines')->where('document_id', $existing->id)->where('product_id', $input['product_id'])->first();
+                    $cost = ($input['unit_cost'] ?? '') === '' ? null : bcadd(FinancialDecimal::value($input['unit_cost']), '0', 16);
+                    if ($saved->unit_cost !== $cost || ($saved->cost_reference ?? '') !== trim($input['cost_reference'] ?? '')) {
+                        InventoryActions::fail('مرجع الإنشاء مستخدم بتقييم مختلف.');
+                    }
                 }
 
                 return (array) $existing;
@@ -89,16 +98,25 @@ final class InventoryDocuments
                 : collect();
             foreach ($d['lines'] as $line) {
                 $p = app(ProductsApi::class)->inventoryProduct($actor, (int) $line['product_id']);
-                if (! $p['active'] || !in_array($p['tracking'],['quantity','serial'],true) || $p['kind'] === 'service') {
+                if (! $p['active'] || ! in_array($p['tracking'], ['quantity', 'serial'], true) || $p['kind'] === 'service') {
                     InventoryActions::fail('اختر صنفًا نشطًا بتتبع كمي.');
                 }
                 $quantity = app(InventoryLedger::class)->quantity($line['quantity'], $kind === 'adjustment', $kind === 'count');
-                $serials=$line['serials']??[];
-                if ($p['tracking']==='serial') {
-                    $serials=array_values(app(InventorySerials::class)->selections($serials,bccomp($quantity,'0',8)<0?bcsub('0',$quantity,8):$quantity));
-                } elseif ($serials!==[] && $serials!=='') { InventoryActions::fail('Serials require a serialized product.'); } else { $serials=[]; }
+                $unitCost = ($line['unit_cost'] ?? '') === '' ? null : FinancialDecimal::value($line['unit_cost']);
+                $costReference = trim($line['cost_reference'] ?? '') ?: null;
+                if (($unitCost !== null || $costReference !== null) && ($kind !== 'adjustment' || bccomp($quantity, '0', 8) <= 0)) {
+                    InventoryActions::fail('التكلفة المدخلة مخصصة لفرق التسوية الموجب فقط.');
+                }
+                $serials = $line['serials'] ?? [];
+                if ($p['tracking'] === 'serial') {
+                    $serials = array_values(app(InventorySerials::class)->selections($serials, bccomp($quantity, '0', 8) < 0 ? bcsub('0', $quantity, 8) : $quantity));
+                } elseif ($serials !== [] && $serials !== '') {
+                    InventoryActions::fail('Serials require a serialized product.');
+                } else {
+                    $serials = [];
+                }
                 $recorded = $kind === 'count' ? ($originalLines->get($p['id'])?->recorded ?? DB::table('inventory_balances')->where('warehouse_id', $warehouse)->where('product_id', $p['id'])->value('on_hand') ?? '0') : null;
-                $lines[] = ['product_id' => $p['id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'base_unit_id' => $p['base_unit_id'], 'unit_name' => $p['unit_name'], 'quantity' => $quantity, 'recorded' => $recorded,'serials'=>json_encode($serials,JSON_THROW_ON_ERROR)];
+                $lines[] = ['product_id' => $p['id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'base_unit_id' => $p['base_unit_id'], 'unit_name' => $p['unit_name'], 'quantity' => $quantity, 'recorded' => $recorded, 'unit_cost' => $unitCost, 'cost_reference' => $costReference, 'serials' => json_encode($serials, JSON_THROW_ON_ERROR)];
             }
             $row = ['creation_key' => $d['creation_key'], 'kind' => $kind, 'warehouse_id' => $warehouse, 'destination_id' => $destination, 'reason' => $d['reason'], 'version' => ($before->version ?? 0) + 1, 'updated_at' => now()];
             if ($kind === 'count') {
@@ -126,7 +144,9 @@ final class InventoryDocuments
             $doc = DB::table('inventory_documents')->where('id', $id)->lockForUpdate()->first();
             abort_unless($doc, 404);
             abort_unless(in_array($action, ['submit', 'approve', 'post', 'dispatch', 'receive', 'cancel'], true), 422);
-            if ($action==='receive' && $doc->kind==='transfer') { return app(InventoryTransfers::class)->receiveFull($actor,$id); }
+            if ($action === 'receive' && $doc->kind === 'transfer') {
+                return app(InventoryTransfers::class)->receiveFull($actor, $id);
+            }
             $cap = match ($action) {
                 'submit' => $doc->kind === 'count' ? 'submit' : 'create','cancel' => 'create',default => $action
             };
@@ -165,6 +185,10 @@ final class InventoryDocuments
             if ($lines->isEmpty() && $action !== 'cancel') {
                 InventoryActions::fail('المستند بلا بنود.');
             }
+            if ($doc->kind === 'adjustment' && in_array($action, ['submit', 'approve', 'post'], true)
+                && $lines->contains(fn ($line) => bccomp($line->quantity, '0', 8) > 0 && ($line->unit_cost === null || trim($line->cost_reference ?? '') === ''))) {
+                InventoryActions::fail('أكمل تكلفة الوحدة ومرجع تقييم كل فرق موجب قبل إرسال التسوية للاعتماد.');
+            }
             foreach (array_filter([$doc->warehouse_id, $doc->destination_id]) as $wid) {
                 $w = DB::table('inventory_warehouses')->where('id', $wid)->lockForUpdate()->first();
                 if (! $w->active && $action !== 'cancel') {
@@ -185,11 +209,13 @@ final class InventoryDocuments
                 $variance = [];
                 foreach ($lines as $line) {
                     $delta = bcsub($line->quantity, $line->recorded, 8);
-                    $p=app(ProductsApi::class)->inventoryProduct($actor,$line->product_id);
-                    if ($p['tracking']==='serial') {
-                        $selected=array_keys(app(InventorySerials::class)->selections(json_decode($line->serials,true),$line->quantity));
-                        $held=DB::table('inventory_serials')->where('warehouse_id',$doc->warehouse_id)->where('product_id',$line->product_id)->whereIn('state',['available','reserved','unavailable'])->orderBy('normalized')->pluck('normalized')->all();
-                        if ($selected!==$held) { InventoryActions::fail('Serial count differs from occupancy; record a source-linked serial adjustment/correction before restarting the count.'); }
+                    $p = app(ProductsApi::class)->inventoryProduct($actor, $line->product_id);
+                    if ($p['tracking'] === 'serial') {
+                        $selected = array_keys(app(InventorySerials::class)->selections(json_decode($line->serials, true), $line->quantity));
+                        $held = DB::table('inventory_serials')->where('warehouse_id', $doc->warehouse_id)->where('product_id', $line->product_id)->whereIn('state', ['available', 'reserved', 'unavailable'])->orderByRaw('normalized COLLATE "C"')->pluck('normalized')->all();
+                        if ($selected !== $held) {
+                            InventoryActions::fail('Serial count differs from occupancy; record a source-linked serial adjustment/correction before restarting the count.');
+                        }
                     }
                     if (bccomp($delta, '0', 8) !== 0) {
                         $variance[] = ['product_id' => $line->product_id, 'quantity' => $delta];
@@ -229,12 +255,17 @@ final class InventoryDocuments
             return (array) DB::table('inventory_documents')->where('id', $id)->first();
         });
     }
+
     private function serialValues(mixed $values): array
     {
-        if (is_string($values)) { $values=preg_split('/\R/u',$values,-1,PREG_SPLIT_NO_EMPTY); }
-        if (!is_array($values)) { InventoryActions::fail('Invalid serial list.'); }
-        usort($values,fn($a,$b)=>app(InventorySerials::class)->normalize($a)<=>app(InventorySerials::class)->normalize($b));
-        return array_values(array_map('trim',$values));
-    }
+        if (is_string($values)) {
+            $values = preg_split('/\R/u', $values, -1, PREG_SPLIT_NO_EMPTY);
+        }
+        if (! is_array($values)) {
+            InventoryActions::fail('Invalid serial list.');
+        }
+        usort($values, fn ($a, $b) => app(InventorySerials::class)->normalize($a) <=> app(InventorySerials::class)->normalize($b));
 
+        return array_values(array_map('trim', $values));
+    }
 }

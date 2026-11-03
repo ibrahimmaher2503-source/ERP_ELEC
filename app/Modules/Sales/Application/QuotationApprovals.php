@@ -37,6 +37,7 @@ final class QuotationApprovals
 
     public function submit(int $actor, int $id, int $version): QuotationApproval
     {
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         $this->access($actor, 'submit');
 
         return DB::transaction(function () use ($actor, $id, $version) {
@@ -69,6 +70,7 @@ final class QuotationApprovals
 
     public function withdraw(int $actor, int $id, int $version): void
     {
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         $this->access($actor, 'withdraw');
         DB::transaction(function () use ($actor, $id, $version) {
             $r = Quotation::lockForUpdate()->findOrFail($id);
@@ -84,6 +86,7 @@ final class QuotationApprovals
 
     public function decide(int $actor, int $id, int $requestId, int $version, bool $approve, string $reason): void
     {
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         $this->access($actor, 'approve');
         Validator::make(['reason' => $reason], ['reason' => [$approve ? 'nullable' : 'required', 'string', 'max:2000']])->validate();
         DB::transaction(function () use ($actor, $id, $requestId, $version, $approve, $reason) {

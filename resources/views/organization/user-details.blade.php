@@ -1,4 +1,4 @@
-<div class="user-details-tabs space-y-6" dir="rtl"
+<div data-erp-archetype="details" class="user-details-tabs space-y-6" dir="rtl"
     x-data="{
         activeTab: 'basic',
         tabs: ['basic', 'access', 'history', 'security'],
@@ -24,10 +24,12 @@
             this.activate(this.tabs[(index + delta + this.tabs.length) % this.tabs.length], true);
         }
     }">
+
     <x-page.heading title="تفاصيل المستخدم" description="معلومات حساب المستخدم وإعداداته">
         <x-slot:actions><flux:button :href="route('organization.users')" wire:navigate>العودة للمستخدمين</flux:button></x-slot:actions>
     </x-page.heading>
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    <x-ui.validation-summary />
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
 
     <x-erp.section-card title="ملف المستخدم">
         <div class="flex flex-col gap-4 sm:flex-row-reverse sm:items-center">
@@ -76,12 +78,12 @@
     <section role="tabpanel" id="user-details-panel-access" aria-labelledby="user-details-tab-access" tabindex="0" x-show="activeTab === 'access'" x-cloak class="space-y-5">
         <div class="scroll-mt-24">
             @if ($canManageSecurity)
-                @livewire(\App\Modules\Organization\Presentation\UserAccessSection::class, ['user' => $record->id], key('user-access-'.$record->id))
-                @livewire(\App\Modules\Organization\Presentation\QuotationSelfApprovalSection::class, ['targetType'=>'user','targetId'=>$record->id], key('quote-self-user-'.$record->id))
+                @livewire(\App\Modules\Organization\Presentation\UserAccessSection::class, ['user' => $record->id, 'lazy' => true], key('user-access-'.$record->id))
+                @livewire(\App\Modules\Organization\Presentation\QuotationSelfApprovalSection::class, ['targetType'=>'user','targetId'=>$record->id, 'lazy' => true], key('quote-self-user-'.$record->id))
             @else
                 <x-erp.section-card title="الأدوار ونطاقات الوصول">
                     @if ($allowedBranches->isNotEmpty())
-                        <div class="flex flex-wrap gap-2">@foreach ($allowedBranches as $branch)<span wire:key="allowed-branch-{{ $branch->id }}" class="inline-flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800"><flux:icon.building-office-2 class="size-4" />{{ $branch->name }}</span>@endforeach</div>
+                        <div class="erp-section-nav flex flex-wrap gap-2">@foreach ($allowedBranches as $branch)<span wire:key="allowed-branch-{{ $branch->id }}" class="inline-flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800"><flux:icon.building-office-2 class="size-4" />{{ $branch->name }}</span>@endforeach</div>
                     @else
                         <p class="text-sm text-slate-500">لا توجد تعيينات فروع مسجلة لهذا المستخدم.</p>
                     @endif
@@ -99,7 +101,7 @@
     <section role="tabpanel" id="user-details-panel-history" aria-labelledby="user-details-tab-history" tabindex="0" x-show="activeTab === 'history'" x-cloak class="space-y-5">
         <div class="scroll-mt-24">
             @if ($canManageSecurity)
-                @livewire(\App\Modules\Organization\Presentation\UserAccessSection::class, ['user' => $record->id, 'historyOnly' => true], key('user-permission-history-'.$record->id))
+                @livewire(\App\Modules\Organization\Presentation\UserAccessSection::class, ['user' => $record->id, 'historyOnly' => true, 'lazy' => true], key('user-permission-history-'.$record->id))
             @else
                 <x-erp.section-card title="سجل تغييرات الصلاحيات">
                     <p class="text-sm text-slate-600">عرض سجل تغييرات الصلاحيات يحتاج تفويض إدارة الأمان.</p>

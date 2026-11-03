@@ -9,6 +9,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class QuotationAccess
 {
+    public function authorizeRecord(int $actor, int $id): void
+    {
+        app(TenderQuotationDraft::class)->authorize($actor, $id);
+    }
+
     public function authorize(int $actor, string $action = 'view'): void
     {
         try {

@@ -6,6 +6,8 @@ use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Organization\Application\Contracts\AuthorizeRequest;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use App\Modules\Products\Application\Contracts\GetProductRequest;
+use App\Modules\Products\Application\Contracts\ProductsApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,6 +51,7 @@ final class PurchaseReceiving
                 'receipt_date' => 'required|date_format:Y-m-d', 'delivery_reference' => 'required|string|max:200|not_regex:/\x00/', 'notes' => 'nullable|string|max:5000|not_regex:/\x00/',
                 'lines' => 'required|array|min:1|max:100', 'lines.*.order_line_id' => 'required|integer|distinct',
                 'lines.*.quantity' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
+                'lines.*.serials' => 'sometimes|array|list|max:1000', 'lines.*.serials.*' => 'required|string|max:200',
             ])->validate();
             $po = app(PurchaseOrders::class)->record($actor, (int) $v['order_id']);
             app(PurchasingAccess::class)->authorize($actor, 'receipt_create', $po->branch_id);
@@ -70,7 +73,14 @@ final class PurchaseReceiving
                 if (bccomp(bcadd((string) $allocated, $l['quantity'], 8), $source->quantity, 8) > 0) {
                     $helper->fail('تجاوزت كمية الأمر بعد احتساب مسودات الاستلام الأخرى.');
                 }
-                $lines[] = ['order_line_id' => $source->id, 'quantity' => bcadd($l['quantity'], '0', 8)];
+                $product = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $source->product_id))->product;
+                $serials = $l['serials'] ?? [];
+                if ($product['tracking'] === 'serial') {
+                    $serials = app(InventoryApi::class)->normalizeSerialSelections($serials, $l['quantity']);
+                } else {
+                    abort_unless($serials === [], 422, 'الأرقام التسلسلية تخص صنفًا مسلسلًا فقط.');
+                }
+                $lines[] = ['order_line_id' => $source->id, 'quantity' => bcadd($l['quantity'], '0', 8), 'serials' => json_encode($serials, JSON_THROW_ON_ERROR)];
             }
             $header = ['receipt_date' => $v['receipt_date'], 'delivery_reference' => $v['delivery_reference'], 'notes' => ($v['notes'] ?? null) ?: null];
             if ($old) {
@@ -79,7 +89,7 @@ final class PurchaseReceiving
                 }
                 if (! $id) {
                     $same = collect($header)->every(fn ($val, $k) => (string) ($old->$k ?? '') === (string) ($val ?? ''));
-                    $stored = DB::table('purchasing_receipt_lines')->where('receipt_id', $old->id)->orderBy('id')->get(['order_line_id', 'quantity'])->map(fn ($l) => (array) $l)->all();
+                    $stored = DB::table('purchasing_receipt_lines')->where('receipt_id', $old->id)->orderBy('id')->get(['order_line_id', 'quantity', 'serials'])->map(fn ($l) => ['order_line_id' => $l->order_line_id, 'quantity' => $l->quantity, 'serials' => json_encode(json_decode($l->serials, true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR)])->all();
                     if (! $same || $stored !== $lines) {
                         $helper->fail('مفتاح حفظ مكرر ببيانات مختلفة.');
                     }

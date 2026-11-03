@@ -1,0 +1,26 @@
+{
+  "target": {
+    "environment": "SET-ONLY-AFTER-STAGING-APPROVAL",
+    "base_url": "",
+    "allowed_origin": "",
+    "server_stack": "",
+    "database": {
+      "database": "",
+      "username": "",
+      "port": 0,
+      "data_directory": "",
+      "ownership_marker_sha256": ""
+    },
+    "preflight": {
+      "method": "GET",
+      "path": "",
+      "expected_status": 200,
+      "assertions": []
+    },
+    "allowlist": []
+  },
+  "actors": [],
+  "requests_per_user": 6,
+  "timeout_ms": 30000,
+  "operations": []
+}

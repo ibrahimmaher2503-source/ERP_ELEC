@@ -2,17 +2,20 @@
 
 namespace App\Modules\Purchasing\Application;
 
+use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Accounting\Domain\FinancialDecimal;
 use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
+use App\Modules\System\Application\Contracts\OfficialDocuments;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 final class PurchaseOrders
 {
-    public const ISSUE_BLOCKER = 'الإصدار الرسمي وترحيل الاستلام ينتظران عقد الترقيم والتحقق الضريبي وInventory/GRNI. الاعتماد الداخلي لا يصدر التزامًا أو حركة مخزون.';
+    public const ISSUE_BLOCKER = 'الاعتماد الداخلي لا يصدر مستندًا رسميًا. الإصدار يتطلب قواعد ضريبية متحققًا منها. ترحيل الاستلام يتطلب أمرًا صادرًا وتفعيل المالية واعتماد ترحيل مستقلًا ونطاق المستودع.';
 
     public function record(int $actor, int $id, string $permission = 'order_view'): object
     {
@@ -31,7 +34,8 @@ final class PurchaseOrders
             $v = Validator::make($data, [
                 'creation_key' => 'required|uuid', 'branch_id' => 'required|integer|min:1', 'supplier_id' => 'required|integer|min:1', 'award_id' => 'nullable|integer|min:1',
                 'order_date' => 'required|date_format:Y-m-d', 'expected_date' => 'nullable|date_format:Y-m-d|after_or_equal:order_date',
-                'currency' => ['required', 'regex:/^[A-Z]{3}$/D'], 'payment_terms' => 'nullable|string|max:3000|not_regex:/\x00/', 'notes' => 'nullable|string|max:5000|not_regex:/\x00/',
+                'currency' => ['required', 'in:EGP'], 'payment_terms' => 'nullable|string|max:3000|not_regex:/\x00/', 'notes' => 'nullable|string|max:5000|not_regex:/\x00/',
+                'tax_mode' => 'sometimes|required|in:inclusive,exclusive',
                 'reported_tax' => ['nullable', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
                 'lines' => 'required|array|min:1|max:100', 'lines.*.product_id' => 'required|integer|min:1|distinct',
                 'lines.*.quantity' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
@@ -94,7 +98,7 @@ final class PurchaseOrders
             if ($award && (count($lines) !== $sourceLines->count() || $v['currency'] !== $offer->currency || ($v['payment_terms'] ?: null) !== ($offer->payment_terms ?: null) || $tax !== $offer->reported_tax)) {
                 $helper->fail('العملة والشروط والكميات يجب أن تطابق الترسية.');
             }
-            $header = ['order_date' => $v['order_date'], 'expected_date' => ($v['expected_date'] ?? null) ?: null, 'currency' => $v['currency'], 'payment_terms' => ($v['payment_terms'] ?? null) ?: null, 'notes' => ($v['notes'] ?? null) ?: null, 'net_amount' => $net, 'reported_tax' => $tax];
+            $header = ['order_date' => $v['order_date'], 'expected_date' => ($v['expected_date'] ?? null) ?: null, 'currency' => $v['currency'], 'tax_mode' => $v['tax_mode'] ?? 'exclusive', 'payment_terms' => ($v['payment_terms'] ?? null) ?: null, 'notes' => ($v['notes'] ?? null) ?: null, 'net_amount' => $net, 'reported_tax' => $tax];
             if ($old) {
                 if ($old->created_by !== $actor || $old->branch_id !== (int) $v['branch_id'] || $old->supplier_id !== $supplier->id || $old->award_id !== $award?->id || $old->creation_key !== $v['creation_key']) {
                     $helper->fail('هوية أمر الشراء غير قابلة للتغيير.');
@@ -193,9 +197,44 @@ final class PurchaseOrders
         });
     }
 
-    public function issue(int $actor, int $id): never
+    public function issue(int $actor, int $id): void
     {
-        $this->record($actor, $id, 'order_issue');
-        app(SupplierOffers::class)->fail(self::ISSUE_BLOCKER);
+        DB::transaction(function () use ($actor, $id) {
+            app(SupplierOffers::class)->lock();
+            $order = $this->record($actor, $id, 'order_issue');
+            if ($order->status !== 'approved' || $order->currency !== 'EGP') {
+                app(SupplierOffers::class)->fail('يلزم أمر معتمد بالجنيه المصري للإصدار الرسمي.');
+            }
+            if (DB::table('purchasing_order_issues')->where('order_id', $id)->exists()) {
+                return;
+            }
+            app(AccountingApi::class)->requirePostingDate($order->order_date);
+            $supplier = app(SuppliersApi::class)->getSupplier(new GetSupplierRequest($actor, $order->supplier_id));
+            $lines = DB::table('purchasing_order_lines')->where('order_id', $id)->orderBy('id')->get();
+            $tax = app(AccountingApi::class)->calculateTax($actor, 'purchase', $order->order_date, $order->tax_mode,
+                $lines->map(fn ($l) => ['product_id' => $l->product_id, 'quantity' => $l->quantity, 'unit_price' => $l->unit_price, 'discount' => $l->discount_amount])->all());
+            if (! $tax['production_validated']) {
+                app(SupplierOffers::class)->fail('يلزم تسجيل التحقق من المعاملة الضريبية الفعلية للشركة قبل الإصدار.');
+            }
+            // Supplier-reported tax is evidence for comparison, never an override.
+            if ($order->reported_tax !== null && FinancialDecimal::round($order->reported_tax) !== $tax['tax']) {
+                app(SupplierOffers::class)->fail('الضريبة المبلغ عنها تختلف عن القاعدة الضريبية. يلزم تصحيح المصدر بمسار تجاري معتمد.');
+            }
+            $rows = [];
+            foreach ($lines as $line) {
+                $product = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, $line->product_id))->product;
+                if (! $product['active'] || $product['base_unit_id'] !== $line->unit_id) {
+                    app(SupplierOffers::class)->fail('صنف غير مؤهل للإصدار.');
+                }
+                $rows[] = [$line->sku, $line->product_name, $line->quantity, $line->unit_price, $line->discount_amount];
+            }
+            $document = app(OfficialDocuments::class)->issue($actor, 'purchase_order', (string) $id, 1, $order->order_date,
+                ['title' => 'أمر شراء', 'fields' => ['المورد' => $supplier->name, 'شروط السداد' => $order->payment_terms ?? '', 'ملاحظات' => $order->notes ?? ''],
+                    'columns' => ['الكود', 'الصنف', 'الكمية', 'سعر الوحدة', 'الخصم'], 'rows' => $rows, 'tax' => $tax,
+                    'totals' => ['الصافي' => $tax['net'], 'الضريبة' => $tax['tax'], 'الإجمالي' => $tax['total']]]);
+            DB::table('purchasing_order_issues')->insert(['order_id' => $id, 'source_version' => $order->version, 'document_id' => $document['id'],
+                'official_number' => $document['number'], 'tax_snapshot' => json_encode($tax, JSON_THROW_ON_ERROR), 'issued_by' => $actor, 'issued_at' => now()]);
+            app(SupplierOffers::class)->audit($actor, 'purchase_order', $id, 'order.issued', null, ['number' => $document['number'], 'document_id' => $document['id'], 'sha256' => $document['sha256'], 'tax' => $tax]);
+        });
     }
 }

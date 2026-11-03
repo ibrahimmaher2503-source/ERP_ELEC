@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div data-erp-archetype="form" class="space-y-4">
     <x-page.heading title="إعدادات اعتماد أوامر البيع" description="صلاحيات ديناميكية وموافقة إضافية على الاستثناءات" :breadcrumbs="['المبيعات', 'أوامر البيع', 'إعدادات الاعتماد']" />
     @include('sales.orders.partials.feedback')
     <x-erp.section-card title="مسؤول الاستثناءات" icon="shield-check">

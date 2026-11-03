@@ -129,7 +129,7 @@ abstract class PartyCatalogPage extends Component
     {
         $path = app(OperationService::class)->export(auth()->id(), static::ENTITY, $mode, $this->filters(), $this->selected);
 
-        return response()->download($path, static::ENTITY.'-'.$mode.'.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->deleteFileAfterSend();
+        return response()->download($path, static::ENTITY.'-'.$mode.'.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->setPrivate()->deleteFileAfterSend();
     }
 
     public function render()

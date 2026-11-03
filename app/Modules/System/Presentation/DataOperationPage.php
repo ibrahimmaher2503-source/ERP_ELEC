@@ -46,7 +46,7 @@ class DataOperationPage extends Component
         $path = app(OperationService::class)->template(auth()->id(), $this->entity);
         $this->templateDownloaded = true;
 
-        return response()->download($path, $this->entity.'-template.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->deleteFileAfterSend();
+        return response()->download($path, $this->entity.'-template.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->setPrivate()->deleteFileAfterSend();
     }
 
     public function previewImport(): void
@@ -82,7 +82,7 @@ class DataOperationPage extends Component
     {
         abort_unless($this->runId, 422);
 
-        return response()->download(app(OperationService::class)->report(auth()->id(), $this->runId, $errors), 'operation-results.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->deleteFileAfterSend();
+        return response()->download(app(OperationService::class)->report(auth()->id(), $this->runId, $errors), 'operation-results.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->setPrivate()->deleteFileAfterSend();
     }
 
     public function render()

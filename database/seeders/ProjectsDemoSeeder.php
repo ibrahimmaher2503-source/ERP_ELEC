@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Modules\Projects\Domain\Project;
 use App\Modules\Projects\Domain\ProjectDocument;
 use App\Modules\Projects\Domain\ProjectDocumentRevision;
+use App\Modules\Projects\Domain\ProjectMilestone;
 use App\Modules\Projects\Domain\ProjectPhase;
 use App\Modules\Projects\Domain\ProjectRequirement;
 use App\Modules\Projects\Domain\ProjectTask;
@@ -24,6 +25,9 @@ class ProjectsDemoSeeder extends Seeder
                 $code = 'DEMO-EG-PRJ-'.str_pad((string) ($i + 1), 3, '0', STR_PAD_LEFT);
                 $p = Project::where('code', $code)->first();
                 $p ??= Project::factory()->create(['code' => $code, 'name' => $name, 'creation_key' => (string) Uuid::uuid5(Uuid::NAMESPACE_DNS, $code)]);
+                if ($p->status === 'draft' && ! ProjectMilestone::where('project_id', $p->id)->exists()) {
+                    ProjectMilestone::factory()->create(['project_id' => $p->id, 'responsible_id' => $p->manager_id]);
+                }
                 $phase = ProjectPhase::where('project_id', $p->id)->first() ?? ProjectPhase::factory()->create(['project_id' => $p->id]);
                 $doc = ProjectDocument::where('project_id', $p->id)->where('number', 'DEMO-EG-DOC-'.($i + 1))->first() ?? ProjectDocument::factory()->create(['project_id' => $p->id, 'number' => 'DEMO-EG-DOC-'.($i + 1)]);
                 if (! ProjectDocumentRevision::where('document_id', $doc->id)->exists()) {

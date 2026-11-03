@@ -16,13 +16,16 @@ final class ProjectDocuments
         $p = Project::findOrFail($id);
         app(ProjectAccess::class)->authorize($actor, $p, 'document_manage');
         $d = Validator::make($input, ['number' => 'required|string|max:80', 'title' => 'required|string|max:200', 'classification' => 'required|string|max:100', 'required' => 'boolean', 'notes' => 'nullable|string|max:2000'])->validate();
+        $task = Validator::make($input, ['task_id' => 'nullable|integer|min:1'])->validate()['task_id'] ?? null;
+        $task = $task ? (int) $task : null;
+        abort_unless($task === null || DB::table('project_tasks')->where('project_id', $id)->where('id', $task)->exists(), 422, 'المهمة لا تتبع المشروع.');
         Validator::make(['file' => $file, 'key' => $key], ['file' => 'required|file|mimes:pdf,png,jpg,jpeg|max:10240', 'key' => 'required|uuid'])->validate();
         $path = $file->store('projects/'.$id, 'local');
         if (! $path) {
             throw new \RuntimeException('Unable to store document.');
         }
         try {
-            DB::transaction(function () use ($actor, $id, $key, $d, $file, $path) {
+            DB::transaction(function () use ($actor, $id, $key, $d, $file, $path, $task) {
                 DB::select('select pg_advisory_xact_lock(10401)');
                 DB::select('select pg_advisory_xact_lock(70701)');
                 $p = Project::lockForUpdate()->findOrFail($id);
@@ -32,9 +35,9 @@ final class ProjectDocuments
                 }if (DB::table('project_document_revisions')->where('creation_key', $key)->exists()) {
                     $this->fail('هذا الرفع محفوظ بالفعل.');
                 }$doc = DB::table('project_documents')->where('project_id', $id)->where('number', $d['number'])->first();
-                if ($doc && ($doc->title !== $d['title'] || $doc->classification !== $d['classification'] || (bool) $doc->required !== (bool) ($d['required'] ?? false))) {
+                if ($doc && ($doc->title !== $d['title'] || $doc->classification !== $d['classification'] || (bool) $doc->required !== (bool) ($d['required'] ?? false) || ($doc->task_id === null ? null : (int) $doc->task_id) !== $task)) {
                     $this->fail('هوية المستند ثابتة بين المراجعات.');
-                }$docId = $doc?->id ?? DB::table('project_documents')->insertGetId(['project_id' => $id, 'number' => $d['number'], 'title' => $d['title'], 'classification' => $d['classification'], 'required' => $d['required'] ?? false]);
+                }$docId = $doc?->id ?? DB::table('project_documents')->insertGetId(['project_id' => $id, 'task_id' => $task, 'number' => $d['number'], 'title' => $d['title'], 'classification' => $d['classification'], 'required' => $d['required'] ?? false]);
                 if (DB::table('project_document_revisions')->where('document_id', $docId)->whereIn('status', ['draft', 'review'])->exists()) {
                     $this->fail('يوجد إصدار غير محسوم لهذا المستند.');
                 }$revision = (int) DB::table('project_document_revisions')->where('document_id', $docId)->max('revision') + 1;
@@ -49,6 +52,7 @@ final class ProjectDocuments
 
     public function decide(int $actor, int $id, int $revision, int $version, string $state, string $reason): void
     {
+        $reason = trim($reason);
         Validator::make(['state' => $state, 'reason' => $reason], ['state' => 'required|in:review,approved,rejected', 'reason' => 'required|string|min:3|max:2000'])->validate();
         DB::transaction(function () use ($actor, $id, $revision, $version, $state, $reason) {
             DB::select('select pg_advisory_xact_lock(10401)');
@@ -68,7 +72,9 @@ final class ProjectDocuments
                     $this->fail('الإرسال للمراجعة من المسودة فقط.');
                 }
             } else {
-                abort_unless($p->manager_id == $actor, 403);
+                app(ProjectAccess::class)->authorize($actor, $p, 'document_approve');
+                abort_unless((int) $r->uploaded_by !== $actor, 403, 'اعتماد المستند يتطلب شخصاً مستقلاً.');
+                abort_unless(Storage::disk('local')->exists($r->path) && hash_equals($r->sha256, hash_file('sha256', Storage::disk('local')->path($r->path))), 409, 'فشل التحقق من سلامة مستند الاعتماد.');
                 if ($r->status !== 'review') {
                     $this->fail('المستند ليس قيد المراجعة.');
                 }

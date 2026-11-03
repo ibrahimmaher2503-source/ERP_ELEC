@@ -115,6 +115,7 @@ class MastersPage extends Component
             throw ValidationException::withMessages($errors);
         }
 
+        $this->resetValidation();
         $this->selectedId = (int) $record->getKey();
         $this->editingId = null;
         $this->version = null;

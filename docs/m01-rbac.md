@@ -2,7 +2,7 @@
 
 IMPLEMENTED — QA DEFERRED. Owner clarification on 2026-10-21 authorizes an administrator-managed database matrix. No guessed commercial default matrix is supplied.
 
-## Fixed roles approved by the owner
+## Built-in roles approved by the owner
 
 | Stable code | Arabic name |
 | --- | --- |
@@ -21,7 +21,9 @@ IMPLEMENTED — QA DEFERRED. Owner clarification on 2026-10-21 authorizes an adm
 | PayrollOfficer | مسؤول الرواتب |
 | ManagerReadOnly | مدير للقراءة فقط |
 
-No role creation/deletion is exposed. Latest owner decision2026-10-21: explicitly assigned Administrator has every current/future registered permission by default; its matrix is complete and read-only. Other role permission sets remain manually configured/default-deny. An account display name never implies Administrator membership. ManagerReadOnly accepts implemented view permissions only.
+Owner request2026-11-03 adds custom role creation from `/organization/roles`: «إضافة دور جديد» opens an inline name form, creates an empty role, then opens its existing permission matrix. Creation requires the current active/verified M01.security_admin authority, uses the RBAC transaction/advisory lock, rejects duplicate names/existing role codes and records `role.created`. A generated `Custom_` code prevents creation of another built-in identity. It creates no permissions, memberships or branch/warehouse scopes. Role deletion remains unavailable.
+
+Latest owner decision2026-10-21: explicitly assigned Administrator has every current/future registered permission by default; its matrix is complete and read-only. Other role permission sets remain manually configured/default-deny. An account display name never implies Administrator membership. ManagerReadOnly accepts implemented view permissions only.
 
 ## Engine and boundaries
 
@@ -44,7 +46,7 @@ Security changes append before/after snapshots to immutable access_audits, omitt
 
 Stage05 owner decision supersedes the former standalone access screen: Branch and warehouse scope management is integrated into User Details. Role permissions remain managed through Roles & Permissions. No standalone access-management page is required. Existing tables and audited Actions are reused without migration; new branch grants require active account/branch, while revocation remains available for inactive records. M06 warehouse integration remains blocked.
 
-Visual refinement uses the supplied 1536×1024 reference: pale panels, compact table, selection highlight, green permission switches, module grouping, local permission search and Arabic pagination. Switches edit a draft; explicit Save reauthorizes and persists it. Locked/security/read-only/self restrictions remain enforced server-side. Counts and role labels are real data; reference-only role creation, role activation and fabricated permission totals were not introduced.
+Visual refinement uses the supplied 1536×1024 reference: pale panels, compact table, selection highlight, green permission switches, module grouping, local permission search and Arabic pagination. Switches edit a draft; explicit Save reauthorizes and persists it. Locked/security/read-only/self restrictions remain enforced server-side. Counts and role labels are real data; role activation and fabricated permission totals were not introduced. Custom creation follows the later owner request above.
 
 The local-only command `php artisan erp:bootstrap-security {email}` authorizes one existing active verified account to configure RBAC. It records only the explicit security grant and audit event; no business capabilities or branch/warehouse scopes are added. It was applied to the existing local administrator; credentials are not documented here.
 

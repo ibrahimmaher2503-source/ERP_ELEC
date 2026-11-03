@@ -2,12 +2,13 @@
 
 namespace App\Modules\Purchasing\Presentation;
 
+use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SearchSuppliersRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
-use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ListMastersRequest;
+use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Purchasing\Application\PurchasingAccess;
 use App\Modules\Purchasing\Application\RfqActions;
 use App\Modules\Purchasing\Domain\PurchaseRequisition;
@@ -37,23 +38,23 @@ final class RfqPage extends Component
     public function addStandaloneLine(): void
     {
         abort_unless(($this->form['source_type'] ?? '') === 'STANDALONE', 422);
-        app(PurchasingAccess::class)->authorize(auth()->id(),'rfq_standalone',(int)($this->form['branch_id']??0));
-        abort_if(count($this->form['lines'])>=100,422);
-        $this->form['lines'][]=['product_id'=>'','base_unit_id'=>'','quantity'=>'1'];
+        app(PurchasingAccess::class)->authorize(auth()->id(), 'rfq_standalone', (int) ($this->form['branch_id'] ?? 0));
+        abort_if(count($this->form['lines']) >= 100, 422);
+        $this->form['lines'][] = ['product_id' => '', 'base_unit_id' => '', 'quantity' => '1'];
     }
 
     public function selectProduct(int $index): void
     {
-        app(PurchasingAccess::class)->authorize(auth()->id(),'rfq_standalone',(int)($this->form['branch_id']??0));
-        $p=app(ProductsApi::class)->getProduct(new GetProductRequest(auth()->id(),(int)($this->form['lines'][$index]['product_id']??0)))->product;
-        $this->form['lines'][$index]['base_unit_id']=$p['base_unit_id'];
+        app(PurchasingAccess::class)->authorize(auth()->id(), 'rfq_standalone', (int) ($this->form['branch_id'] ?? 0));
+        $p = app(ProductsApi::class)->getProduct(new GetProductRequest(auth()->id(), (int) ($this->form['lines'][$index]['product_id'] ?? 0)))->product;
+        $this->form['lines'][$index]['base_unit_id'] = $p['base_unit_id'];
     }
 
     public function updatedFormSourceType(): void
     {
-        abort_if($this->rfq!==null,422);
-        $this->form['requisition_id']='';
-        $this->form['lines']=[];
+        abort_if($this->rfq !== null, 422);
+        $this->form['requisition_id'] = '';
+        $this->form['lines'] = [];
     }
 
     public array $dispatchReferences = [];
@@ -62,7 +63,7 @@ final class RfqPage extends Component
     {
         $this->rfq = $rfq;
         $this->creationKey = (string) Str::uuid();
-        $this->form = ['source_type'=>'REQUISITION','branch_id'=>'','justification'=>'','requisition_id' => '', 'subject' => '', 'request_date' => now('Africa/Cairo')->toDateString(), 'deadline' => '', 'requirements' => '', 'supplier_ids' => [], 'lines' => []];
+        $this->form = ['source_type' => 'REQUISITION', 'branch_id' => '', 'justification' => '', 'requisition_id' => '', 'subject' => '', 'request_date' => now('Africa/Cairo')->toDateString(), 'deadline' => '', 'requirements' => '', 'supplier_ids' => [], 'lines' => []];
         if ($rfq) {
             $this->loadDocument();
         } else {
@@ -88,14 +89,14 @@ final class RfqPage extends Component
         $doc = $this->document();
         $this->version = $doc->version;
         $this->creationKey = $doc->creation_key;
-        $this->form = $doc->only(['source_type','branch_id','justification','requisition_id', 'subject', 'request_date', 'deadline', 'requirements']);
+        $this->form = $doc->only(['source_type', 'branch_id', 'justification', 'requisition_id', 'subject', 'request_date', 'deadline', 'requirements']);
         $this->form['supplier_ids'] = $doc->suppliers()->pluck('supplier_id')->map(fn ($v) => (string) $v)->all();
-        $this->form['lines'] = $doc->lines()->orderBy('id')->get()->map(fn ($l) => $l->only(['requisition_line_id','product_id','base_unit_id','product_name','sku','unit_name', 'quantity']))->all();
+        $this->form['lines'] = $doc->lines()->orderBy('id')->get()->map(fn ($l) => $l->only(['requisition_line_id', 'product_id', 'base_unit_id', 'product_name', 'sku', 'unit_name', 'quantity']))->all();
     }
 
     public function loadSource(): void
     {
-        abort_if($this->rfq !== null || ($this->form['source_type']??'REQUISITION')!=='REQUISITION', 422);
+        abort_if($this->rfq !== null || ($this->form['source_type'] ?? 'REQUISITION') !== 'REQUISITION', 422);
         $source = PurchaseRequisition::where('status', 'approved')->findOrFail((int) ($this->form['requisition_id'] ?? 0));
         app(PurchasingAccess::class)->authorize(auth()->id(), 'requisition_view', $source->branch_id);
         app(PurchasingAccess::class)->authorize(auth()->id(), 'rfq_create', $source->branch_id);
@@ -142,6 +143,13 @@ final class RfqPage extends Component
         }
         try {
             $suppliers = $editable ? app(SuppliersApi::class)->searchSuppliers(new SearchSuppliersRequest(auth()->id(), mb_substr($this->supplierSearch, 0, 200), 50)) : [];
+            if ($editable) {
+                foreach (array_unique(array_filter($this->form['supplier_ids'])) as $id) {
+                    if (! collect($suppliers)->contains('id', (int) $id)) {
+                        $suppliers[] = app(SuppliersApi::class)->getSupplier(new GetSupplierRequest(auth()->id(), (int) $id, false));
+                    }
+                }
+            }
         } catch (SupplierContractException $e) {
             abort($e->getCode(), 'صلاحية عرض دليل الموردين مطلوبة لإنشاء الطلب.');
         }
@@ -151,6 +159,6 @@ final class RfqPage extends Component
             ? DB::table('purchasing_offers')->where('rfq_id', $doc->id)->where('status', 'recorded')->orderByDesc('id')->get(['id', 'supplier_id', 'supplier_reference', 'currency', 'document_date'])->unique('supplier_id')->keyBy('supplier_id')
             : collect();
 
-        return view('purchasing.rfq', ['standaloneBranches'=>$access->branches(auth()->id(),'rfq_standalone'), 'products'=> $editable && ($this->form['source_type']??'')==='STANDALONE' ? array_map(fn($p)=>$p+['unit_name'=>(string)$p['base_unit_id']], app(ProductsApi::class)->listMasters(new ListMastersRequest(auth()->id(),search:$this->productSearch,pageSize:100))->items):[], 'doc' => $doc, 'editable' => $editable, 'requisitions' => $requisitions, 'source' => $source, 'suppliers' => $suppliers, 'canViewResponses' => $canViewResponses, 'responses' => $responses])->layout('layouts::app', ['title' => 'طلب عروض الموردين']);
+        return view('purchasing.rfq', ['standaloneBranches' => $access->branches(auth()->id(), 'rfq_standalone'), 'products' => $editable && ($this->form['source_type'] ?? '') === 'STANDALONE' ? array_map(fn ($p) => $p + ['unit_name' => (string) $p['base_unit_id']], app(ProductsApi::class)->listMasters(new ListMastersRequest(auth()->id(), search: mb_substr($this->productSearch, 0, 200), pageSize: 100))->items) : [], 'doc' => $doc, 'editable' => $editable, 'requisitions' => $requisitions, 'source' => $source, 'suppliers' => $suppliers, 'canViewResponses' => $canViewResponses, 'responses' => $responses])->layout('layouts::app', ['title' => 'طلب عروض الموردين']);
     }
 }

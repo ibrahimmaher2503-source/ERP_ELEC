@@ -286,11 +286,13 @@ new class extends Component {
                                 <input
                                     type="text"
                                     readonly
+                                    aria-label="{{ __('Setup key') }}"
                                     value="{{ $manualSetupKey }}"
                                     class="w-full p-3 bg-transparent outline-none text-stone-900 dark:text-stone-100"
                                 />
 
                                 <button
+                                    type="button"
                                     @click="copy()"
                                     class="px-3 transition-colors border-l cursor-pointer border-stone-200 dark:border-stone-600"
                                 >

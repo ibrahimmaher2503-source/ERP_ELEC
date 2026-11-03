@@ -14,8 +14,8 @@ final class SalesOrderQuery
         app(SalesOrderAccess::class)->authorize($actor);
         app(SalesOrderAccess::class)->authorize($actor, $action);
         $data = Validator::make($filters, [
-            'search' => ['nullable', 'string', 'max:200'], 'status' => ['nullable', Rule::in(['draft', 'pending_approval', 'cancelled'])],
-            'branch' => ['nullable', 'integer', 'min:1'], 'source' => ['nullable', Rule::in(['direct'])],
+            'search' => ['nullable', 'string', 'max:200'], 'status' => ['nullable', Rule::in(['draft', 'pending_approval', 'cancelled', 'approved'])],
+            'branch' => ['nullable', 'integer', 'min:1'], 'source' => ['nullable', Rule::in(['direct', 'quotation'])],
             'from' => ['nullable', 'date_format:Y-m-d'], 'to' => ['nullable', 'date_format:Y-m-d'],
         ])->validate();
         $access = app(SalesOrderAccess::class);

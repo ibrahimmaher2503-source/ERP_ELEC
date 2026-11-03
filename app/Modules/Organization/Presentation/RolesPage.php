@@ -2,6 +2,7 @@
 
 namespace App\Modules\Organization\Presentation;
 
+use App\Modules\Organization\Application\CreateRole;
 use App\Modules\Organization\Application\RbacGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,10 @@ class RolesPage extends Component
 
     public int $selectedRole = 0;
 
+    public bool $creatingRole = false;
+
+    public string $roleName = '';
+
     public function boot(): void
     {
         app(RbacGuard::class)->authorize(Auth::user());
@@ -34,6 +39,20 @@ class RolesPage extends Component
     {
         abort_unless(DB::table('roles')->where('id', $role)->exists(), 404);
         $this->selectedRole = $role;
+    }
+
+    public function startCreatingRole(): void
+    {
+        $this->reset('roleName');
+        $this->resetValidation('roleName');
+        $this->creatingRole = true;
+    }
+
+    public function createRole(): void
+    {
+        $role = app(CreateRole::class)->execute(Auth::user(), $this->roleName);
+        session()->flash('status', 'تم إنشاء الدور دون صلاحيات أو مستخدمين. حدد الصلاحيات المطلوبة ثم احفظها.');
+        $this->redirectRoute('organization.roles.show', ['role' => $role], navigate: true);
     }
 
     public function updatedSearch(): void

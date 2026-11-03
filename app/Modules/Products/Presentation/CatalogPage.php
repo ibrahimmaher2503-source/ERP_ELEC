@@ -111,7 +111,7 @@ class CatalogPage extends Component
     {
         $path = app(OperationService::class)->export(auth()->id(), 'products', $mode, $this->filters(), $this->selected);
 
-        return response()->download($path, 'products-'.$mode.'.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->deleteFileAfterSend();
+        return response()->download($path, 'products-'.$mode.'.xlsx', ['Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'])->setPrivate()->deleteFileAfterSend();
     }
 
     public function render()

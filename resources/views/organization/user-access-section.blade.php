@@ -5,7 +5,7 @@
         <flux:button :href="route('organization.permissions')" icon="key" class="erp-action-positive" wire:navigate>إدارة الصلاحيات</flux:button>
         <flux:button :href="route('organization.users.show', $user).'#permissions-history'" icon="clock" wire:navigate>سجل الأدوار ونطاقات الوصول</flux:button>
     </div>
-    <flux:error name="assignment" />
+    <x-ui.validation-summary /><flux:error name="assignment" />
     @if ($roles->isEmpty())
         <flux:callout variant="warning" heading="لا توجد أدوار مسندة لهذا الحساب">الحساب يستفيد فقط من المنح المباشرة الحالية. تعديل مصفوفة أي دور لن يؤثر عليه حتى يتم إسناد ذلك الدور إليه.</flux:callout>
     @endif

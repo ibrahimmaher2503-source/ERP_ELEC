@@ -1,0 +1,44 @@
+# Replace every @...@ value and validate with nginx -t before installation.
+server {
+    listen 80;
+    server_name @DOMAIN@;
+    location ^~ /.well-known/acme-challenge/ { root @ACME_WEBROOT@; }
+    location / { return 301 https://$host$request_uri; }
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name @DOMAIN@;
+    root /srv/electrical-erp/current/public;
+    index index.php;
+    charset utf-8;
+    ssl_certificate @TLS_FULLCHAIN@;
+    ssl_certificate_key @TLS_PRIVATE_KEY@;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    server_tokens off;
+    client_max_body_size 12m;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    access_log /var/log/nginx/electrical-erp-access.log;
+    error_log /var/log/nginx/electrical-erp-error.log warn;
+
+    # Includes Livewire 4's key-derived update/upload endpoints; do not hard-code /livewire/update.
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+    location = /index.php {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root/index.php;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_pass unix:/run/php/electrical-erp.sock;
+        fastcgi_read_timeout 150s;
+        fastcgi_hide_header X-Powered-By;
+    }
+    location ~ \.php$ { return 404; }
+    location ~ /\. { deny all; }
+    location ~* \.(?:css|js|woff2|png|jpg|jpeg|webp|svg|ico)$ {
+        try_files $uri =404;
+        expires 7d;
+        add_header X-Content-Type-Options nosniff always;
+    }
+}

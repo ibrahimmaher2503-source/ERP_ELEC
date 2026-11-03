@@ -17,7 +17,7 @@ final class InventoryQuery
                 $query->where(fn ($q) => $q->where('sku', 'ilike', '%'.$search.'%')->orWhere('product_name', 'ilike', '%'.$search.'%'));
             }
         }
-        if ($table === 'inventory_movements' && in_array($filters['operation'] ?? '', ['opening_post', 'issue_post', 'adjustment_post', 'transfer_dispatch', 'transfer_receive', 'reservation_issue','correction'], true)) {
+        if ($table === 'inventory_movements' && in_array($filters['operation'] ?? '', ['financial_opening', 'purchase_receipt', 'opening_post', 'issue_post', 'adjustment_post', 'transfer_dispatch', 'transfer_receive', 'reservation_issue', 'correction'], true)) {
             $query->where('operation', $filters['operation']);
         }
         if ($table === 'inventory_balances') {
@@ -66,17 +66,15 @@ final class InventoryQuery
     public function documents(int $actor, string $kind)
     {
         $scopes = [];
-        $destinationReceivers=$kind==='transfer'?app(InventoryAccess::class)->ids($actor,'transfer_receive'):[];
         foreach (['create', 'approve', ...($kind === 'transfer' ? ['dispatch', 'receive'] : ($kind === 'count' ? ['submit'] : ['post']))] as $action) {
             $ids = app(InventoryAccess::class)->ids($actor, app(InventoryDocuments::class)->permission($kind, $action));
             if ($ids !== []) {
                 $scopes[] = $ids;
             }
         }
-        abort_unless($scopes !== [] || $destinationReceivers!==[], 403);
+        abort_unless($scopes !== [], 403);
 
-        return DB::table('inventory_documents')->where('kind', $kind)->where(function ($query) use ($scopes,$destinationReceivers) {
-            if ($destinationReceivers!==[]) { $query->orWhereIn('destination_id',$destinationReceivers); }
+        return DB::table('inventory_documents')->where('kind', $kind)->where(function ($query) use ($scopes) {
             foreach ($scopes as $ids) {
                 $query->orWhere(fn ($q) => $q->whereIn('warehouse_id', $ids)->where(fn ($destination) => $destination->whereNull('destination_id')->orWhereIn('destination_id', $ids)));
             }

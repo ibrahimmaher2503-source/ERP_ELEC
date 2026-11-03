@@ -4,6 +4,7 @@ namespace App\Modules\Sales\Presentation;
 
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
+use App\Modules\Sales\Application\Contracts\QuotationPricing;
 use App\Modules\Sales\Application\DraftAmounts;
 use App\Modules\Sales\Application\QuotationAccess;
 use App\Modules\Sales\Application\QuotationActions;
@@ -53,6 +54,7 @@ class QuotationFormPage extends Component
         $this->recordId = $quotation;
         app(QuotationAccess::class)->authorize(auth()->id(), $quotation === null ? 'create' : 'edit');
         if ($quotation !== null) {
+            app(QuotationAccess::class)->authorizeRecord(auth()->id(), $quotation);
             $r = Quotation::with('lines')->findOrFail($quotation);
             abort_unless($r->editable(), 422, 'هذا العرض غير قابل للتعديل.');
             $this->version = $r->version;
@@ -72,6 +74,11 @@ class QuotationFormPage extends Component
 
     public function updatedForm($value, $key): void
     {
+        if ($key === 'quotation_date') {
+            foreach (array_keys($this->lines) as $index) {
+                $this->refreshSuggestedPrice($index);
+            }
+        }
         if (in_array($key, ['payment_term_id', 'delivery_term_id'], true)) {
             $kind = str_starts_with($key, 'payment') ? 'payment' : 'delivery';
             $term = QuotationTerm::where('kind', $kind)->where('active', true)->find($value);
@@ -111,6 +118,11 @@ class QuotationFormPage extends Component
 
     public function updatedLines($value, $key): void
     {
+        if (preg_match('/^(\d+)\.unit_id$/D', $key, $match)) {
+            $this->refreshSuggestedPrice((int) $match[1]);
+
+            return;
+        }
         if (! preg_match('/^(\d+)\.product_id$/D', $key, $match)) {
             return;
         }
@@ -131,6 +143,20 @@ class QuotationFormPage extends Component
         $this->lines[$i]['discount_mode'] = 'percent';
         $this->lines[$i]['discount_value'] = '0';
         $this->lines[$i]['override_reason'] = '';
+        $this->refreshSuggestedPrice($i);
+    }
+
+    private function refreshSuggestedPrice(int $index): void
+    {
+        if (! isset($this->lines[$index])) {
+            return;
+        }
+        $line = $this->lines[$index];
+        $date = $this->form['quotation_date'] ?? '';
+        $valid = validator(['product' => $line['product_id'], 'unit' => $line['unit_id'], 'date' => $date],
+            ['product' => 'required|integer|min:1', 'unit' => 'required|integer|min:1', 'date' => 'required|date_format:Y-m-d'])->passes();
+        $price = $valid ? app(QuotationPricing::class)->suggested(auth()->id(), (int) $line['product_id'], (int) $line['unit_id'], $date) : null;
+        $this->lines[$index]['suggested_price'] = $price['amount'] ?? null;
     }
 
     public function save()
@@ -148,7 +174,7 @@ class QuotationFormPage extends Component
     {
         $path = app(QuotationLineImportDefinition::class)->template(auth()->id());
 
-        return response()->download($path, 'quotation-lines-template.xlsx', ['Cache-Control' => 'private, no-store'])->deleteFileAfterSend();
+        return response()->download($path, 'quotation-lines-template.xlsx', ['Cache-Control' => 'private, no-store'])->setPrivate()->deleteFileAfterSend();
     }
 
     public function previewImport(): void
@@ -181,13 +207,16 @@ class QuotationFormPage extends Component
 
     public function render()
     {
+        if ($this->recordId !== null) {
+            app(QuotationAccess::class)->authorizeRecord(auth()->id(), $this->recordId);
+        }
         app(QuotationAccess::class)->authorize(auth()->id(), $this->recordId === null ? 'create' : 'edit');
         $catalog = app(QuotationCatalog::class);
         $customerOptions = $catalog->customers(auth()->id(), $this->customerSearch);
         if (! empty($this->form['customer_id']) && ! collect($customerOptions)->contains('id', (int) $this->form['customer_id'])) {
             $customerOptions[] = $catalog->customer(auth()->id(), (int) $this->form['customer_id']);
         }
-        $products = $catalog->products(auth()->id(), $this->productSearch);
+        $products = $catalog->products(auth()->id(), mb_substr($this->productSearch, 0, 200));
         // Keep selected values available even when searching another product.
         foreach ($this->lines as $l) {
             if (! empty($l['product_id']) && ! collect($products)->contains('id', (int) $l['product_id'])) {

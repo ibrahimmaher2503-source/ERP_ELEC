@@ -50,7 +50,7 @@ class ProductsService implements ProductsApi
         $this->authorizeInventory($actor);
         $search = mb_substr(str_replace("\0", '', $search), 0, 200);
 
-        return Product::with('baseUnit')->where('active', true)->whereIn('tracking', ['quantity','serial'])->where('kind', '<>', 'service')
+        return Product::with('baseUnit')->where('active', true)->whereIn('tracking', ['quantity', 'serial'])->where('kind', '<>', 'service')
             ->when($search !== '', fn ($q) => $q->where(fn ($q) => $q->where('name', 'ilike', '%'.$search.'%')->orWhere('sku', 'ilike', '%'.$search.'%')))
             ->orderBy('id')->limit(100)->get()->map(fn ($p) => $p->only(self::FIELDS) + ['unit_name' => $p->baseUnit?->name ?? ''])->all();
     }

@@ -1,0 +1,26 @@
+[Unit]
+Description=Electrical ERP default and data-operations queues
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=electrical-erp
+Group=electrical-erp
+WorkingDirectory=/srv/electrical-erp/current
+ExecStart=/usr/bin/php artisan queue:work --queue=data-operations,default --sleep=3 --tries=3 --timeout=120 --max-time=3600
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=150
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/electrical-erp/shared/storage /srv/electrical-erp/current/bootstrap/cache
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

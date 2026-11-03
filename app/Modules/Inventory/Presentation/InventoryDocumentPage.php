@@ -49,24 +49,28 @@ final class InventoryDocumentPage extends Component
     public string $barcode = '';
 
     #[Locked]
-    public string $receiptKey='';
+    public string $receiptKey = '';
 
-    public array $receiptLines=[];
-    public string $receiptReason='';
-    public string $receiptEvidence='';
+    public array $receiptLines = [];
+
+    public string $receiptReason = '';
+
+    public string $receiptEvidence = '';
 
     public function receivePartial(): void
     {
         $this->row();
-        $rows=$this->receiptLines;
+        $rows = $this->receiptLines;
         foreach ($rows as &$line) {
-            foreach (['accepted_serials','damaged_serials'] as $field) {
-                if (is_string($line[$field]??null)) { $line[$field]=preg_split('/\R/u',$line[$field],-1,PREG_SPLIT_NO_EMPTY); }
+            foreach (['accepted_serials', 'damaged_serials'] as $field) {
+                if (is_string($line[$field] ?? null)) {
+                    $line[$field] = preg_split('/\R/u', $line[$field], -1, PREG_SPLIT_NO_EMPTY);
+                }
             }
         }
-        app(InventoryTransfers::class)->receive(Auth::id(),$this->document,['idempotency_key'=>$this->receiptKey,'reason'=>$this->receiptReason,'evidence'=>$this->receiptEvidence,'lines'=>array_values(array_filter($rows,fn($l)=> !collect(['accepted','damaged','missing','recovered_missing'])->every(fn($k)=>preg_match('/^0(?:\.0+)?$/D',$l[$k]??'0'))))]);
+        app(InventoryTransfers::class)->receive(Auth::id(), $this->document, ['idempotency_key' => $this->receiptKey, 'reason' => $this->receiptReason, 'evidence' => $this->receiptEvidence, 'lines' => array_values(array_filter($rows, fn ($l) => ! collect(['accepted', 'damaged', 'missing', 'recovered_missing'])->every(fn ($k) => preg_match('/^0(?:\.0+)?$/D', $l[$k] ?? '0'))))]);
         $this->reload();
-        session()->flash('status','Receipt event saved. Damaged stock is unavailable; missing stock remains unresolved.');
+        session()->flash('status', 'Receipt event saved. Damaged stock is unavailable; missing stock remains unresolved.');
     }
 
     public function addByBarcode(): void
@@ -124,7 +128,7 @@ final class InventoryDocumentPage extends Component
         }
         $r = DB::table('inventory_documents')->where('id', $this->document)->where('kind', $this->kind)->first();
         abort_unless($r, 404);
-        app(InventoryQuery::class)->documents(Auth::id(),$this->kind)->where('id',$r->id)->firstOrFail();
+        app(InventoryQuery::class)->documents(Auth::id(), $this->kind)->where('id', $r->id)->firstOrFail();
 
         return $r;
     }
@@ -132,16 +136,18 @@ final class InventoryDocumentPage extends Component
     private function reload(): void
     {
         $r = $this->row();
-        $this->receiptKey=(string)Str::uuid();
-        $this->receiptLines=[];
-        if ($r->kind==='transfer' && $r->status==='dispatched') {
-            foreach(app(InventoryTransfers::class)->quantities($r->id) as $entry) {
-                if (bccomp($entry['in_transit'],'0',8)>0) { $this->receiptLines[]=['line_id'=>$entry['line_id'],'accepted'=>'0','damaged'=>'0','missing'=>'0','recovered_missing'=>'0','accepted_serials'=>'','damaged_serials'=>'']; }
+        $this->receiptKey = (string) Str::uuid();
+        $this->receiptLines = [];
+        if ($r->kind === 'transfer' && $r->status === 'dispatched') {
+            foreach (app(InventoryTransfers::class)->quantities($r->id) as $entry) {
+                if (bccomp($entry['in_transit'], '0', 8) > 0) {
+                    $this->receiptLines[] = ['line_id' => $entry['line_id'], 'accepted' => '0', 'damaged' => '0', 'missing' => '0', 'recovered_missing' => '0', 'accepted_serials' => '', 'damaged_serials' => ''];
+                }
             }
         }
         $this->version = $r->version;
         $this->creationKey = $r->creation_key;
-        $this->form = ['warehouse_id' => $r->warehouse_id, 'destination_id' => $r->destination_id ?? '', 'reason' => $r->reason, 'lines' => DB::table('inventory_document_lines')->where('document_id', $r->id)->orderBy('id')->get()->map(fn ($l) => ['product_id' => $l->product_id, 'quantity' => $l->quantity,'serials'=>implode("\n",json_decode($l->serials,true))])->all()];
+        $this->form = ['warehouse_id' => $r->warehouse_id, 'destination_id' => $r->destination_id ?? '', 'reason' => $r->reason, 'lines' => DB::table('inventory_document_lines')->where('document_id', $r->id)->orderBy('id')->get()->map(fn ($l) => ['product_id' => $l->product_id, 'quantity' => $l->quantity, 'unit_cost' => $l->unit_cost ?? '', 'cost_reference' => $l->cost_reference ?? '', 'serials' => implode("\n", json_decode($l->serials, true))])->all()];
     }
 
     public function template()
@@ -149,7 +155,7 @@ final class InventoryDocumentPage extends Component
         $this->row();
         $path = app(InventoryLineImport::class)->template(Auth::id(), $this->kind, (int) $this->form['warehouse_id']);
 
-        return response()->download($path, 'inventory-'.$this->kind.'-template.xlsx')->deleteFileAfterSend();
+        return response()->download($path, 'inventory-'.$this->kind.'-template.xlsx')->setPrivate()->deleteFileAfterSend();
     }
 
     public function previewImport(): void
@@ -219,6 +225,13 @@ final class InventoryDocumentPage extends Component
             $ids = array_merge($ids, $access->ids(Auth::id(), $docs->permission($this->kind, $a)));
         }
 
-        return view('inventory.document', ['transferQuantities'=>$r && $this->kind==='transfer'? app(InventoryTransfers::class)->quantities($r->id):[], 'transferReceipts'=>$r && $this->kind==='transfer'?DB::table('inventory_transfer_receipts')->where('document_id',$r->id)->orderByDesc('id')->get():collect(), 'history' => $r ? app(InventoryHistoryReader::class)->read(Auth::id(), $r->id) : [], 'title' => InventoryDocuments::KINDS[$this->kind], 'record' => $r, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', array_unique($ids))->get(), 'products' => app(ProductsApi::class)->inventoryProducts(Auth::id(), $this->productSearch), 'lines' => $r ? DB::table('inventory_document_lines')->where('document_id', $r->id)->get() : collect(), 'access' => $access, 'docs' => $docs])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
+        $products = app(ProductsApi::class)->inventoryProducts(Auth::id(), $this->productSearch);
+        foreach (array_unique(array_filter(array_column($this->form['lines'], 'product_id'))) as $id) {
+            if (! collect($products)->contains('id', (int) $id)) {
+                $products[] = app(ProductsApi::class)->inventoryProduct(Auth::id(), (int) $id);
+            }
+        }
+
+        return view('inventory.document', ['transferQuantities' => $r && $this->kind === 'transfer' ? app(InventoryTransfers::class)->quantities($r->id) : [], 'transferReceipts' => $r && $this->kind === 'transfer' ? DB::table('inventory_transfer_receipts')->where('document_id', $r->id)->orderByDesc('id')->get() : collect(), 'history' => $r ? app(InventoryHistoryReader::class)->read(Auth::id(), $r->id) : [], 'title' => InventoryDocuments::KINDS[$this->kind], 'record' => $r, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', array_unique($ids))->get(), 'products' => $products, 'lines' => $r ? DB::table('inventory_document_lines')->where('document_id', $r->id)->get() : collect(), 'access' => $access, 'docs' => $docs])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
     }
 }

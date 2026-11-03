@@ -1,5 +1,5 @@
 <x-erp.section-card title="استلام التحويل وتسوية الكميات">
-    <div class="overflow-x-auto"><table class="w-full text-start text-sm"><thead class="bg-blue-50"><tr><th class="p-2">الصنف</th><th>المرسل</th><th>مستلم سليم</th><th>مستلم تالف</th><th>مفقود غير محلول</th><th>متبقٍ لم يصل</th></tr></thead><tbody>
+    <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" data-erp-archetype="form" class="overflow-x-auto"><table class="w-full text-start text-sm"><thead class="bg-blue-50"><tr><th class="p-2">الصنف</th><th>المرسل</th><th>مستلم سليم</th><th>مستلم تالف</th><th>مفقود غير محلول</th><th>متبقٍ لم يصل</th></tr></thead><tbody>
     @foreach($transferQuantities as $entry)<tr><td class="p-2">{{ $lines->firstWhere('id',$entry['line_id'])?->product_name }}</td>@foreach(['quantity','accepted','damaged','missing','outstanding'] as $column)<td>{{ $entry[$column] }}</td>@endforeach</tr>@endforeach
     </tbody></table></div>
     <p class="mt-3 text-sm text-slate-600">التالف ضمن الرصيد الفعلي ومعزول عن المتاح. المفقود لا يضاف إلى المستودع ولا يشطب؛ يبقى التزام نقل حتى وصوله. التسوية المالية للفروقات تنتظر منتج المحاسبة.</p>

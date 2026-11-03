@@ -30,6 +30,13 @@ class QuotationPolicyPage extends Component
         $this->version = $p?->version;
     }
 
+    public function prepareStandardPolicy(): void
+    {
+        $this->settings = ['validity_default' => '30', 'validity_min' => '1', 'validity_max' => '90',
+            'line_percent' => '0', 'line_fixed' => '0', 'quotation_percent' => '0', 'quotation_fixed' => '0'];
+        $this->resetValidation();
+    }
+
     public function save(): void
     {
         app(QuotationCommercialPolicy::class)->save(auth()->id(), $this->settings, $this->version);

@@ -1,0 +1,375 @@
+{
+  "as_of": "2026-11-01",
+  "decision": "NO-GO — RELEASE BLOCKERS REMAIN",
+  "execution_state": "IN PROGRESS",
+  "scope": "Local remediation only; no deployment, activation, commit or publishing",
+  "finding_count": 24,
+  "findings": [
+    {
+      "id": "PR-FIN-001",
+      "original_severity": "P0",
+      "original_failure": "Partial or empty report scope could close company periods.",
+      "root_cause": "Close used visible branches without complete-company authority or a common posting gate.",
+      "code_changes": "Complete branch authority, ordered locks and immutable closure evidence.",
+      "evidence": [
+        "evidence/gate1/financial-release-risks-green.json"
+      ],
+      "regression_test": "check-gate1-financial-close-controls.php",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final candidate and portable CI race rerun remain open.",
+      "release_impact": "Focused original reproduction and regressions pass; final release remains gated.",
+      "report": "FINANCIAL_P0_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-FIN-002",
+      "original_severity": "P0",
+      "original_failure": "Historical GL was compared with current source balances.",
+      "root_cause": "Mutable source totals and mixed effective dates.",
+      "code_changes": "Dated immutable FIFO, settlements, credits, GRNI and genuine opening AP link.",
+      "evidence": [
+        "evidence/gate1/historical/"
+      ],
+      "regression_test": "Gate1FinancialHistory.php",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final regression after new advance/contract sources.",
+      "release_impact": "Focused chronology accepted; final whole-system history remains required.",
+      "report": "FINANCIAL_P0_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-FIN-003",
+      "original_severity": "P0",
+      "original_failure": "Manual journals could post to optional advance control.",
+      "root_cause": "Duplicated incomplete manual-control list.",
+      "code_changes": "Central mapped-control guard throughout manual lifecycle and mapping changes.",
+      "evidence": [
+        "evidence/gate1/financial-release-risks-green.json"
+      ],
+      "regression_test": "check-gate1-financial-close-controls.php",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final candidate regression.",
+      "release_impact": "Original reproduction safely denies; focused positive source posting passes.",
+      "report": "FINANCIAL_P0_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-SCOPE-001",
+      "original_severity": "P0",
+      "original_failure": "M10 owner absent.",
+      "root_cause": "No implemented contract authority/lifecycle/integration.",
+      "code_changes": "New ServiceContracts owner, Employee authority, M08/M09/M12/M17/Tender integrations and UI.",
+      "evidence": [
+        "evidence/gate2/"
+      ],
+      "regression_test": "check-m10-service-contracts-core.php",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Full financial entity factories, active billing UI and final chain acceptance.",
+      "release_impact": "Mandatory release gate remains open despite substantial focused PASS evidence.",
+      "report": "M10_SERVICE_CONTRACTS_ACCEPTANCE.md"
+    },
+    {
+      "id": "PR-SCOPE-002",
+      "original_severity": "P0",
+      "original_failure": "M15 owner absent.",
+      "root_cause": "No factual attendance owner.",
+      "code_changes": "New Attendance owner with employee authority, punches, independent decisions and locked timesheets.",
+      "evidence": [
+        "evidence/gate3/"
+      ],
+      "regression_test": "check-m15-attendance.php",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Complete concurrency, monthly browser flow and final acceptance.",
+      "release_impact": "Mandatory complete acceptance remains open; expanded47 and bounded browser pass.",
+      "report": "M15_ATTENDANCE_ACCEPTANCE.md"
+    },
+    {
+      "id": "PR-SCOPE-003",
+      "original_severity": "P1",
+      "original_failure": "M14/M16 conditional scope unresolved.",
+      "root_cause": "Owner release inclusion decision missing.",
+      "code_changes": "Owner explicitly deferred independent Payroll and Reporting; owner reports/dashboard retained.",
+      "evidence": [
+        "RELEASE_SCOPE_PROPOSAL.md"
+      ],
+      "regression_test": "Owner decision recorded in current session.",
+      "current_result": "APPROVED OUT OF SCOPE",
+      "remaining_dependency": "No software completion claim for deferred modules.",
+      "release_impact": "Only independent M14/M16 excluded; mandatory modules/reports remain included.",
+      "report": "RELEASE_SCOPE_PROPOSAL.md"
+    },
+    {
+      "id": "PR-FUN-001",
+      "original_severity": "P1",
+      "original_failure": "Physical trade returns unavailable.",
+      "root_cause": "Placeholder pages and missing owning return lifecycle.",
+      "code_changes": "No accepted physical customer/supplier trade-return implementation yet.",
+      "evidence": [
+        "../PRODUCTION_READINESS_BLOCKERS.md"
+      ],
+      "regression_test": "Required real source FIFO/credit/refund acceptance pending.",
+      "current_result": "STILL FAILING",
+      "remaining_dependency": "Software implementation and positive/negative/concurrent acceptance.",
+      "release_impact": "Blocks requested whole-ERP release.",
+      "report": "RETURNS_SERIAL_TREASURY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-FUN-002",
+      "original_severity": "P1",
+      "original_failure": "Serialized valued stock rejected.",
+      "root_cause": "Financial paths accept quantity tracking only.",
+      "code_changes": "Genuine serialized receipts/openings, immutable serial-to-FIFO cents, original-cost corrections and partial/damaged/missing/recovered transfers.",
+      "evidence": [
+        "evidence/gate5/serial-valued-20261101T191355Z-78ff730b36.json",
+        "evidence/gate5/serial-opening-20261101T191545Z-3200a08cc5.json"
+      ],
+      "regression_test": "Serialized valued-stock acceptance being authored.",
+      "current_result": "STILL FAILING",
+      "remaining_dependency": "Full Sales/reservation/delivery/count/custody/concurrency acceptance and serialized service unused returns remain open.",
+      "release_impact": "Blocks serialized inventory scope.",
+      "report": "RETURNS_SERIAL_TREASURY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-FUN-003",
+      "original_severity": "P1",
+      "original_failure": "Advance/refund/correction and bank matching incomplete.",
+      "root_cause": "Original advances recorded without application/refund lifecycle.",
+      "code_changes": "Advance apply/refund and race; genuine customer/supplier credit refunds; bank import, partial matching, differences and immutable independent reviews; cash correction source integration under acceptance.",
+      "evidence": [
+        "evidence/gate5/treasury-advance-20261101T174902Z-8ab439.json",
+        "evidence/gate5/advance-race-20261101T1911.json",
+        "evidence/gate5/treasury-credit-refunds-20261101T200015Z-cbcfbb.json",
+        "evidence/gate5/treasury-statement-20261101T201415Z-ce99b9.json"
+      ],
+      "regression_test": "check-treasury-advance-lifecycle.php",
+      "current_result": "STILL FAILING",
+      "remaining_dependency": "Cash correction acceptance is in progress; new financial UI, final affected financial/security/concurrency checks remain required.",
+      "release_impact": "Focused24 PASS does not close full finance lifecycle.",
+      "report": "RETURNS_SERIAL_TREASURY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-INF-001",
+      "original_severity": "P1",
+      "original_failure": "No target binding/security configuration evidence.",
+      "root_cause": "No selected staging target.",
+      "code_changes": "Local Nginx/FPM/systemd/guard templates.",
+      "evidence": [
+        "evidence/vps-templates-static-20261101.json"
+      ],
+      "regression_test": "check-vps-operational-templates.php",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Selected target, domain, TLS, secret bindings and target authorization.",
+      "release_impact": "Blocks actual target qualification.",
+      "report": "INFRASTRUCTURE_RECOVERY_READINESS.md"
+    },
+    {
+      "id": "PR-DR-001",
+      "original_severity": "P1",
+      "original_failure": "Complete recovery and objectives unproven.",
+      "root_cause": "No accepted RPO/RTO or actual offsite full restore.",
+      "code_changes": "Encrypted coordinated backup and signed-manifest isolated restore templates.",
+      "evidence": [
+        "evidence/vps-templates-static-20261101.json"
+      ],
+      "regression_test": "check-vps-operational-templates.php",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Operator keys, retention/RPO/RTO and actual isolated target restore.",
+      "release_impact": "Static guards are not disaster-recovery acceptance.",
+      "report": "INFRASTRUCTURE_RECOVERY_READINESS.md"
+    },
+    {
+      "id": "PR-CFG-001",
+      "original_severity": "P1",
+      "original_failure": "Real company/openings not approved.",
+      "root_cause": "Actual company inputs and owner review absent.",
+      "code_changes": "Recorded actual configuration/import/opening checklist; no activation.",
+      "evidence": [
+        "COMPANY_UAT_CONFIGURATION.md"
+      ],
+      "regression_test": "Real owner setup/import/opening acceptance pending.",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Legal/tax/date/opening inputs and independent approval.",
+      "release_impact": "Blocks real company Go-Live.",
+      "report": "COMPANY_UAT_CONFIGURATION.md"
+    },
+    {
+      "id": "PR-OPS-001",
+      "original_severity": "P1",
+      "original_failure": "Supervision/alerts unverified.",
+      "root_cause": "No actual installed target processes or alert delivery.",
+      "code_changes": "Local queue/scheduler templates, retry timeout fix and monitoring/runbook.",
+      "evidence": [
+        "evidence/vps-templates-static-20261101.json"
+      ],
+      "regression_test": "check-vps-operational-templates.php",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Target process/health/queue/scheduler/alert receipts.",
+      "release_impact": "Blocks operations acceptance.",
+      "report": "INFRASTRUCTURE_RECOVERY_READINESS.md"
+    },
+    {
+      "id": "PR-REL-001",
+      "original_severity": "P1",
+      "original_failure": "No immutable reviewed artifact.",
+      "root_cause": "Dirty candidate and build boundary were unpinned.",
+      "code_changes": "Private Gate0 preservation, locked build/audit execution; final artifact pending.",
+      "evidence": [
+        "CI_RELEASE_ARTIFACT.md"
+      ],
+      "regression_test": "Reproducible isolated artifact acceptance pending.",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Final classification, source/dependency/asset manifest and clean install.",
+      "release_impact": "HEAD and current build alone are not a release.",
+      "report": "CI_RELEASE_ARTIFACT.md"
+    },
+    {
+      "id": "PR-CI-001",
+      "original_severity": "P1",
+      "original_failure": "CI omitted PostgreSQL prerequisite.",
+      "root_cause": "Workflow lacked owned PostgreSQL provisioning.",
+      "code_changes": "Provisioned PostgreSQL17.11 workflow, ownership runner and financial orchestration locally.",
+      "evidence": [
+        "evidence/gate9/phpunit-local-retry-20261101.xml"
+      ],
+      "regression_test": "run-gate1-ci.php",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Actual hosted clean runner execution; no publishing authorized.",
+      "release_impact": "Local68/295 passing does not certify hosted CI.",
+      "report": "CI_RELEASE_ARTIFACT.md"
+    },
+    {
+      "id": "PR-CAP-001",
+      "original_severity": "P1",
+      "original_failure": "Target realistic capacity untested.",
+      "root_cause": "No selected staged target/workload/telemetry.",
+      "code_changes": "Cohort harness5/20/50/100, semantic allowlists and strict preflight.",
+      "evidence": [
+        "tests/Capacity/README.md"
+      ],
+      "regression_test": "run-capacity.cjs --self-check",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Approved target/100 actors/operations and measured resource telemetry.",
+      "release_impact": "Local read-only throughput is not target capacity.",
+      "report": "INFRASTRUCTURE_RECOVERY_READINESS.md"
+    },
+    {
+      "id": "PR-SEC-001",
+      "original_severity": "P2",
+      "original_failure": "Locked Livewire version affected by GHSA-mhf7-xp6r-6qrc.",
+      "root_cause": "Affected dependency4.4.7.",
+      "code_changes": "Patched lock/vendor to4.4.8 and actual payload regressions.",
+      "evidence": [
+        "evidence/gate6/composer-audit-final.json"
+      ],
+      "regression_test": "DependencySecurityRegressionTest.php",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final candidate audit rerun if dependencies change.",
+      "release_impact": "Focused dependency issue fixed; broader security separate.",
+      "report": "SECURITY_DEPENDENCY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-SEC-002",
+      "original_severity": "P2",
+      "original_failure": "Locked Symfony MIME affected by CVE-2026-45070.",
+      "root_cause": "Affected dependency8.1.7.",
+      "code_changes": "Patched lock/vendor to8.1.10; MIME parameter rejection regression.",
+      "evidence": [
+        "evidence/gate6/composer-audit-final.json"
+      ],
+      "regression_test": "DependencySecurityRegressionTest.php",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final candidate audit rerun if dependencies change.",
+      "release_impact": "Focused dependency issue fixed; broader security separate.",
+      "report": "SECURITY_DEPENDENCY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-SEC-003",
+      "original_severity": "P1",
+      "original_failure": "Full stateful role/action/object matrix incomplete.",
+      "root_cause": "Representative Administrator tests insufficient.",
+      "code_changes": "Ordinary-role, scope, disabled/revoked/object and browser negative slices.",
+      "evidence": [
+        "evidence/gate6/rbac-stateful-20261101T150104Z-1e6f4e.json"
+      ],
+      "regression_test": "check-gate6-rbac-stateful.php",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Every included owner/action/state plus new financial/dashboard controls.",
+      "release_impact": "Whole-system security acceptance remains open.",
+      "report": "SECURITY_DEPENDENCY_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-UI-001",
+      "original_severity": "P2",
+      "original_failure": "Whole-interface visual/state acceptance incomplete.",
+      "root_cause": "Partial page/browser evidence.",
+      "code_changes": "37-assertion M01/M15/M10 five-viewport run and representative image review.",
+      "evidence": [
+        ".tmp/master-remediation-20261101/ui-private/artifacts/2026-11-01T17-38-12-897Z-56432/receipt.json"
+      ],
+      "regression_test": "gate2-ui-acceptance.cjs",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "All page families, active financial UI, keyboard/error/loading/accessibility.",
+      "release_impact": "Three screens cannot certify whole ERP.",
+      "report": "UI_VISUAL_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-UI-002",
+      "original_severity": "P2",
+      "original_failure": "Executive analytics absent.",
+      "root_cause": "Workspace was navigation only.",
+      "code_changes": "Typed permission-scoped owner projections for Sales, Projects/Tenders, M08/M09, GL, AR/AP and Treasury; separate financial metric bases and unavailable states.",
+      "evidence": [
+        "evidence/gate2/executive-dashboard/executive-dashboard-20261101T175340Z-46a9373e.json",
+        "evidence/gate2/m10-billing-20261101T184633Z-2cc14f.json",
+        "evidence/gate7/ui-dashboard-20261101T183912Z.json"
+      ],
+      "regression_test": "check-executive-dashboard.php; check-m10-service-contracts-billing.php; gate2-ui-acceptance.cjs",
+      "current_result": "VERIFIED FIXED",
+      "remaining_dependency": "Final frozen-candidate rerun; remaining whole-interface findings are tracked separately.",
+      "release_impact": "Real scoped executive dashboard accepted locally; does not certify all page families or final release.",
+      "report": "UI_VISUAL_CLOSEOUT.md"
+    },
+    {
+      "id": "PR-DOC-001",
+      "original_severity": "P3",
+      "original_failure": "Documents contradicted current source.",
+      "root_cause": "Historical and current acceptance states were conflated.",
+      "code_changes": "Required current remediation reports being completed; history preserved.",
+      "evidence": [
+        "docs/release/remediation/"
+      ],
+      "regression_test": "Documentation/source cross-check pending.",
+      "current_result": "STILL FAILING",
+      "remaining_dependency": "Update handoff and reconcile current owner contracts completely.",
+      "release_impact": "Current docs must not claim absent/complete incorrectly.",
+      "report": "FINAL_REMEDIATION_REPORT.md"
+    },
+    {
+      "id": "PR-STYLE-001",
+      "original_severity": "P3",
+      "original_failure": "Source formatting failed.",
+      "root_cause": "Unformatted owned/current source and historical style debt.",
+      "code_changes": "Scoped Pint passes/normalizes current owned files; full scope pending.",
+      "evidence": [
+        "CI_RELEASE_ARTIFACT.md"
+      ],
+      "regression_test": "php -d opcache.enable_cli=0 vendor/bin/pint --test",
+      "current_result": "NOT TESTED",
+      "remaining_dependency": "Final bounded formatting inventory and resolution.",
+      "release_impact": "Do not silently reformat unrelated work or claim whole-tree PASS.",
+      "report": "CI_RELEASE_ARTIFACT.md"
+    },
+    {
+      "id": "PR-TRN-001",
+      "original_severity": "P1",
+      "original_failure": "Real operator/cutover/incident acceptance absent.",
+      "root_cause": "Named operators and signed real UAT missing.",
+      "code_changes": "Prepared role-based configuration/UAT/cutover/incident procedure.",
+      "evidence": [
+        "COMPANY_UAT_CONFIGURATION.md"
+      ],
+      "regression_test": "Real operator signed journeys and rehearsal pending.",
+      "current_result": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "remaining_dependency": "Owner/operator inputs and signatures; actual target rehearsal.",
+      "release_impact": "Blocks real operational Go-Live.",
+      "report": "COMPANY_UAT_CONFIGURATION.md"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
     $scopeLabels = ['company' => 'الشركة', 'branch' => 'الفرع', 'warehouse' => 'المخزن'];
 @endphp
 
-<div @class(['rbac-role-details', 'space-y-3 rounded-xl border border-[#E5E8EE] bg-white p-4' => $embedded, 'space-y-5' => ! $embedded]) dir="rtl">
+<div data-erp-archetype="details" @class(['rbac-role-details', 'space-y-3 rounded-xl border border-[#E5E8EE] bg-white p-4' => $embedded, 'space-y-5' => ! $embedded]) dir="rtl">
     @if($record->code==='Administrator')<flux:callout variant="info" heading="جميع الصلاحيات مفعلة تلقائيًا">يحصل مدير النظام على جميع الصلاحيات المسجلة حاليًا وأي صلاحيات تضاف لاحقًا. لا تحتاج إلى تفعيل صلاحيات كل وحدة يدويًا.</flux:callout>@endif
     @if ($members->isEmpty())
         <flux:callout variant="warning" heading="هذا الدور غير مسند لأي مستخدم">
@@ -29,9 +29,11 @@
             </div>
         </x-ui.panel>
     @else
-        <x-page.heading :title="$record->name" :breadcrumbs="['التنظيم', 'الأدوار والصلاحيات', $record->name]">
+
+    <x-page.heading :title="$record->name" :breadcrumbs="['التنظيم', 'الأدوار والصلاحيات', $record->name]">
             <x-slot:actions><flux:button :href="route('organization.roles')" wire:navigate>العودة للأدوار</flux:button></x-slot:actions>
         </x-page.heading>
+    <x-ui.validation-summary />
 
         <x-ui.panel>
             <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
@@ -48,25 +50,29 @@
         </x-ui.panel>
     @endif
 
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
 
     <div @class(['grid items-start gap-5', 'lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]' => ! $embedded])>
-        <x-ui.panel x-data="{ search: '' }" class="min-w-0 !p-3">
+        <x-ui.panel x-data="{ search: '', matches(text) { return !this.search.trim() || text.includes(this.search.trim().toLowerCase()); } }" class="min-w-0 !p-3">
             <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
                 <div>
                     <h2 class="font-bold text-[#202B3D]">{{ $embedded ? 'تعيين الصلاحيات' : 'صلاحيات الدور' }}</h2>
                     <p class="mt-1 text-xs text-slate-500">{{ $selectedPermissionRecords->count() }} صلاحية مختارة @unless($embedded)· تحفظ التغييرات عند الضغط على زر الحفظ.@endunless</p>
                 </div>
-                <div class="w-full sm:w-52"><flux:input id="permission-search" x-model.debounce.150ms="search" icon="magnifying-glass" aria-label="البحث في الصلاحيات" placeholder="ابحث عن صلاحية..." /></div>
+            </div>
+            <div class="erp-filter-disclosure" data-erp-local-filters>
+                <flux:input id="permission-search" x-model.debounce.150ms="search" icon="magnifying-glass" label="البحث في الصلاحيات" placeholder="اسم الصلاحية أو رمزها" />
+                <div class="erp-filter-status"><p>تُحدَّث النتائج تلقائيًا</p><button type="button" class="erp-filter-reset" x-cloak x-show="search.trim()" @click="search = ''; $nextTick(() => document.getElementById('permission-search').focus())">مسح الفلاتر</button></div>
+                <p x-cloak x-show="search.trim() && ![...$el.closest('[x-data]').querySelectorAll('[data-searchable]')].some(el => matches(el.dataset.searchable))" role="status" class="mt-3 text-sm text-slate-500">لا توجد صلاحيات مطابقة. جرّب اسمًا أو رمزًا آخر.</p>
             </div>
 
             <div @class(['space-y-3', 'max-h-[400px] overflow-y-auto pe-1' => $embedded]) tabindex="0" role="region" aria-label="قائمة صلاحيات الدور">
                 @forelse ($catalog as $module => $permissions)
-                    <section wire:key="role-module-{{ \Illuminate\Support\Str::slug($module) }}" class="rounded-lg border border-slate-200 p-3 sm:p-4">
+                    <section wire:key="role-module-{{ \Illuminate\Support\Str::slug($module) }}" x-show="[...$el.querySelectorAll('[data-searchable]')].some(el => matches(el.dataset.searchable))" class="rounded-lg border border-slate-200 p-3 sm:p-4">
                         <h3 class="mb-2 text-sm font-bold text-slate-800">{{ $module }}</h3>
                         <div @class(['grid gap-x-4', 'md:grid-cols-2' => ! $embedded])>
                             @foreach ($permissions as $permission)
-                                <div wire:key="role-permission-{{ $permission->code }}" data-searchable="{{ mb_strtolower($permission->label.' '.$permission->code) }}" x-show="! search.trim() || $el.dataset.searchable.includes(search.trim().toLowerCase())" class="flex min-h-[34px] min-w-0 items-center justify-between gap-2 border-b border-slate-100 py-1 last:border-0">
+                                <div wire:key="role-permission-{{ $permission->code }}" data-searchable="{{ mb_strtolower($permission->label.' '.$permission->code) }}" x-show="matches($el.dataset.searchable)" class="flex min-h-[44px] min-w-0 items-center justify-between gap-2 border-b border-slate-100 py-1 last:border-0">
                                     <div class="min-w-0 flex-1">
                                         <flux:switch :checked="in_array($permission->code, $selectedPermissions, true)" wire:click="togglePermission('{{ $permission->code }}')" :label="$permission->label" :disabled="$permission->locked || ! $canEdit || ($record->code === 'ManagerReadOnly' && ! str_ends_with($permission->code, '_view') && $permission->code !== 'M04.quotation_history')" />
                                         @unless ($embedded)<p class="ms-1 mt-0.5 break-all text-[10px] text-slate-500"><bdi>{{ $permission->code }}</bdi>@if ($permission->locked)<span class="ms-1 text-amber-700">· مقفلة</span>@endif</p>@endunless
@@ -127,6 +133,7 @@
                             $removedCodes = $beforeCodes->diff($afterCodes);
                             $permissionCatalog = $catalog->flatten(1)->keyBy('code');
                             $auditAction = match ($audit->action) {
+                                'role.created' => 'إنشاء الدور',
                                 'role.administrator_defaults_synced' => 'تفعيل الصلاحيات الافتراضية لمدير النظام',
                                 'role.permissions_changed' => 'تعديل صلاحيات الدور',
                                 'role.assigned' => 'إسناد الدور لمستخدم',

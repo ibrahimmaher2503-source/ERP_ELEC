@@ -13,23 +13,95 @@ use App\Modules\Organization\Application\Contracts\ListAllowedWarehousesRequest;
 use App\Modules\Organization\Application\Contracts\ListAllowedWarehousesResult;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 final class OrganizationService implements OrganizationApi
 {
+    public function employeeIdentity(int $actor, int $employee): array
+    {
+        $row = DB::table('organization_employees')->find($employee);
+        if (! $row) {
+            throw new ContractException(ErrorCode::NotFound, 'Employee identity is unavailable.');
+        }
+        $this->authorize(new AuthorizeRequest($actor, 'M01.employee_view', (int) $row->branch_id));
+
+        return array_intersect_key((array) $row, array_flip(['id', 'code', 'name', 'branch_id', 'user_id', 'starts_on', 'ends_on', 'active', 'version']));
+    }
+
+    public function employees(int $actor, int $branch, string $search = '', bool $activeOnly = true): array
+    {
+        $this->authorize(new AuthorizeRequest($actor, 'M01.employee_view', $branch));
+        abort_unless(mb_strlen($search) <= 200 && ! str_contains($search, "\0"), 422);
+
+        return DB::table('organization_employees')->where('branch_id', $branch)->when($activeOnly, fn ($q) => $q->where('active', true))
+            ->when($search !== '', fn ($q) => $q->where(fn ($q) => $q->where('name', 'ilike', '%'.$search.'%')->orWhere('code', 'ilike', '%'.$search.'%')))
+            ->orderBy('code')->limit(100)->get(['id', 'code', 'name', 'branch_id', 'starts_on', 'ends_on', 'active'])->map(fn ($r) => (array) $r)->all();
+    }
+
+    public function employee(int $actor, int $employee, int $branch, string $date): array
+    {
+        $this->authorize(new AuthorizeRequest($actor, 'M01.employee_view', $branch));
+        \Illuminate\Support\Facades\Validator::make(['date' => $date], ['date' => 'required|date_format:Y-m-d'])->validate();
+        $row = DB::table('organization_employees')->where('id', $employee)->where('branch_id', $branch)->first();
+        if (! $row || ! $row->active || $row->starts_on > $date || ($row->ends_on !== null && $row->ends_on < $date)) {
+            throw new ContractException(ErrorCode::ValidationFailed, 'Employee employment is unavailable for this branch/date.');
+        }
+
+        return array_intersect_key((array) $row, array_flip(['id', 'code', 'name', 'branch_id', 'user_id', 'starts_on', 'ends_on', 'active', 'version']));
+    }
+
+    public function financialClosingBranches(int $actor): array
+    {
+        PermissionAccess::forgetRequestSnapshot();
+        $this->authorize(new AuthorizeRequest($actor, 'M11.period_close'));
+        $branches = DB::table('branches')->where('company_id', 1)->orderBy('id')->get(['id', 'code', 'name', 'active']);
+        if ($branches->isEmpty()) {
+            throw new ContractException(ErrorCode::IncompleteSetup, 'Company branches are required for financial close.');
+        }
+        foreach ($branches as $branch) {
+            $this->authorize(new AuthorizeRequest($actor, 'M11.report_view', (int) $branch->id));
+        }
+
+        return $branches->map(fn ($branch) => (array) $branch)->all();
+    }
+
+    public function documentCompany(int $actor): array
+    {
+        $this->actor($actor);
+        $company = DB::table('companies')->where('setup_complete', true)->find(1, ['id', 'code', 'name', 'legal_name', 'tax_registration', 'address', 'currency', 'logo_path']);
+        if (! $company || ! $company->legal_name || ! $company->address) {
+            throw new ContractException(ErrorCode::IncompleteSetup, 'Complete the actual company legal name and address before official issue.');
+        }
+
+        $identity = (array) $company;
+        unset($identity['logo_path']);
+        if ($company->logo_path) {
+            $disk = Storage::disk('local');
+            if (! $disk->exists($company->logo_path)) {
+                throw new ContractException(ErrorCode::IncompleteSetup, 'Restore the private company logo before official issue.');
+            }
+            $mime = $disk->mimeType($company->logo_path);
+            abort_unless(in_array($mime, ['image/jpeg', 'image/png', 'image/webp'], true), 422);
+            $identity['logo_data_uri'] = 'data:'.$mime.';base64,'.base64_encode($disk->get($company->logo_path));
+        }
+
+        return $identity;
+    }
+
     private const BRANCH_FIELDS = ['id', 'company_id', 'code', 'name', 'active', 'address'];
 
     public function projectScopedBranches(int $actor): array
     {
         $this->actor($actor);
 
-        return DB::table('user_branch_scopes as s')->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $actor)->where('b.active', true)->pluck('b.id')->all();
+        return array_keys(array_filter(app(PermissionAccess::class)->scopedBranches($actor), fn ($branch) => $branch->active));
     }
 
     public function projectBranchMember(int $actor, int $branch): bool
     {
         $this->actor($actor);
 
-        return DB::table('user_branch_scopes')->where('user_id', $actor)->where('branch_id', $branch)->join('branches', 'branches.id', '=', 'user_branch_scopes.branch_id')->where('branches.active', true)->exists();
+        return (bool) (app(PermissionAccess::class)->scopedBranches($actor)[$branch]->active ?? false);
     }
 
     public function projectAssignees(int $actor, int $branch): array
@@ -41,23 +113,21 @@ final class OrganizationService implements OrganizationApi
         return DB::table('users as u')->join('user_branch_scopes as s', 's.user_id', '=', 'u.id')->where('s.branch_id', $branch)->where('u.active', true)->whereNotNull('u.email_verified_at')->orderBy('u.name')->get(['u.id', 'u.name'])->map(fn ($u) => (array) $u)->all();
     }
 
+    public function projectParticipantNames(int $actor, int $branch, array $users): array
+    {
+        if (! $this->projectBranchMember($actor, $branch)) {
+            throw new ContractException(ErrorCode::Forbidden, 'Branch scope required.');
+        }
+
+        return DB::table('users as u')->join('user_branch_scopes as s', 's.user_id', '=', 'u.id')
+            ->where('s.branch_id', $branch)->whereIn('u.id', $users)->pluck('u.name', 'u.id')->all();
+    }
+
     public function inventoryScopes(int $actor): array
     {
         $this->actor($actor);
-        $catalog = array_keys(array_filter(PermissionCatalog::DEFINITIONS, fn ($d) => $d[1] === 'warehouse'));
-        $admin = DB::table('user_roles as ur')->join('roles as r', 'r.id', '=', 'ur.role_id')->where('ur.user_id', $actor)->where('r.code', 'Administrator')->exists();
-        $codes = $admin ? $catalog : DB::table('user_roles as ur')->join('role_permissions as rp', 'rp.role_id', '=', 'ur.role_id')->where('ur.user_id', $actor)->whereIn('rp.permission_code', $catalog)->pluck('rp.permission_code')->all();
-        $direct = DB::table('access_grants')->where('user_id', $actor)->whereIn('permission_code', $catalog)->get();
-        $scopes = DB::table('user_warehouse_scopes as w')->join('user_branch_scopes as b', fn ($join) => $join->on('b.user_id', '=', 'w.user_id')->on('b.branch_id', '=', 'w.branch_id'))->join('branches as br', 'br.id', '=', 'w.branch_id')->where('w.user_id', $actor)->get(['w.warehouse_id', 'w.branch_id', 'br.active', 'br.name as branch_name']);
 
-        return $scopes->map(function ($s) use ($codes, $direct) {
-            $permissions = array_values(array_unique(array_merge($codes, $direct->where('branch_id', $s->branch_id)->pluck('permission_code')->all())));
-            if (! $s->active) {
-                $permissions = array_values(array_filter($permissions, fn ($p) => str_ends_with($p, '_view') || $p === 'M06.export'));
-            }
-
-            return ['warehouse_id' => $s->warehouse_id, 'branch_id' => $s->branch_id, 'branch_name' => $s->branch_name, 'permissions' => $permissions];
-        })->all();
+        return app(PermissionAccess::class)->inventoryScopes($actor);
     }
 
     public function authorizeInventoryLookup(int $actor): void
@@ -135,13 +205,9 @@ final class OrganizationService implements OrganizationApi
         if ((PermissionCatalog::DEFINITIONS[$request->permissionCode][1] ?? null) !== 'branch' || $request->warehouseId !== null || $request->requestedFields !== []) {
             throw new ContractException(ErrorCode::Forbidden, 'Branch-scoped permission required.');
         }
-        $ids = app(PermissionAccess::class)->branchIds($actor, $request->permissionCode);
-        $query = DB::table('branches')->where('company_id', 1)->whereIn('id', $ids);
-        if ($request->recordBranchId !== null) {
-            $query->where('id', $request->recordBranchId);
-        }
+        $rows = app(PermissionAccess::class)->permissionBranches($actor->id, $request->permissionCode);
 
-        return $query->orderBy('name')->get(['id', 'code', 'name', 'address', 'active'])->map(fn ($r) => (array) $r)->all();
+        return $request->recordBranchId === null ? $rows : array_values(array_filter($rows, fn ($row) => $row['id'] === $request->recordBranchId));
     }
 
     public function securityRoles(int $actorId): array
@@ -160,8 +226,8 @@ final class OrganizationService implements OrganizationApi
 
     private function actor(int $id): User
     {
-        $actor = $id > 0 ? User::whereKey($id)->where('active', true)->whereNotNull('email_verified_at')->first() : null;
-        if (! $actor) {
+        $actor = app(PermissionAccess::class)->actor($id);
+        if (! $actor?->active || ! $actor->email_verified_at) {
             throw new ContractException(ErrorCode::Forbidden, 'Active verified identity required.');
         }
 

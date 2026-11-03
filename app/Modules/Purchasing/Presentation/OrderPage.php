@@ -2,12 +2,15 @@
 
 namespace App\Modules\Purchasing\Presentation;
 
+use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SearchSuppliersRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
+use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ListMastersRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Purchasing\Application\OrderLineImport;
+use App\Modules\Purchasing\Application\PurchaseOrderProjection;
 use App\Modules\Purchasing\Application\PurchaseOrders;
 use App\Modules\Purchasing\Application\PurchaseReceiving;
 use App\Modules\Purchasing\Application\PurchasingAccess;
@@ -38,7 +41,7 @@ final class OrderPage extends Component
         $import->authorize(auth()->id(), (int) $this->form['branch_id'], $this->order);
         $path = app(WorkbookCodec::class)->template('purchasing-direct-order-lines', 'M05-v1', $import->columns(), []);
 
-        return response()->download($path, 'purchase-order-lines-template.xlsx')->deleteFileAfterSend();
+        return response()->download($path, 'purchase-order-lines-template.xlsx')->setPrivate()->deleteFileAfterSend();
     }
 
     public function previewLines(): void
@@ -94,7 +97,7 @@ final class OrderPage extends Component
         $this->order = $order;
         $this->creationKey = (string) Str::uuid();
         $this->amendmentKey = (string) Str::uuid();
-        $this->form = ['branch_id' => '', 'supplier_id' => '', 'award_id' => '', 'order_date' => now('Africa/Cairo')->toDateString(), 'expected_date' => '', 'currency' => '', 'reported_tax' => '', 'payment_terms' => '', 'notes' => '', 'lines' => []];
+        $this->form = ['branch_id' => '', 'supplier_id' => '', 'award_id' => '', 'order_date' => now('Africa/Cairo')->toDateString(), 'expected_date' => '', 'currency' => 'EGP', 'tax_mode' => 'exclusive', 'reported_tax' => '', 'payment_terms' => '', 'notes' => '', 'lines' => []];
         if ($order) {
             $this->loadDocument();
         } else {
@@ -161,6 +164,14 @@ final class OrderPage extends Component
         $this->loadDocument();
     }
 
+    public function issue(): void
+    {
+        abort_unless($this->order, 404);
+        app(PurchaseOrders::class)->issue(auth()->id(), $this->order);
+        session()->flash('purchasing_issue_message', 'تم حفظ أمر الشراء الرسمي وملف PDF الثابت.');
+        $this->loadDocument();
+    }
+
     public function requestAmendment(): void
     {
         $changes = [];
@@ -184,18 +195,30 @@ final class OrderPage extends Component
             }
         }
         $products = $editable ? app(ProductsApi::class)->listMasters(new ListMastersRequest(auth()->id(), search: mb_substr($this->search, 0, 200), pageSize: 100))->items : [];
+        if ($editable) {
+            foreach (array_unique(array_filter(array_column($this->form['lines'], 'product_id'))) as $id) {
+                if (! collect($products)->contains('id', (int) $id)) {
+                    $products[] = app(ProductsApi::class)->getProduct(new GetProductRequest(auth()->id(), (int) $id))->product;
+                }
+            }
+        }
         try {
             $suppliers = $editable ? app(SuppliersApi::class)->searchSuppliers(new SearchSuppliersRequest(auth()->id(), mb_substr($this->supplierSearch, 0, 200), 50)) : [];
+            if ($editable && ! empty($this->form['supplier_id']) && ! collect($suppliers)->contains('id', (int) $this->form['supplier_id'])) {
+                $suppliers[] = app(SuppliersApi::class)->getSupplier(new GetSupplierRequest(auth()->id(), (int) $this->form['supplier_id']));
+            }
         } catch (SupplierContractException $e) {
             abort($e->getCode(), 'صلاحية عرض الموردين مطلوبة.');
         }
         $savedLines = $doc ? DB::table('purchasing_order_lines')->where('order_id', $doc->id)->orderBy('id')->get() : collect();
+        $officialIssue = $doc ? DB::table('purchasing_order_issues')->where('order_id', $doc->id)->first() : null;
+        $receiving = $doc ? app(PurchaseOrderProjection::class)->query()->find($doc->id) : null;
         $history = $doc ? DB::table('purchasing_order_reviews')->where('order_id', $doc->id)->orderByDesc('id')->get() : collect();
         $amendments = $doc ? DB::table('purchasing_amendment_requests')->where('order_id', $doc->id)->orderByDesc('id')->get() : collect();
         $receiptIds = array_column($access->branches(auth()->id(), 'receipt_view'), 'id');
         $warehouseIds = array_column(app(PurchaseReceiving::class)->warehouses(auth()->id()), 'id');
         $receipts = $doc && in_array($doc->branch_id, $receiptIds, true) ? DB::table('purchasing_receipts')->where('order_id', $doc->id)->whereIn('warehouse_id', $warehouseIds)->orderByDesc('id')->get() : collect();
 
-        return view('purchasing.order', compact('doc', 'editable', 'branches', 'awards', 'products', 'suppliers', 'savedLines', 'history', 'amendments', 'receipts'))->layout('layouts::app', ['title' => 'أمر الشراء']);
+        return view('purchasing.order', compact('doc', 'editable', 'branches', 'awards', 'products', 'suppliers', 'savedLines', 'history', 'amendments', 'receipts', 'officialIssue', 'receiving'))->layout('layouts::app', ['title' => 'أمر الشراء']);
     }
 }

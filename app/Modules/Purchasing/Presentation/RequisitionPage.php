@@ -2,6 +2,7 @@
 
 namespace App\Modules\Purchasing\Presentation;
 
+use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ListMastersRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Purchasing\Application\PurchasingAccess;
@@ -89,7 +90,14 @@ final class RequisitionPage extends Component
     {
         $doc = $this->requisition ? $this->document()->load('lines') : null;
         $editable = ! $doc || ($doc->status === 'draft' && $doc->created_by === auth()->id() && app(PurchasingAccess::class)->allows(auth()->id(), 'requisition_update', $doc->branch_id));
-        $products = $editable ? app(ProductsApi::class)->listMasters(new ListMastersRequest(auth()->id(), search: $this->productSearch, pageSize: 100))->items : [];
+        $products = $editable ? app(ProductsApi::class)->listMasters(new ListMastersRequest(auth()->id(), search: mb_substr($this->productSearch, 0, 200), pageSize: 100))->items : [];
+        if ($editable) {
+            foreach (array_unique(array_filter(array_column($this->form['lines'], 'product_id'))) as $id) {
+                if (! collect($products)->contains('id', (int) $id)) {
+                    $products[] = app(ProductsApi::class)->getProduct(new GetProductRequest(auth()->id(), (int) $id))->product;
+                }
+            }
+        }
 
         return view('purchasing.requisition', ['doc' => $doc, 'editable' => $editable, 'products' => $products, 'branches' => app(PurchasingAccess::class)->branches(auth()->id(), $doc ? 'requisition_view' : 'requisition_create'), 'history' => $doc ? DB::table('purchase_requisition_reviews')->where('requisition_id', $doc->id)->orderByDesc('id')->get() : collect()])->layout('layouts::app', ['title' => 'طلب الاحتياج']);
     }

@@ -3,12 +3,16 @@
 namespace App\Modules\Sales\Application;
 
 use App\Modules\Sales\Domain\Quotation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 final class QuotationReadiness
 {
     public function blockers(Quotation $r): array
     {
+        if (in_array($r->status, ['issued', 'sent', 'accepted', 'converted'], true)) {
+            return [];
+        }
         $blockers = [];
         if ($r->lines->isEmpty()) {
             $blockers[] = 'أضف بندًا من كتالوج المنتجات.';
@@ -22,30 +26,39 @@ final class QuotationReadiness
             $blockers[] = 'الاستثناءات التجارية تحتاج طلب موافقة مرتبطًا بهذه المسودة والسياسة الحالية.';
         }
 
-        $blockers[] = 'عقد الضرائب ودقة وتقريب المبالغ من M11 غير متاح؛ الضريبة والإجمالي النهائي غير محسوبين.';
-        $blockers[] = 'عقد لقطة هوية الشركة والتوقيع المعتمد وملف PDF الرسمي الثابت غير متاح.';
+        if (! $r->valid_until || $r->valid_until->toDateString() < now('Africa/Cairo')->toDateString()) {
+            $blockers[] = 'عرض السعر منتهي الصلاحية.';
+        }
 
         return $blockers;
     }
 
     public function requireIssueReady(Quotation $r): void
     {
-        throw ValidationException::withMessages(['readiness' => implode(' ', $this->blockers($r))]);
+        if ($blockers = $this->blockers($r)) {
+            throw ValidationException::withMessages(['readiness' => implode(' ', $blockers)]);
+        }
     }
 
-    public function guardOperation(int $actor, Quotation $r, string $operation, int $version): never
+    public function guardOperation(int $actor, Quotation $r, string $operation, int $version): void
     {
         app(QuotationAccess::class)->authorize($actor);
         app(QuotationAccess::class)->authorize($actor, $operation);
+        if ($operation === 'issue') {
+            app(QuotationIssuance::class)->issue($actor, $r->id, $version);
+
+            return;
+        }
         app(QuotationActions::class)->version($r, $version);
         if (in_array($r->status, ['cancelled', 'rejected', 'expired'], true)) {
             throw ValidationException::withMessages(['readiness' => 'عرض السعر مغلق نهائيًا؛ يمكن إنشاء عرض جديد عن طريق النسخ.']);
         }
+        $issued = DB::table('sales_quotation_issues')->where('quotation_id', $r->id)->exists();
         $reason = match ($operation) {
-            'convert' => 'مسودات أوامر البيع المباشرة متاحة، لكن التحويل يتطلب نسخة عرض صادرة مقبولة بإثبات مكتوب وكميات تحويل محفوظة. منتج النسخ الصادرة والقبول غير متاح؛ لم يتم تحويل أي كمية.',
-            'accept' => 'لا توجد نسخة صادرة يمكن ربط قبول العميل وإثباته بها.',
-            'deliver' => 'لا توجد نسخة صادرة بملف رسمي لتسجيل إرسالها. التنزيل لا يسجل الإرسال.',
-            'revise' => 'لا توجد نسخة صادرة محفوظة لإنشاء مراجعة منها. يمكن متابعة تعديل المسودة.',
+            'convert' => 'استخدم صفحة التحويل مع الفرع المصرح به؛ يلزم إصدار مقبول بإثبات مكتوب وكميات لم تحول سابقًا.',
+            'accept' => $issued ? 'أدخل تاريخ ومرجع القبول وأرفق الإثبات المكتوب من صفحة قبول العميل.' : 'لا توجد نسخة صادرة يمكن ربط قبول العميل وإثباته بها.',
+            'deliver' => $issued ? 'توثيق الإرسال اليدوي لم يكتمل بعد. تنزيل الملف لا يسجل إرساله.' : 'أصدر الملف الرسمي قبل تسجيل الإرسال.',
+            'revise' => $issued ? 'الإصدار محفوظ وثابت؛ إنشاء مراجعة رسمية جديدة يحتاج مسار إعادة إصدار مستقلًا.' : 'لا توجد نسخة صادرة محفوظة لإنشاء مراجعة منها. يمكن متابعة تعديل المسودة.',
             default => implode(' ', $this->blockers($r)),
         };
         throw ValidationException::withMessages(['readiness' => $reason]);

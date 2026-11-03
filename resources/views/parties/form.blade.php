@@ -1,6 +1,6 @@
-<div class="party-ui space-y-5 {{ $ui->supplier ? 'supplier-ui' : '' }}">
+<div data-erp-archetype="form" class="party-ui space-y-5 {{ $ui->supplier ? 'supplier-ui' : '' }}">
     <x-page.heading :title="$ui->formTitle($recordId !== null)" :description="'إنشاء وتحديث بيانات '.$ui->singular.' وجهات الاتصال'" :breadcrumbs="['الأطراف',$ui->plural,$ui->formTitle($recordId !== null)]" />
-    @if($errors->any())<flux:callout variant="danger"><ul>@foreach($errors->all() as $message)<li>{{ $message }}</li>@endforeach</ul></flux:callout>@endif
+    <x-ui.validation-summary />
     @if($duplicates->isNotEmpty())<flux:callout color="amber"><b>قد يوجد سجل مشابه. راجع البيانات قبل الحفظ.</b>@foreach($duplicates as $candidate)<a class="block underline" href="{{ route($ui->route('show'),$candidate->id) }}" target="_blank" rel="noopener">{{ $candidate->code }} · {{ $candidate->name }}</a>@endforeach</flux:callout>@endif
     <form wire:submit="save" class="party-form-grid">
         <aside class="party-preview"><x-ui.panel class="!p-4"><h2 class="party-section-title"><flux:icon.eye class="size-5" /> معاينة {{ $ui->singular }}</h2><div class="py-6 text-center"><span class="party-monogram !size-20 mx-auto"><flux:icon.building-office-2 class="size-10" /></span><h2 class="mt-4 font-bold">{{ $form['name'] ?: 'سجل جديد' }}</h2><p class="mt-2 text-sm"><bdi>{{ $form['code'] ?: '—' }}</bdi></p><div class="mt-3">@include('parties.partials.status',['status'=>$form['status']])</div></div>

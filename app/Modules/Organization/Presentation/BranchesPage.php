@@ -87,6 +87,7 @@ class BranchesPage extends Component
             }
             throw ValidationException::withMessages($errors);
         }
+        $this->resetValidation();
         $this->editing = false;
         session()->flash('status', 'تم حفظ الفرع بنجاح.');
     }

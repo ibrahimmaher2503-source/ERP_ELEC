@@ -1,0 +1,1 @@
+<x-ui.panel><flux:heading>التاريخ المحفوظ</flux:heading>@foreach($history as $e)<div class="border-b py-3"><strong>{{ $e->action }}</strong><p class="text-sm text-slate-500">المستخدم #{{ $e->actor_id }} · {{ \Carbon\CarbonImmutable::parse($e->occurred_at)->setTimezone('Africa/Cairo')->format('Y-m-d H:i') }}</p></div>@endforeach</x-ui.panel>

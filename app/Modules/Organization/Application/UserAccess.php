@@ -16,7 +16,7 @@ class UserAccess
         if (! in_array($permission, self::PERMISSIONS, true)) {
             return false;
         }
-        if (! DB::table('users')->where('id', $actor->id)->where('active', true)->exists()) {
+        if (! app(PermissionAccess::class)->actor($actor->id)?->active) {
             return false;
         }
         $permissions = app(PermissionAccess::class);
@@ -27,7 +27,7 @@ class UserAccess
         if ($target && $target->id === $actor->id && $permission !== 'M01.user_view') {
             return false;
         }
-        if ($target && $permission !== 'M01.user_view' && $permissions->securityDesignated($target->id) && ! $permissions->allows($actor, 'M01.security_admin')) {
+        if ($target && $permission !== 'M01.user_view' && ! $permissions->allows($actor, 'M01.security_admin') && $permissions->securityDesignated($target->id)) {
             return false;
         }
         if ($admin) {

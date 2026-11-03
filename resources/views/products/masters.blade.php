@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<div data-erp-archetype="list" class="space-y-6">
     <x-page.heading :title="$kindLabel" :breadcrumbs="['المنتجات', $kindLabel]" description="إدارة بيانات الكتالوج الأساسية">
         <x-slot:actions>
             @foreach (['category' => ['products.categories', 'الفئات'], 'brand' => ['products.brands', 'العلامات التجارية'], 'unit' => ['products.units', 'وحدات القياس']] as $navKind => [$routeName, $label])
@@ -6,14 +6,14 @@
                     <flux:button :href="route($routeName)" wire:navigate>{{ $label }}</flux:button>
                 @endif
             @endforeach
-        </x-slot:actions>
+        @if ($canManage)<flux:button variant="primary" icon="plus" wire:click="create">إضافة سجل</flux:button>@endif</x-slot:actions>
     </x-page.heading>
 
     @if (session('status'))
-        <flux:callout variant="success">{{ session('status') }}</flux:callout>
+        <flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>
     @endif
 
-    <div class="grid gap-3 sm:grid-cols-3">
+    <div class="erp-kpi-summary grid gap-3 sm:grid-cols-3">
         @foreach (['total' => ['إجمالي السجلات', 'rectangle-stack', 'blue'], 'active' => ['السجلات النشطة', 'check-circle', 'emerald'], 'inactive' => ['السجلات غير النشطة', 'clock', 'orange']] as $key => [$label, $icon, $color])
             <x-erp.stat-card :label="$label" :value="$stats[$key]" :icon="$icon" :tone="$color" />
         @endforeach
@@ -21,47 +21,47 @@
 
     <div class="grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(18rem,1fr)]">
         <x-ui.panel>
-            <div class="erp-filters mb-5 flex flex-wrap items-end gap-3 rounded-xl p-4">
-                <div class="min-w-40 flex-1"><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث في {{ $kindLabel }}" placeholder="الاسم أو الكود..." /></div>
-                <flux:select wire:model.live="statusFilter" label="الحالة" class="!w-36"><option value="">كل الحالات</option><option value="active">نشط</option><option value="inactive">غير نشط</option></flux:select>
-                @if ($canManage)<flux:button variant="primary" icon="plus" wire:click="create">إضافة سجل</flux:button>@endif
-            </div>
+            <x-ui.filters id="master-filters" target="search,statusFilter" :reset="['search' => '', 'statusFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث في {{ $kindLabel }}" placeholder="الاسم أو الكود..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+                <flux:select wire:model.live="statusFilter" label="الحالة"><option value="">كل الحالات</option><option value="active">نشط</option><option value="inactive">غير نشط</option></flux:select>
+
+            </div></x-ui.filters>
 
             <div class="overflow-x-auto" wire:loading.class="opacity-60">
-                <table class="w-full min-w-[560px] text-start text-sm">
-                    <thead class="bg-slate-50 text-slate-500">
-                        <tr>
-                            <th class="p-4 text-start">#</th>
-                            <th class="p-4 text-start">الاسم</th>
-                            <th class="p-4 text-start">الكود</th>
-                            @if ($kind === 'category')<th class="p-4 text-start">المنتجات</th>@endif
-                            <th class="p-4 text-start">الحالة</th>
-                            <th class="p-4 text-start">الإجراءات</th>
+                <x-ui.responsive-table label="السجلات المعروضة"><table role="table" class="w-full min-w-[560px] text-start text-sm">
+                    <thead role="rowgroup" class="bg-slate-50 text-slate-500">
+                        <tr role="row">
+                            <th role="columnheader" class="p-4 text-start">#</th>
+                            <th role="columnheader" class="p-4 text-start">الاسم</th>
+                            <th role="columnheader" class="p-4 text-start">الكود</th>
+                            @if ($kind === 'category')<th role="columnheader" class="p-4 text-start">المنتجات</th>@endif
+                            <th role="columnheader" class="p-4 text-start">الحالة</th>
+                            <th role="columnheader" class="p-4 text-start">الإجراءات</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody role="rowgroup" class="divide-y divide-slate-100">
                         @forelse ($records as $record)
-                            <tr wire:key="{{ $kind }}-{{ $record->id }}" @class(['bg-blue-50/60' => $selected?->id === $record->id])>
-                                <td class="p-4">{{ $records->firstItem() + $loop->index }}</td>
-                                <td class="p-4">
+                            <tr role="row" wire:key="{{ $kind }}-{{ $record->id }}" @class(['bg-blue-50/60' => $selected?->id === $record->id])>
+                                <td role="cell" data-label="الصف" class="p-4"><div>{{ $records->firstItem() + $loop->index }}</div></td>
+                                <td role="cell" data-label="الاسم" class="p-4"><div>
                                     <button type="button" class="text-start font-medium hover:text-blue-700" wire:click="showDetails({{ $record->id }})" aria-label="عرض تفاصيل {{ $record->name }}">{{ $record->name }}</button>
                                     @if ($kind === 'category' && $record->parent)<div class="mt-1 text-xs text-slate-500">تابع لـ {{ $record->parent->name }}</div>@endif
-                                </td>
-                                <td class="p-4"><bdi>{{ $record->code }}</bdi></td>
-                                @if ($kind === 'category')<td class="p-4">{{ $record->products_count }}</td>@endif
-                                <td class="p-4"><x-erp.status-badge :active="$record->active" /></td>
-                                <td class="p-4">
+                                </div></td>
+                                <td role="cell" data-label="الكود" class="p-4"><div><bdi>{{ $record->code }}</bdi></div></td>
+                                @if ($kind === 'category')<td role="cell" data-label="المنتجات" class="p-4"><div>{{ $record->products_count }}</div></td>@endif
+                                <td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$record->active" /></div></td>
+                                <td role="cell" data-label="الإجراءات" class="p-4"><div>
                                     <div class="flex items-center gap-1">
                                         <flux:button variant="ghost" size="sm" icon="eye" wire:click="showDetails({{ $record->id }})" aria-label="تفاصيل {{ $record->name }}" />
                                         @if ($canManage)<flux:button variant="ghost" size="sm" icon="pencil-square" wire:click="edit({{ $record->id }})" aria-label="تعديل {{ $record->name }}" />@endif
                                     </div>
-                                </td>
+                                </div></td>
                             </tr>
                         @empty
-                            <tr><td colspan="{{ $kind === 'category' ? 6 : 5 }}" class="p-8"><x-ui.empty-state title="لا توجد سجلات للعرض" description="جرّب تغيير البحث أو حالة السجلات." /></td></tr>
+                            <tr role="row"><td colspan="{{ $kind === 'category' ? 6 : 5 }}" class="p-8"><x-ui.empty-state title="لا توجد سجلات للعرض" description="جرّب تغيير البحث أو حالة السجلات." /></td></tr>
                         @endforelse
                     </tbody>
-                </table>
+                </table></x-ui.responsive-table>
             </div>
             <div class="mt-4 border-t border-slate-100 pt-4">{{ $records->links() }}</div>
         </x-ui.panel>
@@ -92,6 +92,7 @@
 
     <flux:modal wire:model="editing" class="w-full max-w-lg">
         <form wire:submit="save" class="space-y-5">
+            <x-ui.validation-summary />
             <flux:heading size="lg">{{ $editingId ? 'تعديل سجل' : 'إضافة سجل' }} · {{ $kindLabel }}</flux:heading>
             <flux:input wire:model="form.code" label="الكود" required maxlength="50" />
             <flux:input wire:model="form.name" label="الاسم" required maxlength="200" />

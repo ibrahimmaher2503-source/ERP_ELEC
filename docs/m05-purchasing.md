@@ -1,5 +1,7 @@
 # M05 Purchasing
 
+2026-10-27 continuation: [V1 financial activation](v1-financial-activation.md) adds source implementation of EGP official PO issue with frozen tax/PDF and independent atomic receipt → stock/FIFO → GRNI. General tax/rounding policy is approved. Historical absence statements below are superseded at the source level, without upgrading them to acceptance success. Actual financial activation remains inactive; current automated/browser/concurrency acceptance is deferred. Invoice matching/PPV/AP settlement and returns remain unfinished integrations.
+
 Recovery 2026-10-22: current functional evidence and remaining operations are tracked in [M05/M06 coverage](qa/M05_M06_FUNCTIONAL_COVERAGE_MATRIX.md), [defects](qa/M05_M06_DEFECT_REGISTER.md) and [integration contract](qa/M05_M06_INTEGRATION_CONTRACTS.md). The recovery request explicitly authorizes regression tests and supersedes the historical test-deferral statement below for this campaign.
 
 Internal PO approval follows current M01 capability, scopes, exact document version and independent reviewer for both direct and awarded orders. The earlier action-level award-only blocker had no supporting owner policy and is removed. Awarded orders must still exactly match their approved supplier offer; current supplier/product/unit eligibility is rechecked at approval. Internal approval does not issue an official PO or authorize a stock/GRNI posting.

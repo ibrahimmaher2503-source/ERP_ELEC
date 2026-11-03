@@ -1,4 +1,4 @@
-<div class="space-y-6" dir="rtl">
+<div data-erp-archetype="details" class="space-y-6" dir="rtl">
     @php
         $kindLabels = ['serialized_equipment' => 'معدات برقم تسلسلي', 'bulk' => 'مواد بالكمية', 'service' => 'خدمة'];
         $trackingLabels = ['serial' => 'تتبع الرقم التسلسلي', 'quantity' => 'تتبع الكمية', 'none' => 'بدون تتبع مخزني'];
@@ -9,16 +9,18 @@
         $updatedAt = \Carbon\CarbonImmutable::parse($product->updated_at)->utc();
     @endphp
 
+
     <x-page.heading :title="$product->name" description="بيانات تعريف الصنف ومواصفاته" :breadcrumbs="['المنتجات', 'الأصناف', 'تفاصيل الصنف']">
         <x-slot:actions>
             @if ($canUpdate)<flux:button :href="route('products.edit', $product->id)" variant="primary" icon="pencil-square" wire:navigate>تعديل الصنف</flux:button>@endif
             <flux:button :href="route('products.index')" icon="arrow-right" wire:navigate>العودة للأصناف</flux:button>
         </x-slot:actions>
     </x-page.heading>
+    <x-ui.validation-summary />
 
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
 
-    <div class="grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
+    <div class="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div class="space-y-5">
             <x-ui.panel x-data="{ activeTab: 'identity' }" class="!p-0 overflow-hidden">
                 <nav class="erp-tabs flex flex-wrap gap-x-2 overflow-x-auto border-b border-[#E5E8EE] px-4" aria-label="أقسام بيانات الصنف">
@@ -76,7 +78,7 @@
                             <div>
                                 <flux:heading size="sm">وحدات التحويل</flux:heading>
                                 @if ($product->conversions->isNotEmpty())
-                                    <div class="mt-3 overflow-x-auto rounded-lg border border-slate-200">
+                                    <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="mt-3 overflow-x-auto rounded-lg border border-slate-200">
                                         <table class="w-full text-start text-sm">
                                             <thead class="bg-slate-50 text-slate-500"><tr><th class="p-3 text-start">الوحدة</th><th class="p-3 text-start">معامل التحويل</th></tr></thead>
                                             <tbody class="divide-y divide-slate-100">

@@ -21,6 +21,6 @@ final class ProjectExportController
             }
         })());
 
-        return response()->download($path, 'projects.xlsx', ['Cache-Control' => 'private, no-store'])->deleteFileAfterSend();
+        return response()->download($path, 'projects.xlsx', ['Cache-Control' => 'private, no-store'])->setPrivate()->deleteFileAfterSend();
     }
 }

@@ -1,1 +1,1 @@
-<span @class(['party-status','bg-emerald-100 text-emerald-700'=>$status==='active','bg-amber-100 text-amber-700'=>$status==='inactive','bg-slate-100 text-slate-600'=>$status==='archived'])>{{ ['active'=>'نشط','inactive'=>'غير نشط','archived'=>'مؤرشف'][$status] ?? $status }}</span>
+<span @class(['party-status','erp-status--success'=>$status==='active','erp-status--warning'=>$status==='inactive','erp-status--neutral'=>$status==='archived'])>{{ ['active'=>'نشط','inactive'=>'غير نشط','archived'=>'مؤرشف'][$status] ?? $status }}</span>

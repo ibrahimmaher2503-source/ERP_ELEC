@@ -113,6 +113,7 @@ abstract class UserManagementPage extends Component
             $this->form['password'] = '';
             $this->form['password_confirmation'] = '';
         }
+        $this->resetValidation();
         $this->editing = false;
         session()->flash('status', 'تم حفظ حساب المستخدم. الحساب الجديد لا يحصل على صلاحيات أعمال تلقائيًا.');
         if (! $this->editingId

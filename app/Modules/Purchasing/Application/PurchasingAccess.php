@@ -17,8 +17,6 @@ final class PurchasingAccess
         'comparison' => ['مقارنة العروض', 'comparison_view'],
         'orders.index' => ['أوامر الشراء', 'order_view'],
         'receipts.index' => ['استلام المشتريات', 'receipt_view'],
-        'returns' => ['مرتجعات المشتريات', 'return_view'],
-        'reports' => ['تقارير المشتريات', 'report_view'],
     ];
 
     public function navigation(int $actor): array

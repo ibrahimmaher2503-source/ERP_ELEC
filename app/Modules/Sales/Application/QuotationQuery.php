@@ -2,7 +2,9 @@
 
 namespace App\Modules\Sales\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Sales\Domain\Quotation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -18,6 +20,8 @@ final class QuotationQuery
             'from' => ['nullable', 'date_format:Y-m-d'], 'to' => ['nullable', 'date_format:Y-m-d'],
         ])->validate();
         $q = Quotation::query();
+        $branches = app(OrganizationApi::class)->projectScopedBranches($actor);
+        $q->whereNotIn('id', DB::table('sales_tender_sources')->whereNotIn('branch_id', $branches)->select('quotation_id'));
         if ($f['search'] ?? '') {
             $q->where(fn ($q) => $q->where('number', 'ilike', '%'.$f['search'].'%')->orWhere('draft_key', 'ilike', '%'.$f['search'].'%')->orWhere('customer_snapshot->name', 'ilike', '%'.$f['search'].'%')->orWhere('project_name', 'ilike', '%'.$f['search'].'%')->orWhere('rfq_reference', 'ilike', '%'.$f['search'].'%'));
         }
@@ -35,7 +39,11 @@ final class QuotationQuery
         if ($f['to'] ?? '') {
             $q->whereDate('quotation_date', '<=', $f['to']);
         }
-        if (in_array($f['conversion'] ?? '', ['partial', 'full'], true)) {
+        if (($f['conversion'] ?? '') === 'full') {
+            $q->whereIn('id', DB::table('sales_quotation_conversions')->select('quotation_id'));
+        } elseif (($f['conversion'] ?? '') === 'not_converted') {
+            $q->whereNotIn('id', DB::table('sales_quotation_conversions')->select('quotation_id'));
+        } elseif (($f['conversion'] ?? '') === 'partial') {
             $q->whereRaw('FALSE');
         }
 

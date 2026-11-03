@@ -24,18 +24,28 @@ final class ProjectPlanning
 
     private function proposal(Project $p, array $input): array
     {
+        if (($input['currency'] ?? '') !== 'EGP') {
+            $this->fail('عملة المشروع EGP فقط.');
+        }
+        $schedule = Validator::make(['start_date' => $input['start_date'] ?? $p->start_date, 'end_date' => $input['end_date'] ?? $p->end_date], ['start_date' => 'required|date_format:Y-m-d', 'end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date'])->validate();
+        if (DB::table('project_milestones')->where('project_id', $p->id)->where(fn ($q) => $q->where('target_date', '<', $schedule['start_date'])->orWhere('target_date', '>', $schedule['end_date']))->exists()) {
+            $this->fail('مدة المشروع المقترحة يجب أن تشمل المعالم المحفوظة.');
+        }
         $input['structure'] ??= DB::table('project_phases')->where('project_id', $p->id)->orderBy('id')->get(['id', 'title', 'start_date', 'end_date', 'cancelled'])->map(fn ($row) => (array) $row)->all();
         $d = Validator::make($input, ['structure' => 'array|max:100', 'structure.*.id' => 'nullable|integer|distinct', 'structure.*.title' => 'required|string|max:200', 'structure.*.start_date' => 'required|date_format:Y-m-d', 'structure.*.end_date' => 'required|date_format:Y-m-d', 'structure.*.cancelled' => 'required|boolean', 'currency' => 'required|regex:/^[A-Z]{3}$/', 'total' => ['required', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/'], 'scope' => 'required|string|max:5000', 'categories' => 'required|array|min:1|max:30', 'categories.*.name' => 'required|string|max:100|distinct', 'categories.*.amount' => ['required', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/'], 'phases' => 'array|max:100', 'phases.*.id' => 'required|integer|distinct', 'phases.*.amount' => ['required', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/']])->validate();
         $existing = DB::table('project_phases')->where('project_id', $p->id)->pluck('id')->all();
         $submitted = [];
         foreach ($d['structure'] as $phase) {
-            if ($phase['start_date'] < $p->start_date || $phase['end_date'] > $p->end_date || $phase['end_date'] < $phase['start_date']) {
+            if ($phase['start_date'] < $schedule['start_date'] || $phase['end_date'] > $schedule['end_date'] || $phase['end_date'] < $phase['start_date']) {
                 $this->fail('تواريخ المرحلة خارج مدة المشروع.');
             }
             if (! empty($phase['id'])) {
                 if (! in_array((int) $phase['id'], $existing, true)) {
                     $this->fail('المرحلة لا تتبع المشروع.');
                 }$submitted[] = (int) $phase['id'];
+                if ($phase['cancelled'] && DB::table('project_tasks')->where('phase_id', $phase['id'])->whereNotIn('status', ['completed', 'cancelled'])->exists()) {
+                    $this->fail('أكمل مهام المرحلة أو أعفها بسبب موثق قبل اقتراح إلغائها.');
+                }
                 if (DB::table('project_tasks')->where('phase_id', $phase['id'])->where(fn ($q) => $q->where('start_date', '<', $phase['start_date'])->orWhere('end_date', '>', $phase['end_date']))->exists()) {
                     $this->fail('تواريخ المرحلة يجب أن تشمل مهامها المحفوظة.');
                 }
@@ -65,15 +75,16 @@ final class ProjectPlanning
             }
         }
 
-        return $d;
+        return $d + $schedule;
     }
 
     public function propose(int $actor, int $id, int $version, string $key, string $reason, array $input): void
     {
+        $reason = trim($reason);
         Validator::make(['key' => $key, 'reason' => $reason], ['key' => 'required|uuid', 'reason' => 'required|string|min:5|max:2000'])->validate();
         DB::transaction(function () use ($actor, $id, $version, $key, $reason, $input) {
             $p = $this->locked($actor, $id, $version, 'budget_manage');
-            if (! in_array($p->status, ['draft', 'planned', 'active'])) {
+            if (! in_array($p->status, ['draft', 'planned', 'active', 'in_progress'])) {
                 $this->fail('حالة المشروع لا تسمح بطلب تغيير.');
             }if (DB::table('project_changes')->where('creation_key', $key)->exists()) {
                 return;
@@ -92,13 +103,14 @@ final class ProjectPlanning
 
     public function decide(int $actor, int $id, int $version, int $change, bool $approve, string $reason): void
     {
+        $reason = trim($reason);
         Validator::make(['reason' => $reason], ['reason' => 'required|string|min:3|max:2000'])->validate();
         DB::transaction(function () use ($actor, $id, $version, $change, $approve, $reason) {
-            $p = $this->locked($actor, $id, $version, 'project_view');
-            abort_unless($p->manager_id == $actor, 403, 'مدير المشروع المعين هو جهة الاعتماد.');
+            $p = $this->locked($actor, $id, $version, 'budget_approve');
             if (in_array($p->status, ['closed', 'cancelled', 'on_hold'])) {
                 $this->fail('حالة المشروع لا تسمح بالاعتماد.');
             }$c = DB::table('project_changes')->where('project_id', $id)->where('id', $change)->lockForUpdate()->firstOrFail();
+            abort_unless((int) $c->created_by !== $actor, 403, 'اعتماد الميزانية يتطلب شخصاً مستقلاً.');
             if ($c->status !== 'pending') {
                 $this->fail('سبق اتخاذ القرار.');
             }$current = (int) DB::table('project_baselines')->where('project_id', $id)->max('revision');
@@ -106,9 +118,11 @@ final class ProjectPlanning
                 $this->fail('خط الأساس تغير.');
             }$d = json_decode($c->proposal, true, 512, JSON_THROW_ON_ERROR);
             if ($approve) {
-                $this->proposal($p, $d);
+                $d = $this->proposal($p, $d);
                 DB::table('project_baselines')->insert(['project_id' => $id, 'revision' => $current + 1, 'currency' => $d['currency'], 'total' => $d['total'], 'snapshot' => json_encode($d, JSON_THROW_ON_ERROR), 'approved_by' => $actor, 'approved_at' => now()]);
                 $p->description = $d['scope'];
+                $p->start_date = $d['start_date'];
+                $p->end_date = $d['end_date'];
                 foreach ($d['structure'] ?? [] as $phase) {
                     $phaseId = $phase['id'] ?? null;
                     unset($phase['id']);
@@ -128,28 +142,39 @@ final class ProjectPlanning
 
     public function transition(int $actor, int $id, int $version, string $state, string $reason): void
     {
+        $reason = trim($reason);
         Validator::make(['reason' => $reason], ['reason' => 'required|string|min:3|max:2000'])->validate();
         DB::transaction(function () use ($actor, $id, $version, $state, $reason) {
-            $p = $this->locked($actor, $id, $version, 'project_view');
-            abort_unless($p->manager_id == $actor, 403);
-            $allowed = ['draft' => ['planned'], 'planned' => ['active'], 'active' => ['on_hold', 'completed'], 'on_hold' => ['active'], 'completed' => ['active']];
+            $current = Project::findOrFail($id)->status;
+            $permission = in_array($state, ['closed', 'cancelled', 'completed'], true) ? 'project_close' : ($state === 'active' && in_array($current, ['completed', 'closed'], true) ? 'project_reopen' : 'project_activate');
+            $p = $this->locked($actor, $id, $version, $permission);
+            $allowed = ['draft' => ['planned', 'cancelled'], 'planned' => ['active', 'cancelled'], 'active' => ['in_progress', 'on_hold', 'completed'], 'in_progress' => ['on_hold', 'completed'], 'on_hold' => ['active'], 'completed' => ['active', 'closed'], 'closed' => ['active']];
             if (! in_array($state, $allowed[$p->status] ?? [], true)) {
                 $this->fail('الانتقال غير مسموح. الإغلاق والإلغاء يتطلبان تسوية الالتزامات من العقود المالكة.');
             }if ($state === 'planned' && ! DB::table('project_baselines')->where('project_id', $id)->exists()) {
                 $this->fail('اعتمد خط الأساس قبل التخطيط.');
             }if ($state === 'completed') {
+                app(ProjectExecution::class)->requireCompletion($p);
                 $progress = app(ProjectAccess::class)->progress($p);
                 foreach ($progress['phases']->where('cancelled', false) as $phase) {
-                    if (! $phase->total || $phase->total !== $phase->complete) {
-                        $this->fail('يجب إكمال جميع المهام والمراحل.');
+                    if (! $phase->total && ! DB::table('project_tasks')->where('phase_id', $phase->id)->where('status', 'cancelled')->exists()) {
+                        $this->fail('أضف مهام المرحلة أو وثق إعفاء مهامها.');
                     }
                 }if (! $progress['eligible']) {
                     $this->fail('لا توجد مراحل مكتملة.');
                 }
             }if (DB::table('project_changes')->where('project_id', $id)->where('status', 'pending')->exists()) {
                 $this->fail('يوجد طلب تغيير معلق.');
-            }$before = $p->status;
-            $p->update(['status' => $state, 'version' => $version + 1]);
+            }
+            if ($state === 'closed') {
+                app(ProjectExecution::class)->requireClosure($actor, $p);
+            }
+            if ($state === 'cancelled' && (DB::table('project_source_links')->where('project_id', $id)->exists() || DB::table('project_material_reservations')->where('project_id', $id)->exists() || DB::table('project_tasks')->where('project_id', $id)->whereIn('status', ['in_progress', 'completed'])->exists())) {
+                $this->fail('لا يمكن إلغاء مشروع له تنفيذ أو التزامات مصدرية.');
+            }
+            $before = $p->status;
+            app(ProjectActions::class)->activity($actor, $p, 'lifecycle.requested', ['status' => $before], ['status' => $state, 'version' => $version + 1, 'reason' => $reason]);
+            $p->update(['status' => $state, 'version' => $version + 1, 'actual_start' => $p->actual_start ?? ($state === 'in_progress' ? now('Africa/Cairo')->toDateString() : null), 'actual_end' => in_array($state, ['completed', 'closed'], true) ? ($p->actual_end ?? now('Africa/Cairo')->toDateString()) : null]);
             app(ProjectActions::class)->activity($actor, $p, 'lifecycle.changed', ['status' => $before], ['status' => $state, 'reason' => $reason]);
         });
     }

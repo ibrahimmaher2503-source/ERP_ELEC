@@ -23,6 +23,9 @@ final class QuotationActions
     public function save(int $actor, array $input, ?int $id = null, ?int $expectedVersion = null): Quotation
     {
         $this->access($actor, $id === null ? 'create' : 'edit');
+        if ($id !== null) {
+            app(QuotationAccess::class)->authorizeRecord($actor, $id);
+        }
 
         return DB::transaction(function () use ($actor, $input, $id, $expectedVersion) {
             $r = $id === null ? new Quotation : Quotation::lockForUpdate()->findOrFail($id);
@@ -46,6 +49,9 @@ final class QuotationActions
                 'lines.*.description' => ['nullable', 'string', 'max:4000'], 'lines.*.discount_mode' => ['required', Rule::in(['percent', 'fixed'])],
                 'lines.*.discount_value' => ['required', 'string'], 'lines.*.override_reason' => ['nullable', 'string', 'max:2000'],
             ])->validate();
+            if ($id !== null) {
+                app(TenderQuotationDraft::class)->authorize($actor, $id, (int) $data['customer_id']);
+            }
             // Livewire restores an unset date input as an empty string.
             $data['valid_until'] = ($data['valid_until'] ?? '') === '' ? null : $data['valid_until'];
             foreach (['payment', 'delivery'] as $kind) {
@@ -118,6 +124,7 @@ final class QuotationActions
     public function cancel(int $actor, int $id, int $version, string $reason): void
     {
         $this->access($actor, 'cancel');
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         Validator::make(['reason' => $reason], ['reason' => ['required', 'string', 'min:3', 'max:2000']])->validate();
         DB::transaction(function () use ($actor, $id, $version, $reason) {
             $r = Quotation::lockForUpdate()->findOrFail($id);
@@ -135,6 +142,7 @@ final class QuotationActions
     public function duplicate(int $actor, int $id): Quotation
     {
         $this->access($actor, 'duplicate');
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         $this->access($actor, 'create');
         $source = Quotation::with('lines')->findOrFail($id);
         $input = $source->only(['customer_id', 'project_name', 'rfq_reference']);

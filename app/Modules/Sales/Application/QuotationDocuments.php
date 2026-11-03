@@ -16,6 +16,7 @@ final class QuotationDocuments
     {
         app(QuotationAccess::class)->authorize($actor);
         app(QuotationAccess::class)->authorize($actor, 'document_manage');
+        app(QuotationAccess::class)->authorizeRecord($actor, $id);
         Validator::make(['file' => $file], ['file' => ['required', 'file', 'max:10240', 'mimes:pdf,png,jpg,jpeg']])->validate();
         $path = $file->store('sales/quotations/internal', 'local');
         abort_unless($path, 422);

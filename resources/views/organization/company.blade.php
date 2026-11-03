@@ -1,4 +1,5 @@
-<div class="space-y-6" dir="rtl">
+<div data-erp-archetype="form" class="space-y-6" dir="rtl">
+
     <x-page.heading title="بيانات الشركة" description="معلومات الشركة الرئيسية وإعداداتها.">
         @php
             $actor = auth()->user();
@@ -13,9 +14,10 @@
             <x-slot:actions><flux:button :href="route('organization.branches')" icon="building-office-2" wire:navigate>الفروع</flux:button></x-slot:actions>
         @endif
     </x-page.heading>
+    <x-ui.validation-summary />
 
     @if (session('status'))
-        <flux:callout variant="success" icon="check-circle">{{ session('status') }}</flux:callout>
+        <flux:callout variant="success" icon="check-circle" role="status" aria-live="polite">{{ session('status') }}</flux:callout>
     @endif
 
     <form wire:submit="save" class="space-y-5">
@@ -39,8 +41,8 @@
 
                     @if ($editing && $canEdit)
                         <flux:field>
-                            <flux:label>شعار الشركة</flux:label>
-                            <input type="file" wire:model="logo" accept="image/png,image/jpeg,image/webp" class="block w-full text-sm text-zinc-600 file:me-3 file:rounded-md file:border-0 file:bg-zinc-100 file:px-3 file:py-2 file:text-sm file:font-medium dark:text-zinc-300 dark:file:bg-zinc-700">
+                            <flux:label for="company-logo-upload">شعار الشركة</flux:label>
+                            <input id="company-logo-upload" type="file" wire:model="logo" accept="image/png,image/jpeg,image/webp" data-flux-control class="block w-full text-sm text-zinc-600 file:me-3 file:rounded-md file:border-0 file:bg-zinc-100 file:px-3 file:py-2 file:text-sm file:font-medium dark:text-zinc-300 dark:file:bg-zinc-700">
                             <flux:error name="logo" />
                             @if ($logo instanceof \Illuminate\Http\UploadedFile)
                                 <flux:text size="sm" class="mt-2">{{ $logo->getClientOriginalName() }}</flux:text>
@@ -54,15 +56,10 @@
                     @if ($editing && $canEdit)
                         <div class="space-y-3">
                             <flux:input wire:model="form.name" label="الاسم التجاري" required />
-                            <flux:error name="form.name" />
                             <flux:input wire:model="form.legal_name" label="الاسم القانوني" />
-                            <flux:error name="form.legal_name" />
                             <flux:input wire:model="form.commercial_registration" label="السجل التجاري" />
-                            <flux:error name="form.commercial_registration" />
                             <flux:input wire:model="form.tax_registration" label="رقم التسجيل الضريبي" />
-                            <flux:error name="form.tax_registration" />
                             <flux:input wire:model="form.code" label="كود الشركة" required />
-                            <flux:error name="form.code" />
                         </div>
                     @else
                         <dl class="grid gap-4 sm:grid-cols-2">
@@ -99,7 +96,6 @@
                         <div class="min-w-0 flex-1">
                             @if ($editing && $canEdit)
                                 <flux:input wire:model="form.{{ $field }}" :label="$label" :type="$field === 'email' ? 'email' : 'tel'" />
-                                <flux:error :name="'form.'.$field" />
                             @else
                                 <div class="text-xs text-zinc-500 dark:text-zinc-400">{{ $label }}</div>
                                 <div class="mt-1 break-words text-sm font-medium">{{ $company?->$field ?: 'غير مسجل' }}</div>
@@ -111,7 +107,6 @@
                 <div class="sm:col-span-2">
                     @if ($editing && $canEdit)
                         <flux:textarea wire:model="form.address" label="العنوان" rows="3" />
-                        <flux:error name="form.address" />
                     @else
                         <div class="flex items-start gap-3 rounded-lg border border-zinc-200 p-3 dark:border-zinc-700">
                             <span class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">

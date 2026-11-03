@@ -51,6 +51,7 @@ class EgyptMarketDemoSeeder extends Seeder
     public function run(): void
     {
         $this->seed();
+        $this->call(ProjectsPurchasingVolumeSeeder::class);
     }
 
     public function seed(array $sizes = []): array
@@ -76,7 +77,13 @@ class EgyptMarketDemoSeeder extends Seeder
                 $this->orders((int) $sizes['orders'], $branches);
                 $this->call(PurchasingDemoSeeder::class);
                 $this->call(ProjectsDemoSeeder::class);
-                $this->call(AccountingDemoSeeder::class);
+                $this->call(FieldMaintenanceDemoSeeder::class);
+                $this->call(WorkshopDemoSeeder::class);
+                $this->call(TendersDemoSeeder::class);
+                $this->call(ServiceContractsDemoSeeder::class);
+                $this->call(AttendanceDemoSeeder::class);
+                $this->call(FinancialActivationDemoSeeder::class);
+                $this->call(FinancialOperationsDemoSeeder::class);
             });
         } catch (\Throwable $e) {
             Storage::disk('local')->delete($this->createdFiles);

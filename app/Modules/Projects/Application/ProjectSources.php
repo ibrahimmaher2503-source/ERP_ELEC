@@ -35,7 +35,12 @@ final class ProjectSources
                 $this->fail('عميل المستند لا يطابق عميل المشروع.');
             }if (isset($source['branchId']) && (int) $source['branchId'] !== $p->branch_id) {
                 $this->fail('فرع المستند لا يطابق المشروع.');
-            }$existing = DB::table('project_source_links')->where('source_type', $type)->where('source_id', $id)->first();
+            }
+            if ($type === 'purchase_receipt') {
+                // The PO is the canonical procurement family, shared by every receipt/invoice.
+                $this->link($actor, $project, 'purchase_order', $source['orderId']);
+            }
+            $existing = DB::table('project_source_links')->where('source_type', $type)->where('source_id', $id)->first();
             if ($existing) {
                 if ($existing->project_id !== $project) {
                     $this->fail('المستند مرتبط بمشروع آخر.');
@@ -58,7 +63,7 @@ final class ProjectSources
             DB::select('select pg_advisory_xact_lock(70701)');
             $p = Project::lockForUpdate()->findOrFail($project);
             app(ProjectAccess::class)->authorize($actor, $p, 'project_manage');
-            if (! in_array($p->status, ['draft', 'planned', 'active'])) {
+            if (! in_array($p->status, ['draft', 'planned', 'active', 'in_progress'])) {
                 $this->fail('حالة المشروع لا تسمح بتخطيط المواد.');
             }$product = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $d['product_id']))->product;
             if (! $product['active']) {

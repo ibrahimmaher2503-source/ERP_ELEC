@@ -11,6 +11,7 @@ final class QuotationDocumentController
 {
     public function __invoke(int $quotation, int $document)
     {
+        app(QuotationAccess::class)->authorizeRecord(auth()->id(), $quotation);
         app(QuotationAccess::class)->authorize(auth()->id());
         app(QuotationAccess::class)->authorize(auth()->id(), 'document_view');
         Quotation::findOrFail($quotation);

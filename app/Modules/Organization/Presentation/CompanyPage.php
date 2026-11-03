@@ -60,6 +60,7 @@ class CompanyPage extends Component
             }
             throw ValidationException::withMessages($errors);
         }
+        $this->resetValidation();
         $this->editing = false;
         $this->reset('logo');
         session()->flash('status', 'تم حفظ بيانات الشركة بنجاح.');

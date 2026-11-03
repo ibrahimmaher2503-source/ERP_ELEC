@@ -4,6 +4,12 @@
 
 Adopted 2026-10-12. One deployable modular monolith, exactly 17 modules. This registry assigns owners; the exhaustive dependency DAG and concrete methods exist only in [IMPLEMENTATION_CONTRACT](IMPLEMENTATION_CONTRACT.md) and [public contracts](05-MODULE-CONTRACTS-EVENTS.md). Do not implement historical illustrative API names or infer dependencies from business collaboration.
 
+## Current identity compatibility decision — 2026-10-27
+
+The table below retains imported requirement identifiers for traceability. Its historical M07 entry is **not a runtime permission assignment**. Current implemented `Projects` owns M07 and all persisted `M07.*` permissions. The owner-required M07 Projects identity, `projects.*` routes, `project_*` tables, `Projects` audit source and public integration references remain unchanged. `DeliveryReturns` is an unimplemented historical owner designation with no runtime ID, permission prefix or alias to Projects; a Projects permission must never authorize delivery/returns work. No DeliveryReturns module is introduced in Phase 0.
+
+The explicit compatibility entries are in `config/modules.php`, keyed by owner to prevent an ambiguous ID lookup. This resolves identity only; existing release gates remain in force. M07 Projects, M08 FieldMaintenance, complete M11 Accounting, M12 ReceivablesPayables and M15 Attendance remain required subsequent delivery scope. Earlier V1/V2 labels in audit receipts do not permanently defer them. This clarification neither renumbers historical requirements nor adds a new runtime owner. No persisted rows or applied migrations are rewritten.
+
 | ID | Code module | Context | Exclusive owned data |
 |---|---|---|---|
 | M01 | `Organization` | Organization | branches, users, roles, grants, warehouse scopes |

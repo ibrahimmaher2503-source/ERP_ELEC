@@ -43,10 +43,18 @@ final class PurchasingDashboard extends Component
 
     public function render()
     {
-        Validator::make(['from' => $this->from, 'to' => $this->to, 'branch' => $this->branch, 'supplier' => $this->supplier], ['from' => 'nullable|date_format:Y-m-d', 'to' => 'nullable|date_format:Y-m-d', 'branch' => 'nullable|integer|min:1', 'supplier' => 'nullable|string|max:200|not_regex:/\x00/'])->validate();
+
         $access = app(PurchasingAccess::class);
         $branches = $access->branches(auth()->id(), $this->reports ? 'report_view' : 'dashboard_view');
         abort_unless($branches, 403);
+        $validator = Validator::make(['from' => $this->from, 'to' => $this->to, 'branch' => $this->branch, 'supplier' => $this->supplier], ['from' => 'nullable|date_format:Y-m-d', 'to' => 'nullable|date_format:Y-m-d'.($this->from !== '' ? '|after_or_equal:from' : ''), 'branch' => 'nullable|integer|min:1', 'supplier' => 'nullable|string|max:200|not_regex:/\x00/']);
+        $this->resetValidation(['from', 'to', 'branch', 'supplier']);
+        $filtersValid = ! $validator->fails();
+        if (! $filtersValid) {
+            $this->setErrorBag($validator->errors());
+
+            return view('purchasing.dashboard', compact('branches', 'access', 'filtersValid'))->layout('layouts::app', ['title' => $this->reports ? 'تقارير المشتريات' : 'لوحة المشتريات']);
+        }
         $orders = $this->query('purchasing_orders', 'order_view', 'order_date')->when($this->supplier !== '', fn ($q) => $q->where('supplier_name', 'ilike', '%'.$this->supplier.'%'))->when($this->status !== '', fn ($q) => $q->where('status', $this->status));
         $offers = $this->query('purchasing_offers', 'offer_view', 'document_date')->when($this->supplier !== '', fn ($q) => $q->where('supplier_name', 'ilike', '%'.$this->supplier.'%'));
         $receipts = $this->query('purchasing_receipts', 'receipt_view', 'receipt_date');
@@ -65,6 +73,6 @@ final class PurchasingDashboard extends Component
         $monthly = (clone $orders)->selectRaw("to_char(order_date,'YYYY-MM') as month, count(*) as total")->groupByRaw("to_char(order_date,'YYYY-MM')")->orderBy('month')->get();
         $latest = (clone $orders)->orderByDesc('id')->limit(8)->get();
 
-        return view('purchasing.dashboard', compact('branches', 'stats', 'money', 'suppliers', 'monthly', 'latest'))->layout('layouts::app', ['title' => $this->reports ? 'تقارير المشتريات' : 'لوحة المشتريات']);
+        return view('purchasing.dashboard', compact('branches', 'stats', 'money', 'suppliers', 'monthly', 'latest', 'filtersValid'))->layout('layouts::app', ['title' => $this->reports ? 'تقارير المشتريات' : 'لوحة المشتريات']);
     }
 }

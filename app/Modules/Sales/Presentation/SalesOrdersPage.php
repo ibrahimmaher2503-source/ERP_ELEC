@@ -6,6 +6,8 @@ use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesOrderCatalog;
 use App\Modules\Sales\Application\SalesOrderExportDefinition;
 use App\Modules\Sales\Application\SalesOrderQuery;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -73,14 +75,24 @@ class SalesOrdersPage extends Component
         return response()->download($path, 'sales-orders.xlsx', [
             'Cache-Control' => 'private, no-store',
             'X-Content-Type-Options' => 'nosniff',
-        ])->deleteFileAfterSend();
+        ])->setPrivate()->deleteFileAfterSend();
     }
 
     public function render()
     {
         $actor = auth()->id();
         $access = app(SalesOrderAccess::class);
-        $query = app(SalesOrderQuery::class)->query($actor, $this->filters());
+        $this->resetValidation(array_keys($this->filters()));
+        try {
+            Validator::make($this->only(['from', 'to']), [
+                'from' => 'nullable|date_format:Y-m-d',
+                'to' => 'nullable|date_format:Y-m-d'.($this->from !== '' ? '|after_or_equal:from' : ''),
+            ])->validate();
+            $query = app(SalesOrderQuery::class)->query($actor, $this->filters());
+        } catch (ValidationException $error) {
+            $this->setErrorBag($error->validator->errors());
+            $query = null;
+        }
         $sort = in_array($this->sort, ['order_date', 'number', 'created_at'], true) ? $this->sort : 'order_date';
         $scope = app(SalesOrderQuery::class)->query($actor);
         $branchOptions = $access->allows($actor, 'view')
@@ -88,8 +100,9 @@ class SalesOrdersPage extends Component
             : [];
 
         return view('sales.orders.index', [
+            'filtersValid' => $query !== null,
             'records' => $query
-                ->orderBy($sort, $this->direction === 'asc' ? 'asc' : 'desc')
+                ?->orderBy($sort, $this->direction === 'asc' ? 'asc' : 'desc')
                 ->orderByDesc('id')
                 ->paginate(in_array($this->perPage, [10, 25, 50], true) ? $this->perPage : 10),
             'stats' => [

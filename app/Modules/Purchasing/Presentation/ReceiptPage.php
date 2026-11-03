@@ -2,9 +2,11 @@
 
 namespace App\Modules\Purchasing\Presentation;
 
+use App\Application\PostPurchaseReceipt;
 use App\Modules\Purchasing\Application\PurchaseOrders;
 use App\Modules\Purchasing\Application\PurchaseReceiving;
 use App\Modules\Purchasing\Application\PurchasingAccess;
+use App\Modules\Purchasing\Application\SupplierOffers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
@@ -60,7 +62,7 @@ final class ReceiptPage extends Component
                 $this->form[$k] = $doc->$k;
             }
         }
-        $this->form['lines'] = DB::table('purchasing_receipt_lines')->where('receipt_id', $doc->id)->orderBy('id')->get(['order_line_id', 'quantity'])->map(fn ($l) => (array) $l)->all();
+        $this->form['lines'] = DB::table('purchasing_receipt_lines')->where('receipt_id', $doc->id)->orderBy('id')->get(['order_line_id', 'quantity', 'serials'])->map(fn ($l) => ['order_line_id' => $l->order_line_id, 'quantity' => $l->quantity, 'serial_text' => implode("\n", json_decode($l->serials, true, 512, JSON_THROW_ON_ERROR))])->all();
     }
 
     public function loadOrder(): void
@@ -69,7 +71,14 @@ final class ReceiptPage extends Component
         $doc = app(PurchaseOrders::class)->record(auth()->id(), (int) $this->form['order_id']);
         app(PurchasingAccess::class)->authorize(auth()->id(), 'receipt_create', $doc->branch_id);
         abort_unless($doc->status === 'approved', 422);
-        $this->form['lines'] = DB::table('purchasing_order_lines')->where('order_id', $doc->id)->orderBy('id')->get()->map(fn ($l) => ['order_line_id' => $l->id, 'quantity' => $l->quantity])->all();
+        $this->form['lines'] = DB::table('purchasing_order_lines')->where('order_id', $doc->id)->orderBy('id')->get()->map(function ($line) {
+            $allocated = (string) DB::table('purchasing_receipt_lines')->where('order_line_id', $line->id)->sum('quantity');
+
+            return ['order_line_id' => $line->id, 'quantity' => bcsub($line->quantity, $allocated, 8), 'serial_text' => ''];
+        })->filter(fn ($line) => bccomp($line['quantity'], '0', 8) > 0)->values()->all();
+        if ($this->form['lines'] === []) {
+            app(SupplierOffers::class)->fail('كمية الأمر مخصصة بالكامل لاستلامات مرحلة أو مسودات أخرى.');
+        }
         $this->form['warehouse_id'] = '';
     }
 
@@ -81,7 +90,12 @@ final class ReceiptPage extends Component
 
     public function save(): void
     {
-        $id = app(PurchaseReceiving::class)->save(auth()->id(), array_replace($this->form, ['creation_key' => $this->creationKey]), $this->receipt, $this->version);
+        $data = $this->form;
+        foreach ($data['lines'] as &$line) {
+            $line['serials'] = preg_split('/\R/u', $line['serial_text'] ?? '', -1, PREG_SPLIT_NO_EMPTY);
+        }
+        unset($line);
+        $id = app(PurchaseReceiving::class)->save(auth()->id(), array_replace($data, ['creation_key' => $this->creationKey]), $this->receipt, $this->version);
         $this->receipt = $id;
         $this->version = (int) DB::table('purchasing_receipts')->where('id', $id)->value('version');
         $this->redirectRoute('purchasing.receipts.show', ['receipt' => $id], navigate: true);
@@ -92,6 +106,14 @@ final class ReceiptPage extends Component
         $this->document();
         app(PurchaseReceiving::class)->submit(auth()->id(), $this->receipt, $this->version);
         $this->loadDocument();
+    }
+
+    public function post(): void
+    {
+        $this->document();
+        app(PostPurchaseReceipt::class)->execute(auth()->id(), $this->receipt, $this->version);
+        $this->loadDocument();
+        session()->flash('receipt_posted', 'تم ترحيل المخزون وFIFO وGRNI معًا.');
     }
 
     public function render()

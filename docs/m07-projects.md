@@ -1,5 +1,13 @@
 # M07 Projects — PRJ-01 through PRJ-11
 
+## Current Phase 2 acceptance — 2026-10-29
+
+**PHASE 2 COMPLETE — READY FOR M08 FIELD MAINTENANCE**. Implementation, exact acceptance results, current contracts/routes and remaining allowed boundaries are in [PHASE2_PROJECTS_REPORT.md](release/PHASE2_PROJECTS_REPORT.md). The checkpoints below are historical and superseded where they conflict with the Phase 2 owner instruction or accepted implementation.
+
+Budget changes now require independent approval; the Phase 2 instruction supersedes the earlier PRJ-06 manager self-approval allowance. Assignment alone does not grant sensitive permissions. Real owner APIs now provide material reservation/FIFO issue, source financial attribution and reconciliation, handover and closure. Financial history stays immutable, and closing a project does not settle its M12 open items. Historical sources are not retroactively attributed. M08/M15 implementation remains outside this phase.
+
+## Earlier requirements and checkpoints
+
 Owner prompt 2026-10-22 is authoritative. Projects owns master, membership, phases/tasks, equal-phase progress, planning budgets/baselines, change proposals, private document revisions and closure evidence. Images govern appearance only.
 
 Implementation order: master and scoped membership → phases/tasks → lifecycle → budget/baselines and change requests → documents → supported source links/material requirements → reports and closure evidence.

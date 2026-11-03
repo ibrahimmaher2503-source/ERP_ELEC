@@ -20,10 +20,12 @@
     ];
 @endphp
 
-<div @class(['space-y-6','party-ui' => in_array($entity ?? '',['customers','suppliers']), 'supplier-ui'=>($entity ?? '') === 'suppliers']) dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" @if (($run?->status ?? null) === 'processing') wire:poll.3s @endif>
-    <x-page.heading :title="$isBulk ? 'التعديل الجماعي · '.$entityLabel : 'استيراد '.$entityLabel" description="راجع الصفوف والنتائج قبل تطبيق أي تغيير." :breadcrumbs="[$entityLabel, $isBulk ? 'التعديل الجماعي' : 'الاستيراد']" />
+<div data-erp-archetype="{{ request()->routeIs('operations.show') ? 'details' : 'form' }}" @class(['space-y-6','party-ui' => in_array($entity ?? '',['customers','suppliers']), 'supplier-ui'=>($entity ?? '') === 'suppliers']) dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" @if (($run?->status ?? null) === 'processing') wire:poll.3s @endif>
 
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+    <x-page.heading :title="$isBulk ? 'التعديل الجماعي · '.$entityLabel : 'استيراد '.$entityLabel" description="راجع الصفوف والنتائج قبل تطبيق أي تغيير." :breadcrumbs="[$entityLabel, $isBulk ? 'التعديل الجماعي' : 'الاستيراد']" />
+    <x-ui.validation-summary />
+
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
     <flux:error name="upload" />
     <flux:error name="file" />
 
@@ -91,7 +93,7 @@
             @if ($run->status === 'processing')
                 <flux:callout color="blue" class="mt-4">يجري التنفيذ. ستتحدث الحالة والنتائج من إيصالات الخادم.</flux:callout>
             @elseif ($run->status === 'completed')
-                <flux:callout variant="success" class="mt-4">اكتمل التنفيذ. الأعداد أدناه مأخوذة من نتائج المعالجة المسجلة.</flux:callout>
+                <flux:callout variant="success" class="mt-4" role="status" aria-live="polite">اكتمل التنفيذ. الأعداد أدناه مأخوذة من نتائج المعالجة المسجلة.</flux:callout>
             @elseif ($run->status === 'failed')
                 <flux:callout variant="danger" class="mt-4">تعذر إكمال العملية. راجع تفاصيل الصفوف والنتيجة المسجلة.</flux:callout>
             @else
@@ -121,7 +123,7 @@
         </x-ui.panel>
 
         <x-ui.panel class="!p-0 overflow-hidden">
-            <div class="overflow-x-auto">
+            <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="overflow-x-auto">
                 <table class="w-full min-w-[980px] text-start text-sm">
                     <thead class="bg-slate-50 text-slate-500">
                         <tr>

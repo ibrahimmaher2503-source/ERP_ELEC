@@ -162,6 +162,13 @@ final class WorkbookCodec
                     $hasValue = false;
 
                     foreach ($expectedKeys as $index => $key) {
+                        // Templates format hundreds of empty rows. Reading a missing
+                        // cell would create it and write it to the disk cell cache.
+                        if (! $data->cellExists([$index + 1, $rowNumber])) {
+                            $row[$key] = null;
+
+                            continue;
+                        }
                         $cell = $data->getCell([$index + 1, $rowNumber]);
 
                         if ($cell->getDataType() === DataType::TYPE_FORMULA) {

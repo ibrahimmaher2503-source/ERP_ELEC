@@ -18,6 +18,6 @@ class ProjectRequirementFactory extends Factory
             throw new \RuntimeException('Egypt demo product required.');
         }
 
-return ['project_id' => Project::factory(), 'product_id' => $product->id, 'unit_id' => $product->base_unit_id, 'sku' => $product->sku, 'product_name' => $product->name, 'quantity' => '25.00000000', 'notes' => 'DEMO-EG — احتياج تخطيطي دون حجز'];
+        return ['project_id' => Project::factory(), 'product_id' => $product->id, 'unit_id' => $product->base_unit_id, 'sku' => $product->sku, 'product_name' => $product->name, 'quantity' => '25.00000000', 'notes' => 'DEMO-EG — احتياج تخطيطي دون حجز'];
     }
 }

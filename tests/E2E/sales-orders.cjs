@@ -7,12 +7,12 @@ const http = require('node:http');
 const os = require('node:os');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
-const { chromium } = require('C:/Users/N/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const { chromium } = require('playwright');
 
 const root = path.resolve(__dirname, '../..');
 const baseUrl = 'http://127.0.0.1:8001';
 const fixtureScript = path.join(__dirname, 'support', 'prepare-sales-order-fixtures.php');
-const edgeExecutable = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+const edgeExecutable = process.env.PLAYWRIGHT_EXECUTABLE_PATH || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const artifactRoot = path.join(__dirname, 'artifacts');
 const errors = [];
 
@@ -156,8 +156,8 @@ async function main() {
         const creator = { email: fixture.creator.email, password: creatorPassword };
         const reviewer = { email: fixture.reviewer.email, password: reviewerPassword };
 
-        server = spawn('php', ['-S', '127.0.0.1:8001', '-t', 'public', 'public/index.php'], {
-            cwd: root,
+        server = spawn('php', ['-S', '127.0.0.1:8001', '-t', '.', path.join(root, 'vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php')], {
+            cwd: path.join(root, 'public'),
             env: testEnvironment(tempPath),
             stdio: ['ignore', serverLogHandle, serverLogHandle],
             windowsHide: true,

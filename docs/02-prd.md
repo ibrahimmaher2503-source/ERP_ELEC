@@ -1,4 +1,6 @@
 # Requirements authority
+Owner clarification 2026-10-27 approves the V1 configurable transaction tax engine, deterministic decimal/two-place EGP posting policy and controlled company-wide Go-Live/opening process. See [approved policy, implementation and activation inputs](v1-financial-activation.md). General precision/tax/cutover policy is no longer an unresolved owner decision. Actual company date, validated treatment and approved balances remain customer activation inputs, never invented development defaults.
+
 Read the supplied [module PRDs](MODULE_PRDS.md), [owners](03-DOMAIN-MODEL-BOUNDED-CONTEXTS.md), [schema](04-DATABASE-ARCHITECTURE.md), [contracts](05-MODULE-CONTRACTS-EVENTS.md) and [workflows](CROSS_MODULE_WORKFLOWS.md).
 The user on 2026-10-21 selected PostgreSQL, current stable Laravel/PHP, Livewire, legally available Flux components, Blade, Tailwind, optional Redis and Vite. This overrides inherited SQLite/Filament references in this new checkout.
 Imported documents refer to absent scope/ADR/policy/acceptance/pipeline files and historical code. Those references are unavailable and do not prove implementation here. Preserve requirement IDs COM-01–06 and M01–M17. Obtain the missing exact policy before implementing any dependent financial/statutory calculation; do not invent a tax rate, electrical test limit, approval threshold or payroll formula.

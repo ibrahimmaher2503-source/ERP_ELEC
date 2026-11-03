@@ -1,5 +1,7 @@
 # M06 Inventory — executable contract
 
+2026-10-27 continuation: [V1 financial activation](v1-financial-activation.md) provides the controlled valued opening path, atomic purchase receipt/FIFO/GRNI and internal issue/negative-adjustment FIFO/GL source code. Unvalued opening, positive adjustment, transfer and correction paths cannot bypass activation or missing costing. Historical quantity-only evidence below remains historical; no current financial acceptance is claimed.
+
 Recovery 2026-10-22: the owner explicitly authorized regression testing. See [current matrix](qa/M05_M06_FUNCTIONAL_COVERAGE_MATRIX.md), [defect evidence](qa/M05_M06_DEFECT_REGISTER.md) and [integration boundaries](qa/M05_M06_INTEGRATION_CONTRACTS.md). Historical QA-deferred text below is not the current campaign result.
 
 Count edits retain their original recorded quantities and cutoff. Intervening warehouse stock/reservation changes reject stale edits/approval and later linked-adjustment posting, including pre-existing linked adjustments. Migration146 adds persisted lifecycle/version/identity/count-cutoff and nonzero-movement guards. Transfer dispatch replay after full receiving returns the completed document. Movement replay validates complete source identity and unit, not only quantity/product/location.

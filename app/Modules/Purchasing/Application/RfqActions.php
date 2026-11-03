@@ -6,8 +6,8 @@ use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SupplierIdentity;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
-use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
+use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Purchasing\Domain\PurchaseRequisition;
 use App\Modules\Purchasing\Domain\PurchaseRfq;
 use App\Modules\Purchasing\Domain\RfqChanged;
@@ -47,13 +47,13 @@ final class RfqActions
             $data['source_type'] ??= 'REQUISITION';
             $standalone = $data['source_type'] === 'STANDALONE';
             $data = Validator::make($data, [
-                'source_type'=>'required|in:REQUISITION,STANDALONE', 'branch_id'=>'nullable|integer|min:1',
-                'justification'=>($standalone ? 'required' : 'nullable').'|string|max:3000|not_regex:/\x00/',
+                'source_type' => 'required|in:REQUISITION,STANDALONE', 'branch_id' => 'nullable|integer|min:1',
+                'justification' => ($standalone ? 'required' : 'nullable').'|string|max:3000|not_regex:/\x00/',
                 'creation_key' => 'required|uuid', 'requisition_id' => ($standalone ? 'prohibited' : 'required|integer|min:1'), 'subject' => 'required|string|max:200|not_regex:/\x00/',
                 'request_date' => 'required|date_format:Y-m-d', 'deadline' => 'nullable|date_format:Y-m-d|after_or_equal:request_date', 'requirements' => 'nullable|string|max:5000|not_regex:/\x00/',
                 'lines' => 'required|array|min:1|max:100', 'lines.*.requisition_line_id' => $standalone ? 'prohibited' : 'required|integer|distinct',
-                'lines.*.product_id'=>($standalone ? 'required' : 'nullable').'|integer|min:1|distinct',
-                'lines.*.base_unit_id'=>($standalone ? 'required' : 'nullable').'|integer|min:1',
+                'lines.*.product_id' => ($standalone ? 'required' : 'nullable').'|integer|min:1|distinct',
+                'lines.*.base_unit_id' => ($standalone ? 'required' : 'nullable').'|integer|min:1',
                 'lines.*.quantity' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
                 'supplier_ids' => 'required|array|min:1|max:50', 'supplier_ids.*' => 'required|integer|min:1|distinct',
             ])->validate();
@@ -76,19 +76,21 @@ final class RfqActions
                     $this->fail('Quantity must be positive.');
                 }
                 if ($standalone) {
-                    $p = app(ProductsApi::class)->getProduct(new GetProductRequest($actor,(int)$l['product_id']))->product;
-                    if (!$p['active'] || $p['base_unit_id'] !== (int) $l['base_unit_id']) {
+                    $p = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $l['product_id']))->product;
+                    if (! $p['active'] || $p['base_unit_id'] !== (int) $l['base_unit_id']) {
                         $this->fail('Active product and its actual base unit are required.');
                     }
-                    $lines[] = ['requisition_line_id'=>null,'product_id'=>$p['id'],'base_unit_id'=>$p['base_unit_id'],'sku'=>$p['sku'],'product_name'=>$p['name'],'unit_name'=>(string)$p['base_unit_id'],'quantity'=>bcadd($l['quantity'],'0',8),'source_quantity'=>bcadd($l['quantity'],'0',8)];
+                    $lines[] = ['requisition_line_id' => null, 'product_id' => $p['id'], 'base_unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'unit_name' => (string) $p['base_unit_id'], 'quantity' => bcadd($l['quantity'], '0', 8), 'source_quantity' => bcadd($l['quantity'], '0', 8)];
                 } else {
                     $original = $source->lines()->find($l['requisition_line_id']);
-                    if (!$original) { $this->fail('Invalid requisition line.'); }
+                    if (! $original) {
+                        $this->fail('Invalid requisition line.');
+                    }
                     $allocated = DB::table('purchasing_rfq_lines as l')->join('purchasing_rfqs as r', 'r.id', '=', 'l.rfq_id')->where('l.requisition_line_id', $original->id)->when($doc, fn ($q) => $q->where('r.id', '<>', $doc->id))->sum('l.quantity');
                     if (bccomp(bcadd((string) $allocated, $l['quantity'], 8), $original->quantity, 8) > 0) {
                         $this->fail('Quantity exceeds unallocated requisition demand.');
                     }
-                    $lines[] = ['requisition_line_id'=>$original->id,'product_id'=>$original->product_id,'base_unit_id'=>$original->unit_id,'sku'=>$original->sku,'product_name'=>$original->product_name,'unit_name'=>'#'.$original->unit_id,'quantity'=>bcadd($l['quantity'],'0',8),'source_quantity'=>bcadd($l['quantity'],'0',8)];
+                    $lines[] = ['requisition_line_id' => $original->id, 'product_id' => $original->product_id, 'base_unit_id' => $original->unit_id, 'sku' => $original->sku, 'product_name' => $original->product_name, 'unit_name' => '#'.$original->unit_id, 'quantity' => bcadd($l['quantity'], '0', 8), 'source_quantity' => bcadd($l['quantity'], '0', 8)];
                 }
             }
             $suppliers = [];
@@ -115,7 +117,7 @@ final class RfqActions
                 }
             }
             $before = $doc?->toArray();
-            $doc ??= new PurchaseRfq(['creation_key' => $data['creation_key'], 'branch_id' => $branch, 'source_type'=>$data['source_type'], 'requisition_id' => $source?->id, 'created_by' => $actor, 'status' => 'draft', 'version' => 0]);
+            $doc ??= new PurchaseRfq(['creation_key' => $data['creation_key'], 'branch_id' => $branch, 'source_type' => $data['source_type'], 'requisition_id' => $source?->id, 'created_by' => $actor, 'status' => 'draft', 'version' => 0]);
             $doc->fill($header);
             $doc->version++;
             $doc->save();
@@ -135,16 +137,20 @@ final class RfqActions
             $this->lock();
             $doc = PurchaseRfq::lockForUpdate()->findOrFail($id);
             app(PurchasingAccess::class)->authorize($actor, 'rfq_issue', $doc->branch_id);
-            if ($doc->source_type === 'STANDALONE') { app(PurchasingAccess::class)->authorize($actor, 'rfq_standalone', $doc->branch_id); }
+            if ($doc->source_type === 'STANDALONE') {
+                app(PurchasingAccess::class)->authorize($actor, 'rfq_standalone', $doc->branch_id);
+            }
             if ($doc->status === 'issued') {
                 return;
             }
             if ($doc->version !== $version || ! $doc->lines()->exists() || ! $doc->suppliers()->exists()) {
                 $this->fail('راجع النسخة وبنود الطلب والموردين.');
             }
-            foreach (DB::table('purchasing_rfq_product_lines')->where('rfq_id',$id)->get() as $line) {
-                $p=app(ProductsApi::class)->getProduct(new GetProductRequest($actor,$line->product_id))->product;
-                if (!$p['active'] || $p['base_unit_id'] !== $line->base_unit_id) { $this->fail('Product eligibility changed.'); }
+            foreach (DB::table('purchasing_rfq_product_lines')->where('rfq_id', $id)->get() as $line) {
+                $p = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, $line->product_id))->product;
+                if (! $p['active'] || $p['base_unit_id'] !== $line->base_unit_id) {
+                    $this->fail('Product eligibility changed.');
+                }
             }
             foreach ($doc->suppliers as $s) {
                 $this->supplier($actor, $s->supplier_id);
@@ -164,7 +170,9 @@ final class RfqActions
             $this->lock();
             $doc = PurchaseRfq::lockForUpdate()->findOrFail($id);
             app(PurchasingAccess::class)->authorize($actor, 'rfq_dispatch', $doc->branch_id);
-            if ($doc->source_type === 'STANDALONE') { app(PurchasingAccess::class)->authorize($actor, 'rfq_standalone', $doc->branch_id); }
+            if ($doc->source_type === 'STANDALONE') {
+                app(PurchasingAccess::class)->authorize($actor, 'rfq_standalone', $doc->branch_id);
+            }
             if ($doc->status !== 'issued') {
                 $this->fail('أصدر الطلب قبل تسجيل الإرسال الفعلي.');
             }

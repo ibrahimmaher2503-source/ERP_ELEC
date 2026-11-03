@@ -1,46 +1,47 @@
-<div class="space-y-6" dir="rtl">
-    <x-page.heading title="المستخدمون" description="إدارة حسابات المستخدمين في النظام" />
-    @if (session('status'))<flux:callout variant="success">{{ session('status') }}</flux:callout>@endif
+<div data-erp-archetype="list" class="space-y-6" dir="rtl">
+    <x-page.heading title="المستخدمون" description="إدارة حسابات المستخدمين في النظام" ><x-slot:actions>@if ($canCreate)<flux:button variant="primary" icon="plus" wire:click="create">إضافة مستخدم</flux:button>@endif</x-slot:actions></x-page.heading>
+    @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
 
-    <div class="grid gap-3 sm:grid-cols-3">
+    <div class="erp-kpi-summary grid gap-3 sm:grid-cols-3">
         @foreach ([['إجمالي المستخدمين', 'total', 'user-group', 'blue'], ['المستخدمون النشطون', 'active', 'user-circle', 'emerald'], ['المستخدمون غير النشطين', 'inactive', 'user-minus', 'orange']] as [$label, $key, $icon, $tone])
             <x-erp.stat-card :label="$label" :value="$stats[$key]" :icon="$icon" :tone="$tone" />
         @endforeach
     </div>
 
     <x-ui.panel>
-        <div class="erp-filters mb-5 flex flex-wrap items-end gap-3 rounded-xl p-4">
-            <div class="min-w-48 flex-1"><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن مستخدم" placeholder="الاسم أو البريد الإلكتروني..." /></div>
-            <flux:select wire:model.live="statusFilter" label="الحالة" class="!w-36"><option value="">جميع الحالات</option><option value="active">نشط</option><option value="inactive">غير نشط</option></flux:select>
-            <flux:select wire:model.live="branchFilter" label="الفرع" class="!w-40"><option value="">جميع الفروع</option>@foreach ($branches as $branch)<option value="{{ $branch->id }}">{{ $branch->name }}</option>@endforeach</flux:select>
-            @if ($canCreate)<flux:button variant="primary" icon="plus" wire:click="create">إضافة مستخدم</flux:button>@endif
-        </div>
+        <x-ui.filters id="user-filters" target="search,statusFilter,branchFilter" :reset="['search' => '', 'statusFilter' => '', 'branchFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن مستخدم" placeholder="الاسم أو البريد الإلكتروني..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+            <flux:select wire:model.live="statusFilter" label="الحالة"><option value="">جميع الحالات</option><option value="active">نشط</option><option value="inactive">غير نشط</option></flux:select>
+            <flux:select wire:model.live="branchFilter" label="الفرع"><option value="">جميع الفروع</option>@foreach ($branches as $branch)<option value="{{ $branch->id }}">{{ $branch->name }}</option>@endforeach</flux:select>
+
+        </div></x-ui.filters>
         <div class="overflow-x-auto" wire:loading.class="opacity-60">
-            <table class="w-full min-w-[760px] text-start text-sm">
-                <thead class="bg-slate-50 text-slate-500"><tr><th class="p-4 text-start">#</th><th class="p-4 text-start">اسم المستخدم</th><th class="p-4 text-start">البريد الإلكتروني</th><th class="p-4 text-start">الفرع</th><th class="p-4 text-start">الدور</th><th class="p-4 text-start">الحالة</th><th class="p-4 text-start">الإجراءات</th></tr></thead>
-                <tbody class="divide-y divide-slate-100">
+            <x-ui.responsive-table label="السجلات المعروضة"><table role="table" class="w-full min-w-[760px] text-start text-sm">
+                <thead role="rowgroup" class="bg-slate-50 text-slate-500"><tr role="row"><th role="columnheader" class="p-4 text-start">#</th><th role="columnheader" class="p-4 text-start">اسم المستخدم</th><th role="columnheader" class="p-4 text-start">البريد الإلكتروني</th><th role="columnheader" class="p-4 text-start">الفرع</th><th role="columnheader" class="p-4 text-start">الدور</th><th role="columnheader" class="p-4 text-start">الحالة</th><th role="columnheader" class="p-4 text-start">الإجراءات</th></tr></thead>
+                <tbody role="rowgroup" class="divide-y divide-slate-100">
                     @forelse ($users as $user)
-                        <tr wire:key="user-{{ $user->id }}">
-                            <td class="p-4">{{ $users->firstItem() + $loop->index }}</td>
-                            <td class="p-4"><a class="flex items-center gap-3 font-medium hover:text-blue-700" href="{{ route('organization.users.show', $user->id) }}" wire:navigate><x-erp.user-avatar :user-id="$user->id" :gender="$user->gender" :label="$user->name" /><span>{{ $user->name }}</span></a></td>
-                            <td class="p-4"><bdi>{{ $user->email }}</bdi></td><td class="p-4">{{ $user->branch_name ?: 'غير محدد' }}</td><td class="p-4 text-xs text-slate-600">{{ $user->role_names ?: '—' }}</td><td class="p-4"><x-erp.status-badge :active="$user->active" /></td>
-                            <td class="p-4"><flux:dropdown><flux:button icon="ellipsis-horizontal" variant="ghost" size="sm" aria-label="إجراءات {{ $user->name }}" /><flux:menu>
+                        <tr role="row" wire:key="user-{{ $user->id }}">
+                            <td role="cell" data-label="الصف" class="p-4"><div>{{ $users->firstItem() + $loop->index }}</div></td>
+                            <td role="cell" data-label="اسم المستخدم" class="p-4"><div><a class="flex items-center gap-3 font-medium hover:text-blue-700" href="{{ route('organization.users.show', $user->id) }}" wire:navigate><x-erp.user-avatar :user-id="$user->id" :gender="$user->gender" :label="$user->name" /><span>{{ $user->name }}</span></a></div></td>
+                            <td role="cell" data-label="البريد الإلكتروني" class="p-4"><div><bdi>{{ $user->email }}</bdi></div></td><td role="cell" data-label="الفرع" class="p-4"><div>{{ $user->branch_name ?: 'غير محدد' }}</div></td><td role="cell" data-label="الدور" class="p-4 text-xs text-slate-600"><div>{{ $user->role_names ?: '—' }}</div></td><td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$user->active" /></div></td>
+                            <td role="cell" data-label="الإجراءات" class="p-4"><div><flux:dropdown><flux:button icon="ellipsis-horizontal" variant="ghost" size="sm" aria-label="إجراءات {{ $user->name }}" /><flux:menu>
                                 <flux:menu.item :href="route('organization.users.show', $user->id)" icon="eye" wire:navigate>تفاصيل المستخدم</flux:menu.item>
                                 @if ($access->can(auth()->user(), 'M01.user_update', $user))<flux:menu.item wire:click="edit({{ $user->id }})" icon="pencil-square">تحرير البيانات</flux:menu.item>@endif
                                 @if ($access->can(auth()->user(), 'M01.user_status', $user))<flux:menu.item wire:click="confirmStatus({{ $user->id }})" icon="power">{{ $user->active ? 'تعطيل الحساب' : 'تفعيل الحساب' }}</flux:menu.item>@endif
-                            </flux:menu></flux:dropdown></td>
+                            </flux:menu></flux:dropdown></div></td>
                         </tr>
                     @empty
-                        <tr><td colspan="7" class="p-8"><x-ui.empty-state title="لا يوجد مستخدمون للعرض" description="عدّل معايير البحث أو أضف مستخدمًا بصلاحية مناسبة." /></td></tr>
+                        <tr role="row"><td colspan="7" class="p-8"><x-ui.empty-state title="لا يوجد مستخدمون للعرض" description="عدّل معايير البحث أو أضف مستخدمًا بصلاحية مناسبة." /></td></tr>
                     @endforelse
                 </tbody>
-            </table>
+            </table></x-ui.responsive-table>
         </div>
         <div class="mt-4 border-t border-slate-100 pt-4">{{ $users->links() }}</div>
     </x-ui.panel>
 
     <flux:modal wire:model="editing" class="w-full max-w-lg">
         <form wire:submit="save" class="space-y-5">
+            <x-ui.validation-summary />
             <flux:heading size="lg">{{ $editingId ? 'تحرير بيانات المستخدم' : 'إضافة مستخدم' }}</flux:heading>
             <x-erp.user-fields :branches="$branches" :creating="! $editingId" />
             <div class="rounded-lg border border-emerald-100 bg-emerald-50/50 p-3 text-sm">

@@ -7,13 +7,13 @@ const http = require('node:http');
 const os = require('node:os');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
-const { chromium } = require('C:/Users/N/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const { chromium } = require('playwright');
 
 const root = path.resolve(__dirname, '../..');
 const port = 8013;
 const baseUrl = `http://127.0.0.1:${port}`;
 const fixtureScript = path.join(__dirname, 'support', 'prepare-round2-master-fixtures.php');
-const edgeExecutable = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+const edgeExecutable = process.env.PLAYWRIGHT_EXECUTABLE_PATH || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const evidenceRoot = path.join(root, 'docs', 'qa', 'round2', 'evidence', 'masters');
 const errors = [];
 
@@ -32,7 +32,10 @@ function fixture(mode, input, tempPath) {
     const result = spawnSync('php', [fixtureScript, mode], {
         cwd: root, env: testEnvironment(tempPath), input: JSON.stringify(input), encoding: 'utf8', windowsHide: true,
     });
-    if (result.error || result.status !== 0) throw new Error('Guarded PostgreSQL master fixture failed.');
+    if (result.error || result.status !== 0) {
+        const detail = result.stderr.trim() || result.stdout.trim() || result.error?.message || `exit status ${result.status}`;
+        throw new Error(`Guarded PostgreSQL master fixture failed: ${detail}`);
+    }
     return result.stdout.trim() ? JSON.parse(result.stdout) : {};
 }
 
@@ -43,6 +46,36 @@ function assertPortAvailable() {
             ? new Error(`Port ${port} is already in use; no process was stopped or changed.`) : error));
         server.listen(port, '127.0.0.1', () => server.close(resolve));
     });
+}
+
+function assertStaticAssetsReady() {
+    const manifestPath = path.join(root, 'public', 'build', 'manifest.json');
+    if (!fs.existsSync(manifestPath)) throw new Error('Vite manifest is missing; run npm run build before browser QA.');
+    let manifest;
+    try { manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')); }
+    catch { throw new Error('Vite manifest is unreadable; run npm run build before browser QA.'); }
+    for (const entry of Object.values(manifest)) {
+        const relative = entry?.file;
+        if (typeof relative !== 'string' || relative.includes('..') || path.isAbsolute(relative)) {
+            throw new Error('Vite manifest contains an invalid asset path.');
+        }
+        const assetPath = path.join(root, 'public', 'build', relative);
+        if (!fs.existsSync(assetPath) || (relative.endsWith('.css') && fs.statSync(assetPath).size === 0)) {
+            throw new Error(`Vite asset is missing or empty (${relative}); run npm run build before browser QA.`);
+        }
+    }
+    return manifest;
+}
+
+async function assertStaticAssetsServed(manifest) {
+    for (const entry of Object.values(manifest)) {
+        const response = await fetch(`${baseUrl}/build/${entry.file}`);
+        const contentType = response.headers.get('content-type') || '';
+        const expectedType = entry.file.endsWith('.css') ? 'text/css' : 'javascript';
+        if (response.status !== 200 || !contentType.toLowerCase().includes(expectedType)) {
+            throw new Error(`Vite asset did not load as static ${expectedType} (${entry.file}: HTTP ${response.status}, ${contentType || 'no content type'}).`);
+        }
+    }
 }
 
 async function waitForServer(server) {
@@ -311,6 +344,9 @@ async function userJourney(page, output, tag, checks) {
     await page.locator(model('form.password_confirmation')).fill(password);
     await page.locator('form[wire\\:submit="save"] button[type="submit"]').click();
     await form.waitFor({ state: 'hidden' });
+    // Security administrators are redirected to User Details after provisioning
+    // so they can assign access explicitly; return to the searchable list first.
+    await page.goto(baseUrl + listPath);
     await page.locator(model('search')).fill(email);
     const row = page.locator('tr').filter({ hasText: email });
     await row.waitFor();
@@ -353,6 +389,7 @@ async function userJourney(page, output, tag, checks) {
 
 async function main() {
     if (!fs.existsSync(edgeExecutable)) throw new Error('Microsoft Edge is unavailable at configured local browser path.');
+    const manifest = assertStaticAssetsReady();
     await assertPortAvailable();
     fs.mkdirSync(evidenceRoot, { recursive: true });
     const tag = crypto.randomBytes(6).toString('hex').toUpperCase();
@@ -372,6 +409,7 @@ async function main() {
             cwd: path.join(root, 'public'), env: testEnvironment(tempPath), stdio: ['ignore', logHandle, logHandle], windowsHide: true,
         });
         await waitForServer(server);
+        await assertStaticAssetsServed(manifest);
         browser = await chromium.launch({ executablePath: edgeExecutable, headless: true });
         const context = await browser.newContext({ viewport: { width: 1672, height: 941 }, locale: 'ar-EG', timezoneId: 'Africa/Cairo', colorScheme: 'light' });
         await context.clearCookies();

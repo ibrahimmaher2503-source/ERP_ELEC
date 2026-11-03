@@ -64,6 +64,7 @@ final class SalesOrderActions
             if ($id !== null) {
                 $this->access($actor, 'edit', $r->branch_id);
                 $this->version($r, $expectedVersion);
+                abort_if($r->source_type === 'quotation', 409, 'المبالغ والشروط من الإصدار المقبول ثابتة؛ لا يجوز تعديلها كمسودة مباشرة.');
                 if (! $r->editable()) {
                     throw ValidationException::withMessages(['order' => 'التعديل المباشر للمسودة فقط. الأوامر المعتمدة تحتاج تعديلًا رسميًا.']);
                 }

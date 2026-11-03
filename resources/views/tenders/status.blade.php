@@ -1,0 +1,2 @@
+@php($labels=['identified'=>'مرصودة','under_review'=>'قيد الدراسة','no_bid'=>'عدم المشاركة','preparing_technical'=>'إعداد فني','preparing_financial'=>'إعداد مالي','internal_approval'=>'اعتماد داخلي','submitted'=>'تم التقديم','awaiting_result'=>'بانتظار النتيجة','negotiating'=>'تفاوض','awarded'=>'ترسية','lost'=>'لم تتم الترسية','cancelled'=>'ملغاة','withdrawn'=>'منسحبة'])
+<span class="inline-flex rounded border border-blue-100 bg-blue-50 px-2 py-1 text-xs text-blue-950">{{ $labels[$status]??$status }}</span>

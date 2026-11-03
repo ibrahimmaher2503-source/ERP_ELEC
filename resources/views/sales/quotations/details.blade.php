@@ -1,4 +1,4 @@
-<div class="quotation-page space-y-4">
+<div data-erp-archetype="details" class="quotation-page space-y-4">
  @include('sales.quotations.partials.detail-header')
  @include('sales.quotations.partials.identity')
  @include('sales.quotations.partials.blockers')
@@ -9,7 +9,7 @@
    @include('sales.quotations.partials.lines')
    @if($tab==='main')<div class="mt-4 grid gap-4 xl:grid-cols-3">
     <section class="quote-inset"><h2>معلومات العرض</h2><dl class="quote-dl"><div><dt>رقم العرض</dt><dd>{{ $record->number ?? 'لم يصدر بعد' }}</dd></div><div><dt>معرّف المسودة</dt><dd><bdi>{{ substr($record->draft_key,0,8) }}</bdi></dd></div><div><dt>المراجعة</dt><dd>{{ $record->revision }}</dd></div><div><dt>العملة</dt><dd>جنيه مصري (EGP)</dd></div><div><dt>مرجع RFQ</dt><dd>{{ $record->rfq_reference ?: '—' }}</dd></div></dl></section>
-    <section class="quote-inset"><h2>شروط الدفع والتسليم المقترحة</h2><dl class="quote-dl"><div><dt>شروط الدفع</dt><dd class="whitespace-pre-line">{{ $record->payment_terms ?: 'لم تحدد' }}</dd></div><div><dt>شروط التسليم</dt><dd class="whitespace-pre-line">{{ $record->delivery_terms ?: 'لم تحدد' }}</dd></div></dl><p class="mt-3 text-xs text-amber-800">نصوص مسودة غير معتمدة للإصدار.</p></section>
+    <section class="quote-inset"><h2>شروط الدفع والتسليم المقترحة</h2><dl class="quote-dl"><div><dt>شروط الدفع</dt><dd class="whitespace-pre-line">{{ $record->payment_terms ?: 'لم تحدد' }}</dd></div><div><dt>شروط التسليم</dt><dd class="whitespace-pre-line">{{ $record->delivery_terms ?: 'لم تحدد' }}</dd></div></dl><p class="mt-3 text-xs text-amber-800">{{ $officialIssue ? 'شروط محفوظة في الإصدار الرسمي.' : 'شروط المسودة تخضع للتحقق التجاري عند الإصدار.' }}</p></section>
     <section class="quote-inset"><h2>ملخص الأسعار</h2>@include('sales.quotations.partials.amounts',['amounts'=>$record->calculation??[]])</section>
    </div><div class="mt-4 grid gap-4 md:grid-cols-2"><section class="quote-inset"><h2>ملاحظات داخلية</h2><p class="whitespace-pre-line text-sm">{{ $record->notes ?: 'لا توجد ملاحظات.' }}</p></section><section class="quote-inset"><h2>معلومات إضافية</h2><dl class="quote-dl"><div><dt>تاريخ الإنشاء</dt><dd><bdi>{{ $record->created_at->timezone('Africa/Cairo')->format('Y/m/d H:i') }}</bdi></dd></div><div><dt>آخر تعديل</dt><dd><bdi>{{ $record->updated_at->timezone('Africa/Cairo')->format('Y/m/d H:i') }}</bdi></dd></div><div><dt>نسخة الحفظ</dt><dd>{{ $record->version }}</dd></div></dl></section></div>@endif
   @elseif($tab==='attachments')

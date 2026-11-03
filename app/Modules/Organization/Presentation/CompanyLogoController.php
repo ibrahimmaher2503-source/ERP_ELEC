@@ -17,6 +17,6 @@ class CompanyLogoController
 
         return response()->file(Storage::disk('local')->path($path), [
             'X-Content-Type-Options' => 'nosniff', 'Cache-Control' => 'private, no-store',
-        ]);
+        ])->setPrivate();
     }
 }
