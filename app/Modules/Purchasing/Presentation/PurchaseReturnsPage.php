@@ -5,8 +5,9 @@ namespace App\Modules\Purchasing\Presentation;
 use App\Modules\Purchasing\Application\PurchaseReturns;
 use App\Modules\Purchasing\Application\PurchasingAccess;
 use Illuminate\Support\Str;
-use Livewire\Component;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Locked;
+use Livewire\Component;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class PurchaseReturnsPage extends Component
@@ -20,7 +21,7 @@ final class PurchaseReturnsPage extends Component
     public string $creationKey = '';
 
     /** @var array<int, array{id:int,label:string}> */
-    #[\Livewire\Attributes\Locked]
+    #[Locked]
     public array $sources = [];
 
     public string $receiptId = '';

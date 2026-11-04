@@ -5,8 +5,9 @@ namespace App\Modules\Sales\Presentation;
 use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesReturns;
 use Illuminate\Support\Str;
-use Livewire\Component;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Locked;
+use Livewire\Component;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SalesReturnsPage extends Component
@@ -20,7 +21,7 @@ class SalesReturnsPage extends Component
     public string $creationKey = '';
 
     /** @var array<int, array{id:int,label:string}> */
-    #[\Livewire\Attributes\Locked]
+    #[Locked]
     public array $sources = [];
 
     public string $deliveryId = '';
