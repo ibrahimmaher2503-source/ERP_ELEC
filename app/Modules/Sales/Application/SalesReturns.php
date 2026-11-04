@@ -34,16 +34,25 @@ final class SalesReturns
     public function eligibleDeliveries(int $actor): array
     {
         $branches = app(SalesOrderAccess::class)->branchIds($actor, 'return_create');
-        $rows = DB::table('sales_delivery_instructions as d')->join('sales_orders as o', 'o.id', '=', 'd.order_id')
-            ->where('d.status', 'confirmed')->whereIn('o.branch_id', $branches)->orderByDesc('d.id')->limit(200)
-            ->get(['d.id', 'd.reference', 'd.confirmed_at', 'o.number as order_number', 'o.customer_snapshot']);
+        $found = [];
+        // Un-invoiced and fully returned deliveries are filtered after reading, so page through newest first until enough qualify.
+        for ($offset = 0; $offset < 2000 && count($found) < 100; $offset += 200) {
+            $rows = DB::table('sales_delivery_instructions as d')->join('sales_orders as o', 'o.id', '=', 'd.order_id')
+                ->where('d.status', 'confirmed')->whereIn('o.branch_id', $branches)->orderByDesc('d.id')->offset($offset)->limit(200)
+                ->get(['d.id', 'd.reference', 'd.confirmed_at', 'o.number as order_number', 'o.customer_snapshot']);
+            foreach ($rows as $row) {
+                $lines = $this->deliveryLines($actor, (int) $row->id);
+                if ($lines !== []) {
+                    $customer = json_decode($row->customer_snapshot, true, 512, JSON_THROW_ON_ERROR);
+                    $found[] = ['id' => (int) $row->id, 'reference' => $row->reference, 'order_number' => $row->order_number, 'customer' => $customer['name'] ?? '', 'lines' => $lines];
+                }
+            }
+            if ($rows->count() < 200) {
+                break;
+            }
+        }
 
-        return $rows->map(function ($row) use ($actor) {
-            $lines = $this->deliveryLines($actor, (int) $row->id);
-            $customer = json_decode($row->customer_snapshot, true, 512, JSON_THROW_ON_ERROR);
-
-            return ['id' => (int) $row->id, 'reference' => $row->reference, 'order_number' => $row->order_number, 'customer' => $customer['name'] ?? '', 'lines' => $lines];
-        })->filter(fn ($row) => $row['lines'] !== [])->values()->all();
+        return $found;
     }
 
     public function deliveryLines(int $actor, int $delivery): array

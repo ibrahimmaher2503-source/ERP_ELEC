@@ -31,11 +31,23 @@ final class PurchaseReturns
     public function eligibleReceipts(int $actor): array
     {
         $branches = array_column(app(PurchasingAccess::class)->branches($actor, 'return_create'), 'id');
-        $rows = DB::table('purchasing_receipts as r')->join('purchasing_orders as o', 'o.id', '=', 'r.order_id')->where('r.status', 'posted')->whereIn('r.branch_id', $branches)
-            ->orderByDesc('r.id')->limit(200)->get(['r.id', 'r.delivery_reference', 'r.receipt_date', 'o.supplier_name']);
+        $found = [];
+        // Un-invoiced and fully returned receipts are filtered after reading, so page through newest first until enough qualify.
+        for ($offset = 0; $offset < 2000 && count($found) < 100; $offset += 200) {
+            $rows = DB::table('purchasing_receipts as r')->join('purchasing_orders as o', 'o.id', '=', 'r.order_id')->where('r.status', 'posted')->whereIn('r.branch_id', $branches)
+                ->orderByDesc('r.id')->offset($offset)->limit(200)->get(['r.id', 'r.delivery_reference', 'r.receipt_date', 'o.supplier_name']);
+            foreach ($rows as $row) {
+                $lines = $this->receiptLines($actor, (int) $row->id);
+                if ($lines !== []) {
+                    $found[] = ['id' => (int) $row->id, 'number' => $row->delivery_reference, 'date' => $row->receipt_date, 'supplier' => $row->supplier_name, 'lines' => $lines];
+                }
+            }
+            if ($rows->count() < 200) {
+                break;
+            }
+        }
 
-        return $rows->map(fn ($row) => ['id' => (int) $row->id, 'number' => $row->delivery_reference, 'date' => $row->receipt_date, 'supplier' => $row->supplier_name, 'lines' => $this->receiptLines($actor, (int) $row->id)])
-            ->filter(fn ($row) => $row['lines'] !== [])->values()->all();
+        return $found;
     }
 
     public function receiptLines(int $actor, int $receipt): array
