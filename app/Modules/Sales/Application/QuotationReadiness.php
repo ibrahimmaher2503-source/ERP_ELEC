@@ -18,7 +18,7 @@ final class QuotationReadiness
             $blockers[] = 'أضف بندًا من كتالوج المنتجات.';
         }
         if ($r->lines->contains(fn ($l) => $l->suggested_price === null || $l->price_source === null)) {
-            $blockers[] = 'مصدر أسعار البيع المعتمد من M02 غير متاح؛ الأسعار المطلوبة في المسودة لا تُعد أسعارًا معتمدة.';
+            $blockers[] = 'قائمة أسعار البيع المعتمدة غير متاحة؛ الأسعار المطلوبة في المسودة لا تُعد أسعارًا معتمدة.';
         }
         $evaluation = app(QuotationCommercialPolicy::class)->evaluate($r);
         $blockers = array_merge($blockers, $evaluation['blockers']);

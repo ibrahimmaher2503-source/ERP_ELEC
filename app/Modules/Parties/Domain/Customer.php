@@ -12,7 +12,7 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'segment', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'version'];
+    protected $fillable = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'segment', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'credit_limit', 'payment_terms', 'version'];
 
     public function contacts()
     {

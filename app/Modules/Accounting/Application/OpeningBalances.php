@@ -5,6 +5,8 @@ namespace App\Modules\Accounting\Application;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use App\Modules\Parties\Application\Contracts\CustomersApi;
+use App\Modules\Parties\Application\Contracts\GetCustomerRequest;
 use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
@@ -23,9 +25,9 @@ final class OpeningBalances
         }
         unset($line);
         Validator::make(['lines' => $lines], [
-            'lines' => 'present|array|max:500', 'lines.*.kind' => 'required|in:gl,ap,cash,bank,inventory',
+            'lines' => 'present|array|max:500', 'lines.*.kind' => 'required|in:gl,ap,ar,cash,bank,inventory',
             'lines.*.reference' => 'required|string|max:160|not_regex:/\x00/', 'lines.*.branch_id' => 'required|integer|min:1',
-            'lines.*.account_id' => 'nullable|integer|min:1', 'lines.*.supplier_id' => 'nullable|integer|min:1',
+            'lines.*.account_id' => 'nullable|integer|min:1', 'lines.*.supplier_id' => 'nullable|integer|min:1', 'lines.*.customer_id' => 'nullable|integer|min:1',
             'lines.*.warehouse_id' => 'nullable|integer|min:1', 'lines.*.product_id' => 'nullable|integer|min:1',
             'lines.*.serials' => 'sometimes|array|list|max:1000', 'lines.*.serials.*' => 'required|string|max:200',
         ])->validate();
@@ -43,7 +45,7 @@ final class OpeningBalances
             }
             $seen[$key] = true;
             $row = ['kind' => $line['kind'], 'reference' => $line['reference'], 'branch_id' => $branch,
-                'account_id' => null, 'supplier_id' => null, 'warehouse_id' => null, 'product_id' => null,
+                'account_id' => null, 'supplier_id' => null, 'customer_id' => null, 'warehouse_id' => null, 'product_id' => null,
                 'debit' => '0.00', 'credit' => '0.00', 'quantity' => null, 'unit_cost' => null, 'amount' => '0.00', 'serials' => '[]'];
             if ($line['kind'] !== 'inventory' && ($line['serials'] ?? []) !== []) {
                 FinancialActivation::fail('الأرقام التسلسلية تخص تفاصيل افتتاح المخزون فقط.');
@@ -66,6 +68,9 @@ final class OpeningBalances
                 if ($line['kind'] === 'ap') {
                     $supplier = app(SuppliersApi::class)->getSupplier(new GetSupplierRequest($actor, (int) ($line['supplier_id'] ?? 0)));
                     $row['supplier_id'] = $supplier->id;
+                }
+                if ($line['kind'] === 'ar') {
+                    $row['customer_id'] = app(CustomersApi::class)->getCustomer(new GetCustomerRequest($actor, (int) ($line['customer_id'] ?? 0)))->id;
                 }
                 if ($line['kind'] === 'inventory') {
                     $wid = (int) ($line['warehouse_id'] ?? 0);
@@ -130,8 +135,8 @@ final class OpeningBalances
             if (bccomp($group['debit'], $group['credit'], 2) !== 0) {
                 $errors[] = 'قيد افتتاح غير متوازن للفرع #'.$branch;
             }
-            foreach (['ap', 'cash', 'bank', 'inventory'] as $purpose) {
-                $gl = $group['gl'][$maps[$purpose] ?? 0] ?? '0.00';
+            foreach (['ap', 'ar', 'cash', 'bank', 'inventory'] as $purpose) {
+                $gl = $group['gl'][$maps[$purpose === 'ar' ? 'receivable' : $purpose] ?? 0] ?? '0.00';
                 $detail = $group['details'][$purpose] ?? '0.00';
                 if ($purpose === 'ap') {
                     $gl = bcsub('0', $gl, 2);
@@ -140,8 +145,8 @@ final class OpeningBalances
                     $errors[] = 'اختلاف '.$purpose.' بين GL والتفاصيل للفرع #'.$branch;
                 }
             }
-            // V1 cannot open customer receivables or unmatched GRNI without their detailed producer.
-            foreach (['grni', 'receivable'] as $purpose) {
+            // Unmatched GRNI has no detailed producer; settle it as supplier payables before go-live.
+            foreach (['grni'] as $purpose) {
                 if (bccomp($group['gl'][$maps[$purpose] ?? 0] ?? '0', '0', 2) !== 0) {
                     $errors[] = 'الرصيد الافتتاحي '.$purpose.' يتطلب تفاصيل من منتجه، غير مدعوم في مسار الافتتاح الحالي.';
                 }

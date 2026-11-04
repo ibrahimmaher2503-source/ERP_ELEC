@@ -76,6 +76,11 @@ final class PurchasingService implements PurchasingApi
         return ['id' => $row->id, 'branchId' => $row->branch_id, 'status' => $row->status, 'date' => $row->$date, 'number' => $row->official_number ?? null, 'orderId' => $type === 'purchase_receipt' ? (int) $row->order_id : null];
     }
 
+    public function authorizeReturn(int $actor, int $receipt, int $line): array
+    {
+        return app(PurchaseReturns::class)->authorizeMovement($actor, $receipt, $line);
+    }
+
     public function supplierInvoiceSource(int $actor, array $receiptLineIds): array
     {
         abort_unless(DB::transactionLevel() > 0 && $receiptLineIds !== [], 422);

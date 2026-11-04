@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('inventory_balances',fn(Blueprint $t)=>$t->string('tracking',20)->default('quantity'));
+        Schema::table('inventory_balances', fn (Blueprint $t) => $t->string('tracking', 20)->default('quantity'));
         DB::unprepared(<<<'SQL'
 CREATE OR REPLACE FUNCTION inventory_serial_occupancy_check() RETURNS trigger LANGUAGE plpgsql AS $$
 DECLARE p bigint; w bigint; b record; held numeric; allocated numeric; isolated numeric;
@@ -28,5 +28,8 @@ SQL);
         // Preserve the standing explicit-role default; never assign membership or scopes.
         app(SyncAdministratorPermissions::class)->execute();
     }
-    public function down(): void { /* Retain integrity safeguards and history. */ }
+
+    public function down(): void
+    { /* Retain integrity safeguards and history. */
+    }
 };

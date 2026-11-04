@@ -120,6 +120,10 @@ final class CreditNotes
         $invoice = DB::table('rp_supplier_invoices')->find($note->original_invoice_id);
         $recoverable = (string) DB::table('rp_supplier_invoice_lines')->where('invoice_id', $invoice->id)->where('purchase_recoverable', true)->sum('tax_amount');
         $tax = Decimal::round(bcdiv(bcmul($recoverable, $note->amount, Decimal::SCALE), $invoice->total_amount, Decimal::SCALE));
+        if ($note->return_source !== null) {
+            $tax = Decimal::round((string) DB::table('rp_credit_note_return_lines as r')->join('rp_supplier_invoice_lines as l', 'l.id', '=', 'r.invoice_line_id')
+                ->where('r.credit_note_id', $note->id)->where('l.purchase_recoverable', true)->sum('r.tax_amount'));
+        }
         $lines = [['purpose' => 'ap', 'debit' => $note->amount, 'credit' => '0.00'],
             ['purpose' => 'ppv', 'debit' => '0.00', 'credit' => bcsub($note->amount, $tax, 2)]];
         if (bccomp($tax, '0', 2) > 0) {

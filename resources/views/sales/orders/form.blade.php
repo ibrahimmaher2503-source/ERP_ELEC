@@ -12,7 +12,7 @@
         <div class="grid gap-4 lg:grid-cols-2">
             <x-erp.section-card title="معلومات الأمر" icon="document-text">
                 <div class="grid gap-3 sm:grid-cols-2">
-                    <flux:input value="جنيه مصري (EGP)" label="العملة" disabled />
+                    <flux:input value="جنيه مصري (ج.م)" label="العملة" disabled />
                     <flux:select wire:model="form.branch_id" label="الفرع" required>
                         <option value="">اختر فرعًا مصرحًا به</option>
                         @foreach($branches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }} ({{ $branch['code'] }})</option>@endforeach

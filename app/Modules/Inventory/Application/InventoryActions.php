@@ -44,7 +44,7 @@ final class InventoryActions
             $d = Validator::make($data, [
                 'code' => ['required', 'regex:/^[A-Za-z0-9_-]{1,40}$/D', Rule::unique('inventory_warehouses', 'code')->ignore($id)],
                 'name' => ['required', 'string', 'max:160', 'not_regex:/\x00/'], 'branch_id' => ['required', 'integer', 'min:1'],
-                'address' => ['nullable', 'string', 'max:1000', 'not_regex:/\x00/'], 'notes' => ['nullable', 'string', 'max:2000', 'not_regex:/\x00/'], 'active' => ['sometimes', 'boolean'],
+                'address' => ['nullable', 'string', 'max:1000', 'not_regex:/\x00/'], 'storekeeper_name' => ['nullable', 'string', 'max:200', 'not_regex:/\x00/'], 'notes' => ['nullable', 'string', 'max:2000', 'not_regex:/\x00/'], 'active' => ['sometimes', 'boolean'],
             ])->validate();
             $branches = app(OrganizationApi::class)->listBranchesForPermission(new AuthorizeRequest($actor, 'M01.branch_view'));
             $branch = collect($branches)->firstWhere('id', (int) $d['branch_id']);
@@ -66,7 +66,7 @@ final class InventoryActions
                     }
                 }
             }
-            $row = ['code' => $d['code'], 'name' => $d['name'], 'branch_id' => (int) $d['branch_id'], 'address' => $d['address'] ?? null, 'notes' => $d['notes'] ?? null, 'active' => $d['active'] ?? true, 'version' => ($before->version ?? 0) + 1, 'updated_at' => now()];
+            $row = ['code' => $d['code'], 'name' => $d['name'], 'branch_id' => (int) $d['branch_id'], 'address' => $d['address'] ?? null, 'storekeeper_name' => $d['storekeeper_name'] ?? null, 'notes' => $d['notes'] ?? null, 'active' => $d['active'] ?? true, 'version' => ($before->version ?? 0) + 1, 'updated_at' => now()];
             if ($id) {
                 DB::table('inventory_warehouses')->where('id', $id)->update($row);
             } else {

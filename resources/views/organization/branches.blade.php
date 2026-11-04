@@ -51,6 +51,7 @@
             <flux:input wire:model="form.code" label="كود الفرع" description="كود فريد للفرع، بحد أقصى 50 حرفًا." required maxlength="50" />
             <flux:input wire:model="form.name" label="اسم الفرع" required maxlength="200" />
             <flux:textarea wire:model="form.address" label="العنوان" maxlength="2000" />
+            <flux:input wire:model="form.manager_name" label="مدير الفرع" maxlength="200" />
             @if (! $editingId)<flux:text>يُنشأ الفرع نشطًا. يمكن تغيير الحالة لاحقًا بصلاحية مستقلة.</flux:text>@endif
             <div class="flex gap-3"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">حفظ الفرع</flux:button><flux:button type="button" wire:click="$set('editing', false)">إلغاء</flux:button></div>
         </form>

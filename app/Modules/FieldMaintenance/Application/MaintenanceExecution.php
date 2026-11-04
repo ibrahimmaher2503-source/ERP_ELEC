@@ -3,11 +3,13 @@
 namespace App\Modules\FieldMaintenance\Application;
 
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class MaintenanceExecution
 {
@@ -242,8 +244,8 @@ final class MaintenanceExecution
         $parts = ['label' => 'تسوية القطع المصروفة والحجوزات', 'tab' => 'parts', 'ready' => true, 'message' => 'تمت تسوية الاستخدام والمرتجع والحجوزات.'];
         try {
             app(MaintenanceParts::class)->reconciled($actor, $work);
-        } catch (\Symfony\Component\HttpKernel\Exception\HttpException|\App\Modules\Organization\Application\Contracts\ContractException $e) {
-            $parts['ready'] = in_array($e->getCode(), [403, 404]) || ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException && in_array($e->getStatusCode(), [403, 404])) ? null : false;
+        } catch (HttpException|ContractException $e) {
+            $parts['ready'] = in_array($e->getCode(), [403, 404]) || ($e instanceof HttpException && in_array($e->getStatusCode(), [403, 404])) ? null : false;
             $parts['message'] = $parts['ready'] === null ? 'مراجعة تسوية المخزون تحتاج مسؤولًا مخولًا.' : ($e->getMessage() ?: 'يلزم مراجعة تسوية قطع الغيار.');
         }
         $checks['parts'] = $parts;

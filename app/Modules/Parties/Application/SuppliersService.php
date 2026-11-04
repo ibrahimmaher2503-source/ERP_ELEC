@@ -18,7 +18,7 @@ class SuppliersService implements SuppliersApi
         try {
             app(SupplierAccess::class)->authorize($actor, 'M03.supplier_view');
         } catch (HttpException $e) {
-            throw new SupplierContractException('Supplier access denied.', 403);
+            throw new SupplierContractException('لا تملك صلاحية الوصول إلى المورد.', 403);
         }
     }
 
@@ -32,10 +32,10 @@ class SuppliersService implements SuppliersApi
         $this->authorize($request->actorId);
         $r = Supplier::query()->when(DB::transactionLevel() > 0, fn ($q) => $q->sharedLock())->find($request->supplierId);
         if (! $r) {
-            throw new SupplierContractException('Supplier not found.', 404);
+            throw new SupplierContractException('المورد غير موجود.', 404);
         }
         if ($request->requireActive && $r->status !== 'active') {
-            throw new SupplierContractException('Supplier inactive.', 422);
+            throw new SupplierContractException('المورد غير نشط.', 422);
         }
 
         return $this->identity($r);

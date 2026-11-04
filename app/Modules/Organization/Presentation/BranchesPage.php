@@ -23,7 +23,7 @@ class BranchesPage extends Component
 
     public bool $confirmingStatus = false;
 
-    public array $form = ['code' => '', 'name' => '', 'address' => ''];
+    public array $form = ['code' => '', 'name' => '', 'address' => '', 'manager_name' => ''];
 
     #[Locked]
     public ?int $editingId = null;
@@ -71,7 +71,7 @@ class BranchesPage extends Component
         $access->authorizeBranch(Auth::user(), 'M01.branch_update', $id);
         $this->editingId = $id;
         $this->version = $branch->version;
-        $this->form = ['code' => $branch->code, 'name' => $branch->name, 'address' => $branch->address ?? ''];
+        $this->form = ['code' => $branch->code, 'name' => $branch->name, 'address' => $branch->address ?? '', 'manager_name' => $branch->manager_name ?? ''];
         $this->resetValidation();
         $this->editing = true;
     }

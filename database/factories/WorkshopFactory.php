@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Modules\Organization\Domain\Branch;
 use App\Modules\WorkshopRepairs\Domain\Workshop;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;

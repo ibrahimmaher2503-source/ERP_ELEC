@@ -17,6 +17,9 @@ interface PurchasingApi
     /** Locked, posted receipt evidence for M12 matching. Must be called inside the shared transaction. */
     public function supplierInvoiceSource(int $actor, array $receiptLineIds): array;
 
+    /** Evidence for a supplier return that is being approved in the current transaction. */
+    public function authorizeReturn(int $actor, int $receipt, int $line): array;
+
     /** Posted GRNI receipt value for an M11 reconciliation scope. */
     public function grniValue(int $actor, array $branchIds, ?string $to = null): string;
 }

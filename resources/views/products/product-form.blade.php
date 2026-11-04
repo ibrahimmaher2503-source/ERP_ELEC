@@ -171,10 +171,10 @@
 
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-erp.section-card title="التسعير">
-                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="banknotes" class="mt-0.5 size-5 shrink-0 text-slate-400" /><p>بيانات الأسعار غير متاحة في نموذج الصنف حاليًا.</p></div>
+                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="banknotes" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تُدار أسعار الصنف من صفحة الأسعار بعد حفظ الصنف.</p>@if($productId && \Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $productId)" size="sm">فتح صفحة الأسعار</flux:button>@endif</div></div>
                 </x-erp.section-card>
                 <x-erp.section-card title="المخزون">
-                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="building-storefront" class="mt-0.5 size-5 shrink-0 text-slate-400" /><p>بيانات المخزون غير متاحة في نموذج الصنف حاليًا.</p></div>
+                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="building-storefront" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تظهر أرصدة المخزون في صفحة الأرصدة.</p>@if(\Illuminate\Support\Facades\Route::has('inventory.balances'))<flux:button :href="route('inventory.balances')" size="sm">فتح صفحة الأرصدة</flux:button>@endif</div></div>
                 </x-erp.section-card>
             </div>
         </div>

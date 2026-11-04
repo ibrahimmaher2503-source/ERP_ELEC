@@ -21,7 +21,7 @@
                 <flux:textarea class="mt-4" label="وصف العطل" wire:model="form.description" rows="3" placeholder="ما المشكلة؟ وأين تظهر؟"/>
             </x-erp.section-card>
             <x-erp.section-card title="الموقع والتواصل" icon="map-pin">
-                <p class="mb-4 text-sm text-slate-500">اختر العميل لعرض مواقعه وجهات الاتصال. حدد موقع الخدمة إن كان معروفًا.</p>
+                <p class="mb-4 text-sm text-slate-500">اختر العميل لعرض مواقعه وجهات الاتصال. حدد موقع الخدمة إن كان معروفًا.</p>@unless($form['customer_id'])<p class="-mt-2 mb-4 text-xs font-semibold text-amber-700">اختر العميل أولًا</p>@endunless
                 <div class="grid gap-4 md:grid-cols-3">
                     <flux:select label="موقع العميل" wire:model="form.site_id" :disabled="!$form['customer_id']"><option value="">غير محدد</option>@foreach($context['sites'] as $site)<option value="{{ $site['id'] }}">{{ $site['label'] }}</option>@endforeach</flux:select>
                     <flux:select label="جهة الاتصال" wire:model="form.contact_id" :disabled="!$form['customer_id']"><option value="">غير محددة</option>@foreach($context['contacts'] as $contact)<option value="{{ $contact['id'] }}">{{ $contact['name'] }}</option>@endforeach</flux:select>

@@ -3,8 +3,8 @@
 const { test: baseTest, expect } = require('playwright/test');
 
 const test = baseTest.extend({
-  sharedMobileContext: [async ({ browser, baseURL }, use) => {
-    const context = await browser.newContext({ baseURL, storageState: process.env.E2E_STORAGE_STATE,
+  sharedMobileContext: [async ({ browser }, use) => {
+    const context = await browser.newContext({ baseURL: process.env.E2E_BASE_URL, storageState: process.env.E2E_STORAGE_STATE,
       locale: 'ar-EG', timezoneId: 'Africa/Cairo', viewport: { width: 390, height: 844 } });
     await use(context);
     await context.close();

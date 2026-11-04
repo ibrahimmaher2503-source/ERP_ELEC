@@ -150,7 +150,7 @@ final class FinancialSetupPage extends Component
         $this->authorizeSetup();
         app(AccountingAccess::class)->authorize(auth()->id(), 'opening_manage');
         abort_if(count($this->lines) >= 500, 422);
-        $this->lines[] = ['kind' => 'gl', 'reference' => '', 'branch_id' => '', 'account_id' => '', 'supplier_id' => '', 'warehouse_id' => '', 'product_id' => '', 'debit' => '0.00', 'credit' => '0.00', 'quantity' => '', 'unit_cost' => '', 'amount' => '', 'serial_text' => ''];
+        $this->lines[] = ['kind' => 'gl', 'reference' => '', 'branch_id' => '', 'account_id' => '', 'supplier_id' => '', 'customer_id' => '', 'warehouse_id' => '', 'product_id' => '', 'debit' => '0.00', 'credit' => '0.00', 'quantity' => '', 'unit_cost' => '', 'amount' => '', 'serial_text' => ''];
         $this->previewFingerprint = null;
     }
 
@@ -209,7 +209,7 @@ final class FinancialSetupPage extends Component
             if (array_key_exists('serial_text', $line)) {
                 $line['serials'] = preg_split('/\R/u', $line['serial_text'], -1, PREG_SPLIT_NO_EMPTY);
             }
-            foreach (['account_id', 'supplier_id', 'warehouse_id', 'product_id'] as $key) {
+            foreach (['account_id', 'supplier_id', 'customer_id', 'warehouse_id', 'product_id'] as $key) {
                 $line[$key] = ($line[$key] ?? '') === '' ? null : $line[$key];
             }
 

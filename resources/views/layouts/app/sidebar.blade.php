@@ -26,7 +26,7 @@
                         <path d="m24 8-13 19h10l-2 13 14-21H22l2-11Z" fill="white" />
                     </svg>
                     <span class="min-w-0">
-                        <span class="block text-sm font-bold">Synthetic Electrical</span>
+                        <span class="block text-sm font-bold">{{ config('app.name') }}</span>
                         <span class="erp-sidebar-brand-subtitle block text-xs">إدارة الأعمال الكهربائية</span>
                     </span>
                 </a>
@@ -58,6 +58,7 @@
                         <flux:sidebar.group heading="المبيعات" icon="document-text" expandable :expanded="request()->routeIs('quotations.*','sales-orders.*','sales-returns.*')">
                             @if($quotationNavigation ?? false)<flux:sidebar.item icon="document-text" :href="route('quotations.index')" :current="request()->routeIs('quotations.*') && !request()->routeIs('quotations.policy')" wire:navigate>عروض الأسعار</flux:sidebar.item>@elseif($organizationNavigation['security'] ?? false)<flux:sidebar.item icon="shield-check" :href="route('organization.roles')" wire:navigate>تهيئة صلاحيات المبيعات</flux:sidebar.item>@endif
                             @if($salesOrderNavigation ?? false)<flux:sidebar.item icon="clipboard-document-list" :href="route('sales-orders.index')" :current="request()->routeIs('sales-orders.*') && !request()->routeIs('sales-orders.policy')" wire:navigate>أوامر البيع</flux:sidebar.item>@endif
+                            @if(app(\App\Modules\Sales\Application\SalesOrderAccess::class)->allows(auth()->id(),'return_view'))<flux:sidebar.item icon="arrow-uturn-left" :href="route('sales-returns.index')" :current="request()->routeIs('sales-returns.*')" wire:navigate>مرتجعات البيع</flux:sidebar.item>@endif
                             @if (! ($salesOrderNavigation ?? false) && ($organizationNavigation['security'] ?? false))
                                 <p class="px-3 py-1 text-xs text-slate-500">أوامر البيع تحتاج صلاحية عرض ونطاق فرع</p>
                                 @if ($organizationNavigation['users'] ?? false)
@@ -74,6 +75,9 @@
                         @foreach($purchasingNavigation as $destination=>[$label,$permission])
                         <flux:sidebar.item :href="route('purchasing.'.$destination)" :current="request()->routeIs('purchasing.'.$destination) || (str_ends_with($destination,'.index') && request()->routeIs('purchasing.'.str_replace('.index','.*',$destination)))" wire:navigate>{{ $label }}</flux:sidebar.item>
                         @endforeach
+                        @if(app(\App\Modules\Purchasing\Application\PurchasingAccess::class)->branches(auth()->id(),'return_view') !== [])
+                        <flux:sidebar.item :href="route('purchasing.returns')" :current="request()->routeIs('purchasing.returns')" wire:navigate>مرتجعات المشتريات</flux:sidebar.item>
+                        @endif
                     </flux:sidebar.group>
                     @endif
                     @if(config('release.tenders_enabled') && app(\App\Modules\Projects\Application\TenderAccess::class)->branches(auth()->id()))
@@ -171,6 +175,7 @@
                     <flux:sidebar.group class="erp-nav-organization" heading="التنظيم" icon="building-office-2" expandable :expanded="request()->routeIs('organization.*') && !request()->routeIs('organization.employees')">
                         @if (($organizationNavigation['company'] ?? false) && \Illuminate\Support\Facades\Route::has('organization.company'))
                             <flux:sidebar.item icon="building-office" :href="route('organization.company')" :current="request()->routeIs('organization.company')" wire:navigate>الشركة</flux:sidebar.item>
+                            <flux:sidebar.item icon="hashtag" :href="route('organization.document-numbering')" :current="request()->routeIs('organization.document-numbering')" wire:navigate>ترقيم المستندات</flux:sidebar.item>
                         @endif
                         @if (($organizationNavigation['branches'] ?? false) && \Illuminate\Support\Facades\Route::has('organization.branches'))
                             <flux:sidebar.item icon="building-office-2" :href="route('organization.branches')" :current="request()->routeIs('organization.branches*')" wire:navigate>الفروع</flux:sidebar.item>

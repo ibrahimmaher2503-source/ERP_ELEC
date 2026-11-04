@@ -113,12 +113,12 @@
 
                     <section x-show="activeTab === 'prices'" x-cloak style="display: none" aria-label="الأسعار">
                         <flux:heading size="lg">الأسعار</flux:heading>
-                        <div class="mt-4"><x-ui.empty-state title="بيانات الأسعار غير متاحة" description="ستظهر الأسعار المعتمدة وسجلها عند اكتمال تكامل إدارة الأسعار." icon="banknotes" /></div>
+                        <div class="mt-4"><x-ui.empty-state title="الأسعار تُدار في صفحة الأسعار" description="تظهر الأسعار المعتمدة وسجلها في صفحة أسعار الصنف." icon="banknotes">@if(\Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $product->id)" size="sm" wire:navigate>فتح صفحة الأسعار</flux:button>@endif</x-ui.empty-state></div>
                     </section>
 
                     <section x-show="activeTab === 'inventory'" x-cloak style="display: none" aria-label="المخزون">
                         <flux:heading size="lg">المخزون</flux:heading>
-                        <div class="mt-4"><x-ui.empty-state title="بيانات المخزون غير متاحة" description="لا توجد بيانات مخزون مرتبطة بهذا العرض حتى يكتمل تكامل إدارة المخزون." icon="building-storefront" /></div>
+                        <div class="mt-4"><x-ui.empty-state title="المخزون يُعرض في صفحة الأرصدة" description="تظهر أرصدة الأصناف وحركاتها في صفحة أرصدة المخزون." icon="building-storefront">@if(\Illuminate\Support\Facades\Route::has('inventory.balances'))<flux:button :href="route('inventory.balances')" size="sm" wire:navigate>فتح صفحة الأرصدة</flux:button>@endif</x-ui.empty-state></div>
                     </section>
 
                     @if (isset($audit))

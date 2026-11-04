@@ -4,5 +4,5 @@
 @if(session('receipt_posted'))<p role="status" class="text-emerald-800">{{ session('receipt_posted') }}</p>@endif
 @if($doc?->status==='integration_pending')<p class="rounded border border-blue-100 bg-blue-50 p-4 text-blue-900">الاستلام مثبت ولم يرحل بعد. يلزم أمر صادر وتفعيل مالي ومستخدم مستقل بصلاحيات الترحيل.</p>
 @if($doc->created_by!==auth()->id() && app(\App\Modules\Purchasing\Application\PurchasingAccess::class)->allows(auth()->id(),'receipt_post',$doc->branch_id))<flux:button wire:click="post" variant="primary" wire:confirm="اعتماد وترحيل الاستلام الفعلي وFIFO وقيد GRNI معًا؟" wire:loading.attr="disabled">ترحيل الاستلام والمخزون وGRNI</flux:button>@endif
-@elseif($doc?->status==='posted')<p class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">استلام مرحل وثابت · {{ $doc->capitalized_amount }} EGP · {{ $doc->journal_id?'قيد GRNI #'.$doc->journal_id:'قيمة صفر دون إنشاء قيد وهمي' }}</p>@endif
+@elseif($doc?->status==='posted')<p class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">استلام مرحل وثابت · {{ $doc->capitalized_amount }} ج.م · {{ $doc->journal_id?'قيد GRNI #'.$doc->journal_id:'قيمة صفر دون إنشاء قيد وهمي' }}</p>@endif
 </div>

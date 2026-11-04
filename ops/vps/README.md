@@ -10,6 +10,10 @@ Keep release directories under `/srv/electrical-erp/releases/<manifest-sha256>`,
 
 Fill all `@...@` template values from the selected target. Measure PHP worker RSS and reserve OS/PostgreSQL memory before choosing max_children; the template does not certify capacity. Run `nginx -t`, PHP-FPM config validation and `systemd-analyze verify` on the rendered files before installation. Use a valid known-host TLS name, enable secure cookies and `APP_DEBUG=false`, production logging and the real approved `APP_URL`. Confirm health endpoints do not reveal configuration or credentials.
 
+## Environment
+
+Create the private `.env` from `.env.production.example`, not `.env.example`. A deploy must stop when `APP_ENV` is not `production` or `APP_DEBUG` is not `false`. Never run `composer setup` or `db:seed` on a server. Exclude `.env*`, `.local`, `.tmp` and `.tools` from every release artifact. After the release is linked, run `php artisan vendor:publish --tag=livewire:assets --force`, and confirm the Livewire script loads over HTTPS.
+
 ## Controlled release sequence
 
 1. Obtain the pinned source/dependency/asset manifest and original audit/acceptance receipts. Refuse unexplained source drift. Upload the reviewed artifact without environment, DB copies, private runtime or credentials.

@@ -56,14 +56,14 @@ final class InventoryLedger
                 $expected = array_keys(app(InventorySerials::class)->selections($v, bccomp($delta, '0', 8) < 0 ? bcsub('0', $delta, 8) : $delta));
                 $actual = DB::table('inventory_serial_events as e')->join('inventory_serials as s', 's.id', '=', 'e.serial_id')->where('e.movement_id', $existing->id)->orderByRaw('s.normalized COLLATE "C"')->pluck('s.normalized')->all();
                 if ($expected !== $actual) {
-                    InventoryActions::fail('Posting key has different serial selections.');
+                    InventoryActions::fail('مفتاح الترحيل له اختيارات أرقام تسلسلية مختلفة.');
                 }
             }
 
             return;
         }
-        $costedIssue = in_array($operation, ['issue_post', 'adjustment_post', 'transfer_dispatch', 'reservation_issue', 'project_issue', 'maintenance_issue', 'workshop_issue', 'correction'], true) && bccomp($delta, '0', 8) < 0;
-        $costedReceipt = in_array($operation, ['transfer_receive', 'maintenance_return', 'workshop_return'], true) || (in_array($operation, ['adjustment_post', 'correction'], true) && bccomp($delta, '0', 8) > 0);
+        $costedIssue = in_array($operation, ['issue_post', 'adjustment_post', 'transfer_dispatch', 'reservation_issue', 'project_issue', 'maintenance_issue', 'workshop_issue', 'correction', 'supplier_return'], true) && bccomp($delta, '0', 8) < 0;
+        $costedReceipt = in_array($operation, ['transfer_receive', 'maintenance_return', 'workshop_return', 'sales_return'], true) || (in_array($operation, ['adjustment_post', 'correction'], true) && bccomp($delta, '0', 8) > 0);
         if (! in_array($operation, ['financial_opening', 'purchase_receipt'], true) && ! $costedIssue && ! $costedReceipt) {
             app(AccountingApi::class)->requirePostingDate(now('Africa/Cairo')->toDateString());
             InventoryActions::fail('ترحيل هذا المصدر ينتظر تكامل FIFO وقيده المالي. افتتح المخزون من إعداد التفعيل المالي، واستلم الشراء من مساره الذري المعتمد.');
@@ -79,7 +79,7 @@ final class InventoryLedger
         }
         $line['serials'] = $values;
         if ($p['tracking'] !== 'serial' && $values !== []) {
-            InventoryActions::fail('Unexpected serial selections for quantity stock.');
+            InventoryActions::fail('اختيارات أرقام تسلسلية غير متوقعة لمخزون الكمية.');
         }
         $on = bcadd($b->on_hand, $delta, 8);
         $reserved = bcsub($b->reserved, $consumeReserved, 8);
@@ -91,7 +91,7 @@ final class InventoryLedger
             app(InventorySerials::class)->post($actor, $line, DB::table('inventory_movements')->find($movementId));
         }
         if ($costedIssue) {
-            $valuation = app(FifoValuation::class)->consume($movementId, $operation === 'correction' ? ($line['correction_layer_id'] ?? null) : null);
+            $valuation = app(FifoValuation::class)->consume($movementId, in_array($operation, ['correction', 'supplier_return'], true) ? ($line['correction_layer_id'] ?? null) : null);
             if ($p['tracking'] === 'serial') {
                 app(SerialFifoAllocations::class)->record($movementId);
             }
@@ -100,7 +100,7 @@ final class InventoryLedger
             }
         }
         if ($costedReceipt) {
-            if (in_array($operation, ['correction', 'maintenance_return', 'workshop_return'], true)) {
+            if (in_array($operation, ['correction', 'maintenance_return', 'workshop_return', 'sales_return'], true)) {
                 abort_unless($reversal !== null && isset($line['correction_amount'], $line['correction_date']), 422);
                 $amount = $line['correction_amount'];
                 $date = $line['correction_date'];

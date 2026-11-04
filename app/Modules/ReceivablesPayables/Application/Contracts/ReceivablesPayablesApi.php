@@ -75,6 +75,15 @@ interface ReceivablesPayablesApi
 
     public function createCreditNote(int $actor, array $data): int;
 
+    /** Open customer balance, and what the given sales order lines have already invoiced. */
+    public function customerCreditExposure(int $customer, array $orderLines): array;
+
+    /** Invoiced quantity not yet returned, per delivery or receipt line. */
+    public function returnableQuantities(string $kind, array $sourceLines): array;
+
+    /** Posts the credit notes of an approved physical return, in the caller's transaction. */
+    public function postReturnCredits(int $actor, int $creator, string $kind, string $source, string $date, string $reason, array $lines): array;
+
     public function approveCreditNote(int $actor, int $creditNote): void;
 
     public function postCreditNote(int $actor, int $creditNote): array;

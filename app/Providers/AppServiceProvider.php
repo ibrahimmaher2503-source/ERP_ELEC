@@ -6,6 +6,8 @@ use App\Modules\Accounting\Application\AccountingService;
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Application\Contracts\FinancialSetup;
 use App\Modules\Accounting\Application\FinancialActivation;
+use App\Modules\Attendance\Application\AttendanceReports;
+use App\Modules\Attendance\Application\Contracts\AttendanceApi;
 use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
 use App\Modules\FieldMaintenance\Application\MaintenanceService;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
@@ -52,8 +54,10 @@ use App\Modules\Purchasing\Domain\ProcurementChanged;
 use App\Modules\Purchasing\Domain\PurchasingChanged;
 use App\Modules\Purchasing\Domain\RfqChanged;
 use App\Modules\ReceivablesPayables\Application\Contracts\OpeningPayables;
+use App\Modules\ReceivablesPayables\Application\Contracts\OpeningReceivables;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\ReceivablesPayables\Application\PostOpeningPayables;
+use App\Modules\ReceivablesPayables\Application\PostOpeningReceivables;
 use App\Modules\ReceivablesPayables\Application\ReceivablesPayablesService;
 use App\Modules\Sales\Application\Contracts\QuotationPricing;
 use App\Modules\Sales\Application\Contracts\QuotationsApi;
@@ -69,6 +73,8 @@ use App\Modules\Sales\Domain\QuotationHistoryReader;
 use App\Modules\Sales\Domain\SalesOrderChanged;
 use App\Modules\Sales\Domain\SalesOrderHistoryReader;
 use App\Modules\Sales\Infrastructure\ProductQuotationPricing;
+use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
+use App\Modules\ServiceContracts\Application\ServiceContractsService;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use App\Modules\System\Application\DataOperations\EntityRegistry;
 use App\Modules\System\Application\IssueOfficialDocument;
@@ -94,6 +100,7 @@ use Illuminate\Database\Events\TransactionCommitted;
 use Illuminate\Database\Events\TransactionRolledBack;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -107,8 +114,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(\App\Modules\Attendance\Application\Contracts\AttendanceApi::class, \App\Modules\Attendance\Application\AttendanceReports::class);
-        $this->app->bind(\App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi::class, \App\Modules\ServiceContracts\Application\ServiceContractsService::class);
+        $this->app->bind(AttendanceApi::class, AttendanceReports::class);
+        $this->app->bind(ServiceContractsApi::class, ServiceContractsService::class);
         $this->app->bind(WorkshopApi::class, WorkshopService::class);
         $this->app->bind(ProjectsApi::class, ProjectsService::class);
         $this->app->bind(FieldMaintenanceApi::class, MaintenanceService::class);
@@ -116,6 +123,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FinancialSetup::class, FinancialActivation::class);
         $this->app->bind(OfficialDocuments::class, IssueOfficialDocument::class);
         $this->app->bind(OpeningPayables::class, PostOpeningPayables::class);
+        $this->app->bind(OpeningReceivables::class, PostOpeningReceivables::class);
         $this->app->bind(ReceivablesPayablesApi::class, ReceivablesPayablesService::class);
         $this->app->bind(OpeningTreasury::class, PostOpeningTreasury::class);
         $this->app->bind(TreasuryApi::class, TreasuryService::class);
@@ -147,6 +155,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Reset links and redirects must use the configured domain, never the request Host header.
+        if ($this->app->environment('production')) {
+            URL::forceRootUrl((string) config('app.url'));
+            URL::forceScheme('https');
+        }
+
         // Authorization reads live only on this request and expire on writes or transaction boundaries.
         DB::listen(function (QueryExecuted $query): void {
             if (! preg_match('/^\s*(select|show|explain)\b/i', $query->sql)) {

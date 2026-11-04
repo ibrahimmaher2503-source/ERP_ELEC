@@ -23,28 +23,28 @@ final class InventoryCorrections
             $old = DB::table('inventory_corrections')->where('idempotency_key', $d['idempotency_key'])->first();
             if ($old) {
                 if ($old->payload_hash !== $hash) {
-                    InventoryActions::fail('Correction key collision.');
+                    InventoryActions::fail('تعارض في مفتاح التصحيح.');
                 }
 
                 return (array) $old;
             }
             if ($m->reversal_id !== null) {
-                InventoryActions::fail('Correct the original source; reversal chains are not permitted.');
+                InventoryActions::fail('صحّح المصدر الأصلي؛ سلاسل العكس غير مسموحة.');
             }
             $reversed = (string) DB::table('inventory_corrections')->where('movement_id', $m->id)->where('status', 'posted')->sum('quantity');
             $absolute = bccomp($m->quantity, '0', 8) > 0 ? $m->quantity : bcsub('0', $m->quantity, 8);
             if (bccomp(bcadd($reversed, $quantity, 8), $absolute, 8) > 0) {
-                InventoryActions::fail('Correction exceeds remaining reversible quantity.');
+                InventoryActions::fail('كمية التصحيح تتجاوز الكمية القابلة للعكس المتبقية.');
             }
             $doc = $m->document_id ? DB::table('inventory_documents')->find($m->document_id) : null;
             $internal = $m->source_module === 'Inventory' && $doc && in_array($doc->kind, ['issue', 'adjustment'], true) && $doc->status === 'posted' && in_array($m->operation, ['issue_post', 'adjustment_post'], true);
             $movementId = null;
             if ($internal) {
                 if (! DB::table('inventory_warehouses')->where('id', $m->warehouse_id)->value('active')) {
-                    InventoryActions::fail('Warehouse inactive.');
+                    InventoryActions::fail('المستودع غير نشط.');
                 }
                 if (DB::table('inventory_movements')->where('warehouse_id', $m->warehouse_id)->where('product_id', $m->product_id)->where('id', '>', $m->id)->whereNull('reversal_id')->exists()) {
-                    InventoryActions::fail('Later stock movements depend on this source. Review the later source before correction.');
+                    InventoryActions::fail('توجد حركات مخزون لاحقة تعتمد على هذا المصدر. راجع المصدر اللاحق قبل التصحيح.');
                 }
                 $key = 'correction:'.$d['idempotency_key'];
                 $movementId = app(ValuedCorrections::class)->post($actor, $m, $quantity, $key, $serials);

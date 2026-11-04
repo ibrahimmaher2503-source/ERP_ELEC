@@ -125,7 +125,7 @@
         <x-erp.section-card title="إعدادات الشركة">
             <dl class="space-y-3">
                 <x-erp.information-row label="العملة الأساسية" class="rounded-lg border border-zinc-200 px-3 dark:border-zinc-700">
-                    <span class="flex items-center gap-3"><flux:icon name="banknotes" class="size-5 text-blue-600" /><bdi>EGP</bdi> · جنيه مصري</span>
+                    <span class="flex items-center gap-3"><flux:icon name="banknotes" class="size-5 text-blue-600" /><bdi>ج.م</bdi> · جنيه مصري</span>
                 </x-erp.information-row>
                 <x-erp.information-row label="لغة الواجهة الحالية" class="rounded-lg border border-zinc-200 px-3 dark:border-zinc-700">
                     <span class="flex items-center gap-3"><flux:icon name="globe-alt" class="size-5 text-blue-600" />العربية</span>

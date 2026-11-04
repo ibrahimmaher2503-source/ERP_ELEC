@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Organization\Application\PermissionCatalog;
+use App\Modules\Organization\Application\SyncAdministratorPermissions;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
@@ -73,12 +75,12 @@ BEGIN
 END $$;
 CREATE TRIGGER accounting_line_guard BEFORE INSERT OR UPDATE OR DELETE ON accounting_journal_lines FOR EACH ROW EXECUTE FUNCTION accounting_guard_line();
 SQL);
-        foreach (\App\Modules\Organization\Application\PermissionCatalog::DEFINITIONS as $code => [$label, $scope]) {
+        foreach (PermissionCatalog::DEFINITIONS as $code => [$label, $scope]) {
             if (str_starts_with($code, 'M11.')) {
                 DB::table('permission_catalog')->updateOrInsert(['code' => $code], ['label' => $label, 'scope' => $scope, 'module' => 'M11 · المحاسبة', 'created_at' => now(), 'updated_at' => now()]);
             }
         }
-        app(\App\Modules\Organization\Application\SyncAdministratorPermissions::class)->execute();
+        app(SyncAdministratorPermissions::class)->execute();
     }
 
     public function down(): void {}

@@ -24,6 +24,11 @@ final class SalesDeliveryService implements SalesDeliverySources
         return ['branch_id' => $r->branch_id, 'customer_id' => (int) $r->customer_id, 'created_by' => $r->created_by, 'approved_by' => $approval->approved_by, 'instruction_id' => $source->id];
     }
 
+    public function authorizeReturn(int $actor, int $order, int $line): array
+    {
+        return app(SalesReturns::class)->authorizeMovement($actor, $order, $line);
+    }
+
     public function customerInvoiceSource(int $actor, array $deliveryLineIds): array
     {
         abort_unless(DB::transactionLevel() > 0 && $deliveryLineIds !== [], 422);

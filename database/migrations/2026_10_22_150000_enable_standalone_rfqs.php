@@ -38,7 +38,7 @@ END $$;
 SQL);
         foreach (['M05.rfq_standalone'] as $code) {
             [$label, $scope] = PermissionCatalog::DEFINITIONS[$code];
-            DB::table('permission_catalog')->insertOrIgnore(['code'=>$code,'label'=>$label,'scope'=>$scope,'module'=>'M05 · المشتريات','created_at'=>now(),'updated_at'=>now()]);
+            DB::table('permission_catalog')->insertOrIgnore(['code' => $code, 'label' => $label, 'scope' => $scope, 'module' => 'M05 · المشتريات', 'created_at' => now(), 'updated_at' => now()]);
         }
     }
 

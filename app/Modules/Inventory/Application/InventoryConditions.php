@@ -51,29 +51,29 @@ final class InventoryConditions
         $old = DB::table('inventory_isolations')->where('idempotency_key', $d['idempotency_key'])->first();
         if ($old) {
             if ($old->payload_hash !== $hash) {
-                InventoryActions::fail('Isolation key already has different content.');
+                InventoryActions::fail('مفتاح العزل مستخدم لمحتوى مختلف.');
             }
 
             return (array) $old;
         }
         $m = DB::table('inventory_movements')->find($d['source_movement_id']);
         if (! $m || $m->warehouse_id !== (int) $d['warehouse_id'] || $m->product_id !== (int) $d['product_id'] || bccomp($m->quantity, '0', 8) <= 0) {
-            InventoryActions::fail('A real positive source movement is required.');
+            InventoryActions::fail('يلزم وجود حركة مصدر موجبة فعلية.');
         }
         $w = DB::table('inventory_warehouses')->find($m->warehouse_id);
         if (! $w->active) {
-            InventoryActions::fail('Warehouse inactive.');
+            InventoryActions::fail('المستودع غير نشط.');
         }
         $b = app(InventoryLedger::class)->balance($actor, $m->warehouse_id, $m->product_id);
         if (bccomp($quantity, $b->available, 8) > 0) {
-            InventoryActions::fail('Isolation exceeds available stock.');
+            InventoryActions::fail('الكمية المعزولة تتجاوز الرصيد المتاح.');
         }
         $id = DB::table('inventory_isolations')->insertGetId(['idempotency_key' => $d['idempotency_key'], 'warehouse_id' => $m->warehouse_id, 'product_id' => $m->product_id, 'source_movement_id' => $m->id, 'quantity' => $quantity, 'released' => '0', 'reason' => $d['reason'], 'payload_hash' => $hash, 'actor_id' => $actor, 'occurred_at' => now()]);
         $p = app(ProductsApi::class)->inventoryProduct($actor, $m->product_id);
         if ($p['tracking'] === 'serial') {
             app(InventorySerials::class)->condition($actor, $id, $m->warehouse_id, $m->product_id, $quantity, $values, false);
         } elseif ($values !== []) {
-            InventoryActions::fail('Quantity products cannot carry serial selections.');
+            InventoryActions::fail('الأصناف بالكمية لا تقبل اختيارات أرقام تسلسلية.');
         }
         DB::table('inventory_balances')->where('id', $b->id)->update(['unavailable' => bcadd($b->unavailable, $quantity, 8), 'version' => $b->version + 1, 'updated_at' => now()]);
         DB::table('inventory_condition_events')->insert(['isolation_id' => $id, 'idempotency_key' => $d['idempotency_key'], 'action' => 'isolated', 'quantity' => $quantity, 'payload_hash' => $hash, 'actor_id' => $actor, 'occurred_at' => now()]);
@@ -97,19 +97,19 @@ final class InventoryConditions
             $old = DB::table('inventory_condition_events')->where('idempotency_key', $key)->first();
             if ($old) {
                 if ($old->action !== 'released' || $old->payload_hash !== $hash) {
-                    InventoryActions::fail('Release key collision.');
+                    InventoryActions::fail('تعارض في مفتاح الإفراج.');
                 }
 
                 return (array) $row;
             }
             if (bccomp($quantity, bcsub($row->quantity, $row->released, 8), 8) > 0) {
-                InventoryActions::fail('Release exceeds isolated residual.');
+                InventoryActions::fail('كمية الإفراج تتجاوز المتبقي المعزول.');
             }
             $p = app(ProductsApi::class)->inventoryProduct($actor, $row->product_id);
             if ($p['tracking'] === 'serial') {
                 app(InventorySerials::class)->condition($actor, $id, $row->warehouse_id, $row->product_id, $quantity, $serials, true);
             } elseif ($serials !== []) {
-                InventoryActions::fail('Unexpected serials.');
+                InventoryActions::fail('أرقام تسلسلية غير متوقعة.');
             }
             $b = app(InventoryLedger::class)->balance($actor, $row->warehouse_id, $row->product_id);
             DB::table('inventory_balances')->where('id', $b->id)->update(['unavailable' => bcsub($b->unavailable, $quantity, 8), 'version' => $b->version + 1, 'updated_at' => now()]);

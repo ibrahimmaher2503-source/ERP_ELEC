@@ -5,6 +5,7 @@ namespace App\Modules\Accounting\Application;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Purchasing\Application\Contracts\PurchasingApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
+use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\System\Application\RecordAudit;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Illuminate\Support\Facades\DB;
@@ -94,7 +95,7 @@ final class FinancialReports
         }
         if (isset($mapping['service_contract_deferred'])) {
             $billed = app(ReceivablesPayablesApi::class)->contractDeferredValue($actor, $branches, $to);
-            $earned = app(\App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi::class)->recognizedValue($actor, $branches, $to);
+            $earned = app(ServiceContractsApi::class)->recognizedValue($actor, $branches, $to);
             $rows[] = ['key' => 'service_contract_deferred', 'label' => 'إيراد العقود المؤجل مقابل الفواتير والأعمال المكتسبة',
                 'gl' => bcsub('0', $gl('service_contract_deferred'), 2), 'source' => bcsub($billed, $earned, 2)];
         }

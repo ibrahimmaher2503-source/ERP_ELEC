@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('inventory_transfer_receipts',fn(Blueprint $t)=>$t->string('financial_status',30)->default('not_required'));
+        Schema::table('inventory_transfer_receipts', fn (Blueprint $t) => $t->string('financial_status', 30)->default('not_required'));
         DB::statement("ALTER TABLE inventory_transfer_receipts ADD CONSTRAINT inventory_transfer_finance_status CHECK (financial_status IN ('not_required','pending_financial'))");
         DB::unprepared(<<<'SQL'
 CREATE OR REPLACE FUNCTION inventory_transfer_receipt_check() RETURNS trigger LANGUAGE plpgsql AS $$
@@ -27,5 +27,8 @@ END $$;
 CREATE CONSTRAINT TRIGGER inventory_transfer_receipt_quantity AFTER INSERT ON inventory_transfer_receipt_lines DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION inventory_transfer_receipt_check();
 SQL);
     }
-    public function down(): void { /* Retain receipt evidence and guards. */ }
+
+    public function down(): void
+    { /* Retain receipt evidence and guards. */
+    }
 };

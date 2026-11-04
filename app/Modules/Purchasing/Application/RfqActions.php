@@ -66,29 +66,29 @@ final class RfqActions
             } else {
                 $access->authorize($actor, 'requisition_view', $branch);
                 if ($source->status !== 'approved') {
-                    $this->fail('An approved requisition is required.');
+                    $this->fail('يلزم طلب شراء معتمد.');
                 }
             }
             $doc = $id ? PurchaseRfq::lockForUpdate()->findOrFail($id) : PurchaseRfq::where('creation_key', $data['creation_key'])->lockForUpdate()->first();
             $lines = [];
             foreach ($data['lines'] as $l) {
                 if (bccomp($l['quantity'], '0', 8) <= 0) {
-                    $this->fail('Quantity must be positive.');
+                    $this->fail('يجب أن تكون الكمية موجبة.');
                 }
                 if ($standalone) {
                     $p = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $l['product_id']))->product;
                     if (! $p['active'] || $p['base_unit_id'] !== (int) $l['base_unit_id']) {
-                        $this->fail('Active product and its actual base unit are required.');
+                        $this->fail('يلزم صنف نشط ووحدة أساسه الفعلية.');
                     }
                     $lines[] = ['requisition_line_id' => null, 'product_id' => $p['id'], 'base_unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'unit_name' => (string) $p['base_unit_id'], 'quantity' => bcadd($l['quantity'], '0', 8), 'source_quantity' => bcadd($l['quantity'], '0', 8)];
                 } else {
                     $original = $source->lines()->find($l['requisition_line_id']);
                     if (! $original) {
-                        $this->fail('Invalid requisition line.');
+                        $this->fail('بند الطلب غير صالح.');
                     }
                     $allocated = DB::table('purchasing_rfq_lines as l')->join('purchasing_rfqs as r', 'r.id', '=', 'l.rfq_id')->where('l.requisition_line_id', $original->id)->when($doc, fn ($q) => $q->where('r.id', '<>', $doc->id))->sum('l.quantity');
                     if (bccomp(bcadd((string) $allocated, $l['quantity'], 8), $original->quantity, 8) > 0) {
-                        $this->fail('Quantity exceeds unallocated requisition demand.');
+                        $this->fail('الكمية تتجاوز الطلب غير المخصص.');
                     }
                     $lines[] = ['requisition_line_id' => $original->id, 'product_id' => $original->product_id, 'base_unit_id' => $original->unit_id, 'sku' => $original->sku, 'product_name' => $original->product_name, 'unit_name' => '#'.$original->unit_id, 'quantity' => bcadd($l['quantity'], '0', 8), 'source_quantity' => bcadd($l['quantity'], '0', 8)];
                 }
@@ -149,7 +149,7 @@ final class RfqActions
             foreach (DB::table('purchasing_rfq_product_lines')->where('rfq_id', $id)->get() as $line) {
                 $p = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, $line->product_id))->product;
                 if (! $p['active'] || $p['base_unit_id'] !== $line->base_unit_id) {
-                    $this->fail('Product eligibility changed.');
+                    $this->fail('تغيّرت أهلية الصنف.');
                 }
             }
             foreach ($doc->suppliers as $s) {

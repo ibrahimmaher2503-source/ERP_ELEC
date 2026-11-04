@@ -14,6 +14,7 @@ use App\Modules\Organization\Application\Contracts\ListAllowedWarehousesResult;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 final class OrganizationService implements OrganizationApi
 {
@@ -41,7 +42,7 @@ final class OrganizationService implements OrganizationApi
     public function employee(int $actor, int $employee, int $branch, string $date): array
     {
         $this->authorize(new AuthorizeRequest($actor, 'M01.employee_view', $branch));
-        \Illuminate\Support\Facades\Validator::make(['date' => $date], ['date' => 'required|date_format:Y-m-d'])->validate();
+        Validator::make(['date' => $date], ['date' => 'required|date_format:Y-m-d'])->validate();
         $row = DB::table('organization_employees')->where('id', $employee)->where('branch_id', $branch)->first();
         if (! $row || ! $row->active || $row->starts_on > $date || ($row->ends_on !== null && $row->ends_on < $date)) {
             throw new ContractException(ErrorCode::ValidationFailed, 'Employee employment is unavailable for this branch/date.');

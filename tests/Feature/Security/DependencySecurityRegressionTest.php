@@ -17,7 +17,7 @@ final class DependencySecurityRegressionTest extends TestCase
     {
         $header = new ParameterizedHeader('Content-Disposition', 'attachment');
 
-        foreach (["name\r\nX-Injected: yes", "name\nInjected", "bad name"] as $parameter) {
+        foreach (["name\r\nX-Injected: yes", "name\nInjected", 'bad name'] as $parameter) {
             try {
                 $header->setParameter($parameter, 'value');
                 $this->fail('Unsafe MIME parameter name was accepted.');

@@ -38,7 +38,16 @@ async function gotoReady(page, url) {
 
 async function setModel(page, key, value, live = false) {
   const target = page.locator(`[wire\\:model="${key}"], [wire\\:model\\.live="${key}"], [wire\\:model\\.live\\.debounce\\.300ms="${key}"]`).first();
-  await target.waitFor({ state: 'visible' });
+  await target.waitFor({ state: 'attached' });
+  // Optional fields sit in a collapsed section; open it as a user would.
+  await target.evaluate(el => { const box = el.closest('details'); if (box) box.open = true; });
+  // Enhanced controls hide the native field, so set the same Livewire model directly.
+  if (!await target.isVisible()) {
+    const assign = () => target.evaluate((el, [name, next]) => window.Livewire.find(el.closest('[wire\\:id]').getAttribute('wire:id')).set(name, next, false), [key, String(value)]);
+    if (live) await liveUpdate(page, assign);
+    else await assign();
+    return;
+  }
   const tag = await target.evaluate(el => el.tagName.toLowerCase());
   const update = () => tag === 'select' ? target.selectOption(String(value)) : target.fill(String(value));
   if (live) await liveUpdate(page, update);
@@ -73,7 +82,11 @@ test('M08 request draft is created and edited in the browser with owner persiste
     expect(response?.status()).toBe(200);
     await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
     await setModel(page, 'form.branch_id', smokeFixture.branch_id, true);
-    await setModel(page, 'customerSearch', smokeFixture.customer_code, true);
+    // The enhanced select hides the server search input and owns its own search box.
+    await liveUpdate(page, () => page.evaluate(code => {
+      const input = document.querySelector('input[name="customerSearch"]');
+      window.Livewire.find(input.closest('[wire\\:id]').getAttribute('wire:id')).set('customerSearch', code);
+    }, smokeFixture.customer_code));
     await expect(page.getByTestId('maintenance-request-customer').locator(`option[value="${smokeFixture.customer_id}"]`)).toHaveCount(1);
     await setModel(page, 'form.customer_id', smokeFixture.customer_id, true);
     const responsible = page.locator('[wire\\:model="form.responsible_id"]');

@@ -7,7 +7,7 @@
   <div class="grid gap-3 xl:grid-cols-3">
    <x-ui.panel class="quote-section"><h2>معلومات العرض</h2><div class="grid grid-cols-2 gap-3">
     <flux:input label="رقم العرض" value="يُخصص عند الإصدار الرسمي" disabled />
-    <flux:input label="العملة" value="جنيه مصري (EGP)" disabled />
+    <flux:input label="العملة" value="جنيه مصري (ج.م)" disabled />
     <flux:input type="date" label="تاريخ العرض" wire:model="form.quotation_date" required />
     <flux:input type="date" label="تاريخ انتهاء الصلاحية" wire:model="form.valid_until" />
    </div><p class="mt-3 text-xs text-slate-500">{{ $hasPolicy ? 'تطبق مدة الصلاحية الافتراضية من إعدادات الشركة عند إنشاء المسودة.' : 'مدة الصلاحية الافتراضية وحدودها لم تضبط بعد. لا توجد مدة مفترضة.' }}</p></x-ui.panel>
@@ -16,7 +16,7 @@
     <flux:select wire:model="form.customer_id" label="العميل" required search-model="customerSearch"><option value="">اختر عميلًا نشطًا</option>@foreach($customers as $c)<option value="{{ $c['id'] }}">{{ $c['name'] }} ({{ $c['code'] }})</option>@endforeach</flux:select>
     <p class="text-xs text-slate-500">يعتمد العرض على هوية العميل المسجلة في دليل العملاء.</p>
    </div></x-ui.panel>
-   <x-ui.panel class="quote-section"><h2>معلومات المشروع</h2><div class="space-y-3"><flux:input wire:model="form.project_name" label="اسم المشروع (اختياري)" placeholder="اسم المشروع يدويًا" maxlength="200" /><flux:input wire:model="form.rfq_reference" label="مرجع طلب عرض السعر RFQ" maxlength="100" /><p class="text-xs text-slate-500">ربط سجل مشروع قائم متاح عند اكتمال عقد المشاريع.</p></div></x-ui.panel>
+   <x-ui.panel class="quote-section"><h2>معلومات المشروع</h2><div class="space-y-3"><flux:input wire:model="form.project_name" label="اسم المشروع (اختياري)" placeholder="اسم المشروع يدويًا" maxlength="200" /><flux:input wire:model="form.rfq_reference" label="مرجع طلب عرض السعر RFQ" maxlength="100" /></div></x-ui.panel>
   </div>
   <x-ui.panel class="quote-section !p-3"><div class="mb-3 flex flex-wrap items-center justify-between gap-3"><h2 class="!mb-0 !border-0">بنود العرض</h2><div class="flex flex-wrap gap-2">@if($can('import'))<flux:button type="button" wire:click="$set('importOpen',true)" icon="arrow-up-tray" size="sm">استيراد بنود Excel</flux:button>@endif<flux:button type="button" wire:click="addLine" icon="plus" size="sm" variant="primary">إضافة بند جديد</flux:button></div></div>
 

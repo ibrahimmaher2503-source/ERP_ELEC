@@ -81,7 +81,7 @@ final class ApproveSalesOrder
             foreach ($r->lines as $i => $line) {
                 app(SalesOrderCatalog::class)->product($actor, $line->product_id, $line->unit_id, $line->quantity);
                 $stockProduct = app(ProductsApi::class)->inventoryProduct($actor, $line->product_id);
-                abort_unless($stockProduct['active'] && $stockProduct['kind'] !== 'service' && $stockProduct['tracking'] === 'quantity',
+                abort_unless($stockProduct['active'] && $stockProduct['kind'] !== 'service' && in_array($stockProduct['tracking'], ['quantity', 'serial'], true),
                     422, 'مسار الاعتماد والحجز المالي الحالي للأصناف الكمية؛ يلزم المنتج المالي المختص للأصناف المسلسلة أو الخدمية.');
                 $base[$line->id] = app(ProductsApi::class)->convertQuantity(new ConvertQuantityRequest($actor, $line->product_id, $line->unit_id, $line->quantity))->baseQuantity;
                 $taxLines[] = ['product_id' => $line->product_id, 'quantity' => $line->quantity, 'unit_price' => $line->requested_price ?? $line->suggested_price, 'discount' => bcadd($draft['lines'][$i]['discount'], '0', 32)];
@@ -106,6 +106,7 @@ final class ApproveSalesOrder
             // Amounts/treatment must honor acceptance; the new order still records
             // the rules and calculation date actually validated for its own date.
             $tax = $currentTax;
+            app(SalesOrderCreditLimit::class)->require($actor, $r, $tax['total'], (int) $review->requested_by);
             $doc = app(OfficialDocuments::class)->issue($actor, 'sales_order', (string) $id, 1, $r->order_date->toDateString(), [
                 'title' => 'أمر بيع', 'fields' => ['العميل' => $r->customer_snapshot['name'], 'مرجع العميل أو القبول' => $commercialReference, 'شروط السداد' => $r->payment_terms ?? '', 'شروط التسليم' => $r->delivery_terms ?? ''],
                 'columns' => ['الصنف', 'الوحدة', 'الكمية'], 'rows' => $r->lines->map(fn ($l) => [$l->description, $l->product_snapshot['unit_name'], $l->quantity])->all(),

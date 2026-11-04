@@ -84,9 +84,9 @@
     <template x-if="supported && showForm">
         <div class="space-y-4 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-4">
             <flux:input
-                label="{{ __('Passkey name') }}"
+                label="اسم مفتاح المرور"
                 x-model="name"
-                placeholder="{{ __('e.g., MacBook Pro, iPhone') }}"
+                placeholder="مثل: MacBook Pro أو iPhone"
                 x-on:keydown.enter.prevent="register()"
                 x-ref="passkeyNameInput"
                 x-init="$nextTick(() => $refs.passkeyNameInput?.focus())"

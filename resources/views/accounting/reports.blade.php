@@ -20,7 +20,7 @@
 
     @if($filtersValid)
     <x-ui.panel>
-        <div class="mb-4 flex flex-wrap items-center justify-between gap-3"><h2>{{ $nav[$screen] }}</h2><div class="flex gap-2"><span class="self-center text-xs text-slate-500">EGP · بيانات مرحّلة</span>@if(in_array($screen,['ledger','trial-balance','income-statement','balance-sheet','ppv','reconciliation'],true))<flux:button :href="route('accounting.reports.export',['report'=>$screen,'format'=>'xlsx','branch'=>$branch?:null,'from'=>$from?:null,'to'=>$to?:null])" size="sm" icon="arrow-down-tray">Excel</flux:button><flux:button :href="route('accounting.reports.export',['report'=>$screen,'format'=>'pdf','branch'=>$branch?:null,'from'=>$from?:null,'to'=>$to?:null])" size="sm" icon="document-arrow-down">PDF</flux:button>@endif</div></div>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3"><h2>{{ $nav[$screen] }}</h2><div class="flex gap-2"><span class="self-center text-xs text-slate-500">ج.م · بيانات مرحّلة</span>@if(in_array($screen,['ledger','trial-balance','income-statement','balance-sheet','ppv','reconciliation'],true))<flux:button :href="route('accounting.reports.export',['report'=>$screen,'format'=>'xlsx','branch'=>$branch?:null,'from'=>$from?:null,'to'=>$to?:null])" size="sm" icon="arrow-down-tray">Excel</flux:button><flux:button :href="route('accounting.reports.export',['report'=>$screen,'format'=>'pdf','branch'=>$branch?:null,'from'=>$from?:null,'to'=>$to?:null])" size="sm" icon="document-arrow-down">PDF</flux:button>@endif</div></div>
         <div class="overflow-x-auto">
             <x-ui.responsive-table :label="$nav[$screen]"><table role="table">
                 @if($screen==='ledger')

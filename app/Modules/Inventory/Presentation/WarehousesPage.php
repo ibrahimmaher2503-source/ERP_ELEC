@@ -20,7 +20,7 @@ final class WarehousesPage extends Component
 
     public bool $editing = false;
 
-    public array $form = ['code' => '', 'name' => '', 'branch_id' => '', 'address' => '', 'notes' => '', 'active' => true];
+    public array $form = ['code' => '', 'name' => '', 'branch_id' => '', 'address' => '', 'storekeeper_name' => '', 'notes' => '', 'active' => true];
 
     #[Locked]
     public ?int $editingId = null;

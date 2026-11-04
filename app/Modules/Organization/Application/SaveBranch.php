@@ -35,6 +35,7 @@ class SaveBranch
             $data = Validator::make($input, [
                 'code' => ['required', 'string', 'max:50', 'regex:/^[^\x00-\x1F\x7F]+$/u', Rule::unique('branches', 'code')->ignore($id)],
                 'name' => ['required', 'string', 'max:200', 'not_regex:/\x00/u'], 'address' => ['nullable', 'string', 'max:2000', 'not_regex:/\x00/u'],
+                'manager_name' => ['nullable', 'string', 'max:200', 'not_regex:/\x00/u'],
             ])->validate();
             $data += ['version' => ($current?->version ?? 0) + 1, 'updated_at' => now()];
             if ($current) {

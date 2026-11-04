@@ -12,7 +12,7 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'supplier_type', 'category_id', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'version'];
+    protected $fillable = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'supplier_type', 'category_id', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'payment_terms', 'version'];
 
     public function category()
     {

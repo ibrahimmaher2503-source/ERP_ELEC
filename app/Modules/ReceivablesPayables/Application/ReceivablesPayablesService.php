@@ -232,6 +232,25 @@ final class ReceivablesPayablesService implements ReceivablesPayablesApi
             'customer_id' => $customer, 'original_amount' => $amount, 'created_at' => now()]);
     }
 
+    public function customerCreditExposure(int $customer, array $orderLines): array
+    {
+        $open = (string) \DB::table('rp_open_items')->where('party_type', 'customer')->where('party_id', $customer)->sum('remaining_amount');
+        $invoiced = (string) \DB::table('rp_customer_invoice_lines as l')->join('rp_customer_invoices as i', 'i.id', '=', 'l.invoice_id')
+            ->whereIn('l.sales_order_line_id', $orderLines)->whereIn('i.status', ['posted', 'partially_collected', 'collected', 'credited'])->sum('l.total_amount');
+
+        return ['open' => bcadd($open, '0', 2), 'invoiced' => bcadd($invoiced, '0', 2)];
+    }
+
+    public function returnableQuantities(string $kind, array $sourceLines): array
+    {
+        return app(ReturnCredits::class)->remaining($kind, $sourceLines);
+    }
+
+    public function postReturnCredits(int $actor, int $creator, string $kind, string $source, string $date, string $reason, array $lines): array
+    {
+        return app(ReturnCredits::class)->post($actor, $creator, $kind, $source, $date, $reason, $lines);
+    }
+
     public function createCreditNote(int $actor, array $data): int
     {
         return app(CreditNotes::class)->create($actor, $data);

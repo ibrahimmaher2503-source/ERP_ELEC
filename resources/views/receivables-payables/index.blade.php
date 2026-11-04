@@ -34,7 +34,7 @@
     @elseif($screen==='credit-notes' && $access->branches(auth()->id(),'credit_note_manage')!==[])
         <x-ui.panel><h2 class="mb-3 font-semibold">إشعار مرتبط بفاتورة مرحّلة</h2><form wire:submit="createCredit" class="grid gap-3 md:grid-cols-3">
             <flux:select wire:model="form.kind" label="النوع"><option value="supplier">مورد</option><option value="customer">عميل</option></flux:select><flux:input wire:model="form.invoice_id" type="number" min="1" label="معرف الفاتورة الأصلية" required/>
-            <flux:input wire:model="form.note_date" type="date" label="تاريخ الإشعار" required/><flux:input wire:model="form.amount" inputmode="decimal" label="القيمة EGP" required/><flux:input wire:model="form.reason" label="سبب التصحيح" required/>
+            <flux:input wire:model="form.note_date" type="date" label="تاريخ الإشعار" required/><flux:input wire:model="form.amount" inputmode="decimal" label="القيمة ج.م" required/><flux:input wire:model="form.reason" label="سبب التصحيح" required/>
             <div class="erp-form-actions"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الإشعار</flux:button></div>
         </form></x-ui.panel>
     @endif
@@ -62,12 +62,12 @@
                         <dl>
                             <div><dt>تاريخ المستند</dt><dd><bdi>{{ $row->document_date }}</bdi></dd></div>
                             <div><dt>الاستحقاق</dt><dd><bdi>{{ $row->due_date }}</bdi></dd></div>
-                            <div><dt>القيمة الأصلية</dt><dd><bdi>{{ $row->original_amount }} EGP</bdi></dd></div>
-                            <div><dt>المسدد</dt><dd><bdi>{{ $row->settled_amount }} EGP</bdi></dd></div>
-                            <div><dt>المصحح</dt><dd><bdi>{{ $row->credited_amount }} EGP</bdi></dd></div>
+                            <div><dt>القيمة الأصلية</dt><dd><bdi>{{ $row->original_amount }} ج.م</bdi></dd></div>
+                            <div><dt>المسدد</dt><dd><bdi>{{ $row->settled_amount }} ج.م</bdi></dd></div>
+                            <div><dt>المصحح</dt><dd><bdi>{{ $row->credited_amount }} ج.م</bdi></dd></div>
                             <div><dt>العمر</dt><dd>{{ max(0,now('Africa/Cairo')->startOfDay()->diffInDays(\Carbon\CarbonImmutable::parse($row->due_date),false)*-1) }} يوم</dd></div>
                         </dl>
-                        <footer><span>الرصيد المتبقي</span><strong><bdi>{{ $row->remaining_amount }} EGP</bdi></strong></footer>
+                        <footer><span>الرصيد المتبقي</span><strong><bdi>{{ $row->remaining_amount }} ج.م</bdi></strong></footer>
                     </article>
                 @empty
                     <x-ui.empty-state title="لا توجد أرصدة" description="لا توجد بنود ذمم ضمن النطاق المحدد." />

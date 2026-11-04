@@ -111,7 +111,7 @@ final class InventoryDocuments
                 if ($p['tracking'] === 'serial') {
                     $serials = array_values(app(InventorySerials::class)->selections($serials, bccomp($quantity, '0', 8) < 0 ? bcsub('0', $quantity, 8) : $quantity));
                 } elseif ($serials !== [] && $serials !== '') {
-                    InventoryActions::fail('Serials require a serialized product.');
+                    InventoryActions::fail('الأرقام التسلسلية تتطلب صنفًا مسلسلًا.');
                 } else {
                     $serials = [];
                 }
@@ -214,7 +214,7 @@ final class InventoryDocuments
                         $selected = array_keys(app(InventorySerials::class)->selections(json_decode($line->serials, true), $line->quantity));
                         $held = DB::table('inventory_serials')->where('warehouse_id', $doc->warehouse_id)->where('product_id', $line->product_id)->whereIn('state', ['available', 'reserved', 'unavailable'])->orderByRaw('normalized COLLATE "C"')->pluck('normalized')->all();
                         if ($selected !== $held) {
-                            InventoryActions::fail('Serial count differs from occupancy; record a source-linked serial adjustment/correction before restarting the count.');
+                            InventoryActions::fail('عدد الأرقام التسلسلية يختلف عن الإشغال؛ سجّل تسوية أو تصحيحًا للرقم التسلسلي مرتبطًا بالمصدر قبل إعادة الجرد.');
                         }
                     }
                     if (bccomp($delta, '0', 8) !== 0) {
@@ -262,7 +262,7 @@ final class InventoryDocuments
             $values = preg_split('/\R/u', $values, -1, PREG_SPLIT_NO_EMPTY);
         }
         if (! is_array($values)) {
-            InventoryActions::fail('Invalid serial list.');
+            InventoryActions::fail('قائمة الأرقام التسلسلية غير صالحة.');
         }
         usort($values, fn ($a, $b) => app(InventorySerials::class)->normalize($a) <=> app(InventorySerials::class)->normalize($b));
 

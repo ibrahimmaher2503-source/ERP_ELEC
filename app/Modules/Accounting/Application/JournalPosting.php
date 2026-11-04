@@ -120,7 +120,7 @@ final class JournalPosting
             app(AccountingActions::class)->lock();
             $original = DB::table('accounting_journals')->lockForUpdate()->find($journal);
             abort_unless($original && $original->status === 'posted', 404);
-            abort_if(str_starts_with((string) $original->source_key, 'journal-reversal:'), 409, 'A reversal cannot itself be reversed.');
+            abort_if(str_starts_with((string) $original->source_key, 'journal-reversal:'), 409, 'لا يمكن عكس قيد عكسي.');
             if ($original->source_key !== null) {
                 FinancialActivation::fail('قيود المصدر تعكس من إجراء المالك المرتبط حتى تبقى الذمم والمخزون والخزينة متطابقة.');
             }

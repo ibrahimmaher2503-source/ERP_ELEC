@@ -1,5 +1,5 @@
 <div data-erp-archetype="form" class="space-y-6">
-    <x-page.heading title="إعداد التفعيل المالي" description="إعداد واحد للشركة · EGP · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المحاسبة والمالية', 'إعداد التفعيل المالي']" />
+    <x-page.heading title="إعداد التفعيل المالي" description="إعداد واحد للشركة · ج.م · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المحاسبة والمالية', 'إعداد التفعيل المالي']" />
     <nav class="erp-section-nav flex flex-wrap gap-2" aria-label="المحاسبة">@foreach($nav as $destination => $label)<flux:button :href="route('accounting.'.$destination)" :variant="$destination==='setup'?'primary':'outline'" wire:navigate>{{ $label }}</flux:button>@endforeach</nav>
     @if(session('financial_message'))<p role="status" class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">{{ session('financial_message') }}</p>@endif
     <x-ui.validation-summary />
@@ -102,16 +102,17 @@
             <fieldset wire:key="opening-line-{{ $creationKey }}-{{ $i }}" class="border-t pt-4">
                 <legend class="px-2 text-sm font-semibold">بند {{ $i+1 }}</legend>
                 <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                    <flux:select wire:model.live="lines.{{ $i }}.kind" label="النوع"><option value="gl">قيد GL</option><option value="ap">تفاصيل مورد</option><option value="cash">تفاصيل نقدية</option><option value="bank">تفاصيل بنك</option><option value="inventory">طبقة FIFO</option></flux:select>
+                    <flux:select wire:model.live="lines.{{ $i }}.kind" label="النوع"><option value="gl">قيد GL</option><option value="ap">تفاصيل مورد</option><option value="ar">تفاصيل عميل</option><option value="cash">تفاصيل نقدية</option><option value="bank">تفاصيل بنك</option><option value="inventory">طبقة FIFO</option></flux:select>
                     <flux:input wire:model="lines.{{ $i }}.reference" label="مرجع البند الفريد" required />
                     <flux:select wire:model="lines.{{ $i }}.branch_id" label="الفرع" required><option value="">اختر الفرع</option>@foreach($branches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }}</option>@endforeach</flux:select>
                     @if($line['kind']==='gl')
                     <flux:select wire:model="lines.{{ $i }}.account_id" label="حساب GL" required><option value="">اختر الحساب</option>@foreach($accounts as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach</flux:select>
-                    <flux:input wire:model="lines.{{ $i }}.debit" label="مدين EGP" inputmode="decimal" />
-                    <flux:input wire:model="lines.{{ $i }}.credit" label="دائن EGP" inputmode="decimal" />
+                    <flux:input wire:model="lines.{{ $i }}.debit" label="مدين ج.م" inputmode="decimal" />
+                    <flux:input wire:model="lines.{{ $i }}.credit" label="دائن ج.م" inputmode="decimal" />
                     @else
-                    <flux:input wire:model="lines.{{ $i }}.amount" label="قيمة تفصيلية EGP" inputmode="decimal" required />
+                    <flux:input wire:model="lines.{{ $i }}.amount" label="قيمة تفصيلية ج.م" inputmode="decimal" required />
                     @if($line['kind']==='ap')<flux:input wire:model="lines.{{ $i }}.supplier_id" label="رقم المورد" inputmode="numeric" required />@endif
+                    @if($line['kind']==='ar')<flux:input wire:model="lines.{{ $i }}.customer_id" label="رقم العميل" inputmode="numeric" required />@endif
                     @if($line['kind']==='inventory')
                     <flux:input wire:model="lines.{{ $i }}.warehouse_id" label="رقم المستودع" inputmode="numeric" required />
                     <flux:input wire:model="lines.{{ $i }}.product_id" label="رقم الصنف المخزني" inputmode="numeric" required />

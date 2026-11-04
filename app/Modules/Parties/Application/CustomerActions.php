@@ -17,7 +17,7 @@ use Illuminate\Validation\ValidationException;
 
 class CustomerActions
 {
-    public const FIELDS = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'segment', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website'];
+    public const FIELDS = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'segment', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'credit_limit', 'payment_terms'];
 
     private function access(int $actor, string $permission): void
     {
@@ -41,6 +41,9 @@ class CustomerActions
             }
             $input['code'] = mb_strtoupper($input['code'] ?? '');
             $rules = ['code' => ['required', 'string', 'max:50', 'regex:/^[A-Z0-9][A-Z0-9_.-]*$/', Rule::unique('customers', 'code')->ignore($id)], 'name' => ['required', 'string', 'max:200'], 'entity_type' => ['required', Rule::in(['individual', 'organization'])], 'status' => ['required', Rule::in(['active', 'inactive', 'archived'])], 'email' => ['nullable', 'email', 'max:255'], 'website' => ['nullable', 'url:http,https', 'max:255']];
+            $input['credit_limit'] = ($input['credit_limit'] ?? '') === '' ? null : (string) $input['credit_limit'];
+            $rules['credit_limit'] = ['nullable', 'string', 'regex:/^(?:0|[1-9][0-9]{0,15})(?:\.[0-9]{1,2})?$/D'];
+            $rules['payment_terms'] = ['nullable', 'string', 'max:500'];
             foreach (array_diff(self::FIELDS, array_keys($rules)) as $f) {
                 $rules[$f] = ['nullable', 'string', 'max:'.(in_array($f, ['name_en', 'trading_name']) ? 200 : 100)];
             }

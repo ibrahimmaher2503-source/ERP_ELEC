@@ -83,37 +83,37 @@ final class InventoryTransfers
             $existing = DB::table('inventory_transfer_receipts')->where('idempotency_key', $d['idempotency_key'])->first();
             if ($existing) {
                 if ($existing->document_id !== $id || $existing->payload_hash !== $hash) {
-                    InventoryActions::fail('Receipt key collision.');
+                    InventoryActions::fail('تعارض في مفتاح الاستلام.');
                 }
 
                 return (array) $doc;
             }
             if ($doc->status !== 'dispatched') {
-                InventoryActions::fail('Only dispatched outstanding transfers can receive.');
+                InventoryActions::fail('لا يُستلم إلا التحويلات المرسلة والمعلقة.');
             }
             if (! DB::table('inventory_warehouses')->where('id', $doc->destination_id)->value('active')) {
-                InventoryActions::fail('Destination inactive.');
+                InventoryActions::fail('المستودع المستقبل غير نشط.');
             }
             $totals = $this->quantities($id);
             $receipt = DB::table('inventory_transfer_receipts')->insertGetId(['document_id' => $id, 'idempotency_key' => $d['idempotency_key'], 'reason' => $reason, 'evidence' => $evidence, 'payload_hash' => $hash, 'financial_status' => collect($lines)->contains(fn ($l) => bccomp($l['damaged'], '0', 8) > 0 || bccomp($l['missing'], '0', 8) > 0) ? 'pending_financial' : 'not_required', 'actor_id' => $actor, 'occurred_at' => now()]);
             foreach ($lines as $line) {
                 $source = DB::table('inventory_document_lines')->where('document_id', $id)->find($line['line_id']);
                 if (! $source) {
-                    InventoryActions::fail('Line does not belong to transfer.');
+                    InventoryActions::fail('البند لا يتبع التحويل.');
                 }
                 $total = $totals[$source->id];
                 $physical = bcadd($line['accepted'], $line['damaged'], 8);
                 $used = bcsub(bcadd($physical, $line['missing'], 8), $line['recovered_missing'], 8);
                 if (bccomp(bcadd($physical, $line['missing'], 8), '0', 8) <= 0 || bccomp($line['recovered_missing'], $physical, 8) > 0 || bccomp($line['recovered_missing'], $total['missing'], 8) > 0 || bccomp($used, $total['outstanding'], 8) > 0) {
-                    InventoryActions::fail('Received/missing quantities exceed the unresolved dispatch obligation.');
+                    InventoryActions::fail('الكميات المستلمة والمفقودة تتجاوز التزام الإرسال غير المسوّى.');
                 }
                 if ((bccomp($line['damaged'], '0', 8) > 0 || bccomp($line['missing'], '0', 8) > 0 || bccomp($line['recovered_missing'], '0', 8) > 0) && trim($reason ?? '') === '') {
-                    InventoryActions::fail('Discrepancy/recovery reason is required.');
+                    InventoryActions::fail('سبب الفرق أو الاسترداد مطلوب.');
                 }
                 foreach (['accepted', 'damaged'] as $condition) {
                     if (bccomp($line[$condition], '0', 8) === 0) {
                         if ($line[$condition.'_serials'] !== []) {
-                            InventoryActions::fail('Serials require physical quantity.');
+                            InventoryActions::fail('الأرقام التسلسلية تتطلب كمية فعلية.');
                         }
 
                         continue;

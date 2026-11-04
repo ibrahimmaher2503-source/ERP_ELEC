@@ -5,7 +5,7 @@
     <x-ui.panel><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <flux:select label="الفرع" wire:model.live="branch"><option value="">اختر الفرع</option>@foreach($branches as $b)<option value="{{ $b['id'] }}">{{ $b['name'] }}</option>@endforeach</flux:select>
 
-        <flux:select label="الموظف" :disabled="!$branch" wire:model.live="employee" search-model="employeeSearch"><option value="">اختر الموظف</option>@foreach($employees as $e)<option value="{{ $e['id'] }}">{{ $e['code'] }} · {{ $e['name'] }}{{ $e['active']?'':' · غير نشط' }}</option>@endforeach</flux:select>
+        <div class="space-y-1"><flux:select label="الموظف" :disabled="!$branch" wire:model.live="employee" search-model="employeeSearch"><option value="">اختر الموظف</option>@foreach($employees as $e)<option value="{{ $e['id'] }}">{{ $e['code'] }} · {{ $e['name'] }}{{ $e['active']?'':' · غير نشط' }}</option>@endforeach</flux:select>@unless($branch)<p class="text-xs text-slate-500">اختر الفرع أولًا</p>@endunless</div>
         <flux:input type="month" label="شهر بداية الوردية" wire:model.live="month" />
     </div><p class="mt-3 text-xs text-slate-500">تُعرض الأوقات بتوقيت القاهرة. تتبع الوردية الليلية شهر تاريخ بدايتها.</p></x-ui.panel>
 

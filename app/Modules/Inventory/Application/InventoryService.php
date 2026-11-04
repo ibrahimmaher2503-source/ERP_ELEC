@@ -24,6 +24,26 @@ final class InventoryService implements InventoryApi
         return array_values(app(InventorySerials::class)->selections($serials, $quantity));
     }
 
+    public function normalizedSerials(mixed $serials, string $quantity): array
+    {
+        return array_keys(app(InventorySerials::class)->selections($serials, $quantity));
+    }
+
+    public function salesIssueEvidence(int $actor, string $issueKey): array
+    {
+        return app(TradeReturnStock::class)->salesIssueEvidence($actor, $issueKey);
+    }
+
+    public function returnSalesIssue(int $actor, string $issueKey, string $quantity, string $key, string $reason, array $serials = []): array
+    {
+        return app(TradeReturnStock::class)->restoreSalesIssue($actor, $issueKey, $quantity, $key, $reason, $serials);
+    }
+
+    public function returnToSupplier(int $actor, int $movement, string $quantity, string $key, string $reason, array $serials = []): array
+    {
+        return app(TradeReturnStock::class)->returnToSupplier($actor, $movement, $quantity, $key, $reason, $serials);
+    }
+
     public function repairIsolation(int $actor, int $isolation): array
     {
         $i = DB::table('inventory_isolations')->find($isolation);
@@ -175,6 +195,7 @@ final class InventoryService implements InventoryApi
         $movements = DB::table('inventory_movements as m')->leftJoin('inventory_movement_journals as j', 'j.movement_id', '=', 'm.id')->where(function ($q) use ($project, $salesOrders, $maintenance, $workshop) {
             $q->where(fn ($q) => $q->where('m.source_module', 'Projects')->where('m.source_id', (string) $project))
                 ->orWhere(fn ($q) => $q->where('m.source_module', 'Sales')->whereIn('m.source_id', array_map('strval', $salesOrders)))
+                ->orWhere(fn ($q) => $q->where('m.operation', 'sales_return')->whereIn('m.reversal_id', DB::table('inventory_movements')->where('source_module', 'Sales')->whereIn('source_id', array_map('strval', $salesOrders))->select('id')))
                 ->orWhere(fn ($q) => $q->where('m.source_module', 'WorkshopRepairs')->whereIn('m.source_id', array_map('strval', $workshop['ids'])))
                 ->orWhere(fn ($q) => $q->where('m.operation', 'workshop_return')->whereIn('m.reversal_id', DB::table('inventory_movements')->where('source_module', 'WorkshopRepairs')->whereIn('source_id', array_map('strval', $workshop['ids']))->select('id')))
                 ->orWhere(fn ($q) => $q->where('m.source_module', 'FieldMaintenance')->whereIn('m.source_id', array_map('strval', $maintenance['ids'])))
@@ -188,7 +209,7 @@ final class InventoryService implements InventoryApi
             if ($m->source_module === 'Projects' || $m->source_module === 'FieldMaintenance' || $m->source_module === 'WorkshopRepairs' || in_array($m->operation, ['maintenance_return', 'workshop_return'])) {
                 $amount = in_array($m->operation, ['maintenance_return', 'workshop_return']) ? bcsub($amount, $m->amount ?? '0', 2) : bcadd($amount, $m->amount ?? '0', 2);
             } else {
-                $salesAmount = bcadd($salesAmount, $m->amount ?? '0', 2);
+                $salesAmount = $m->operation === 'sales_return' ? bcsub($salesAmount, $m->amount ?? '0', 2) : bcadd($salesAmount, $m->amount ?? '0', 2);
             }
         }
 

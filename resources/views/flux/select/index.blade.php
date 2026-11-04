@@ -10,7 +10,7 @@
 
 <flux:with-field :$attributes>
     @if ($variant === 'default')
-        <erp-select @if($searchModel) data-search-model="{{ $searchModel }}" @endif>
+        <erp-select{!! $searchModel ? ' data-search-model="'.e($searchModel).'"' : '' !!}>
             @if($searchModel)
                 <div data-erp-select-fallback class="mb-2"><flux:input wire:model.live.debounce.300ms="{{ $searchModel }}" type="search" aria-label="البحث في الخيارات" placeholder="اكتب الاسم أو الكود للبحث…" icon="magnifying-glass" /></div>
             @endif

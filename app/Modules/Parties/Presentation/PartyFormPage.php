@@ -19,7 +19,7 @@ abstract class PartyFormPage extends Component
     #[Locked]
     public ?int $version = null;
 
-    public array $form = ['code' => '', 'name' => '', 'name_en' => '', 'trading_name' => '', 'entity_type' => 'organization', 'segment' => '', 'status' => 'active', 'registration_number' => '', 'tax_number' => '', 'country' => '', 'city' => '', 'phone' => '', 'mobile' => '', 'email' => '', 'website' => ''];
+    public array $form = ['code' => '', 'name' => '', 'name_en' => '', 'trading_name' => '', 'entity_type' => 'organization', 'segment' => '', 'status' => 'active', 'registration_number' => '', 'tax_number' => '', 'country' => '', 'city' => '', 'phone' => '', 'mobile' => '', 'email' => '', 'website' => '', 'credit_limit' => '', 'payment_terms' => ''];
 
     public array $contact = ['name' => '', 'job_title' => '', 'phone' => '', 'mobile' => '', 'email' => '', 'active' => true, 'is_primary' => true];
 
@@ -59,7 +59,7 @@ abstract class PartyFormPage extends Component
         $ui = $this->profile();
         $model = $ui->model;
         if ($ui->supplier) {
-            unset($this->form['segment']);
+            unset($this->form['segment'], $this->form['credit_limit']);
             $this->form['category_id'] = '';
             $this->form['supplier_type'] = '';
             $this->billing['label'] = 'العنوان المسجل';

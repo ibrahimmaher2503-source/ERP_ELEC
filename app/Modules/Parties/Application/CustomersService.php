@@ -29,7 +29,7 @@ class CustomersService implements CustomersApi
         try {
             app(CustomerAccess::class)->authorize($actor, 'M03.customer_view');
         } catch (HttpException $e) {
-            throw new CustomerContractException('Customer access denied.', 403);
+            throw new CustomerContractException('لا تملك صلاحية الوصول إلى العميل.', 403);
         }
     }
 
@@ -38,15 +38,23 @@ class CustomersService implements CustomersApi
         return new CustomerIdentity($r->id, $r->code, $r->name, $r->entity_type, $r->status);
     }
 
+    public function commercialProfile(int $actor, int $customer): array
+    {
+        $this->authorize($actor);
+        $r = Customer::findOrFail($customer);
+
+        return ['credit_limit' => $r->credit_limit, 'payment_terms' => $r->payment_terms];
+    }
+
     public function getCustomer(GetCustomerRequest $request): CustomerIdentity
     {
         $this->authorize($request->actorId);
         $r = Customer::query()->when($request->requireActive && DB::transactionLevel() > 0, fn ($query) => $query->sharedLock())->find($request->customerId);
         if (! $r) {
-            throw new CustomerContractException('Customer not found.', 404);
+            throw new CustomerContractException('العميل غير موجود.', 404);
         }
         if ($request->requireActive && $r->status !== 'active') {
-            throw new CustomerContractException('Customer inactive.', 422);
+            throw new CustomerContractException('العميل غير نشط.', 422);
         }
 
         return $this->identity($r);

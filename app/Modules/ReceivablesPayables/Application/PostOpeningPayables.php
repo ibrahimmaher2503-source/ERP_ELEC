@@ -15,7 +15,7 @@ final class PostOpeningPayables implements OpeningPayables
     {
         abort_unless(DB::transactionLevel() > 0, 500);
         app(OrganizationApi::class)->authorize(new AuthorizeRequest($actor, 'M11.financial_activate'));
-        abort_if(DB::table('payable_opening_items')->exists(), 409, 'Supplier openings already exist.');
+        abort_if(DB::table('payable_opening_items')->exists(), 409, 'أرصدة الموردين الافتتاحية موجودة مسبقًا.');
         foreach ($lines as $line) {
             app(OrganizationApi::class)->authorize(new AuthorizeRequest($actor, 'M11.opening_review', $line['branch_id']));
             app(SuppliersApi::class)->getSupplier(new GetSupplierRequest($actor, $line['supplier_id']));

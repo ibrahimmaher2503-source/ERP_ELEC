@@ -166,10 +166,15 @@ final class TreasuryOperations
             $this->fail('حساب الخزينة يجب أن يطابق الربط المحاسبي المعتمد لنوعه.');
         }
 
-        DB::table('treasury_accounts')->updateOrInsert(['kind' => $data['kind'], 'active' => true],
-            ['code' => $data['code'], 'name' => $data['name'], 'gl_account_id' => $account->id, 'updated_at' => now(), 'created_at' => now()]);
+        $existing = DB::table('treasury_accounts')->where('code', $data['code'])->first();
+        if ($existing && $existing->kind !== $data['kind']) {
+            $this->fail('كود الحساب مستخدم لنوع آخر.');
+        }
+        // The code identifies the account: an existing code renames it, a new code adds another account.
+        DB::table('treasury_accounts')->updateOrInsert(['code' => $data['code']],
+            ['name' => $data['name'], 'kind' => $data['kind'], 'gl_account_id' => $account->id, 'active' => true, 'updated_at' => now(), 'created_at' => $existing->created_at ?? now()]);
 
-        return (int) DB::table('treasury_accounts')->where('kind', $data['kind'])->where('active', true)->value('id');
+        return (int) DB::table('treasury_accounts')->where('code', $data['code'])->value('id');
     }
 
     public function preparePayment(int $actor, array $data): int
@@ -383,13 +388,26 @@ final class TreasuryOperations
 
     private function requireFunds(object $account, int $branch, string $date, string $amount): void
     {
-        $opening = (string) DB::table('treasury_opening_balances')->where('kind', $account->kind)->where('branch_id', $branch)
-            ->where('opening_date', '<=', $date)->sum('amount');
+        $opening = $this->openingBalance($account, $branch, $date);
         $movement = (string) DB::table('treasury_movements')->where('account_id', $account->id)->where('branch_id', $branch)
             ->where('movement_date', '<=', $date)->selectRaw("coalesce(sum(case when kind in ('customer_collection','transfer_in','supplier_credit_refund','cash_correction_in') then amount else -amount end),0)::numeric(20,2) balance")->value('balance');
         if (bccomp(bcadd($opening, $movement, 2), $amount, 2) < 0) {
             $this->fail('الرصيد الفعلي للحساب لا يكفي لتنفيذ الحركة.');
         }
+    }
+
+    /** An opening belongs to the account whose code is its reference; others stay with the oldest account of the kind. */
+    private function openingBalance(object $account, int $branch, string $date): string
+    {
+        $codes = DB::table('treasury_accounts')->where('kind', $account->kind)->orderBy('id')->pluck('code', 'id');
+        $query = DB::table('treasury_opening_balances')->where('kind', $account->kind)->where('branch_id', $branch)->where('opening_date', '<=', $date);
+        if ((int) $codes->keys()->first() === (int) $account->id) {
+            $query->whereNotIn('reference', $codes->except($account->id)->values()->all());
+        } else {
+            $query->where('reference', $account->code);
+        }
+
+        return (string) $query->sum('amount');
     }
 
     private function fail(string $message): never

@@ -48,7 +48,7 @@
         <div class="erp-mobile-table-tools"><flux:button size="sm" wire:click="sortBy('order_date')" icon="arrows-up-down">ترتيب حسب تاريخ الأمر</flux:button></div>
         <x-ui.responsive-table label="قائمة أوامر البيع">
             <table role="table" class="w-full min-w-[1050px] text-sm">
-                <thead role="rowgroup" class="bg-slate-50 text-right text-xs text-slate-600">
+                <thead role="rowgroup" class="bg-slate-50 text-end text-xs text-slate-600">
                     <tr role="row">
                         <th role="columnheader" scope="col" class="px-4 py-3">رقم الأمر</th><th role="columnheader" scope="col" class="px-4 py-3">الفرع</th><th role="columnheader" scope="col" class="px-4 py-3">العميل</th><th role="columnheader" scope="col" class="px-4 py-3">المشروع / المرجع</th>
                         <th role="columnheader" scope="col" class="px-4 py-3"><span class="erp-mobile-column-label">تاريخ الأمر</span><button type="button" wire:click="sortBy('order_date')" class="font-semibold">تاريخ الأمر</button></th>

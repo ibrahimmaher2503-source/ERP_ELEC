@@ -4,6 +4,7 @@ namespace App\Modules\Projects\Application;
 
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\Sales\Application\Contracts\QuotationsApi;
+use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
@@ -138,7 +139,7 @@ final class TenderAwards
                     $input['description'] = ($input['description'] ?? '')."\n".$t->number.' / submission '.$source['submission_id'].' / '.$source['financial_sha256'];
                     $target = app(ProjectActions::class)->save($actor, null, 0, Uuid::uuid5(Uuid::NAMESPACE_URL, 'tender-project:'.$id), $input)->id;
                 } elseif ($kind === 'contract') {
-                    $target = app(\App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi::class)->createTenderDraft($actor, $id, $p->result_id, $input);
+                    $target = app(ServiceContractsApi::class)->createTenderDraft($actor, $id, $p->result_id, $input);
                 } else {
                     $target = app(QuotationsApi::class)->createTenderDraft($actor, $id, $p->result_id, $input);
                 }

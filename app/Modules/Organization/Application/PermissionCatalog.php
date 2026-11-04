@@ -242,6 +242,7 @@ class PermissionCatalog
         'M04.sales_order_invoice_view' => ['عرض طلبات فوترة أمر البيع', 'branch'],
         'M04.sales_order_return_view' => ['عرض مرتجعات أوامر البيع', 'branch'],
         'M04.sales_order_return_create' => ['طلب مرتجع أمر بيع', 'branch'],
+        'M04.sales_order_return_approve' => ['اعتماد مرتجع أمر بيع', 'branch'],
         'M04.sales_order_close' => ['إغلاق أمر البيع', 'branch'],
         'M04.sales_order_export' => ['تصدير أوامر البيع', 'branch'],
         'M04.sales_order_history' => ['عرض سجل أوامر البيع', 'branch'],

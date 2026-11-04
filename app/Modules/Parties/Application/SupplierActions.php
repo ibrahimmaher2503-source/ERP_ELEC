@@ -18,7 +18,7 @@ use Illuminate\Validation\ValidationException;
 
 class SupplierActions
 {
-    public const FIELDS = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'category_id', 'supplier_type', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website'];
+    public const FIELDS = ['code', 'name', 'name_en', 'trading_name', 'entity_type', 'category_id', 'supplier_type', 'status', 'registration_number', 'tax_number', 'country', 'city', 'phone', 'mobile', 'email', 'website', 'payment_terms'];
 
     private function access(int $actor, string $permission): void
     {

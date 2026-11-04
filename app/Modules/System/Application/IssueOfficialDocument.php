@@ -36,7 +36,7 @@ final class IssueOfficialDocument implements OfficialDocuments
         return $prefix.'-'.$year.'-'.str_pad((string) $sequence->last_number, 6, '0', STR_PAD_LEFT);
     }
 
-    private const PREFIXES = ['journal' => 'JV', 'purchase_order' => 'PO', 'opening_balance' => 'OB', 'quotation' => 'QT', 'sales_order' => 'SO', 'sales_delivery' => 'DN',
+    public const PREFIXES = ['journal' => 'JV', 'purchase_order' => 'PO', 'opening_balance' => 'OB', 'quotation' => 'QT', 'sales_order' => 'SO', 'sales_delivery' => 'DN', 'sales_return' => 'SR', 'purchase_return' => 'PR',
         'supplier_invoice' => 'SI', 'customer_invoice' => 'CI', 'supplier_credit_note' => 'SCN', 'customer_credit_note' => 'CCN',
         'supplier_payment' => 'PV', 'customer_collection' => 'RV', 'customer_advance_refund' => 'ARF', 'customer_credit_refund' => 'CRF', 'supplier_credit_refund' => 'SRF', 'treasury_transfer' => 'TR', 'treasury_correction' => 'TC', 'maintenance_report' => 'MSR', 'workshop_report' => 'WR', 'workshop_quote' => 'WQ', 'workshop_delivery' => 'WD', 'service_contract' => 'SC', 'tender_bid' => 'TB'];
 

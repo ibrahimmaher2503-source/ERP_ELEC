@@ -18,6 +18,9 @@ final class FinancialStock
     {
         abort_unless(DB::transactionLevel() > 0, 500);
         $m = DB::table('inventory_movements')->find($movement);
+        if ($m && in_array($m->operation, ['sales_return', 'supplier_return'], true)) {
+            return app(TradeReturnStock::class)->financialSource($actor, $m);
+        }
         if ($m && in_array($m->operation, ['workshop_issue', 'workshop_return'], true)) {
             return app(WorkshopStock::class)->financialSource($actor, $m);
         }
@@ -150,7 +153,7 @@ final class FinancialStock
             InventoryActions::fail('يلزم صنف مخزني نشط بتتبع كمي أو مسلسل.');
         }
         $w = DB::table('inventory_warehouses')->where('active', true)->find($warehouse);
-        abort_unless($w, 422, 'Warehouse inactive.');
+        abort_unless($w, 422, 'المستودع غير نشط.');
         app(InventoryLedger::class)->post($actor, $warehouse, ['product_id' => $product, 'base_unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'serials' => $serials],
             $quantity, $operation, $owner, $source, $sourceLine, $key);
         $movement = DB::table('inventory_movements')->where('idempotency_key', $key)->value('id');

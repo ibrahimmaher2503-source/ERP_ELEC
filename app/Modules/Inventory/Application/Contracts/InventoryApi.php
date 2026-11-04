@@ -7,6 +7,18 @@ interface InventoryApi
     /** Pure canonical serial validation; grants no product, stock or valuation access. */
     public function normalizeSerialSelections(mixed $serials, string $quantity): array;
 
+    /** Normalized identities, for comparing with stored serial evidence. */
+    public function normalizedSerials(mixed $serials, string $quantity): array;
+
+    /** Where a confirmed sales issue left from, and its serials still with the customer. */
+    public function salesIssueEvidence(int $actor, string $issueKey): array;
+
+    /** Restores an approved customer return at its original FIFO cost, one movement per layer. */
+    public function returnSalesIssue(int $actor, string $issueKey, string $quantity, string $key, string $reason, array $serials = []): array;
+
+    /** Issues an approved supplier return from the receipt's own FIFO layer. */
+    public function returnToSupplier(int $actor, int $movement, string $quantity, string $key, string $reason, array $serials = []): array;
+
     /** Actual service-issued serial identity only; no costs or stock mutation authority. */
     public function servicePartSerials(int $actor, string $owner, int $work, int $requirement, string $quantity, array $serials, string $purpose, ?int $movement = null): array;
 

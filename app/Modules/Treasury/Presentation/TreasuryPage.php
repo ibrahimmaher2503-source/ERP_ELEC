@@ -2,6 +2,10 @@
 
 namespace App\Modules\Treasury\Presentation;
 
+use App\Modules\Parties\Application\Contracts\CustomersApi;
+use App\Modules\Parties\Application\Contracts\GetCustomerRequest;
+use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
+use App\Modules\Parties\Application\Contracts\SuppliersApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\Treasury\Application\TreasuryAccess;
@@ -84,7 +88,29 @@ final class TreasuryPage extends Component
                 ->when($this->screen === 'transfers', fn ($q) => $q->whereIn('kind', ['transfer_out', 'transfer_in']))->orderByDesc('id')->limit(100)->get(),
         };
         $glAccounts = DB::table('accounting_accounts')->where('active', true)->where('postable', true)->where('kind', 'asset')->orderBy('code')->get();
+        $partyNames = in_array($this->screen, ['payments', 'collections'], true) ? [
+            'supplier' => $this->partyNames('supplier', $openItems->where('party_type', 'supplier')->pluck('party_id')->all()),
+            'customer' => $this->partyNames('customer', $openItems->where('party_type', 'customer')->pluck('party_id')->all()),
+        ] : ['supplier' => [], 'customer' => []];
 
-        return view('treasury.index', compact('access', 'nav', 'accounts', 'branches', 'openItems', 'rows', 'glAccounts'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
+        return view('treasury.index', compact('access', 'nav', 'accounts', 'branches', 'openItems', 'rows', 'glAccounts', 'partyNames'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
+    }
+
+    /** @return array<int, string> Display names keyed by party id; ids that cannot be resolved are omitted. */
+    private function partyNames(string $type, array $partyIds): array
+    {
+        $actor = (int) auth()->id();
+        $names = [];
+        foreach (array_unique(array_map('intval', $partyIds)) as $partyId) {
+            try {
+                $names[$partyId] = $type === 'supplier'
+                    ? app(SuppliersApi::class)->getSupplier(new GetSupplierRequest($actor, $partyId))->name
+                    : app(CustomersApi::class)->getCustomer(new GetCustomerRequest($actor, $partyId))->name;
+            } catch (\Throwable) {
+                // The party is not visible or unavailable: the view keeps the numeric fallback.
+            }
+        }
+
+        return $names;
     }
 }
