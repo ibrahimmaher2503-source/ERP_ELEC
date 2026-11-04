@@ -6,6 +6,7 @@ use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesReturns;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SalesReturnsPage extends Component
@@ -19,6 +20,7 @@ class SalesReturnsPage extends Component
     public string $creationKey = '';
 
     /** @var array<int, array{id:int,label:string}> */
+    #[\Livewire\Attributes\Locked]
     public array $sources = [];
 
     public string $deliveryId = '';
@@ -81,6 +83,10 @@ class SalesReturnsPage extends Component
                 'reason' => $this->reason,
                 'lines' => $this->payloadLines(),
             ]);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('form', $e->getMessage() ?: 'تعذر حفظ المرتجع. حدّث الصفحة وأعد المحاولة.');
 
@@ -97,8 +103,17 @@ class SalesReturnsPage extends Component
 
         try {
             $result = app(SalesReturns::class)->approve(auth()->id(), $id);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('return', $e->getMessage() ?: 'تعذر اعتماد المرتجع. حدّث الصفحة وتحقق من حالته.');
+
+            return;
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('return', 'تعذر اعتماد المرتجع. لم يحدث أي أثر. حدّث الصفحة وتحقق من حالته.');
 
             return;
         }
@@ -130,6 +145,10 @@ class SalesReturnsPage extends Component
 
         try {
             app(SalesReturns::class)->reject(auth()->id(), $id, $this->rejectReason);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('return', $e->getMessage() ?: 'تعذر رفض المرتجع. حدّث الصفحة وتحقق من حالته.');
 
@@ -150,6 +169,7 @@ class SalesReturnsPage extends Component
             'rows' => app(SalesReturns::class)->list($actor, $this->status !== '' ? ['status' => $this->status] : []),
             'canCreate' => $access->allows($actor, 'return_create'),
             'canApprove' => $access->allows($actor, 'return_approve'),
+            'approvableBranches' => array_map('intval', $access->branchIds($actor, 'return_approve')),
             'sourceLines' => $this->formOpen ? $this->sourceLines() : [],
             'reasons' => SalesReturns::REASONS,
             'conditions' => SalesReturns::CONDITIONS,

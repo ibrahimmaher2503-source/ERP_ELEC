@@ -118,14 +118,7 @@ SQL);
 
     public function down(): void
     {
-        $definition = DB::selectOne("SELECT pg_get_functiondef('inventory_require_serial_fifo()'::regprocedure) AS body")->body;
-        DB::unprepared(str_replace(",'sales_return'", '', $definition));
-        DB::unprepared(<<<'SQL'
-DROP TRIGGER IF EXISTS inventory_trade_return_commit ON inventory_movements;
-DROP FUNCTION IF EXISTS inventory_require_trade_return();
-DROP TABLE IF EXISTS purchasing_return_postings, purchasing_return_lines, purchasing_returns, sales_return_postings, sales_return_lines, sales_returns, rp_credit_note_return_lines;
-DROP FUNCTION IF EXISTS trade_return_history_guard();
-ALTER TABLE rp_credit_notes DROP COLUMN IF EXISTS return_source;
-SQL);
+        // Retain posted trade-return documents, credit lines and stock evidence; correct through new documents instead.
+        throw new RuntimeException('Retain posted financial evidence: this migration cannot be rolled back.');
     }
 };

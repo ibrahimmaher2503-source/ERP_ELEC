@@ -153,7 +153,7 @@
                             <td data-label="السبب" class="px-4 py-3">{{ $reasons[$row['reason_code']] ?? $row['reason_code'] }}</td>
                             <td data-label="التاريخ" class="px-4 py-3 tabular-nums"><bdi>{{ \Carbon\Carbon::parse($row['created_at'], 'UTC')->timezone('Africa/Cairo')->format('Y/m/d') }}</bdi></td>
                             <td data-label="الإجراءات" class="px-4 py-3">
-                                @if($row['status'] === 'draft' && $canApprove)
+                                @if($row['status'] === 'draft' && $canApprove && in_array((int) $row['branch_id'], $approvableBranches, true))
                                     @if($isOwnDraft)
                                         <span class="text-xs text-slate-500">يعتمده مستخدم آخر</span>
                                     @elseif((int) $rejectingId === (int) $row['id'])
@@ -167,7 +167,7 @@
                                         </div>
                                     @else
                                         <div class="flex flex-wrap gap-2">
-                                            <flux:button size="sm" variant="primary" wire:click="approve({{ $row['id'] }})" wire:confirm="سيتم ترحيل حركة المخزون وإشعار التصحيح ولا يمكن التراجع. هل تريد المتابعة؟" wire:loading.attr="disabled">اعتماد وترحيل</flux:button>
+                                            <flux:button size="sm" variant="primary" wire:click="approve({{ $row['id'] }})" wire:target="approve" wire:confirm="سيتم ترحيل حركة المخزون وإشعار التصحيح ولا يمكن التراجع. هل تريد المتابعة؟" wire:loading.attr="disabled">اعتماد وترحيل</flux:button>
                                             <flux:button size="sm" variant="ghost" wire:click="startReject({{ $row['id'] }})" wire:loading.attr="disabled">رفض</flux:button>
                                         </div>
                                     @endif

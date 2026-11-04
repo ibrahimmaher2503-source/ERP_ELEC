@@ -6,6 +6,7 @@ use App\Modules\Purchasing\Application\PurchaseReturns;
 use App\Modules\Purchasing\Application\PurchasingAccess;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 final class PurchaseReturnsPage extends Component
@@ -19,6 +20,7 @@ final class PurchaseReturnsPage extends Component
     public string $creationKey = '';
 
     /** @var array<int, array{id:int,label:string}> */
+    #[\Livewire\Attributes\Locked]
     public array $sources = [];
 
     public string $receiptId = '';
@@ -76,6 +78,10 @@ final class PurchaseReturnsPage extends Component
                 'reason' => $this->reason,
                 'lines' => $this->payloadLines(),
             ]);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('form', $e->getMessage() ?: 'تعذر حفظ المرتجع. حدّث الصفحة وأعد المحاولة.');
 
@@ -92,8 +98,17 @@ final class PurchaseReturnsPage extends Component
 
         try {
             $result = app(PurchaseReturns::class)->approve(auth()->id(), $id);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('return', $e->getMessage() ?: 'تعذر اعتماد المرتجع. حدّث الصفحة وتحقق من حالته.');
+
+            return;
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('return', 'تعذر اعتماد المرتجع. لم يحدث أي أثر. حدّث الصفحة وتحقق من حالته.');
 
             return;
         }
@@ -125,6 +140,10 @@ final class PurchaseReturnsPage extends Component
 
         try {
             app(PurchaseReturns::class)->reject(auth()->id(), $id, $this->rejectReason);
+        } catch (ValidationException $e) {
+            $this->setErrorBag($e->errors());
+
+            return;
         } catch (HttpException $e) {
             $this->addError('return', $e->getMessage() ?: 'تعذر رفض المرتجع. حدّث الصفحة وتحقق من حالته.');
 
@@ -146,6 +165,7 @@ final class PurchaseReturnsPage extends Component
             'rows' => app(PurchaseReturns::class)->list($actor, $this->status !== '' ? ['status' => $this->status] : []),
             'canCreate' => $access->branches($actor, 'return_create') !== [],
             'canApprove' => $access->branches($actor, 'return_approve') !== [],
+            'approvableBranches' => array_map('intval', array_column($access->branches($actor, 'return_approve'), 'id')),
             'receiptLines' => $this->formOpen ? $this->receiptLines() : [],
             'reasons' => PurchaseReturns::REASONS,
             'statuses' => self::STATUSES,

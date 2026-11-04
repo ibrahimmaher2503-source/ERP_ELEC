@@ -44,19 +44,7 @@ SQL);
 
     public function down(): void
     {
-        DB::unprepared(<<<'SQL'
-ALTER TABLE inventory_warehouses DROP COLUMN storekeeper_name;
-ALTER TABLE branches DROP COLUMN manager_name;
-ALTER TABLE suppliers DROP COLUMN payment_terms;
-ALTER TABLE customers DROP COLUMN credit_limit, DROP COLUMN payment_terms;
-DROP TABLE receivable_opening_items;
-DROP FUNCTION accounting_guard_receivable_opening();
-ALTER TABLE rp_open_items DROP CONSTRAINT rp_open_items_source_type_check;
-ALTER TABLE rp_open_items ADD CONSTRAINT rp_open_items_source_type_check CHECK(source_type IN ('supplier_invoice','customer_invoice','opening_payable'));
-ALTER TABLE accounting_opening_lines DROP CONSTRAINT accounting_opening_lines_kind_check;
-ALTER TABLE accounting_opening_lines ADD CONSTRAINT accounting_opening_lines_kind_check CHECK(kind IN ('gl','ap','cash','bank','inventory'));
-ALTER TABLE accounting_opening_lines DROP COLUMN customer_id;
-CREATE UNIQUE INDEX treasury_one_operational_kind ON treasury_accounts(kind) WHERE active;
-SQL);
+        // Retain opening receivables, credit limits and setup fields; correct through new documents instead.
+        throw new RuntimeException('Retain posted financial evidence: this migration cannot be rolled back.');
     }
 };

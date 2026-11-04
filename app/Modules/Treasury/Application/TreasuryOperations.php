@@ -170,6 +170,9 @@ final class TreasuryOperations
         if ($existing && $existing->kind !== $data['kind']) {
             $this->fail('كود الحساب مستخدم لنوع آخر.');
         }
+        if (! $existing && DB::table('treasury_opening_balances')->where('kind', $data['kind'])->where('reference', $data['code'])->exists()) {
+            $this->fail('هذا الكود مستخدم كمرجع لرصيد افتتاحي مرحّل لحساب آخر. اختر كودًا مختلفًا حتى لا ينتقل الرصيد.');
+        }
         // The code identifies the account: an existing code renames it, a new code adds another account.
         DB::table('treasury_accounts')->updateOrInsert(['code' => $data['code']],
             ['name' => $data['name'], 'kind' => $data['kind'], 'gl_account_id' => $account->id, 'active' => true, 'updated_at' => now(), 'created_at' => $existing->created_at ?? now()]);

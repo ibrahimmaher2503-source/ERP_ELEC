@@ -95,6 +95,11 @@ final class SalesReturns
                 if (bccomp($quantity, '0', 8) <= 0 || bccomp($quantity, $this->returnable([(int) $source->id])[(int) $source->id], 8) > 0) {
                     $this->fail('lines.'.$index.'.quantity', 'الكمية تتجاوز المفوتر غير المرتجع. إذا لم تصدر الفاتورة بعد، أصدرها أولًا.');
                 }
+                $serialsHeld = DB::table('sales_return_lines as l')->join('sales_returns as r', 'r.id', '=', 'l.return_id')->whereIn('r.status', ['draft', 'posting'])
+                    ->where('l.delivery_line_id', $source->id)->pluck('l.serials')->flatMap(fn ($json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR))->all();
+                if (array_intersect($this->serials($actor, $source, $quantity, $line['serials'] ?? [], $index), $serialsHeld) !== []) {
+                    $this->fail('lines.'.$index.'.serials', 'الرقم المسلسل موجود في مرتجع آخر لم يُعتمد بعد.');
+                }
                 $lines[] = ['source' => $source, 'quantity' => $quantity, 'condition' => $line['condition'], 'serials' => $this->serials($actor, $source, $quantity, $line['serials'] ?? [], $index)];
             }
             $id = DB::table('sales_returns')->insertGetId(['creation_key' => $d['creation_key'], 'payload_hash' => $hash, 'branch_id' => $order->branch_id, 'order_id' => $order->id,

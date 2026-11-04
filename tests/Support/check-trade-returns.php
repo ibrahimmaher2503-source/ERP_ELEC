@@ -204,6 +204,8 @@ try {
     $grant($maker, ['M11.opening_entry', 'M11.opening_view'], (int) $branch->id);
     $grant($poster, ['M11.opening_review', 'M11.opening_view'], (int) $branch->id);
     $equity = $accountActions->account((int) $maker->id, null, 0, ['code' => 'PH1-EQUITY-'.strtoupper(Str::random(5)), 'name' => 'Synthetic opening equity', 'kind' => 'equity', 'parent_id' => null, 'postable' => true, 'active' => true]);
+    // The account that owns an opening balance must exist before go-live; later accounts cannot claim it.
+    app(TreasuryApi::class)->saveOperationalAccount((int) $maker->id, ['code' => 'BANK-SECOND', 'name' => 'البنك الثاني', 'kind' => 'bank', 'gl_account_id' => $mappings['bank']]);
     $batch = $opening->save((int) $maker->id, $version, $uuid(), [
         ['kind' => 'gl', 'reference' => 'GL-AR', 'branch_id' => $branch->id, 'account_id' => $mappings['receivable'], 'debit' => '500.00', 'credit' => '0'],
         ['kind' => 'gl', 'reference' => 'GL-BANK', 'branch_id' => $branch->id, 'account_id' => $mappings['bank'], 'debit' => '300.00', 'credit' => '0'],
@@ -241,8 +243,8 @@ try {
     } catch (Throwable $error) {
         $factoryFailures['customer_invoice'] = $error::class.': '.mb_substr($error->getMessage(), 0, 350);
     }
-    $factoryBank = TreasuryAccount::factory()->create(['code' => 'DEMO-EG-PH1-BANK-'.strtoupper(Str::random(4))]);
-    $factoryCash = TreasuryAccount::factory()->create(['code' => 'DEMO-EG-PH1-CASH-'.strtoupper(Str::random(4))]);
+    $factoryBank = TreasuryAccount::factory()->create(['kind' => 'bank', 'gl_account_id' => $mappings['bank'], 'code' => 'DEMO-EG-PH1-BANK-'.strtoupper(Str::random(4))]);
+    $factoryCash = TreasuryAccount::factory()->create(['kind' => 'cash', 'gl_account_id' => $mappings['cash'], 'code' => 'DEMO-EG-PH1-CASH-'.strtoupper(Str::random(4))]);
     $need($factorySupplierInvoice !== null && $factorySupplierInvoice->exists && $factorySupplierInvoice->status === 'draft' && $factorySupplierInvoice->posted_at === null
         && $factoryCustomerInvoice !== null && $factoryCustomerInvoice->exists && $factoryCustomerInvoice->status === 'draft' && $factoryCustomerInvoice->posted_at === null
         && $factoryBank->exists && $factoryBank->kind === 'bank' && $factoryCash->exists && $factoryCash->kind === 'cash',

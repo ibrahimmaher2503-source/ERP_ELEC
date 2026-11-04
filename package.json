@@ -9,7 +9,8 @@
         "e2e:selfcheck": "node --test tests/E2E/support/automation-safety.test.cjs",
         "e2e:critical": "node tests/E2E/automation.cjs critical",
         "e2e:changed": "node tests/E2E/automation.cjs changed",
-        "e2e:full": "node tests/E2E/automation.cjs full",
+        "e2e:full": "node tests/E2E/run-each.cjs",
+        "e2e:full:single": "node tests/E2E/automation.cjs full",
         "e2e:each": "node tests/E2E/run-each.cjs",
         "e2e:report": "node tests/E2E/automation.cjs report"
     },
