@@ -1,6 +1,6 @@
 'use strict';
 
-const { test: baseTest, expect } = require('playwright/test');
+const { test: baseTest, expect } = require('../support/test.cjs');
 
 const test = baseTest.extend({
   sharedSmokeContext: [async ({ browser }, use) => {
@@ -23,7 +23,7 @@ const corePages = [
   ['M04 sales orders', '/sales-orders'], ['M04 quotations', '/quotations'],
   ['M05 purchasing', '/purchasing'], ['M06 inventory dashboard', '/inventory'], ['M07 projects', '/projects'],
   ['M11 accounting dashboard', '/accounting/dashboard'], ['M12 payable invoices', '/financial/supplier-invoices'],
-  ['M13 treasury accounts', '/treasury/accounts'], ['M08 field maintenance', '/maintenance'], ['M09 workshop repairs', '/workshops/dashboard'],
+  ['M13 treasury accounts', '/treasury/accounts'], ['M04 sales returns', '/sales-returns'], ['M05 purchase returns', '/purchasing/returns'], ['M01 document numbering', '/organization/document-numbering'], ['M08 field maintenance', '/maintenance'], ['M09 workshop repairs', '/workshops/dashboard'],
 ];
 
 test('guest is sent to the localized sign-in page', async ({ browser, baseURL }) => {

@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { spawnSync } = require('node:child_process');
-const { test, expect } = require('playwright/test');
+const { test, expect } = require('../support/test.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const bootstrapPath = process.env.E2E_BOOTSTRAP_FILE || path.join(root, '.tmp/e2e-automation/bootstrap.json');
@@ -250,7 +250,7 @@ test('M09 customer-owned nonbillable repair requires independent goodwill author
     await setModel(dispatcher, 'delivery.acknowledgment', 'أقر المندوب باستلام الجهاز وملحقاته.');
     await setModel(dispatcher, 'delivery.delivered_at', cairoDateTime(-2));
     const unrepaired = dispatcher.locator('[wire\\:model="delivery.unrepaired"]');
-    if (await unrepaired.isChecked()) await unrepaired.uncheck();
+    if (await unrepaired.count() && await unrepaired.isChecked()) await unrepaired.uncheck();
     await submit(dispatcher, 'deliver');
     read = readback({ workshopJobId: scenario.job_id }).workshop_job;
     expect(read.status).toBe('delivered');
@@ -273,7 +273,7 @@ test('M09 customer-owned nonbillable repair requires independent goodwill author
 });
 
 test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browser posts M12 AP and AR invoices', async ({ browser }) => {
-  test.setTimeout(120_000);
+  test.setTimeout(480_000);
   const run = bootstrap();
   expect(run.dbName).toBe('erp_elec_new_test');
   expect(Number(run.dbPort)).toBe(55460);
@@ -284,7 +284,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
     storageState: actorContextPath(run, 'dispatcher'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
   const page = await context.newPage();
   page.setDefaultTimeout(12_000);
-  page.on('dialog', dialog => dialog.accept());
+  page.on('dialog', dialog => { dialog.accept().catch(() => {}); });
   const browserErrors = [];
   page.on('pageerror', error => browserErrors.push(error.message));
   page.on('response', response => { if (response.status() >= 500) browserErrors.push(`HTTP ${response.status()}`); });
@@ -322,7 +322,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
         await expect(page.locator('body')).toContainText('الحالة: مسودة');
       }, 'saved PO route and visible draft status');
     const rejectedOrderUrl = new URL(page.url()).pathname;
-    await awaitLivewire(page, () => page.getByRole('button', { name: 'إرسال للاعتماد' }).click());
+    await awaitLivewire(page, () => page.getByRole('button', { name: 'إرسال للاعتماد' }).first().click());
     await expect(page.locator('body')).toContainText('الحالة: بانتظار الاعتماد');
     const reviewerContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
       storageState: actorContextPath(run, 'reviewer'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });

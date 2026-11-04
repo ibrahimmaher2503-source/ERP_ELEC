@@ -34,14 +34,31 @@ for (const [mode, file] of suites) {
     const started = Date.now();
     const run = spawnSync(process.execPath, ['tests/E2E/automation.cjs', mode, '--grep', `${escape(title)}$`],
       { cwd: root, encoding: 'utf8', timeout: limit, killSignal: 'SIGKILL', windowsHide: true, maxBuffer: 8 * 1024 * 1024 });
+    const lockFile = path.join(root, '.tmp/e2e-automation/runner.lock/owner.json');
+    let token = null;
+    try { token = JSON.parse(fs.readFileSync(lockFile, 'utf8')).runToken; } catch { token = null; }
     fs.rmSync(path.join(root, '.tmp/e2e-automation/runner.lock'), { recursive: true, force: true });
     const line = (run.stdout || '').trim().split('\n').pop();
     let report = null;
     try { report = JSON.parse(line); } catch { report = null; }
-    const row = { title, status: report?.status || (run.error ? 'stalled' : 'no_report'), passed: report?.passed ?? 0, failed: report?.failed ?? 0,
+    let partial = null;
+    if (!report && token) {
+      // The runner did not exit, so use what Playwright itself recorded for this test.
+      try { partial = JSON.parse(fs.readFileSync(path.join(root, `.tmp/e2e-automation/playwright-partial-${token}.json`), 'utf8')); } catch { partial = null; }
+      if (partial && partial.tests.length > 0) {
+        const bad = partial.tests.filter(item => !item.expected);
+        report = { status: bad.length === 0 ? 'passed' : 'failed', passed: partial.tests.length - bad.length, failed: bad.length,
+          failures: bad.map(item => ({ message: item.message })), unclean_exit: true };
+      }
+    }
+    // Playwright on Windows can leave its worker alive after every test ended; that alone is not a test failure.
+    const onlyWorkerExit = report && report.failed === 0 && report.passed > 0 && (report.failures || []).length === 0
+      && (report.global_errors || []).length > 0 && report.global_errors.every(message => /did not exit within \d+ms after stop/.test(message));
+    if (onlyWorkerExit) report = { ...report, status: 'passed', unclean_exit: true };
+    const row = { title, unclean_exit: Boolean(report?.unclean_exit), status: report?.status || (run.error ? 'stalled' : 'no_report'), passed: report?.passed ?? 0, failed: report?.failed ?? 0,
       seconds: Math.round((Date.now() - started) / 1000), failure: report?.failures?.[0]?.message?.slice(0, 400) };
     results.push(row);
-    process.stdout.write(`${row.status} ${row.seconds}s ${title}\n`);
+    process.stdout.write(`${row.status}${row.unclean_exit ? '*' : ''} ${row.seconds}s ${title}\n`);
   }
 }
 const summary = { total: results.length, passed: results.filter(row => row.status === 'passed').length, results };

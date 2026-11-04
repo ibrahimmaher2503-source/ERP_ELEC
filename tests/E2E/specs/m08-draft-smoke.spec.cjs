@@ -3,7 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { test, expect } = require('playwright/test');
+const { test, expect } = require('../support/test.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const fixturePath = path.join(root, 'tests/E2E/support/automation-critical-fixtures.php');
@@ -77,6 +77,8 @@ test('M08 request draft is created and edited in the browser with owner persiste
   page.setDefaultTimeout(12_000);
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
+  const updates = [];
+  page.on('response', async response => { if (/\/livewire(?:-[^/]+)?\/update/.test(response.url())) { try { updates.push((await response.text()).replace(/\s+/g, ' ').slice(-700)); } catch { updates.push('unreadable'); } } });
   try {
     const response = await gotoReady(page, '/maintenance/requests/create');
     expect(response?.status()).toBe(200);
@@ -106,10 +108,14 @@ test('M08 request draft is created and edited in the browser with owner persiste
     const saved = page.waitForResponse(r => /\/livewire(?:-[^/]+)?\/update/.test(r.url()) && r.status() === 200, { timeout: 15_000 });
     await form.locator('button[type="submit"]').click();
     await saved;
-    await page.waitForURL(/\/maintenance\/requests\/\d+(?:\?.*)?$/);
+    await page.waitForURL(/\/maintenance\/requests\/\d+(?:\?.*)?$/, { timeout: 8_000 }).catch(async error => {
+      const messages = await page.evaluate(() => document.body.innerText.split('\n').map(line => line.trim()).filter(line => /مطلوب|يجب|غير صالح|خطأ|تعذر|الحقل|يلزم|تحقق/.test(line)).slice(0, 8));
+      throw new Error(`Save did not leave the form. url=${page.url()} messages=${JSON.stringify(messages).slice(0, 600)} ${error.message.slice(0, 80)} pageErrors=${JSON.stringify(errors).slice(0, 300)} lastUpdate=${updates.at(-1)}`);
+    });
     const requestId = Number(new URL(page.url()).pathname.split('/').at(-1));
     expect(requestId).toBeGreaterThan(0);
-    await expect(page.locator('body')).toContainText(`E2E draft ${fixture.tag}`);
+    // The description lives in a textarea value, which is not page text.
+    await expect(page.locator('[wire\\:model="form.description"]')).toHaveValue(new RegExp(`E2E draft ${fixture.tag}`));
     let evidence = readback(requestId);
     expect(evidence.maintenance_request.status).toBe('draft');
     expect(evidence.maintenance_request.branch_id).toBe(smokeFixture.branch_id);
@@ -125,7 +131,7 @@ test('M08 request draft is created and edited in the browser with owner persiste
     await form.locator('button[type="submit"]').click();
     await revised;
     await page.reload();
-    await expect(page.locator('body')).toContainText(revisedDescription);
+    await expect(page.locator('[wire\\:model="form.description"]')).toHaveValue(revisedDescription);
     evidence = readback(requestId);
     expect(evidence.maintenance_request.version).toBe(2);
     expect(evidence.maintenance_request.description).toBe(revisedDescription);
@@ -135,6 +141,10 @@ test('M08 request draft is created and edited in the browser with owner persiste
     await page.reload();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(394);
     expect(errors).toEqual([]);
+  } catch (error) {
+    // A failing test can leave the browser unable to close on Windows, so keep the reason on disk.
+    fs.writeFileSync(path.join(root, '.tmp/e2e-automation/last-error.txt'), String(error.stack || error).slice(0, 2500));
+    throw error;
   } finally {
     await context.close();
   }

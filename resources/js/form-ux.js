@@ -249,7 +249,9 @@ document.addEventListener('click', event => {
     const input = findControl(root, entry.dataset.errorField, entry.closest('form'));
     if (input) { validation(root, entry.closest('form')); reveal(input); }
 });
-const dirty = () => [...forms].some(([form, current]) => form.isConnected && current.dirty);
+// A form that is being saved is not unsaved: the server redirect arrives before the dirty flag is cleared.
+const saving = () => [...forms].some(([form, current]) => form.isConnected && current.pending);
+const dirty = () => !saving() && [...forms].some(([form, current]) => form.isConnected && current.dirty);
 window.addEventListener('beforeunload', event => { if (dirty()) { event.preventDefault(); event.returnValue = ''; } });
 document.addEventListener('livewire:navigate', event => {
     if (event.defaultPrevented || !dirty()) return;

@@ -143,6 +143,7 @@ async function runAutomation() {
   const started = Date.now();
   const runToken = crypto.randomBytes(8).toString('hex');
   let server;
+  let workers = [];
   let browserStarted = 0;
   const phaseTimes = {};
   const selection = mode === 'changed' ? discoverChangedModules() : { modules: [], cold: false, global: false };
@@ -183,8 +184,13 @@ async function runAutomation() {
   bootstrap.fixtures = null;
   const serverLogPath = path.join(bootstrap.logs, `laravel-${bootstrap.runId}.log`);
   const serverLog = fs.openSync(serverLogPath, 'w');
-  server = spawn('php', ['-S', `127.0.0.1:${port}`, '-t', '.', path.join(root, 'vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php')], {
+  // Several PHP workers sit behind a proxy that closes idle sockets, so one idle browser connection cannot stall the run.
+  const workerPorts = [await freePort(), await freePort(), await freePort()];
+  workers = workerPorts.map(workerPort => spawn('php', ['-S', `127.0.0.1:${workerPort}`, '-t', '.', path.join(root, 'vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php')], {
     cwd: path.join(root, 'public'), env, stdio: ['ignore', serverLog, serverLog], windowsHide: true,
+  }));
+  server = spawn(process.execPath, [path.join(__dirname, 'support/balancing-proxy.cjs'), String(port), ...workerPorts], {
+    cwd: root, env, stdio: ['ignore', serverLog, serverLog], windowsHide: true,
   });
   try {
     const serverStarted = Date.now();
@@ -240,6 +246,7 @@ async function runAutomation() {
         ? (bootstrap.actor_states?.smoke || '')
         : (bootstrap.actor_states?.dispatcher || ''),
       E2E_MODE: mode,
+      ...(process.env.DEBUG ? { DEBUG: process.env.DEBUG, DEBUG_FILE: process.env.DEBUG_FILE } : {}),
       E2E_WORKERS: process.argv.slice(3).includes('--workers=1') ? '1' : mode === 'full' ? '2' : '1',
     };
     browserStarted = Date.now();
@@ -290,6 +297,7 @@ async function runAutomation() {
       gaps: [], error: String(error.message || error).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '<email>').slice(0, 500) });
     return 1;
   } finally {
+    for (const worker of workers) if (worker.exitCode === null) worker.kill();
     if (server && server.exitCode === null) {
       server.kill();
       await new Promise(resolve => { const timer = setTimeout(resolve, 1500); server.once('exit', () => { clearTimeout(timer); resolve(); }); });
