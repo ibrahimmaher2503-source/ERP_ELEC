@@ -389,6 +389,42 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
     expect(evidence.inventory.receipt_fifo_layer.remaining_value).toBe('0.0000000000000000');
     expect(evidence.inventory.sale_fifo_allocation).toEqual({ quantity: '4.00000000', amount: '40.00' });
 
+    // Customer return from the browser: the preparer drafts it, an independent reviewer approves and posts it.
+    await gotoReady(page, '/sales-returns');
+    await awaitLivewire(page, () => page.getByRole('button', { name: 'مرتجع جديد' }).first().click());
+    await setModel(page, 'deliveryId', String(f.delivery_id));
+    await expect(page.locator('input[wire\\:model="lines.0.quantity"]')).toBeVisible();
+    await page.locator('input[wire\\:model="lines.0.quantity"]').fill('1');
+    await setModel(page, 'reasonCode', 'defective');
+    await setModel(page, 'reason', 'مرتجع تجريبي: عيب في وحدة واحدة من التسليم.');
+    await awaitLivewire(page, () => page.getByRole('button', { name: 'حفظ كمسودة' }).click());
+    await expect(page.locator('body')).toContainText('مسودة');
+    let returned = readback({ financial: true }).financial.trade_return;
+    expect(returned.status).toBe('draft');
+    expect(returned.movements).toBe(0);
+    const approverContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
+      storageState: actorContextPath(run, 'reviewer'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const approverPage = await approverContext.newPage();
+    approverPage.setDefaultTimeout(12_000);
+    approverPage.on('dialog', dialog => { dialog.accept().catch(() => {}); });
+    try {
+      await gotoReady(approverPage, '/sales-returns');
+      await awaitLivewire(approverPage, () => approverPage.getByRole('button', { name: 'اعتماد وترحيل' }).first().click());
+    } finally {
+      await approverContext.close();
+    }
+    returned = readback({ financial: true }).financial.trade_return;
+    expect(returned.status).toBe('posted');
+    expect(returned.created_by).not.toBe(returned.approved_by);
+    expect(returned.movements).toBe(1);
+    expect(returned.cost).toBe('10.00');
+    expect(returned.credit_status).toBe('posted');
+    expect(returned.credit_net).toBe('12.00');
+    expect(returned.credit_tax).toBe('1.68');
+    expect(returned.credit_amount).toBe('13.68');
+    expect(returned.remaining).toBe('41.04');
+    expect(returned.official_number).toMatch(/^SR-/);
+
     await gotoReady(page, `/financial/customer-invoices/${f.customer_invoice_id}`);
     await expect(page.getByRole('link', { name: 'PDF الرسمي' })).toBeVisible();
     const exportStart = { at: new Date().toISOString(), monotonic_ms: performance.now() };

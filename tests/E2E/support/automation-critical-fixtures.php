@@ -193,6 +193,17 @@ if ($mode === 'readback') {
                 'journal' => $journalTotals($customerInvoiceJournal), 'document_sha256' => $customerDocument?->sha256],
             'ar' => $ar ? ['original' => $ar->original_amount, 'remaining' => $ar->remaining_amount] : null,
             'purchase_receipt_journal' => $journalTotals($purchaseJournal),
+            'trade_return' => (function () use ($customerInvoiceId) {
+                $return = DB::table('sales_returns')->orderByDesc('id')->first();
+                $note = DB::table('rp_credit_notes')->where('kind', 'customer')->where('original_invoice_id', $customerInvoiceId)->orderByDesc('id')->first();
+                $open = DB::table('rp_open_items')->where('source_type', 'customer_invoice')->where('source_id', $customerInvoiceId)->first();
+                $stock = $return ? DB::table('sales_return_postings as p')->join('sales_return_lines as l', 'l.id', '=', 'p.line_id')->where('l.return_id', $return->id)
+                    ->selectRaw('count(*) as movements, coalesce(sum(p.amount),0)::text as cost')->first() : null;
+                return $return ? ['status' => $return->status, 'created_by' => (int) $return->created_by, 'approved_by' => (int) $return->approved_by,
+                    'movements' => (int) $stock->movements, 'cost' => $stock->cost, 'credit_status' => $note?->status, 'credit_amount' => $note?->amount,
+                    'credit_net' => $note?->net_amount, 'credit_tax' => $note?->tax_amount, 'credited' => $open?->credited_amount, 'remaining' => $open?->remaining_amount,
+                    'official_number' => $return->official_number] : null;
+            })(),
             'inventory' => ['on_hand' => DB::table('inventory_balances')->where('warehouse_id', $warehouseId)->where('product_id', $productId)->value('on_hand'),
                 'receipt_fifo_layer' => $fifoLayer ? ['original_quantity' => $fifoLayer->original_quantity,
                     'remaining_quantity' => $fifoLayer->remaining_quantity, 'original_value' => $fifoLayer->original_value,
@@ -253,6 +264,8 @@ $grant(User::findOrFail($actors['dispatcher']['id']), ['M01.branch_view','M08.vi
 $grant(User::findOrFail($actors['dispatcher']['id']), ['M03.customer_view','M03.supplier_view','M02.product_view','M02.price_view','M02.price_manage','M06.warehouse_create','M11.setup_manage','M11.tax_manage','M11.tax_calculate','M11.account_manage','M11.period_open','M11.opening_manage','M13.account_manage','M04.quotation_policy_manage'], null);
 $grant(User::findOrFail($actors['technician']['id']), ['M08.view','M08.visit_record','M08.labor_record','M08.workorder_manage', 'M09.view','M09.execute','M09.labor_record'], (int) $branch->id);
 $grant(User::findOrFail($actors['reviewer']['id']), ['M01.branch_view','M08.view','M08.verify','M08.close','M08.document_view','M08.reports_view','M09.view','M09.nonbillable_approve','M09.verify','M09.document_view', 'M05.order_view','M05.order_approve','M05.order_issue','M05.receipt_post','M06.receipt_post','M06.reservation_manage','M06.issue_post','M06.balance_view','M06.movement_view','M04.sales_order_view','M04.sales_order_approve','M04.sales_order_delivery_confirm','M11.source_post','M11.receipt_post','M11.journal_post','M11.journal_view','M12.supplier_invoice_post','M12.customer_invoice_post','M12.ar_view'], (int) $branch->id);
+$grant(User::findOrFail($actors['dispatcher']['id']), ['M04.sales_order_return_view','M04.sales_order_return_create'], (int) $branch->id);
+$grant(User::findOrFail($actors['reviewer']['id']), ['M04.sales_order_return_view','M04.sales_order_return_approve','M06.correction_execute','M06.isolation_manage','M12.credit_note_approve'], (int) $branch->id);
 $grant(User::findOrFail($actors['reviewer']['id']), ['M11.tax_calculate','M11.account_manage','M11.period_open','M11.setup_manage','M11.opening_manage','M11.opening_approve','M11.financial_activate','M02.product_view','M02.price_view','M02.price_approve','M03.customer_view','M03.supplier_view','M13.account_manage'], null);
 $grantErrors = [];
 foreach ($pendingGrants as $candidate) {
