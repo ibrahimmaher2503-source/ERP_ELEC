@@ -1,0 +1,37 @@
+﻿{
+    "source_database":  {
+                            "database":  "erp_elec_new_test",
+                            "address":  "127.0.0.1",
+                            "port":  55481
+                        },
+    "restore_database":  {
+                             "database":  "erp_elec_new_test",
+                             "address":  "127.0.0.1",
+                             "port":  55486
+                         },
+    "source_pgdata":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\m09-audit-20261031-145402\\pgdata",
+    "restore_pgdata":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\tender-backup-restore-20261031-161002\\pgdata",
+    "restore_port":  55486,
+    "source_dump":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\tender-backup-restore-20261031-161002\\erp_elec_new_test.dump",
+    "source_table_count":  209,
+    "restore_table_count":  209,
+    "all_table_counts_equal":  true,
+    "schema_dump_text_identical":  false,
+    "schema_catalog_inventory_equal":  false,
+    "source_schema_sha256":  "722A0B3E3CD566B1652B2D938C38FE2FF53F07387648A63FD54E47CEA0184281",
+    "restore_schema_sha256":  "406ED9F172396A2671E77205109DAE321A9D4487268F629C5655E86323096E6D",
+    "source_private_file_count":  3,
+    "restored_private_file_count":  3,
+    "private_files_and_metadata_hashes_equal":  true,
+    "source_tender_evidence_count":  3,
+    "restored_tender_evidence_count":  3,
+    "source_official_pdf_count":  213,
+    "restored_official_pdf_count":  213,
+    "source_official_pdfs_integrity_valid":  true,
+    "restored_official_pdfs_integrity_valid":  true,
+    "official_pdf_ids_numbers_hashes_equal":  true,
+    "source_private_missing_count":  0,
+    "restored_private_missing_count":  0,
+    "receipt_time_local":  "2026-10-31 16:10:26 +02:00",
+    "restoration_scope":  "disposable local PostgreSQL clone only; not a production recovery-time or recovery-point claim"
+}

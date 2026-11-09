@@ -1,0 +1,6 @@
+{
+  "check": "full-phpunit",
+  "exit_code": 2,
+  "database": "erp_elec_new_test",
+  "port": "49683"
+}

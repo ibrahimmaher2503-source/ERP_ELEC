@@ -1,0 +1,160 @@
+[Wed Oct 28 00:03:33 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8016) started
+[Wed Oct 28 00:03:33 2026] 127.0.0.1:50847 Accepted
+[Wed Oct 28 00:03:34 2026] 127.0.0.1:50847 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61236 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61236 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:52379 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:52379 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:58513 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61627 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61364 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:58513 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61627 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:61364 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:52379 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:58513 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:57649 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:57649 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:57649 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:51003 Accepted
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:51003 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:51003 Closing
+[Wed Oct 28 00:03:35 2026] 127.0.0.1:58539 Accepted
+[Wed Oct 28 00:03:36 2026] 127.0.0.1:58539 Closing
+[Wed Oct 28 00:03:36 2026] 127.0.0.1:52636 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:52636 Closing
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:51687 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:51687 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:49674 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:49674 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53977 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:49674 Closing
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:51687 Closing
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53977 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53977 Closing
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:55604 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:55604 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:55604 Closing
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53846 Accepted
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53846 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:03:38 2026] 127.0.0.1:53846 Closing
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:64469 Accepted
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:64469 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:64469 Closing
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:55019 Accepted
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:55019 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:55019 Closing
+[Wed Oct 28 00:03:39 2026] 127.0.0.1:61650 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:61650 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:63438 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:63438 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:58675 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:52836 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:63438 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:58675 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:52836 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:58675 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:52836 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:53762 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:53762 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:53762 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:64457 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:64457 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:64457 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:57588 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:57588 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:57588 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:61384 Accepted
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:61384 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:61384 Closing
+[Wed Oct 28 00:03:40 2026] 127.0.0.1:56095 Accepted
+[Wed Oct 28 00:03:41 2026] 127.0.0.1:56095 Closing
+[Wed Oct 28 00:03:41 2026] 127.0.0.1:51073 Accepted
+[Wed Oct 28 00:03:41 2026] 127.0.0.1:57194 Accepted
+[Wed Oct 28 00:03:41 2026] 127.0.0.1:51073 Closing
+[Wed Oct 28 00:03:41 2026] 127.0.0.1:49983 Accepted
+[Wed Oct 28 00:03:42 2026] 127.0.0.1:57194 Closing
+[Wed Oct 28 00:03:42 2026] 127.0.0.1:55727 Accepted
+[Wed Oct 28 00:03:42 2026] 127.0.0.1:49983 Closing
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:55727 Closing
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:49674 Accepted
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:49674 Closing
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:51369 Accepted
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:51369 Closing
+[Wed Oct 28 00:03:43 2026] 127.0.0.1:53675 Accepted
+[Wed Oct 28 00:03:44 2026] 127.0.0.1:53675 Closing
+[Wed Oct 28 00:03:44 2026] 127.0.0.1:49221 Accepted
+[Wed Oct 28 00:03:44 2026] 127.0.0.1:49221 Closing
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:52266 Accepted
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:52266 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:52266 Closing
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:60502 Accepted
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:60502 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:60502 Closing
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:65372 Accepted
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:65372 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:65372 Closing
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:55489 Accepted
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:55489 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:45 2026] 127.0.0.1:55489 Closing
+[Wed Oct 28 00:03:46 2026] 127.0.0.1:49674 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:49674 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:60446 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:60446 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:59570 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:61237 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:59570 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:59570 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:61237 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:60446 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:61237 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:63110 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:63110 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:63110 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:56915 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:56915 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:56915 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:55261 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:55261 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:55261 Closing
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:62135 Accepted
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:62135 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:47 2026] 127.0.0.1:62135 Closing
+[Wed Oct 28 00:03:48 2026] 127.0.0.1:51841 Accepted
+[Wed Oct 28 00:03:48 2026] 127.0.0.1:51841 Closing
+[Wed Oct 28 00:03:48 2026] 127.0.0.1:61628 Accepted
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:61628 Closing
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:51071 Accepted
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:51071 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:51071 Closing
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:58853 Accepted
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:58853 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:58853 Closing
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:49190 Accepted
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:49190 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:49190 Closing
+[Wed Oct 28 00:03:49 2026] 127.0.0.1:58596 Accepted
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:58596 Closing
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:64684 Accepted
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:64684 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:60520 Accepted
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:58940 Accepted
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:64684 Closing
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:60520 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:60520 Closing
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:58940 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:03:50 2026] 127.0.0.1:58940 Closing
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61237 Accepted
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61237 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:63663 Accepted
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61237 Closing
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:63663 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:63663 Closing
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61692 Accepted
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61692 [200]: GET /favicon.svg
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:61692 Closing
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:57265 Accepted
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:57265 [200]: GET /favicon.ico
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:57265 Closing
+[Wed Oct 28 00:03:51 2026] 127.0.0.1:56366 Accepted
+[Wed Oct 28 00:03:53 2026] 127.0.0.1:56366 Closing

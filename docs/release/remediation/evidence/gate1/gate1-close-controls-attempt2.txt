@@ -1,0 +1,7 @@
+PASS No report authority cannot close a company period and leaves no closure evidence
+PASS Partial branch report scope cannot certify a company-wide period close
+PASS A reconciliation mismatch in the second required branch denies close without closure evidence (owner-contract test double)
+PASS Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence
+PASS A second close cannot create another closure evidence row
+PASS Duplicate close leaves exactly one immutable closure evidence row
+FAIL Symfony\Component\HttpKernel\Exception\HttpException: صلاحية المحاسبة أو نطاق الفرع غير متاح.

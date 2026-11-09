@@ -1,0 +1,254 @@
+{
+  "result": "FAIL",
+  "run_id": "822A25CF17",
+  "failure": "Unexpected token 'I', \"\r\nIn prepare\"... is not valid JSON",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "resumed_existing_authenticated_browser_project": "passed",
+      "project_id": 7,
+      "create_edit": true,
+      "phase_task_milestone": true,
+      "independent_budget_approval": true
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 7,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "issue_id": 4,
+      "fifo_allocations": 1,
+      "product_id": 1
+    },
+    {
+      "browser_project_financial_summary": "passed",
+      "project_id": 7,
+      "recognized_cost": "20.00",
+      "recognized_revenue": "12.00",
+      "grni_cleared": "10.00",
+      "fifo_gl_difference": "0.00"
+    },
+    {
+      "scoped_financial_exports": {
+        "xlsx": {
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 6478
+        },
+        "pdf": {
+          "status": 200,
+          "content_type": "application/pdf",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 86056
+        }
+      },
+      "denied_actor_statuses": {
+        "xlsx": 403,
+        "pdf": 403
+      }
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/operations",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 390,
+      "expected_text": "Synthetic project financial integration",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/7/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4A4724BB84",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/7/budget",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "private_project_document": "saved, independently approved, PDF signature verified",
+      "denied_download_status": 403,
+      "bytes": 69,
+      "sha256": "cfa3181c1ee36e8bce5e39f84959f4558ea7ba32c0e4539a8ab3c8ce8c716ec6"
+    },
+    {
+      "handover_completion_closure": "passed",
+      "project_id": 7,
+      "status": "closed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/upload-file",
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

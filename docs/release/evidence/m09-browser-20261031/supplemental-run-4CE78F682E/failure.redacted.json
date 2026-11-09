@@ -1,0 +1,107 @@
+{
+  "message": "Cannot read properties of undefined (reading 'snapshot')",
+  "stack": [
+    "TypeError: Cannot read properties of undefined (reading 'snapshot')",
+    "    at main (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\supplemental-acceptance.cjs:189:64)"
+  ],
+  "last_request": "{\"components\":[{\"calls\":[\"loadTechnical\"],\"updates\":{}}]}",
+  "last_response": "{\"components\":[{\"errors\":[],\"htmlTail\":\"-target\\\" wire:loading.attr=\\\"disabled\\\">\\n        <div class=\\\"absolute inset-0 flex items-center justify-center opacity-0\\\" data-flux-loading-indicator>\\n                <svg class=\\\"shrink-0 [:where(&amp;)]:size-4 animate-spin\\\" data-flux-icon xmlns=\\\"http://www.w3.org/2000/svg\\\" fill=\\\"none\\\" viewBox=\\\"0 0 24 24\\\" aria-hidden=\\\"true\\\" data-slot=\\\"icon\\\">\\n    <circle class=\\\"opacity-25\\\" cx=\\\"12\\\" cy=\\\"12\\\" r=\\\"10\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"4\\\"></circle>\\n    <path class=\\\"opacity-75\\\" fill=\\\"currentColor\\\" d=\\\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\\\"></path>\\n</svg>\\n                    </div>\\n        \\n        \\n                    \\n            \\n            <span>حفظ نسخة فنية جديدة</span>\\n    </button>\\n</div><p class=\\\"text-xs text-slate-500\\\">الوصف الخارجي لا ينشئ صنفاً. النسخة المحفوظة ثابتة؛ التعديل ينشئ نسخة جديدة ويلغي الاعتماد المالي الحالي.</p></form>\\r\\n</section>\\r\\n<!--[if ENDBLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>\\n\"}]}",
+  "readback": {
+    "database": "erp_elec_new_test",
+    "port": 55475,
+    "tender": {
+      "id": 1,
+      "number": "TN-2027-000001",
+      "status": "preparing_technical",
+      "version": 7,
+      "technical_id": null,
+      "financial_id": null
+    },
+    "handoff_count": 0,
+    "events": [
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 3,
+          "classification": "award"
+        }
+      },
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 2,
+          "classification": "submission"
+        }
+      },
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 1,
+          "classification": "technical"
+        }
+      },
+      {
+        "action": "tender.preparing_technical",
+        "actor_id": 754,
+        "snapshot": {
+          "from": "under_review",
+          "reason": "Proceed with the documented technical offer preparation."
+        }
+      },
+      {
+        "action": "tender.under_review",
+        "actor_id": 754,
+        "snapshot": {
+          "from": "identified",
+          "reason": "Synthetic opening review recorded for acceptance."
+        }
+      },
+      {
+        "action": "tender.updated",
+        "actor_id": 754,
+        "snapshot": {
+          "title": "DEMO-EG-M07-1E5019CAD2 Distribution Panel Upgrade - Revised"
+        }
+      },
+      {
+        "action": "tender.created",
+        "actor_id": 754,
+        "snapshot": {
+          "number": "TN-2027-000001"
+        }
+      }
+    ],
+    "documents": [
+      {
+        "id": 1,
+        "title": "DEMO-EG Technical specification",
+        "classification": "technical",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 2,
+        "title": "DEMO-EG Physical submission receipt",
+        "classification": "submission",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 3,
+        "title": "DEMO-EG Award decision evidence",
+        "classification": "award",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      }
+    ],
+    "guarantees": [],
+    "ledger_counts": {
+      "inventory_movements": 84,
+      "accounting_journals": 137,
+      "treasury_movements": 9
+    }
+  }
+}

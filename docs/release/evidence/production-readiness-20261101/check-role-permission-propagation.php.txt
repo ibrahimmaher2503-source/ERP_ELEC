@@ -1,0 +1,131 @@
+PASS all 14 fixed roles are present
+PASS Administrator matrix contains every registered capability
+PASS Administrator membership grants the registered company-scoped M02 permission
+PASS Administrator membership does not create branch scope
+PASS FinanceManager: non-administrator role assignment alone grants no M02 permission
+PASS FinanceManager: assigned user's M02 permission becomes effective
+PASS FinanceManager: OrganizationApi authorizes the current M02 request
+PASS FinanceManager: catalog route renders with its sidebar link
+PASS FinanceManager: permission revocation takes effect on the same user instance
+PASS FinanceManager: catalog authorization denies after permission revocation
+PASS FinanceManager: permission can be granted to the current role member
+PASS FinanceManager: role permission without user membership is denied
+PASS FinanceManager: catalog authorization denies after membership revocation
+PASS Accountant: non-administrator role assignment alone grants no M02 permission
+PASS Accountant: assigned user's M02 permission becomes effective
+PASS Accountant: OrganizationApi authorizes the current M02 request
+PASS Accountant: catalog route renders with its sidebar link
+PASS Accountant: permission revocation takes effect on the same user instance
+PASS Accountant: catalog authorization denies after permission revocation
+PASS Accountant: permission can be granted to the current role member
+PASS Accountant: role permission without user membership is denied
+PASS Accountant: catalog authorization denies after membership revocation
+PASS Cashier: non-administrator role assignment alone grants no M02 permission
+PASS Cashier: assigned user's M02 permission becomes effective
+PASS Cashier: OrganizationApi authorizes the current M02 request
+PASS Cashier: catalog route renders with its sidebar link
+PASS Cashier: permission revocation takes effect on the same user instance
+PASS Cashier: catalog authorization denies after permission revocation
+PASS Cashier: permission can be granted to the current role member
+PASS Cashier: role permission without user membership is denied
+PASS Cashier: catalog authorization denies after membership revocation
+PASS SalesClerk: non-administrator role assignment alone grants no M02 permission
+PASS SalesClerk: assigned user's M02 permission becomes effective
+PASS SalesClerk: OrganizationApi authorizes the current M02 request
+PASS SalesClerk: catalog route renders with its sidebar link
+PASS SalesClerk: permission revocation takes effect on the same user instance
+PASS SalesClerk: catalog authorization denies after permission revocation
+PASS SalesClerk: permission can be granted to the current role member
+PASS SalesClerk: role permission without user membership is denied
+PASS SalesClerk: catalog authorization denies after membership revocation
+PASS Buyer: non-administrator role assignment alone grants no M02 permission
+PASS Buyer: assigned user's M02 permission becomes effective
+PASS Buyer: OrganizationApi authorizes the current M02 request
+PASS Buyer: catalog route renders with its sidebar link
+PASS Buyer: permission revocation takes effect on the same user instance
+PASS Buyer: catalog authorization denies after permission revocation
+PASS Buyer: permission can be granted to the current role member
+PASS Buyer: role permission without user membership is denied
+PASS Buyer: catalog authorization denies after membership revocation
+PASS Storekeeper: non-administrator role assignment alone grants no M02 permission
+PASS Storekeeper: assigned user's M02 permission becomes effective
+PASS Storekeeper: OrganizationApi authorizes the current M02 request
+PASS Storekeeper: catalog route renders with its sidebar link
+PASS Storekeeper: permission revocation takes effect on the same user instance
+PASS Storekeeper: catalog authorization denies after permission revocation
+PASS Storekeeper: permission can be granted to the current role member
+PASS Storekeeper: role permission without user membership is denied
+PASS Storekeeper: catalog authorization denies after membership revocation
+PASS WarehouseManager: non-administrator role assignment alone grants no M02 permission
+PASS WarehouseManager: assigned user's M02 permission becomes effective
+PASS WarehouseManager: OrganizationApi authorizes the current M02 request
+PASS WarehouseManager: catalog route renders with its sidebar link
+PASS WarehouseManager: permission revocation takes effect on the same user instance
+PASS WarehouseManager: catalog authorization denies after permission revocation
+PASS WarehouseManager: permission can be granted to the current role member
+PASS WarehouseManager: role permission without user membership is denied
+PASS WarehouseManager: catalog authorization denies after membership revocation
+PASS ServiceManager: non-administrator role assignment alone grants no M02 permission
+PASS ServiceManager: assigned user's M02 permission becomes effective
+PASS ServiceManager: OrganizationApi authorizes the current M02 request
+PASS ServiceManager: catalog route renders with its sidebar link
+PASS ServiceManager: permission revocation takes effect on the same user instance
+PASS ServiceManager: catalog authorization denies after permission revocation
+PASS ServiceManager: permission can be granted to the current role member
+PASS ServiceManager: role permission without user membership is denied
+PASS ServiceManager: catalog authorization denies after membership revocation
+PASS Technician: non-administrator role assignment alone grants no M02 permission
+PASS Technician: assigned user's M02 permission becomes effective
+PASS Technician: OrganizationApi authorizes the current M02 request
+PASS Technician: catalog route renders with its sidebar link
+PASS Technician: permission revocation takes effect on the same user instance
+PASS Technician: catalog authorization denies after permission revocation
+PASS Technician: permission can be granted to the current role member
+PASS Technician: role permission without user membership is denied
+PASS Technician: catalog authorization denies after membership revocation
+PASS WorkshopOperator: non-administrator role assignment alone grants no M02 permission
+PASS WorkshopOperator: assigned user's M02 permission becomes effective
+PASS WorkshopOperator: OrganizationApi authorizes the current M02 request
+PASS WorkshopOperator: catalog route renders with its sidebar link
+PASS WorkshopOperator: permission revocation takes effect on the same user instance
+PASS WorkshopOperator: catalog authorization denies after permission revocation
+PASS WorkshopOperator: permission can be granted to the current role member
+PASS WorkshopOperator: role permission without user membership is denied
+PASS WorkshopOperator: catalog authorization denies after membership revocation
+PASS HR: non-administrator role assignment alone grants no M02 permission
+PASS HR: assigned user's M02 permission becomes effective
+PASS HR: OrganizationApi authorizes the current M02 request
+PASS HR: catalog route renders with its sidebar link
+PASS HR: permission revocation takes effect on the same user instance
+PASS HR: catalog authorization denies after permission revocation
+PASS HR: permission can be granted to the current role member
+PASS HR: role permission without user membership is denied
+PASS HR: catalog authorization denies after membership revocation
+PASS PayrollOfficer: non-administrator role assignment alone grants no M02 permission
+PASS PayrollOfficer: assigned user's M02 permission becomes effective
+PASS PayrollOfficer: OrganizationApi authorizes the current M02 request
+PASS PayrollOfficer: catalog route renders with its sidebar link
+PASS PayrollOfficer: permission revocation takes effect on the same user instance
+PASS PayrollOfficer: catalog authorization denies after permission revocation
+PASS PayrollOfficer: permission can be granted to the current role member
+PASS PayrollOfficer: role permission without user membership is denied
+PASS PayrollOfficer: catalog authorization denies after membership revocation
+PASS ManagerReadOnly: non-administrator role assignment alone grants no M02 permission
+PASS ManagerReadOnly: assigned user's M02 permission becomes effective
+PASS ManagerReadOnly still rejects write permissions
+PASS ManagerReadOnly: OrganizationApi authorizes the current M02 request
+PASS ManagerReadOnly: catalog route renders with its sidebar link
+PASS ManagerReadOnly: permission revocation takes effect on the same user instance
+PASS ManagerReadOnly: catalog authorization denies after permission revocation
+PASS ManagerReadOnly: permission can be granted to the current role member
+PASS ManagerReadOnly: role permission without user membership is denied
+PASS ManagerReadOnly: catalog authorization denies after membership revocation
+PASS Administrator role grants registered company-level product access
+PASS Administrator role does not imply branch authority
+PASS company M02 authority rejects branch-scoped requests
+PASS security administrator still cannot assign a role to themself
+PASS Administrator Sales Order permission is denied before a branch scope is assigned
+PASS Administrator branch permissions work only for the explicitly scoped branch
+PASS branch role permission remains limited to its explicitly granted branch scope
+PASS user access section renders its no-role empty state
+Role permission propagation transaction rolled back.

@@ -1,0 +1,17 @@
+{
+  "source": "tests/Support/check-phase1-financial-journeys.php",
+  "source_sha256": "85112780873BF3EEEC49FA10C1FF543B833E03379A2AD5B9CBA4749800285F93",
+  "adapted_copy": ".tmp/production-readiness-20261101/financial-release-audit.php",
+  "adapted_sha256": "6EB43AC03E50616610BDC7306A4D53007AB5DCDDAD3B29B9F2201D06DC03DDDE",
+  "diff": "financial-release-audit.diff",
+  "changes": [
+    "exact private marker/port/database/data-directory guard",
+    "private isolated storage/evidence output",
+    "no race fixture commit",
+    "three FIN-P0 findings via public Actions with independent actors and savepoints",
+    "explicit journal permission/scope grants only for synthetic actors",
+    "source advance before/after counts; complete row-count rollback verification"
+  ],
+  "original_file_modified": false,
+  "initial_fixture_block": "FIN-P0-03 lacked manual journal permission grants; preserved in initial-incomplete evidence"
+}

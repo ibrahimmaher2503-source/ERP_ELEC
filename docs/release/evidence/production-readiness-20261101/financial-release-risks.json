@@ -1,0 +1,83 @@
+{
+    "captured_utc": "2026-11-01T00:59:11+00:00",
+    "database": "erp_elec_new_test@127.0.0.1:49683",
+    "source": "app/Modules/Accounting/Application/FinancialReports.php + JournalPosting.php",
+    "source_hashes": {
+        "financial_reports": "3da9006cfd8ddfd58304cb0084d8ec4bbe66300b2e02bee63ab84889afdad57b",
+        "journal_posting": "e36268d8dae48ca2a25ca8bf039ff29d3bc14ff2529f533b6f234bc0c7eb4a62"
+    },
+    "findings": [
+        {
+            "id": "FIN-P0-01",
+            "expectation": "Period close must fail when the actor cannot reconcile any report branch.",
+            "test_result": "FAIL",
+            "report_authority": false,
+            "close_outcome": "closed"
+        },
+        {
+            "id": "FIN-P0-02",
+            "expectation": "Historical GL and FIFO source values must use the same cutoff.",
+            "test_result": "FAIL",
+            "cutoff": "2000-12-31",
+            "pre_cutoff_journals": 0,
+            "inventory_reconciliation": {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "10.00",
+                "difference": "-10.00",
+                "ok": false
+            },
+            "reproduced": true
+        },
+        {
+            "id": "FIN-P0-03",
+            "expectation": "Manual posting must not change the customer-advance control account without a source advance record.",
+            "test_result": "FAIL",
+            "journal_status": "posted",
+            "source_advance_records_before": 1,
+            "source_advance_records_after": 1,
+            "source_advance_records_delta": 0,
+            "customer_advance_reconciliation": {
+                "key": "customer_advance",
+                "label": "دفعات العملاء المقدمة مقابل سجل الذمم",
+                "gl": "126.00",
+                "source": "1.00",
+                "difference": "125.00",
+                "ok": false
+            },
+            "posted_via_public_actions": true,
+            "independent_approval": true
+        }
+    ],
+    "rollback_verified": true,
+    "row_counts_before": {
+        "companies": 0,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "accounting_periods": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_fifo_layers": 0,
+        "rp_supplier_invoices": 0,
+        "system_official_documents": 0,
+        "audit_entries": 0
+    },
+    "row_counts_after": {
+        "companies": 0,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "accounting_periods": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_fifo_layers": 0,
+        "rp_supplier_invoices": 0,
+        "system_official_documents": 0,
+        "audit_entries": 0
+    },
+    "result": "FAIL"
+}

@@ -1,0 +1,481 @@
+{
+  "result": "FAIL",
+  "run_id": "4E4075CA76",
+  "failure": "Browser/Livewire errors: {\"browserErrors\":[{\"kind\":\"pageerror\",\"url\":\"http://127.0.0.1:9383/projects/5\",\"last_livewire_action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"changeLifecycle\"]},\"message\":\"TypeError: Cannot read properties of null (reading 'before')\\n    at In.appendChild (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:13416)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11453)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:12419)\\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:12419)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)\"}],\"livewireTraffic\":[{\"request\":\"/livewire-c6214651/livewire.min.js\",\"method\":\"GET\"},{\"request\":\"/livewire-c6214651/livewire.min.js\",\"method\":\"GET\"},{\"request\":\"/livewire-c6214651/livewire.min.js\",\"method\":\"GET\"},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"$commit\"]}},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"$commit\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/create\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"$commit\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/create\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"$commit\"]}},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"save\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/create\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"save\"]}},{\"request\":\"/livewire-c6214651/livewire.min.js\",\"method\":\"GET\"},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"saveMetadata\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/5\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"saveMetadata\"]}},{\"request\":\"/livewire-c6214651/livewire.min.js\",\"method\":\"GET\"},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"addPhase\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/5/tasks\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"addPhase\"]}},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"addTask\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/5/tasks\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"addTask\"]}},{\"request\":\"/livewire-c6214651/update\",\"method\":\"POST\",\"action\":{\"url\":\"/livewire-c6214651/update\",\"methods\":[\"addMilestone\"]}},{\"status\":200,\"method\":\"POST\",\"url\":\"http://127.0.0.1:9383/projects/5/tasks\",\"action\":{\"url\":\"/livewire-c6214651/updat",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 5,
+      "code": "PB2-4E4075CA76",
+      "saved_name": "اختبار مشروع المتصفح 4E4075CA76 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 5
+    },
+    {
+      "independent_budget_approval": "passed",
+      "project_id": 5,
+      "reviewer_id": 2,
+      "baseline_visible": true,
+      "database_probe_exit": 0
+    },
+    {
+      "independent_budget_gated_planned_and_active_lifecycle": "passed",
+      "project_id": 5
+    },
+    {
+      "page": "/projects/5/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4E4075CA76",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "mobile_create_reopen_edit_and_project_close": "persisted",
+      "project_id": 5,
+      "task_status": "completed",
+      "milestone_status": "completed",
+      "handovers": 1,
+      "status": "closed",
+      "close_http_status": 200
+    }
+  ],
+  "browser_errors": [
+    {
+      "kind": "pageerror",
+      "url": "http://127.0.0.1:9383/projects/5",
+      "last_livewire_action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      },
+      "message": "TypeError: Cannot read properties of null (reading 'before')\n    at In.appendChild (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:13416)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11453)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:12419)\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:12419)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\n    at Pd.n.patchChildren (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:11900)\n    at Pd.n.patch (http://127.0.0.1:9383/livewire-c6214651/livewire.min.js?id=8ea5922c:113:10242)"
+    }
+  ],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "$commit"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "$commit"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "$commit"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "$commit"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "save"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "save"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "saveMetadata"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "saveMetadata"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addPhase"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addPhase"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addTask"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addTask"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addMilestone"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "addMilestone"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "propose"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "propose"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "decide"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "decide"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "taskStatus"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "taskStatus"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "taskStatus"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "taskStatus"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "completeMilestone"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "completeMilestone"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "handover"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "handover"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "changeLifecycle"
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "close"
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9383/projects/5/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          "close"
+        ]
+      }
+    }
+  ]
+}

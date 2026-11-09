@@ -1,0 +1,55 @@
+{
+  "result": "FAIL",
+  "run_id": "40C37ACE4B",
+  "failure": "locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[wire\\\\:model=\"form.currency\"]').first()\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 5,
+      "code": "PB2-40C37ACE4B",
+      "saved_name": "اختبار مشروع المتصفح 40C37ACE4B — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 5
+    }
+  ],
+  "browser_errors": [
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+  ],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+    "all_pass": true,
+    "mode": "m10-advance-concurrency",
+    "assertions": 3,
+    "database": "erp_elec_new_m10_advance_75308ebc67c79ddf",
+    "server_address": "127.0.0.1",
+    "port": 49685,
+    "postgres_major": 17,
+    "worker_backend_pids": [
+        67624,
+        39648
+    ],
+    "worker_success_count": 1,
+    "worker_422_count": 1,
+    "outcomes": [
+        {
+            "exit_code": 0,
+            "result": {
+                "status": "PASS",
+                "mode": "application",
+                "result": {
+                    "application_id": 1,
+                    "journal_id": 3,
+                    "amount": "30.00"
+                }
+            }
+        },
+        {
+            "exit_code": 2,
+            "result": {
+                "status": "REJECTED",
+                "mode": "refund",
+                "code": 422,
+                "class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException"
+            }
+        }
+    ],
+    "advance_original": "50.00",
+    "application_rows": 1,
+    "refund_rows": 0,
+    "application_amount": "30.00",
+    "refund_amount": "0",
+    "advance_subledger_remaining": "20.00",
+    "advance_gl_remaining": "20.00",
+    "invoice_id": 1,
+    "open_item_id": 1,
+    "checks": [
+        {
+            "name": "Independent application and refund workers yield one success and one 422 cap rejection",
+            "result": "PASS"
+        },
+        {
+            "name": "Advance remaining equals 20.00 in M12 history and posted M11 customer-advance control",
+            "result": "PASS"
+        },
+        {
+            "name": "Disposable database dropped after exact marker/nonce/PGDATA checks; primary counts unchanged",
+            "result": "PASS"
+        }
+    ],
+    "disposable_database_dropped": true,
+    "primary_counts_unchanged": true
+}
+RESULT all_pass=1 assertions=3 disposable_database_dropped=1 primary_counts_unchanged=1 private_artifacts=C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/m10-advance-75308ebc67c79ddfd84f08ea76cea1b235dba246e0b7728391a0fee93c26c071

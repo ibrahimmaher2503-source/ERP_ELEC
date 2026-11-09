@@ -23,7 +23,7 @@ final class FinancialDecimal
     public static function round(string $value, int $places = 2): string
     {
         if ($places < 0 || $places > 16) {
-            throw new \InvalidArgumentException('Invalid monetary scale.');
+            throw new \InvalidArgumentException('دقة المبلغ المالي غير صالحة.');
         }
         $negative = bccomp($value, '0', self::SCALE) < 0;
         $absolute = $negative ? bcsub('0', $value, self::SCALE) : $value;
@@ -45,7 +45,7 @@ final class FinancialDecimal
         $remainders = [];
         foreach (array_values($values) as $i => $value) {
             if (bccomp($value, '0', self::SCALE) < 0) {
-                throw new \InvalidArgumentException('Allocation requires nonnegative values.');
+                throw new \InvalidArgumentException('يتطلب التخصيص قيمًا غير سالبة.');
             }
             $sum = bcadd($sum, $value, self::SCALE);
             $out[$i] = bcadd($value, '0', $places);

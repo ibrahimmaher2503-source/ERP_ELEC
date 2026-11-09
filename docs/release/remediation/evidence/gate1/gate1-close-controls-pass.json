@@ -1,0 +1,148 @@
+{
+    "ci_run_id": null,
+    "database": "erp_elec_new_test@127.0.0.1:49685",
+    "assertions": 28,
+    "results": [
+        {
+            "name": "No report authority cannot close a company period and leaves no closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "No-scope company close is surfaced as HTTP 403 instead of an unhandled contract exception",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial branch report scope cannot certify a company-wide close without closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial-scope company close is surfaced as HTTP 403",
+            "result": "PASS"
+        },
+        {
+            "name": "A second-branch reconciliation mismatch denies close without closure/audit effects (owner-contract test double)",
+            "result": "PASS"
+        },
+        {
+            "name": "Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "A second close cannot create another closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate close leaves exactly one immutable closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Database immutability trigger rejects UPDATE and DELETE without changing evidence or audit state",
+            "result": "PASS"
+        },
+        {
+            "name": "Authorized reopen preserves original immutable closure evidence and advances period version",
+            "result": "PASS"
+        },
+        {
+            "name": "Reclose records a second versioned digest while preserving the first closure evidence bytes",
+            "result": "PASS"
+        },
+        {
+            "name": "An account used by a posted manual journal cannot become a new maintenance accrual control mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected control mapping addition leaves the optional purpose unmapped",
+            "result": "PASS"
+        },
+        {
+            "name": "A submitted manual account cannot be added as a new source-owned control mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "An approved manual account cannot be added as a new source-owned control mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected submitted/approved mapping additions preserve both ordinary journal lifecycles and leave the purpose unmapped",
+            "result": "PASS"
+        },
+        {
+            "name": "Legacy control mapping fixture is isolated configuration only; journal fixtures were created through public Actions",
+            "result": "PASS"
+        },
+        {
+            "name": "Protected control account is rejected at manual journal submission",
+            "result": "PASS"
+        },
+        {
+            "name": "Protected control account is rejected at independent approval",
+            "result": "PASS"
+        },
+        {
+            "name": "Protected control account is rejected at manual posting",
+            "result": "PASS"
+        },
+        {
+            "name": "Protected control account is rejected at manual journal creation",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected manual control attempts leave no journal, lines, source, or audit state",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer advance mapping cannot be remapped after it is used as a source-owned control",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected optional mapping change preserves the established account mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "Ordinary non-control manual posting and reversal remain functional",
+            "result": "PASS"
+        },
+        {
+            "name": "Public Treasury customer advance creates its genuine source journal and source record",
+            "result": "PASS"
+        },
+        {
+            "name": "Manual reversal of a source-owned customer-advance control journal is rejected",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied control-account reversal leaves original posting/source unchanged",
+            "result": "PASS"
+        }
+    ],
+    "rolled_back": true,
+    "before_counts": {
+        "journals": 0,
+        "lines": 0,
+        "closures": 0,
+        "treasury": 0,
+        "advances": 0,
+        "audit_entries": 0
+    },
+    "after_counts": {
+        "journals": 0,
+        "lines": 0,
+        "closures": 0,
+        "treasury": 0,
+        "advances": 0,
+        "audit_entries": 0
+    },
+    "test_fixture_counts_before_outer_rollback": {
+        "journals": 9,
+        "lines": 18,
+        "closures": 2,
+        "treasury": 1,
+        "advances": 1,
+        "audit_entries": 62
+    },
+    "company_profile": {
+        "synthetic_legal_identity_inside_outer_transaction": true,
+        "exact_baseline_restored": true
+    }
+}

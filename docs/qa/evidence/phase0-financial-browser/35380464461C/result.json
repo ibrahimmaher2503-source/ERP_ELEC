@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run_id": "35380464461C",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)"
+  ],
+  "failure": "Quotation draft did not save (current path /quotations/create; visible errors: \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n    ; body: شاء عرض جديد\nإنشاء عرض سعر جديد\n\nإعداد العرض وحفظه كمسودة قبل المراجعة والإصدار\n\nالعودة إلى عروض الأسعار\nحفظ المسودة\nمعلومات العرض\nرقم العرض\nالعملة\nتاريخ العرض *\nتاريخ انتهاء الصلاحية\n\nتطبق مدة الصلاحية الافتراضية من إعدادات الشركة عند إنشاء المسودة.\n\nمعلومات العميل\nالبحث عن عميل\nاسم العميل *\nاختر عميلًا نشطًا\nشركة النيل للتوريدات الصناعية - الغردقة 2773 (DEMO-EG-CUS-443547)\n\nيعتمد العرض على هوية العميل المسجلة في دليل العملاء.\n\nمعلومات المشروع\nاسم المشروع (اختياري)\nمرجع طلب عرض السعر RFQ\n\nربط سجل مشروع قائم متاح عند اكتمال عقد المشاريع.\n\nبنود العرض\nاستيراد بنود Excel\nإضافة بند جديد\nالبحث في كتالوج المنتجات\nيعرض السعر المعتمد للصنف والوحدة والتاريخ عند توفره وصلاحية عرضه. السعر المطلوب اقتراح يخضع للسياسة التجارية عند الإصدار.\n#\tالمنتج *\t"
+}

@@ -1,0 +1,25 @@
+{
+    "all_pass": true,
+    "database": "erp_elec_new_test",
+    "postgres_port": 55443,
+    "rollback_only": true,
+    "assertions": [
+        "scheduled visit checklist snapshots stay frozen when the source template changes",
+        "planned visit cancellation needs only a reason and records no actual time or labor",
+        "canceled mandatory visit blocks completion until a same-snapshot completed replacement",
+        "replacement visit retained the identical frozen inspection snapshot",
+        "same-snapshot completed replacement satisfies cancellation completion guard",
+        "cancel-before-execution records planned-visit cancellations and authorized reopen returns to draft with history preserved",
+        "unscoped user cannot schedule a conflicting technician",
+        "conflict override requires a recorded reason",
+        "authorized scheduling override records its conflict reason",
+        "mixed rated/unrated labor stays incomplete while preserving known supported labor and total"
+    ],
+    "edge_fixture_ids": {
+        "branch": 2,
+        "work_order": 6,
+        "cancel_before_execution_work_order": 7,
+        "mixed_cost_work_order": 10,
+        "labor_rate": 2
+    }
+}

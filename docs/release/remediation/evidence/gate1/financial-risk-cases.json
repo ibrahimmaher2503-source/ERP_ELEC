@@ -1,0 +1,73 @@
+{
+    "ci_run_id": null,
+    "database": "erp_elec_gate1_race",
+    "postgres_port": 49685,
+    "rollback_only": true,
+    "result": "PASS",
+    "assertions": 3,
+    "findings": [
+        {
+            "id": "FIN-P0-01",
+            "test_result": "PASS",
+            "expectation": "Period close requires report authority for every company branch and denial leaves accounting state unchanged.",
+            "denial_class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+            "http_status": 403,
+            "state_unchanged": true,
+            "before": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            },
+            "after": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            }
+        },
+        {
+            "id": "FIN-P0-02",
+            "test_result": "PASS",
+            "expectation": "Historical inventory GL and FIFO source values share the same inclusive cutoff.",
+            "cutoff": "2000-12-31",
+            "post_cutoff_source_activity_exists": true,
+            "inventory_reconciliation": {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        },
+        {
+            "id": "FIN-P0-03",
+            "test_result": "PASS",
+            "expectation": "Manual journal creation rejects a mapped customer-advance control account before posting or source changes.",
+            "rejected_at_creation": true,
+            "rejection_class": "Illuminate\\Validation\\ValidationException",
+            "rejection_message": "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة.",
+            "validation_messages": [
+                "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة."
+            ],
+            "no_posting_or_source_effects": true,
+            "before": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            },
+            "after": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            }
+        }
+    ]
+}

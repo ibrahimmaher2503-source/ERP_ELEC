@@ -1,0 +1,397 @@
+{
+  "result": "PASS",
+  "run_id": "632748F345",
+  "database": "erp_elec_new_test on 127.0.0.1:5443",
+  "browser": "Microsoft Edge via Playwright",
+  "viewport_sizes": [
+    1440,
+    390
+  ],
+  "fixture": {
+    "database": "erp_elec_new_test",
+    "host": "127.0.0.1",
+    "port": 5443,
+    "actor": {
+      "id": 1,
+      "email": "lee.schmidt@example.net"
+    },
+    "denied_actor": {
+      "id": 9,
+      "email": "schamberger.aurelia@example.org"
+    },
+    "branch": {
+      "id": 1,
+      "name": "فرع العاشر من رمضان"
+    },
+    "supplier_invoice": {
+      "id": 10,
+      "supplier_invoice_number": "PH1-RACE-OVBVJVPE",
+      "official_number": "SI-2026-000005",
+      "total_amount": "12.54",
+      "pdf_sha256": "236f388152e88f140d677d624acec25f4439d91084134cfbab7b16bc7ddf8029"
+    },
+    "customer_invoice": {
+      "id": 3,
+      "official_number": "CI-2026-000002",
+      "total_amount": "13.68",
+      "pdf_sha256": "70ca6cf2b295c006998b0f61a679f78f276ecd9a0e7eeeca7bee81d3da6e1480"
+    },
+    "credit_note": {
+      "id": 4,
+      "official_number": "CCN-2026-000002",
+      "reason": "Concurrent credit cap CREDIT-A",
+      "amount": "6.85"
+    },
+    "treasury_movement": {
+      "id": 5,
+      "kind": "transfer_out",
+      "amount": "1.00"
+    },
+    "treasury_pdf_sha256": "dcb3ec6eaace08fd20d7e1e0d08397a85bb1f9b8b7d86746f42508a801afc338",
+    "journal_id": 34,
+    "ap_rows": [
+      {
+        "source_number": "SI-2026-000006",
+        "original_amount": "12.54",
+        "settled_amount": "0.00",
+        "credited_amount": "0.00",
+        "remaining_amount": "12.54"
+      },
+      {
+        "source_number": "SI-2026-000005",
+        "original_amount": "12.54",
+        "settled_amount": "0.00",
+        "credited_amount": "0.00",
+        "remaining_amount": "12.54"
+      },
+      {
+        "source_number": "SI-2026-000004",
+        "original_amount": "12.54",
+        "settled_amount": "2.00",
+        "credited_amount": "9.55",
+        "remaining_amount": "0.99"
+      },
+      {
+        "source_number": "SI-2026-000003",
+        "original_amount": "12.54",
+        "settled_amount": "12.54",
+        "credited_amount": "0.00",
+        "remaining_amount": "0.00"
+      },
+      {
+        "source_number": "SI-2026-000002",
+        "original_amount": "18.81",
+        "settled_amount": "18.81",
+        "credited_amount": "0.00",
+        "remaining_amount": "0.00"
+      },
+      {
+        "source_number": "SI-2026-000001",
+        "original_amount": "18.81",
+        "settled_amount": "18.81",
+        "credited_amount": "0.00",
+        "remaining_amount": "0.00"
+      }
+    ],
+    "ar_rows": [
+      {
+        "source_number": "CI-2026-000002",
+        "original_amount": "13.68",
+        "settled_amount": "0.00",
+        "credited_amount": "6.85",
+        "remaining_amount": "6.83"
+      },
+      {
+        "source_number": "CI-2026-000001",
+        "original_amount": "54.72",
+        "settled_amount": "54.72",
+        "credited_amount": "0.00",
+        "remaining_amount": "0.00"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "login": "authorized synthetic accountant",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/financial/supplier-invoices",
+      "viewport": 1440,
+      "persisted_value": "PH1-RACE-OVBVJVPE",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/supplier-invoices/10",
+      "viewport": 1440,
+      "persisted_value": "SI-2026-000005",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/ap",
+      "viewport": 1440,
+      "persisted_value": "SI-2026-000005",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/treasury/payments",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/customer-invoices",
+      "viewport": 1440,
+      "persisted_value": "CI-2026-000002",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/customer-invoices/3",
+      "viewport": 1440,
+      "persisted_value": "CI-2026-000002",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/ar",
+      "viewport": 1440,
+      "persisted_value": "CI-2026-000002",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/treasury/collections",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/credit-notes",
+      "viewport": 1440,
+      "persisted_value": "Concurrent credit cap CREDIT-A",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/treasury/transfers",
+      "viewport": 1440,
+      "persisted_value": "transfer_out",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/dashboard",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/journals",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/ledger",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/trial-balance",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/income-statement",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/balance-sheet",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/grni",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/ppv",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/accounting/reconciliation",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "desktop_pages": "M11/M12/M13 financial registers, invoice details/matching and reports",
+      "count": 19,
+      "result": "passed"
+    },
+    {
+      "page": "/financial/supplier-invoices",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/supplier-invoices/10",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/ap",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/customer-invoices",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/customer-invoices/3",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/ar",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/financial/credit-notes",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/treasury/payments",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/treasury/collections",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/treasury/transfers",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/accounting/trial-balance",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/accounting/reconciliation",
+      "viewport": 390,
+      "persisted_value": null,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "mobile_pages": "M11/M12/M13 RTL including invoice details/matching",
+      "count": 12,
+      "result": "passed"
+    },
+    {
+      "pdf": "supplier-invoice",
+      "sha256": "236f388152e88f140d677d624acec25f4439d91084134cfbab7b16bc7ddf8029",
+      "bytes": 45201,
+      "authorization": "authorized",
+      "integrity": "verified"
+    },
+    {
+      "pdf": "customer-invoice",
+      "sha256": "70ca6cf2b295c006998b0f61a679f78f276ecd9a0e7eeeca7bee81d3da6e1480",
+      "bytes": 44598,
+      "authorization": "authorized",
+      "integrity": "verified"
+    },
+    {
+      "pdf": "treasury-movement",
+      "sha256": "dcb3ec6eaace08fd20d7e1e0d08397a85bb1f9b8b7d86746f42508a801afc338",
+      "bytes": 43495,
+      "authorization": "authorized",
+      "integrity": "verified"
+    },
+    {
+      "export": "trial-balance",
+      "format": "xlsx",
+      "bytes": 6935,
+      "disposition": "attachment",
+      "authorization": "authorized",
+      "integrity": "signature verified"
+    },
+    {
+      "export": "trial-balance",
+      "format": "pdf",
+      "bytes": 64798,
+      "disposition": "attachment",
+      "authorization": "authorized",
+      "integrity": "signature verified"
+    },
+    {
+      "private_pdf_and_report_authorization": "supplier/customer/treasury PDFs and XLSX/PDF reports denied to active unscoped actor",
+      "statuses": [
+        403,
+        403,
+        403,
+        403,
+        403
+      ],
+      "result": "passed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

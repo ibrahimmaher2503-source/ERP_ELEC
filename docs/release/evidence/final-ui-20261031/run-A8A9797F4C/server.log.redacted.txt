@@ -1,0 +1,18 @@
+[Sat Oct 31 15:47:48 2026] PHP 8.4.21 Development Server (http://127.0.0.1:9826) started
+[Sat Oct 31 15:47:48 2026] 127.0.0.1:62489 Accepted
+[Sat Oct 31 15:47:49 2026] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Application" not found in C:\projects\ERP_ELEC_NEW\bootstrap\app.php:9
+Stack trace:
+#0 C:\projects\ERP_ELEC_NEW\.tmp\final-ui-audit-20261031\router.php(33): require()
+#1 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\bootstrap\app.php on line 9
+[Sat Oct 31 15:47:49 2026] 127.0.0.1:62489 Closing
+[Sat Oct 31 15:47:52 2026] 127.0.0.1:52090 Accepted
+[Sat Oct 31 15:47:52 2026] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Application" not found in C:\projects\ERP_ELEC_NEW\bootstrap\app.php:9
+Stack trace:
+#0 C:\projects\ERP_ELEC_NEW\.tmp\final-ui-audit-20261031\router.php(33): require()
+#1 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\bootstrap\app.php on line 9
+[Sat Oct 31 15:47:52 2026] 127.0.0.1:52090 Closing
+[Sat Oct 31 15:47:52 2026] 127.0.0.1:59219 Accepted
+[Sat Oct 31 15:47:52 2026] 127.0.0.1:59219 [200]: GET /favicon.ico
+[Sat Oct 31 15:47:52 2026] 127.0.0.1:59219 Closing

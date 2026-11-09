@@ -1,0 +1,16 @@
+{
+  "route": "/customers",
+  "viewport": "390x844",
+  "http": 200,
+  "targetedSelector": "[data-erp-archetype=\"list\"] input",
+  "initialVisibleCellCount": 9,
+  "noMatchQuery": {
+    "resultText": "\n    \n  \n\n\n            لا يوجد سجلات في العملاء\n\n                    أضف أول سجل أو غيّر معايير البحث والتصفية.        \n\n",
+    "noSyntheticCustomerVisible": true
+  },
+  "matchQuery": {
+    "resultText": "\n        \n    \n  \n\n\n            \n  \n\n\n        \n    \n\n \n  \n\n\n         عميل صناعي تجريبي للمتصفحاليسر العبور DEMO-EG-CUS-BROWSER العبور شركة / مؤسسة تجارة جملة نشط\n \n    \n        \n  \n\n    \n\n    \n        \n  \n  \n\n\n            \n    عرض التفاصيل\n",
+    "syntheticCustomerVisible": true
+  },
+  "screenshot": "customer-list-filter-390x844.png"
+}

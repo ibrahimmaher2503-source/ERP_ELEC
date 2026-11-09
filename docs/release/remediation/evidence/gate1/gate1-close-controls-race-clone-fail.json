@@ -1,0 +1,45 @@
+{
+    "database": "erp_elec_gate1_race@127.0.0.1:49685",
+    "result": "FAIL",
+    "assertions": 9,
+    "results": [
+        {
+            "name": "No report authority cannot close a company period and leaves no closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "No-scope company close is surfaced as HTTP 403 instead of an unhandled contract exception",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial branch report scope cannot certify a company-wide close without closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial-scope company close is surfaced as HTTP 403",
+            "result": "PASS"
+        },
+        {
+            "name": "A second-branch reconciliation mismatch denies close without closure/audit effects (owner-contract test double)",
+            "result": "PASS"
+        },
+        {
+            "name": "Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "A second close cannot create another closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate close leaves exactly one immutable closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Database immutability trigger rejects UPDATE and DELETE without changing evidence or audit state",
+            "result": "PASS"
+        }
+    ],
+    "error_class": "Illuminate\\Database\\QueryException",
+    "error": "SQLSTATE[42883]: Undefined function: 7 ERROR:  operator does not exist: json = unknown\nLINE 1: ...g_period_closures\" where \"id\" = $1 and \"evidence\" = $2 and \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts. (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_gate1_race, SQL: select exists(select * from \"accounting_period_closures\" where \"id\" = 1 and \"evidence\" = {\"contract_version\":1,\"date_basis\":\"inclusive_business_date\",\"period_id\":9,\"period_version\":1,\"starts_on\":\"2024-10-01\",\"cutoff\":\"2024-12-31\",\"branches\":[{\"id\":3,\"code\":\"G1-A-YFXBFA\",\"name\":\"\u0641\u0631\u0639 \u0627\u0644\u062a\u062c\u0645\u0639 \u0627\u0644\u062e\u0627\u0645\u0633\",\"active\":true},{\"id\":4,\"code\":\"G1-B-QUUEWO\",\"name\":\"\u0641\u0631\u0639 \u0645\u062f\u064a\u0646\u0629 \u0646\u0635\u0631\",\"active\":true}],\"mappings\":{\"ap\":20,\"bank\":22,\"cash\":21,\"cogs\":27,\"grni\":18,\"inventory\":17,\"inventory_issue\":29,\"inventory_transit\":16,\"ppv\":19,\"receivable\":25,\"rounding\":30,\"sales\":26,\"stock_adjustment\":28,\"tax_input\":23,\"tax_output\":24},\"reconciliations\":{\"3\":[{\"key\":\"ap\",\"label\":\"\u0645\u0631\u0627\u0642\u0628\u0629 \u0627\u0644\u0645\u0648\u0631\u062f\u064a\u0646 \u0645\u0642\u0627\u0628\u0644 \u0627\u0644\u0630\u0645\u0645 \u0627\u0644\u062f\u0627\u0626\u0646\u0629\",\"gl\":\"0.00\",\"source\":\"0.00\",\"difference\":\"0.00\",\"ok\":true},{\"key\":\"ar\",\"label\":\"\u0645\u0631\u0627\u0642\u0628\u0629 \u0627\u0644\u0639\u0645\u0644\u0627\u0621 \u0645\u0642\u0627"
+}

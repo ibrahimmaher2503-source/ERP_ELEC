@@ -1,0 +1,16 @@
+[Sat Oct 31 03:56:25 2026] PHP 8.4.21 Development Server (http://127.0.0.1:9815) started
+[Sat Oct 31 03:56:26 2026] 127.0.0.1:64552 Accepted
+[Sat Oct 31 03:56:26 2026] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\CarbonImmutable" not found in C:\projects\ERP_ELEC_NEW\docs\release\evidence\m09-browser-20261031\router.php:41
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\docs\release\evidence\m09-browser-20261031\router.php on line 41
+[Sat Oct 31 03:56:26 2026] 127.0.0.1:64552 Closing
+[Sat Oct 31 03:56:27 2026] 127.0.0.1:55815 Accepted
+[Sat Oct 31 03:56:28 2026] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\CarbonImmutable" not found in C:\projects\ERP_ELEC_NEW\docs\release\evidence\m09-browser-20261031\router.php:41
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\docs\release\evidence\m09-browser-20261031\router.php on line 41
+[Sat Oct 31 03:56:28 2026] 127.0.0.1:55815 Closing
+[Sat Oct 31 03:56:28 2026] 127.0.0.1:60584 Accepted
+[Sat Oct 31 03:56:28 2026] 127.0.0.1:60584 [200]: GET /favicon.ico
+[Sat Oct 31 03:56:28 2026] 127.0.0.1:60584 Closing

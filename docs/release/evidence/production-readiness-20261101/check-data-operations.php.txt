@@ -1,0 +1,52 @@
+PASS bulk/import/export/template capabilities are registered at company scope
+PASS Data-operation capabilities default-deny for non-administrator roles while Administrator receives the registered keys
+PASS ManagerReadOnly role membership does not grant a data-operation mutation
+PASS technical receipt factory creates only an uncompleted preview fixture
+PASS bulk requires its own permission
+PASS bulk requires its own permission returns 403
+PASS import requires its own permission
+PASS import requires its own permission returns 403
+PASS export requires its own permission
+PASS export requires its own permission returns 403
+PASS template requires its own permission
+PASS template requires its own permission returns 403
+PASS bulk preview rejects identity/sensitive fields without changing products
+PASS unknown bulk fields fail closed without changing products
+PASS bulk preview persists two valid plans before execution
+PASS bulk preview does not mutate product records
+PASS bulk preview applies set/clear and preserves keep semantics
+PASS another actor cannot read the operation receipt
+PASS bulk execution reports a stale target while committing eligible rows
+PASS bulk execution uses normal optimistic Actions and only changes selected fields
+PASS repeated confirmation and processing do not repeat committed updates or audit entries
+PASS authorized actor receives a private XLSX template
+PASS official template round-trips with protected entity/version metadata
+PASS old workbook template versions are rejected
+PASS wrong-version error explains the incompatibility
+PASS formula cells are rejected before preview
+PASS formula rejection identifies the unsafe workbook content
+PASS invalid workbook metadata and formulas never mutate Products
+PASS duplicate SKUs and barcodes are reported on every affected row
+PASS unknown reference codes produce a row validation error
+PASS invalid import previews leave Product data unchanged
+PASS create import preview validates without inserting a Product
+PASS operation receipt is hidden from a different actor
+PASS execution rechecks current import permission after preview
+PASS execution rechecks current import permission after preview returns 403
+PASS confirmed import creates a Product through ProductActions and completes its receipt
+PASS reprocessing a completed import adds no duplicate product or audit entry
+PASS update preview preserves blank cells and applies only explicit #CLEAR
+PASS update import persists through ProductActions, keeps blank fields, and rejects stale rows
+PASS worker rechecks current import permission and fails closed after revocation
+PASS selected export opens as XLSX and formula-like product text stays a string
+PASS filtered export contains only records matching the server-side filter
+PASS exports require the separate export permission
+PASS exports require the separate export permission returns 403
+PASS template download requires its separate permission
+PASS template download requires its separate permission returns 403
+PASS selection fixture contains only the six products created by this check
+PASS catalog supports one/many visible selections, preserves page selections, toggles the visible page and clears
+PASS shared operation page renders the authorized template-first workflow
+PASS shared operation page renders a persisted completed import receipt
+PASS run receipt remains readable by its authorized owner
+Disposable data-operations database transaction rolled back.

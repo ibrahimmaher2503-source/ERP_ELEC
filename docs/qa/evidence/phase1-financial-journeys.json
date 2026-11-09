@@ -1,0 +1,248 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55460,
+    "financial_date": "2026-10-31",
+    "synthetic": true,
+    "source_order_id": 1,
+    "posted_receipts": [
+        1,
+        2,
+        3
+    ],
+    "invoice_ids": [
+        2,
+        3,
+        4
+    ],
+    "source_journals": [
+        {
+            "invoice_id": 2,
+            "journal_id": 4,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 3,
+            "journal_id": 5,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 4,
+            "journal_id": 6,
+            "debit": "12.54",
+            "credit": "12.54",
+            "grni_net": "10.00",
+            "ppv_net": "1.00",
+            "tax_input_net": "1.54",
+            "ap_net": "-12.54"
+        }
+    ],
+    "official_pdf_integrity": [
+        {
+            "invoice_id": 2,
+            "official_number": "SI-2026-000001",
+            "sha256": "208b2902bcc2bcf5898fe6647764523ae465b76b1057aa78e7c1472feb4a853e",
+            "bytes": 45989
+        },
+        {
+            "invoice_id": 3,
+            "official_number": "SI-2026-000002",
+            "sha256": "33abfe0ce8b89d0cac421f67b197e1b3b27d28fd4f0009560606e9e8e6b939f8",
+            "bytes": 45988
+        },
+        {
+            "invoice_id": 4,
+            "official_number": "SI-2026-000003",
+            "sha256": "fd2e077c72e00a17ee472e234968d59e8ebe1e819de66d7f45fc4ca7c1372f2c",
+            "bytes": 45984
+        }
+    ],
+    "matching": {
+        "invoice_count": 3,
+        "receipt_count": 3,
+        "quantity": "4.00000000",
+        "grni": "40.00",
+        "net": "44.00",
+        "recoverable_input_tax": "6.16",
+        "ppv": "4.00",
+        "ap": "50.16"
+    },
+    "stock_and_fifo_unchanged_by_invoice_posting": true,
+    "same_key_replay": true,
+    "factory_persistence": {
+        "supplier_invoice_id": 1,
+        "supplier_draft": true,
+        "customer_invoice_id": 1,
+        "customer_draft": true,
+        "treasury_accounts": [
+            1,
+            2
+        ]
+    },
+    "ap": {
+        "payment_movement_ids": [
+            4,
+            5
+        ],
+        "retry_idempotent": true,
+        "remaining": "0.00"
+    },
+    "customer": {
+        "sales_order_id": 1,
+        "delivery_id": 1,
+        "invoice_id": 2,
+        "advance_movement_id": 3,
+        "collection_movement_ids": [
+            1,
+            2
+        ],
+        "remaining_ar": "0.00"
+    },
+    "party_financial_profiles": {
+        "actor_id": 1,
+        "branch_id": 1,
+        "supplier_id": 1,
+        "customer_id": 1,
+        "supplier": {
+            "invoice_count": 4,
+            "settled": "50.16",
+            "outstanding": "12.54",
+            "overdue": "12.54",
+            "unapplied_credit": "2.00",
+            "statement_closing": "10.54"
+        },
+        "customer": {
+            "invoice_count": 1,
+            "settled": "54.72",
+            "outstanding": "0.00",
+            "advance": "1.00",
+            "unapplied_credit": "2.00",
+            "statement_closing": "-2.00"
+        },
+        "no_ar_ap_scope": "authorized_false",
+        "foreign_branch_filter": "403"
+    },
+    "credit_notes": {
+        "supplier": {
+            "credit_note_id": 1,
+            "journal_id": 14,
+            "number": "SCN-2026-000001"
+        },
+        "customer": {
+            "credit_note_id": 2,
+            "journal_id": 15,
+            "number": "CCN-2026-000001"
+        },
+        "party_credit_rows": 2
+    },
+    "direct_transfer": {
+        "out_movement_id": 6,
+        "in_movement_id": 7,
+        "journal_id": 18,
+        "number": "TR-2026-000001"
+    },
+    "reports": {
+        "trial_balance_debit": "318.30",
+        "trial_balance_credit": "318.30",
+        "income_row_count": 3,
+        "balance_row_count": 9,
+        "reconciliations": [
+            {
+                "key": "ap",
+                "label": "مراقبة الموردين مقابل الذمم الدائنة",
+                "gl": "10.54",
+                "source": "10.54",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "ar",
+                "label": "مراقبة العملاء مقابل الذمم المدينة",
+                "gl": "-2.00",
+                "source": "-2.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "grni",
+                "label": "GRNI مقابل الاستلامات غير المفوترة",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "10.00",
+                "source": "10.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "bank",
+                "label": "حساب البنك مقابل حركات الخزينة",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "cash",
+                "label": "حساب النقدية مقابل حركات الخزينة",
+                "gl": "4.56",
+                "source": "4.56",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "customer_advance",
+                "label": "دفعات العملاء المقدمة مقابل سجل الذمم",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        ]
+    },
+    "negative_cases": {
+        "duplicate_supplier_number": "rejected",
+        "supplier_mismatch": "rejected",
+        "overmatch": "rejected",
+        "unauthorized": "403",
+        "closed_period": "deferred_to_serial_run"
+    },
+    "committed_worker_fixtures": [
+        {
+            "invoice_id": 9,
+            "actor_id": 1,
+            "version": 4,
+            "receipt_id": 7,
+            "branch_id": 1
+        },
+        {
+            "invoice_id": 10,
+            "actor_id": 1,
+            "version": 4,
+            "receipt_id": 8,
+            "branch_id": 1
+        },
+        {
+            "invoice_id": 11,
+            "actor_id": 1,
+            "version": 4,
+            "receipt_id": 9,
+            "branch_id": 1
+        }
+    ],
+    "all_pass": true
+}

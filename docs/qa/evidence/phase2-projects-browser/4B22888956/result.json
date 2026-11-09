@@ -1,0 +1,454 @@
+{
+  "result": "FAIL",
+  "run_id": "4B22888956",
+  "failure": "Handover action failed HTTP 409: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"robots\" content=\"noindex,nofollow,noarchive\" />\n    <title>An Error Occurred: Conflict</title>\n    <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>\" />\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-width: 600px; }\nh1 { color: #dc3545; font-size: 24px; }\nh2 { font-size: 18px; }</style>\n</head>\n<body>\n<div class=\"container\">\n    <h1>Oops! An Error Occurred</h1>\n    <h2>The server returned a \"409 Conflict\".</h2>\n\n    <p>\n        Something is broken. Please let us know what you were doing when this error occurred.\n        We will fix it as soon as possible. Sorry for any inconvenience caused.\n    </p>\n</div>\n</body>\n</html>; snapshot=12; database=13",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 3,
+      "code": "PB2-4B22888956",
+      "saved_name": "اختبار مشروع المتصفح 4B22888956 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 3
+    },
+    {
+      "independent_budget_approval": "passed",
+      "project_id": 3,
+      "reviewer_id": 2,
+      "baseline_visible": true,
+      "database_probe_exit": 0
+    },
+    {
+      "independent_budget_gated_planned_and_active_lifecycle": "passed",
+      "project_id": 3
+    },
+    {
+      "availability_debug": {
+        "requirement": "2",
+        "warehouse": "1",
+        "button": "<button type=\"button\" class=\"relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-4 pe-4 inline-flex  bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75 text-zinc-800 dark:text-white border border-zinc-200 hover:border-zinc-200 disabled:border-zinc-200 border-b-zinc-300/80 dark:border-zinc-600 dark:hover:border-zinc-600 dark:disabled:border-zinc-600 shadow-xs [[data-flux-button-group]_&amp;]:border-s-0 [:is([data-flux-button-group]&gt;&amp;:first-child,_[data-flux-button-group]_:first-child&gt;&amp;)]:border-s-[1px] *:transition-opacity [&amp;[data-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-flux-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-loading]&gt;[data-flux-loading-indicator]]:opacity-100 [&amp;[data-flux-loading]&gt;[data-flux-loading-indicator]]:opacity-100 data-loading:pointer-events-none data-flux-loading:pointer-events-none\" data-flux-button=\"data-flux-button\" data-flux-group-target=\"data-flux-group-target\" wire:target=\"checkAvailability\" wire:loading.attr=\"data-flux-loading\" wire:click=\"checkAvailability\">\n        <div class=\"absolute inset-0 flex items-center justify-center opacity-0\" data-flux-loading-indicator=\"\">\n                <svg class=\"shrink-0 [:where(&amp;)]:size-4 animate-spin\" data-flux-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" data-slot=\"icon\">\n    <circle class=\"opacity-25\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"currentColor\" stroke-width=\"4\"></circle>\n    <path class=\"opacity-75\" fill=\"currentColor\" d=\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\"></path>\n</svg>\n                    </div>\n        \n        \n                    \n            \n            <span>استعلام المتاح</span>\n    </button>",
+        "livewire": [
+          {
+            "request": "/livewire-c6214651/update",
+            "method": "POST"
+          },
+          {
+            "status": 200,
+            "method": "POST"
+          },
+          {
+            "request": "/livewire-c6214651/update",
+            "method": "POST"
+          },
+          {
+            "status": 200,
+            "method": "POST"
+          }
+        ]
+      }
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 3,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "issue_id": 2,
+      "fifo_allocations": 1,
+      "product_id": 1
+    },
+    {
+      "browser_project_financial_summary": "passed",
+      "project_id": 3,
+      "recognized_cost": "20.00",
+      "recognized_revenue": "12.00",
+      "grni_cleared": "10.00",
+      "fifo_gl_difference": "0.00"
+    },
+    {
+      "scoped_financial_exports": {
+        "xlsx": {
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 6478
+        },
+        "pdf": {
+          "status": 200,
+          "content_type": "application/pdf",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 86054
+        }
+      },
+      "denied_actor_statuses": {
+        "xlsx": 403,
+        "pdf": 403
+      }
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/operations",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 390,
+      "expected_text": "Synthetic project financial integration",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/3/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4B22888956",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/3/budget",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "private_project_document": "saved, independently approved, PDF signature verified",
+      "denied_download_status": 403,
+      "bytes": 69,
+      "sha256": "cfa3181c1ee36e8bce5e39f84959f4558ea7ba32c0e4539a8ab3c8ce8c716ec6"
+    }
+  ],
+  "browser_errors": [
+    "Failed to load resource: the server responded with a status of 409 (Conflict)"
+  ],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/upload-file",
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST"
+    },
+    {
+      "status": 409,
+      "method": "POST"
+    }
+  ]
+}

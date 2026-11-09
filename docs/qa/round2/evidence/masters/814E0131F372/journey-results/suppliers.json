@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "814E0131F372",
+  "journey": "M03 supplier create and repeated edit lifecycle",
+  "record": {
+    "id": 27,
+    "code": "R2-814E0131F372-S",
+    "final_revision": "Revision two 814E0131F372"
+  },
+  "checks": [
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 27",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save"
+  ],
+  "postgresql_verification": "Round2 supplier 814E0131F372"
+}

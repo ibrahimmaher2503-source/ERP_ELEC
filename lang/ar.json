@@ -110,5 +110,17 @@
     "View recovery codes": "عرض رموز الاسترداد",
     "When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.": "عند تفعيل التحقق بخطوتين، سيُطلب رمز أمان أثناء تسجيل الدخول. يمكنك الحصول عليه من تطبيق مصادقة يدعم TOTP على هاتفك.",
     "You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.": "سيُطلب منك رمز أمان أثناء تسجيل الدخول، ويمكنك الحصول عليه من تطبيق مصادقة يدعم TOTP على هاتفك.",
-    "or, enter the code manually": "أو أدخل الرمز يدويًا"
+    "or, enter the code manually": "أو أدخل الرمز يدويًا",
+    "Authenticating...": "جارٍ التحقق…",
+    "Documentation": "التوثيق",
+    "Give this passkey a name to help you identify it later.": "أدخل اسمًا لمفتاح المرور لتتعرف عليه لاحقًا.",
+    "Or continue with email": "أو المتابعة بالبريد الإلكتروني",
+    "Passkeys are not supported in this browser.": "مفاتيح المرور غير مدعومة في هذا المتصفح.",
+    "Platform": "المنصة",
+    "Register passkey": "تسجيل مفتاح مرور",
+    "Registering...": "جارٍ التسجيل…",
+    "Repository": "المستودع",
+    "Review these details to continue": "راجع البيانات التالية لإكمال العملية",
+    "Search": "بحث",
+    "Setup key": "مفتاح الإعداد"
 }

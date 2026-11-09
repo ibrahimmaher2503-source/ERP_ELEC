@@ -1,0 +1,1071 @@
+[
+  {
+    "route": "products.index",
+    "viewport": "desktop-1440",
+    "checks": [
+      {
+        "name": "catalog-desktop-route-has-real-record",
+        "result": "pass",
+        "details": {
+          "status": 200,
+          "cells": 11
+        }
+      },
+      {
+        "name": "catalog-summary-and-responsive-wrapper-render",
+        "result": "pass",
+        "details": {
+          "summary": 1,
+          "records": 1
+        }
+      }
+    ],
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "fields": [
+      "التحديد",
+      "الصف",
+      "الصنف",
+      "SKU",
+      "الباركود",
+      "التصنيف",
+      "العلامة التجارية",
+      "الوحدة الأساسية",
+      "النوع",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "cell_count": 11
+  },
+  {
+    "route": "products.index",
+    "viewport": "mobile-390",
+    "width": 390,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 11,
+          "mobile_cell_count": 11,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الصف",
+              "text": "1"
+            },
+            {
+              "label": "الصنف",
+              "text": "قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1قاطع مصغر MCB أحادي 6 أمبير للاستخدام في مشروعات الكهرباء والتوريدات داخل مصر."
+            },
+            {
+              "label": "SKU",
+              "text": "DEMO-EG-PROD-000001"
+            },
+            {
+              "label": "الباركود",
+              "text": "EGDEMO0000000001"
+            },
+            {
+              "label": "التصنيف",
+              "text": "القواطع وأجهزة الحماية"
+            },
+            {
+              "label": "العلامة التجارية",
+              "text": "دلتا إليكتريك (تجريبي)"
+            },
+            {
+              "label": "الوحدة الأساسية",
+              "text": "قطعة"
+            },
+            {
+              "label": "النوع",
+              "text": "مواد بالكمية"
+            },
+            {
+              "label": "الحالة",
+              "text": "● نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "تفاصيل الصنف تعديل البيانات تعطيل الصنف"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 11,
+          "total": 11
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 390
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 17,
+          "y": 585.5625,
+          "width": 356,
+          "height": 482.515625
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الصف"
+          ],
+          "rectangles": [
+            {
+              "x": 250,
+              "y": 598.5625,
+              "width": 110,
+              "height": 53.140625
+            },
+            {
+              "x": 140,
+              "y": 598.5625,
+              "width": 110,
+              "height": 53.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الصف",
+            "الصنف",
+            "SKU",
+            "الباركود",
+            "التصنيف",
+            "العلامة التجارية",
+            "الوحدة الأساسية",
+            "النوع",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 11,
+    "visible_cell_count": 11,
+    "field_labels": [
+      "التحديد",
+      "الصف",
+      "الصنف",
+      "SKU",
+      "الباركود",
+      "التصنيف",
+      "العلامة التجارية",
+      "الوحدة الأساسية",
+      "النوع",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 585.5625,
+    "fields_match_desktop": true
+  },
+  {
+    "route": "products.index",
+    "viewport": "mobile-360",
+    "width": 360,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 11,
+          "mobile_cell_count": 11,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الصف",
+              "text": "1"
+            },
+            {
+              "label": "الصنف",
+              "text": "قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1قاطع مصغر MCB أحادي 6 أمبير للاستخدام في مشروعات الكهرباء والتوريدات داخل مصر."
+            },
+            {
+              "label": "SKU",
+              "text": "DEMO-EG-PROD-000001"
+            },
+            {
+              "label": "الباركود",
+              "text": "EGDEMO0000000001"
+            },
+            {
+              "label": "التصنيف",
+              "text": "القواطع وأجهزة الحماية"
+            },
+            {
+              "label": "العلامة التجارية",
+              "text": "دلتا إليكتريك (تجريبي)"
+            },
+            {
+              "label": "الوحدة الأساسية",
+              "text": "قطعة"
+            },
+            {
+              "label": "النوع",
+              "text": "مواد بالكمية"
+            },
+            {
+              "label": "الحالة",
+              "text": "● نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "تفاصيل الصنف تعديل البيانات تعطيل الصنف"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 11,
+          "total": 11
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 360
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 15.375,
+          "y": 585.5625,
+          "width": 327.625,
+          "height": 482.515625
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الصف"
+          ],
+          "rectangles": [
+            {
+              "x": 229.46875,
+              "y": 598.5625,
+              "width": 100.53125,
+              "height": 53.140625
+            },
+            {
+              "x": 128.921875,
+              "y": 598.5625,
+              "width": 100.546875,
+              "height": 53.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الصف",
+            "الصنف",
+            "SKU",
+            "الباركود",
+            "التصنيف",
+            "العلامة التجارية",
+            "الوحدة الأساسية",
+            "النوع",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-more-opens-with-import-and-export",
+        "result": "pass",
+        "details": {
+          "importVisible": true,
+          "exportVisible": true
+        }
+      },
+      {
+        "name": "catalog-mobile-more-closes-with-escape",
+        "result": "pass",
+        "details": true
+      },
+      {
+        "name": "catalog-mobile-selection-can-be-cancelled-without-changing-record",
+        "result": "pass",
+        "details": {
+          "row_unchanged": true,
+          "mutation_submitted": false
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 11,
+    "visible_cell_count": 11,
+    "field_labels": [
+      "التحديد",
+      "الصف",
+      "الصنف",
+      "SKU",
+      "الباركود",
+      "التصنيف",
+      "العلامة التجارية",
+      "الوحدة الأساسية",
+      "النوع",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 585.5625,
+    "fields_match_desktop": true,
+    "more_menu_text": "استيراد XLSX تصدير الكتالوج بالكامل تصدير نتائج البحث والفلاتر تصدير الأصناف المحددة",
+    "row_unchanged_after_cancel": true
+  },
+  {
+    "route": "customers.index",
+    "viewport": "desktop-1440",
+    "checks": [
+      {
+        "name": "catalog-desktop-route-has-real-record",
+        "result": "pass",
+        "details": {
+          "status": 200,
+          "cells": 9
+        }
+      },
+      {
+        "name": "catalog-summary-and-responsive-wrapper-render",
+        "result": "pass",
+        "details": {
+          "summary": 1,
+          "records": 1
+        }
+      }
+    ],
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "fields": [
+      "التحديد",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "cell_count": 9
+  },
+  {
+    "route": "customers.index",
+    "viewport": "mobile-390",
+    "width": 390,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 9,
+          "mobile_cell_count": 9,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الشعار",
+              "text": ""
+            },
+            {
+              "label": "الاسم",
+              "text": "Demo Alexandria Panel Works"
+            },
+            {
+              "label": "الكود",
+              "text": "DEMO-CUS-ALEX-001"
+            },
+            {
+              "label": "المدينة",
+              "text": "Alexandria"
+            },
+            {
+              "label": "النوع",
+              "text": "شركة / مؤسسة"
+            },
+            {
+              "label": "جهة الاتصال / الشريحة",
+              "text": "panel_builder"
+            },
+            {
+              "label": "الحالة",
+              "text": "نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "عرض التفاصيل تعديل إيقاف أرشفة"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 9,
+          "total": 9
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 390
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 29,
+          "y": 705.5625,
+          "width": 332,
+          "height": 388.65625
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الشعار"
+          ],
+          "rectangles": [
+            {
+              "x": 246,
+              "y": 718.5625,
+              "width": 102,
+              "height": 71.140625
+            },
+            {
+              "x": 144,
+              "y": 718.5625,
+              "width": 102,
+              "height": 71.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الشعار",
+            "الاسم",
+            "الكود",
+            "المدينة",
+            "النوع",
+            "جهة الاتصال / الشريحة",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 9,
+    "visible_cell_count": 9,
+    "field_labels": [
+      "التحديد",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 705.5625,
+    "fields_match_desktop": true
+  },
+  {
+    "route": "customers.index",
+    "viewport": "mobile-360",
+    "width": 360,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 9,
+          "mobile_cell_count": 9,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الشعار",
+              "text": ""
+            },
+            {
+              "label": "الاسم",
+              "text": "Demo Alexandria Panel Works"
+            },
+            {
+              "label": "الكود",
+              "text": "DEMO-CUS-ALEX-001"
+            },
+            {
+              "label": "المدينة",
+              "text": "Alexandria"
+            },
+            {
+              "label": "النوع",
+              "text": "شركة / مؤسسة"
+            },
+            {
+              "label": "جهة الاتصال / الشريحة",
+              "text": "panel_builder"
+            },
+            {
+              "label": "الحالة",
+              "text": "نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "عرض التفاصيل تعديل إيقاف أرشفة"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 9,
+          "total": 9
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 360
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 29,
+          "y": 705.5625,
+          "width": 302,
+          "height": 404.375
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الشعار"
+          ],
+          "rectangles": [
+            {
+              "x": 226,
+              "y": 718.5625,
+              "width": 92,
+              "height": 71.140625
+            },
+            {
+              "x": 134,
+              "y": 718.5625,
+              "width": 92,
+              "height": 71.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الشعار",
+            "الاسم",
+            "الكود",
+            "المدينة",
+            "النوع",
+            "جهة الاتصال / الشريحة",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-more-opens-with-import-and-export",
+        "result": "pass",
+        "details": {
+          "importVisible": true,
+          "exportVisible": true
+        }
+      },
+      {
+        "name": "catalog-mobile-more-closes-with-escape",
+        "result": "pass",
+        "details": true
+      },
+      {
+        "name": "catalog-mobile-selection-can-be-cancelled-without-changing-record",
+        "result": "pass",
+        "details": {
+          "row_unchanged": true,
+          "mutation_submitted": false
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 9,
+    "visible_cell_count": 9,
+    "field_labels": [
+      "التحديد",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 705.5625,
+    "fields_match_desktop": true,
+    "more_menu_text": "استيراد Excel تصدير السجلات المحددة تصدير نتائج التصفية تصدير جميع السجلات المصرح بها",
+    "row_unchanged_after_cancel": true
+  },
+  {
+    "route": "suppliers.index",
+    "viewport": "desktop-1440",
+    "checks": [
+      {
+        "name": "catalog-desktop-route-has-real-record",
+        "result": "pass",
+        "details": {
+          "status": 200,
+          "cells": 12
+        }
+      },
+      {
+        "name": "catalog-summary-and-responsive-wrapper-render",
+        "result": "pass",
+        "details": {
+          "summary": 1,
+          "records": 1
+        }
+      }
+    ],
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "fields": [
+      "التحديد",
+      "الصف",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "التصنيف الرئيسي",
+      "الدولة",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "cell_count": 12
+  },
+  {
+    "route": "suppliers.index",
+    "viewport": "mobile-390",
+    "width": 390,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 12,
+          "mobile_cell_count": 12,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الصف",
+              "text": "1"
+            },
+            {
+              "label": "الشعار",
+              "text": ""
+            },
+            {
+              "label": "الاسم",
+              "text": "شركة الدلتا للمقاولات الكهربائية - مدينة نصر 1الدلتا مدينة نصر"
+            },
+            {
+              "label": "الكود",
+              "text": "DEMO-EG-SUP-000001"
+            },
+            {
+              "label": "التصنيف الرئيسي",
+              "text": "قواطع وحماية"
+            },
+            {
+              "label": "الدولة",
+              "text": "مصر"
+            },
+            {
+              "label": "المدينة",
+              "text": "مدينة نصر"
+            },
+            {
+              "label": "النوع",
+              "text": "موزع"
+            },
+            {
+              "label": "جهة الاتصال / الشريحة",
+              "text": "مصطفى محمود المصري+201570300003"
+            },
+            {
+              "label": "الحالة",
+              "text": "نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "عرض التفاصيل تعديل إيقاف أرشفة"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 12,
+          "total": 12
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 390
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 29,
+          "y": 616.5625,
+          "width": 332,
+          "height": 477.8125
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الصف",
+            "الشعار"
+          ],
+          "rectangles": [
+            {
+              "x": 246,
+              "y": 629.5625,
+              "width": 102,
+              "height": 71.140625
+            },
+            {
+              "x": 144,
+              "y": 629.5625,
+              "width": 102,
+              "height": 71.140625
+            },
+            {
+              "x": 42,
+              "y": 629.5625,
+              "width": 102,
+              "height": 71.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الصف",
+            "الشعار",
+            "الاسم",
+            "الكود",
+            "التصنيف الرئيسي",
+            "الدولة",
+            "المدينة",
+            "النوع",
+            "جهة الاتصال / الشريحة",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 12,
+    "visible_cell_count": 12,
+    "field_labels": [
+      "التحديد",
+      "الصف",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "التصنيف الرئيسي",
+      "الدولة",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 616.5625,
+    "fields_match_desktop": true
+  },
+  {
+    "route": "suppliers.index",
+    "viewport": "mobile-360",
+    "width": 360,
+    "checks": [
+      {
+        "name": "catalog-mobile-route-http-200",
+        "result": "pass",
+        "details": 200
+      },
+      {
+        "name": "catalog-mobile-preserves-every-desktop-cell-value",
+        "result": "pass",
+        "details": {
+          "desktop_cell_count": 12,
+          "mobile_cell_count": 12,
+          "desktop": {},
+          "mobile": [
+            {
+              "label": "التحديد",
+              "text": ""
+            },
+            {
+              "label": "الصف",
+              "text": "1"
+            },
+            {
+              "label": "الشعار",
+              "text": ""
+            },
+            {
+              "label": "الاسم",
+              "text": "شركة الدلتا للمقاولات الكهربائية - مدينة نصر 1الدلتا مدينة نصر"
+            },
+            {
+              "label": "الكود",
+              "text": "DEMO-EG-SUP-000001"
+            },
+            {
+              "label": "التصنيف الرئيسي",
+              "text": "قواطع وحماية"
+            },
+            {
+              "label": "الدولة",
+              "text": "مصر"
+            },
+            {
+              "label": "المدينة",
+              "text": "مدينة نصر"
+            },
+            {
+              "label": "النوع",
+              "text": "موزع"
+            },
+            {
+              "label": "جهة الاتصال / الشريحة",
+              "text": "مصطفى محمود المصري+201570300003"
+            },
+            {
+              "label": "الحالة",
+              "text": "نشط"
+            },
+            {
+              "label": "الإجراءات",
+              "text": "عرض التفاصيل تعديل إيقاف أرشفة"
+            }
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-all-record-cells-visible",
+        "result": "pass",
+        "details": {
+          "visible": 12,
+          "total": 12
+        }
+      },
+      {
+        "name": "catalog-mobile-document-has-no-horizontal-overflow",
+        "result": "pass",
+        "details": {
+          "viewport": 360
+        }
+      },
+      {
+        "name": "first-catalog-record-starts-within-initial-viewport",
+        "result": "pass",
+        "details": {
+          "x": 29,
+          "y": 616.5625,
+          "width": 302,
+          "height": 481.25
+        }
+      },
+      {
+        "name": "catalog-selection-ordinal-logo-metadata-aligns",
+        "result": "pass",
+        "details": {
+          "expected": [
+            "التحديد",
+            "الصف",
+            "الشعار"
+          ],
+          "rectangles": [
+            {
+              "x": 226,
+              "y": 629.5625,
+              "width": 92,
+              "height": 71.140625
+            },
+            {
+              "x": 134,
+              "y": 629.5625,
+              "width": 92,
+              "height": 71.140625
+            },
+            {
+              "x": 42,
+              "y": 629.5625,
+              "width": 92,
+              "height": 71.140625
+            }
+          ],
+          "actual_labels": [
+            "التحديد",
+            "الصف",
+            "الشعار",
+            "الاسم",
+            "الكود",
+            "التصنيف الرئيسي",
+            "الدولة",
+            "المدينة",
+            "النوع",
+            "جهة الاتصال / الشريحة",
+            "الحالة",
+            "الإجراءات"
+          ]
+        }
+      },
+      {
+        "name": "catalog-mobile-more-opens-with-import-and-export",
+        "result": "pass",
+        "details": {
+          "importVisible": true,
+          "exportVisible": true
+        }
+      },
+      {
+        "name": "catalog-mobile-more-closes-with-escape",
+        "result": "pass",
+        "details": true
+      },
+      {
+        "name": "catalog-mobile-selection-can-be-cancelled-without-changing-record",
+        "result": "pass",
+        "details": {
+          "row_unchanged": true,
+          "mutation_submitted": false
+        }
+      }
+    ],
+    "mutation_submitted": false,
+    "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+    "cell_count": 12,
+    "visible_cell_count": 12,
+    "field_labels": [
+      "التحديد",
+      "الصف",
+      "الشعار",
+      "الاسم",
+      "الكود",
+      "التصنيف الرئيسي",
+      "الدولة",
+      "المدينة",
+      "النوع",
+      "جهة الاتصال / الشريحة",
+      "الحالة",
+      "الإجراءات"
+    ],
+    "row_top": 616.5625,
+    "fields_match_desktop": true,
+    "more_menu_text": "استيراد Excel تصدير السجلات المحددة تصدير نتائج التصفية تصدير جميع السجلات المصرح بها",
+    "row_unchanged_after_cancel": true
+  }
+]

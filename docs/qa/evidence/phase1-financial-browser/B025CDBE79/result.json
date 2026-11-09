@@ -1,0 +1,63 @@
+{
+  "result": "FAIL",
+  "run_id": "B025CDBE79",
+  "failure": "/treasury/transfers did not render expected persisted value customer_collection.",
+  "checks": [
+    {
+      "login": "authorized synthetic accountant",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/financial/supplier-invoices",
+      "viewport": 1440,
+      "persisted_value": "PH1-RACE-OVBVJVPE",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/ap",
+      "viewport": 1440,
+      "persisted_value": "SI-2026-000005",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/treasury/payments",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/customer-invoices",
+      "viewport": 1440,
+      "persisted_value": "CI-2026-000002",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/ar",
+      "viewport": 1440,
+      "persisted_value": "CI-2026-000002",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/treasury/collections",
+      "viewport": 1440,
+      "persisted_value": null,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/financial/credit-notes",
+      "viewport": 1440,
+      "persisted_value": "Concurrent credit cap CREDIT-A",
+      "document": 1440,
+      "body": 1440
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

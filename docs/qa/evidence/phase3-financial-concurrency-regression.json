@@ -1,0 +1,292 @@
+{
+    "database": "erp_elec_new_test",
+    "host": "127.0.0.1",
+    "port": 55442,
+    "committed_synthetic_fixture_ids": {
+        "actors": [
+            350
+        ],
+        "supplier_invoice_ids": [
+            16,
+            17,
+            18
+        ],
+        "receipt_ids": [
+            15,
+            16,
+            17
+        ],
+        "branch_ids": [
+            95
+        ]
+    },
+    "same_invoice_two_worker_race": {
+        "worker_results": [
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "post_supplier_invoice",
+                    "result": {
+                        "invoice_id": 16,
+                        "journal_id": 88,
+                        "number": "SI-2026-000004"
+                    }
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "post_supplier_invoice",
+                    "result": {
+                        "invoice_id": 16,
+                        "journal_id": 88,
+                        "number": "SI-2026-000004"
+                    }
+                }
+            }
+        ],
+        "posted_status": "posted",
+        "journal_count": 1,
+        "ap_open_item_count": 1,
+        "official_pdf_count": 1
+    },
+    "concurrent_official_number_contention": {
+        "worker_results": [
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "post_supplier_invoice",
+                    "result": {
+                        "invoice_id": 17,
+                        "journal_id": 90,
+                        "number": "SI-2026-000005"
+                    }
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "post_supplier_invoice",
+                    "result": {
+                        "invoice_id": 18,
+                        "journal_id": 89,
+                        "number": "SI-2026-000006"
+                    }
+                }
+            }
+        ],
+        "invoice_ids": [
+            17,
+            18
+        ],
+        "official_numbers": [
+            "SI-2026-000005",
+            "SI-2026-000006"
+        ]
+    },
+    "concurrent_supplier_matching": {
+        "worker_results": [
+            {
+                "exit_code": 1,
+                "result": {
+                    "outcome": "rejected",
+                    "operation": "create_supplier_invoice",
+                    "class": "Illuminate\\Validation\\ValidationException",
+                    "code": 0,
+                    "message": "كمية المطابقة تتجاوز المتبقي غير المفوتر من الاستلام."
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "create_supplier_invoice",
+                    "result": {
+                        "invoice_id": 19
+                    }
+                }
+            }
+        ],
+        "invoice_ids": [
+            19
+        ],
+        "posted_receipt_id": 18,
+        "allocated_quantity": "1.00000000",
+        "statuses": [
+            "draft"
+        ]
+    },
+    "competing_settlement_allocations": {
+        "worker_results": [
+            {
+                "exit_code": 1,
+                "result": {
+                    "outcome": "rejected",
+                    "operation": "execute_supplier_payment",
+                    "class": "Illuminate\\Validation\\ValidationException",
+                    "code": 0,
+                    "message": "التخصيص لا يطابق الطرف والفرع أو يتجاوز الرصيد المتبقي."
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "execute_supplier_payment",
+                    "result": {
+                        "movement_id": 13,
+                        "journal_id": 93,
+                        "number": "PV-2026-000003"
+                    }
+                }
+            }
+        ],
+        "open_item_id": 9,
+        "successes": 1,
+        "rejections": 1,
+        "remaining_after_race": "1.49"
+    },
+    "concurrent_same_payment_retry": {
+        "worker_results": [
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "execute_supplier_payment",
+                    "result": {
+                        "movement_id": 14,
+                        "journal_id": 94
+                    }
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "execute_supplier_payment",
+                    "result": {
+                        "movement_id": 14,
+                        "journal_id": 94,
+                        "number": "PV-2026-000004"
+                    }
+                }
+            }
+        ],
+        "payment_request_id": 7,
+        "movement_ids": [
+            14
+        ],
+        "allocation_count": 1
+    },
+    "concurrent_customer_invoice_creation": {
+        "worker_results": [
+            {
+                "exit_code": 1,
+                "result": {
+                    "outcome": "rejected",
+                    "operation": "create_customer_invoice",
+                    "class": "Illuminate\\Validation\\ValidationException",
+                    "code": 0,
+                    "message": "الكمية المفوترة تتجاوز الكمية المسلمة المتبقية."
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "create_customer_invoice",
+                    "result": {
+                        "invoice_id": 5
+                    }
+                }
+            }
+        ],
+        "sales_order_id": 58,
+        "delivery_id": 7,
+        "invoice_id": 5,
+        "posted_invoice": {
+            "invoice_id": 5,
+            "journal_id": 96,
+            "number": "CI-2026-000002"
+        }
+    },
+    "concurrent_credit_overallocation": {
+        "worker_results": [
+            {
+                "exit_code": 1,
+                "result": {
+                    "outcome": "rejected",
+                    "operation": "create_credit_note",
+                    "class": "Illuminate\\Validation\\ValidationException",
+                    "code": 0,
+                    "message": "الإشعار يتجاوز القيمة المتبقية القابلة للتصحيح من الفاتورة الأصلية."
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "create_credit_note",
+                    "result": {
+                        "credit_note_id": 6
+                    }
+                }
+            }
+        ],
+        "credit_note_ids": [
+            6
+        ],
+        "credit_amount_each": "6.85",
+        "posted_winner": {
+            "credit_note_id": 6,
+            "journal_id": 97,
+            "number": "CCN-2026-000002"
+        }
+    },
+    "customer_advance": {
+        "movement_id": 15,
+        "amount": "1.00",
+        "liability_account_id": 114,
+        "journal_credit": "1.00"
+    },
+    "injected_financial_rollback": {
+        "invoice_id": 21,
+        "raised_p0001": true,
+        "no_partial_posting": true
+    },
+    "period_close_vs_invoice_post": {
+        "worker_results": [
+            {
+                "exit_code": 1,
+                "result": {
+                    "outcome": "rejected",
+                    "operation": "post_supplier_invoice",
+                    "class": "Illuminate\\Validation\\ValidationException",
+                    "code": 0,
+                    "message": "تاريخ القيد خارج الفترات المفتوحة."
+                }
+            },
+            {
+                "exit_code": 0,
+                "result": {
+                    "outcome": "passed",
+                    "operation": "close_period",
+                    "result": {
+                        "closed": null
+                    }
+                }
+            }
+        ],
+        "period_id": 6,
+        "invoice_id": 22,
+        "period_status": "closed",
+        "invoice_status": "approved",
+        "journal_id": null,
+        "open_item_id": null
+    },
+    "all_pass": true
+}

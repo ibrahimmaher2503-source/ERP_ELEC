@@ -1,0 +1,15 @@
+{
+  "message": "Guarded M09 fixture failed (255): PHP Fatal error:  Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = false) in C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Projects\\Presentation\\TenderPage.php on line 72\n[2026-10-31 12:52:30] testing.ERROR: Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = false) {\"exception\":\"[object] (Symfony\\\\Component\\\\ErrorHandler\\\\Error\\\\FatalError(code: 0): Declaration of App\\\\Modules\\\\Projects\\\\Presentation\\\\TenderPage::transition(): void must be compatible with Livewire\\\\Component::transition($type = null, $skip = false) at C:/projects/ERP_ELEC_NEW/app/Modules/Projects/Presentation/TenderPage.php:72)\n[stacktrace]\n#0 {main}\n\"} \n",
+  "stack": [
+    "Error: Guarded M09 fixture failed (255): PHP Fatal error:  Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = false) in C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Projects\\Presentation\\TenderPage.php on line 72",
+    "[2026-10-31 12:52:30] testing.ERROR: Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = false) {\"exception\":\"[object] (Symfony\\\\Component\\\\ErrorHandler\\\\Error\\\\FatalError(code: 0): Declaration of App\\\\Modules\\\\Projects\\\\Presentation\\\\TenderPage::transition(): void must be compatible with Livewire\\\\Component::transition($type = null, $skip = false) at C:/projects/ERP_ELEC_NEW/app/Modules/Projects/Presentation/TenderPage.php:72)",
+    "[stacktrace]",
+    "#0 {main}",
+    "\"} ",
+    "",
+    "    at phpJson (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\acceptance.cjs:60:34)",
+    "    at readback (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\acceptance.cjs:244:10)",
+    "    at main (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\acceptance.cjs:356:17)"
+  ],
+  "readback_error": "Guarded M09 fixture failed (255): PHP Fatal error:  Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = false) in C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Projects\\Presentation\\TenderPage.php on line 72\n[2026-10-31 12:52:31] testing.ERROR: Declaration of App\\Modules\\Projects\\Presentation\\TenderPage::transition(): void must be compatible with Livewire\\Component::transition($type = null, $skip = fa"
+}

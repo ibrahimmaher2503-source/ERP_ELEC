@@ -1,0 +1,68 @@
+PASS authorized workshop configuration persists at version one in its branch
+PASS stale workshop configuration version is rejected
+PASS authorized scoped technician membership is persisted and advances workshop version
+PASS stale workshop version cannot overwrite membership
+PASS intake creation key safely replays the same draft after a lost response
+PASS customer property intake remains a draft without receiving or company-stock effect
+PASS draft intake can be saved with its current version while preserving the customer property snapshot
+PASS stale intake version is rejected
+PASS receipt replay with the same key records one immutable custody event
+PASS second receipt with a new key cannot receive the same intake again
+PASS received intake converts to one workshop job and lost-response retry returns that job
+PASS job retains intake identity and enters inspection without fabricated repair execution
+PASS stale intake version cannot create another job
+PASS contract billing mode is blocked until approved coverage is connected
+PASS dispatcher assigns only the active workshop member and advances job version
+PASS stale job version cannot repeat assignment
+PASS assigned technician records diagnosis, planned work and required tests without changing status to repaired or tested
+PASS unscoped user cannot diagnose the workshop job
+PASS repair cannot start while the estimate has no independent customer approval
+PASS work record cannot be captured before the approved repair is started
+PASS test evidence cannot be recorded before the job enters testing
+PASS supervisor cannot verify a job before execution and required tests
+PASS rejected lifecycle attempts create no labor, test or verification evidence
+PASS assigned technician cannot release equipment as unrepairable without verification authority
+PASS authorized unrepairable decision keeps a separate repair result and an auditable custody event
+PASS unrepaired return records its authorized recipient and original accessories and safely replays delivery
+PASS company equipment cannot enter repair custody without a real Inventory serial reference
+PASS invalid company-equipment intake leaves no synthetic custody record
+PASS custody transfer dispatch replays by matching immutable creation key
+PASS destination records one custody receipt and restores inspection status
+PASS warranty approval requires a prior delivered and accepted repair for the same equipment
+PASS customer equipment cannot use the company-owned internal nonbillable basis
+PASS customer repair custody actions leave inventory movements, FIFO layers and balances unchanged
+STEP billable-intake
+STEP billable-job
+STEP billable-diagnosis
+STEP permission-estimate
+STEP permission-product
+STEP permission-tax
+STEP estimate
+PASS M09 estimate captures configured M11 sale tax and exact billable decimal
+PASS quote selling lines must exactly equal net billable total
+PASS quote issue is blocked before independent internal approval
+PASS customer acceptance is blocked before the official quote is issued
+PASS estimate proposer cannot independently approve the quote
+PASS independent price approval is stored separately from customer acceptance
+PASS approved customer quote issues one idempotent official document
+PASS repair execution is denied before independent customer acceptance
+PASS customer acceptance is separately persisted after quote issuance
+PASS customer acceptance replay with stale version is rejected
+PASS M09 parts requirement reserves actual available M06 stock in its branch warehouse
+STEP m08-member
+STEP m08-assignment
+STEP m08-start
+PASS repair cannot be started twice after its first transition
+PASS M09 rejects time overlapping the existing accepted M08 technician entry
+PASS M08 overlap denial leaves no M09 work record or labor entry
+PASS first repair start remains active after technician restoration
+PASS work record snapshots approved rate into exact 30-minute labor cost
+PASS M09 partial issue consumes real FIFO stock, records technician usage and returns only unused quantity
+PASS approved labor posts one M11 source journal and replay returns the original journal
+PASS independent verification records test/report before M12 billing
+PASS M12 invoice request replays by creation key for the same verified source
+PASS later-dated M12 invoice preserves the accepted M09 quote tax and records the matching actual invoice-date tax
+PASS M12 validates and posts the accepted M09 source exactly once to GL and customer AR
+PASS customer-owned and company-owned repair intake, receipt, job creation, diagnosis and unrepaired return do not create inventory movements, FIFO or balance changes
+PASS Workshop factories persist configuration, draft intake and a valid received-to-inspection job graph without estimates or performed work
+PASS 57 WorkshopRepairs financial assertions completed on isolated PostgreSQL 55462.

@@ -1,0 +1,344 @@
+{
+    "all_pass": true,
+    "mode": "m10-core",
+    "assertions": 65,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 5,
+            "users": 15,
+            "customers": 5,
+            "products": 7,
+            "product_categories": 7,
+            "brands": 7,
+            "units_of_measure": 7,
+            "product_unit_conversions": 0,
+            "organization_employees": 7,
+            "service_contracts": 8,
+            "service_contract_revisions": 9,
+            "service_contract_documents": 3,
+            "service_contract_activities": 16,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 25,
+            "user_branch_scopes": 4,
+            "user_roles": 0,
+            "audit_entries": 23
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M01 Employee factory persists an active employment identity without a linked login or authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 Employee factory creates no authentication, role, permission, or branch-scope history",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 EmployeeActions creates a versioned branch-owned employment record from controlled master fields",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 EmployeeActions updates permitted fields with an optimistic version increment",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee code is immutable after identity creation",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee branch is immutable after identity creation",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee creation requires explicit branch permission and scope",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract returns current scoped employment identity without payroll or costing fields",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract denies unscoped and unpermitted readers",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract hides identities outside the requested branch",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employment contract denies inactive employee identities",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employment contract denies identities outside their effective date range",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 factory persists a coherent Egyptian draft graph without approval, signature, activation, or document evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 factory creates no authentication privileges or branch authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 explicit demo seeder creates only identifiable draft contracts without approval, signature, activation, or evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 seeded draft identities are stable DEMO-EG records with safe synthetic audit attribution",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 explicit demo seeder repeat is idempotent and does not duplicate synthetic contract graphs or audit entries",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 creation key safely replays the same draft without duplicating contract or schedule",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects reuse of a creation key with changed contract terms",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 contract header persists its branch, customer and M01 responsible employee identity",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 persists the signed-value snapshot and three exact decimal installments summing to contract value",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects installment schedules whose exact total differs from signed value",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects an inactive or unavailable customer",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 contract create checks explicit branch scope and permission",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 contract create rejects inactive accounts with an otherwise valid grant and branch scope",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 contract create rejects unverified accounts with an otherwise valid grant and branch scope",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 contract requires an active service product, not an inventory part",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 stale contract version cannot overwrite a draft",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 requires a real M01 employee identity",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects an inactive M01 employee as contract authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects an M01 employee whose employment ended before the contract begins",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects a scheduled installment outside the signed contract term",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejected terms leave no partial contract or revision rows",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 measured-work contract persists a distinct exclusive quantity-and-rate BOQ in exact decimal strings",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects mixed installment and measured-work billing modes",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 mixed billing-mode rejection leaves no partial contract",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 saves edits only to the current draft and advances the contract version",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects a stale draft edit after the version advances",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 draft edits invalidate previously uploaded signature evidence for the old terms digest",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 signature file persists privately with its real SHA-256 and exact current-revision owner link",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses unsupported private evidence types",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 invalid evidence leaves neither a document metadata row nor a private file",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 signature evidence downloads only as a private, non-cacheable, nosniff response",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses evidence whose private file no longer matches its persisted SHA-256",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 private contract evidence download requires scoped document permission",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 creator cannot approve their own service-contract revision",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 approval is independent of the revision creator and versions the approved lifecycle",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses a signature document uploaded before the current draft terms digest",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses signature evidence owned by another contract",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses a future signature date",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejected signature attempts leave approval state, revision, and contract version unchanged",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 signature stores real private evidence against the exact current approved revision",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 activation requires the approved and evidenced signed contract",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage returns normalized equipment, current revision, remaining visit/labor/part limits, exclusions and SLA",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup requires explicit branch authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup rejects a customer mismatch",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup rejects a branch mismatch",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup rejects equipment outside the signed coverage snapshot",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup rejects service outside contract dates",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage lookup rejects unsupported service entitlement kinds",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 suspended contracts provide no active entitlement",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 amendment creates a linked draft revision without rewriting or deactivating the signed current contract",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 renewal creates a separate linked draft while preserving the source contract and its history",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 termination preserves signed source history and the separately linked renewal draft",
+            "result": "PASS"
+        },
+        {
+            "name": "All fixture database rows roll back after acceptance.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}

@@ -27,7 +27,7 @@
                 <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     <flux:input wire:model.live="form.name" label="اسم الصنف" required maxlength="200" />
                     <flux:input wire:model.live="form.name_en" label="الاسم بالإنجليزية" maxlength="200" dir="ltr" />
-                    <flux:input wire:model.live="form.sku" label="رمز الصنف (SKU)" required maxlength="50" dir="ltr" :disabled="(bool) $productId" />
+                    <flux:input wire:model.live="form.sku" label="رمز الصنف" required maxlength="50" dir="ltr" :disabled="(bool) $productId" />
                     <flux:input wire:model.live="form.barcode" label="الباركود" maxlength="100" dir="ltr" />
                     <flux:select wire:model.live="form.kind" label="نوع الصنف" required :disabled="(bool) $productId">
                         <option value="">اختر النوع</option>
@@ -171,7 +171,7 @@
 
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-erp.section-card title="التسعير">
-                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="banknotes" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تُدار أسعار الصنف من صفحة الأسعار بعد حفظ الصنف.</p>@if($productId && \Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $productId)" size="sm">فتح صفحة الأسعار</flux:button>@endif</div></div>
+                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="banknotes" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تُدار أسعار الصنف من صفحة الأسعار بعد حفظ الصنف.</p>@if($productId && \Illuminate\Support\Facades\Route::has('products.prices') && app(\App\Modules\Products\Application\ProductAccess::class)->allows(auth()->id(), 'M02.price_view'))<flux:button :href="route('products.prices', $productId)" size="sm">فتح صفحة الأسعار</flux:button>@endif</div></div>
                 </x-erp.section-card>
                 <x-erp.section-card title="المخزون">
                     <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="building-storefront" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تظهر أرصدة المخزون في صفحة الأرصدة.</p>@if(\Illuminate\Support\Facades\Route::has('inventory.balances'))<flux:button :href="route('inventory.balances')" size="sm">فتح صفحة الأرصدة</flux:button>@endif</div></div>
@@ -185,7 +185,7 @@
                 @if ($previewUpload)<img src="{{ $previewUpload->temporaryUrl() }}" alt="معاينة صورة الصنف" class="mt-4 max-h-52 w-full rounded-lg border border-slate-200 bg-slate-50 object-contain">@elseif ($savedPreviewImage)<img src="{{ route('products.media', $savedPreviewImage->id) }}" alt="{{ $form['name'] ?: 'الصنف' }}" class="mt-4 max-h-52 w-full rounded-lg border border-slate-200 bg-slate-50 object-contain">@else<div class="mt-4 flex h-36 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-slate-400"><flux:icon name="cube" class="size-12" /></div>@endif
                 <div class="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
                     <div class="flex items-start justify-between gap-3">
-                        <div class="min-w-0"><h2 class="break-words font-semibold text-slate-900">{{ $form['name'] ?: 'اسم الصنف' }}</h2><p class="mt-1 text-xs text-slate-500"><bdi>{{ $form['sku'] ?: 'SKU' }}</bdi></p></div>
+                        <div class="min-w-0"><h2 class="break-words font-semibold text-slate-900">{{ $form['name'] ?: 'اسم الصنف' }}</h2><p class="mt-1 text-xs text-slate-500"><bdi>{{ $form['sku'] ?: 'رمز الصنف' }}</bdi></p></div>
                         <x-erp.status-badge :active="$formActive" />
                     </div>
                     <dl class="mt-4 space-y-3 border-t border-slate-200 pt-4 text-sm">

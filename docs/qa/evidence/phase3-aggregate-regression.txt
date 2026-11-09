@@ -1,0 +1,15 @@
+﻿Phase 3 aggregate regression evidence
+Date: 2026-10-30 (Africa/Cairo)
+Database for successful reruns: disposable PostgreSQL erp_elec_new_test on loopback port 55442. APP_ENV=testing.
+
+Historical attempt (preserved): the aggregate on disposable 55441 produced `Process.php line 1247`; child `.tools/check-data-operations.php` exceeded the runner timeout of 600 seconds. The timeout was captured before this rerun; the runner did not produce a final JSON receipt for that interrupted run.
+
+Isolation diagnosis: standalone `php -d opcache.enable_cli=0 .tools/check-data-operations.php` on 55442 completed in 22 seconds, passed all checks (runner count 51; direct stdout contained all PASS outcomes), and printed `Disposable data-operations database transaction rolled back.`
+
+Intermediate rerun (preserved): safe-check-run-20261030T121525Z.json recorded 19/21 with 870 PASS assertions. Failures were stale M08 demo audit expectations (three legitimate anonymous FieldMaintenance demo.created events) and an incomplete CustomersApi test double after maintenanceContext became part of the interface. The check now accounts for demo rows and anonymous safe snapshots by owner; the Sales Order test double implements the contract without weakening assertions. Parent added the audit for the new planned visit.
+
+Final command: `php -d opcache.enable_cli=0 .tools/run-safe-qa-checks.php` with DB_PORT=55442, DB_USERNAME=postgres, DB_PASSWORD empty.
+Result: PASS 21/21 scripts, 0 failed, 0 incomplete, 873 explicit PASS assertions. The Egypt-market demo check passes all 21 assertions; the Sales Order factory check passes all 4. Final JSON: safe-check-run-20261030T122541Z.json.
+
+The original 55441 timeout and intermediate 19/21 receipt remain intact; neither was relabeled as passing.
+

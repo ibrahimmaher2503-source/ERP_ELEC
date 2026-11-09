@@ -1,0 +1,78 @@
+PASS Migration provides required serial-valued table purchasing_receipt_lines
+PASS Migration provides required serial-valued table inventory_fifo_serial_allocations
+PASS Migration provides required serial-valued table inventory_serials
+PASS Migration provides required serial-valued table inventory_serial_events
+PASS Migration provides required serial-valued table inventory_movements
+PASS Migration provides required serial-valued table inventory_balances
+PASS Migration provides required serial-valued table inventory_documents
+PASS Migration provides required serial-valued table inventory_document_lines
+PASS Migration provides required serial-valued table inventory_fifo_layers
+PASS Migration provides required serial-valued table inventory_fifo_allocations
+PASS Migration provides required serial-valued table inventory_corrections
+PASS Migration provides required serial-valued table inventory_fifo_corrections
+PASS Migration provides required serial-valued table inventory_transfer_lots
+PASS Migration provides required serial-valued table inventory_transfer_allocations
+PASS Migration provides required serial-valued table inventory_transfer_receipts
+PASS Migration provides required serial-valued table inventory_transfer_receipt_lines
+PASS Migration provides required serial-valued table inventory_isolations
+PASS Migration provides required serial-valued table inventory_condition_events
+PASS Migration provides required serial-valued table inventory_movement_journals
+PASS Migration provides required serial-valued table accounting_journals
+PASS Migration provides required serial-valued table accounting_journal_lines
+PASS M05 receipt lines persist source-owned serial identities
+PASS Financial posting is activated through independent M11 opening approval
+PASS Three real M05 serial receipt sources post through the M05/M06/M11 coordinator
+PASS M05 immutable receipt line retains its exact serial source
+PASS M05 receipt creates exact source-cost FIFO layer for SER-OLD-A
+PASS Received serial occupancy points to its actual M05 source movement
+PASS M05 serial receipt has one immutable received event
+PASS Receipt posting links exact M05 source line, M06 movement and FIFO layer
+PASS Recoverable tax treatment capitalizes the exact source net cost
+PASS M11 receipt journal is posted exactly once against its M05 source
+PASS M11 receipt journal contains only the exact Inventory debit and GRNI credit
+PASS M05 immutable receipt line retains its exact serial source
+PASS M05 receipt creates exact source-cost FIFO layer for SER-NEW-B
+PASS Received serial occupancy points to its actual M05 source movement
+PASS M05 serial receipt has one immutable received event
+PASS Receipt posting links exact M05 source line, M06 movement and FIFO layer
+PASS Recoverable tax treatment capitalizes the exact source net cost
+PASS M11 receipt journal is posted exactly once against its M05 source
+PASS M11 receipt journal contains only the exact Inventory debit and GRNI credit
+PASS M05 immutable receipt line retains its exact serial source
+PASS M05 receipt creates exact source-cost FIFO layer for SER-ONE-C
+PASS Received serial occupancy points to its actual M05 source movement
+PASS M05 serial receipt has one immutable received event
+PASS Receipt posting links exact M05 source line, M06 movement and FIFO layer
+PASS Recoverable tax treatment capitalizes the exact source net cost
+PASS M11 receipt journal is posted exactly once against its M05 source
+PASS M11 receipt journal contains only the exact Inventory debit and GRNI credit
+PASS Three M05 receipts produce exactly three source-keyed M11 journals without duplicates
+PASS M05 receipt serial occupancy contains exactly one row per distinct source serial
+PASS Approved M06 issue posts the selected serialized base quantity
+PASS Selected newer serial becomes issued at the source warehouse
+PASS Selected serial has one issue event linked to the actual M06 movement
+PASS FIFO issue consumes the oldest M05 lot at its exact $10.00 source cost
+PASS FIFO layer balances retain exact residual quantity and value after issue
+PASS Selected newer physical serial maps exactly once to the actual older FIFO allocation and cents
+PASS Database guard makes the serial-to-FIFO value mapping immutable (actual Illuminate\Database\QueryException)
+PASS Rejected mapping mutation leaves the original FIFO amount intact
+PASS M11 issue valuation journals exact FIFO cost once against the M06 movement
+PASS M11 issue journal contains only the exact $10.00 expense debit and Inventory credit
+PASS M06 physical balance equals two remaining serialized units
+PASS M06 serial occupancy reconciles two available, one issued, and three lifetime identities
+PASS M06 rejects a second source document for the already-issued serial identity (actual Illuminate\Validation\ValidationException)
+PASS Duplicate selected serial attempt creates no movement, FIFO, journal, mapping, or event rows
+PASS Correction links the selected serial to its exact original $10.00 allocation and layer
+PASS Correction restores exact source date, quantity, value, and unit cost
+PASS Corrected physical serial becomes available at source with one linked correction event
+PASS M11 correction journal restores the exact $10.00 Inventory debit and expense credit
+PASS Same correction idempotency key replays without duplicate source, FIFO, serial, or GL rows
+PASS Correction idempotency key rejects a different selected serial (actual Illuminate\Validation\ValidationException)
+PASS Rejected correction-key collision leaves all correction, FIFO, serial, and GL rows unchanged
+PASS Three selected physical serials map one-to-one to $10.00, $20.00, and $0.01 FIFO allocations
+PASS Database records exactly three immutable serial allocation links including the one-cent unit
+PASS Serial SER-NEW-B correction restores its saved FIFO allocation, exact cents, and M11 journal
+PASS Serial SER-OLD-A correction restores its saved FIFO allocation, exact cents, and M11 journal
+PASS Serial SER-ONE-C correction restores its saved FIFO allocation, exact cents, and M11 journal
+PASS All three corrected physical serials are available again at their original warehouse
+RESULT all_pass=0 assertions=77 rollback_verified=1 phase=M06 transfer dispatch retains each original FIFO lot and serial cents receipt=C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/gate5-serial-valued-20261101T191145Z-af168c9563/receipt.json

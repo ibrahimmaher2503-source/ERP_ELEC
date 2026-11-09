@@ -1,0 +1,556 @@
+ M .ai/HANDOFF.md
+ M .env.example
+ M .gitignore
+ M EXECUTION_PIPELINE.md
+ M app/Modules/Accounting/Application/AccountingAccess.php
+ M app/Modules/Accounting/Application/AccountingActions.php
+ M app/Modules/Accounting/Domain/AccountingAccount.php
+ M app/Modules/Accounting/Domain/AccountingJournal.php
+ M app/Modules/Accounting/Domain/AccountingJournalLine.php
+ M app/Modules/Accounting/Domain/AccountingPeriod.php
+ M app/Modules/Accounting/Presentation/AccountingPage.php
+ M app/Modules/Inventory/Application/Contracts/InventoryApi.php
+ M app/Modules/Inventory/Application/InventoryAccess.php
+ M app/Modules/Inventory/Application/InventoryConditions.php
+ M app/Modules/Inventory/Application/InventoryCorrections.php
+ M app/Modules/Inventory/Application/InventoryDocuments.php
+ M app/Modules/Inventory/Application/InventoryLedger.php
+ M app/Modules/Inventory/Application/InventoryQuery.php
+ M app/Modules/Inventory/Application/InventoryReconciliation.php
+ M app/Modules/Inventory/Application/InventoryReservations.php
+ M app/Modules/Inventory/Application/InventorySerials.php
+ M app/Modules/Inventory/Application/InventoryService.php
+ M app/Modules/Inventory/Application/InventoryTransfers.php
+ M app/Modules/Inventory/Presentation/InventoryDocumentPage.php
+ M app/Modules/Inventory/Presentation/InventoryExportController.php
+ M app/Modules/Inventory/Presentation/InventoryOperationsPage.php
+ M app/Modules/Inventory/Presentation/InventoryPage.php
+ M app/Modules/Organization/Application/Contracts/OrganizationApi.php
+ M app/Modules/Organization/Application/OrganizationService.php
+ M app/Modules/Organization/Application/PermissionAccess.php
+ M app/Modules/Organization/Application/PermissionCatalog.php
+ M app/Modules/Organization/Application/UserAccess.php
+ M app/Modules/Organization/Presentation/UserAccessSection.php
+ M app/Modules/Parties/Application/Contracts/CustomersApi.php
+ M app/Modules/Parties/Application/CustomersService.php
+ M app/Modules/Products/Application/ProductsService.php
+ M app/Modules/Products/Presentation/ProductMediaController.php
+ M app/Modules/Projects/Application/ProjectAccess.php
+ M app/Modules/Projects/Application/ProjectActions.php
+ M app/Modules/Projects/Application/ProjectDocuments.php
+ M app/Modules/Projects/Application/ProjectPlanning.php
+ M app/Modules/Projects/Application/ProjectSources.php
+ M app/Modules/Projects/Presentation/ProjectBudgetPage.php
+ M app/Modules/Projects/Presentation/ProjectClosurePage.php
+ M app/Modules/Projects/Presentation/ProjectDocumentsPage.php
+ M app/Modules/Projects/Presentation/ProjectDownloadController.php
+ M app/Modules/Projects/Presentation/ProjectExportController.php
+ M app/Modules/Projects/Presentation/ProjectOperationsPage.php
+ M app/Modules/Projects/Presentation/ProjectPage.php
+ M app/Modules/Projects/Presentation/ProjectReportsPage.php
+ M app/Modules/Projects/Presentation/ProjectsDashboardPage.php
+ M app/Modules/Purchasing/Application/Contracts/PurchasingApi.php
+ M app/Modules/Purchasing/Application/PurchaseOrders.php
+ M app/Modules/Purchasing/Application/PurchasingAccess.php
+ M app/Modules/Purchasing/Application/PurchasingService.php
+ M app/Modules/Purchasing/Application/RfqActions.php
+ M app/Modules/Purchasing/Application/SupplierOffers.php
+ M app/Modules/Purchasing/Presentation/ComparisonPage.php
+ M app/Modules/Purchasing/Presentation/OfferPage.php
+ M app/Modules/Purchasing/Presentation/OrderPage.php
+ M app/Modules/Purchasing/Presentation/OrdersPage.php
+ M app/Modules/Purchasing/Presentation/PurchasingExportController.php
+ M app/Modules/Purchasing/Presentation/ReceiptPage.php
+ M app/Modules/Purchasing/Presentation/RfqPage.php
+ M app/Modules/Sales/Application/Contracts/QuotationsApi.php
+ M app/Modules/Sales/Application/QuotationAccess.php
+ M app/Modules/Sales/Application/QuotationActions.php
+ M app/Modules/Sales/Application/QuotationApprovals.php
+ M app/Modules/Sales/Application/QuotationDocuments.php
+ M app/Modules/Sales/Application/QuotationExportDefinition.php
+ M app/Modules/Sales/Application/QuotationQuery.php
+ M app/Modules/Sales/Application/QuotationReadiness.php
+ M app/Modules/Sales/Application/QuotationsService.php
+ M app/Modules/Sales/Application/SalesOrderActions.php
+ M app/Modules/Sales/Application/SalesOrderExportDefinition.php
+ M app/Modules/Sales/Application/SalesOrderQuery.php
+ M app/Modules/Sales/Application/SalesOrderReadiness.php
+ M app/Modules/Sales/Application/SalesOrdersService.php
+ M app/Modules/Sales/Presentation/QuotationDetailsPage.php
+ M app/Modules/Sales/Presentation/QuotationDocumentController.php
+ M app/Modules/Sales/Presentation/QuotationFormPage.php
+ M app/Modules/Sales/Presentation/SalesOrderDetailsPage.php
+ M app/Modules/Sales/Presentation/SalesOrderFormPage.php
+ M app/Modules/System/Application/ReadQuotationHistory.php
+ M app/Modules/System/Infrastructure/Spreadsheets/WorkbookCodec.php
+ M app/Providers/AppServiceProvider.php
+ M bootstrap/providers.php
+ M composer.json
+ M composer.lock
+ M config/database.php
+ M database/factories/AccountingAccountFactory.php
+ M database/factories/AccountingJournalFactory.php
+ M database/factories/AccountingJournalLineFactory.php
+ M database/factories/AccountingPeriodFactory.php
+ M database/factories/ProjectRequirementFactory.php
+ M database/migrations/2026_10_22_147000_create_projects.php
+ M database/migrations/2026_10_22_148000_create_project_baselines.php
+ M database/migrations/2026_10_22_149000_create_project_documents.php
+ M database/seeders/AccountingDemoSeeder.php
+ M database/seeders/EgyptMarketDemoSeeder.php
+ M database/seeders/ProjectsDemoSeeder.php
+ M docs/02-prd.md
+ M docs/03-DOMAIN-MODEL-BOUNDED-CONTEXTS.md
+ M docs/egypt-market-demo.md
+ M docs/m05-purchasing.md
+ M docs/m06-inventory.md
+ M docs/m07-projects.md
+ M docs/m11-accounting.md
+ M docs/qa/evidence/m05-m06-browser/desktop-ltr-inventory-count.png
+ M docs/qa/evidence/m05-m06-browser/desktop-ltr-purchase-order.png
+ M docs/qa/evidence/m05-m06-browser/desktop-rtl-inventory-count.png
+ M docs/qa/evidence/m05-m06-browser/desktop-rtl-purchase-order.png
+ M docs/qa/evidence/m05-m06-browser/mobile-ltr-inventory-count.png
+ M docs/qa/evidence/m05-m06-browser/mobile-ltr-purchase-order.png
+ M docs/qa/evidence/m05-m06-browser/mobile-rtl-inventory-count.png
+ M docs/qa/evidence/m05-m06-browser/mobile-rtl-purchase-order.png
+ M docs/qa/evidence/m05-m06-browser/result.json
+ M docs/qa/round2/evidence/quotation-reopen/afterfix/create-two-lines.png
+ M docs/qa/round2/evidence/quotation-reopen/afterfix/created-detail.png
+ M docs/qa/round2/evidence/quotation-reopen/afterfix/negative-quantity-rejected.png
+ M docs/qa/round2/evidence/quotation-reopen/afterfix/result.json
+ M docs/qa/round2/evidence/quotation-reopen/afterfix/third-save-detail.png
+ M package-lock.json
+ M package.json
+ M resources/css/app.css
+ M resources/views/accounting/index.blade.php
+ M resources/views/components/erp/status-badge.blade.php
+ M resources/views/components/page/heading.blade.php
+ M resources/views/components/ui/empty-state.blade.php
+ M resources/views/dashboard.blade.php
+ M resources/views/data-operations/workflow.blade.php
+ M resources/views/inventory/document.blade.php
+ M resources/views/inventory/documents.blade.php
+ M resources/views/inventory/navigation.blade.php
+ M resources/views/inventory/operations.blade.php
+ M resources/views/inventory/overview.blade.php
+ M resources/views/inventory/transfer-receiving.blade.php
+ M resources/views/inventory/warehouses.blade.php
+ M resources/views/layouts/app/sidebar.blade.php
+ M resources/views/organization/branch-details.blade.php
+ M resources/views/organization/branches.blade.php
+ M resources/views/organization/company.blade.php
+ M resources/views/organization/role-details.blade.php
+ M resources/views/organization/roles.blade.php
+ M resources/views/organization/user-details.blade.php
+ M resources/views/organization/users.blade.php
+ M resources/views/pages/settings/layout.blade.php
+ M resources/views/partials/settings-heading.blade.php
+ M resources/views/parties/catalog.blade.php
+ M resources/views/parties/categories.blade.php
+ M resources/views/parties/details.blade.php
+ M resources/views/parties/form.blade.php
+ M resources/views/parties/partials/status.blade.php
+ M resources/views/products/catalog.blade.php
+ M resources/views/products/details.blade.php
+ M resources/views/products/masters.blade.php
+ M resources/views/products/product-form.blade.php
+ M resources/views/projects/budget.blade.php
+ M resources/views/projects/closure.blade.php
+ M resources/views/projects/dashboard.blade.php
+ M resources/views/projects/documents.blade.php
+ M resources/views/projects/index.blade.php
+ M resources/views/projects/operations.blade.php
+ M resources/views/projects/reports.blade.php
+ M resources/views/projects/show.blade.php
+ M resources/views/projects/tasks.blade.php
+ M resources/views/purchasing/comparison.blade.php
+ M resources/views/purchasing/dashboard.blade.php
+ M resources/views/purchasing/offer.blade.php
+ M resources/views/purchasing/offers.blade.php
+ M resources/views/purchasing/order.blade.php
+ M resources/views/purchasing/orders.blade.php
+ M resources/views/purchasing/receipt.blade.php
+ M resources/views/purchasing/receipts.blade.php
+ M resources/views/purchasing/requisition.blade.php
+ M resources/views/purchasing/requisitions.blade.php
+ M resources/views/purchasing/rfq.blade.php
+ M resources/views/purchasing/rfqs.blade.php
+ M resources/views/sales/orders/details.blade.php
+ M resources/views/sales/orders/form.blade.php
+ M resources/views/sales/orders/index.blade.php
+ M resources/views/sales/orders/partials/feedback.blade.php
+ M resources/views/sales/orders/partials/status.blade.php
+ M resources/views/sales/orders/partials/workflow-statuses.blade.php
+ M resources/views/sales/orders/policy.blade.php
+ M resources/views/sales/quotations/acceptance.blade.php
+ M resources/views/sales/quotations/approval.blade.php
+ M resources/views/sales/quotations/conversion.blade.php
+ M resources/views/sales/quotations/details.blade.php
+ M resources/views/sales/quotations/form.blade.php
+ M resources/views/sales/quotations/index.blade.php
+ M resources/views/sales/quotations/partials/amounts.blade.php
+ M resources/views/sales/quotations/partials/identity.blade.php
+ M resources/views/sales/quotations/pdf.blade.php
+ M resources/views/sales/quotations/policy.blade.php
+ M routes/web.php
+ M tests/E2E/round2-masters.cjs
+ M tests/E2E/sales-orders.cjs
+ M tests/E2E/support/laravel-static-router.php
+ M tests/E2E/support/prepare-round2-master-fixtures.php
+ M tests/Feature/FoundationTest.php
+?? .superpowers/
+?? app/Application/
+?? app/Http/Middleware/
+?? app/Modules/Accounting/Application/AccountingService.php
+?? app/Modules/Accounting/Application/Contracts/
+?? app/Modules/Accounting/Application/FinancialActivation.php
+?? app/Modules/Accounting/Application/FinancialReports.php
+?? app/Modules/Accounting/Application/JournalPosting.php
+?? app/Modules/Accounting/Application/OpeningBalances.php
+?? app/Modules/Accounting/Application/OpeningWorkbook.php
+?? app/Modules/Accounting/Application/TaxCalculator.php
+?? app/Modules/Accounting/Domain/FinancialDecimal.php
+?? app/Modules/Accounting/Domain/OpeningBatch.php
+?? app/Modules/Accounting/Domain/OpeningLine.php
+?? app/Modules/Accounting/Domain/TaxRule.php
+?? app/Modules/Accounting/Presentation/FinancialReportExportController.php
+?? app/Modules/Accounting/Presentation/FinancialReportsPage.php
+?? app/Modules/Accounting/Presentation/FinancialSetupPage.php
+?? app/Modules/Accounting/Presentation/JournalPdfController.php
+?? app/Modules/FieldMaintenance/
+?? app/Modules/Inventory/Application/FifoValuation.php
+?? app/Modules/Inventory/Application/FinancialStock.php
+?? app/Modules/Inventory/Application/MaintenanceStock.php
+?? app/Modules/Inventory/Application/ValuedCorrections.php
+?? app/Modules/Inventory/Application/ValuedTransfers.php
+?? app/Modules/Inventory/Application/WorkshopStock.php
+?? app/Modules/Inventory/Domain/FifoLayer.php
+?? app/Modules/Parties/Presentation/PartyFinancialSection.php
+?? app/Modules/Products/Application/Contracts/ApprovedPrices.php
+?? app/Modules/Products/Application/SalePrices.php
+?? app/Modules/Products/Presentation/ProductPricesPage.php
+?? app/Modules/Projects/Application/Contracts/
+?? app/Modules/Projects/Application/ProjectExecution.php
+?? app/Modules/Projects/Application/ProjectFinancials.php
+?? app/Modules/Projects/Application/ProjectMaterials.php
+?? app/Modules/Projects/Application/ProjectsService.php
+?? app/Modules/Projects/Application/TenderAccess.php
+?? app/Modules/Projects/Application/TenderActions.php
+?? app/Modules/Projects/Application/TenderAwards.php
+?? app/Modules/Projects/Application/TenderBids.php
+?? app/Modules/Projects/Application/TenderBoq.php
+?? app/Modules/Projects/Application/TenderDocuments.php
+?? app/Modules/Projects/Domain/ProjectMilestone.php
+?? app/Modules/Projects/Domain/Tender.php
+?? app/Modules/Projects/Domain/TenderTechnical.php
+?? app/Modules/Projects/Presentation/ProjectFinancialExportController.php
+?? app/Modules/Projects/Presentation/ProjectFinancialPage.php
+?? app/Modules/Projects/Presentation/TenderExportController.php
+?? app/Modules/Projects/Presentation/TenderPage.php
+?? app/Modules/Projects/Presentation/TendersPage.php
+?? app/Modules/Purchasing/Application/PurchaseOrderProjection.php
+?? app/Modules/Purchasing/Application/PurchaseReceiptPosting.php
+?? app/Modules/Purchasing/Presentation/OrderPdfController.php
+?? app/Modules/ReceivablesPayables/
+?? app/Modules/Sales/Application/ApproveSalesOrder.php
+?? app/Modules/Sales/Application/Contracts/SalesDeliverySources.php
+?? app/Modules/Sales/Application/ConvertAcceptedQuotation.php
+?? app/Modules/Sales/Application/QuotationIssuance.php
+?? app/Modules/Sales/Application/SalesDeliveries.php
+?? app/Modules/Sales/Application/SalesDeliveryService.php
+?? app/Modules/Sales/Application/SalesOrderCommercialReview.php
+?? app/Modules/Sales/Application/SalesOrderProgress.php
+?? app/Modules/Sales/Application/TenderQuotationDraft.php
+?? app/Modules/Sales/Infrastructure/ProductQuotationPricing.php
+?? app/Modules/Sales/Presentation/QuotationOfficialController.php
+?? app/Modules/Sales/Presentation/SalesOrderOfficialController.php
+?? app/Modules/System/Application/Contracts/
+?? app/Modules/System/Application/IssueOfficialDocument.php
+?? app/Modules/Treasury/
+?? app/Modules/WorkshopRepairs/
+?? app/Providers/MonitoringServiceProvider.php
+?? config/debugbar.php
+?? config/modules.php
+?? config/pulse.php
+?? config/release.php
+?? database/factories/CustomerInvoiceFactory.php
+?? database/factories/FifoLayerFactory.php
+?? database/factories/MaintenanceChecklistTemplateFactory.php
+?? database/factories/MaintenanceRequestFactory.php
+?? database/factories/MaintenanceVisitFactory.php
+?? database/factories/MaintenanceWorkOrderFactory.php
+?? database/factories/OpeningBatchFactory.php
+?? database/factories/OpeningLineFactory.php
+?? database/factories/OpeningPayableFactory.php
+?? database/factories/ProjectMilestoneFactory.php
+?? database/factories/SupplierInvoiceFactory.php
+?? database/factories/TaxRuleFactory.php
+?? database/factories/TenderFactory.php
+?? database/factories/TenderTechnicalFactory.php
+?? database/factories/TreasuryAccountFactory.php
+?? database/factories/TreasuryOpeningFactory.php
+?? database/factories/WorkshopFactory.php
+?? database/factories/WorkshopIntakeFactory.php
+?? database/factories/WorkshopJobFactory.php
+?? database/migrations/2026_10_27_155000_create_financial_activation.php
+?? database/migrations/2026_10_27_156000_create_official_documents.php
+?? database/migrations/2026_10_27_157000_create_opening_contributors_and_fifo.php
+?? database/migrations/2026_10_27_158000_harden_financial_activation.php
+?? database/migrations/2026_10_27_159000_guard_scheduled_go_live.php
+?? database/migrations/2026_10_27_160000_complete_valued_inventory_paths.php
+?? database/migrations/2026_10_27_161000_create_approved_sale_prices.php
+?? database/migrations/2026_10_27_162000_create_sales_commercial_evidence.php
+?? database/migrations/2026_10_27_163000_reconcile_transfer_fifo_receipts.php
+?? database/migrations/2026_10_27_164000_preserve_quotation_order_sources.php
+?? database/migrations/2026_10_27_165000_create_sales_order_commitments.php
+?? database/migrations/2026_10_27_166000_create_sales_delivery_instructions.php
+?? database/migrations/2026_10_27_167000_allow_evidenced_backorder_allocation.php
+?? database/migrations/2026_10_27_168000_link_internal_fifo_corrections.php
+?? database/migrations/2026_10_27_169000_harden_commercial_and_correction_evidence.php
+?? database/migrations/2026_10_27_170000_preserve_fifo_unit_cost_lineage.php
+?? database/migrations/2026_10_28_171000_record_sales_order_exception_decisions.php
+?? database/migrations/2026_10_28_172000_create_financial_operations.php
+?? database/migrations/2026_10_28_173000_allow_atomic_treasury_transfers.php
+?? database/migrations/2026_10_28_174000_create_party_credit_balances.php
+?? database/migrations/2026_10_28_175000_allow_invoice_settlement_projections.php
+?? database/migrations/2026_10_28_176000_create_customer_advances.php
+?? database/migrations/2026_10_28_177000_allow_optional_financial_mappings.php
+?? database/migrations/2026_10_28_178000_complete_project_operations.php
+?? database/migrations/2026_10_28_179000_harden_project_acceptance_guards.php
+?? database/migrations/2026_10_28_180000_reconcile_project_stock_sources.php
+?? database/migrations/2026_10_29_181000_link_project_task_documents.php
+?? database/migrations/2026_10_30_182000_create_field_maintenance.php
+?? database/migrations/2026_10_30_183000_link_maintenance_owner_sources.php
+?? database/migrations/2026_10_30_184000_complete_maintenance_cost_sources.php
+?? database/migrations/2026_10_30_185000_link_maintenance_planning_evidence.php
+?? database/migrations/2026_10_30_186000_protect_maintenance_source_history.php
+?? database/migrations/2026_10_30_187000_separate_maintenance_identity_guards.php
+?? database/migrations/2026_10_30_188000_create_workshop_repairs.php
+?? database/migrations/2026_10_30_189000_link_workshop_stock_sources.php
+?? database/migrations/2026_10_30_190000_link_workshop_invoices.php
+?? database/migrations/2026_10_30_191000_guard_service_expense_attribution.php
+?? database/migrations/2026_10_31_192000_complete_workshop_offers_and_custody.php
+?? database/migrations/2026_10_31_193000_add_workshop_part_alternatives.php
+?? database/migrations/2026_10_31_194000_bind_workshop_command_payloads.php
+?? database/migrations/2026_10_31_195000_link_company_repair_inventory_identity.php
+?? database/migrations/2026_10_31_196000_create_projects_tender_capability.php
+?? database/migrations/2026_10_31_197000_link_sales_tender_drafts.php
+?? database/migrations/2026_10_31_198000_make_tender_guard_refresh_safe.php
+?? database/monitoring/
+?? database/seeders/FieldMaintenanceDemoSeeder.php
+?? database/seeders/FinancialActivationDemoSeeder.php
+?? database/seeders/FinancialOperationsDemoSeeder.php
+?? database/seeders/OpeningPayablesDemoSeeder.php
+?? database/seeders/OpeningTreasuryDemoSeeder.php
+?? database/seeders/TendersDemoSeeder.php
+?? database/seeders/WorkshopDemoSeeder.php
+?? docs/design/
+?? docs/m08-field-maintenance.md
+?? docs/m09-workshop-repairs.md
+?? docs/performance/
+?? docs/qa/E2E_AUTOMATION_GUIDE.md
+?? docs/qa/design-consistency/
+?? docs/qa/evidence/m03-financial-profile/
+?? docs/qa/evidence/phase0-blade-final.txt
+?? docs/qa/evidence/phase0-build-final.txt
+?? docs/qa/evidence/phase0-concurrency-migration168.json
+?? docs/qa/evidence/phase0-concurrency.json
+?? docs/qa/evidence/phase0-direct-sales-final.txt
+?? docs/qa/evidence/phase0-direct-sales-runbook.md
+?? docs/qa/evidence/phase0-direct-sales.json
+?? docs/qa/evidence/phase0-financial-browser/
+?? docs/qa/evidence/phase0-financial-core-runbook.md
+?? docs/qa/evidence/phase0-financial-core.json
+?? docs/qa/evidence/phase0-laravel-final.txt
+?? docs/qa/evidence/phase0-luna-results.md
+?? docs/qa/evidence/phase0-m06-current.txt
+?? docs/qa/evidence/phase0-pint-current.json
+?? docs/qa/evidence/phase0-pint-final.json
+?? docs/qa/evidence/phase0-pint-scoped.json
+?? docs/qa/evidence/phase0-recovery-migration168.json
+?? docs/qa/evidence/phase0-recovery-seed.json
+?? docs/qa/evidence/phase0-recovery-source.json
+?? docs/qa/evidence/phase0-recovery.json
+?? docs/qa/evidence/phase0-standalone-final.txt
+?? docs/qa/evidence/phase0-valued-paths.json
+?? docs/qa/evidence/phase1-financial-browser/
+?? docs/qa/evidence/phase1-financial-concurrency.json
+?? docs/qa/evidence/phase1-financial-journeys.json
+?? docs/qa/evidence/phase1-journal-reversal.json
+?? docs/qa/evidence/phase1-routes-accounting.txt
+?? docs/qa/evidence/phase1-routes-financial.txt
+?? docs/qa/evidence/phase1-routes-treasury.txt
+?? docs/qa/evidence/phase1-supplier-invoice.json
+?? docs/qa/evidence/phase2-aggregate-regression.txt
+?? docs/qa/evidence/phase2-baseline/
+?? docs/qa/evidence/phase2-blade.txt
+?? docs/qa/evidence/phase2-build.txt
+?? docs/qa/evidence/phase2-check-m05-m06-roundtrip.php.txt
+?? docs/qa/evidence/phase2-check-m06-inventory.php.txt
+?? docs/qa/evidence/phase2-check-phase0-valued-inventory.php.txt
+?? docs/qa/evidence/phase2-check-phase1-financial-journeys.php.txt
+?? docs/qa/evidence/phase2-check-phase1-journal-reversal.php.txt
+?? docs/qa/evidence/phase2-check-phase1-supplier-invoice.php.txt
+?? docs/qa/evidence/phase2-check-phase2-projects-financial.php.txt
+?? docs/qa/evidence/phase2-check-phase2-projects.php.txt
+?? docs/qa/evidence/phase2-development-preservation.txt
+?? docs/qa/evidence/phase2-laravel-final-schema181.txt
+?? docs/qa/evidence/phase2-laravel-missing-disposable-role.txt
+?? docs/qa/evidence/phase2-laravel-tests.txt
+?? docs/qa/evidence/phase2-phase1-concurrency.txt
+?? docs/qa/evidence/phase2-phase1-journal-reversal.txt
+?? docs/qa/evidence/phase2-pint-application.json
+?? docs/qa/evidence/phase2-pint-full.json
+?? docs/qa/evidence/phase2-pint-migrations.json
+?? docs/qa/evidence/phase2-pint-scoped.json
+?? docs/qa/evidence/phase2-project-concurrency.json
+?? docs/qa/evidence/phase2-project-routes.txt
+?? docs/qa/evidence/phase2-projects-browser/
+?? docs/qa/evidence/phase2-projects-financial-activation-refused-rerun.json
+?? docs/qa/evidence/phase2-projects-financial-activation-refused.json
+?? docs/qa/evidence/phase2-projects-financial.json
+?? docs/qa/evidence/phase2-projects-focused.txt
+?? docs/qa/evidence/phase3-aggregate-regression.txt
+?? docs/qa/evidence/phase3-backup-restore-regression.json
+?? docs/qa/evidence/phase3-backup-restore-regression.txt
+?? docs/qa/evidence/phase3-backup-source-regression.json
+?? docs/qa/evidence/phase3-blade.txt
+?? docs/qa/evidence/phase3-build.txt
+?? docs/qa/evidence/phase3-dev-maintenance-expense-privileges.json
+?? docs/qa/evidence/phase3-development-preservation.json
+?? docs/qa/evidence/phase3-final-aggregate.txt
+?? docs/qa/evidence/phase3-final-blade.txt
+?? docs/qa/evidence/phase3-final-build.txt
+?? docs/qa/evidence/phase3-final-laravel-suite.txt
+?? docs/qa/evidence/phase3-final-maintenance-accounting-contract-attempt1.txt
+?? docs/qa/evidence/phase3-final-maintenance-accounting-contract.txt
+?? docs/qa/evidence/phase3-final-maintenance-edge-cases.json
+?? docs/qa/evidence/phase3-final-maintenance-edge-cases.txt
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation-attempt1.json
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation-attempt1.txt
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation-preformat.json
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation-preformat.txt
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation.json
+?? docs/qa/evidence/phase3-final-maintenance-financial-cancellation.txt
+?? docs/qa/evidence/phase3-final-maintenance-financial.json
+?? docs/qa/evidence/phase3-final-maintenance-financial.txt
+?? docs/qa/evidence/phase3-final-maintenance-focused.txt
+?? docs/qa/evidence/phase3-final-maintenance-livewire-exceptions.txt
+?? docs/qa/evidence/phase3-final-pint-checks.json
+?? docs/qa/evidence/phase3-final-pint.json
+?? docs/qa/evidence/phase3-final-regression-runbook.md
+?? docs/qa/evidence/phase3-financial-concurrency-regression.json
+?? docs/qa/evidence/phase3-financial-journeys-regression.json
+?? docs/qa/evidence/phase3-journal-reversal-regression.json
+?? docs/qa/evidence/phase3-laravel-schema187-regression.txt
+?? docs/qa/evidence/phase3-laravel-suite-before-private-download-fixes.txt
+?? docs/qa/evidence/phase3-laravel-suite.txt
+?? docs/qa/evidence/phase3-maintenance-browser/
+?? docs/qa/evidence/phase3-maintenance-edge-cases-prior.json
+?? docs/qa/evidence/phase3-maintenance-edge-cases.json
+?? docs/qa/evidence/phase3-maintenance-financial-before-cancel.json
+?? docs/qa/evidence/phase3-maintenance-financial-prior-accepted.json
+?? docs/qa/evidence/phase3-maintenance-financial.json
+?? docs/qa/evidence/phase3-maintenance-routes.txt
+?? docs/qa/evidence/phase3-projects-financial-fresh-regression.json
+?? docs/qa/evidence/phase3-standalone-regression.txt
+?? docs/qa/evidence/phase3-supplier-invoice-fresh-regression.json
+?? docs/qa/evidence/phase5-workshop-browser/
+?? docs/qa/evidence/safe-check-run-20261027T092222Z.json
+?? docs/qa/evidence/safe-check-run-20261027T215314Z.json
+?? docs/qa/evidence/safe-check-run-20261028T032733Z.json
+?? docs/qa/evidence/safe-check-run-20261028T132252Z.json
+?? docs/qa/evidence/safe-check-run-20261028T143417Z.json
+?? docs/qa/evidence/safe-check-run-20261028T145107Z.json
+?? docs/qa/evidence/safe-check-run-20261028T200933Z.json
+?? docs/qa/evidence/safe-check-run-20261028T205045Z.json
+?? docs/qa/evidence/safe-check-run-20261029T135709Z.json
+?? docs/qa/evidence/safe-check-run-20261030T121525Z.json
+?? docs/qa/evidence/safe-check-run-20261030T122541Z.json
+?? docs/qa/evidence/safe-check-run-20261030T155651Z.json
+?? docs/qa/evidence/safe-check-run-20261031T014713Z.json
+?? docs/qa/evidence/safe-check-run-20261031T015654Z.json
+?? docs/qa/evidence/safe-check-run-20261031T140930Z.json
+?? docs/qa/evidence/safe-check-run-20261031T185747Z.json
+?? docs/qa/evidence/safe-check-run-20261031T190117Z.json
+?? docs/qa/evidence/safe-check-run-20261101T001147Z.json
+?? docs/qa/round2/evidence/masters/39EA382583F7/
+?? docs/qa/round2/evidence/masters/60C8089B9307/
+?? docs/qa/round2/evidence/masters/814E0131F372/
+?? docs/qa/round2/evidence/masters/84C0F8EFCBB9/
+?? docs/qa/round2/evidence/masters/BF0E098F8B53/
+?? docs/qa/round2/evidence/masters/BF54F47AE280/
+?? docs/qa/ui-improvements/
+?? docs/qa/visual-audit/
+?? docs/release/
+?? docs/superpowers/
+?? docs/v1-financial-activation.md
+?? playwright.config.cjs
+?? resources/views/accounting/reports.blade.php
+?? resources/views/accounting/setup.blade.php
+?? resources/views/components/ui/filters.blade.php
+?? resources/views/components/ui/responsive-table.blade.php
+?? resources/views/errors/
+?? resources/views/maintenance/
+?? resources/views/parties/financial-section.blade.php
+?? resources/views/parties/partials/financial-pagination.blade.php
+?? resources/views/products/prices.blade.php
+?? resources/views/projects/financial.blade.php
+?? resources/views/projects/milestones.blade.php
+?? resources/views/receivables-payables/
+?? resources/views/sales/orders/partials/approval-action.blade.php
+?? resources/views/sales/orders/partials/delivery-action.blade.php
+?? resources/views/system/
+?? resources/views/tenders/
+?? resources/views/treasury/
+?? resources/views/vendor/
+?? resources/views/workshops/
+?? tests/E2E/artifacts/11713F4EAD7E/
+?? tests/E2E/artifacts/69749C287679/
+?? tests/E2E/automation.cjs
+?? tests/E2E/bootstrap-ui-acceptance.cjs
+?? tests/E2E/bootstrap.cjs
+?? tests/E2E/design-consistency-verify.cjs
+?? tests/E2E/m03-party-financial-browser.cjs
+?? tests/E2E/native-performance-profile.cjs
+?? tests/E2E/optimization-user-details-lazy-tabs.cjs
+?? tests/E2E/page-speed-audit.cjs
+?? tests/E2E/phase0-financial-browser.cjs
+?? tests/E2E/phase1-financial-browser.cjs
+?? tests/E2E/phase2-projects-browser.cjs
+?? tests/E2E/phase3-maintenance-browser.cjs
+?? tests/E2E/phase5-workshop-browser.cjs
+?? tests/E2E/specs/
+?? tests/E2E/support/automation-critical-fixtures.php
+?? tests/E2E/support/automation-safety.test.cjs
+?? tests/E2E/support/explain-captured-queries.php
+?? tests/E2E/support/failure-only-reporter.cjs
+?? tests/E2E/support/finalize-phase2-projects-browser-sources.php
+?? tests/E2E/support/page-speed-after.cjs
+?? tests/E2E/support/page-speed-diagnostics.cjs
+?? tests/E2E/support/page-speed-finalize.cjs
+?? tests/E2E/support/page-speed-financial-tabs.cjs
+?? tests/E2E/support/page-speed-guest-pages.cjs
+?? tests/E2E/support/page-speed-resume-auth.cjs
+?? tests/E2E/support/page-speed-spa-transitions.cjs
+?? tests/E2E/support/page-speed-storage-recheck.cjs
+?? tests/E2E/support/performance-auth-refresh.php
+?? tests/E2E/support/performance-bootstrap.cjs
+?? tests/E2E/support/performance-critical-fixtures.php
+?? tests/E2E/support/performance-financial-fixtures.php
+?? tests/E2E/support/performance-operation-preview.php
+?? tests/E2E/support/performance-router.php
+?? tests/E2E/support/prepare-m03-financial-profile-browser.php
+?? tests/E2E/support/prepare-phase0-financial-fixtures.php
+?? tests/E2E/support/prepare-phase1-financial-browser.php
+?? tests/E2E/support/prepare-phase2-projects-browser.php
+?? tests/E2E/support/prepare-phase3-maintenance-browser.php
+?? tests/E2E/support/prepare-phase5-workshop-browser.php
+?? tests/E2E/support/revoke-m03-financial-profile-scope.php
+?? tests/E2E/ui-improvements-verify.cjs
+?? tests/E2E/visual-audit.cjs
+?? tests/Feature/OptimizationRegressionTest.php
+?? tests/Feature/WorkbookCodecSparseTemplateTest.php
+?? tests/Support/
+?? tests/Unit/ModuleIdentityRegistryTest.php

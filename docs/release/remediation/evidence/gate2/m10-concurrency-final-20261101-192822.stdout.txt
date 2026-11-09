@@ -1,0 +1,43 @@
+{
+    "all_pass": true,
+    "assertions": 2,
+    "database": "erp_elec_new_m10_race_81ec74f0b7fa9d02",
+    "port": 49685,
+    "worker_backend_pids": [
+        35200,
+        40604
+    ],
+    "outcomes": [
+        {
+            "exit_code": 2,
+            "result": {
+                "status": "REJECTED",
+                "code": 422,
+                "class": "Illuminate\\Validation\\ValidationException"
+            }
+        },
+        {
+            "exit_code": 0,
+            "result": {
+                "status": "PASS"
+            }
+        }
+    ],
+    "reserved_entitlements": 1,
+    "linked_work_orders": 1,
+    "reserved_visit_units": 1,
+    "checks": [
+        {
+            "name": "Two independent workers contend for one final covered visit",
+            "result": "PASS"
+        },
+        {
+            "name": "Disposable database dropped and primary counts unchanged",
+            "result": "PASS"
+        }
+    ],
+    "disposable_database_dropped": true,
+    "primary_counts_unchanged": true
+}
+RESULT all_pass=1 assertions=2 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-last-visit-20261101T172935Z-98d97e.json
+PRIVATE_ARTIFACTS C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/m10-race-81ec74f0b7fa9d0285536ce6bf8498b7f239682d74198fd872d9714f53a3f6a9

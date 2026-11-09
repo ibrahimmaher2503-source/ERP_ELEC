@@ -1,0 +1,142 @@
+﻿ .ai/HANDOFF.md                                     |  72 ++++
+ .gitignore                                         |   1 +
+ EXECUTION_PIPELINE.md                              |   4 +
+ .../Accounting/Application/AccountingAccess.php    |  36 +-
+ .../Accounting/Application/AccountingActions.php   | 270 +++++++++----
+ .../Accounting/Domain/AccountingAccount.php        |  19 +-
+ .../Accounting/Domain/AccountingJournal.php        |  19 +-
+ .../Accounting/Domain/AccountingJournalLine.php    |  21 +-
+ app/Modules/Accounting/Domain/AccountingPeriod.php |  19 +-
+ .../Accounting/Presentation/AccountingPage.php     | 190 +++++++---
+ .../Application/Contracts/InventoryApi.php         |  28 ++
+ .../Inventory/Application/InventoryAccess.php      |   7 +-
+ .../Inventory/Application/InventoryConditions.php  | 146 +++++---
+ .../Inventory/Application/InventoryCorrections.php |  66 ++--
+ .../Inventory/Application/InventoryDocuments.php   |  71 +++-
+ .../Inventory/Application/InventoryLedger.php      |  92 ++++-
+ .../Inventory/Application/InventoryQuery.php       |   8 +-
+ .../Application/InventoryReconciliation.php        |   6 +-
+ .../Application/InventoryReservations.php          | 103 ++++-
+ .../Inventory/Application/InventorySerials.php     | 138 ++++---
+ .../Inventory/Application/InventoryService.php     | 153 +++++++-
+ .../Inventory/Application/InventoryTransfers.php   | 174 +++++----
+ .../Presentation/InventoryDocumentPage.php         |  40 +-
+ .../Presentation/InventoryExportController.php     |   2 +-
+ .../Presentation/InventoryOperationsPage.php       | 151 +++++---
+ .../Inventory/Presentation/InventoryPage.php       |   6 +-
+ .../Application/Contracts/OrganizationApi.php      |   3 +
+ .../Application/OrganizationService.php            |  24 ++
+ .../Organization/Application/PermissionCatalog.php |  89 +++++
+ .../Parties/Application/Contracts/CustomersApi.php |   2 +
+ .../Parties/Application/CustomersService.php       |  14 +-
+ .../Products/Application/ProductsService.php       |   2 +-
+ app/Modules/Projects/Application/ProjectAccess.php |  33 +-
+ .../Projects/Application/ProjectActions.php        |  64 +++-
+ .../Projects/Application/ProjectDocuments.php      |  14 +-
+ .../Projects/Application/ProjectPlanning.php       |  51 ++-
+ .../Projects/Application/ProjectSources.php        |   9 +-
+ .../Projects/Presentation/ProjectBudgetPage.php    |   6 +-
+ .../Projects/Presentation/ProjectClosurePage.php   |  45 ++-
+ .../Projects/Presentation/ProjectDocumentsPage.php |   8 +-
+ .../Presentation/ProjectDownloadController.php     |   3 +-
+ .../Presentation/ProjectExportController.php       |   2 +-
+ .../Presentation/ProjectOperationsPage.php         |  65 +++-
+ app/Modules/Projects/Presentation/ProjectPage.php  |  63 +++-
+ .../Projects/Presentation/ProjectReportsPage.php   |  16 +-
+ .../Application/Contracts/PurchasingApi.php        |  13 +
+ .../Purchasing/Application/PurchaseOrders.php      |  51 ++-
+ .../Purchasing/Application/PurchasingAccess.php    |   2 -
+ .../Purchasing/Application/PurchasingService.php   |  86 ++++-
+ app/Modules/Purchasing/Application/RfqActions.php  |  40 +-
+ .../Purchasing/Application/SupplierOffers.php      |   4 +-
+ app/Modules/Purchasing/Presentation/OrderPage.php  |  15 +-
+ app/Modules/Purchasing/Presentation/OrdersPage.php |   5 +-
+ .../Presentation/PurchasingExportController.php    |   8 +-
+ .../Purchasing/Presentation/ReceiptPage.php        |  18 +-
+ app/Modules/Purchasing/Presentation/RfqPage.php    |  30 +-
+ .../Application/QuotationExportDefinition.php      |   5 +-
+ app/Modules/Sales/Application/QuotationQuery.php   |   7 +-
+ .../Sales/Application/QuotationReadiness.php       |  29 +-
+ .../Sales/Application/SalesOrderActions.php        |   1 +
+ .../Application/SalesOrderExportDefinition.php     |   2 +-
+ app/Modules/Sales/Application/SalesOrderQuery.php  |   4 +-
+ .../Sales/Application/SalesOrderReadiness.php      |  36 +-
+ .../Sales/Application/SalesOrdersService.php       |  12 +-
+ .../Sales/Presentation/QuotationDetailsPage.php    |  46 ++-
+ .../Sales/Presentation/QuotationFormPage.php       |  25 ++
+ .../Sales/Presentation/SalesOrderDetailsPage.php   |  76 +++-
+ .../Sales/Presentation/SalesOrderFormPage.php      |  31 ++
+ .../Infrastructure/Spreadsheets/WorkbookCodec.php  |   7 +
+ app/Providers/AppServiceProvider.php               |  40 +-
+ composer.json                                      |   1 +
+ composer.lock                                      | 417 ++++++++++++++++++---
+ config/database.php                                |   1 +
+ database/factories/AccountingAccountFactory.php    |  14 +-
+ database/factories/AccountingJournalFactory.php    |  15 +-
+ .../factories/AccountingJournalLineFactory.php     |  15 +-
+ database/factories/AccountingPeriodFactory.php     |  16 +-
+ database/factories/ProjectRequirementFactory.php   |   2 +-
+ .../2026_10_22_147000_create_projects.php          |   4 +-
+ .../2026_10_22_148000_create_project_baselines.php |   4 +-
+ .../2026_10_22_149000_create_project_documents.php |   2 +-
+ database/seeders/AccountingDemoSeeder.php          |  23 +-
+ database/seeders/EgyptMarketDemoSeeder.php         |   5 +-
+ database/seeders/ProjectsDemoSeeder.php            |   4 +
+ docs/02-prd.md                                     |   2 +
+ docs/03-DOMAIN-MODEL-BOUNDED-CONTEXTS.md           |   6 +
+ docs/egypt-market-demo.md                          |  11 +
+ docs/m05-purchasing.md                             |   2 +
+ docs/m06-inventory.md                              |   2 +
+ docs/m07-projects.md                               |   8 +
+ docs/m11-accounting.md                             |   2 +
+ .../desktop-ltr-inventory-count.png                | Bin 283755 -> 262370 bytes
+ .../m05-m06-browser/desktop-ltr-purchase-order.png | Bin 200500 -> 174265 bytes
+ .../desktop-rtl-inventory-count.png                | Bin 269458 -> 248745 bytes
+ .../m05-m06-browser/desktop-rtl-purchase-order.png | Bin 200538 -> 174267 bytes
+ .../m05-m06-browser/mobile-ltr-inventory-count.png | Bin 211979 -> 199333 bytes
+ .../m05-m06-browser/mobile-ltr-purchase-order.png  | Bin 155951 -> 148051 bytes
+ .../m05-m06-browser/mobile-rtl-inventory-count.png | Bin 186587 -> 185106 bytes
+ .../m05-m06-browser/mobile-rtl-purchase-order.png  | Bin 156009 -> 148055 bytes
+ docs/qa/evidence/m05-m06-browser/result.json       |   2 +-
+ .../quotation-reopen/afterfix/create-two-lines.png | Bin 134536 -> 110079 bytes
+ .../quotation-reopen/afterfix/created-detail.png   | Bin 162495 -> 141587 bytes
+ .../afterfix/negative-quantity-rejected.png        | Bin 155843 -> 142250 bytes
+ .../evidence/quotation-reopen/afterfix/result.json | 398 +++++++++++++++++---
+ .../afterfix/third-save-detail.png                 | Bin 163650 -> 143407 bytes
+ package-lock.json                                  |  48 +++
+ package.json                                       |   1 +
+ resources/views/accounting/index.blade.php         |   9 +-
+ resources/views/inventory/document.blade.php       |   2 +-
+ resources/views/inventory/overview.blade.php       |   4 +-
+ resources/views/layouts/app/sidebar.blade.php      |  49 ++-
+ resources/views/projects/budget.blade.php          |  10 +-
+ resources/views/projects/closure.blade.php         |  18 +-
+ resources/views/projects/dashboard.blade.php       |   2 +-
+ resources/views/projects/documents.blade.php       |   4 +-
+ resources/views/projects/index.blade.php           |   8 +-
+ resources/views/projects/operations.blade.php      |  26 +-
+ resources/views/projects/reports.blade.php         |   2 +-
+ resources/views/projects/show.blade.php            |  16 +-
+ resources/views/projects/tasks.blade.php           |   4 +-
+ resources/views/purchasing/order.blade.php         |  11 +-
+ resources/views/purchasing/orders.blade.php        |   2 +-
+ resources/views/purchasing/receipt.blade.php       |   7 +-
+ resources/views/purchasing/receipts.blade.php      |  20 +-
+ resources/views/sales/orders/details.blade.php     |  12 +-
+ resources/views/sales/orders/form.blade.php        |   2 +-
+ resources/views/sales/orders/index.blade.php       |   3 +-
+ .../views/sales/orders/partials/status.blade.php   |   2 +
+ .../orders/partials/workflow-statuses.blade.php    |  15 +-
+ .../views/sales/quotations/acceptance.blade.php    |  37 +-
+ .../views/sales/quotations/conversion.blade.php    |  28 +-
+ resources/views/sales/quotations/details.blade.php |   2 +-
+ resources/views/sales/quotations/form.blade.php    |   4 +-
+ .../sales/quotations/partials/amounts.blade.php    |   6 +-
+ .../sales/quotations/partials/identity.blade.php   |   2 +-
+ resources/views/sales/quotations/pdf.blade.php     |  22 +-
+ routes/web.php                                     | 120 ++++--
+ tests/E2E/round2-masters.cjs                       |  44 ++-
+ tests/E2E/sales-orders.cjs                         |   8 +-
+ tests/E2E/support/laravel-static-router.php        |   4 +
+ .../E2E/support/prepare-round2-master-fixtures.php |  49 ++-
+ 141 files changed, 3601 insertions(+), 906 deletions(-)

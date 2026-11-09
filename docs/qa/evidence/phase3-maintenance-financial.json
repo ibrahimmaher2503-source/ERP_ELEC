@@ -1,0 +1,160 @@
+{
+    "all_pass": true,
+    "database": "erp_elec_new_test",
+    "postgres_port": 55441,
+    "synthetic": true,
+    "assertions": [
+        "posted M06 receipt creates five real on-hand FIFO units",
+        "maintenance issue posts one FIFO movement and same-key replay returns identical evidence",
+        "over-reservation issue is rejected inside the owner transaction",
+        "failed issue rolls back the maintenance issue row and all inventory effects",
+        "FIFO issue attributes actual maintenance work and requirement source",
+        "migration 186 prevents edits to posted maintenance issue evidence",
+        "migration 186/187 prevents reassignment of work-order project source identity",
+        "maintenance FIFO issue journal carries actual linked M07 project dimension",
+        "warehouse scope prevents reserving from an unavailable warehouse",
+        "unused maintenance part return posts exact-source FIFO reversal",
+        "same-key return replay does not duplicate return evidence",
+        "maintenance cost removes returned exact-source value",
+        "labor rate approval consumes a separate actor submitted matching proposal",
+        "approved hourly rate calculates exact half-hour labor cost",
+        "recognized maintenance labor posts once to its project dimension",
+        "billable service approval snapshots authorized amount and applicable 14% tax",
+        "M12 service invoice validates/posts real AR and tax journal with stable replay",
+        "service invoice GL is balanced at gross invoice amount",
+        "maintenance job cost includes exact approved labor and complete status",
+        "M07 financial projection denies missing supplier-subledger read scope",
+        "M07 reads net maintenance FIFO and labor GL once each, without double counting source inventory cost",
+        "approved project-dimensioned manual expense is linked without creating another journal",
+        "other expense is recognized once in maintenance and M07 project costs",
+        "maintenance expense linker rejects protected labor/control journal",
+        "maintenance expense linker rejects wrong project attribution",
+        "rejected expense sources leave no maintenance linkage rows",
+        "closed M07 project rejects new M08 linkage",
+        "closed-project linkage denial preserves lifecycle state and creates no M08 work order",
+        "injected post-FIFO failure rolls back M08 issue, inventory movement, FIFO allocation and GL source",
+        "unrated technician time remains an honest unavailable cost rather than a fabricated zero"
+    ],
+    "stock": {
+        "product_id": 275,
+        "warehouse_id": 118,
+        "on_hand_before_issue": "5.00000000",
+        "requirement_id": 122,
+        "reservation_id": 119,
+        "issue_movement_id": 184,
+        "issue_journal_id": 259,
+        "issue_key": "80e8d539-7b2b-4754-ab19-2f8a6dcdbaff",
+        "issue_amount": "20.00",
+        "return_movement_id": 185,
+        "return_key": "3523731c-007e-4c2a-ba58-d1f65bb3ae5a",
+        "returned_amount": "10.00",
+        "wrong_warehouse": "403"
+    },
+    "project": {
+        "project_id": 81,
+        "work_order_id": 111,
+        "fifo_cost": "10.00",
+        "recognized_cost_before_other_expense": "32.50",
+        "recognized_cost_after_other_expense": "42.50",
+        "other_expense": "10.00",
+        "expense_journal_id": 263,
+        "fifo_gl_difference": "0.00",
+        "closed_project_id": 82,
+        "closed_link_rejected": true
+    },
+    "labor": {
+        "rate_id": 66,
+        "entry_id": 87,
+        "journal_id": 261,
+        "cost": "22.50",
+        "unrated_entry_id": 88,
+        "unrated_cost": null
+    },
+    "billing": {
+        "approval_id": 62,
+        "invoice_id": 66,
+        "invoice_key": "62f9978b-3dfb-4354-ab10-c993d01186bf",
+        "invoice_total": "114.00",
+        "invoice_journal_id": 262,
+        "ar_and_tax_balanced": true
+    },
+    "financial_date": "2027-10-30",
+    "concurrency_fixture": {
+        "actor_id": 644,
+        "maker_id": 641,
+        "tech_id": 643,
+        "work_order_id": 112,
+        "requirement_id": 124,
+        "reservation_id": 120,
+        "reservation2_id": 121,
+        "issue_key": "4330ef57-761b-448e-8a5d-2cadad16443d",
+        "quantity": "1.00000000",
+        "posting_date": "2027-10-30",
+        "assignment_id": 107,
+        "work_version": 9,
+        "main_work_order_id": 111,
+        "main_work_version": 16,
+        "invoice_id": 66,
+        "invoice_key": "62f9978b-3dfb-4354-ab10-c993d01186bf",
+        "invoice_date": "2027-10-30",
+        "invoice_due": "2027-11-29",
+        "project_id": 81,
+        "warehouse_id": 118,
+        "product_id": 275
+    },
+    "fixture_committed": true,
+    "concurrent_issue_race": {
+        "same_key": "4330ef57-761b-448e-8a5d-2cadad16443d",
+        "movement_id": 187,
+        "journal_id": 266,
+        "issue_rows": 1,
+        "inventory_movement_rows": 1,
+        "both_workers_converged": true
+    },
+    "concurrent_distinct_issue_race": {
+        "keys": [
+            "f2cda699-4586-4473-bd94-a394b13d9900",
+            "47b24435-8471-4ce9-bb92-160ad6d34109"
+        ],
+        "accepted_count": 1,
+        "rejected_count": 1,
+        "source_issue_rows": 1,
+        "movement_id": 188,
+        "journal_id": 267,
+        "journal_debit": "10.00",
+        "journal_credit": "10.00",
+        "fulfilled_quantity": "1.00000000",
+        "fulfillment_was_capped_by_outstanding_reservation": true
+    },
+    "concurrent_reservation_race": {
+        "idempotency_keys": [
+            "f5181b1c-2782-4711-97af-4084e8e704a1",
+            "121521e8-3587-4ffd-9e27-8319a24f0067"
+        ],
+        "reservation_rows": 2,
+        "requested_each": "3.00000000",
+        "reserved_sum": "2",
+        "warehouse_on_hand": "4.00000000",
+        "warehouse_reserved": "4.00000000",
+        "within_stock": true
+    },
+    "concurrent_assignment_race": {
+        "accepted_count": 1,
+        "stale_version_conflicts": 1,
+        "work_order_id": 112,
+        "base_version": 13
+    },
+    "concurrent_service_invoice_races": {
+        "same_key_invoice_id": 66,
+        "same_key_accepted": 2,
+        "distinct_key_rejections": 2,
+        "invoice_count_for_work_order": 1
+    },
+    "concurrent_close_reopen_races": {
+        "close_success": 1,
+        "close_conflict": 1,
+        "reopen_success": 1,
+        "reopen_conflict": 1,
+        "final_status": "in_progress"
+    }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "log": "phase3-maintenance-final.txt",
+    "exit": 0,
+    "terminal_success_marker": true,
+    "name": "phase3-maintenance"
+  },
+  {
+    "log": "workshop-repairs-intake-final.txt",
+    "exit": 0,
+    "terminal_success_marker": false,
+    "name": "workshop-repairs-intake"
+  }
+]

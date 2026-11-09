@@ -1,0 +1,28 @@
+PASS SC-MODULE-AUTH-001 M01 company redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M01 company requires verified email
+PASS SC-MODULE-AUTH-001 M01 company rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M01 users redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M01 users requires verified email
+PASS SC-MODULE-AUTH-001 M01 users rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M01 roles redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M01 roles requires verified email
+PASS SC-MODULE-AUTH-001 M01 roles rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M02 products redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M02 products requires verified email
+PASS SC-MODULE-AUTH-001 M02 products rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M03 customers redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M03 customers requires verified email
+PASS SC-MODULE-AUTH-001 M03 customers rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M03 suppliers redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M03 suppliers requires verified email
+PASS SC-MODULE-AUTH-001 M03 suppliers rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M04 quotations redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M04 quotations requires verified email
+PASS SC-MODULE-AUTH-001 M04 quotations rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M04 sales orders redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M04 sales orders requires verified email
+PASS SC-MODULE-AUTH-001 M04 sales orders rejects verified users without module permission
+PASS SC-MODULE-AUTH-001 M04 returns redirects anonymous requests to login
+PASS SC-MODULE-AUTH-001 M04 returns requires verified email
+PASS SC-MODULE-AUTH-001 M04 returns rejects verified users without module permission
+Disposable module-route auth fixtures rolled back.

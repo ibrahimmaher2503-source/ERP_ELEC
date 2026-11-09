@@ -1,0 +1,30 @@
+[
+  {
+    "route": "sales-orders.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "secondary-actions-menu-has-real-options",
+        "result": "pass",
+        "details": {
+          "options": [
+            "\n        \n                \n    \n    \n\n                    \n        \n                    \n  \n  \n\n\n                \n                    \n            \n            تصدير Excel\n    "
+          ]
+        }
+      },
+      {
+        "name": "secondary-actions-menu-opens-with-authorized-export",
+        "result": "pass",
+        "details": {
+          "hasExport": true,
+          "expanded": "true"
+        }
+      },
+      {
+        "name": "secondary-actions-menu-closes-with-escape",
+        "result": "pass",
+        "details": "false"
+      }
+    ]
+  }
+]

@@ -1,0 +1,158 @@
+{
+    "all_pass": false,
+    "mode": "treasury-bank-statement-reconciliation",
+    "phase": "rollback-only real M11/M10/M12/M13 statement sources",
+    "assertions": 1,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M11 activation, synthetic M10/M12/M13 sources, statement rows, company snapshot, and private upload all roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "App\\Modules\\Parties\\Application\\Contracts\\CustomerContractException",
+        "message": "Customer access denied.",
+        "trace_without_arguments": [
+            {
+                "file": "app/Modules/Parties/Application/CustomersService.php",
+                "line": 43,
+                "class": "App\\Modules\\Parties\\Application\\CustomersService",
+                "function": "authorize"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryOperations.php",
+                "line": 184,
+                "class": "App\\Modules\\Parties\\Application\\CustomersService",
+                "function": "getCustomer"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php",
+                "line": 35,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryOperations",
+                "function": "{closure:App\\Modules\\Treasury\\Application\\TreasuryOperations::collect():170}"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php",
+                "line": 502,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "transaction"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php",
+                "line": 364,
+                "class": "Illuminate\\Database\\DatabaseManager",
+                "function": "__call"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryOperations.php",
+                "line": 170,
+                "class": "Illuminate\\Support\\Facades\\Facade",
+                "function": "__callStatic"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryService.php",
+                "line": 78,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryOperations",
+                "function": "collect"
+            },
+            {
+                "file": "tests/Support/check-treasury-bank-statement-reconciliation.php",
+                "line": 199,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryService",
+                "function": "executeCustomerCollection"
+            }
+        ]
+    },
+    "company_profile": {
+        "exact_baseline_restored": true
+    },
+    "m11_activation": {
+        "performed": true,
+        "rolled_back": true,
+        "go_live_date": "2026-11-01"
+    }
+}

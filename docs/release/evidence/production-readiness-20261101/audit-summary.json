@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-01",
+  "source_database": "erp_elec_new_test@127.0.0.1:49683",
+  "restore_database": "erp_elec_new_test@127.0.0.1:49684",
+  "clean_migration": {
+    "exit": 0,
+    "result": "PASS",
+    "evidence": "clean-migration.txt"
+  },
+  "full_phpunit": {
+    "failed": 16,
+    "passed": 41,
+    "exit": 2,
+    "result": "FAIL",
+    "evidence": "full-phpunit.txt",
+    "cause": "OptimizationRegressionTest hardcoded port guard rejects 49683",
+    "assertions": 111
+  },
+  "broad_existing_checks": {
+    "total": 21,
+    "passed": 21,
+    "result": "PASS",
+    "evidence": "broad-21-summary.json"
+  },
+  "framework_caches": {
+    "route_cache": "route:cache",
+    "config_cache": "config:cache",
+    "evidence": "runtime-cache-summary.json",
+    "result": "PASS",
+    "route_count": 229,
+    "view_cache": "view:cache"
+  },
+  "m05_m06": {
+    "result": "PASS",
+    "evidence": "focused-owner-checks-summary.json",
+    "checks": [
+      "check-m05-m06-roundtrip.php",
+      "check-m06-inventory.php"
+    ]
+  },
+  "phase2_projects": {
+    "assertions": 36,
+    "result": "PASS",
+    "terminal": "RESULT all_pass=true assertions=36",
+    "evidence": "phase2-projects-adapted.txt"
+  },
+  "phase3_maintenance": {
+    "assertions": 26,
+    "result": "PASS",
+    "terminal": "RESULT all_pass=true assertions=26",
+    "evidence": "phase3-maintenance-final.txt"
+  },
+  "workshop_repairs_intake": {
+    "status": "company-owned equipment/factory path not tested: existing harness uses obsolete synthetic equipment identity without current inventory source ids",
+    "assertions_passed_before_failure": 25,
+    "remaining": "M09 financial integration NOT TESTED",
+    "result": "INCOMPLETE",
+    "evidence": "workshop-repairs-intake-final.txt"
+  },
+  "tender_actions": {
+    "pass_assertions": 58,
+    "result": "PASS",
+    "terminal": "Tender/M02/security fixtures and business records fully roll back on disposable database",
+    "evidence": "tender-actions-seeded-rerun.txt"
+  },
+  "financial_negative_cases": {
+    "evidence": "financial-release-risks.json",
+    "before_after_row_counts_equal": true,
+    "rollback_verified": true,
+    "ids": [
+      "FIN-P0-01",
+      "FIN-P0-02",
+      "FIN-P0-03"
+    ],
+    "result": "FAIL",
+    "case_count": 3
+  },
+  "recovery_seed": {
+    "committed_test_fixture": true,
+    "all_pass": true,
+    "result": "PASS",
+    "evidence": "phase0-recovery-seed.json",
+    "phases": 14
+  },
+  "backup_restore": {
+    "source_migrations": 92,
+    "pg_dump_exit": 0,
+    "pg_restore_exit": 0,
+    "all_verified": true,
+    "evidence": "phase0-recovery-restore-verify.txt",
+    "source_counts_match": true,
+    "controller_statuses": {
+      "authorized_logo_controller": 200,
+      "authorized_po_pdf_controller": 200,
+      "denied_logo_controller": 403,
+      "denied_po_pdf_controller": 403
+    },
+    "official_pdf_hashes": 19,
+    "private_file_hashes": 2,
+    "restored_migrations": 92,
+    "result": "PASS",
+    "initial_encoding_failure": "WIN1252 target rejected Arabic UTF-8; corrected only owned empty restore target to UTF8"
+  },
+  "previous_schema_upgrade": "NOT TESTED: no previous-schema artifact available",
+  "development_database": "READ ONLY snapshot dev-readonly-snapshot.json",
+  "preservation": "preservation-before.json and preservation-after.json; public/build hash variance unexplained",
+  "secrets_emitted": false
+}

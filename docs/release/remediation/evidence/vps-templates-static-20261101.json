@@ -1,0 +1,53 @@
+{
+    "all_pass": true,
+    "results": [
+        {
+            "check": "Target guard binds the marker nonce and exact live PostgreSQL identity",
+            "result": "PASS"
+        },
+        {
+            "check": "Credential file must be a non-symlink regular file with mode 600",
+            "result": "PASS"
+        },
+        {
+            "check": "Backup refuses a symlinked private-storage root and nested links",
+            "result": "PASS"
+        },
+        {
+            "check": "Backup signs the completed fixed-file SHA256 manifest with a protected Ed25519 key",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore requires an explicitly marked isolated recovery database and filesystem",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore backup-set directory is a non-symlink directory",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore rejects traversal, links and special archive entries before extraction",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore pins the trusted Ed25519 public key and verifies the signed manifest before decrypting or restoring",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore verifies every fixed manifest entry and its SHA256 before use",
+            "result": "PASS"
+        },
+        {
+            "check": "Restore refuses existing public tables/files and applies the database dump atomically",
+            "result": "PASS"
+        },
+        {
+            "check": "Queue includes data-operations and DB/Redis retry_after exceeds the 120-second job timeout",
+            "result": "PASS"
+        },
+        {
+            "check": "Operational scripts contain no embedded private keys, age identities or credentialed database URLs",
+            "result": "PASS"
+        }
+    ]
+}

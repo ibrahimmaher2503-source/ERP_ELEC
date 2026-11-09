@@ -1,0 +1,21 @@
+{
+  "result": "PASS_WITH_LIMITS",
+  "run_id": "B80CCA7F7892",
+  "database": "erp_elec_new_test on private port 55434",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 2 created through the actual Livewire form with two restored, approved-price catalog products"
+  ],
+  "browser_errors": [],
+  "quote_id": 2,
+  "screenshot_files": [
+    "quotation-create-desktop.png",
+    "quotation-create-mobile.png",
+    "quotation-details-desktop.png"
+  ],
+  "limits": [
+    "This run exercised quotation create/reopen/edit only. Issuance/PDF, acceptance/conversion, independent sales-order approval/delivery, Purchasing and Inventory journeys were not performed by this harness."
+  ]
+}

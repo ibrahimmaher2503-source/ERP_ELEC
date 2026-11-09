@@ -1,0 +1,2864 @@
+{
+  "generated_at": "2026-11-01T01:31:20.749Z",
+  "scope": {
+    "registered_named_routes": 142,
+    "valid_manifest_route_variant_cases": 162,
+    "unique_screenshot_slots": 820,
+    "active_screenshot_records": 820,
+    "unique_observed_route_urls": 164,
+    "superseded_screenshot_records": 430,
+    "superseded_interaction_records": 18,
+    "latest_accepted_check_failures": 0
+  },
+  "coverage": {
+    "manifest_cases_with_5_viewports": 160,
+    "manifest_case_keys_missing_exact_variant": [
+      "operations.show|default",
+      "security.edit|default"
+    ],
+    "alternate_state_cases_with_5_viewports": 2,
+    "route_cases_covered_when_authorized_alternates_are_counted": 162,
+    "interpretation": "The two missing default-state cases are protected pages; each was verified with a real least-privilege synthetic account and valid actor-owned preview, across five viewports. They are documented as alternate accepted states rather than fabricated default fixtures."
+  },
+  "source_build_batches": [
+    {
+      "source_sha256": "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0",
+      "css_asset": "/build/assets/app-CBOIam_T.css",
+      "unique_screenshot_slots": 545,
+      "routes": 109
+    },
+    {
+      "source_sha256": "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5",
+      "css_asset": "/build/assets/app-BJ12s52F.css",
+      "unique_screenshot_slots": 110,
+      "routes": 10
+    },
+    {
+      "source_sha256": "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234",
+      "css_asset": "/build/assets/app-BJ12s52F.css",
+      "unique_screenshot_slots": 140,
+      "routes": 28
+    },
+    {
+      "source_sha256": "b5435a5930397b692e4edadcb060461f8017b34beb1311908c74d963920d7599",
+      "css_asset": "/build/assets/app-BndKEvZV.css",
+      "unique_screenshot_slots": 13,
+      "routes": 3
+    },
+    {
+      "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+      "css_asset": "/build/assets/app-BndKEvZV.css",
+      "unique_screenshot_slots": 12,
+      "routes": 3
+    }
+  ],
+  "special_fixtures": [
+    {
+      "route": "security.edit",
+      "accepted_state": "ordinary-unprivileged-password-confirmed",
+      "canonical_case_replaced": "security.edit|default",
+      "url": "/settings/security",
+      "viewport_count": 5,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "database": {
+        "name": "erp_elec_new_test",
+        "port": 55462
+      },
+      "storage_dir": ".tmp/ui-acceptance/storage",
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged",
+      "permission_codes": [],
+      "authority_counts": {
+        "roles": 0,
+        "direct_grants": 0,
+        "branch_scopes": 0,
+        "warehouse_scopes": 0
+      },
+      "preview_run_id": null,
+      "preview_executed": null
+    },
+    {
+      "route": "operations.show",
+      "accepted_state": "least-privilege-owner-preview",
+      "canonical_case_replaced": "operations.show|default",
+      "url": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "viewport_count": 5,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "database": {
+        "name": "erp_elec_new_test",
+        "port": 55462
+      },
+      "storage_dir": ".tmp/ui-acceptance/storage",
+      "actor_id": 66,
+      "actor_kind": "synthetic-least-privilege-preview-owner",
+      "permission_codes": [
+        "M03.customer_bulk_update",
+        "M03.customer_update",
+        "M03.customer_view"
+      ],
+      "authority_counts": {
+        "roles": 0,
+        "branch_scopes": 0,
+        "warehouse_scopes": 0
+      },
+      "preview_run_id": "1e669c15-6a50-4c80-b560-496755a80fe9",
+      "preview_executed": false
+    }
+  ],
+  "manifest_cases": [
+    {
+      "case_key": "accounting.accounts|default",
+      "url": "/accounting/accounts",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.balance-sheet|default",
+      "url": "/accounting/balance-sheet",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.closing|default",
+      "url": "/accounting/closing",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.dashboard|default",
+      "url": "/accounting/dashboard",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.grni|default",
+      "url": "/accounting/grni",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.income-statement|default",
+      "url": "/accounting/income-statement",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.journals|default",
+      "url": "/accounting/journals",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.ledger|default",
+      "url": "/accounting/ledger",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.periods|default",
+      "url": "/accounting/periods",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.ppv|default",
+      "url": "/accounting/ppv",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.reconciliation|default",
+      "url": "/accounting/reconciliation",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.setup|default",
+      "url": "/accounting/setup",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "accounting.trial-balance|default",
+      "url": "/accounting/trial-balance",
+      "module": "M11 Accounting",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "appearance.edit|default",
+      "url": "/settings/appearance",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "customers.create|default",
+      "url": "/customers/create",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "customers.edit|default",
+      "url": "/customers/1211/edit",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "customers.import|default",
+      "url": "/customers/import",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "customers.index|default",
+      "url": "/customers",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "b5435a5930397b692e4edadcb060461f8017b34beb1311908c74d963920d7599|/build/assets/app-BndKEvZV.css",
+        "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b|/build/assets/app-BndKEvZV.css"
+      ]
+    },
+    {
+      "case_key": "customers.show|default",
+      "url": "/customers/1211",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "customers.show|financial",
+      "url": "/customers/1211?tab=financial",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "dashboard|default",
+      "url": "/dashboard",
+      "module": "M17 System",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.aging|default",
+      "url": "/financial/aging",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.ap|default",
+      "url": "/financial/ap",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.ar|default",
+      "url": "/financial/ar",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.credit-notes|default",
+      "url": "/financial/credit-notes",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.customer-invoices|default",
+      "url": "/financial/customer-invoices",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.invoices.show|customer",
+      "url": "/financial/customer-invoices/1",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "financial.invoices.show|supplier",
+      "url": "/financial/supplier-invoices/3",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "financial.supplier-invoices|default",
+      "url": "/financial/supplier-invoices",
+      "module": "M12 ReceivablesPayables",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.adjustments|default",
+      "url": "/inventory/adjustments",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.balances|default",
+      "url": "/inventory/balances",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.corrections|default",
+      "url": "/inventory/corrections",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.counts|default",
+      "url": "/inventory/counts",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.dashboard|default",
+      "url": "/inventory",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|adjustment",
+      "url": "/inventory/documents/adjustment/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|count",
+      "url": "/inventory/documents/count/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|issue",
+      "url": "/inventory/documents/issue/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|opening",
+      "url": "/inventory/documents/opening/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|receipt",
+      "url": "/inventory/documents/receipt/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.create|transfer",
+      "url": "/inventory/documents/transfer/create",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|adjustment",
+      "url": "/inventory/documents/adjustment/9",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|count",
+      "url": "/inventory/documents/count/1",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|issue",
+      "url": "/inventory/documents/issue/7",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|opening",
+      "url": "/inventory/documents/opening/5",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|receipt",
+      "url": "/inventory/documents/receipt/6",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.document.show|transfer",
+      "url": "/inventory/documents/transfer/8",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.isolations|default",
+      "url": "/inventory/isolations",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.issues|default",
+      "url": "/inventory/issues",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.movements|default",
+      "url": "/inventory/movements",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "inventory.receipts|default",
+      "url": "/inventory/receipts",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.reservations|default",
+      "url": "/inventory/reservations",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.serials|default",
+      "url": "/inventory/serials",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.transfers|default",
+      "url": "/inventory/transfers",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "inventory.warehouses|default",
+      "url": "/inventory/warehouses",
+      "module": "M06 Inventory",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "login|default",
+      "url": "/login",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.assignments|default",
+      "url": "/maintenance/assignments",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.checklists|default",
+      "url": "/maintenance/checklists",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.dashboard|default",
+      "url": "/maintenance/dashboard",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.index|default",
+      "url": "/maintenance",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.reports|default",
+      "url": "/maintenance/reports",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.requests.create|default",
+      "url": "/maintenance/requests/create",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.requests.show|default",
+      "url": "/maintenance/requests/1",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.requests|default",
+      "url": "/maintenance/requests",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.schedule|default",
+      "url": "/maintenance/schedule",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.work-orders.create|default",
+      "url": "/maintenance/work-orders/create",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.work-orders.show|default",
+      "url": "/maintenance/work-orders/1",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "maintenance.work-orders|default",
+      "url": "/maintenance/work-orders",
+      "module": "M08 FieldMaintenance",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "operations.import|customers",
+      "url": "/data-operations/import/customers",
+      "module": "M17 System",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "operations.import|products",
+      "url": "/data-operations/import/products",
+      "module": "M17 System",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "operations.import|suppliers",
+      "url": "/data-operations/import/suppliers",
+      "module": "M17 System",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "operations.show|default",
+      "url": "/data-operations/1c27d4b3-efab-4f9a-951f-73e767ff066f",
+      "module": "M17 System",
+      "fixture_status": 200,
+      "successful_viewports": [],
+      "viewport_count": 0,
+      "source_builds": []
+    },
+    {
+      "case_key": "organization.branches.show|default",
+      "url": "/organization/branches/1",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.branches|default",
+      "url": "/organization/branches",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "organization.company|default",
+      "url": "/organization/company",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.permissions|default",
+      "url": "/organization/permissions",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.roles.show|default",
+      "url": "/organization/roles/2",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.roles|default",
+      "url": "/organization/roles",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.users.show|default",
+      "url": "/organization/users/133",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "organization.users|default",
+      "url": "/organization/users",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "password.request|default",
+      "url": "/forgot-password",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "products.brands|default",
+      "url": "/products/brands",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "products.categories|default",
+      "url": "/products/categories",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "products.create|default",
+      "url": "/products/create",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "products.edit|default",
+      "url": "/products/1/edit",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "products.import|default",
+      "url": "/products/import",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "products.index|default",
+      "url": "/products",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "b5435a5930397b692e4edadcb060461f8017b34beb1311908c74d963920d7599|/build/assets/app-BndKEvZV.css"
+      ]
+    },
+    {
+      "case_key": "products.prices|default",
+      "url": "/products/1/prices",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "products.show|default",
+      "url": "/products/1",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "products.units|default",
+      "url": "/products/units",
+      "module": "M02 Products",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "profile.edit|default",
+      "url": "/settings/profile",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.budget|default",
+      "url": "/projects/1/budget",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.closure|default",
+      "url": "/projects/1/closure",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.create|default",
+      "url": "/projects/create",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.documents|default",
+      "url": "/projects/1/documents",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.financial|default",
+      "url": "/projects/1/financial",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.index|default",
+      "url": "/projects",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "projects.operations|default",
+      "url": "/projects/1/operations",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.reports|default",
+      "url": "/projects/reports",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "projects.show|default",
+      "url": "/projects/1",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "projects.tasks|default",
+      "url": "/projects/1/tasks",
+      "module": "M07 Projects",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.comparison|default",
+      "url": "/purchasing/comparison",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.dashboard|default",
+      "url": "/purchasing",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.offers.create|default",
+      "url": "/purchasing/offers/create",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.offers.index|default",
+      "url": "/purchasing/offers",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.offers.show|default",
+      "url": "/purchasing/offers/1",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.orders.create|default",
+      "url": "/purchasing/orders/create",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.orders.index|default",
+      "url": "/purchasing/orders",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.orders.show|default",
+      "url": "/purchasing/orders/1",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.receipts.create|default",
+      "url": "/purchasing/receipts/create",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.receipts.index|default",
+      "url": "/purchasing/receipts",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.receipts.show|default",
+      "url": "/purchasing/receipts/2",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.requisitions.create|default",
+      "url": "/purchasing/requisitions/create",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.requisitions.index|default",
+      "url": "/purchasing/requisitions",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.requisitions.show|default",
+      "url": "/purchasing/requisitions/1",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.rfqs.create|default",
+      "url": "/purchasing/rfqs/create",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.rfqs.index|default",
+      "url": "/purchasing/rfqs",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "purchasing.rfqs.show|default",
+      "url": "/purchasing/rfqs/1",
+      "module": "M05 Purchasing",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.acceptance|default",
+      "url": "/quotations/1/acceptance",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.approval|default",
+      "url": "/quotations/1/approval",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.convert|default",
+      "url": "/quotations/1/convert",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.create|default",
+      "url": "/quotations/create",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.edit|default",
+      "url": "/quotations/1/edit",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.index|default",
+      "url": "/quotations",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.policy|default",
+      "url": "/quotations/policy",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "quotations.show|default",
+      "url": "/quotations/1",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.create|default",
+      "url": "/sales-orders/create",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.edit|default",
+      "url": "/sales-orders/1/edit",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.index|default",
+      "url": "/sales-orders",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.policy|default",
+      "url": "/sales-orders/policy",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.screen|amendment",
+      "url": "/sales-orders/1/amendment",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.screen|closure",
+      "url": "/sales-orders/1/closure",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.screen|delivery",
+      "url": "/sales-orders/1/delivery",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.screen|invoices",
+      "url": "/sales-orders/1/invoices",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.screen|review",
+      "url": "/sales-orders/1/review",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "sales-orders.show|default",
+      "url": "/sales-orders/1",
+      "module": "M04 Sales",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "security.edit|default",
+      "url": "/settings/security",
+      "module": "M01 Organization",
+      "fixture_status": 200,
+      "successful_viewports": [],
+      "viewport_count": 0,
+      "source_builds": []
+    },
+    {
+      "case_key": "suppliers.categories|default",
+      "url": "/suppliers/categories",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.create|default",
+      "url": "/suppliers/create",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.edit|default",
+      "url": "/suppliers/612/edit",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.import|default",
+      "url": "/suppliers/import",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.index|default",
+      "url": "/suppliers",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "b5435a5930397b692e4edadcb060461f8017b34beb1311908c74d963920d7599|/build/assets/app-BndKEvZV.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.show|default",
+      "url": "/suppliers/612",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "suppliers.show|financial",
+      "url": "/suppliers/612?tab=financial",
+      "module": "M03 Parties",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.create|default",
+      "url": "/tenders/create",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.dashboard|default",
+      "url": "/tenders/dashboard",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.index|default",
+      "url": "/tenders",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.reports|default",
+      "url": "/tenders/reports",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.show|default",
+      "url": "/tenders/1",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "tenders.show|financial",
+      "url": "/tenders/1?tab=financial",
+      "module": "M07 Projects (Tenders)",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "0ef37bea8d36e2ed795908ad295a3b3f65c1037223987c5e07ec75d56ee95fb5|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "treasury.accounts|default",
+      "url": "/treasury/accounts",
+      "module": "M13 Treasury",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "treasury.collections|default",
+      "url": "/treasury/collections",
+      "module": "M13 Treasury",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "treasury.movements.show|default",
+      "url": "/treasury/movements/1",
+      "module": "M13 Treasury",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "de14f87b5095e9cbcc151d95e9981a1724d0d2c989b784e6968b0a241ffea234|/build/assets/app-BJ12s52F.css"
+      ]
+    },
+    {
+      "case_key": "treasury.payments|default",
+      "url": "/treasury/payments",
+      "module": "M13 Treasury",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "treasury.transfers|default",
+      "url": "/treasury/transfers",
+      "module": "M13 Treasury",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.dashboard|default",
+      "url": "/workshops/dashboard",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.intakes.create|default",
+      "url": "/workshops/intakes/create",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.intakes.show|default",
+      "url": "/workshops/intakes/1",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.intakes|default",
+      "url": "/workshops/intakes",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.jobs.show|default",
+      "url": "/workshops/jobs/1",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.jobs|default",
+      "url": "/workshops/jobs",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768",
+        "mobile-390",
+        "mobile-360"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.reports|default",
+      "url": "/workshops/reports",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    },
+    {
+      "case_key": "workshops.settings|default",
+      "url": "/workshops/settings",
+      "module": "M09 WorkshopRepairs",
+      "fixture_status": 200,
+      "successful_viewports": [
+        "mobile-390",
+        "mobile-360",
+        "desktop-1440",
+        "desktop-1366",
+        "tablet-768"
+      ],
+      "viewport_count": 5,
+      "source_builds": [
+        "eff88bb699031c55dc2e34c7b5339e7d1c36cd8158876f23091d075a3795c6e0|/build/assets/app-CBOIam_T.css"
+      ]
+    }
+  ],
+  "localization_file": "lang/ar.json",
+  "localization_sha256_current": "91b6d8d4f5f299376b205b4399e3aa70ea92eb8b0502d3949f28d389e0b522c3",
+  "localization_capture_note": "Captured localization hash is recorded on refreshed actor 65/66 screenshots and the final timing series. Earlier preserved screenshots retain their original source/build tags and are not attributed this hash."
+}

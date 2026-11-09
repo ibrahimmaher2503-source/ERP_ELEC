@@ -1,0 +1,749 @@
+{
+  "run_id": "2026-10-31T23-48-22-543Z",
+  "phase": "after",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via existing Playwright",
+  "route_registry_source": "php artisan route:list --json",
+  "source_sha256": "df68e15b440bd3196619d60138940b5e92d365db3cf1a12e2c23ee1b7703dd15",
+  "build_assets": {
+    "css": "/build/assets/app-XJUwhpo4.css",
+    "javascript": "/build/assets/app-BvRk9kiK.js"
+  },
+  "routes": [
+    {
+      "name": "products.show",
+      "variant": "default",
+      "module": "M02 Products",
+      "uri": "products/{product}",
+      "url": "/products/1",
+      "baseline_status": 200
+    }
+  ],
+  "viewports": [
+    {
+      "name": "tablet-768",
+      "width": 768,
+      "height": 1024
+    }
+  ],
+  "screenshots": [],
+  "timing_samples": [],
+  "interactions": [
+    {
+      "route": "products.show",
+      "module": "M02 Products",
+      "url": "/products/1",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "checks": [],
+      "http_status": 200,
+      "geometry": {
+        "document": {
+          "scroll_width": 1018,
+          "viewport_width": 768
+        },
+        "main": {
+          "tag": "div",
+          "id": "main-content",
+          "class": "[grid-area:main] p-6 lg:p-8   [[data-flux-container]_&]:px-0  erp-main min-h-[calc(100vh-4rem)] p-4 sm:p-6 lg:p-8",
+          "text": "الرئيسية المنتجات الأصناف تفاصيل الصنف قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1 بيانات تعريف ال",
+          "rect": {
+            "x": 0,
+            "y": 64,
+            "width": 768,
+            "height": 1424.8,
+            "right": 768,
+            "bottom": 1488.8
+          },
+          "scroll_width": 1018,
+          "client_width": 768,
+          "display": "block",
+          "position": "static",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "min_width": "0px"
+        },
+        "main_children": [
+          {
+            "tag": "div",
+            "id": null,
+            "class": "space-y-6",
+            "text": "الرئيسية المنتجات الأصناف تفاصيل الصنف قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1 بيانات تعريف ال",
+            "rect": {
+              "x": 24,
+              "y": 88,
+              "width": 720,
+              "height": 1376.8,
+              "right": 744,
+              "bottom": 1464.8
+            },
+            "scroll_width": 994,
+            "client_width": 720,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          }
+        ],
+        "wide_main_elements": [],
+        "product_grid": {
+          "tag": "div",
+          "id": null,
+          "class": "grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]",
+          "text": "المعلومات الأساسية المواصفات والوحدات الصور والمرفقات الأسعار المخزون سجل التغييرات ملاحظات داخلية ا",
+          "rect": {
+            "x": 24,
+            "y": 224.8,
+            "width": 720,
+            "height": 1240,
+            "right": 744,
+            "bottom": 1464.8
+          },
+          "scroll_width": 994,
+          "client_width": 720,
+          "display": "grid",
+          "position": "static",
+          "overflow_x": "visible",
+          "white_space": "normal",
+          "min_width": "0px",
+          "children": [
+            {
+              "tag": "div",
+              "id": null,
+              "class": "space-y-5",
+              "text": "المعلومات الأساسية المواصفات والوحدات الصور والمرفقات الأسعار المخزون سجل التغييرات ملاحظات داخلية ا",
+              "rect": {
+                "x": -250.3,
+                "y": 224.8,
+                "width": 994.3,
+                "height": 673,
+                "right": 744,
+                "bottom": 897.8
+              },
+              "scroll_width": 994,
+              "client_width": 994,
+              "display": "block",
+              "position": "static",
+              "overflow_x": "visible",
+              "white_space": "normal",
+              "min_width": "auto"
+            },
+            {
+              "tag": "aside",
+              "id": null,
+              "class": "space-y-5 xl:sticky xl:top-5",
+              "text": "قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1 ● نشط SKU DEMO-EG-PROD-000001 التصنيف القواطع وأجهزة ا",
+              "rect": {
+                "x": -250.3,
+                "y": 917.8,
+                "width": 994.3,
+                "height": 547,
+                "right": 744,
+                "bottom": 1464.8
+              },
+              "scroll_width": 994,
+              "client_width": 994,
+              "display": "block",
+              "position": "static",
+              "overflow_x": "visible",
+              "white_space": "normal",
+              "min_width": "auto"
+            }
+          ]
+        },
+        "wide_elements": [
+          {
+            "tag": "ui-sidebar",
+            "id": null,
+            "class": "[grid-area:sidebar] z-1 flex flex-col gap-4 [:where(&)]:w-64 p-4 data-flux-sidebar-collapsed-desktop:w-14 data-flux-sidebar-collapsed-desktop:px-2 data-flux-sidebar-collapsed-deskt",
+            "text": "Synthetic Electrical إدارة الأعمال الكهربائية البحث في الصفحات المتاحة الرئيسية الوحدات التنظيم العم",
+            "rect": {
+              "x": 768,
+              "y": 0,
+              "width": 250,
+              "height": 1024,
+              "right": 1018,
+              "bottom": 1024
+            },
+            "scroll_width": 249,
+            "client_width": 249,
+            "display": "flex",
+            "position": "fixed",
+            "overflow_x": "auto",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "flex items-center justify-between gap-2 min-h-10 erp-sidebar-header border-b pb-4",
+            "text": "Synthetic Electrical إدارة الأعمال الكهربائية",
+            "rect": {
+              "x": 784,
+              "y": 16,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 56
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "a",
+            "id": null,
+            "class": "erp-sidebar-brand flex min-w-0 items-center gap-3 rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#93C5FD]",
+            "text": "Synthetic Electrical إدارة الأعمال الكهربائية",
+            "rect": {
+              "x": 832,
+              "y": -5.8,
+              "width": 169,
+              "height": 66.7,
+              "right": 1001,
+              "bottom": 60.8
+            },
+            "scroll_width": 169,
+            "client_width": 169,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "erp-nav-search",
+            "text": "البحث في الصفحات المتاحة",
+            "rect": {
+              "x": 784,
+              "y": 86,
+              "width": 217,
+              "height": 41.5,
+              "right": 1001,
+              "bottom": 127.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "nav",
+            "id": null,
+            "class": "flex flex-col overflow-visible min-h-auto erp-nav",
+            "text": "الرئيسية الوحدات التنظيم العملاء والموردون المنتجات الأصناف التصنيفات العلامات التجارية وحدات القياس",
+            "rect": {
+              "x": 784,
+              "y": 157.5,
+              "width": 217,
+              "height": 786,
+              "right": 1001,
+              "bottom": 943.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "ui-tooltip",
+            "id": null,
+            "class": "block min-w-0",
+            "text": "الرئيسية",
+            "rect": {
+              "x": 784,
+              "y": 157.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 199.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "a",
+            "id": null,
+            "class": "h-8 in-data-flux-sidebar-on-mobile:h-10 relative flex items-center gap-3 rounded-lg in-data-flux-sidebar-collapsed-desktop:w-10 in-data-flux-sidebar-collapsed-desktop:justify-cente",
+            "text": "الرئيسية",
+            "rect": {
+              "x": 784,
+              "y": 158.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 198.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "relative",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "flex flex-col in-data-flux-sidebar-collapsed-desktop:hidden grid",
+            "text": "الوحدات التنظيم العملاء والموردون المنتجات الأصناف التصنيفات العلامات التجارية وحدات القياس المبيعات",
+            "rect": {
+              "x": 784,
+              "y": 199.5,
+              "width": 217,
+              "height": 744,
+              "right": 1001,
+              "bottom": 943.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "grid",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "px-3 py-2 text-sm text-zinc-400 font-medium leading-none truncate",
+            "text": "الوحدات",
+            "rect": {
+              "x": 784,
+              "y": 199.5,
+              "width": 217,
+              "height": 30,
+              "right": 1001,
+              "bottom": 229.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "hidden",
+            "white_space": "nowrap",
+            "min_width": "auto"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "flex flex-col min-w-0",
+            "text": "التنظيم العملاء والموردون المنتجات الأصناف التصنيفات العلامات التجارية وحدات القياس المبيعات المخزون",
+            "rect": {
+              "x": 784,
+              "y": 229.5,
+              "width": 217,
+              "height": 714,
+              "right": 1001,
+              "bottom": 943.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+            "text": "التنظيم",
+            "rect": {
+              "x": 784,
+              "y": 229.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 271.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "التنظيم",
+            "rect": {
+              "x": 784,
+              "y": 230.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 270.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+            "text": "العملاء والموردون",
+            "rect": {
+              "x": 784,
+              "y": 271.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 313.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "العملاء والموردون",
+            "rect": {
+              "x": 784,
+              "y": 272.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 312.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+            "text": "المنتجات الأصناف التصنيفات العلامات التجارية وحدات القياس",
+            "rect": {
+              "x": 784,
+              "y": 313.5,
+              "width": 217,
+              "height": 210,
+              "right": 1001,
+              "bottom": 523.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "المنتجات",
+            "rect": {
+              "x": 784,
+              "y": 314.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 354.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "div",
+            "id": "lofi-disclosure-5b2df96340385",
+            "class": "relative min-w-0 hidden data-open:block ps-7",
+            "text": "الأصناف التصنيفات العلامات التجارية وحدات القياس",
+            "rect": {
+              "x": 784,
+              "y": 355.5,
+              "width": 217,
+              "height": 168,
+              "right": 1001,
+              "bottom": 523.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "relative",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+            "text": "المبيعات",
+            "rect": {
+              "x": 784,
+              "y": 523.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 565.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "المبيعات",
+            "rect": {
+              "x": 784,
+              "y": 524.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 564.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+            "text": "المخزون",
+            "rect": {
+              "x": 784,
+              "y": 565.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 607.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "المخزون",
+            "rect": {
+              "x": 784,
+              "y": 566.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 606.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+            "text": "الورش والإصلاح",
+            "rect": {
+              "x": 784,
+              "y": 607.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 649.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "الورش والإصلاح",
+            "rect": {
+              "x": 784,
+              "y": 608.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 648.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "ui-disclosure",
+            "id": null,
+            "class": "group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+            "text": "الصيانة الميدانية",
+            "rect": {
+              "x": 784,
+              "y": 649.5,
+              "width": 217,
+              "height": 42,
+              "right": 1001,
+              "bottom": 691.5
+            },
+            "scroll_width": 217,
+            "client_width": 217,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "auto"
+          },
+          {
+            "tag": "button",
+            "id": null,
+            "class": "border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-whit",
+            "text": "الصيانة الميدانية",
+            "rect": {
+              "x": 784,
+              "y": 650.5,
+              "width": 217,
+              "height": 40,
+              "right": 1001,
+              "bottom": 690.5
+            },
+            "scroll_width": 215,
+            "client_width": 215,
+            "display": "flex",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          }
+        ],
+        "overflowing_subtrees": [
+          {
+            "tag": "div",
+            "id": null,
+            "class": "space-y-6",
+            "text": "الرئيسية المنتجات الأصناف تفاصيل الصنف قاطع مصغر MCB أحادي 6 أمبير - سلسلة 1 / فئة 1 بيانات تعريف ال",
+            "rect": {
+              "x": 24,
+              "y": 88,
+              "width": 720,
+              "height": 1376.8,
+              "right": 744,
+              "bottom": 1464.8
+            },
+            "scroll_width": 994,
+            "client_width": 720,
+            "display": "block",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          },
+          {
+            "tag": "div",
+            "id": null,
+            "class": "grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]",
+            "text": "المعلومات الأساسية المواصفات والوحدات الصور والمرفقات الأسعار المخزون سجل التغييرات ملاحظات داخلية ا",
+            "rect": {
+              "x": 24,
+              "y": 224.8,
+              "width": 720,
+              "height": 1240,
+              "right": 744,
+              "bottom": 1464.8
+            },
+            "scroll_width": 994,
+            "client_width": 720,
+            "display": "grid",
+            "position": "static",
+            "overflow_x": "visible",
+            "white_space": "normal",
+            "min_width": "0px"
+          }
+        ]
+      }
+    }
+  ],
+  "superseded_captures": [],
+  "excluded_checks": [
+    {
+      "name": "no-authority route denial",
+      "reason": "existing authenticated fixture is the authorized audit actor; no separate safe no-authority actor fixture has been established, so no account or privileges were created"
+    }
+  ],
+  "conditions": {
+    "isolated_existing_database": true,
+    "reset": false,
+    "reseed": false,
+    "business_submissions": false
+  },
+  "checkpoint": true,
+  "checkpoint_at": "2026-10-31T23:48:28.179Z"
+}

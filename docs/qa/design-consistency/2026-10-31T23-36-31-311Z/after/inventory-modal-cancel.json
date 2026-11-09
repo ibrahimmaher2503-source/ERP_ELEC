@@ -1,0 +1,33 @@
+{
+  "route": "inventory.dashboard",
+  "checks": [
+    {
+      "name": "inventory-minimum-edit-dialog-opens",
+      "result": "pass",
+      "details": {
+        "label": null
+      }
+    },
+    {
+      "name": "inventory-minimum-dialog-cancels-without-business-mutation",
+      "result": "pass",
+      "details": {
+        "row_unchanged": true,
+        "close_button_found": false,
+        "mutation_submitted": false,
+        "existing_minimum": ""
+      }
+    },
+    {
+      "name": "inventory-minimum-edit-dialog-is-closed",
+      "result": "pass",
+      "details": {
+        "visible_dialogs": 0
+      }
+    }
+  ],
+  "mutation_submitted": false,
+  "before_value": "",
+  "before_row_text": "PERF-FIN-20261031-SKU جلاند كابل مقاس M16 - سلسلة 1473 / فئة 2 كابلات وأسلاك مستودع اختبار الواجهة SZRWHGXF قطعة 3.00000000 غير متاح: 0.00000000 0.00000000 3.00000000 غير محدد",
+  "after_row_text": "PERF-FIN-20261031-SKU جلاند كابل مقاس M16 - سلسلة 1473 / فئة 2 كابلات وأسلاك مستودع اختبار الواجهة SZRWHGXF قطعة 3.00000000 غير متاح: 0.00000000 0.00000000 3.00000000 غير محدد"
+}

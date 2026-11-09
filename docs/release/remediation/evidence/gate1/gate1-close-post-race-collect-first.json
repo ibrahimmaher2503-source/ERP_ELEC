@@ -1,0 +1,43 @@
+{
+    "database": "erp_elec_gate1_race2@127.0.0.1:49685",
+    "marker_verified": true,
+    "synthetic_committed_fixture": true,
+    "actor_ids": {
+        "creator": 1,
+        "approver_poster": 2,
+        "closer": 3
+    },
+    "branch_id": 1,
+    "period_id": 1,
+    "customer_id": 1,
+    "workers": {
+        "close_exit": 0,
+        "close": {
+            "mode": "close",
+            "outcome": "success",
+            "collection": null
+        },
+        "collect_exit": 0,
+        "collect": {
+            "mode": "collect",
+            "outcome": "success",
+            "collection": {
+                "movement_id": 1,
+                "journal_id": 1,
+                "number": "RV-2026-000001"
+            }
+        }
+    },
+    "final_state": {
+        "period_status": "closed",
+        "journal_status": "posted",
+        "treasury_movement_count": 1,
+        "customer_advance_count": 1,
+        "closure_count": 1,
+        "closure_hash_valid": true
+    },
+    "race_order": "collect-first",
+    "serialized_invariant": true,
+    "expected_order": "source collection commits under advisory lock before close; close reconciles it and records one closure",
+    "result": "PASS"
+}

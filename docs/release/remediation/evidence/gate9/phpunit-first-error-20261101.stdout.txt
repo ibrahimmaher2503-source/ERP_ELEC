@@ -1,0 +1,142 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.21
+Configuration: C:\projects\ERP_ELEC_NEW\phpunit.xml
+
+............[31;1mE[0m
+
+Time: 00:08.322, Memory: 66.00 MB
+
+There was 1 error:
+
+1) Tests\Feature\Auth\AuthenticationTest::test_login_screen_can_be_rendered
+Illuminate\Database\QueryException: SQLSTATE[42723]: Duplicate function: 7 ERROR:  function "organization_guard_employee" already exists with same argument types (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_new_test, SQL: CREATE TABLE organization_employees (
+ id bigserial PRIMARY KEY, code varchar(50) NOT NULL UNIQUE, name varchar(200) NOT NULL,
+ branch_id bigint NOT NULL REFERENCES branches(id), user_id bigint UNIQUE REFERENCES users(id),
+ starts_on date NOT NULL, ends_on date, active boolean NOT NULL DEFAULT true, job_title varchar(200),
+ version integer NOT NULL DEFAULT 1 CHECK(version>0), created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(),
+ CHECK(ends_on IS NULL OR ends_on>=starts_on)
+);
+CREATE INDEX organization_employee_register ON organization_employees(branch_id,active,code);
+CREATE FUNCTION organization_guard_employee() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+ IF TG_OP='DELETE' THEN RAISE EXCEPTION 'Employee history must be retained'; END IF;
+ IF ROW(NEW.code,NEW.branch_id) IS DISTINCT FROM ROW(OLD.code,OLD.branch_id) THEN RAISE EXCEPTION 'Employee identity/branch immutable'; END IF;
+ RETURN NEW;
+END $$;
+CREATE TRIGGER organization_employee_guard BEFORE UPDATE OR DELETE ON organization_employees FOR EACH ROW EXECUTE FUNCTION organization_guard_employee();)
+
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:864
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:820
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:651
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php:502
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php:364
+C:\projects\ERP_ELEC_NEW\database\migrations\2026_11_01_201000_create_organization_employees.php:11
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:518
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:443
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Concerns\ManagesTransactions.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:451
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:253
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\View\Components\Task.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:867
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:253
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:211
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:138
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:118
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:686
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:111
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:90
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:68
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:29
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\FreshCommand.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:1129
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:380
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:219
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Application.php:165
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php:450
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:452
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:676
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithConsole.php:85
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:119
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:84
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:25
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:237
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:107
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\TestCase.php:75
+
+Caused by
+PDOException: SQLSTATE[42723]: Duplicate function: 7 ERROR:  function "organization_guard_employee" already exists with same argument types
+
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:657
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:853
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:820
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Connection.php:651
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php:502
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php:364
+C:\projects\ERP_ELEC_NEW\database\migrations\2026_11_01_201000_create_organization_employees.php:11
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:518
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:443
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Concerns\ManagesTransactions.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:451
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:253
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\View\Components\Task.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:867
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:253
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:211
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:138
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:118
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Migrations\Migrator.php:686
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:111
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\MigrateCommand.php:90
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:68
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Concerns\CallsCommands.php:29
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Console\Migrations\FreshCommand.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:36
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Util.php:43
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:96
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php:35
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Container\Container.php:803
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:292
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Command\Command.php:285
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Command.php:261
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:1129
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:380
+C:\projects\ERP_ELEC_NEW\vendor\symfony\console\Application.php:219
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Console\Application.php:165
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php:450
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:452
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Testing\PendingCommand.php:676
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithConsole.php:85
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:119
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:84
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\RefreshDatabase.php:25
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:237
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\InteractsWithTestCaseLifecycle.php:107
+C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Foundation\Testing\TestCase.php:75
+
+[37;41mERRORS![0m
+[37;41mTests: 13[0m[37;41m, Assertions: 46[0m[37;41m, Errors: 1[0m[37;41m.[0m

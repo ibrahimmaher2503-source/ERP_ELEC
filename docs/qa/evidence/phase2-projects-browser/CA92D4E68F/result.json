@@ -1,0 +1,95 @@
+{
+  "result": "FAIL",
+  "run_id": "CA92D4E68F",
+  "failure": "finalize-phase2-projects-browser-sources.php returned no JSON evidence: [2026-10-29 13:33:42] testing.ERROR: ABORT before source posting: expected isolated test clone on loopback 55435/55437. {\"exception\":\"[object] (RuntimeException(code: 0): ABORT before source posting: expected isolated test clone on loopback 55435/55437. at C:/projects/ERP_ELEC_NEW/tests/E2E/support/finalize-phase2-projects-browser-sources.php:35)\n[stacktrace]\n#0 {main}\n\"} \n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "resumed_existing_authenticated_browser_project": "passed",
+      "project_id": 7,
+      "create_edit": true,
+      "phase_task_milestone": true,
+      "independent_budget_approval": true
+    },
+    {
+      "availability_debug": {
+        "requirement": "2",
+        "warehouse": "1",
+        "button": "<button type=\"button\" class=\"relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-4 pe-4 inline-flex  bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75 text-zinc-800 dark:text-white border border-zinc-200 hover:border-zinc-200 disabled:border-zinc-200 border-b-zinc-300/80 dark:border-zinc-600 dark:hover:border-zinc-600 dark:disabled:border-zinc-600 shadow-xs [[data-flux-button-group]_&amp;]:border-s-0 [:is([data-flux-button-group]&gt;&amp;:first-child,_[data-flux-button-group]_:first-child&gt;&amp;)]:border-s-[1px] *:transition-opacity [&amp;[data-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-flux-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-loading]&gt;[data-flux-loading-indicator]]:opacity-100 [&amp;[data-flux-loading]&gt;[data-flux-loading-indicator]]:opacity-100 data-loading:pointer-events-none data-flux-loading:pointer-events-none\" data-flux-button=\"data-flux-button\" data-flux-group-target=\"data-flux-group-target\" wire:target=\"checkAvailability\" wire:loading.attr=\"data-flux-loading\" wire:click=\"checkAvailability\">\n        <div class=\"absolute inset-0 flex items-center justify-center opacity-0\" data-flux-loading-indicator=\"\">\n                <svg class=\"shrink-0 [:where(&amp;)]:size-4 animate-spin\" data-flux-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" data-slot=\"icon\">\n    <circle class=\"opacity-25\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"currentColor\" stroke-width=\"4\"></circle>\n    <path class=\"opacity-75\" fill=\"currentColor\" d=\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\"></path>\n</svg>\n                    </div>\n        \n        \n                    \n            \n            <span>استعلام المتاح</span>\n    </button>",
+        "livewire": [
+          {
+            "request": "/livewire-557588bd/livewire.min.js",
+            "method": "GET"
+          },
+          {
+            "request": "/livewire-557588bd/livewire.min.js",
+            "method": "GET"
+          },
+          {
+            "request": "/livewire-557588bd/update",
+            "method": "POST"
+          },
+          {
+            "status": 200,
+            "method": "POST"
+          }
+        ]
+      }
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 7,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "product_id": 1
+    }
+  ],
+  "browser_errors": [
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+  ],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-557588bd/update",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-557588bd/update",
+      "method": "POST"
+    },
+    {
+      "status": 403,
+      "method": "POST"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "captured_utc": "2026-11-01",
+  "scope": "Gate 1 focused regression execution by Luna",
+  "environment": {
+    "postgresql": "owned private PostgreSQL cluster",
+    "port": 49685,
+    "data_directory": ".tmp/master-remediation-20261101/pgdata",
+    "ownership_marker": "master-remediation-20261101 Gate1 private PostgreSQL marker",
+    "database_for_rollback_checks": "erp_elec_gate1_race",
+    "database_for_action-created reversal fixture": "erp_elec_gate1_race_test",
+    "environment_isolated": true,
+    "storage_cache_views_private": true,
+    "operational_database_writes": false
+  },
+  "results": [
+    {
+      "check": "M06 inventory",
+      "status": "PASS",
+      "command": "php .tmp/master-remediation-20261101/regression-copies/check-m06-inventory.php",
+      "source": "tests/Support/check-m06-inventory.php",
+      "source_sha256": "2E7A91CE396F5A10D568CD7203F69E2CADC693A65633904F66E2519A90877FC5",
+      "assertions": 113,
+      "exit_code": 0,
+      "terminal": "M06 inventory focused checks passed.",
+      "rolled_back": true,
+      "log": "m06-inventory-focused-race-test-attempt3.txt"
+    },
+    {
+      "check": "M05/M06 lifecycle round-trip",
+      "status": "PASS",
+      "command": "php .tmp/master-remediation-20261101/regression-copies/check-m05-m06-roundtrip.php",
+      "source": "tests/Support/check-m05-m06-roundtrip.php",
+      "source_sha256": "F074E25E87EE645A73A95DF8462A86B5400B457C4C396170B4A9B86F66406A64",
+      "assertions": 68,
+      "exit_code": 0,
+      "terminal": "M05/M06 lifecycle round-trip regression checks passed.",
+      "rolled_back": true,
+      "log": "m05-m06-roundtrip-race-test-attempt1.txt"
+    },
+    {
+      "check": "Phase 1 supplier invoice",
+      "status": "PASS",
+      "command": "php .tmp/master-remediation-20261101/regression-copies/check-phase1-supplier-invoice.php",
+      "terminal": "JSON all_pass=true",
+      "posted_source_invoices": 3,
+      "exit_code": 0,
+      "rolled_back": true,
+      "receipt": "supplier-invoice-regression.json",
+      "log": "supplier-invoice-regression-attempt1.txt"
+    },
+    {
+      "check": "Phase 1 full financial journeys with FIN-P0 opt-in",
+      "status": "PASS",
+      "command": "powershell -File .tmp/master-remediation-20261101/run-regression.ps1 -ScriptPath .tmp/master-remediation-20261101/regression-copies/check-phase1-financial-risk.php -Database erp_elec_gate1_race -FinancialRisk",
+      "terminal": "FIN-P0 RESULT PASS assertions=3",
+      "phase1_all_pass": true,
+      "financial_risk_assertions": 3,
+      "financial_risk_findings": ["PASS", "PASS", "PASS"],
+      "rolled_back": true,
+      "receipt": "financial-risk-cases.json",
+      "phase1_receipt": "phase1-financial-risk-phase1-run.json",
+      "log": "financial-risk-phase1-final-attempt1.txt"
+    },
+    {
+      "check": "Phase 1 journal reversal",
+      "status": "PASS",
+      "command": "php .tmp/master-remediation-20261101/regression-copies/check-phase1-journal-reversal.php",
+      "terminal": "JSON all_pass=true",
+      "checks": ["source-owned reversal denied", "ordinary manual reversal balanced and idempotent", "original journal unchanged", "reversal of reversal denied"],
+      "exit_code": 0,
+      "rolled_back": true,
+      "receipt": "phase1-journal-reversal.json",
+      "log": "phase1-journal-reversal-attempt2.txt"
+    },
+    {
+      "check": "Phase 2 projects financial integration",
+      "status": "PASS",
+      "command": "php .tmp/master-remediation-20261101/regression-copies/check-phase2-projects-financial.php",
+      "terminal": "JSON all_pass=true",
+      "income_rows": 4,
+      "balance_rows": 10,
+      "reconciliation_rows": ["ap", "ar", "grni", "inventory", "inventory_transit", "bank", "cash"],
+      "all_reconciliation_rows_ok": true,
+      "rolled_back": true,
+      "receipt": "phase2-projects-financial-regression-final.json",
+      "log": "phase2-projects-financial-regression-attempt5.txt",
+      "adaptation": "A temporary copy required the new inventory_transit row and granted its synthetic closer explicit report authority and branch scope for every branch. The same fixture and assertion updates are now in tests/Support/check-phase2-projects-financial.php."
+    },
+    {
+      "check": "Gate 1 close/control acceptance",
+      "status": "PASS",
+      "command": "php tests/Support/check-gate1-financial-close-controls.php",
+      "assertions": 28,
+      "terminal": "RESULT all_pass=true assertions=28",
+      "rolled_back": true,
+      "receipt": "gate1-close-controls-race-clone-pass.json",
+      "log": "gate1-close-controls-final-attempt1.txt"
+    },
+    {
+      "check": "Two-process close-first/source-post race",
+      "status": "PASS",
+      "command": "php tests/Support/check-gate1-close-post-race.php (GATE1_RACE_ORDER=close-first, exact local target risk-race-target.json)",
+      "terminal": "RESULT PASS",
+      "exit_code": 0,
+      "race_order": "close commits first; subsequent Treasury advance post is rejected atomically",
+      "current_refactor_smoke_receipt": "gate1-close-post-race-refactor-smoke.json",
+      "earlier_collect-first_receipt": "gate1-close-post-race-collect-first.json",
+      "earlier_collect-first_log": "gate1-close-post-race-treasury-post-first-attempt2.txt",
+      "current_refactor_smoke_log": "gate1-close-post-race-refactor-smoke-attempt2.txt",
+      "note": "The current refactor was smoke-run locally for close-first. The post-first race also passed on the same source Gate1 candidate before CI portability changes; CI runner must rerun both orderings with its nonce-guarded fresh database and cleanup."
+    }
+  ],
+  "preserved_nonpassing_attempts": [
+    "m06-inventory-focused-race-test-attempt1.txt",
+    "m06-inventory-focused-race-test-attempt2.txt",
+    "phase2-projects-financial-regression-attempt1.txt",
+    "phase2-projects-financial-regression-attempt2.txt",
+    "phase2-projects-financial-regression-attempt3.txt",
+    "phase2-projects-financial-regression-attempt4.txt",
+    "phase2-projects-financial-regression.json",
+    "phase1-journal-reversal-attempt1.txt",
+    "financial-risk-phase1-attempt1.txt",
+    "financial-risk-phase1-attempt2.txt",
+    "financial-risk-phase1-attempt3.txt",
+    "gate1-close-post-race-refactor-smoke.txt"
+  ],
+  "lint": {
+    "php_syntax": "PASS for all changed/new PHP check files",
+    "pint_targeted_new_helper_and_phase2_check": "PASS",
+    "pint_all_changed_legacy_check_files": "FAIL: existing large harnesses expose pre-existing whole-file formatting changes; no mass-format was applied"
+  },
+  "not_run_here": ["Gate1 CI 5432 nonce-bound runner", "Phase 3 maintenance financial harness owned by sibling", "full PHPUnit suite"]
+}

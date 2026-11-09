@@ -1,0 +1,54 @@
+{
+  "run_id": "2026-10-31T22-42-15-225Z",
+  "page_viewport_captures": 30,
+  "interaction_viewports": 3,
+  "failed_checks": 7,
+  "failures": [
+    {
+      "route": "inventory.dashboard",
+      "viewport": "desktop-1440",
+      "name": "dialog-opens",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "route": "inventory.dashboard",
+      "viewport": "desktop-1366",
+      "name": "dialog-opens",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "route": "inventory.dashboard",
+      "viewport": "tablet-768",
+      "name": "dialog-opens",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "route": "inventory.dashboard",
+      "viewport": "mobile-390",
+      "name": "dialog-opens",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "route": "inventory.dashboard",
+      "viewport": "mobile-360",
+      "name": "dialog-opens",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "name": "mobile-drawer-closes",
+      "result": "fail",
+      "details": null
+    },
+    {
+      "name": "mobile-drawer-closes",
+      "result": "fail",
+      "details": null
+    }
+  ],
+  "evidence": "C:\\projects\\ERP_ELEC_NEW\\docs\\qa\\ui-improvements\\2026-10-31T22-42-15-225Z\\evidence.json"
+}

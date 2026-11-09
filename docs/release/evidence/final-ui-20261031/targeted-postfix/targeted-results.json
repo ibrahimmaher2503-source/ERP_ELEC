@@ -1,0 +1,3912 @@
+{
+  "date": "2026-10-31T14:27:47.848Z",
+  "actor": {
+    "role": "Administrator",
+    "branch_scopes": 17,
+    "warehouse_scopes": 31
+  },
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55484
+  },
+  "outputs": {
+    "overflow": {
+      "/customers/1": {
+        "status": 200,
+        "measurement": {
+          "viewport": 390,
+          "documentWidth": 408,
+          "bodyWidth": 408,
+          "direction": "rtl",
+          "offenders": [
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 422.7,
+              "right": 429.3,
+              "width": 6.7,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                "ui-dropdown#."
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 422.7,
+              "right": 429.3,
+              "width": 6.7,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                "ui-dropdown#."
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 419.3,
+              "right": 426.8,
+              "width": 7.5,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "ui-toast-group",
+              "id": "",
+              "className": "",
+              "role": "status",
+              "left": 24,
+              "right": 408,
+              "width": 384,
+              "scrollWidth": 384,
+              "clientWidth": 384,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "flex",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.",
+                "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                "html#."
+              ]
+            }
+          ]
+        }
+      },
+      "/suppliers/1": {
+        "status": 200,
+        "measurement": {
+          "viewport": 390,
+          "documentWidth": 408,
+          "bodyWidth": 408,
+          "direction": "rtl",
+          "offenders": [
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 422.7,
+              "right": 429.3,
+              "width": 6.7,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                "ui-dropdown#."
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 422.7,
+              "right": 429.3,
+              "width": 6.7,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                "ui-dropdown#."
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "svg",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 417,
+              "right": 429,
+              "width": 12,
+              "scrollWidth": 12,
+              "clientWidth": 12,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "block",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                "div#.flex flex-col min-w-0"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 419.3,
+              "right": 426.8,
+              "width": 7.5,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "path",
+              "id": "",
+              "className": "",
+              "role": "",
+              "left": 421.1,
+              "right": 424.9,
+              "width": 3.8,
+              "scrollWidth": 0,
+              "clientWidth": 0,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "inline",
+              "visibility": "visible",
+              "parentChain": [
+                "svg#.",
+                "div#.ps-3 pe-2.5",
+                "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+              ]
+            },
+            {
+              "tag": "ui-toast-group",
+              "id": "",
+              "className": "",
+              "role": "status",
+              "left": 24,
+              "right": 408,
+              "width": 384,
+              "scrollWidth": 384,
+              "clientWidth": 384,
+              "overflowsX": false,
+              "exceedsViewport": true,
+              "display": "flex",
+              "visibility": "visible",
+              "parentChain": [
+                "div#.",
+                "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                "html#."
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "tenders": [
+      {
+        "path": "/tenders",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "status": 200,
+            "screenshot": "-tenders-1440x900.png",
+            "measurement": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "bodyWidth": 1440,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "status": 200,
+            "screenshot": "-tenders-1366x768.png",
+            "measurement": {
+              "viewport": 1366,
+              "documentWidth": 1366,
+              "bodyWidth": 1366,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "status": 200,
+            "screenshot": "-tenders-390x844.png",
+            "measurement": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "bodyWidth": 390,
+              "direction": "rtl",
+              "offenders": [
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 419.3,
+                  "right": 426.8,
+                  "width": 7.5,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "ui-toast-group",
+                  "id": "",
+                  "className": "",
+                  "role": "status",
+                  "left": 24,
+                  "right": 408,
+                  "width": 384,
+                  "scrollWidth": 384,
+                  "clientWidth": 384,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "flex",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.",
+                    "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                    "html#."
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": "/tenders/dashboard",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "status": 200,
+            "screenshot": "-tenders-dashboard-1440x900.png",
+            "measurement": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "bodyWidth": 1440,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "status": 200,
+            "screenshot": "-tenders-dashboard-1366x768.png",
+            "measurement": {
+              "viewport": 1366,
+              "documentWidth": 1366,
+              "bodyWidth": 1366,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "status": 200,
+            "screenshot": "-tenders-dashboard-390x844.png",
+            "measurement": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "bodyWidth": 390,
+              "direction": "rtl",
+              "offenders": [
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 419.3,
+                  "right": 426.8,
+                  "width": 7.5,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "ui-toast-group",
+                  "id": "",
+                  "className": "",
+                  "role": "status",
+                  "left": 24,
+                  "right": 408,
+                  "width": 384,
+                  "scrollWidth": 384,
+                  "clientWidth": 384,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "flex",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.",
+                    "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                    "html#."
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": "/tenders/reports",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "status": 200,
+            "screenshot": "-tenders-reports-1440x900.png",
+            "measurement": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "bodyWidth": 1440,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "status": 200,
+            "screenshot": "-tenders-reports-1366x768.png",
+            "measurement": {
+              "viewport": 1366,
+              "documentWidth": 1366,
+              "bodyWidth": 1366,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "status": 200,
+            "screenshot": "-tenders-reports-390x844.png",
+            "measurement": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "bodyWidth": 390,
+              "direction": "rtl",
+              "offenders": [
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 419.3,
+                  "right": 426.8,
+                  "width": 7.5,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "ui-toast-group",
+                  "id": "",
+                  "className": "",
+                  "role": "status",
+                  "left": 24,
+                  "right": 408,
+                  "width": 384,
+                  "scrollWidth": 384,
+                  "clientWidth": 384,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "flex",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.",
+                    "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                    "html#."
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": "/tenders/create",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "status": 200,
+            "screenshot": "-tenders-create-1440x900.png",
+            "measurement": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "bodyWidth": 1440,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "status": 200,
+            "screenshot": "-tenders-create-1366x768.png",
+            "measurement": {
+              "viewport": 1366,
+              "documentWidth": 1366,
+              "bodyWidth": 1366,
+              "direction": "rtl",
+              "offenders": []
+            }
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "status": 200,
+            "screenshot": "-tenders-create-390x844.png",
+            "measurement": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "bodyWidth": 390,
+              "direction": "rtl",
+              "offenders": [
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 422.7,
+                  "right": 429.3,
+                  "width": 6.7,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.in-data-flux-sidebar-collapsed-desktop:hidden shrink-0 ms-auto size-8 flex justify-center items-center",
+                    "button#.group flex items-center rounded-lg has-data-[circle=true]:rounded-full [ui-dropdown>&]:w-full p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10",
+                    "ui-dropdown#."
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "svg",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 417,
+                  "right": 429,
+                  "width": 12,
+                  "scrollWidth": 12,
+                  "clientWidth": 12,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "block",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden",
+                    "div#.flex flex-col min-w-0"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 419.3,
+                  "right": 426.8,
+                  "width": 7.5,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-organization"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-parties"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden erp-nav-products"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "path",
+                  "id": "",
+                  "className": "",
+                  "role": "",
+                  "left": 421.1,
+                  "right": 424.9,
+                  "width": 3.8,
+                  "scrollWidth": 0,
+                  "clientWidth": 0,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "inline",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "svg#.",
+                    "div#.ps-3 pe-2.5",
+                    "button#.border-1 border-transparent w-full min-w-0 h-8 in-data-flux-sidebar-on-mobile:h-10 flex items-center group/disclosure-button my-px rounded-lg hover:bg-zinc-800/5 dark:hover:bg-white/[7%] text-zinc-500 hover:text-zinc-800 dark:text-white/80 dark:hover:text-white",
+                    "ui-disclosure#.group/disclosure in-data-flux-sidebar-collapsed-desktop:hidden"
+                  ]
+                },
+                {
+                  "tag": "ui-toast-group",
+                  "id": "",
+                  "className": "",
+                  "role": "status",
+                  "left": 24,
+                  "right": 408,
+                  "width": 384,
+                  "scrollWidth": 384,
+                  "clientWidth": 384,
+                  "overflowsX": false,
+                  "exceedsViewport": true,
+                  "display": "flex",
+                  "visibility": "visible",
+                  "parentChain": [
+                    "div#.",
+                    "body#.erp-shell min-h-screen bg-slate-50 text-[#253247]",
+                    "html#."
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "path": "/tenders/1",
+        "viewports": [
+          {
+            "width": 1440,
+            "height": 900,
+            "status": 404,
+            "screenshot": "-tenders-1-1440x900.png",
+            "measurement": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "bodyWidth": 1440,
+              "direction": "ltr",
+              "offenders": []
+            }
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "status": 404,
+            "screenshot": "-tenders-1-1366x768.png",
+            "measurement": {
+              "viewport": 1366,
+              "documentWidth": 1366,
+              "bodyWidth": 1366,
+              "direction": "ltr",
+              "offenders": []
+            }
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "status": 404,
+            "screenshot": "-tenders-1-390x844.png",
+            "measurement": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "bodyWidth": 390,
+              "direction": "ltr",
+              "offenders": []
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

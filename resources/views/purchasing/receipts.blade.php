@@ -10,7 +10,7 @@
             @forelse($rows as $r)<tr role="row" wire:key="receipt-{{ $r->id }}" class="border-b border-slate-100">
                 <td role="cell" data-label="المرجع الداخلي" class="p-3"><div>#{{ $r->id }}</div></td><td role="cell" data-label="أمر الشراء" class="p-3"><div>#{{ $r->order_id }}</div></td><td role="cell" data-label="التاريخ" class="p-3"><div>{{ $r->receipt_date }}</div></td><td role="cell" data-label="مرجع التوريد" class="p-3"><div>{{ $r->delivery_reference }}</div></td>
                 <td role="cell" data-label="الحالة" class="p-3"><div>{{ ['draft'=>'مسودة','integration_pending'=>'بانتظار المراجعة والترحيل','posted'=>'مرحل وثابت'][$r->status] }}</div></td>
-                <td role="cell" data-label="المخزون" class="p-3 {{ $r->status==='posted'?'text-emerald-800':'text-amber-800' }}"><div>{{ $r->status==='posted'?'مرحل مع FIFO وGRNI':'لم يرحل' }}</div></td>
+                <td role="cell" data-label="المخزون" class="p-3 {{ $r->status==='posted'?'text-emerald-800':'text-amber-800' }}"><div>{{ $r->status==='posted'?'مرحل مع الصرف من الأقدم أولًا وGRNI':'لم يرحل' }}</div></td>
                 <td role="cell" data-label="الإجراءات" class="p-3"><div><flux:button size="sm" :href="route('purchasing.receipts.show',$r->id)" wire:navigate>التفاصيل</flux:button></div></td>
             </tr>@empty<tr role="row"><td colspan="7" class="p-10"><x-ui.empty-state title="لا توجد استلامات" description="تظهر هنا الاستلامات المحفوظة ضمن فروعك ومستودعاتك المتاحة." /></td></tr>@endforelse
         </tbody></table></x-ui.responsive-table></div>

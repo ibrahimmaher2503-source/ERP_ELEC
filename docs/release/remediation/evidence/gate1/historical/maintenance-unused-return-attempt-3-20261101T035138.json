@@ -1,0 +1,9 @@
+{
+    "all_pass": false,
+    "database": "erp_elec_new_test",
+    "postgres_port": 49685,
+    "error_class": "ErrorException",
+    "error": "Undefined variable $reviewer",
+    "assertions": [],
+    "fixture_committed": false
+}

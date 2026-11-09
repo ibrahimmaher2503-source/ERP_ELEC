@@ -430,6 +430,10 @@ select:focus[data-flux-control] {
 .party-ui .erp-section-heading + div { padding: 16px; }
 .party-section-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: oklch(34% .2 264); padding-bottom: 10px; border-bottom: 1px solid oklch(94% .02 250); }
 .party-catalog-grid { display: grid; grid-template-columns: minmax(0,1fr) 245px; gap: 14px; align-items: start; }
+.party-catalog-grid > aside * { min-width: 0; }
+.party-catalog-grid > aside .erp-filter-disclosure { grid-template-columns: minmax(0, 1fr); }
+.party-catalog-grid > aside select, .party-catalog-grid > aside [data-flux-select], .party-catalog-grid > aside [data-flux-input] { width: 100%; max-width: 100%; }
+.party-monogram { flex-shrink: 0; }
 .party-selection { background: oklch(97% .022 250); border-color: oklch(93% .022 250); }
 .party-table { border-collapse: collapse; text-align: start; }
 .party-table th { background: oklch(97% .02 245); font-weight: 600; font-size: 12px; }
@@ -910,7 +914,8 @@ details[open] > .erp-import-summary::after { content: '−'; }
 .erp-filter-reset:disabled { opacity: .55; cursor: wait; }
 .erp-filter-count { display: inline-grid; min-width: 1.5rem; min-height: 1.5rem; place-items: center; padding-inline: .25rem; border-radius: 999px; background: var(--erp-primary-strong); color: white; font-size: .75rem; }
 .erp-filter-loading { grid-column: 1 / -1; font-size: .75rem; color: var(--erp-muted); }
-.erp-responsive-table { max-width: 100%; overflow-x: auto; }
+.erp-responsive-table { max-width: 100%; max-height: 75vh; overflow: auto; }
+.erp-responsive-table thead th { position: sticky; top: 0; z-index: 2; background-color: var(--erp-surface); box-shadow: 0 1px 0 var(--erp-border); }
 .erp-responsive-table td { overflow-wrap: anywhere; }
 .erp-mobile-table-tools { display: none; }
 .erp-mobile-column-label { display: none; }
@@ -963,7 +968,7 @@ details[open] > .erp-import-summary::after { content: '−'; }
     .erp-tabs { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; padding-inline: .5rem; }
     .erp-tabs > button { flex-shrink: 0; white-space: nowrap; }
     .erp-mobile-table-tools { display: flex; margin-block-end: .75rem; }
-    .erp-responsive-table { overflow: visible; }
+    .erp-responsive-table { overflow: visible; max-height: none; }
     .erp-responsive-table table { display: block; min-width: 0; max-width: 100%; }
     .erp-responsive-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .erp-responsive-table thead button { display: none; }

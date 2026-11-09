@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run_id": "D351AFC0F8FB",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)"
+  ],
+  "failure": "Quotation draft did not save (current path /quotations/create; visible errors: \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n    ; browser responses: HTTP 500 http://127.0.0.1:8016/livewire-557588bd/update; Failed to load resource: the server responded with a status of 500 (Internal Server Error))."
+}

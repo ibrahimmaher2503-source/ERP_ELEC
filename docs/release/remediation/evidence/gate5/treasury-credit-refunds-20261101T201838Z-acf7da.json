@@ -1,0 +1,349 @@
+{
+    "all_pass": false,
+    "mode": "treasury-credit-refunds-and-cash-corrections",
+    "phase": "source-linked Treasury cash corrections",
+    "assertions": 32,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "user_warehouse_scopes": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_supplier_invoices": 0,
+            "rp_supplier_invoice_lines": 0,
+            "rp_supplier_invoice_matches": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_credit_notes": 0,
+            "rp_party_credits": 0,
+            "rp_party_credit_refunds": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "rp_cash_reversals": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_period_closures": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "treasury_payment_requests": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "user_warehouse_scopes": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_supplier_invoices": 0,
+            "rp_supplier_invoice_lines": 0,
+            "rp_supplier_invoice_matches": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_credit_notes": 0,
+            "rp_party_credits": 0,
+            "rp_party_credit_refunds": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "rp_cash_reversals": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_period_closures": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "treasury_payment_requests": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Synthetic M11 uses real setup and independent no-opening approval inside rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "Later M12 invoice posts through a real M10 contract source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier payable originates from an independently approved real PO/receipt/invoice chain.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer collection and supplier payment settle the real source invoices before credit notes are issued.",
+            "result": "PASS"
+        },
+        {
+            "name": "Independent approval/posting creates customer and supplier party credits from their paid original invoices.",
+            "result": "PASS"
+        },
+        {
+            "name": "As-of the credit-note date, paid customer/supplier invoices reconcile to 20.00 source credits and zero cash.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier refund inflow posts before and funds the subsequent customer refund outflow.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same-key replay returns the unique source-linked Treasury movement and journal for each credit refund.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed payload under a refund idempotency key conflicts.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refund above remaining source credit is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without M13 credit-refund authority is denied.",
+            "result": "PASS"
+        },
+        {
+            "name": "M13 credit refund cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Conflict, cap and authority denials leave no partial refund, movement or journal state.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer credit refund posts Dr receivable / Cr cash from its credit source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier credit refund posts Dr cash / Cr AP from its credit source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated AR/AP control and remaining party-credit balances reconcile after partial refunds.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated Treasury cash reconciles collection, supplier payment, customer refund and supplier refund to zero.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated posted GL receivable, AP and cash control balances reconcile to the source-linked refund subledger and Treasury totals.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refunds dated after the credit notes do not rewrite earlier AR/AP or Treasury cutoffs.",
+            "result": "PASS"
+        },
+        {
+            "name": "Immutable refund rows atomically consume exactly the partial customer and supplier credits.",
+            "result": "PASS"
+        },
+        {
+            "name": "Posted source credit notes and Treasury refund movements reject direct edits and retain their recorded amounts.",
+            "result": "PASS"
+        },
+        {
+            "name": "The original cashier cannot correct their own customer collection.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction requires explicit M13.cash_correct permission.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction cannot cross the original movement branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier payment correction also requires M12.ap_view.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction requires M11.source_post authority.",
+            "result": "PASS"
+        },
+        {
+            "name": "A cash correction cannot precede its original movement date.",
+            "result": "PASS"
+        },
+        {
+            "name": "A cash correction cannot post outside an open accounting period.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer collection correction outflow requires actual cash funds.",
+            "result": "PASS"
+        },
+        {
+            "name": "Self, permission, branch, party-scope, date, closed-period and insufficient-funds denials leave no movement, journal or subledger reversal.",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic customer, supplier, M05/M06, M10, M11, M12 and Treasury records, company profile and private scratch roll back.",
+            "result": "PASS"
+        },
+        {
+            "name": "Synthetic M11 activation and version roll back to the owned database state.",
+            "result": "PASS"
+        }
+    ],
+    "evidence": {
+        "synthetic_sources": "real M11 setup and no-opening approval, M10 customer contract/invoice/correction, real M05/M06 supplier order/receipt, M12 invoices/credits and M13 settlement/refunds/source-linked cash corrections inside outer rollback",
+        "synthetic_m11_activation": {
+            "performed": true,
+            "rolled_back": true,
+            "go_live_date": "2026-11-01",
+            "zero_opening": true
+        },
+        "company_profile": {
+            "synthetic_fields_set_inside_transaction": true,
+            "exact_baseline_restored": true
+        },
+        "failure_trace": [
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Connection.php",
+                "line": 820,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "runQueryCallback"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Connection.php",
+                "line": 621,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "run"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Connection.php",
+                "line": 573,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "affectingStatement"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php",
+                "line": 4388,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "update"
+            },
+            {
+                "file": "app/Modules/ReceivablesPayables/Application/CashReversals.php",
+                "line": 44,
+                "class": "Illuminate\\Database\\Query\\Builder",
+                "function": "update"
+            },
+            {
+                "file": "app/Modules/ReceivablesPayables/Application/ReceivablesPayablesService.php",
+                "line": 20,
+                "class": "App\\Modules\\ReceivablesPayables\\Application\\CashReversals",
+                "function": "complete"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryOperations.php",
+                "line": 69,
+                "class": "App\\Modules\\ReceivablesPayables\\Application\\ReceivablesPayablesService",
+                "function": "completeCashReversal"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php",
+                "line": 35,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryOperations",
+                "function": "{closure:App\\Modules\\Treasury\\Application\\TreasuryOperations::correct():27}"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php",
+                "line": 502,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "transaction"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php",
+                "line": 364,
+                "class": "Illuminate\\Database\\DatabaseManager",
+                "function": "__call"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryOperations.php",
+                "line": 27,
+                "class": "Illuminate\\Support\\Facades\\Facade",
+                "function": "__callStatic"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryService.php",
+                "line": 14,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryOperations",
+                "function": "correct"
+            },
+            {
+                "file": "tests/Support/check-treasury-credit-refunds.php",
+                "line": 303,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryService",
+                "function": "correctMovement"
+            }
+        ]
+    },
+    "failure": {
+        "class": "Illuminate\\Database\\QueryException",
+        "message": "SQLSTATE[P0001]: Raise exception: 7 ERROR:  Invalid settlement projection transition\nCONTEXT:  PL/pgSQL function rp_guard_posted_invoice() line 14 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_new_test, SQL: update \"rp_supplier_invoices\" set \"status\" = posted, \"updated_at\" = 2026-11-01 10:00:00 where \"id\" = 2)"
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "all_pass": false,
+    "mode": "employee-only",
+    "assertions": 2,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "after_rollback": {
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "All fixture database rows roll back after acceptance.",
+            "result": "PASS"
+        },
+        {
+            "name": "M01/M10 acceptance finishes without an unexpected exception.",
+            "result": "FAIL"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "M10 acceptance requires the existing company master at ID 1; it will not fabricate company data."
+    }
+}
+RESULT all_pass=0 assertions=2 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m01-employee-20261101T105235Z-135194.json

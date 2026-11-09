@@ -1,0 +1,1068 @@
+{
+    "database_identity": {
+        "database": "erp_elec_new_test",
+        "address": "127.0.0.1/32",
+        "port": 49685,
+        "data_directory": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\pgdata",
+        "marker_verified": true
+    },
+    "scenarios": {
+        "before_first_activity": {
+            "cutoff": "2026-10-21",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "0.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "0.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_receipt": {
+            "cutoff": "2026-10-22",
+            "inventory_fifo": "40.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "0.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "0.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "40.00",
+                    "source": "40.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "40.00",
+                    "source": "40.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_grni_clearing": {
+            "cutoff": "2026-10-23",
+            "inventory_fifo": "40.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "50.16",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "0.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "50.16",
+                    "source": "50.16",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "40.00",
+                    "source": "40.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_partial_ar_settlement": {
+            "cutoff": "2026-10-25",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "50.16",
+                "ar": "27.36",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "27.36"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "50.16",
+                    "source": "50.16",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "27.36",
+                    "source": "27.36",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "27.36",
+                    "source": "27.36",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_advance": {
+            "cutoff": "2026-10-26",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "50.16",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "55.72"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "50.16",
+                    "source": "50.16",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "55.72",
+                    "source": "55.72",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_partial_ap_settlement": {
+            "cutoff": "2026-10-27",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "40.16",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "45.72"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 47,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-27",
+                    "kind": "supplier_payment",
+                    "amount": "10.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "40.16",
+                    "source": "40.16",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "45.72",
+                    "source": "45.72",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_supplier_payment": {
+            "cutoff": "2026-10-28",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "0.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "5.56"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 47,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-27",
+                    "kind": "supplier_payment",
+                    "amount": "10.00"
+                },
+                {
+                    "id": 48,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-28",
+                    "kind": "supplier_payment",
+                    "amount": "40.16"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "5.56",
+                    "source": "5.56",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_credit_notes": {
+            "cutoff": "2026-10-29",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "40.00",
+            "receivables_payables": {
+                "ap": "-2.00",
+                "ar": "-2.00",
+                "supplier_credits": "2.00",
+                "customer_credits": "2.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "40.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "5.56"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 47,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-27",
+                    "kind": "supplier_payment",
+                    "amount": "10.00"
+                },
+                {
+                    "id": 48,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-28",
+                    "kind": "supplier_payment",
+                    "amount": "40.16"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "-2.00",
+                    "source": "-2.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "-2.00",
+                    "source": "-2.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "5.56",
+                    "source": "5.56",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "earlier_payment_cutoff_stable_after_credit": true,
+        "later_dated_ap": {
+            "date": "2026-10-30",
+            "as_of_ap": "10.54",
+            "new_invoice_id": 55,
+            "expected_ap": "10.54"
+        },
+        "earlier_credit_cutoff_stable_after_later_ap": true,
+        "later_treasury_activity_stability": {
+            "later_activity_date": "2026-10-31",
+            "prior_cutoff": "2026-10-30",
+            "unchanged": true
+        },
+        "before_closed_snapshot": {
+            "cutoff": "2026-12-31",
+            "inventory_fifo": "40.00",
+            "inventory_transit": "0.00",
+            "grni": "80.00",
+            "receivables_payables": {
+                "ap": "10.54",
+                "ar": "-2.00",
+                "supplier_credits": "2.00",
+                "customer_credits": "2.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "50.00"
+            },
+            "treasury": {
+                "bank": "1.00",
+                "cash": "4.56"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 47,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-27",
+                    "kind": "supplier_payment",
+                    "amount": "10.00"
+                },
+                {
+                    "id": 48,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-28",
+                    "kind": "supplier_payment",
+                    "amount": "40.16"
+                },
+                {
+                    "id": 49,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-31",
+                    "kind": "transfer_out",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 50,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-31",
+                    "kind": "transfer_in",
+                    "amount": "1.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "10.54",
+                    "source": "10.54",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "-2.00",
+                    "source": "-2.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "30.00",
+                    "source": "30.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "40.00",
+                    "source": "40.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "4.56",
+                    "source": "4.56",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_closed_snapshot": {
+            "cutoff": "2026-12-31",
+            "inventory_fifo": "40.00",
+            "inventory_transit": "0.00",
+            "grni": "80.00",
+            "receivables_payables": {
+                "ap": "10.54",
+                "ar": "-2.00",
+                "supplier_credits": "2.00",
+                "customer_credits": "2.00",
+                "customer_advances": "1.00",
+                "grni_cleared": "50.00"
+            },
+            "treasury": {
+                "bank": "1.00",
+                "cash": "4.56"
+            },
+            "treasury_movements": [
+                {
+                    "id": 44,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-25",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 45,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "27.36"
+                },
+                {
+                    "id": 46,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-26",
+                    "kind": "customer_collection",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 47,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-27",
+                    "kind": "supplier_payment",
+                    "amount": "10.00"
+                },
+                {
+                    "id": 48,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-28",
+                    "kind": "supplier_payment",
+                    "amount": "40.16"
+                },
+                {
+                    "id": 49,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-31",
+                    "kind": "transfer_out",
+                    "amount": "1.00"
+                },
+                {
+                    "id": 50,
+                    "branch_id": 36,
+                    "movement_date": "2026-10-31",
+                    "kind": "transfer_in",
+                    "amount": "1.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "10.54",
+                    "source": "10.54",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "-2.00",
+                    "source": "-2.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "30.00",
+                    "source": "30.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "40.00",
+                    "source": "40.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "4.56",
+                    "source": "4.56",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "customer_advance",
+                    "gl": "1.00",
+                    "source": "1.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "closed_snapshot_stable": {
+            "closed_period_end_unchanged": true,
+            "earlier_cutoff_unchanged": true,
+            "later_activity_date": "2026-10-31"
+        },
+        "closed_period_backdated_post_denied": {
+            "status": "rejected",
+            "draft_invoice_id": 59,
+            "no_partial_post": true
+        },
+        "close_history_after_denial": {
+            "rows_before": 1,
+            "rows_after": 1,
+            "same_closure_id": true,
+            "hash_verified": true
+        },
+        "company_close_authority": {
+            "company_branch_count": 3,
+            "all_explicitly_scoped": true
+        }
+    },
+    "scenario_status": {
+        "before_first_activity": "PASS",
+        "after_receipt": "PASS",
+        "after_grni_clearing": "PASS",
+        "after_partial_ar_settlement": "PASS",
+        "after_advance": "PASS",
+        "after_partial_ap_settlement": "PASS",
+        "after_supplier_payment": "PASS",
+        "after_credit_notes": "PASS",
+        "later_dated_ap": "PASS",
+        "earlier_payment_cutoff_stable_after_credit": "PASS",
+        "earlier_credit_cutoff_stable_after_later_ap": "PASS",
+        "later_treasury_activity_stability": "PASS",
+        "closed_snapshot_stable": "PASS",
+        "closed_period_backdated_post_denied": "PASS",
+        "close_history_after_denial": "PASS",
+        "company_close_authority": "PASS"
+    },
+    "all_required_scenarios_pass": true,
+    "limits": [
+        "later activity is source-driven and in the same disposable open accounting year before close; no successful back-date is allowed after closure.",
+        "No distinct workshop/maintenance unused-part return lifecycle is exercised by this AP/AR/Treasury fixture."
+    ]
+}

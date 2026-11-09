@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "E1C1D01F6A87",
+  "journey": "M03 supplier create and repeated edit lifecycle",
+  "record": {
+    "id": 1,
+    "code": "R2-E1C1D01F6A87-S",
+    "final_revision": "Revision two E1C1D01F6A87"
+  },
+  "checks": [
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 1",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save"
+  ],
+  "postgresql_verification": "Round2 supplier E1C1D01F6A87"
+}

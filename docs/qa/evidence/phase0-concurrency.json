@@ -1,0 +1,106 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55433,
+    "same_receipt_twice": {
+        "workers": [
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":7,\"status\":\"PASS\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":7,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "receipt_status": "posted",
+        "source_movements": 1,
+        "fifo_layers": 1,
+        "receipt_postings": 1,
+        "grni_journals": 1,
+        "passed": true
+    },
+    "concurrent_valid_receipt_posting": {
+        "workers": [
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":9,\"status\":\"PASS\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":10,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "receipt_ids": [
+            9,
+            10
+        ],
+        "receipts": [
+            {
+                "receipt_id": 9,
+                "capitalized_amount": "1.00",
+                "movement_id": 32,
+                "fifo_layer_id": 22,
+                "grni_journal_id": 36,
+                "debit": "1.00",
+                "credit": "1.00"
+            },
+            {
+                "receipt_id": 10,
+                "capitalized_amount": "1.00",
+                "movement_id": 33,
+                "fifo_layer_id": 23,
+                "grni_journal_id": 37,
+                "debit": "1.00",
+                "credit": "1.00"
+            }
+        ],
+        "posted_quantity": "2.00000000",
+        "stock_delta": "2.00000000",
+        "passed": true
+    },
+    "remaining_quantity_cap": {
+        "workers": [
+            {
+                "exit_code": 2,
+                "stdout": "{\"action\":\"create_receipt\",\"id\":7,\"status\":\"ERROR\",\"class\":\"Illuminate\\\\Validation\\\\ValidationException\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"create_receipt\",\"order_id\":7,\"receipt_id\":8,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "receipt_statuses": [
+            "integration_pending"
+        ],
+        "accepted_receipt_id": 8,
+        "accepted_receipt_posted_movement_count": 1,
+        "passed": true
+    },
+    "official_number_contention": {
+        "workers": [
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"issue\",\"id\":8,\"status\":\"PASS\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"issue\",\"id\":9,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "numbers": [
+            "PO-2026-000007",
+            "PO-2026-000008"
+        ],
+        "distinct_documents": 2,
+        "passed": true
+    },
+    "all_pass": true
+}

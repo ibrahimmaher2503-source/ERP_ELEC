@@ -1,0 +1,391 @@
+{
+  "run_id": "after-20261031200934",
+  "generated_at": "2026-10-31T21:39:06.591Z",
+  "status": "measured-safe-probes",
+  "rows": [
+    {
+      "module": "M11 Accounting",
+      "route_case": "accounting.accounts|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 478.20000000298023,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M11 Accounting",
+      "route_case": "accounting.accounts|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 590,
+      "ready_stable_ms": 247.15
+    },
+    {
+      "module": "M01 Organization",
+      "route_case": "appearance.edit|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 270.5,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M03 Parties",
+      "route_case": "customers.index|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 338.79999999701977,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M03 Parties",
+      "route_case": "customers.index|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 535,
+      "ready_stable_ms": 201.52
+    },
+    {
+      "module": "M03 Parties",
+      "route_case": "customers.index|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 152,
+      "ready_stable_ms": 139.5
+    },
+    {
+      "module": "M17 System",
+      "route_case": "dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 231.90000000596046,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M12 ReceivablesPayables",
+      "route_case": "financial.aging|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 272.79999999701977,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M12 ReceivablesPayables",
+      "route_case": "financial.aging|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 482,
+      "ready_stable_ms": 142.54
+    },
+    {
+      "module": "M12 ReceivablesPayables",
+      "route_case": "financial.aging|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 114,
+      "ready_stable_ms": 101.63
+    },
+    {
+      "module": "M06 Inventory",
+      "route_case": "inventory.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 305.79999999701977,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M06 Inventory",
+      "route_case": "inventory.dashboard|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 486,
+      "ready_stable_ms": 152.61
+    },
+    {
+      "module": "M06 Inventory",
+      "route_case": "inventory.dashboard|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 140,
+      "ready_stable_ms": 129.1
+    },
+    {
+      "module": "M08 FieldMaintenance",
+      "route_case": "maintenance.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 304.29999999701977,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M08 FieldMaintenance",
+      "route_case": "maintenance.dashboard|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 448,
+      "ready_stable_ms": 115.14
+    },
+    {
+      "module": "M08 FieldMaintenance",
+      "route_case": "maintenance.dashboard|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 122,
+      "ready_stable_ms": 110.17
+    },
+    {
+      "module": "M02 Products",
+      "route_case": "products.index|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 329,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M02 Products",
+      "route_case": "products.index|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 615,
+      "ready_stable_ms": 293.62
+    },
+    {
+      "module": "M02 Products",
+      "route_case": "products.index|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 228,
+      "ready_stable_ms": 215.83
+    },
+    {
+      "module": "M02 Products",
+      "route_case": "products.index|default",
+      "action": "pagination",
+      "status": "failed",
+      "request_count": 0,
+      "http_status": null,
+      "elapsed_ms": 30015,
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content').locator('[wire\\\\:click*=\"nextPage\"],button[aria-label*=\"next\" i],button[aria-label*=\"التالي\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"b"
+    },
+    {
+      "module": "M07 Projects",
+      "route_case": "projects.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 281.90000000596046,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M05 Purchasing",
+      "route_case": "purchasing.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 277.8999999910593,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M05 Purchasing",
+      "route_case": "purchasing.dashboard|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 154,
+      "ready_stable_ms": 139.97
+    },
+    {
+      "module": "M04 Sales",
+      "route_case": "quotations.index|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 400.80000001192093,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M04 Sales",
+      "route_case": "quotations.index|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 572,
+      "ready_stable_ms": 190.88
+    },
+    {
+      "module": "M04 Sales",
+      "route_case": "quotations.index|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 196,
+      "ready_stable_ms": 167.06
+    },
+    {
+      "module": "M07 Projects (Tenders)",
+      "route_case": "tenders.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 245.8999999910593,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M07 Projects (Tenders)",
+      "route_case": "tenders.dashboard|default",
+      "action": "search",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 500,
+      "ready_stable_ms": 163.54
+    },
+    {
+      "module": "M07 Projects (Tenders)",
+      "route_case": "tenders.dashboard|default",
+      "action": "filter",
+      "status": "measured",
+      "request_count": 1,
+      "http_status": 200,
+      "elapsed_ms": 126,
+      "ready_stable_ms": 114.47
+    },
+    {
+      "module": "M13 Treasury",
+      "route_case": "treasury.accounts|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 274.5,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "M09 WorkshopRepairs",
+      "route_case": "workshops.dashboard|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 256.79999999701977,
+      "livewire_update_requests": 0,
+      "reason": null
+    },
+    {
+      "module": "password",
+      "route_case": "password.confirm|default",
+      "action": "form/page-initialization",
+      "status": "measured",
+      "http_status": 200,
+      "elapsed_ms": 200.3999999910593,
+      "livewire_update_requests": 0,
+      "reason": null
+    }
+  ],
+  "separate_owner_action_evidence": [
+    {
+      "operation": "save-draft",
+      "started_at": "2026-10-31T20:03:37.087Z",
+      "ended_at": "2026-10-31T20:03:37.703Z",
+      "elapsed_ms": 616.37,
+      "livewire_http_status": 200,
+      "download": null,
+      "ui_assertion": "saved PO route and visible draft status",
+      "database": "erp_elec_new_test@55460",
+      "sample_count": 1,
+      "statistical_claims": false
+    },
+    {
+      "operation": "denial",
+      "started_at": "2026-10-31T20:03:39.299Z",
+      "ended_at": "2026-10-31T20:03:39.753Z",
+      "elapsed_ms": 453.39,
+      "livewire_http_status": 200,
+      "download": null,
+      "ui_assertion": "independent reviewer rejection and visible rejected status",
+      "database": "erp_elec_new_test@55460",
+      "sample_count": 1,
+      "statistical_claims": false
+    },
+    {
+      "operation": "validation",
+      "started_at": "2026-10-31T20:03:40.663Z",
+      "ended_at": "2026-10-31T20:03:41.060Z",
+      "elapsed_ms": 397.62,
+      "livewire_http_status": 200,
+      "download": null,
+      "ui_assertion": "validated supplier invoice exposes the next matching action",
+      "database": "erp_elec_new_test@55460",
+      "sample_count": 1,
+      "statistical_claims": false
+    },
+    {
+      "operation": "approval",
+      "started_at": "2026-10-31T20:03:43.253Z",
+      "ended_at": "2026-10-31T20:03:43.567Z",
+      "elapsed_ms": 313.42,
+      "livewire_http_status": 200,
+      "download": null,
+      "ui_assertion": "approved supplier invoice exposes the posting action",
+      "database": "erp_elec_new_test@55460",
+      "sample_count": 1,
+      "statistical_claims": false
+    },
+    {
+      "operation": "export",
+      "started_at": "2026-10-31T20:03:50.424Z",
+      "ended_at": "2026-10-31T20:03:50.900Z",
+      "elapsed_ms": 476.18,
+      "livewire_http_status": null,
+      "download": "passed",
+      "ui_assertion": "PDF link yielded the matching saved private PDF",
+      "database": "erp_elec_new_test@55460",
+      "sample_count": 1,
+      "statistical_claims": false
+    }
+  ],
+  "lifecycle_actions_not_measured": [],
+  "note": "55460 one-observation owner-action timings include UI assertions and remain separate from the 55461 route benchmark; no P95 claims."
+}

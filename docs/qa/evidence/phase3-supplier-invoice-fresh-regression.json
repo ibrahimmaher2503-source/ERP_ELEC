@@ -1,0 +1,89 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55443,
+    "financial_date": "2026-10-30",
+    "synthetic": true,
+    "source_order_id": 1,
+    "posted_receipts": [
+        1,
+        2,
+        3
+    ],
+    "invoice_ids": [
+        1,
+        2,
+        3
+    ],
+    "source_journals": [
+        {
+            "invoice_id": 1,
+            "journal_id": 4,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 2,
+            "journal_id": 5,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 3,
+            "journal_id": 6,
+            "debit": "12.54",
+            "credit": "12.54",
+            "grni_net": "10.00",
+            "ppv_net": "1.00",
+            "tax_input_net": "1.54",
+            "ap_net": "-12.54"
+        }
+    ],
+    "official_pdf_integrity": [
+        {
+            "invoice_id": 1,
+            "official_number": "SI-2026-000001",
+            "sha256": "ee5064841eacbace7c440773d2edb36c2bebeaa50a085566ebdba72700284a68",
+            "bytes": 44986
+        },
+        {
+            "invoice_id": 2,
+            "official_number": "SI-2026-000002",
+            "sha256": "643727a98568567fd3f940ca12679430b7f4ced68bba6a064a4fc1614540e426",
+            "bytes": 44983
+        },
+        {
+            "invoice_id": 3,
+            "official_number": "SI-2026-000003",
+            "sha256": "e42ccbe67ce6f7824d9fe36d73ae5168e6f4539be9d0eafd61f486e777b61cd3",
+            "bytes": 44979
+        }
+    ],
+    "matching": {
+        "invoice_count": 3,
+        "receipt_count": 3,
+        "quantity": "4.00000000",
+        "grni": "40.00",
+        "net": "44.00",
+        "recoverable_input_tax": "6.16",
+        "ppv": "4.00",
+        "ap": "50.16"
+    },
+    "stock_and_fifo_unchanged_by_invoice_posting": true,
+    "same_key_replay": true,
+    "negative_cases": {
+        "duplicate_supplier_number": "rejected",
+        "supplier_mismatch": "rejected",
+        "overmatch": "rejected",
+        "unauthorized": "403",
+        "closed_period": "rejected_without_partial_post"
+    },
+    "all_pass": true
+}

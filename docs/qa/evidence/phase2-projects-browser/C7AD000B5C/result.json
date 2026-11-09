@@ -1,0 +1,14 @@
+{
+  "result": "FAIL",
+  "run_id": "C7AD000B5C",
+  "failure": "locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[wire\\\\:model=\"form.branch_id\"]').first()\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

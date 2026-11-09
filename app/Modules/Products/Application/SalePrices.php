@@ -60,6 +60,12 @@ final class SalePrices implements ApprovedPrices
                 if (! Product::where('active', true)->whereKey($r->product_id)->exists()) {
                     throw ValidationException::withMessages(['price' => 'الصنف غير نشط.']);
                 }
+                $overlap = DB::table('product_sale_prices')->where('product_id', $r->product_id)->where('unit_id', $r->unit_id)->where('status', 'approved')
+                    ->where(fn ($q) => $q->whereNull('ends_on')->orWhere('ends_on', '>=', $r->starts_on))
+                    ->when($r->ends_on, fn ($q) => $q->where('starts_on', '<=', $r->ends_on))->exists();
+                if ($overlap) {
+                    throw ValidationException::withMessages(['price' => 'تتداخل فترة السعر مع سعر معتمد لنفس الوحدة.']);
+                }
                 DB::table('product_sale_prices')->where('id', $id)->update(['status' => 'approved', 'approved_by' => $actor, 'approved_at' => now()]);
             } else {
                 abort_unless(in_array($r->status, ['draft', 'approved'], true), 409);

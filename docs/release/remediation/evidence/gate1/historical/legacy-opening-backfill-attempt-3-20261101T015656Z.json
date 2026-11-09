@@ -1,0 +1,12 @@
+{
+  "all_pass": false,
+  "attempt": 3,
+  "database": "erp_elec_gate1_legacy",
+  "port": 49685,
+  "cluster_marker_verified": true,
+  "stage": "opening save reached SupplierAccess and was denied",
+  "error": "Supplier access denied because M03.supplier_view had been assigned branch scope although PermissionCatalog defines it at company scope.",
+  "no_financial_postings_before_retry": true,
+  "harness_response": "Moved the fixture grant to company scope; the guarded retry reset only its exact synthetic DB after confirming no financial or inventory history.",
+  "recorded_at_utc": "2026-11-01T01:56:56Z"
+}

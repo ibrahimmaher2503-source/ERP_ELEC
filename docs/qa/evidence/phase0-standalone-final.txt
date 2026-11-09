@@ -1,0 +1,23 @@
+Safe QA checks: 20/21 scripts passed; 1 failed; 0 incomplete; 786 explicit PASS assertions.
+PASS	check-default-avatars.php	exit=0	PASS=21	0.480s
+PASS	check-module-route-auth.php	exit=0	PASS=27	1.455s
+PASS	check-m01.php	exit=0	PASS=29	2.769s
+PASS	check-m01-contracts.php	exit=0	PASS=23	0.841s
+PASS	check-m01-users.php	exit=0	PASS=26	4.188s
+PASS	check-m01-rbac.php	exit=0	PASS=65	18.188s
+PASS	check-administrator-defaults.php	exit=0	PASS=18	1.286s
+PASS	check-role-permission-propagation.php	exit=0	PASS=130	3.651s
+PASS	check-demo-factories.php	exit=0	PASS=0	11.958s
+PASS	check-m02.php	exit=0	PASS=66	10.769s
+PASS	check-data-operations.php	exit=0	PASS=51	19.895s
+PASS	check-operation-route-http.php	exit=0	PASS=12	4.394s
+PASS	check-egypt-market-demo.php	exit=0	PASS=21	8.333s
+PASS	check-m03-customers.php	exit=0	PASS=61	7.215s
+PASS	check-supplier-factories.php	exit=0	PASS=66	12.640s
+PASS	check-party-primary-edit.php	exit=0	PASS=8	5.936s
+PASS	check-party-readonly-role.php	exit=0	PASS=7	1.301s
+PASS	check-m04-quotations.php	exit=0	PASS=76	12.262s
+FAIL	check-m04-sales-orders.php	exit=1	PASS=68	4.991s
+PASS	check-sales-order-factories.php	exit=0	PASS=4	1.261s
+PASS	check-qa-regressions.php	exit=0	PASS=7	1.685s
+Evidence: docs\qa\evidence\safe-check-run-20261028T032733Z.json

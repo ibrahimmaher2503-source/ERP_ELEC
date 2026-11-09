@@ -1,0 +1,17 @@
+{
+  "message": "intake-resaved lost persisted content: ملصق إضافي",
+  "stack": [
+    "Error: intake-resaved lost persisted content: ملصق إضافي",
+    "    at checkMobile (C:\\projects\\ERP_ELEC_NEW\\tests\\E2E\\phase5-workshop-browser.cjs:165:39)",
+    "    at async main (C:\\projects\\ERP_ELEC_NEW\\tests\\E2E\\phase5-workshop-browser.cjs:237:3)"
+  ],
+  "readback": {
+    "database": "erp_elec_new_test",
+    "port": 55447,
+    "inventory": {
+      "movements": 0,
+      "fifo_layers": 0,
+      "balances": []
+    }
+  }
+}

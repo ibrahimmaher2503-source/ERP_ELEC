@@ -1,0 +1,41 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55478,
+    "migration": "2026_10_27_170000_preserve_fifo_unit_cost_lineage",
+    "manual_journal": {
+        "journal_id": 26,
+        "status": "posted",
+        "official_number": "JV-2024-000003",
+        "pdf_bytes": 43173,
+        "pdf_sha256": "c231c19de203a7d91e39f9154ef909fcc89dce17f5926463fb7dd64645700b00",
+        "independent_approval": true,
+        "immutable_pdf_update_rejected": true,
+        "immutable_pdf_delete_rejected": true,
+        "passed": true
+    },
+    "denials": {
+        "missing_submit_permission": true,
+        "unbalanced_journal": true,
+        "protected_control_account": true,
+        "closed_period": true
+    },
+    "opening_workbook": {
+        "template_bytes": 16164,
+        "template_data_range": "A1:L501",
+        "preview_rows": 2,
+        "preview_elapsed_seconds": 0.432,
+        "before": {
+            "batches": 1,
+            "lines": 0,
+            "activation": 5
+        },
+        "after": {
+            "batches": 1,
+            "lines": 0,
+            "activation": 5
+        },
+        "activation_effects": false,
+        "passed": true
+    },
+    "all_pass": true
+}

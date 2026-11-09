@@ -44,7 +44,7 @@ final class ProductPricesPage extends Component
     {
         $product = Product::with(['baseUnit', 'conversions.unit'])->findOrFail($this->productId);
 
-        return view('products.prices', ['product' => $product, 'rows' => DB::table('product_sale_prices')->where('product_id', $this->productId)->orderByDesc('id')->get(), 'access' => app(ProductAccess::class)])
+        return view('products.prices', ['product' => $product, 'rows' => DB::table('product_sale_prices')->leftJoin('units_of_measure', 'units_of_measure.id', '=', 'product_sale_prices.unit_id')->where('product_sale_prices.product_id', $this->productId)->orderByDesc('product_sale_prices.id')->select('product_sale_prices.*', 'units_of_measure.name as unit_name')->get(), 'access' => app(ProductAccess::class)])
             ->layout('layouts::app', ['title' => 'أسعار البيع المعتمدة']);
     }
 }

@@ -1,0 +1,49 @@
+{
+  "result": "FAIL",
+  "run_id": "1FFE2EEBE3",
+  "failure": "/projects/7/closure did not render expected value: handover",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/projects/7/financial",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/7/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4A4724BB84",
+      "document": 390,
+      "body": 390
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    }
+  ]
+}

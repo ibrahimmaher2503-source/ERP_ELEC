@@ -126,6 +126,11 @@ final class ReceiptPage extends Component
         $selected = $orders->firstWhere('id', (int) $this->form['order_id']);
         if ($doc && ! $selected) {
             $selected = app(PurchaseOrders::class)->record(auth()->id(), $doc->order_id);
+        } elseif (! $selected && $this->form['order_id']) {
+            $selected = DB::table('purchasing_orders')->whereIn('branch_id', $branchIds)->where('status', 'approved')->find((int) $this->form['order_id']);
+            if ($selected) {
+                $orders->push($selected);
+            }
         }
         $warehouses = collect(app(PurchaseReceiving::class)->warehouses(auth()->id()))->when($selected, fn ($q) => $q->where('branch_id', $selected->branch_id))->all();
         $source = $selected ? DB::table('purchasing_order_lines')->where('order_id', $selected->id)->get() : collect();

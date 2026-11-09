@@ -1,0 +1,18 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55480,
+    "all_pass": false,
+    "error_class": "RuntimeException",
+    "error": "Project financial XLSX exports unavailable margin for a historically unallocated invoice.",
+    "trace": [
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\clean-phase-support-20261031-041414-phase2\\check-phase2-projects-financial.php",
+            "line": 718,
+            "function": "{closure:C:\\projects\\ERP_ELEC_NEW\\.tmp\\clean-phase-support-20261031-041414-phase2\\check-phase2-projects-financial.php:98}",
+            "args": [
+                false,
+                "Project financial XLSX exports unavailable margin for a historically unallocated invoice."
+            ]
+        }
+    ]
+}

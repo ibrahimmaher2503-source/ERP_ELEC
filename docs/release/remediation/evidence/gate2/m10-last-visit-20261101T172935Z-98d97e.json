@@ -1,0 +1,41 @@
+{
+    "all_pass": true,
+    "assertions": 2,
+    "database": "erp_elec_new_m10_race_81ec74f0b7fa9d02",
+    "port": 49685,
+    "worker_backend_pids": [
+        35200,
+        40604
+    ],
+    "outcomes": [
+        {
+            "exit_code": 2,
+            "result": {
+                "status": "REJECTED",
+                "code": 422,
+                "class": "Illuminate\\Validation\\ValidationException"
+            }
+        },
+        {
+            "exit_code": 0,
+            "result": {
+                "status": "PASS"
+            }
+        }
+    ],
+    "reserved_entitlements": 1,
+    "linked_work_orders": 1,
+    "reserved_visit_units": 1,
+    "checks": [
+        {
+            "name": "Two independent workers contend for one final covered visit",
+            "result": "PASS"
+        },
+        {
+            "name": "Disposable database dropped and primary counts unchanged",
+            "result": "PASS"
+        }
+    ],
+    "disposable_database_dropped": true,
+    "primary_counts_unchanged": true
+}

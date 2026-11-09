@@ -1,0 +1,21 @@
+PASS male and female user IDs 1-40 map stably to their assigned portrait pools
+PASS both gender pools are used across the tested IDs
+PASS gendered portrait URLs use the local app origin
+PASS avatar-01.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-02.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-03.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-04.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-05.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-06.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-07.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-08.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-09.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-10.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-11.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-12.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-13.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-14.webp exists as WebP 96x96 at no more than 10 KB
+PASS avatar-15.webp exists as WebP 96x96 at no more than 10 KB
+PASS legacy null gender maps consistently to the neutral portrait
+PASS neutral portrait URL uses the local app origin
+PASS neutral.svg exists as a local SVG no larger than 10 KB

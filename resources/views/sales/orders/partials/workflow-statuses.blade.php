@@ -8,5 +8,5 @@
     @include('sales.orders.partials.status', ['status' => $record->status])
     <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="cube" class="size-3.5" />{{ $reservationLabel }}</span>
     <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="truck" class="size-3.5" />{{ $deliveryLabel }}</span>
-    <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="document-text" class="size-3.5" />لم تطلب فوترة</span>
+    <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="document-text" class="size-3.5" />{{ ['restricted' => 'الفواتير محجوبة بالصلاحية', 'none' => 'لا توجد فاتورة', 'requested' => 'فاتورة قيد الإعداد', 'invoiced' => 'صدرت فاتورة'][$workflowProgress['invoicing']] }}</span>
 </div>

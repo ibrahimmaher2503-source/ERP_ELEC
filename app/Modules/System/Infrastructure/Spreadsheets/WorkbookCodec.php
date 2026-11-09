@@ -109,11 +109,11 @@ final class WorkbookCodec
         $inspection = $this->inspectWorkbook($path);
 
         if ($inspection['data_columns'] > count($columns)) {
-            throw new UnexpectedValueException('The Data sheet contains columns that are not in this template.');
+            throw new UnexpectedValueException('تحتوي ورقة البيانات على أعمدة غير موجودة في هذا القالب.');
         }
 
         if ($inspection['data_rows'] - 1 > self::MAX_IMPORT_ROWS) {
-            throw new LengthException('The workbook may contain at most 500 data rows.');
+            throw new LengthException('بيانات ملف Excel غير صالحة.');
         }
 
         return $this->withDiskCellCache(function () use ($path, $entity, $version, $columns, $inspection): array {
@@ -129,7 +129,7 @@ final class WorkbookCodec
                 $data = $workbook->getSheetByName('Data');
 
                 if ($metadata === null || $data === null) {
-                    throw new UnexpectedValueException('The workbook is missing a required sheet.');
+                    throw new UnexpectedValueException('بيانات ملف Excel غير صالحة.');
                 }
 
                 if ($this->rawString($metadata->getCell('A1')) !== 'entity'
@@ -194,7 +194,7 @@ final class WorkbookCodec
                 }
 
                 if (count($rows) > self::MAX_IMPORT_ROWS) {
-                    throw new LengthException('The workbook may contain at most 500 data rows.');
+                    throw new LengthException('بيانات ملف Excel غير صالحة.');
                 }
 
                 return $rows;
@@ -220,7 +220,7 @@ final class WorkbookCodec
 
         foreach ($headers as $key => $label) {
             if (! is_string($label) || $label === '') {
-                throw new \InvalidArgumentException('Export headings must be non-empty strings.');
+                throw new \InvalidArgumentException('بيانات ملف Excel غير صالحة.');
             }
             if (! is_int($key) && (! is_string($key) || $key === '')) {
                 throw new \InvalidArgumentException('Export heading keys must be strings.');

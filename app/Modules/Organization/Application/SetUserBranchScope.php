@@ -22,12 +22,14 @@ class SetUserBranchScope
                 throw ValidationException::withMessages(['selectedBranch' => 'منح نطاق جديد يحتاج حسابًا وفرعًا نشطين.']);
             }
             $before = DB::table('user_branch_scopes')->where('user_id', $userId)->orderBy('branch_id')->pluck('branch_id')->all();
+            $warehousesBefore = DB::table('user_warehouse_scopes')->where('user_id', $userId)->where('branch_id', $branchId)->orderBy('warehouse_id')->pluck('warehouse_id')->all();
             if ($grant) {
                 DB::table('user_branch_scopes')->insertOrIgnore(['user_id' => $userId, 'branch_id' => $branchId, 'created_at' => now(), 'updated_at' => now()]);
             } else {
+                DB::table('user_warehouse_scopes')->where('user_id', $userId)->where('branch_id', $branchId)->delete();
                 DB::table('user_branch_scopes')->where('user_id', $userId)->where('branch_id', $branchId)->delete();
             }
-            $guard->audit($actor, $userId, $grant ? 'scope.branch_granted' : 'scope.branch_revoked', ['branches' => $before], ['branches' => DB::table('user_branch_scopes')->where('user_id', $userId)->orderBy('branch_id')->pluck('branch_id')->all()]);
+            $guard->audit($actor, $userId, $grant ? 'scope.branch_granted' : 'scope.branch_revoked', ['branches' => $before, 'warehouses' => $warehousesBefore], ['branches' => DB::table('user_branch_scopes')->where('user_id', $userId)->orderBy('branch_id')->pluck('branch_id')->all(), 'warehouses' => DB::table('user_warehouse_scopes')->where('user_id', $userId)->where('branch_id', $branchId)->orderBy('warehouse_id')->pluck('warehouse_id')->all()]);
         });
     }
 }

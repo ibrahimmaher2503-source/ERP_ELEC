@@ -1,0 +1,4 @@
+[2026-10-31 02:01:49] testing.ERROR: Refusing to replace an existing activation state in the isolated test database. {"exception":"[object] (RuntimeException(code: 0): Refusing to replace an existing activation state in the isolated test database. at C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase1-financial-journeys.php:131)
+[stacktrace]
+#0 {main}
+"} 

@@ -1,0 +1,119 @@
+PASS M06 permissions are registered and default only to Administrator
+PASS Warehouse and draft document factories persist a valid synthetic graph without operational approvals or stock effects
+PASS Explicit inventory demo seeder reruns without duplicate warehouse or draft-document records
+PASS Warehouse action persists a versioned warehouse on an explicitly scoped active branch
+PASS Warehouse action reopens and saves an edit using the expected version
+PASS Warehouse edit rejects a stale version (actual Illuminate\Validation\ValidationException: تغير المستودع؛ أعد تحميل الصفحة.)
+PASS Warehouse branch is fixed even when the actor is scoped to both branches (actual Illuminate\Validation\ValidationException: لا يمكن تغيير فرع المستودع بعد إنشائه.)
+PASS Rejected cross-branch warehouse edit preserves its original branch
+PASS Warehouse creation requires explicit M06 permission (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Synthetic M11 mappings and Go-Live saved through FinancialActivation
+PASS Synthetic sale and purchase tax rules saved through FinancialActivation
+PASS Synthetic M06 tax rules validated before activation
+PASS Balanced opening GL and FIFO source saved through OpeningBalances
+PASS Opening submitted by its preparer
+PASS Independent M11 approver holds company approval and explicit branch review permissions
+PASS Opening independently approved
+PASS Current-year financial setup validates tax, independently approves balanced opening GL/FIFO for all correction sources, and activates real stock through owner actions
+PASS Inventory line template round-trips and preview reports a valid row, unknown SKU, and duplicate product
+PASS Inventory spreadsheet preview performs no draft, line, movement, or stock writes
+PASS Inventory Livewire preview retains a valid row without persisting draft or stock data
+PASS Inventory Livewire apply moves preview rows into the draft form without writing them
+PASS Inventory Livewire saves applied spreadsheet rows as a draft without posting stock
+PASS Authenticated warehouse page reopens and saves through the versioned owner action
+PASS Authenticated inventory dashboards, document lists, and new-document form render for explicitly scoped permissions
+PASS An empty warehouse can be deactivated and reactivated without stock or document history
+PASS A zero-stock warehouse with a live draft count cannot be deactivated (actual Illuminate\Validation\ValidationException: المستودع به رصيد أو مستندات قيد التنفيذ.)
+PASS Rejected deactivation preserves the active warehouse while its draft count has no stock effect
+PASS Cancelling the draft count permits warehouse deactivation and preserves document history
+PASS Reusing a document creation key with changed payload is rejected (actual Illuminate\Validation\ValidationException: مرجع إنشاء المستند مستخدم لمحتوى مختلف.)
+PASS Rejected idempotency replay leaves the original draft line unchanged
+PASS A document creator cannot approve their own opening stock even with approval permission (actual Illuminate\Validation\ValidationException: لا يمكن لمنشئ المستند اعتماد مستنده.)
+PASS Legacy M06 opening post cannot replace an already posted financial FIFO opening (actual Illuminate\Validation\ValidationException: الأرصدة الافتتاحية لا تستبدل سجل صنف سبق ترحيله.)
+PASS Rejected duplicate opening preserves the approved draft, movement count, and exact FIFO-backed balance
+PASS Database guard rejects moving an independently approved opening line into another draft (actual Illuminate\Database\QueryException: SQLSTATE[P0001]: Raise exception: 7 ERROR:  Inventory line parent is immutable
+CONTEXT:  PL/pgSQL function inventory_line_guard() line 2 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49683, Database: erp_elec_new_test, SQL: update "inventory_document_lines" set "document_id" = 24 where "document_id" = 25))
+PASS Rejected approved-line reparenting leaves the immutable source line intact
+PASS Retrying the legacy duplicate opening remains denied (actual Illuminate\Validation\ValidationException: الأرصدة الافتتاحية لا تستبدل سجل صنف سبق ترحيله.)
+PASS Opening denial replay adds no movement and preserves the exact financial FIFO balance
+PASS Minimum stock changes require explicit reorder permission (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Minimum level persists without changing physical quantity
+PASS Scoped balance query exposes the persisted available quantity
+PASS Organization authorization returns the actual authorized warehouse id
+PASS Balance query denies an actor without M06 balance permission and warehouse scope (actual Symfony\Component\HttpKernel\Exception\HttpException: يلزم منح صلاحية ونطاق فرع ومستودع.)
+PASS Balance query denies permission without warehouse scope (actual Symfony\Component\HttpKernel\Exception\HttpException: يلزم منح صلاحية ونطاق فرع ومستودع.)
+PASS Balance query denies an inactive actor despite permission and warehouse scope (actual Symfony\Component\HttpKernel\Exception\HttpException: يلزم منح صلاحية ونطاق فرع ومستودع.)
+PASS Posted movement ledger rejects destructive edits to the real financial FIFO opening (actual Illuminate\Database\QueryException: SQLSTATE[P0001]: Raise exception: 7 ERROR:  Inventory evidence is immutable
+CONTEXT:  PL/pgSQL function inventory_immutable() line 1 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49683, Database: erp_elec_new_test, SQL: delete from "inventory_movements" where "id" = 22))
+PASS Issue posting cannot create a negative stock balance (actual Illuminate\Validation\ValidationException: الكمية المتاحة لا تكفي؛ لا يمكن الصرف من رصيد محجوز لطلب آخر.)
+PASS Failed issue leaves no negative or partial balance
+PASS Serialized opening remains blocked until its owner supplies the accepted valued-stock contract (actual Illuminate\Validation\ValidationException: ترحيل هذا المصدر ينتظر تكامل FIFO وقيده المالي. افتتح المخزون من إعداد التفعيل المالي، واستلم الشراء من مساره الذري المعتمد.)
+PASS Denied serialized opening creates no movement, serial identities, or balance
+PASS Serialized issue cannot post against unvalued, nonexistent serial stock (actual Illuminate\Validation\ValidationException: هذا المسار المالي يدعم الأصناف الكمية فقط.)
+PASS Serialized demand remains entirely backordered without real serial opening stock
+PASS Serialized line rejects a nonmatching unit count (actual Illuminate\Validation\ValidationException: Select exactly one serial for each whole base unit.)
+PASS Serialized line rejects duplicate normalized identifiers (actual Illuminate\Validation\ValidationException: Duplicate normalized serial.)
+PASS Reservation fully reserves eligible demand when stock is sufficient
+PASS Reservation release requires an authorized source cancellation or reduction (actual Illuminate\Validation\ValidationException: فك الحجز يحتاج إلغاءً أو تخفيضًا مؤهلًا من مصدر الطلب.)
+PASS Denied release leaves reservation and balance unchanged
+PASS Reservation is capped at available stock when demand exceeds balance
+PASS Reservation request retry returns its original persisted record
+PASS Database guard rejects changing the original reservation request quantity (actual Illuminate\Database\QueryException: SQLSTATE[P0001]: Raise exception: 7 ERROR:  Reservation request and settled history are immutable
+CONTEXT:  PL/pgSQL function inventory_reservation_guard() line 5 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49683, Database: erp_elec_new_test, SQL: update "inventory_reservations" set "requested" = 11.00000000 where "id" = 6))
+PASS Database guard rejects changing the original reserved quantity (actual Illuminate\Database\QueryException: SQLSTATE[P0001]: Raise exception: 7 ERROR:  Reservation request and settled history are immutable
+CONTEXT:  PL/pgSQL function inventory_reservation_guard() line 5 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49683, Database: erp_elec_new_test, SQL: update "inventory_reservations" set "reserved" = 9.00000000 where "id" = 6))
+PASS Rejected request-field mutations preserve persisted reservation values
+PASS Reservation status returns authorized persisted totals
+PASS Reservation status denies actors without reservation view permission (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Reservation adjustment atomically replaces outstanding quantity, preserves fulfillment, and replays by key
+PASS Reservation release restores available stock exactly once
+PASS Reservation request records zero reserved quantity when no stock is available
+PASS Transfer dispatch moves quantity out of source stock while destination remains unchanged in transit
+PASS Transfer dispatch and full receipt create matching internal legs without changing company stock
+PASS Replaying transfer receipt creates no duplicate movement
+PASS Replaying transfer dispatch after full receipt returns the received document without duplicate ledger legs
+PASS Inventory history preserves approval while the duplicate opening post remains denied
+PASS Inventory XLSX export includes scoped balances and excludes a forged unscoped warehouse filter
+PASS Inventory XLSX export applies the selected empty-stock filter to scoped balances
+PASS Generic reservation fulfillment is denied without the owning Sales delivery instruction (actual Symfony\Component\HttpKernel\Exception\HttpException: )
+PASS Denied generic reservation fulfillment creates no Sales issue movement and leaves stock unchanged
+PASS Adjusting an unfulfilled reservation changes only outstanding demand and leaves physical stock unchanged
+PASS Releasing the remaining reservation leaves exact on-hand quantity and no reserved remainder
+PASS Count persists its balance-version cutoff at creation
+PASS A stale count snapshot cannot be approved after its expected balance version changes (actual Illuminate\Validation\ValidationException: تحرك المخزون منذ لقطة الجرد؛ أعد الجرد قبل الاعتماد.)
+PASS Rejected stale count leaves the new physical ledger balance intact
+PASS Known persisted quantities establish one low-stock warehouse and one fully reserved empty-available warehouse
+PASS Isolation links to a real positive movement and reduces available stock without changing physical or reserved quantity
+PASS Isolation cannot consume reserved or unavailable quantity beyond available stock (actual Illuminate\Validation\ValidationException: Isolation exceeds available stock.)
+PASS Isolation release replay restores availability once while preserving physical stock
+PASS Isolation release cannot exceed its residual quantity (actual Illuminate\Validation\ValidationException: Release exceeds isolated residual.)
+PASS Authorized filtered XLSX exports contain the independently known low and empty-available quantities
+PASS InventoryPage low-stock filter returns the exact scoped balance row and minimum
+PASS InventoryPage empty-available filter retains the known physical and reserved quantities
+PASS InventoryPage distribution and dashboard totals match all five explicitly scoped valued, reserved, correction, and serialized warehouses
+PASS InventoryPage movement operation filter returns the exact transfer receipt
+PASS InventoryPage reservation source search returns the exact persisted source row
+PASS Balance-only authority cannot query movement history
+PASS Organization bulk inventory scope includes effective warehouse permissions
+PASS Revoking a warehouse scope removes it from bulk scope and inventory query ids
+PASS Balance-only authority exposes balance navigation without requiring warehouse-view permission
+PASS Destination receiver is scoped to its destination only and lacks source dispatch authority
+PASS Destination-only receiver cannot perform current Inventory transfer-receive action requiring source scope (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Denied destination-only receipt creates neither receipt evidence nor destination movement
+PASS Damaged receipt isolation binds the exact transfer, line, FIFO lot, movement quantity, and deterministic per-lot idempotency source
+PASS An accepted FIFO movement cannot be forged as damaged stock (actual Symfony\Component\HttpKernel\Exception\HttpException: )
+PASS Fully scoped receiver persists accepted, damaged and missing receipt quantities with idempotent ledger, quarantine and transit totals
+PASS Recovered missing unit closes transit while damaged stock remains unavailable and accepted stock increases availability
+PASS Source-linked transfer correction records pending financial status and never changes stock without eligible reversal effects
+PASS Eligible source-linked positive movement correction posts one immutable negative reversing movement and replays exactly
+PASS Correction idempotency key rejects changed payload (actual Illuminate\Validation\ValidationException: Correction key collision.)
+PASS Later physical movement prevents correction of a stale source (actual Illuminate\Validation\ValidationException: Later stock movements depend on this source. Review the later source before correction.)
+PASS Rejected stale correction creates no partial reversing movement
+PASS Eligible source-linked negative issue correction posts one exact positive restoring movement
+PASS Serial operations screen does not fabricate an identity or history without a supported valued serial opening source
+PASS Authorized isolation operations form persists a source-linked isolation
+PASS Authorized isolation operations form releases and persists the residual quantity
+PASS Fully scoped Livewire receiving form persists an accepted partial receipt and one destination movement
+PASS Deferred ledger, serial occupancy, balance projection, and receipt constraints hold at commit boundary
+M06 inventory focused checks passed.
+Disposable PostgreSQL test transaction rolled back.

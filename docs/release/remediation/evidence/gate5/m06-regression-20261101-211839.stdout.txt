@@ -1,0 +1,23 @@
+PASS M06 permissions are registered and default only to Administrator
+PASS Warehouse and draft document factories persist a valid synthetic graph without operational approvals or stock effects
+PASS Explicit inventory demo seeder reruns without duplicate warehouse or draft-document records
+PASS Warehouse action persists a versioned warehouse on an explicitly scoped active branch
+PASS Warehouse action reopens and saves an edit using the expected version
+PASS Warehouse edit rejects a stale version (actual Illuminate\Validation\ValidationException: تغير المستودع؛ أعد تحميل الصفحة.)
+PASS Warehouse branch is fixed even when the actor is scoped to both branches (actual Illuminate\Validation\ValidationException: لا يمكن تغيير فرع المستودع بعد إنشائه.)
+PASS Rejected cross-branch warehouse edit preserves its original branch
+PASS Warehouse creation requires explicit M06 permission (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Synthetic M11 mappings and Go-Live saved through FinancialActivation
+PASS Synthetic sale and purchase tax rules saved through FinancialActivation
+PASS Synthetic M06 tax rules validated before activation
+PASS Balanced opening GL and FIFO source saved through OpeningBalances
+PASS Opening submitted by its preparer
+PASS Independent M11 approver holds company approval and explicit branch review permissions
+PASS Opening independently approved
+Disposable PostgreSQL test transaction rolled back.
+
+In ValidationException.php line 70:
+                                                                             
+  Complete the actual company legal name and address before official issue.  
+                                                                             
+

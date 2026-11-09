@@ -1,0 +1,8 @@
+{
+  "event": "restore_cluster_created",
+  "host": "127.0.0.1",
+  "pgdata": ".tmp/production-readiness-20261101/restore-pgdata",
+  "database": "erp_elec_new_test",
+  "port": 49684,
+  "pg_version": "postgres (PostgreSQL) 17.11"
+}

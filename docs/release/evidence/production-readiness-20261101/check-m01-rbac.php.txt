@@ -1,0 +1,66 @@
+PASS verified bootstrap actor uses direct security grant without Administrator role
+PASS ManagerReadOnly accepts all registered Sales Order read-only permissions
+PASS 14 approved roles seed with Administrator synchronized to every registered permission
+PASS Administrator membership grants registered company capability but requires branch scope
+PASS Administrator branch capability is limited to the explicitly scoped branch
+PASS permission catalog matches current M01 and M02 definitions with company-scoped M02 permissions
+PASS unknown, finance, warehouse, and warehouse-scoped permissions fail closed
+PASS anonymous legacy activity preserves nullable outcome and exposes only approved fields
+PASS legacy system audit outcome remains immutable and nullable
+PASS known failed login is anonymous and stores no credentials, email, or IP
+PASS failed login appears as anonymous failed security activity
+PASS successful login updates last_login_at and records exactly one success event
+PASS password reset link delivery is recorded without token or email metadata
+PASS self password change revokes sessions and reset tokens with one secret-free audit event
+PASS unauthorized or hidden action rejected
+PASS ManagerReadOnly has no write permissions
+PASS ManagerReadOnly rejects write permission assignment
+PASS rejected ManagerReadOnly write leaves permission matrix unchanged
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS business role permission matrix persisted
+PASS branch roles require exact branch scope while company roles need no location
+PASS organization and user queries inherit exact RBAC branch scope
+PASS role permission revocation takes effect immediately
+PASS stale role matrix version rejected
+PASS stale role save leaves current permissions unchanged
+PASS branch scope revocation persisted
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS Administrator permission matrix is synchronized rather than manually editable
+PASS rejected Administrator matrix edit preserves every registered permission and version
+PASS direct scoped grant authorizes its exact branch
+PASS direct grant revocation takes effect immediately
+PASS embedded role permission toggle changes draft only before save
+PASS embedded role save persists draft permissions
+PASS user access section assigns role and permission becomes effective immediately
+PASS user access section role revocation immediately removes effective permission
+PASS branch scope grant is exact, effective immediately, and audited with a succeeded outcome
+PASS branch scope revocation removes effective access and is audited
+PASS losing target user_view blocks mounted access mutations and rerender without changes
+PASS permission history is rendered with actor, normalized branch snapshots, nullable outcomes, and no secret fields
+PASS legacy permission history retains nullable outcome and snapshots unchanged
+PASS legacy permission audit outcome cannot be rewritten
+PASS security-admin user details renders four tabs, keyboard selector, and security activity {"basic_tab":true,"access_tab":true,"history_tab":true,"security_tab":true,"keyboard_selector":true,"failed_login_activity":true}
+PASS security activity content is hidden from user-admin without security grant
+PASS unauthorized or hidden action rejected
+PASS unauthorized or hidden action rejected
+PASS security-admin new-user redirect targets created user details
+PASS security-admin new-user redirect targets access section anchor
+PASS security-admin-created user redirects to access section without automatic grants
+PASS forged direct-grant id for another user is hidden and unchanged
+PASS new branch scope for inactive user rejected
+PASS new branch scope for inactive branch rejected
+PASS inactive user and branch scope grants leave no records
+PASS standalone organization access route has been removed
+PASS last active security administrator invariant rejects an empty admin set
+PASS security audits capture mutations without credential or personal secrets
+PASS blocked last security administrator email change preserves email, verification, reset token, and sessions
+PASS ordinary profile email change clears verification and revokes old reset token and sessions
+RBAC smoke transaction rolled back.
+PASS all RBAC fixtures removed by rollback

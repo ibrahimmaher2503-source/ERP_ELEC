@@ -1,0 +1,57 @@
+{
+  "result": "FAIL",
+  "run_id": "7BE769AF99",
+  "failure": "locator.waitFor: Error: strict mode violation: getByText('1234.50') resolved to 2 elements:\n    1) <p class=\"my-2 text-blue-700\">1234.50 EGP</p> aka getByText('EGP')\n    2) <p class=\"rounded bg-blue-50 p-2 text-sm\">مواد كهربائية: 1234.50</p> aka getByText('مواد كهربائية:')\n\nCall log:\n\u001b[2m  - waiting for getByText('1234.50') to be visible\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 6,
+      "code": "PB2-7BE769AF99",
+      "saved_name": "اختبار مشروع المتصفح 7BE769AF99 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 6
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

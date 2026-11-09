@@ -66,7 +66,7 @@ final class InventoryLedger
         $costedReceipt = in_array($operation, ['transfer_receive', 'maintenance_return', 'workshop_return', 'sales_return'], true) || (in_array($operation, ['adjustment_post', 'correction'], true) && bccomp($delta, '0', 8) > 0);
         if (! in_array($operation, ['financial_opening', 'purchase_receipt'], true) && ! $costedIssue && ! $costedReceipt) {
             app(AccountingApi::class)->requirePostingDate(now('Africa/Cairo')->toDateString());
-            InventoryActions::fail('ترحيل هذا المصدر ينتظر تكامل FIFO وقيده المالي. افتتح المخزون من إعداد التفعيل المالي، واستلم الشراء من مساره الذري المعتمد.');
+            InventoryActions::fail('ترحيل هذا المصدر ينتظر تكامل الصرف من الأقدم أولًا وقيده المالي. افتتح المخزون من إعداد التفعيل المالي، واستلم الشراء من مساره الذري المعتمد.');
         }
         if ($costedIssue || $costedReceipt) {
             app(AccountingApi::class)->requirePostingDate(now('Africa/Cairo')->toDateString());

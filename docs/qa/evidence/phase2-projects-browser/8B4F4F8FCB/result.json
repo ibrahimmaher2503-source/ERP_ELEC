@@ -1,0 +1,23 @@
+{
+  "result": "FAIL",
+  "run_id": "8B4F4F8FCB",
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[wire\\\\:model=\"form.customer_id\"] option[value=\"1\"]') to be visible\u001b[22m\n\u001b[2m    30 × locator resolved to hidden <option value=\"1\">شركة المنار للمشروعات الكهروميكانيكية - العباسية …</option>\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

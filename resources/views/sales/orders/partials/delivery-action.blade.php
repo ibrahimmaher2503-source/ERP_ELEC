@@ -2,7 +2,7 @@
     @if($record->status === 'approved')
         <x-ui.panel>
             <h2 class="mb-3 font-bold">التخصيص والتسليم بالوحدة الأساسية</h2>
-            <p class="mb-4 text-sm">الطلب المؤجل يحتاج مخزونًا متاحًا قبل تخصيصه. إنشاء طلب التسليم لا يصرف المخزون؛ التأكيد يرحله مع FIFO وقيد التكلفة.</p>
+            <p class="mb-4 text-sm">الطلب المؤجل يحتاج مخزونًا متاحًا قبل تخصيصه. إنشاء طلب التسليم لا يصرف المخزون؛ التأكيد يرحله مع الصرف من الأقدم أولًا وقيد التكلفة.</p>
             <div class="overflow-x-auto"><table class="w-full min-w-[700px] text-sm">
                 <thead><tr><th class="p-2 text-start">الصنف</th><th class="p-2 text-start">الطلب</th><th class="p-2 text-start">المسلم</th><th class="p-2 text-start">الحجز المتبقي</th><th class="p-2 text-start">المؤجل</th><th class="p-2 text-start">كمية التسليم</th></tr></thead>
                 <tbody>@foreach($record->lines as $line)

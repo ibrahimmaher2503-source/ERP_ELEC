@@ -1,0 +1,30 @@
+{
+  "captured_utc": "2026-11-01T00:51:13.9399126Z",
+  "file_hashes": [
+    {
+      "path": ".env",
+      "sha256": "9DC6E73BC501A590F24529A7EEAF7C44B0264F22F82769C1BFA17CE59271DB05"
+    },
+    {
+      "path": ".env.testing",
+      "sha256": "9F7A9B9E2E742BD3AA0962032391CE7880EB40948A87E2624592F7902A5AA044"
+    },
+    {
+      "path": "public/build/manifest.json",
+      "sha256": "F024489FB0FC078F78EEB915C05871B61B09A9A235DBB1F6FD454CD97EABE804"
+    },
+    {
+      "path": "app/Modules/Accounting/Application/FinancialReports.php",
+      "sha256": "3DA9006CFD8DDFD58304CB0084D8EC4BBE66300B2E02BEE63AB84889AFDAD57B"
+    },
+    {
+      "path": "app/Modules/Accounting/Application/JournalPosting.php",
+      "sha256": "E36268D8DAE48CA2A25CA8BF039FF29D3BC14FF2529F533B6F234BC0C7EB4A62"
+    }
+  ],
+  "public_build_files": 4,
+  "public_build_tree_sha256": "5C63CBCF084A205C6C9DECC8D28FFD90DE904DFC6844CE46011948974D6AAB7F",
+  "git_status_sha256": "9ADB83350E8B3217B13EEA5CA9C466E1F777E69F6C86368A8538D5349A6B481A",
+  "git_status_lines": 556,
+  "secrets_emitted": false
+}

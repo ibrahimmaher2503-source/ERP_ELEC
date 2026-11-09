@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run_id": "ED65CC5D20",
+  "failure": "prepare-phase2-projects-browser.php returned no JSON evidence: [2026-10-29 14:09:19] testing.ERROR: Committed source graph is missing linked or safely unlinked Sales/PO/material/FIFO records. {\"exception\":\"[object] (RuntimeException(code: 0): Committed source graph is missing linked or safely unlinked Sales/PO/material/FIFO records. at C:/projects/ERP_ELEC_NEW/tests/E2E/support/prepare-phase2-projects-browser.php:120)\n[stacktrace]\n#0 {main}\n\"} \n",
+  "checks": [],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

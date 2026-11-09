@@ -1,0 +1,7 @@
+{
+  "only_port_guard_replacement": "55481 to 49683",
+  "source_sha256": "01E1021D496D8604F5D6B264853EB938BAA1760ED9A6A0B9B045C048AD1821F4",
+  "private_identity_guard_added": true,
+  "adapted": ".tmp/production-readiness-20261101/tender-actions-adapted.php",
+  "source": "docs/release/evidence/final-20261030/check-tender-actions.php"
+}

@@ -273,13 +273,13 @@ async function run() {
     check(dashboardValues.length > 0 && dashboardValues.every(value => ['0', '0.00'].includes(value.trim())),
       'new scoped branch shows measured zero counts and balances without seeded revenue, invoices, or cash movements', checks);
     const receivableCard = dashboardPanels.nth(2);
-    check(await receivableCard.getByText('فواتير العملاء EGP', { exact: true }).count() === 1
+    check(await receivableCard.getByText('فواتير العملاء ج.م', { exact: true }).count() === 1
       && await receivableCard.getByText('فواتير الموردين EGP', { exact: true }).count() === 0,
     'AR-only dashboard authority displays customer invoices and omits the unauthorized supplier amount', checks);
     check(await dashboardPanels.nth(1)
-      .getByText('الإيراد EGP', { exact: true }).count() === 1
+      .getByText('الإيراد ج.م', { exact: true }).count() === 1
       && await dashboardPanels.nth(3)
-        .getByText('النقدية EGP', { exact: true }).count() === 1,
+        .getByText('النقدية ج.م', { exact: true }).count() === 1,
     'dashboard keeps posted-ledger revenue and treasury cash as separate measures', checks);
     await save(dashboardPage, output, 'dashboard-scoped-1440x900');
     for (const [width, height] of fixedViewports) {

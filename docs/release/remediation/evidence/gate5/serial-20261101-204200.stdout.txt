@@ -1,0 +1,15 @@
+PASS Migration provides required serial-valued table purchasing_receipt_lines
+PASS Migration provides required serial-valued table inventory_fifo_serial_allocations
+PASS Migration provides required serial-valued table inventory_serials
+PASS Migration provides required serial-valued table inventory_fifo_allocations
+PASS M05 receipt lines persist source-owned serial identities
+PASS Financial posting is activated through independent M11 opening approval
+PASS Both real M05 serial receipt sources post through the M05/M06/M11 coordinator
+PASS M05 immutable receipt line retains its exact serial source
+PASS M05 receipt creates exact source-cost FIFO layer for SER-OLD-A
+PASS Received serial occupancy points to its actual M05 source movement
+PASS M05 serial receipt has one immutable received event
+PASS Receipt posting links exact M05 source line, M06 movement and FIFO layer
+PASS Recoverable tax treatment capitalizes the exact source net cost
+PASS M11 receipt journal is posted exactly once against its M05 source
+RESULT all_pass=0 assertions=14 rollback_verified=1 phase=M05 actual serial-valued receipt and M11 source posting receipt=C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/gate5-serial-valued-20261101T184202Z-cc80399062/receipt.json

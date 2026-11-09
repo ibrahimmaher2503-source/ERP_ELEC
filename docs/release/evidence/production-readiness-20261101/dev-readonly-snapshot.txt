@@ -1,0 +1,155 @@
+{
+    "captured_utc": "2026-11-01T00:51:54+00:00",
+    "database": "erp_elec_new",
+    "host": "127.0.0.1",
+    "port": 5443,
+    "server_version": "17.11",
+    "schema_migration_max": "2026_10_31_198000_make_tender_guard_refresh_safe",
+    "activation": {
+        "go_live_date": null,
+        "activated": false,
+        "tax_validated": false
+    },
+    "operational_counts": {
+        "inventory_movements": 0,
+        "posted_journals": 0,
+        "customer_invoices": 0,
+        "supplier_invoices": 0,
+        "treasury_movements": 0
+    },
+    "selected_financial_numeric_columns": [
+        {
+            "table_name": "accounting_journal_lines",
+            "column_name": "debit",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "accounting_journal_lines",
+            "column_name": "credit",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "original_quantity",
+            "data_type": "numeric",
+            "numeric_precision": 24,
+            "numeric_scale": 8
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "remaining_quantity",
+            "data_type": "numeric",
+            "numeric_precision": 24,
+            "numeric_scale": 8
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "original_value",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "remaining_value",
+            "data_type": "numeric",
+            "numeric_precision": 36,
+            "numeric_scale": 16
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "allocated_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "inventory_fifo_layers",
+            "column_name": "unit_cost",
+            "data_type": "numeric",
+            "numeric_precision": 36,
+            "numeric_scale": 16
+        },
+        {
+            "table_name": "inventory_movements",
+            "column_name": "quantity",
+            "data_type": "numeric",
+            "numeric_precision": 24,
+            "numeric_scale": 8
+        },
+        {
+            "table_name": "rp_customer_invoices",
+            "column_name": "net_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_customer_invoices",
+            "column_name": "tax_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_customer_invoices",
+            "column_name": "total_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_supplier_invoices",
+            "column_name": "net_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_supplier_invoices",
+            "column_name": "tax_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_supplier_invoices",
+            "column_name": "total_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_supplier_invoices",
+            "column_name": "grni_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "rp_supplier_invoices",
+            "column_name": "ppv_amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        },
+        {
+            "table_name": "treasury_movements",
+            "column_name": "amount",
+            "data_type": "numeric",
+            "numeric_precision": 20,
+            "numeric_scale": 2
+        }
+    ],
+    "constraint_summary": {
+        "foreign_keys": 563,
+        "checks": 325,
+        "unvalidated": 0
+    },
+    "read_only_transaction": true,
+    "secrets_emitted": false
+}

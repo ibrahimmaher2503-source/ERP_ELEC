@@ -1,0 +1,62 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55433,
+    "same_receipt_twice": {
+        "workers": [
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":7,\"status\":\"PASS\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"receipt\",\"id\":7,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "receipt_status": "posted",
+        "source_movements": 1,
+        "passed": true
+    },
+    "remaining_quantity_cap": {
+        "workers": [
+            {
+                "exit_code": 2,
+                "stdout": "{\"action\":\"create_receipt\",\"id\":9,\"status\":\"ERROR\",\"class\":\"Illuminate\\\\Validation\\\\ValidationException\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"create_receipt\",\"order_id\":9,\"receipt_id\":8,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "receipt_statuses": [
+            "integration_pending"
+        ],
+        "accepted_receipt_id": 8,
+        "accepted_receipt_posted_movement_count": 1,
+        "passed": true
+    },
+    "official_number_contention": {
+        "workers": [
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"issue\",\"id\":10,\"status\":\"PASS\"}",
+                "stderr": ""
+            },
+            {
+                "exit_code": 0,
+                "stdout": "{\"action\":\"issue\",\"id\":11,\"status\":\"PASS\"}",
+                "stderr": ""
+            }
+        ],
+        "numbers": [
+            "PO-2026-000006",
+            "PO-2026-000007"
+        ],
+        "distinct_documents": 2,
+        "passed": true
+    },
+    "all_pass": true
+}

@@ -4,7 +4,7 @@
     $formatValue = fn ($value) => match (true) {
         is_bool($value) => $value ? 'نعم' : 'لا',
         is_array($value) => collect($value)->filter(fn ($item) => is_scalar($item) || $item === null)->map(fn ($item) => $item === null ? '—' : (string) $item)->implode('، ') ?: '—',
-        is_scalar($value) => (string) $value,
+        is_scalar($value) => ['active' => 'نشط', 'inactive' => 'غير نشط', 'archived' => 'مؤرشف', 'draft' => 'مسودة', 'posted' => 'مرحّل', 'approved' => 'معتمد', 'rejected' => 'مرفوض', 'organization' => 'شركة / مؤسسة', 'individual' => 'فرد'][(string) $value] ?? (string) $value,
         default => '—',
     };
 @endphp

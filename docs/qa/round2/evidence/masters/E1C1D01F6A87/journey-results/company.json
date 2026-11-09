@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "run_id": "E1C1D01F6A87",
+  "journey": "M01 company update and reload lifecycle",
+  "record": {
+    "code": "R2-E1C1D01F6A87-CO",
+    "name": "Round2 synthetic company E1C1D01F6A87",
+    "legal_name": "Company lifecycle revision three E1C1D01F6A87"
+  },
+  "checks": [
+    "M01 company: created setup company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; synthetic setup remains identifiable"
+  ],
+  "postgresql_verification": {
+    "name": "Round2 synthetic company E1C1D01F6A87",
+    "code": "R2-E1C1D01F6A87-CO",
+    "legal_name": "Company lifecycle revision three E1C1D01F6A87"
+  }
+}

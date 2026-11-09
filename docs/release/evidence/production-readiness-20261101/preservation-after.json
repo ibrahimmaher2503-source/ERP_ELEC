@@ -1,0 +1,34 @@
+{
+  "captured_utc": "2026-11-01T01:09:15.2145900Z",
+  "file_hashes": [
+    {
+      "matches_baseline": true,
+      "path": ".env",
+      "sha256": "9DC6E73BC501A590F24529A7EEAF7C44B0264F22F82769C1BFA17CE59271DB05"
+    },
+    {
+      "matches_baseline": true,
+      "path": ".env.testing",
+      "sha256": "9F7A9B9E2E742BD3AA0962032391CE7880EB40948A87E2624592F7902A5AA044"
+    },
+    {
+      "matches_baseline": false,
+      "path": "public/build/manifest.json",
+      "sha256": "876DBDDFC7EFB970633E0AD60B8B9E06FACAEC34520DE7E0F1C8BC6C017173DD"
+    },
+    {
+      "matches_baseline": true,
+      "path": "app/Modules/Accounting/Application/FinancialReports.php",
+      "sha256": "3DA9006CFD8DDFD58304CB0084D8EC4BBE66300B2E02BEE63AB84889AFDAD57B"
+    },
+    {
+      "matches_baseline": true,
+      "path": "app/Modules/Accounting/Application/JournalPosting.php",
+      "sha256": "E36268D8DAE48CA2A25CA8BF039FF29D3BC14FF2529F533B6F234BC0C7EB4A62"
+    }
+  ],
+  "public_build_files": 4,
+  "public_build_tree_sha256": "4DC16A3DBF39153A13147A5AA3EEAA6C0CD2386EB3C4853C97FA3FDAAFEB3F4F",
+  "public_build_tree_matches_baseline": false,
+  "secrets_emitted": false
+}

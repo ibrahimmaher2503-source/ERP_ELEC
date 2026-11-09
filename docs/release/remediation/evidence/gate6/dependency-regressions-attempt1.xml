@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Feature\Security\DependencySecurityRegressionTest" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php" tests="3" assertions="8" errors="0" failures="2" skipped="0" time="0.629095">
+    <testcase name="test_mime_parameter_names_reject_crlf_and_non_token_characters" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php" line="17" class="Tests\Feature\Security\DependencySecurityRegressionTest" classname="Tests.Feature.Security.DependencySecurityRegressionTest" assertions="3" time="0.391878"/>
+    <testcase name="test_livewire_authorize_uses_parameter_names_after_reordered_payload_keys" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php" line="31" class="Tests\Feature\Security\DependencySecurityRegressionTest" classname="Tests.Feature.Security.DependencySecurityRegressionTest" assertions="4" time="0.175654">
+      <failure type="PHPUnit\Framework\AssertionFailedError">Tests\Feature\Security\DependencySecurityRegressionTest::test_livewire_authorize_uses_parameter_names_after_reordered_payload_keys&#13;
+Unauthorized reordered action was allowed.
+&#13;
+C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php:68</failure>
+    </testcase>
+    <testcase name="test_livewire_json_authorization_runs_before_the_method_side_effect" file="C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php" line="91" class="Tests\Feature\Security\DependencySecurityRegressionTest" classname="Tests.Feature.Security.DependencySecurityRegressionTest" assertions="1" time="0.061562">
+      <failure type="PHPUnit\Framework\AssertionFailedError">Tests\Feature\Security\DependencySecurityRegressionTest::test_livewire_json_authorization_runs_before_the_method_side_effect&#13;
+Unauthorized JSON action was allowed.
+&#13;
+C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php:98</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,14 @@
+﻿{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55476,
+    "all_pass": false,
+    "error_class": "RuntimeException",
+    "error": "Refusing to replace an existing activation state in the isolated test database.",
+    "trace": []
+}
+
+In phase2-projects-financial.php line 160:
+                                                                                   
+  Refusing to replace an existing activation state in the isolated test database.  
+                                                                                   
+

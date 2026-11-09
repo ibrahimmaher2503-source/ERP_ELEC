@@ -1,0 +1,60 @@
+{
+  "result": "FAIL",
+  "run_id": "CC8FD0ABD8",
+  "failure": "Closed project authorized private PDF revision failed integrity/cache validation: HTTP 404 cache=no-cache, private content-type=text/html; charset=utf-8 signature=3c21444f43545950.",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/projects/7/financial",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/7/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4A4724BB84",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/7/closure",
+      "viewport": 1440,
+      "expected_text": "اختبار مشروع المتصفح 4A4724BB84 — تعديل محفوظ",
+      "document": 1440,
+      "body": 1440
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    }
+  ]
+}

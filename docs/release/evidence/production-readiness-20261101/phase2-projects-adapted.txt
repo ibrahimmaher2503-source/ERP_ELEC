@@ -1,0 +1,37 @@
+PASS project master create persists scoped customer, manager, member, and initial version
+PASS draft project master save increments version and retains edits
+PASS stale project master version is rejected
+PASS duplicate project code is rejected
+PASS existing project cannot move to another branch
+PASS reopened draft can be edited at its current version
+PASS assigned project member has project view within active branch scope
+PASS project membership does not grant phase and task management
+PASS branch scope alone does not expose an unassigned project
+PASS a project member cannot update another user’s assigned task
+PASS empty eligible tasks produce zero equal-phase progress
+PASS milestone completion requires and records evidence and actual actor
+PASS budget manager with approval permission cannot approve their own proposal
+PASS independent reviewer creates approved baseline revision one
+PASS independent budget revision is reapproved while the prior baseline snapshot remains immutable
+PASS draft project transitions to planned only after an approved baseline
+PASS activation alone does not record actual execution start
+PASS active project can transition into in-progress execution
+PASS first in-progress transition records actual start in Cairo local date
+PASS active execution can be put on hold with a recorded reason
+PASS on-hold project can resume to active
+PASS equal-phase calculation averages 50% and 0% exactly
+PASS task completion records the actual assigned member
+PASS stale task version is rejected without changing persisted state
+PASS all completed tasks produce exact equal-phase completion
+PASS task dependency persists as a project-scoped prerequisite
+PASS dependent task cannot start before prerequisite completion
+PASS blocked task retains its exact progress and records a reason
+PASS resumed task clears block reason and contributes exact weighted project progress
+PASS task activity history records each real status change
+PASS project completes after all required tasks, milestones, and handover evidence
+PASS project closes after owner financial projections confirm no open obligations
+PASS closed project master is read-only
+PASS authorized project_reopen transition reopens a legitimately closed project
+PASS PostgreSQL persists the exact UTC Carbon instant in a UTC session
+PASS project activity history is append-only at the PostgreSQL boundary
+RESULT all_pass=true assertions=36

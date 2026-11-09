@@ -1,0 +1,3117 @@
+[
+  {
+    "route_name": "organization.users.show",
+    "route_variant": "default",
+    "module": "M01 Organization",
+    "uri": "organization/users/{user}",
+    "url": "/organization/users/133",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 2966.1000000089407,
+    "domcontentloaded_ms": 3537.2999999970198,
+    "load_ms": 3545.7000000029802,
+    "ui_ready_ms": 3117.9000000059605,
+    "livewire_stable_ms": 3985.9000000059605,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 2641152,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 4006,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-organization.users.show-diagnostic-1",
+      "path": "/organization/users/133",
+      "query_count": 3724,
+      "database_time_ms": 2037.91,
+      "repeated_queries": [
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 884,
+          "total_ms": 445.5200000000008
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 869,
+          "total_ms": 509.8400000000007
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 371,
+          "total_ms": 166.71000000000004
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 370,
+          "total_ms": 168.38
+        },
+        {
+          "sql": "select \"id\", \"branch_id\", \"code\", \"name\", \"active\" from \"inventory_warehouses\" where \"id\" = ? limit 1",
+          "count": 270,
+          "total_ms": 130.98999999999984
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 270,
+          "total_ms": 127.75000000000004
+        },
+        {
+          "sql": "select exists(select * from \"user_warehouse_scopes\" where \"user_id\" = ? and \"warehouse_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 270,
+          "total_ms": 131.5599999999999
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 228,
+          "total_ms": 110.17999999999998
+        },
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 57,
+          "total_ms": 30.83
+        },
+        {
+          "sql": "select * from \"user_warehouse_scopes\" where \"user_id\" = ?",
+          "count": 54,
+          "total_ms": 24.2
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 17.459999999999997
+        },
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? limit 1",
+          "count": 5,
+          "total_ms": 2.19
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 2.7399999999999998
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"email_verified_at\" is not null) as \"exists\"",
+          "count": 4,
+          "total_ms": 1.5200000000000002
+        },
+        {
+          "sql": "select \"id\", \"name\", \"active\" from \"branches\" order by \"name\" asc",
+          "count": 3,
+          "total_ms": 2.8800000000000003
+        },
+        {
+          "sql": "select \"version\", \"id\" from \"roles\"",
+          "count": 2,
+          "total_ms": 0.53
+        },
+        {
+          "sql": "select \"role_id\" from \"user_roles\" where \"user_id\" = ?",
+          "count": 2,
+          "total_ms": 0.65
+        },
+        {
+          "sql": "select \"id\", \"branch_id\", \"name\", \"active\" from \"inventory_warehouses\" order by \"name\" asc",
+          "count": 2,
+          "total_ms": 0.77
+        },
+        {
+          "sql": "select \"warehouse_id\" from \"user_warehouse_scopes\" where \"user_id\" = ?",
+          "count": 2,
+          "total_ms": 0.96
+        },
+        {
+          "sql": "select * from \"roles\" where \"id\" in (?)",
+          "count": 2,
+          "total_ms": 1.21
+        },
+        {
+          "sql": "select * from \"roles\" where \"id\" not in (?) order by \"id\" asc",
+          "count": 2,
+          "total_ms": 0.81
+        },
+        {
+          "sql": "select \"b\".\"id\", \"b\".\"name\", \"b\".\"active\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ?",
+          "count": 2,
+          "total_ms": 0.99
+        },
+        {
+          "sql": "select \"g\".\"id\", \"g\".\"permission_code\", \"p\".\"label\", \"b\".\"name\" as \"branch_name\" from \"access_grants\" as \"g\" left join \"permission_catalog\" as \"p\" on \"p\".\"code\" = \"g\".\"permission_code\" left join \"branches\" as \"b\" on \"b\".\"id\" = \"g\".\"branch_id\" where \"g\".\"user_id\" = ?",
+          "count": 2,
+          "total_ms": 1.41
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 147.65
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 5.28
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 4.58
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 4.2
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 3.9
+        },
+        {
+          "fingerprint": "3797f6966c6264ce37d1ae85dbea196b6c25cec7d38dd59e7eedc7431fe36cff",
+          "sql": "select exists(select * from \"user_warehouse_scopes\" where \"user_id\" = ? and \"warehouse_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 3.56
+        },
+        {
+          "fingerprint": "3797f6966c6264ce37d1ae85dbea196b6c25cec7d38dd59e7eedc7431fe36cff",
+          "sql": "select exists(select * from \"user_warehouse_scopes\" where \"user_id\" = ? and \"warehouse_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 3.22
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 3.17
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.97
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.84
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:39+00:00",
+      "elapsed_server_ms": 2973.35
+    }
+  },
+  {
+    "route_name": "maintenance.work-orders.show",
+    "route_variant": "default",
+    "module": "M08 FieldMaintenance",
+    "uri": "maintenance/work-orders/{workOrder}",
+    "url": "/maintenance/work-orders/1",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 1380.3999999910593,
+    "domcontentloaded_ms": 1779.7000000029802,
+    "load_ms": 1819.5,
+    "ui_ready_ms": 1480.5,
+    "livewire_stable_ms": 2222.0999999940395,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1556167,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 2240,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-maintenance.work-orders.show-diagnostic-1",
+      "path": "/maintenance/work-orders/1",
+      "query_count": 1433,
+      "database_time_ms": 831.25,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 370,
+          "total_ms": 199.98
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 213,
+          "total_ms": 101.89000000000003
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 213,
+          "total_ms": 124.00000000000009
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 157,
+          "total_ms": 85.78999999999996
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 156,
+          "total_ms": 75.33000000000006
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 156,
+          "total_ms": 77.35000000000002
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 36,
+          "total_ms": 17.829999999999995
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 36,
+          "total_ms": 19.839999999999996
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 36,
+          "total_ms": 23.66999999999999
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 10.1
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 10.05
+        },
+        {
+          "sql": "select * from \"maintenance_work_orders\" where \"id\" = ? limit 1",
+          "count": 4,
+          "total_ms": 4.44
+        },
+        {
+          "sql": "select exists(select * from \"maintenance_work_orders\" where (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (0 = 1 and \"id\" in (select \"work_order_id\" from \"maintenance_assignments\" where \"technician_id\" = ?))) and \"id\" = ?) as \"exists\"",
+          "count": 2,
+          "total_ms": 1
+        },
+        {
+          "sql": "select \"u\".\"id\", \"u\".\"name\" from \"users\" as \"u\" inner join \"user_branch_scopes\" as \"s\" on \"s\".\"user_id\" = \"u\".\"id\" where \"s\".\"branch_id\" = ? and \"u\".\"active\" = ? and \"u\".\"email_verified_at\" is not null order by \"u\".\"name\" asc",
+          "count": 2,
+          "total_ms": 1.7
+        },
+        {
+          "sql": "select * from \"maintenance_commercial_approvals\" where \"work_order_id\" = ? limit 1",
+          "count": 2,
+          "total_ms": 1.34
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 53.67
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 7.15
+        },
+        {
+          "fingerprint": "2a8436a2479e4e9eef359341381abf84bbf7e609124bdbef8364880eeb1531d0",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 4.62
+        },
+        {
+          "fingerprint": "14ae8e195bb9c86356f548bc9aa795eeb3e35c3ce298f7aeef426910b7d68ea0",
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 4.12
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 3.4
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 3.12
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.64
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.63
+        },
+        {
+          "fingerprint": "2a8436a2479e4e9eef359341381abf84bbf7e609124bdbef8364880eeb1531d0",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 2.45
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.34
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:42+00:00",
+      "elapsed_server_ms": 1377.16
+    }
+  },
+  {
+    "route_name": "maintenance.index",
+    "route_variant": "default",
+    "module": "M08 FieldMaintenance",
+    "uri": "maintenance",
+    "url": "/maintenance",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 832.7999999970198,
+    "domcontentloaded_ms": 1191.2999999970198,
+    "load_ms": 1232,
+    "ui_ready_ms": 933.4000000059605,
+    "livewire_stable_ms": 1632.5,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1545507,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1657,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-maintenance.index-diagnostic-1",
+      "path": "/maintenance",
+      "query_count": 786,
+      "database_time_ms": 465.96,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 187,
+          "total_ms": 104.40000000000006
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 63.05000000000002
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 70.57000000000001
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 27.72
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 32.19
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 37.190000000000005
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 42,
+          "total_ms": 17.200000000000003
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 42,
+          "total_ms": 21.16
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 42,
+          "total_ms": 25.449999999999996
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 7.959999999999999
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.07
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 41.84
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 4.48
+        },
+        {
+          "fingerprint": "7d30a419b07f5f023e4875f442a1dd09f26244249ce9106ae90ae8ef907f4444",
+          "sql": "select * from \"maintenance_visits\" where \"work_order_id\" in (select \"id\" from \"maintenance_work_orders\" where (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (0 = 1 and \"id\" in (select \"work_order_id\" from \"maintenance_assignments\" where \"technician_id\" = ?)))) order by \"scheduled_at\" asc",
+          "duration_ms": 3.35
+        },
+        {
+          "fingerprint": "aa81a065a042b243bf3fcf0eaa8da90363875656557b17873eed31dbdcd44839",
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "duration_ms": 2.75
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.54
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.31
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.3
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.09
+        },
+        {
+          "fingerprint": "14ae8e195bb9c86356f548bc9aa795eeb3e35c3ce298f7aeef426910b7d68ea0",
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 2.07
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.06
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:44+00:00",
+      "elapsed_server_ms": 828.23
+    }
+  },
+  {
+    "route_name": "sales-orders.create",
+    "route_variant": "default",
+    "module": "M04 Sales",
+    "uri": "sales-orders/create",
+    "url": "/sales-orders/create",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 588.5,
+    "domcontentloaded_ms": 1031.9000000059605,
+    "load_ms": 1092.6000000089407,
+    "ui_ready_ms": 714.4000000059605,
+    "livewire_stable_ms": 1586.2000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1611278,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1617,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-sales-orders.create-diagnostic-1",
+      "path": "/sales-orders/create",
+      "query_count": 367,
+      "database_time_ms": 240.54,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 67,
+          "total_ms": 32.96000000000001
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 67,
+          "total_ms": 31.389999999999997
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 67,
+          "total_ms": 41.49999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 42,
+          "total_ms": 23.54
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 42,
+          "total_ms": 20.629999999999992
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 42,
+          "total_ms": 24.040000000000006
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 24,
+          "total_ms": 13.580000000000002
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 2.58
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 41.22
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 2.87
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.71
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.59
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.36
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 2.3
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 2.12
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.09
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.07
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.93
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:46+00:00",
+      "elapsed_server_ms": 576.28
+    }
+  },
+  {
+    "route_name": "sales-orders.screen",
+    "route_variant": "amendment",
+    "module": "M04 Sales",
+    "uri": "sales-orders/{order}/{screen}",
+    "url": "/sales-orders/1/amendment",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 581.4000000059605,
+    "domcontentloaded_ms": 964.9000000059605,
+    "load_ms": 1000.2000000029802,
+    "ui_ready_ms": 681.7000000029802,
+    "livewire_stable_ms": 1424.2999999970198,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1539392,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1448,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-sales-orders.screen-diagnostic-1",
+      "path": "/sales-orders/1/amendment",
+      "query_count": 413,
+      "database_time_ms": 286.17,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 74,
+          "total_ms": 43.44
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 74,
+          "total_ms": 44.83
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 73,
+          "total_ms": 36.10999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 42,
+          "total_ms": 20.389999999999997
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 42,
+          "total_ms": 21.830000000000005
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 42,
+          "total_ms": 29.68
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 8.759999999999998
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 10,
+          "total_ms": 4.460000000000001
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 10,
+          "total_ms": 5.5200000000000005
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 2.6900000000000004
+        },
+        {
+          "sql": "select * from \"sales_order_lines\" where \"sales_order_lines\".\"sales_order_id\" in (1) order by \"position\" asc",
+          "count": 3,
+          "total_ms": 3.0900000000000003
+        },
+        {
+          "sql": "select * from \"sales_orders\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and \"sales_orders\".\"id\" = ? limit 1",
+          "count": 2,
+          "total_ms": 3.67
+        },
+        {
+          "sql": "select * from \"sales_order_reviews\" where \"sales_order_reviews\".\"sales_order_id\" in (1) order by \"id\" desc",
+          "count": 2,
+          "total_ms": 1.82
+        },
+        {
+          "sql": "select * from \"sales_order_allocations\" where \"order_id\" = ?",
+          "count": 2,
+          "total_ms": 1.37
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 2,
+          "total_ms": 1.32
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 2,
+          "total_ms": 2.18
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 46.87
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.38
+        },
+        {
+          "fingerprint": "a20cbcedd67d3d39e1993d64eb19267c9f590234d8f8cd9ecda7f98749aea916",
+          "sql": "select * from \"sales_orders\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and \"sales_orders\".\"id\" = ? limit 1",
+          "duration_ms": 2.35
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.22
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.15
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.14
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.97
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.94
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.71
+        },
+        {
+          "fingerprint": "b23f4f83695a31e1f76d881f6c1ecbc1916ddc137ce2d441b1499ebba506b512",
+          "sql": "select * from \"sales_order_lines\" where \"sales_order_lines\".\"sales_order_id\" in (1) order by \"position\" asc",
+          "duration_ms": 1.68
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:48+00:00",
+      "elapsed_server_ms": 573.77
+    }
+  },
+  {
+    "route_name": "inventory.document.create",
+    "route_variant": "opening",
+    "module": "M06 Inventory",
+    "uri": "inventory/documents/{kind}/create",
+    "url": "/inventory/documents/opening/create",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 569,
+    "domcontentloaded_ms": 887.5,
+    "load_ms": 935.9000000059605,
+    "ui_ready_ms": 726.5,
+    "livewire_stable_ms": 1346.6000000089407,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1572172,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1370,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-inventory.document.create-diagnostic-1",
+      "path": "/inventory/documents/opening/create",
+      "query_count": 329,
+      "database_time_ms": 233.28,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 62,
+          "total_ms": 38.720000000000006
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 36.06
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 56,
+          "total_ms": 27.4
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 14.29
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 16.290000000000003
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 20.29
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 21,
+          "total_ms": 7.97
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 7,
+          "total_ms": 3.45
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 7,
+          "total_ms": 5.56
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.91
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 49.22
+        },
+        {
+          "fingerprint": "24030dec0488066fe0ad13c199c60640a7016af409d258406c334ad67fb30c0f",
+          "sql": "select * from \"products\" where \"active\" = ? and \"tracking\" in (?, ?) and \"kind\" <> ? order by \"id\" asc limit 100",
+          "duration_ms": 5.63
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 3
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.82
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.12
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.91
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.69
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 1.67
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 1.63
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.52
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:50+00:00",
+      "elapsed_server_ms": 554.05
+    }
+  },
+  {
+    "route_name": "inventory.document.create",
+    "route_variant": "receipt",
+    "module": "M06 Inventory",
+    "uri": "inventory/documents/{kind}/create",
+    "url": "/inventory/documents/receipt/create",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 483.8999999910593,
+    "domcontentloaded_ms": 864.5999999940395,
+    "load_ms": 913.7000000029802,
+    "ui_ready_ms": 665.3999999910593,
+    "livewire_stable_ms": 1328.7000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1573263,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1351,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-inventory.document.create-diagnostic-1",
+      "path": "/inventory/documents/receipt/create",
+      "query_count": 329,
+      "database_time_ms": 218.21,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 62,
+          "total_ms": 38.16999999999999
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 35.36
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 56,
+          "total_ms": 26.130000000000003
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 15.020000000000007
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 13.379999999999999
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 18.93
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 21,
+          "total_ms": 8.919999999999998
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 7,
+          "total_ms": 3.0399999999999996
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 7,
+          "total_ms": 9.479999999999999
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 2.9499999999999997
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 38.68
+        },
+        {
+          "fingerprint": "aa81a065a042b243bf3fcf0eaa8da90363875656557b17873eed31dbdcd44839",
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "duration_ms": 4.25
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 4
+        },
+        {
+          "fingerprint": "24030dec0488066fe0ad13c199c60640a7016af409d258406c334ad67fb30c0f",
+          "sql": "select * from \"products\" where \"active\" = ? and \"tracking\" in (?, ?) and \"kind\" <> ? order by \"id\" asc limit 100",
+          "duration_ms": 3.46
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.83
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 1.85
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.83
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.8
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.78
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 1.78
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:52+00:00",
+      "elapsed_server_ms": 479
+    }
+  },
+  {
+    "route_name": "purchasing.receipts.create",
+    "route_variant": "default",
+    "module": "M05 Purchasing",
+    "uri": "purchasing/receipts/create",
+    "url": "/purchasing/receipts/create",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 533.5999999940395,
+    "domcontentloaded_ms": 883.7999999970198,
+    "load_ms": 914.5999999940395,
+    "ui_ready_ms": 638.2999999970198,
+    "livewire_stable_ms": 1310.9000000059605,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1537134,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1329,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-purchasing.receipts.create-diagnostic-1",
+      "path": "/purchasing/receipts/create",
+      "query_count": 326,
+      "database_time_ms": 218.04,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 59,
+          "total_ms": 31.9
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 59,
+          "total_ms": 38.6
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 58,
+          "total_ms": 27.11999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 37,
+          "total_ms": 16.39
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 37,
+          "total_ms": 16.830000000000005
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 37,
+          "total_ms": 20.07
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 10.110000000000003
+        },
+        {
+          "sql": "select \"id\", \"branch_id\", \"code\", \"name\", \"active\" from \"inventory_warehouses\" where \"id\" = ? limit 1",
+          "count": 5,
+          "total_ms": 2
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 6.21
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 2,
+          "total_ms": 0.87
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 2,
+          "total_ms": 1.57
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 39.95
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 6.91
+        },
+        {
+          "fingerprint": "891a9d23bf8ea5aad217544fad1fd6ee2f882e78aa26d1c3672c44450502b8d3",
+          "sql": "select \"name\", \"code\" from \"companies\" where \"id\" = ? limit 1",
+          "duration_ms": 3.29
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 2.79
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 1.93
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 1.89
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.75
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.65
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.62
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 1.58
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:54+00:00",
+      "elapsed_server_ms": 521.42
+    }
+  },
+  {
+    "route_name": "projects.index",
+    "route_variant": "default",
+    "module": "M07 Projects",
+    "uri": "projects",
+    "url": "/projects",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 484,
+    "domcontentloaded_ms": 854.0999999940395,
+    "load_ms": 890.5999999940395,
+    "ui_ready_ms": 587.4000000059605,
+    "livewire_stable_ms": 1277.7999999970198,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1537310,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1304,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-projects.index-diagnostic-1",
+      "path": "/projects",
+      "query_count": 318,
+      "database_time_ms": 224.13,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 58,
+          "total_ms": 33.38999999999999
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 57,
+          "total_ms": 30.740000000000006
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 57,
+          "total_ms": 36.940000000000005
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 36,
+          "total_ms": 15.749999999999998
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 36,
+          "total_ms": 17.88
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 36,
+          "total_ms": 20.430000000000003
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 9.75
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 6,
+          "total_ms": 3.3800000000000003
+        },
+        {
+          "sql": "select \"p\".*, count(t.id) filter (where t.status <> 'cancelled') as total, count(t.id) filter (where t.status = 'completed') as complete, coalesce(sum(case when t.status='completed' then 100 when t.status='cancelled' then 0 else t.progress end),0) as task_progress from \"project_phases\" as \"p\" left join \"project_tasks\" as \"t\" on \"t\".\"phase_id\" = \"p\".\"id\" and \"t\".\"project_id\" = \"p\".\"project_id\" where \"p\".\"project_id\" = ? group by \"p\".\"id\" order by \"p\".\"id\" asc",
+          "count": 3,
+          "total_ms": 4.949999999999999
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 42.95
+        },
+        {
+          "fingerprint": "06b752dd5c80cd433e80f9c2e6f25b5afafc1e76541818babed16adcf1b4f2f6",
+          "sql": "select \"p\".*, count(t.id) filter (where t.status <> 'cancelled') as total, count(t.id) filter (where t.status = 'completed') as complete, coalesce(sum(case when t.status='completed' then 100 when t.status='cancelled' then 0 else t.progress end),0) as task_progress from \"project_phases\" as \"p\" left join \"project_tasks\" as \"t\" on \"t\".\"phase_id\" = \"p\".\"id\" and \"t\".\"project_id\" = \"p\".\"project_id\" where \"p\".\"project_id\" = ? group by \"p\".\"id\" order by \"p\".\"id\" asc",
+          "duration_ms": 3.3
+        },
+        {
+          "fingerprint": "6f2a4f305d7a370a36d3af83190d91b75479acc6b337e850e950c2724b7d1afb",
+          "sql": "select status,count(*) as total from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?))) group by \"status\"",
+          "duration_ms": 2.06
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 1.95
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.93
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.9
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.82
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.71
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 1.71
+        },
+        {
+          "fingerprint": "c2e5907b6895719123c00b794b3504ee2112c92299017e44f5577b736d10b492",
+          "sql": "select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?))) order by \"id\" desc limit 15 offset 0",
+          "duration_ms": 1.66
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:56+00:00",
+      "elapsed_server_ms": 479.05
+    }
+  },
+  {
+    "route_name": "customers.index",
+    "route_variant": "default",
+    "module": "M03 Parties",
+    "uri": "customers",
+    "url": "/customers",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 678.7000000029802,
+    "domcontentloaded_ms": 1141.2999999970198,
+    "load_ms": 1189.2999999970198,
+    "ui_ready_ms": 805,
+    "livewire_stable_ms": 1599.9000000059605,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1682322,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1627,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-customers.index-diagnostic-1",
+      "path": "/customers",
+      "query_count": 341,
+      "database_time_ms": 231.26,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 63,
+          "total_ms": 37.32999999999999
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 63,
+          "total_ms": 29.43000000000001
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 63,
+          "total_ms": 38.650000000000006
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 13.309999999999997
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 14.209999999999996
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 19.65
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 28,
+          "total_ms": 16.69
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.4400000000000004
+        },
+        {
+          "sql": "select count(*) as \"aggregate\" from \"customers\" where \"status\" = ?",
+          "count": 3,
+          "total_ms": 1.12
+        },
+        {
+          "sql": "select count(*) as \"aggregate\" from \"customers\"",
+          "count": 2,
+          "total_ms": 3.61
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 42.59
+        },
+        {
+          "fingerprint": "dc28a4dd0119d93d33f641ef639fb0d92579e7c3c188a9ce9f1dc0aa789549b7",
+          "sql": "select count(*) as \"aggregate\" from \"customers\"",
+          "duration_ms": 3.01
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.38
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.3
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.02
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 1.96
+        },
+        {
+          "fingerprint": "a17c38910822382a0b2dcdd3fa7bb41dfccaf99b2eb802a3aebeab48ac167d42",
+          "sql": "select * from \"customers\" order by \"code\" asc, \"id\" asc limit 10 offset 0",
+          "duration_ms": 1.85
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.84
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 1.84
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.62
+        }
+      ],
+      "logged_at": "2026-10-31T17:28:58+00:00",
+      "elapsed_server_ms": 666.98
+    }
+  },
+  {
+    "route_name": "sales-orders.edit",
+    "route_variant": "default",
+    "module": "M04 Sales",
+    "uri": "sales-orders/{order}/edit",
+    "url": "/sales-orders/1/edit",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 600.2000000029802,
+    "domcontentloaded_ms": 1101.7000000029802,
+    "load_ms": 1182.9000000059605,
+    "ui_ready_ms": 738.2999999970198,
+    "livewire_stable_ms": 1614.2000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1711954,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1630,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-sales-orders.edit-diagnostic-1",
+      "path": "/sales-orders/1/edit",
+      "query_count": 416,
+      "database_time_ms": 274.6,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 75,
+          "total_ms": 40.76999999999998
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 75,
+          "total_ms": 43.309999999999995
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 75,
+          "total_ms": 43.81999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 48,
+          "total_ms": 20.140000000000004
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 48,
+          "total_ms": 20.929999999999996
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 48,
+          "total_ms": 29.570000000000007
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 24,
+          "total_ms": 12.860000000000003
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 4.09
+        },
+        {
+          "sql": "select * from \"sales_orders\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and \"sales_orders\".\"id\" = ? limit 1",
+          "count": 2,
+          "total_ms": 2.46
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 2,
+          "total_ms": 0.87
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 2,
+          "total_ms": 0.61
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 42.14
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 3.5
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.82
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.62
+        },
+        {
+          "fingerprint": "f36dd4a467ecaf96bc0fbd18a748735401498b2cdd6e1ce0da467b231c73888e",
+          "sql": "select count(*) as \"aggregate\" from \"products\" where \"active\" = ?",
+          "duration_ms": 2.44
+        },
+        {
+          "fingerprint": "026130cfd12a7cae905bdd5f72ebcc1b000b0a668aafefa60791449cc0402019",
+          "sql": "select * from \"customers\" where \"status\" = ? order by \"code\" asc limit 50",
+          "duration_ms": 2.16
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 2.14
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.14
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.03
+        },
+        {
+          "fingerprint": "b23f4f83695a31e1f76d881f6c1ecbc1916ddc137ce2d441b1499ebba506b512",
+          "sql": "select * from \"sales_order_lines\" where \"sales_order_lines\".\"sales_order_id\" in (1) order by \"position\" asc",
+          "duration_ms": 2
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:01+00:00",
+      "elapsed_server_ms": 594.39
+    }
+  },
+  {
+    "route_name": "organization.branches",
+    "route_variant": "default",
+    "module": "M01 Organization",
+    "uri": "organization/branches",
+    "url": "/organization/branches",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 760,
+    "domcontentloaded_ms": 1098.2000000029802,
+    "load_ms": 1136.5999999940395,
+    "ui_ready_ms": 853.5,
+    "livewire_stable_ms": 1566.7000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1617115,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1586,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-organization.branches-diagnostic-1",
+      "path": "/organization/branches",
+      "query_count": 376,
+      "database_time_ms": 438.64,
+      "repeated_queries": [
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 80,
+          "total_ms": 42.04
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 79,
+          "total_ms": 50.89000000000001
+        },
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 55,
+          "total_ms": 28.200000000000003
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 44,
+          "total_ms": 21.42
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 16.029999999999998
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 13.47
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 25.3
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.0199999999999996
+        },
+        {
+          "sql": "select count(*) as \"aggregate\" from \"branches\"",
+          "count": 2,
+          "total_ms": 6.710000000000001
+        },
+        {
+          "sql": "select count(*) as \"aggregate\" from \"branches\" where \"active\" = ?",
+          "count": 2,
+          "total_ms": 1.52
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 223.82
+        },
+        {
+          "fingerprint": "7a81e6890a3cf17b4021167f00047d316891a5a74e664b2d04e87f1296c7784a",
+          "sql": "select count(*) as \"aggregate\" from \"branches\"",
+          "duration_ms": 6.15
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.87
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.78
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.69
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.23
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.02
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.95
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 1.82
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:03+00:00",
+      "elapsed_server_ms": 756
+    }
+  },
+  {
+    "route_name": "maintenance.requests",
+    "route_variant": "default",
+    "module": "M08 FieldMaintenance",
+    "uri": "maintenance/requests",
+    "url": "/maintenance/requests",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 1221.5999999940395,
+    "domcontentloaded_ms": 1537.7999999970198,
+    "load_ms": 1566.7999999970198,
+    "ui_ready_ms": 1310.8999999910593,
+    "livewire_stable_ms": 1952,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1537825,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1976,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-maintenance.requests-diagnostic-1",
+      "path": "/maintenance/requests",
+      "query_count": 1226,
+      "database_time_ms": 701.84,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 312,
+          "total_ms": 163.53000000000003
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 188,
+          "total_ms": 91.78
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 188,
+          "total_ms": 114.29000000000005
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 124,
+          "total_ms": 55.65000000000005
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 124,
+          "total_ms": 60.76000000000003
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 124,
+          "total_ms": 73.71999999999998
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 43,
+          "total_ms": 21.410000000000004
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 43,
+          "total_ms": 19.529999999999994
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 43,
+          "total_ms": 27.79
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 11.070000000000002
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.29
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 42.64
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 3.14
+        },
+        {
+          "fingerprint": "14ae8e195bb9c86356f548bc9aa795eeb3e35c3ce298f7aeef426910b7d68ea0",
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 3.05
+        },
+        {
+          "fingerprint": "aa81a065a042b243bf3fcf0eaa8da90363875656557b17873eed31dbdcd44839",
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "duration_ms": 2.92
+        },
+        {
+          "fingerprint": "cd8d2bd9f8edad71fe77a0a863a055ba4a01499f60ad41d2189bec28a35380a1",
+          "sql": "select count(*) as \"aggregate\" from \"maintenance_requests\" where (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (0 = 1 and \"id\" in (select \"request_id\" from \"maintenance_work_orders\" where \"id\" in (select \"work_order_id\" from \"maintenance_assignments\" where \"technician_id\" = ?) and \"request_id\" is not null)))",
+          "duration_ms": 2.62
+        },
+        {
+          "fingerprint": "b51e825fa4a455f03a35071b51d4da669864215f642ccb0e46659ece35c5206d",
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "duration_ms": 2.54
+        },
+        {
+          "fingerprint": "b51e825fa4a455f03a35071b51d4da669864215f642ccb0e46659ece35c5206d",
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "duration_ms": 2.48
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.47
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.4
+        },
+        {
+          "fingerprint": "b51e825fa4a455f03a35071b51d4da669864215f642ccb0e46659ece35c5206d",
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "duration_ms": 2.35
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:06+00:00",
+      "elapsed_server_ms": 1215.22
+    }
+  },
+  {
+    "route_name": "inventory.warehouses",
+    "route_variant": "default",
+    "module": "M06 Inventory",
+    "uri": "inventory/warehouses",
+    "url": "/inventory/warehouses",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 575.5999999940395,
+    "domcontentloaded_ms": 907.0999999940395,
+    "load_ms": 938.2000000029802,
+    "ui_ready_ms": 666.5,
+    "livewire_stable_ms": 1355.7000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1571386,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1374,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-inventory.warehouses-diagnostic-1",
+      "path": "/inventory/warehouses",
+      "query_count": 346,
+      "database_time_ms": 237.32,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 66,
+          "total_ms": 38.83999999999998
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 66,
+          "total_ms": 40.129999999999995
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 65,
+          "total_ms": 33.33999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 35,
+          "total_ms": 18.4
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 35,
+          "total_ms": 16.76
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 35,
+          "total_ms": 21.170000000000005
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 29,
+          "total_ms": 16.09
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 5.9
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 2,
+          "total_ms": 1
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 2,
+          "total_ms": 1.78
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 38.95
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.95
+        },
+        {
+          "fingerprint": "dafc51d20997c0ebc47922c52acf35474accf7843b8353e98e1de8b71bd76717",
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "duration_ms": 2.86
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 2.5
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.27
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.87
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 1.85
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 1.84
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.8
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 1.77
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:08+00:00",
+      "elapsed_server_ms": 560.74
+    }
+  },
+  {
+    "route_name": "projects.tasks",
+    "route_variant": "default",
+    "module": "M07 Projects",
+    "uri": "projects/{project}/tasks",
+    "url": "/projects/1/tasks",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 598.2999999970198,
+    "domcontentloaded_ms": 997.9000000059605,
+    "load_ms": 1039.2000000029802,
+    "ui_ready_ms": 711.9000000059605,
+    "livewire_stable_ms": 1445.2000000029802,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1612914,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1467,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-projects.tasks-diagnostic-1",
+      "path": "/projects/1/tasks",
+      "query_count": 404,
+      "database_time_ms": 280.88,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 81,
+          "total_ms": 45.60999999999998
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 69,
+          "total_ms": 35.99999999999999
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 69,
+          "total_ms": 41.790000000000006
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 35,
+          "total_ms": 18.169999999999998
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 35,
+          "total_ms": 15.639999999999999
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 35,
+          "total_ms": 21.980000000000004
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 22,
+          "total_ms": 11.950000000000001
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 12,
+          "total_ms": 8.989999999999998
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 11,
+          "total_ms": 7.3
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 11,
+          "total_ms": 4.509999999999999
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 2.83
+        },
+        {
+          "sql": "select * from \"projects\" where \"projects\".\"id\" = ? limit 1",
+          "count": 2,
+          "total_ms": 2.6
+        },
+        {
+          "sql": "select exists(select * from \"project_members\" where \"project_id\" = ? and \"user_id\" = ?) as \"exists\"",
+          "count": 2,
+          "total_ms": 0.8600000000000001
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 46.73
+        },
+        {
+          "fingerprint": "026130cfd12a7cae905bdd5f72ebcc1b000b0a668aafefa60791449cc0402019",
+          "sql": "select * from \"customers\" where \"status\" = ? order by \"code\" asc limit 50",
+          "duration_ms": 5.04
+        },
+        {
+          "fingerprint": "2a8436a2479e4e9eef359341381abf84bbf7e609124bdbef8364880eeb1531d0",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "duration_ms": 3.75
+        },
+        {
+          "fingerprint": "4c0eb516387a810da526f6b01f581c345b62b0d319c4d0ab53a27d915823a1d6",
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "duration_ms": 2.81
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.48
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.22
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.21
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.11
+        },
+        {
+          "fingerprint": "06b752dd5c80cd433e80f9c2e6f25b5afafc1e76541818babed16adcf1b4f2f6",
+          "sql": "select \"p\".*, count(t.id) filter (where t.status <> 'cancelled') as total, count(t.id) filter (where t.status = 'completed') as complete, coalesce(sum(case when t.status='completed' then 100 when t.status='cancelled' then 0 else t.progress end),0) as task_progress from \"project_phases\" as \"p\" left join \"project_tasks\" as \"t\" on \"t\".\"phase_id\" = \"p\".\"id\" and \"t\".\"project_id\" = \"p\".\"project_id\" where \"p\".\"project_id\" = ? group by \"p\".\"id\" order by \"p\".\"id\" asc",
+          "duration_ms": 1.87
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 1.65
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:10+00:00",
+      "elapsed_server_ms": 594.44
+    }
+  },
+  {
+    "route_name": "inventory.document.create",
+    "route_variant": "adjustment",
+    "module": "M06 Inventory",
+    "uri": "inventory/documents/{kind}/create",
+    "url": "/inventory/documents/adjustment/create",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 508.5,
+    "domcontentloaded_ms": 909.5,
+    "load_ms": 951.4000000059605,
+    "ui_ready_ms": 619.7000000029802,
+    "livewire_stable_ms": 1364.6000000089407,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1576939,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1386,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-inventory.document.create-diagnostic-1",
+      "path": "/inventory/documents/adjustment/create",
+      "query_count": 329,
+      "database_time_ms": 229.48,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 62,
+          "total_ms": 34.920000000000016
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 35.47000000000001
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 56,
+          "total_ms": 34.07999999999999
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 15.360000000000003
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 14.030000000000001
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 19.120000000000005
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 21,
+          "total_ms": 9.319999999999999
+        },
+        {
+          "sql": "select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "count": 7,
+          "total_ms": 3.3400000000000003
+        },
+        {
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "count": 7,
+          "total_ms": 6.790000000000002
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.7700000000000005
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 43.96
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 5.13
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 4.03
+        },
+        {
+          "fingerprint": "24030dec0488066fe0ad13c199c60640a7016af409d258406c334ad67fb30c0f",
+          "sql": "select * from \"products\" where \"active\" = ? and \"tracking\" in (?, ?) and \"kind\" <> ? order by \"id\" asc limit 100",
+          "duration_ms": 3.72
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.95
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 2.85
+        },
+        {
+          "fingerprint": "aa81a065a042b243bf3fcf0eaa8da90363875656557b17873eed31dbdcd44839",
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "duration_ms": 2.24
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.91
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 1.8
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.6
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:12+00:00",
+      "elapsed_server_ms": 502.07
+    }
+  },
+  {
+    "route_name": "projects.financial",
+    "route_variant": "default",
+    "module": "M07 Projects",
+    "uri": "projects/{project}/financial",
+    "url": "/projects/1/financial",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 590.2999999970198,
+    "domcontentloaded_ms": 913.5,
+    "load_ms": 918.5999999940395,
+    "ui_ready_ms": 677,
+    "livewire_stable_ms": 1332,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1527001,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1352,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-projects.financial-diagnostic-1",
+      "path": "/projects/1/financial",
+      "query_count": 415,
+      "database_time_ms": 282.8,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 79,
+          "total_ms": 49.72999999999998
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 70,
+          "total_ms": 34.95000000000001
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 70,
+          "total_ms": 39.14000000000001
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 14.819999999999997
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 14.530000000000001
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 24.29
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 9.450000000000001
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 15,
+          "total_ms": 6.539999999999999
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 15,
+          "total_ms": 5.43
+        },
+        {
+          "sql": "select * from \"projects\" where \"projects\".\"id\" = ? limit 1",
+          "count": 9,
+          "total_ms": 6.199999999999999
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 9,
+          "total_ms": 5.33
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.2299999999999995
+        },
+        {
+          "sql": "select \"id\", \"status\" from \"maintenance_work_orders\" where \"project_id\" = ? and \"branch_id\" = ?",
+          "count": 2,
+          "total_ms": 4.56
+        },
+        {
+          "sql": "select \"id\", \"status\" from \"workshop_jobs\" where \"project_id\" = ? and \"branch_id\" = ?",
+          "count": 2,
+          "total_ms": 1.28
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 43.9
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 5.52
+        },
+        {
+          "fingerprint": "24a814ef66834e57e437a920439c15791826e942eff7374737bce55f764c3666",
+          "sql": "select \"id\", \"status\" from \"maintenance_work_orders\" where \"project_id\" = ? and \"branch_id\" = ?",
+          "duration_ms": 4.09
+        },
+        {
+          "fingerprint": "fe01be597ca4b29fe65fad5f0644d9f217e911aa1f2b87a57e46dc376dc23eb1",
+          "sql": "select count(*) as \"aggregate\" from \"purchasing_receipts\" where 0 = 1 and \"status\" <> ?",
+          "duration_ms": 2.81
+        },
+        {
+          "fingerprint": "f99a5703e43bf95d5ffe92b10ef8e15f7ddc0b054f9e0ed86cf5de26bd25244c",
+          "sql": "select \"j\".\"id\" as \"journal_id\", \"j\".\"source_key\", \"j\".\"official_number\", \"a\".\"kind\", \"l\".\"account_id\", \"l\".\"debit\", \"l\".\"credit\" from \"accounting_project_dimensions\" as \"d\" inner join \"accounting_journals\" as \"j\" on \"j\".\"id\" = \"d\".\"journal_id\" inner join \"accounting_journal_lines\" as \"l\" on \"l\".\"journal_id\" = \"j\".\"id\" inner join \"accounting_accounts\" as \"a\" on \"a\".\"id\" = \"l\".\"account_id\" where \"d\".\"project_id\" = ? and \"j\".\"branch_id\" = ? and \"j\".\"status\" = ? order by \"j\".\"id\" asc, \"l\".\"id\" asc",
+          "duration_ms": 2.55
+        },
+        {
+          "fingerprint": "f014fcce256229cbe2214f5940caa289615cbaef275a389dadfdd2aec7040f59",
+          "sql": "select exists(select * from \"projects\" where \"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (\"manager_id\" = ? or \"id\" in (select \"project_id\" from \"project_members\" where \"user_id\" = ?)))) as \"exists\"",
+          "duration_ms": 2.29
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.2
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.86
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.76
+        },
+        {
+          "fingerprint": "b51e825fa4a455f03a35071b51d4da669864215f642ccb0e46659ece35c5206d",
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "duration_ms": 1.72
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:14+00:00",
+      "elapsed_server_ms": 577.25
+    }
+  },
+  {
+    "route_name": "organization.roles",
+    "route_variant": "default",
+    "module": "M01 Organization",
+    "uri": "organization/roles",
+    "url": "/organization/roles",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 697.5,
+    "domcontentloaded_ms": 1613.199999988079,
+    "load_ms": 1617.3999999910593,
+    "ui_ready_ms": 818.8999999910593,
+    "livewire_stable_ms": 2057.5,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 2597288,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 2078,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-organization.roles-diagnostic-1",
+      "path": "/organization/roles",
+      "query_count": 324,
+      "database_time_ms": 231.41,
+      "repeated_queries": [
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 58,
+          "total_ms": 33.11999999999999
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 58,
+          "total_ms": 33.36000000000001
+        },
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 55,
+          "total_ms": 34.68000000000001
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 34,
+          "total_ms": 15.769999999999998
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 34,
+          "total_ms": 17.39
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 34,
+          "total_ms": 21.899999999999995
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 23,
+          "total_ms": 11.049999999999999
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 4.23
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"email_verified_at\" is not null) as \"exists\"",
+          "count": 3,
+          "total_ms": 1.61
+        },
+        {
+          "sql": "select * from \"permission_catalog\" order by \"code\" asc",
+          "count": 2,
+          "total_ms": 3.02
+        },
+        {
+          "sql": "select * from \"roles\" where \"id\" = ? limit 1",
+          "count": 2,
+          "total_ms": 0.9
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 40.8
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 2.4
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.27
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.17
+        },
+        {
+          "fingerprint": "aa81a065a042b243bf3fcf0eaa8da90363875656557b17873eed31dbdcd44839",
+          "sql": "select \"w\".\"warehouse_id\", \"w\".\"branch_id\", \"br\".\"active\", \"br\".\"name\" as \"branch_name\" from \"user_warehouse_scopes\" as \"w\" inner join \"user_branch_scopes\" as \"b\" on \"b\".\"user_id\" = \"w\".\"user_id\" and \"b\".\"branch_id\" = \"w\".\"branch_id\" inner join \"branches\" as \"br\" on \"br\".\"id\" = \"w\".\"branch_id\" where \"w\".\"user_id\" = ?",
+          "duration_ms": 1.99
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.71
+        },
+        {
+          "fingerprint": "34b71542db48ee83f417e19706df33b62a22cbf52ce63f74ab0f2f96f294f3b8",
+          "sql": "select * from \"permission_catalog\" order by \"code\" asc",
+          "duration_ms": 1.7
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 1.67
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 1.62
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 1.59
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:16+00:00",
+      "elapsed_server_ms": 691.22
+    }
+  },
+  {
+    "route_name": "maintenance.schedule",
+    "route_variant": "default",
+    "module": "M08 FieldMaintenance",
+    "uri": "maintenance/schedule",
+    "url": "/maintenance/schedule",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 860,
+    "domcontentloaded_ms": 1202.7000000029802,
+    "load_ms": 1233.1000000089407,
+    "ui_ready_ms": 957,
+    "livewire_stable_ms": 1664.300000011921,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1530950,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1689,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-maintenance.schedule-diagnostic-1",
+      "path": "/maintenance/schedule",
+      "query_count": 786,
+      "database_time_ms": 472.8,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 187,
+          "total_ms": 103.54999999999993
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 62.99000000000005
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 80.89999999999999
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 27.830000000000016
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 28.090000000000003
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 34.8
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 42,
+          "total_ms": 17.119999999999994
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 42,
+          "total_ms": 21.230000000000004
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 42,
+          "total_ms": 28.7
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 8.559999999999999
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.7199999999999998
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 43.98
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 4.31
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 3.2
+        },
+        {
+          "fingerprint": "e524586d3e3ecfbeb541d3e63d3bf57013dbaefd224cbe3fd1a41ab19490f630",
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "duration_ms": 2.44
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.38
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.37
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.34
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.33
+        },
+        {
+          "fingerprint": "36e09da752709416da9a313e4e6903c3edb4b1fbbe9902898e24cbbc5bc3b650",
+          "sql": "select status,count(*) total from \"maintenance_work_orders\" where (\"branch_id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) or (0 = 1 and \"id\" in (select \"work_order_id\" from \"maintenance_assignments\" where \"technician_id\" = ?))) group by \"status\"",
+          "duration_ms": 2.25
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.22
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:19+00:00",
+      "elapsed_server_ms": 859.14
+    }
+  },
+  {
+    "route_name": "maintenance.reports",
+    "route_variant": "default",
+    "module": "M08 FieldMaintenance",
+    "uri": "maintenance/reports",
+    "url": "/maintenance/reports",
+    "viewport": "desktop",
+    "viewport_width": 1440,
+    "viewport_height": 900,
+    "temperature": "diagnostic",
+    "trial": 1,
+    "measured": true,
+    "healthy": true,
+    "not_measured_reason": null,
+    "redirect_chain": [],
+    "readiness": "passed",
+    "ready_error": null,
+    "http_status": 200,
+    "redirected_to_login": false,
+    "ttfb_ms": 884.3000000119209,
+    "domcontentloaded_ms": 1243,
+    "load_ms": 1276.4000000059605,
+    "ui_ready_ms": 985.8000000119209,
+    "livewire_stable_ms": 1661.9000000059605,
+    "navigation_mode": "full-document-navigation",
+    "livewire_update_requests": 0,
+    "total_requests": 9,
+    "transferred_bytes": 1537933,
+    "js_errors": [],
+    "console_errors": [],
+    "failed_requests": [],
+    "server_errors": [],
+    "http_errors": [],
+    "elapsed_ms": 1685,
+    "query_profile": {
+      "request_id": "mvwmlhzx-nba600-desktop-maintenance.reports-diagnostic-1",
+      "path": "/maintenance/reports",
+      "query_count": 786,
+      "database_time_ms": 481.78,
+      "repeated_queries": [
+        {
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "count": 187,
+          "total_ms": 104.05999999999992
+        },
+        {
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 66.89000000000003
+        },
+        {
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "count": 125,
+          "total_ms": 77.69000000000003
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 26.099999999999994
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" where \"user_id\" = ? and \"branch_id\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 28.499999999999996
+        },
+        {
+          "sql": "select exists(select * from \"user_branch_scopes\" inner join \"branches\" on \"branches\".\"id\" = \"user_branch_scopes\".\"branch_id\" where \"user_id\" = ? and \"branch_id\" = ? and \"branches\".\"active\" = ?) as \"exists\"",
+          "count": 62,
+          "total_ms": 35.03000000000001
+        },
+        {
+          "sql": "select \"branch_id\" from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is not null",
+          "count": 42,
+          "total_ms": 20.030000000000005
+        },
+        {
+          "sql": "select \"branch_id\" from \"user_branch_scopes\" where \"user_id\" = ?",
+          "count": 42,
+          "total_ms": 19.410000000000007
+        },
+        {
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "count": 42,
+          "total_ms": 31.740000000000013
+        },
+        {
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "count": 20,
+          "total_ms": 15.310000000000002
+        },
+        {
+          "sql": "select \"b\".\"id\" from \"user_branch_scopes\" as \"s\" inner join \"branches\" as \"b\" on \"b\".\"id\" = \"s\".\"branch_id\" where \"s\".\"user_id\" = ? and \"b\".\"active\" = ?",
+          "count": 5,
+          "total_ms": 3.42
+        }
+      ],
+      "slow_queries": [
+        {
+          "fingerprint": "b804ba2ef048b803b09c99fb5b2d33ebe2962385398ad7b9fbc472e750ed45c8",
+          "sql": "select * from \"users\" where \"id\" = ? limit 1",
+          "duration_ms": 43.19
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 3.73
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.99
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.79
+        },
+        {
+          "fingerprint": "a69946b83b290e666dde2d30bb438334c3b66da07d0a8fb582dcdce469c322bd",
+          "sql": "select exists(select * from \"access_grants\" where \"user_id\" = ? and \"permission_code\" = ? and \"branch_id\" is null) as \"exists\"",
+          "duration_ms": 2.47
+        },
+        {
+          "fingerprint": "655adf6bad8a376279131a81b8caa8cbca89181c1933bd6cfac914fb97114191",
+          "sql": "select * from \"users\" where \"users\".\"id\" = ? and \"active\" = ? and \"email_verified_at\" is not null limit 1",
+          "duration_ms": 2.3
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.24
+        },
+        {
+          "fingerprint": "6721fd16b2988fceab2d4fd057c2e625480d2d19891382920ad38eb9c6fff9b1",
+          "sql": "select \"id\", \"code\", \"name\", \"address\", \"active\" from \"branches\" where \"company_id\" = ? and \"id\" in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) order by \"name\" asc",
+          "duration_ms": 2.1
+        },
+        {
+          "fingerprint": "633602380fd762f465c77c7ebf9afdb7aada77882201de053817ca42f21232ae",
+          "sql": "select exists(select * from \"users\" where \"id\" = ? and \"active\" = ?) as \"exists\"",
+          "duration_ms": 2.07
+        },
+        {
+          "fingerprint": "45a382a419c2a560e5dca8b06e332474e10eccab93a6656b94616497ecc83603",
+          "sql": "select exists(select * from \"user_roles\" as \"ur\" inner join \"roles\" as \"r\" on \"r\".\"id\" = \"ur\".\"role_id\" where \"ur\".\"user_id\" = ? and \"r\".\"code\" = ?) as \"exists\"",
+          "duration_ms": 2.06
+        }
+      ],
+      "logged_at": "2026-10-31T17:29:21+00:00",
+      "elapsed_server_ms": 881.2
+    }
+  }
+]

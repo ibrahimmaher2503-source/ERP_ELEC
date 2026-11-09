@@ -1,0 +1,1179 @@
+{
+  "run_id": "2026-10-31T23-28-55-328Z",
+  "phase": "after",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via existing Playwright",
+  "route_registry_source": "php artisan route:list --json",
+  "routes": [
+    {
+      "name": "sales-orders.index",
+      "variant": "default",
+      "module": "M04 Sales",
+      "url": "/sales-orders"
+    },
+    {
+      "name": "products.index",
+      "variant": "default",
+      "module": "M02 Products",
+      "url": "/products"
+    },
+    {
+      "name": "customers.index",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers"
+    },
+    {
+      "name": "suppliers.index",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "mobile-360",
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "screenshots": [
+    {
+      "route": "sales-orders.index",
+      "module": "M04 Sales",
+      "url": "/sales-orders",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "أوامر البيع"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "أوامر البيع",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 390,
+            "height": 5948.296875,
+            "right": 390,
+            "bottom": 6012.296875
+          },
+          "sidebar": {
+            "x": 390,
+            "y": 0,
+            "width": 250,
+            "height": 844,
+            "right": 640,
+            "bottom": 844
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 64,
+            "right": 390,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 358,
+            "height": 36,
+            "right": 374,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 1,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 41,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "رقم الأمر",
+          "الفرع",
+          "العميل",
+          "المشروع / المرجع",
+          "تاريخ الأمر",
+          "التسليم المطلوب",
+          "الحالة / العمليات",
+          "الصافي قبل الضرائب",
+          "المنشئ",
+          "إجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/sales-orders.index-mobile-390.png"
+    },
+    {
+      "route": "products.index",
+      "module": "M02 Products",
+      "url": "/products",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "الأصناف والمنتجات"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "الأصناف والمنتجات",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 390,
+            "height": 6467.9375,
+            "right": 390,
+            "bottom": 6531.9375
+          },
+          "sidebar": {
+            "x": 390,
+            "y": 0,
+            "width": 250,
+            "height": 844,
+            "right": 640,
+            "bottom": 844
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 64,
+            "right": 390,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 358,
+            "height": 36,
+            "right": 374,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 3,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 45,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "التحديد",
+          "#",
+          "الصنف",
+          "SKU",
+          "الباركود",
+          "التصنيف",
+          "العلامة التجارية",
+          "الوحدة الأساسية",
+          "النوع",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/products.index-mobile-390.png"
+    },
+    {
+      "route": "customers.index",
+      "module": "M03 Parties",
+      "url": "/customers",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "العملاء"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "العملاء",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 390,
+            "height": 1898.765625,
+            "right": 390,
+            "bottom": 1962.765625
+          },
+          "sidebar": {
+            "x": 390,
+            "y": 0,
+            "width": 250,
+            "height": 844,
+            "right": 640,
+            "bottom": 844
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 64,
+            "right": 390,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 358,
+            "height": 36,
+            "right": 374,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 8,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 30,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "✓",
+          "الشعار",
+          "اسم العميل ↕",
+          "كود العميل ↕",
+          "المدينة",
+          "نوع العميل",
+          "شريحة العميل",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/customers.index-mobile-390.png"
+    },
+    {
+      "route": "suppliers.index",
+      "module": "M03 Parties",
+      "url": "/suppliers",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "الموردون"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "الموردون",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 390,
+            "height": 7314.65625,
+            "right": 390,
+            "bottom": 7378.65625
+          },
+          "sidebar": {
+            "x": 390,
+            "y": 0,
+            "width": 250,
+            "height": 844,
+            "right": 640,
+            "bottom": 844
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 64,
+            "right": 390,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 358,
+            "height": 36,
+            "right": 374,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 3,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 53,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "#",
+          "الشعار",
+          "التصنيف الرئيسي",
+          "الدولة",
+          "المدينة",
+          "نوع المورد",
+          "جهة الاتصال الرئيسية",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/suppliers.index-mobile-390.png"
+    },
+    {
+      "route": "sales-orders.index",
+      "module": "M04 Sales",
+      "url": "/sales-orders",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "أوامر البيع"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 1,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "أوامر البيع",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 360,
+            "height": 6162.828125,
+            "right": 360,
+            "bottom": 6226.828125
+          },
+          "sidebar": {
+            "x": 360,
+            "y": 0,
+            "width": 250,
+            "height": 800,
+            "right": 610,
+            "bottom": 800
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 64,
+            "right": 360,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 328,
+            "height": 36,
+            "right": 344,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 2,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 41,
+        "secondary_action_menu_count": 1,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "رقم الأمر",
+          "الفرع",
+          "العميل",
+          "المشروع / المرجع",
+          "تاريخ الأمر",
+          "التسليم المطلوب",
+          "الحالة / العمليات",
+          "الصافي قبل الضرائب",
+          "المنشئ",
+          "إجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/sales-orders.index-mobile-360.png"
+    },
+    {
+      "route": "products.index",
+      "module": "M02 Products",
+      "url": "/products",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "الأصناف والمنتجات"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "الأصناف والمنتجات",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 360,
+            "height": 6579.9375,
+            "right": 360,
+            "bottom": 6643.9375
+          },
+          "sidebar": {
+            "x": 360,
+            "y": 0,
+            "width": 250,
+            "height": 800,
+            "right": 610,
+            "bottom": 800
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 64,
+            "right": 360,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 328,
+            "height": 36,
+            "right": 344,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 3,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 45,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "التحديد",
+          "#",
+          "الصنف",
+          "SKU",
+          "الباركود",
+          "التصنيف",
+          "العلامة التجارية",
+          "الوحدة الأساسية",
+          "النوع",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/products.index-mobile-360.png"
+    },
+    {
+      "route": "customers.index",
+      "module": "M03 Parties",
+      "url": "/customers",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "العملاء"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "العملاء",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 360,
+            "height": 5548.4375,
+            "right": 360,
+            "bottom": 5612.4375
+          },
+          "sidebar": {
+            "x": 360,
+            "y": 0,
+            "width": 250,
+            "height": 800,
+            "right": 610,
+            "bottom": 800
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 64,
+            "right": 360,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 328,
+            "height": 36,
+            "right": 344,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 3,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 30,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "الشعار",
+          "المدينة",
+          "نوع العميل",
+          "شريحة العميل",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/customers.index-mobile-360.png"
+    },
+    {
+      "route": "suppliers.index",
+      "module": "M03 Parties",
+      "url": "/suppliers",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "الموردون"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 0,
+            "empty": 0
+          }
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "الموردون",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 360,
+            "height": 7439.4375,
+            "right": 360,
+            "bottom": 7503.4375
+          },
+          "sidebar": {
+            "x": 360,
+            "y": 0,
+            "width": 250,
+            "height": 800,
+            "right": 610,
+            "bottom": 800
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 360,
+            "height": 64,
+            "right": 360,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 328,
+            "height": 36,
+            "right": 344,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 3,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "primary_actions": 53,
+        "secondary_action_menu_count": 0,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "#",
+          "الشعار",
+          "التصنيف الرئيسي",
+          "الدولة",
+          "المدينة",
+          "نوع المورد",
+          "جهة الاتصال الرئيسية",
+          "الحالة",
+          "الإجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-28-55-328Z/after/screenshots/suppliers.index-mobile-360.png"
+    }
+  ],
+  "timing_samples": [],
+  "interactions": [],
+  "excluded_checks": [
+    {
+      "name": "no-authority route denial",
+      "reason": "existing authenticated fixture is the authorized audit actor; no separate safe no-authority actor fixture has been established, so no account or privileges were created"
+    }
+  ],
+  "conditions": {
+    "isolated_existing_database": true,
+    "reset": false,
+    "reseed": false,
+    "business_submissions": false
+  }
+}

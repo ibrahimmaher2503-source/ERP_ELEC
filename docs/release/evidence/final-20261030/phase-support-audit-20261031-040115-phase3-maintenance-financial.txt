@@ -1,0 +1,13 @@
+﻿
+In Connection.php line 864:
+                                                                                                                       
+  SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 55476 failed: FATAL:  role "postgres" does not exist   
+  (Connection: pgsql, Host: 127.0.0.1, Port: 55476, Database: erp_elec_new_test, SQL: select current_database() db, i  
+  net_server_addr()::text address, inet_server_port() port)                                                            
+                                                                                                                       
+
+In Connector.php line 67:
+                                                                                                                      
+  SQLSTATE[08006] [7] connection to server at "127.0.0.1", port 55476 failed: FATAL:  role "postgres" does not exist  
+                                                                                                                      
+

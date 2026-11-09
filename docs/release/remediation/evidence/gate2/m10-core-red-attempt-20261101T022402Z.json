@@ -1,0 +1,15 @@
+{
+    "all_pass": false,
+    "phase": "Gate2 source preflight before M10 acceptance",
+    "scope": "M10 service-contract core plus M01 employee prerequisite",
+    "m10_registry_ready": false,
+    "missing_files": [
+        "M10 public contract",
+        "M10 private evidence owner"
+    ],
+    "missing_classes": [
+        "M10 API",
+        "M10 documents"
+    ],
+    "missing_or_wrong_scope_permissions": []
+}

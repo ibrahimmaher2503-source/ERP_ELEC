@@ -1,0 +1,212 @@
+PASS M08 and M09 source journeys use a real independently approved and signed active contract revision
+PASS M08 linking denies an actor without branch work authority
+PASS M08 owner projection rejects an equipment reference outside actual contract coverage
+PASS M08 owner projection rejects service dates outside contract term
+PASS M08 contract link reserves one entitlement from its own draft nonbillable work order and safely retries
+PASS M08 source actions immediately synchronize reserved visit/labor totals and exact parts snapshot
+PASS M08 contract-work projection is derived from its recorded visit and labor entries before consumption
+PASS M08 verify consumes its actual one visit and 110 labor minutes exactly once with zero unissued part usage
+PASS M08 duplicate consume and duplicate link return the same consumed reservation without double counting
+PASS M08 cannot reserve another visit after its source-derived visit cap is consumed
+PASS M08 exhausted visit handoff leaves no entitlement reservation
+PASS M10 rejects a consumption request that has no real M08 source reservation
+PASS M10 blocks actual M08 labor above remaining contract minutes at the source action
+PASS M08 failed labor action rolls back the labor row, work version, usage snapshot, and audit while retaining prior visit evidence
+PASS M08 cancellation before execution releases its reserved visit and restores available coverage
+PASS M09 serial-number projection rejects equipment outside the active contract coverage
+PASS M09 owner source rejects a contract service date beyond the contract term
+PASS M09 failed coverage handoffs leave received intake intact and create no ineligible contract jobs
+PASS M09 creates a customer-owned contract job from its serial-number identity and reserves through M10
+PASS M09 repeated reservation of the same real job is idempotent
+PASS M10 coverage authority denies an out-of-scope user on a real M09 job
+PASS M09 actual work action immediately synchronizes the reservation from the owner projection
+PASS M09 contract-work projection resolves real serial-number identity and actual workshop labor before consumption
+PASS M09 independent repair authorization accepts exactly the remaining ten covered labor minutes and consumes the source once
+PASS M09 verified contract repair completes customer custody handoff before a later intake for the same serial
+PASS M09 cannot create another contract repair after its real serial-number visit cap is consumed
+PASS M09 exhausted visit handoff preserves the intake and creates no second job
+{
+    "all_pass": false,
+    "mode": "m10-source-integrations",
+    "assertions": 28,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M08 and M09 source journeys use a real independently approved and signed active contract revision",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 linking denies an actor without branch work authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 owner projection rejects an equipment reference outside actual contract coverage",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 owner projection rejects service dates outside contract term",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 contract link reserves one entitlement from its own draft nonbillable work order and safely retries",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 source actions immediately synchronize reserved visit/labor totals and exact parts snapshot",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 contract-work projection is derived from its recorded visit and labor entries before consumption",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 verify consumes its actual one visit and 110 labor minutes exactly once with zero unissued part usage",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 duplicate consume and duplicate link return the same consumed reservation without double counting",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 cannot reserve another visit after its source-derived visit cap is consumed",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 exhausted visit handoff leaves no entitlement reservation",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects a consumption request that has no real M08 source reservation",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 blocks actual M08 labor above remaining contract minutes at the source action",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 failed labor action rolls back the labor row, work version, usage snapshot, and audit while retaining prior visit evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 cancellation before execution releases its reserved visit and restores available coverage",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 serial-number projection rejects equipment outside the active contract coverage",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 owner source rejects a contract service date beyond the contract term",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 failed coverage handoffs leave received intake intact and create no ineligible contract jobs",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 creates a customer-owned contract job from its serial-number identity and reserves through M10",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 repeated reservation of the same real job is idempotent",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 coverage authority denies an out-of-scope user on a real M09 job",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 actual work action immediately synchronizes the reservation from the owner projection",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 contract-work projection resolves real serial-number identity and actual workshop labor before consumption",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 independent repair authorization accepts exactly the remaining ten covered labor minutes and consumes the source once",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 verified contract repair completes customer custody handoff before a later intake for the same serial",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 cannot create another contract repair after its real serial-number visit cap is consumed",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 exhausted visit handoff preserves the intake and creates no second job",
+            "result": "PASS"
+        },
+        {
+            "name": "M09 actual unrepaired return with no labor or parts releases its reserved entitlement",
+            "result": "FAIL"
+        },
+        {
+            "name": "All source graph fixtures roll back from the exact isolated database.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "M09 actual unrepaired return with no labor or parts releases its reserved entitlement"
+    }
+}
+RESULT all_pass=0 assertions=28 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-integrations-20261101T110841Z-490749.json

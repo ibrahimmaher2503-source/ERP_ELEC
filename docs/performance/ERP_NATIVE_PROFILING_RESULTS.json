@@ -1,0 +1,107 @@
+{
+  "captured_on": "2026-10-31",
+  "target": {
+    "database": "erp_elec_new_test",
+    "postgres_port": 55461,
+    "owned_cluster_verified": true,
+    "data_directory_verified": true
+  },
+  "method": {
+    "baseline_instrumentation": {
+      "debugbar": false,
+      "pulse": false,
+      "viewport": "1440x900",
+      "per_route_trials": "1 cold + 3 warm",
+      "readiness": "existing page-speed measurePage helper"
+    },
+    "debugbar_profile": {
+      "app_environment": "local",
+      "pulse": false,
+      "routes": "one GET per target route",
+      "query_source": "native Debugbar CLI get/queries JSON",
+      "query_parameters_exported": false,
+      "native_private_profiles_contain_parameters": true,
+      "full_profiles_retained_privately": true
+    },
+    "pulse_profile": {
+      "app_environment": "testing",
+      "debugbar": false,
+      "slow_request_probe": "one authenticated GET to user details"
+    }
+  },
+  "baseline_warm_medians": [
+    { "route": "dashboard", "ui_ready_ms": 506.4, "ttfb_ms": 406.2 },
+    { "route": "organization.user-details", "ui_ready_ms": 2431.9, "ttfb_ms": 2359.1 },
+    { "route": "maintenance.work-order", "ui_ready_ms": 2217.8, "ttfb_ms": 2052.9 },
+    { "route": "maintenance.index", "ui_ready_ms": 1382.8, "ttfb_ms": 1276.5 },
+    { "route": "customers.index", "ui_ready_ms": 821.5, "ttfb_ms": 631.8 }
+  ],
+  "debugbar_native_profiles": [
+    { "route": "dashboard", "http_status": 200, "query_count": 298, "database_duration_ms": 222.8, "duplicate_groups": 9, "n_plus_one_groups": 2, "failed_queries": 0 },
+    { "route": "organization.user-details", "http_status": 200, "query_count": 3724, "database_duration_ms": 2902.77, "duplicate_groups": 293, "n_plus_one_groups": 5, "failed_queries": 0 },
+    { "route": "maintenance.work-order", "http_status": 200, "query_count": 1475, "database_duration_ms": 997.88, "duplicate_groups": 153, "n_plus_one_groups": 8, "failed_queries": 0 },
+    { "route": "maintenance.index", "http_status": 200, "query_count": 786, "database_duration_ms": 499.47, "duplicate_groups": 72, "n_plus_one_groups": 5, "failed_queries": 0 },
+    { "route": "customers.index", "http_status": 200, "query_count": 341, "database_duration_ms": 259.75, "duplicate_groups": 11, "n_plus_one_groups": 3, "failed_queries": 0 }
+  ],
+  "livewire_customer_search": {
+    "baseline_http_status": 200,
+    "baseline_update_requests": 1,
+    "instrumented_http_status": 200,
+    "instrumented_update_requests": 1,
+    "query_count": 43,
+    "database_duration_ms": 186.82,
+    "duplicate_groups": 4,
+    "n_plus_one_groups": 2,
+    "failed_queries": 0
+  },
+  "debugbar_find_issues": {
+    "flagged_requests": 8,
+    "queries_across_flagged_requests": 7306,
+    "failed_queries": 0,
+    "exceptions": 0
+  },
+  "pulse": {
+    "authorization_statuses": {
+      "administrator": 200,
+      "guest": 302,
+      "active_verified_user_without_grants": 403,
+      "monitoring_disabled": 403
+    },
+    "slow_request_probe": {
+      "http_status": 200,
+      "page_measured": true,
+      "ui_ready_ms": 3387.7
+    },
+    "native_storage": {
+      "slow_request_entries": 5,
+      "slow_request_aggregate_bucket_rows": 26,
+      "user_details_slow_request_entries": 1,
+      "user_details_slow_request_aggregate_rows": 8,
+      "slow_query_entries": 6,
+      "event_types": ["slow_request", "slow_query"]
+    }
+  },
+  "profiling_guard_probe": {
+    "method": "read-only direct evaluation of the application Debugbar/Pulse config gates; no Laravel app boot or database access",
+    "debugbar": {
+      "local_with_owned_test_db_and_private_storage": true,
+      "testing_environment": false,
+      "production_environment": false,
+      "wrong_postgres_port": false,
+      "wrong_database": false,
+      "storage_outside_repo_tmp": false
+    },
+    "pulse": {
+      "testing_with_owned_test_db_and_private_storage": true,
+      "production_environment": false,
+      "wrong_postgres_port": false
+    }
+  },
+  "interpretation": {
+    "highest_observed_database_query_count": "organization.user-details (3,724)",
+    "highest_observed_database_duration": "organization.user-details (2,902.77 ms)",
+    "instrumented_timings_are_not_baseline": true,
+    "query_durations_converted_from_native_seconds_to_milliseconds": true,
+    "profile_ids_sql_and_bindings_included": false
+  }
+}

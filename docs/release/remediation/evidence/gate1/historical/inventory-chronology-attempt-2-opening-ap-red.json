@@ -1,0 +1,46 @@
+{
+    "database_identity": {
+        "database": "erp_elec_new_test",
+        "address": "127.0.0.1/32",
+        "port": 49685,
+        "data_directory": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\pgdata",
+        "marker_verified": true
+    },
+    "scenarios": {
+        "before_first_activity": {
+            "cutoff": "2024-05-31",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "0.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "0.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": []
+        }
+    },
+    "scenario_status": {
+        "before_first_activity": "PASS",
+        "after_opening": "NOT TESTED",
+        "after_fifo_issue": "NOT TESTED",
+        "after_partial_reversal": "NOT TESTED",
+        "after_posted_reversal": "NOT TESTED",
+        "after_transfer_dispatch": "NOT TESTED",
+        "after_transfer_receipt": "NOT TESTED",
+        "later_adjustment_stability": "NOT TESTED",
+        "partial_reversal_cutoff_stable_after_later_stock_actions": "NOT TESTED",
+        "stable_after_later_stock_actions": "NOT TESTED"
+    },
+    "unused_workshop_or_maintenance_return": "NOT TESTED: this valued inventory fixture covers source-linked correction, not the distinct workshop/maintenance unused-part return lifecycle.",
+    "closed_period_snapshot": "DEFERRED: exercised by the AP/AR chronology and period-close acceptance, not this inventory fixture.",
+    "all_required_scenarios_pass": false
+}

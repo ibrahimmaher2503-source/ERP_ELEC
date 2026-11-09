@@ -1,0 +1,779 @@
+{
+  "date": "2026-10-31T14:24:02.565Z",
+  "results": [
+    {
+      "owner": "customer",
+      "tab": "overview",
+      "path": "/customers/1?tab=overview",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "customer-overview-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "customer-overview-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "customer-overview-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 408,
+            "body": 408,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "customer",
+      "tab": "contacts",
+      "path": "/customers/1?tab=contacts",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "customer-contacts-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "customer-contacts-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "customer-contacts-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "customer",
+      "tab": "financial",
+      "path": "/customers/1?tab=financial",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "customer-financial-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "customer-financial-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "customer-financial-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "customer",
+      "tab": "documents",
+      "path": "/customers/1?tab=documents",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "customer-documents-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "customer-documents-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "customer-documents-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "supplier",
+      "tab": "overview",
+      "path": "/suppliers/1?tab=overview",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "supplier-overview-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "supplier-overview-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "supplier-overview-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 408,
+            "body": 408,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "supplier",
+      "tab": "contacts",
+      "path": "/suppliers/1?tab=contacts",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "supplier-contacts-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "supplier-contacts-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "supplier-contacts-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "supplier",
+      "tab": "financial",
+      "path": "/suppliers/1?tab=financial",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "supplier-financial-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "supplier-financial-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "supplier-financial-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "supplier",
+      "tab": "documents",
+      "path": "/suppliers/1?tab=documents",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "supplier-documents-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "supplier-documents-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "supplier-documents-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "details",
+      "path": "/maintenance/work-orders/76?tab=details",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-details-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-details-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-details-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "assignments",
+      "path": "/maintenance/work-orders/76?tab=assignments",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-assignments-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-assignments-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-assignments-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "visits",
+      "path": "/maintenance/work-orders/76?tab=visits",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-visits-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-visits-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-visits-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "parts",
+      "path": "/maintenance/work-orders/76?tab=parts",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-parts-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-parts-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-parts-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "labor",
+      "path": "/maintenance/work-orders/76?tab=labor",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-labor-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-labor-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-labor-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "costs",
+      "path": "/maintenance/work-orders/76?tab=costs",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-costs-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-costs-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-costs-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "completion",
+      "path": "/maintenance/work-orders/76?tab=completion",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-completion-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-completion-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-completion-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "billing",
+      "path": "/maintenance/work-orders/76?tab=billing",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-billing-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-billing-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-billing-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "documents",
+      "path": "/maintenance/work-orders/76?tab=documents",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-documents-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-documents-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-documents-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    },
+    {
+      "owner": "maintenance-work-order",
+      "tab": "history",
+      "path": "/maintenance/work-orders/76?tab=history",
+      "checks": [
+        {
+          "viewport": "1440x900",
+          "status": 200,
+          "screenshot": "maintenance-work-order-history-1440x900.png",
+          "metrics": {
+            "viewport": 1440,
+            "document": 1440,
+            "body": 1440,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "1366x768",
+          "status": 200,
+          "screenshot": "maintenance-work-order-history-1366x768.png",
+          "metrics": {
+            "viewport": 1366,
+            "document": 1366,
+            "body": 1366,
+            "direction": "rtl",
+            "main": true
+          }
+        },
+        {
+          "viewport": "390x844",
+          "status": 200,
+          "screenshot": "maintenance-work-order-history-390x844.png",
+          "metrics": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390,
+            "direction": "rtl",
+            "main": true
+          }
+        }
+      ]
+    }
+  ]
+}

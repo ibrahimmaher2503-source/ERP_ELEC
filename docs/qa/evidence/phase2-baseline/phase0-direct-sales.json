@@ -1,0 +1,39 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55433,
+    "migration": "2026_10_28_171000_record_sales_order_exception_decisions",
+    "direct_compliant": {
+        "order_id": 2,
+        "reopened_draft": true,
+        "status": "approved",
+        "official_issue": true,
+        "scoped_reservation_id": 3,
+        "passed": true
+    },
+    "commercial_exception": {
+        "order_id": 4,
+        "decision_review_id": 4,
+        "decision_immutable_update_denied": true,
+        "decision_immutable_delete_denied": true,
+        "decision_left_pending_without_effects": true,
+        "normal_independent_approval_after_decision": true,
+        "passed": true
+    },
+    "exception_kinds": [
+        "price",
+        "line_discount",
+        "payment_terms"
+    ],
+    "denials": {
+        "normal_approval_without_separate_decision": true,
+        "self_exception_approval": true,
+        "self_sales_order_approval": true,
+        "wrong_configured_role_even_with_permission": true,
+        "stale_order_content_version": true,
+        "review_snapshot_mutation": true,
+        "stale_policy_version": true,
+        "changed_dated_price_source": true,
+        "missing_warehouse_scope": true
+    },
+    "all_pass": true
+}

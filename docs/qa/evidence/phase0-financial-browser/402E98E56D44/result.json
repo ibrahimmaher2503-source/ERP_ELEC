@@ -1,0 +1,53 @@
+{
+  "result": "INCOMPLETE",
+  "run_id": "402E98E56D44",
+  "database": "erp_elec_new_test on private port 55434",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 15 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue control was clicked; official-issued state did not appear"
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [],
+  "quote_id": 15,
+  "quote_issued": false,
+  "official_pdf": null,
+  "acceptance_saved": false,
+  "converted_sales_order_id": null,
+  "issue_capture": {
+    "url": "http://127.0.0.1:8016/quotations/15/pdf",
+    "livewire": [],
+    "body_text": "انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nأوامر البيع\nإعدادات اعتماد أوامر البيع\nعروض الأسعار\nسياسات عروض الأسعار\nالمخزون\nالمشتريات\nالمحاسبة والمالية\nPhase0 operator 402E98E56D44\nالبحث في النظام، مخطط له\n2026-10-28\nSynthetic financial audit\nFIN-AUDIT\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nمعاينة عرض السعر (PDF)\nمعاينة عرض السعر (PDF)\n\nمسودة 5061f79f · مراجعة 1\n\nعروض الأسعار\nتصدير Excel\nتعديل المسودة\nRestore the private company logo before official issue.\nإصدار عرض السعر الرسمي\n\nيتحقق الإصدار من السعر والسياسة التجارية وقواعد الضريبة وهوية الشركة. يحفظ رقمًا ولقطة مبالغ وملف PDF ثابتًا.\n\n Restore the private company logo before official issue.\nإصدار عرض السعر الرسمي"
+  },
+  "issuance_page_text": "انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nأوامر البيع\nإعدادات اعتماد أوامر البيع\nعروض الأسعار\nسياسات عروض الأسعار\nالمخزون\nالمشتريات\nالمحاسبة والمالية\nPhase0 operator 402E98E56D44\nالبحث في النظام، مخطط له\n2026-10-28\nSynthetic financial audit\nFIN-AUDIT\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nمعاينة عرض السعر (PDF)\nمعاينة عرض السعر (PDF)\n\nمسودة 5061f79f · مراجعة 1\n\nعروض الأسعار\nتصدير Excel\nتعديل المسودة\nRestore the private company logo before official issue.\nإصدار عرض السعر الرسمي\n\nيتحقق الإصدار من السعر والسياسة التجارية وقواعد الضريبة وهوية الشركة. يحفظ رقمًا ولقطة مبالغ وملف PDF ثابتًا.\n\n Restore the private company logo before official issue.\nإصدار عرض السعر الرسمي",
+  "postgresql_verification": {
+    "quotation_id": 15,
+    "status": "draft",
+    "project_name": "PHASE0-402E98E56D44 edited",
+    "lines": [
+      {
+        "product_id": 2,
+        "quantity": "2.00000000",
+        "requested_price": null
+      },
+      {
+        "product_id": 3,
+        "quantity": "2.00000000",
+        "requested_price": null
+      }
+    ]
+  },
+  "screenshot_files": [
+    "quotation-after-issue-click.png",
+    "quotation-create-desktop.png",
+    "quotation-create-mobile.png",
+    "quotation-details-desktop.png",
+    "quotation-issuance-readiness.png"
+  ],
+  "limits": [
+    "Independent sales-order approval/reservation/delivery, Purchasing, and Inventory journeys remain untested."
+  ]
+}

@@ -1,0 +1,72 @@
+{
+    "all_pass": false,
+    "mode": "m10-source-integrations",
+    "assertions": 1,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "All source graph fixtures roll back from the exact isolated database.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "App\\Modules\\Parties\\Application\\Contracts\\CustomerContractException",
+        "message": "Customer access denied."
+    }
+}

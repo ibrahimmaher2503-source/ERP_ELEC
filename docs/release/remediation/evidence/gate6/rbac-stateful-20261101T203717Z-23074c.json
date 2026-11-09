@@ -1,0 +1,200 @@
+{
+    "all_pass": false,
+    "phase": "Gate 6 guarded stateful RBAC behavior",
+    "assertions": 24,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "users": 0,
+            "companies": 1,
+            "branches": 0,
+            "roles": 14,
+            "role_permissions": 318,
+            "user_roles": 0,
+            "user_branch_scopes": 0,
+            "user_warehouse_scopes": 0,
+            "access_grants": 0,
+            "permission_catalog": 318,
+            "inventory_warehouses": 0,
+            "customers": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_activities": 0,
+            "service_contract_documents": 0,
+            "attendance_shifts": 0,
+            "attendance_schedules": 0,
+            "attendance_punches": 0,
+            "attendance_adjustments": 0,
+            "attendance_timesheets": 0,
+            "attendance_requests": 0,
+            "accounting_accounts": 0,
+            "treasury_accounts": 0,
+            "treasury_opening_balances": 0,
+            "treasury_movements": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0,
+            "accounting_journals": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "access_audits": 5,
+            "audit_entries": 0
+        },
+        "after_rollback": {
+            "users": 0,
+            "companies": 1,
+            "branches": 0,
+            "roles": 14,
+            "role_permissions": 318,
+            "user_roles": 0,
+            "user_branch_scopes": 0,
+            "user_warehouse_scopes": 0,
+            "access_grants": 0,
+            "permission_catalog": 318,
+            "inventory_warehouses": 0,
+            "customers": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_activities": 0,
+            "service_contract_documents": 0,
+            "attendance_shifts": 0,
+            "attendance_schedules": 0,
+            "attendance_punches": 0,
+            "attendance_adjustments": 0,
+            "attendance_timesheets": 0,
+            "attendance_requests": 0,
+            "accounting_accounts": 0,
+            "treasury_accounts": 0,
+            "treasury_opening_balances": 0,
+            "treasury_movements": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0,
+            "accounting_journals": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "access_audits": 5,
+            "audit_entries": 0
+        }
+    },
+    "private_fixtures_cleaned": true,
+    "checks": [
+        {
+            "name": "Manual M10 grant works only in scoped branch A.",
+            "result": "PASS"
+        },
+        {
+            "name": "Manual branch-A grant cannot authorize branch B.",
+            "result": "PASS"
+        },
+        {
+            "name": "Manual M10/M06 grants do not imply M15 role capability.",
+            "result": "PASS"
+        },
+        {
+            "name": "Ordinary role can view its explicitly scoped branch A warehouse.",
+            "result": "PASS"
+        },
+        {
+            "name": "Ordinary role cannot view branch B warehouse.",
+            "result": "PASS"
+        },
+        {
+            "name": "Warehouse access rejects a mismatched branch and warehouse pair.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actual Administrator membership inherits current M15 export capability.",
+            "result": "PASS"
+        },
+        {
+            "name": "Administrator branch authority still requires a branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Administrator warehouse access still requires a matching warehouse scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Disabled Administrator account receives no effective branch permission.",
+            "result": "PASS"
+        },
+        {
+            "name": "Employee Action denies creating an employee outside the actor branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 report reads only the explicitly scoped employee and creates no attendance facts.",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 report denies an employee in an unscoped branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 report denies disabled Administrator membership.",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 report denies a disabled ordinary account despite a direct grant.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies an out-of-scope branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies a disabled Administrator account.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies a disabled ordinary account despite a direct grant.",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied contract Actions create no business records.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract Action denies an existing object outside the actor branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 report denies an existing out-of-scope contract object.",
+            "result": "PASS"
+        },
+        {
+            "name": "Treasury executive summary returns the explicitly authorized branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Treasury executive summary denies an unscoped branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "Authorized Treasury statement download is private and no-store.",
+            "result": "FAIL"
+        },
+        {
+            "name": "All synthetic company, RBAC and workflow rows roll back; company data and private fixtures are restored.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "FAIL Authorized Treasury statement download is private and no-store."
+    }
+}

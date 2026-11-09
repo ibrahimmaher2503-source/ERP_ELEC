@@ -1,0 +1,121 @@
+{
+    "database": "erp_elec_new_test",
+    "source_migration_count": 92,
+    "restored_migration_count": 92,
+    "post_restore_migrations_applied": 0,
+    "counts_match_source": true,
+    "relationships_match_source": {
+        "po_issue_to_order": 1,
+        "quotation_issue_to_quotation": 1,
+        "sales_issue_to_order": 1,
+        "delivery_docs_to_orders": 4
+    },
+    "restored_file_sha256": {
+        "company-logos/phase0-recovery-logo.png": "4cf61bf79c8070608ae28cb9e9ebf77f5900d41e96ce588cb8c84cef9502f56e",
+        "recovery/private-source-fixture.txt": "5106a8fbb841667afde2baa29d24725d17b1880475f893d6787e9f935a129947"
+    },
+    "retrieved_pdf_sha256": [
+        {
+            "number": "JV-2024-000001",
+            "sha256": "4553f5a815fa5c01b264174aa87d691fbf41881bb7bd3462581594b581ae257c",
+            "bytes": 43561
+        },
+        {
+            "number": "JV-2024-000002",
+            "sha256": "778e298dd316888266594203ae479642630b116b94ee9a87543bf8025757b1be",
+            "bytes": 43566
+        },
+        {
+            "number": "JV-2026-000001",
+            "sha256": "d86c63129c2497a674684a532963577af2e6ec82ff6598f7fac417bd0f02bb83",
+            "bytes": 43575
+        },
+        {
+            "number": "JV-2026-000002",
+            "sha256": "a2782a4ad4fab9a6f0032eff3415489f17f383785568ba99da833f705f0ebc6b",
+            "bytes": 43577
+        },
+        {
+            "number": "JV-2026-000003",
+            "sha256": "65812bc8218f2563921c12f13fc2fa8d465396ad24c3d538f536084dd5780bd3",
+            "bytes": 43517
+        },
+        {
+            "number": "JV-2026-000004",
+            "sha256": "29e2906ff061e996bde144aa4ee9132f3153f2261ddb0e15289bdd411aa871ad",
+            "bytes": 43517
+        },
+        {
+            "number": "JV-2026-000005",
+            "sha256": "7802c98bef2cb5473135ec3eb28d7493883ae11a6fac5ef44c5fb01b4c40e260",
+            "bytes": 43514
+        },
+        {
+            "number": "JV-2026-000006",
+            "sha256": "3eb2251bb0e3975659a735122cc6ce93bf62f8def8b90bf41985cb95c7efb4b8",
+            "bytes": 43516
+        },
+        {
+            "number": "JV-2026-000007",
+            "sha256": "d08bd216e9d504cce54e3ef0f90a8225a5d020c1d324e930736c19655f86124a",
+            "bytes": 43575
+        },
+        {
+            "number": "JV-2026-000008",
+            "sha256": "f8371b1fa505db487eb9bd55506bdba78312b86e894c5e146ef2d6674b31f997",
+            "bytes": 43575
+        },
+        {
+            "number": "JV-2026-000009",
+            "sha256": "0a2eea21df32f1ebb752f1d59f439cb47ef0d9338f4d7fbd4382f19ff48138ba",
+            "bytes": 43517
+        },
+        {
+            "number": "JV-2026-000010",
+            "sha256": "eb6d5c5a75a1ac6c4f5cfe674e9d3a792076eb1996265972229b39ad417bfce5",
+            "bytes": 43516
+        },
+        {
+            "number": "PO-2024-000001",
+            "sha256": "ff4543c55bf3e3b48f50d3aa4a5cc56a413c47de2cb6876112cf90c74800aa2f",
+            "bytes": 47448
+        },
+        {
+            "number": "QT-2026-000001",
+            "sha256": "514bea98eaf2e051abe707f503ef8be48581da22df6a6cc3f48e9ea83e207e6c",
+            "bytes": 48800
+        },
+        {
+            "number": "DN-2026-000001",
+            "sha256": "405aec879657edfa0a5ade2c135bd34c8be0d4077ebbe645a48b933bedd64c78",
+            "bytes": 44895
+        },
+        {
+            "number": "DN-2026-000002",
+            "sha256": "47a48e192d8ca4c3c3126885af0edf7185c989ecd8f40129bd56bdfc356bf5f6",
+            "bytes": 44890
+        },
+        {
+            "number": "DN-2026-000003",
+            "sha256": "cb5d3e3ef570f5876649d92fa99ddd61f2f15c2ffe0bd8f25e066a1213011879",
+            "bytes": 44818
+        },
+        {
+            "number": "DN-2026-000004",
+            "sha256": "ca66ca36a3db406f90f509feffa97704437f361933cabe57c36dbd39126b0377",
+            "bytes": 44819
+        },
+        {
+            "number": "SO-2026-000001",
+            "sha256": "c4dbc9d08b3a5aa012864115edaa4abafa8ac92b1dd7c1596ed5ae4b78ff1365",
+            "bytes": 46951
+        }
+    ],
+    "http_status": {
+        "authorized_logo_controller": 200,
+        "authorized_po_pdf_controller": 200,
+        "denied_logo_controller": 403,
+        "denied_po_pdf_controller": 403
+    },
+    "all_verified": true
+}

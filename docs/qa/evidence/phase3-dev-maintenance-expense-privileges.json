@@ -1,0 +1,41 @@
+﻿{
+    "all_pass":  true,
+    "database":  "erp_elec_new",
+    "port":  5443,
+    "metadata_only":  true,
+    "checks":  [
+                   {
+                       "table":  "maintenance_expense_sources",
+                       "select":  true,
+                       "insert":  true,
+                       "sequences":  [
+                                         {
+                                             "name":  "maintenance_expense_sources_id_seq",
+                                             "usage":  true
+                                         }
+                                     ],
+                       "sequence_usage":  true
+                   },
+                   {
+                       "table":  "maintenance_cost_proposals",
+                       "select":  true,
+                       "insert":  true,
+                       "sequences":  [
+                                         {
+                                             "name":  "maintenance_cost_proposals_id_seq",
+                                             "usage":  true
+                                         }
+                                     ],
+                       "sequence_usage":  true
+                   },
+                   {
+                       "table":  "maintenance_labor_recognitions",
+                       "select":  true,
+                       "insert":  true,
+                       "sequences":  [
+
+                                     ],
+                       "sequence_usage":  null
+                   }
+               ]
+}

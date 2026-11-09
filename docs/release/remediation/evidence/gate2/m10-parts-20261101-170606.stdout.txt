@@ -1,0 +1,241 @@
+PASS Each synthetic inventory actor has its explicit permission and branch/warehouse scope
+PASS M06 stock exists only from posted owner purchase receipt and exact FIFO source movements
+PASS Allowed real M08 part use synchronizes its reserved M10 snapshot from the owner projection
+PASS M08 independent verification consumes the real source and persists exact numeric covered-part quantity
+PASS Coverage reports the exact remaining covered part quantity after real M08 issue, use, and verification
+PASS M10 rejects excluded part during the actual M08 part-use action
+PASS Rejected M08 part-use transaction leaves no usage, work-version, audit, source-version, or entitlement-snapshot delta
+PASS M10 rejects quantity above the remaining 0.50000000 covered amount during the actual M08 part-use action
+PASS Rejected M08 part-use transaction leaves no usage, work-version, audit, source-version, or entitlement-snapshot delta
+PASS Excluded and over-quantity attempts create no final numeric M10 part-consumption rows
+PASS All three M08 inputs are backed by genuine posted M06 stock issues even when M10 entitlement rejects use
+{
+    "all_pass": true,
+    "mode": "m10-m06-m08-parts-entitlements",
+    "assertions": 12,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "accounting_activation": 1,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "accounting_project_dimensions": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "inventory_warehouses": 0,
+            "user_warehouse_scopes": 0,
+            "inventory_movements": 0,
+            "inventory_reservations": 0,
+            "inventory_balances": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_fifo_allocations": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_order_issues": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "purchasing_receipt_postings": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "maintenance_activities": 0,
+            "maintenance_checklist_templates": 0,
+            "maintenance_checklist_results": 0,
+            "maintenance_part_requirements": 0,
+            "maintenance_part_reservations": 0,
+            "maintenance_part_issues": 0,
+            "maintenance_part_usage": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 1,
+            "users": 7,
+            "customers": 1,
+            "suppliers": 1,
+            "products": 3,
+            "organization_employees": 1,
+            "accounting_activation": 1,
+            "accounting_accounts": 15,
+            "accounting_account_mappings": 15,
+            "accounting_tax_rules": 2,
+            "accounting_periods": 1,
+            "accounting_opening_batches": 1,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 4,
+            "accounting_journal_lines": 8,
+            "accounting_project_dimensions": 0,
+            "system_official_documents": 6,
+            "system_official_sequences": 4,
+            "inventory_warehouses": 1,
+            "user_warehouse_scopes": 3,
+            "inventory_movements": 5,
+            "inventory_reservations": 3,
+            "inventory_balances": 2,
+            "inventory_fifo_layers": 2,
+            "inventory_fifo_allocations": 3,
+            "purchasing_orders": 1,
+            "purchasing_order_lines": 2,
+            "purchasing_order_issues": 1,
+            "purchasing_receipts": 1,
+            "purchasing_receipt_lines": 2,
+            "purchasing_receipt_postings": 2,
+            "maintenance_work_orders": 3,
+            "maintenance_visits": 3,
+            "maintenance_labor_entries": 1,
+            "maintenance_activities": 32,
+            "maintenance_checklist_templates": 1,
+            "maintenance_checklist_results": 3,
+            "maintenance_part_requirements": 3,
+            "maintenance_part_reservations": 3,
+            "maintenance_part_issues": 3,
+            "maintenance_part_usage": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 1,
+            "service_contract_documents": 1,
+            "service_contract_activities": 15,
+            "service_contract_work": 3,
+            "service_contract_work_parts": 1,
+            "access_grants": 129,
+            "user_branch_scopes": 4,
+            "user_roles": 0,
+            "audit_entries": 89
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "accounting_activation": 1,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "accounting_project_dimensions": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "inventory_warehouses": 0,
+            "user_warehouse_scopes": 0,
+            "inventory_movements": 0,
+            "inventory_reservations": 0,
+            "inventory_balances": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_fifo_allocations": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_order_issues": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "purchasing_receipt_postings": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "maintenance_activities": 0,
+            "maintenance_checklist_templates": 0,
+            "maintenance_checklist_results": 0,
+            "maintenance_part_requirements": 0,
+            "maintenance_part_reservations": 0,
+            "maintenance_part_issues": 0,
+            "maintenance_part_usage": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Each synthetic inventory actor has its explicit permission and branch/warehouse scope",
+            "result": "PASS"
+        },
+        {
+            "name": "M06 stock exists only from posted owner purchase receipt and exact FIFO source movements",
+            "result": "PASS"
+        },
+        {
+            "name": "Allowed real M08 part use synchronizes its reserved M10 snapshot from the owner projection",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 independent verification consumes the real source and persists exact numeric covered-part quantity",
+            "result": "PASS"
+        },
+        {
+            "name": "Coverage reports the exact remaining covered part quantity after real M08 issue, use, and verification",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects excluded part during the actual M08 part-use action",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected M08 part-use transaction leaves no usage, work-version, audit, source-version, or entitlement-snapshot delta",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects quantity above the remaining 0.50000000 covered amount during the actual M08 part-use action",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected M08 part-use transaction leaves no usage, work-version, audit, source-version, or entitlement-snapshot delta",
+            "result": "PASS"
+        },
+        {
+            "name": "Excluded and over-quantity attempts create no final numeric M10 part-consumption rows",
+            "result": "PASS"
+        },
+        {
+            "name": "All three M08 inputs are backed by genuine posted M06 stock issues even when M10 entitlement rejects use",
+            "result": "PASS"
+        },
+        {
+            "name": "All source fixtures, accounting/inventory evidence, and M10 ledger rows roll back.",
+            "result": "PASS"
+        }
+    ],
+    "phase": "complete",
+    "failure": null
+}
+RESULT all_pass=1 assertions=12 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-parts-20261101T150610Z-23f53d.json

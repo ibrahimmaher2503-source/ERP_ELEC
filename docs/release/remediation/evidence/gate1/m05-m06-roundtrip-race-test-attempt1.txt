@@ -1,0 +1,71 @@
+PASS Warehouse persists two service edits and a third reopened Livewire edit/save
+PASS Warehouse create rejects a duplicate code (actual Illuminate\Validation\ValidationException: قيمة الكود مسجلة مسبقًا.)
+PASS Requisition persists expected reopened values and exact decimal
+PASS Requisition persists expected reopened values and exact decimal
+PASS Requisition persists expected reopened values and exact decimal
+PASS Requisition same-key replay is idempotent
+PASS Requisition Livewire save ignores forged form creation_key and uses locked server key
+PASS Requisition blocks creator self-approval (actual Illuminate\Validation\ValidationException: لا يمكنك اعتماد أو رفض مستند أنشأته بنفسك.)
+PASS Approved requisition rejects later content edits (actual Illuminate\Validation\ValidationException: المستند ليس مسودة أو تم تعديله. أعد فتح الصفحة.)
+PASS RFQ survives create, two reopen/edit/save cycles with supplier and line persistence
+PASS RFQ rejects allocation above approved requisition quantity (actual Illuminate\Validation\ValidationException: Quantity exceeds unallocated requisition demand.)
+PASS RFQ Livewire reopens persisted draft, edits, saves, and reopens for a third save
+PASS Supplier offer survives create, two edit cycles, and exact line persistence
+PASS Supplier offer Livewire reopens persisted draft and completes repeated edit/save cycles
+PASS Supplier offer rejects quantity above issued RFQ line (actual Illuminate\Validation\ValidationException: الكمية المعروضة يجب أن تكون موجبة وفي حدود كمية RFQ.)
+PASS Supplier offer rejects a supplier outside the issued RFQ invite list (actual Illuminate\Validation\ValidationException: المورد ليس ضمن المدعوين لطلب العرض.)
+PASS Award proposer cannot approve own award (actual Illuminate\Validation\ValidationException: لا يمكنك اعتماد مقترحك بنفسك.)
+PASS Purchase order survives repeated edits and exact decimal line amount
+PASS Purchase order Livewire repeated saves preserve nullable award_id
+PASS Direct purchase order still blocks creator self-approval (actual Illuminate\Validation\ValidationException: الاعتماد الذاتي ممنوع.)
+PASS No-award direct PO allows an independently authorized internal approval with an immutable persisted review snapshot
+PASS Purchase order same-key create replay is idempotent after reopen/edit cycles
+PASS Purchase order rejects same-key replay with changed payload (actual Illuminate\Validation\ValidationException: مفتاح إنشاء مستخدم ببيانات مختلفة.)
+PASS Purchase order blocks creator self-approval (actual Illuminate\Validation\ValidationException: الاعتماد الذاتي ممنوع.)
+PASS Approved purchase order rejects later content edits (actual Illuminate\Validation\ValidationException: أمر الشراء ليس مسودة أو نسخته قديمة.)
+PASS Purchase receipt survives repeated edits without posting inventory
+PASS Purchase receipt Livewire reopens draft and completes repeated edit/save cycles
+PASS Purchase receipt rejects quantity above remaining approved order quantity (actual Illuminate\Validation\ValidationException: تجاوزت كمية الأمر بعد احتساب مسودات الاستلام الأخرى.)
+PASS Receipt lifecycle records integration pending and does not fabricate stock posting
+PASS Duplicate purchase receipt submit is idempotent and adds no audit or stock effects
+PASS Financial activation date and all synthetic account mappings saved
+PASS Synthetic sale and purchase rules were explicitly validated
+PASS Balanced synthetic accounting/inventory opening batch saved
+PASS Opening submitted for independent review
+PASS Independent reviewer approved the exact opening batch
+PASS Financial setup independently approves and activates an exact synthetic Inventory opening before API checks
+PASS Warehouse with posted stock cannot be deactivated (actual Illuminate\Validation\ValidationException: المستودع به رصيد أو مستندات قيد التنفيذ.)
+PASS Inventory API returns persisted exact availability after a valid independently reviewed opening post
+PASS Read-only warehouse reconciliation matches the immutable movement ledger and balance projection
+PASS Warehouse reconciliation reports projection drift without repair, and its savepoint fixture rolls back
+PASS Warehouse reconciliation requires explicit balance, movement, reservation and warehouse authority (actual Symfony\Component\HttpKernel\Exception\HttpException: الإجراء أو نطاق المستودع غير مسموح.)
+PASS Reservation-only Livewire actor sees no balance summary cards or empty-stock count
+PASS Count barcode selects the known product once without inferring quantity or duplicating the line
+PASS Count barcode rejects an unknown product without changing the selected line
+PASS Count barcode selection persists only after the operator enters and saves an explicit quantity
+PASS Database guard rejects a raw count lifecycle transition that bypasses required states (actual Illuminate\Database\QueryException: SQLSTATE[P0001]: Raise exception: 7 ERROR:  Invalid inventory lifecycle transition
+CONTEXT:  PL/pgSQL function inventory_document_guard() line 17 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_gate1_race_test, SQL: update "inventory_documents" set "status" = posted, "version" = version + 1, "approved_by" = 35, "approved_at" = 2026-11-01 01:48:55 where "id" = 21))
+PASS Rejected raw count transition reaches the lifecycle guard rather than failing on self-approval metadata
+PASS Rejected raw lifecycle transition leaves the persisted count in draft
+PASS Inventory ledger idempotency rejects an existing key replayed with changed source identity (actual Illuminate\Validation\ValidationException: مرجع الترحيل مستخدم لمحتوى مختلف.)
+PASS Changed-source idempotency collision leaves movement count and balance unchanged
+PASS Shared inventory filters match the persisted opening movement and exclude wrong operations and non-low balances
+PASS Inventory issue Livewire draft reopens and completes repeated edit/save cycles
+PASS Inventory adjustment Livewire draft reopens and completes repeated edit/save cycles
+PASS Inventory transfer Livewire draft reopens and completes repeated edit/save cycles
+PASS Transfer document query requires the actor to cover both source and destination warehouses
+PASS Transfer XLSX export excludes documents whose destination is outside the actor warehouse scope
+PASS Transfer query does not union create authority at source with receive authority at destination across branches
+PASS Inventory count document survives create, reopen, and two edit/save cycles
+PASS Count edits preserve the original stock cutoff and recorded quantity snapshot
+PASS Inventory count Livewire reopens saved draft through repeated saves while preserving its snapshot
+PASS Editing a count draft after a valid stock posting rejects its stale snapshot (actual Illuminate\Validation\ValidationException: تحرك المخزون منذ بدء الجرد؛ ألغ الجلسة وابدأ جردًا جديدًا.)
+PASS Rejected stale count edit preserves cutoff, recorded stock and original count quantity
+PASS Approved count creates a real linked adjustment carrying the source count cutoff
+PASS Positive count variance receives explicit synthetic FIFO unit-cost provenance before review
+PASS Linked count adjustment post rejects stock movement after independent approval (actual Illuminate\Validation\ValidationException: تحرك المخزون منذ لقطة الجرد؛ لا يمكن ترحيل فرق قديم. أعد الجرد.)
+PASS Rejected stale adjustment post leaves approved draft and physical ledger unchanged
+PASS Independently approved positive and negative adjustment documents post exact signed ledger movements (on_hand=8.00000000, count=2, cmp=0)
+PASS Inventory reopened document retains warehouse and product relationship
+M05/M06 lifecycle round-trip regression checks passed.
+Disposable PostgreSQL test transaction rolled back.

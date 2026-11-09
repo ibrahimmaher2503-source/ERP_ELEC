@@ -1,0 +1,12 @@
+PASS No report authority cannot close a company period and leaves no closure or audit effects
+PASS No-scope company close is surfaced as HTTP 403 instead of an unhandled contract exception
+PASS Partial branch report scope cannot certify a company-wide close without closure or audit effects
+PASS Partial-scope company close is surfaced as HTTP 403
+PASS A second-branch reconciliation mismatch denies close without closure/audit effects (owner-contract test double)
+PASS Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence
+PASS A second close cannot create another closure evidence row
+PASS Duplicate close leaves exactly one immutable closure evidence row
+PASS Database immutability trigger rejects UPDATE and DELETE without changing evidence or audit state
+PASS Authorized reopen preserves original immutable closure evidence and advances period version
+PASS Reclose records a second versioned digest while preserving the first closure evidence bytes
+FAIL Illuminate\Validation\ValidationException: Complete the actual company legal name and address before official issue.

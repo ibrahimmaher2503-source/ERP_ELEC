@@ -1,0 +1,77 @@
+{
+  ".env": {
+    "APP_ENV": "local",
+    "APP_DEBUG": "true",
+    "APP_URL": "http://127.0.0.1:8000",
+    "APP_TIMEZONE": "UNSET",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": "5443",
+    "DB_DATABASE": "erp_elec_new",
+    "SESSION_DRIVER": "database",
+    "SESSION_SECURE_COOKIE": "UNSET",
+    "SESSION_SAME_SITE": "UNSET",
+    "SESSION_DOMAIN": "null",
+    "CACHE_STORE": "file",
+    "QUEUE_CONNECTION": "database",
+    "LOG_CHANNEL": "stack",
+    "LOG_LEVEL": "debug",
+    "MAIL_MAILER": "log",
+    "secret_presence_only": {
+      "APP_KEY": true,
+      "DB_PASSWORD": true,
+      "REDIS_PASSWORD": true,
+      "MAIL_PASSWORD": false
+    }
+  },
+  ".env.testing": {
+    "APP_ENV": "testing",
+    "APP_DEBUG": "UNSET",
+    "APP_URL": "UNSET",
+    "APP_TIMEZONE": "UNSET",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": "5443",
+    "DB_DATABASE": "erp_elec_new_test",
+    "SESSION_DRIVER": "UNSET",
+    "SESSION_SECURE_COOKIE": "UNSET",
+    "SESSION_SAME_SITE": "UNSET",
+    "SESSION_DOMAIN": "UNSET",
+    "CACHE_STORE": "UNSET",
+    "QUEUE_CONNECTION": "UNSET",
+    "LOG_CHANNEL": "UNSET",
+    "LOG_LEVEL": "UNSET",
+    "MAIL_MAILER": "UNSET",
+    "secret_presence_only": {
+      "APP_KEY": true,
+      "DB_PASSWORD": true,
+      "REDIS_PASSWORD": false,
+      "MAIL_PASSWORD": false
+    }
+  },
+  ".env.example": {
+    "APP_ENV": "local",
+    "APP_DEBUG": "true",
+    "APP_URL": "http://127.0.0.1:8000",
+    "APP_TIMEZONE": "UNSET",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": "5443",
+    "DB_DATABASE": "erp_elec_new",
+    "SESSION_DRIVER": "database",
+    "SESSION_SECURE_COOKIE": "UNSET",
+    "SESSION_SAME_SITE": "UNSET",
+    "SESSION_DOMAIN": "null",
+    "CACHE_STORE": "file",
+    "QUEUE_CONNECTION": "database",
+    "LOG_CHANNEL": "stack",
+    "LOG_LEVEL": "debug",
+    "MAIL_MAILER": "log",
+    "secret_presence_only": {
+      "APP_KEY": false,
+      "DB_PASSWORD": false,
+      "REDIS_PASSWORD": true,
+      "MAIL_PASSWORD": false
+    }
+  }
+}

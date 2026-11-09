@@ -1,0 +1,8 @@
+{
+  "event": "private_cluster_created",
+  "database": "erp_elec_new_test",
+  "host": "127.0.0.1",
+  "port": 49683,
+  "pg_version": "postgres (PostgreSQL) 17.11",
+  "storage": ".tmp/production-readiness-20261101/pgdata"
+}

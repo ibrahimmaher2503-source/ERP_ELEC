@@ -1,0 +1,3174 @@
+{
+  "run_id": "2026-10-31T22-42-15-225Z",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "route_cases": [
+    {
+      "name": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard"
+    },
+    {
+      "name": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211"
+    },
+    {
+      "name": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612"
+    },
+    {
+      "name": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory"
+    },
+    {
+      "name": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create"
+    },
+    {
+      "name": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "desktop-1366",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "name": "tablet-768",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "mobile-360",
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "read_only_interactions": true,
+  "pages": [
+    {
+      "route": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders"
+            },
+            {
+              "text": "إعدادات اعتماد أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders/policy"
+            },
+            {
+              "text": "عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations"
+            },
+            {
+              "text": "سياسات عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations/policy"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/dashboard-default-desktop-1440.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 1150,
+            "client": 1150,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/customers.show-default-desktop-1440.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 1150,
+            "client": 1150,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/suppliers.show-default-desktop-1440.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        },
+        {
+          "name": "dialog-opens",
+          "result": "fail",
+          "details": null
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.dashboard-default-desktop-1440.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.document.create-opening-desktop-1440.png"
+    },
+    {
+      "route": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1440,
+            "viewport_width": 1440
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "فواتير الموردين",
+              "href": "http://127.0.0.1:53487/financial/supplier-invoices"
+            },
+            {
+              "text": "حسابات الموردين",
+              "href": "http://127.0.0.1:53487/financial/ap"
+            },
+            {
+              "text": "فواتير العملاء",
+              "href": "http://127.0.0.1:53487/financial/customer-invoices"
+            },
+            {
+              "text": "حسابات العملاء",
+              "href": "http://127.0.0.1:53487/financial/ar"
+            },
+            {
+              "text": "الإشعارات الدائنة",
+              "href": "http://127.0.0.1:53487/financial/credit-notes"
+            },
+            {
+              "text": "الأعمار والتخصيصات",
+              "href": "http://127.0.0.1:53487/financial/aging"
+            }
+          ]
+        },
+        {
+          "name": "aging-desktop-table-not-clipped",
+          "result": "pass",
+          "details": {
+            "table_count": 1,
+            "card_count": 0,
+            "visible_row_count": 1,
+            "header_count": 9,
+            "horizontal_overflow": false,
+            "mobile_values": [],
+            "visible_value_counts": []
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "aging": {
+        "table_count": 1,
+        "card_count": 0,
+        "visible_row_count": 1,
+        "header_count": 9,
+        "horizontal_overflow": false,
+        "mobile_values": [],
+        "visible_value_counts": []
+      },
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/financial.aging-default-desktop-1440.png"
+    },
+    {
+      "route": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders"
+            },
+            {
+              "text": "إعدادات اعتماد أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders/policy"
+            },
+            {
+              "text": "عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations"
+            },
+            {
+              "text": "سياسات عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations/policy"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/dashboard-default-desktop-1366.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 1076,
+            "client": 1076,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/customers.show-default-desktop-1366.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 1076,
+            "client": 1076,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/suppliers.show-default-desktop-1366.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        },
+        {
+          "name": "dialog-opens",
+          "result": "fail",
+          "details": null
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.dashboard-default-desktop-1366.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.document.create-opening-desktop-1366.png"
+    },
+    {
+      "route": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 1366,
+            "viewport_width": 1366
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "فواتير الموردين",
+              "href": "http://127.0.0.1:53487/financial/supplier-invoices"
+            },
+            {
+              "text": "حسابات الموردين",
+              "href": "http://127.0.0.1:53487/financial/ap"
+            },
+            {
+              "text": "فواتير العملاء",
+              "href": "http://127.0.0.1:53487/financial/customer-invoices"
+            },
+            {
+              "text": "حسابات العملاء",
+              "href": "http://127.0.0.1:53487/financial/ar"
+            },
+            {
+              "text": "الإشعارات الدائنة",
+              "href": "http://127.0.0.1:53487/financial/credit-notes"
+            },
+            {
+              "text": "الأعمار والتخصيصات",
+              "href": "http://127.0.0.1:53487/financial/aging"
+            }
+          ]
+        },
+        {
+          "name": "aging-desktop-table-not-clipped",
+          "result": "pass",
+          "details": {
+            "table_count": 1,
+            "card_count": 0,
+            "visible_row_count": 1,
+            "header_count": 9,
+            "horizontal_overflow": false,
+            "mobile_values": [],
+            "visible_value_counts": []
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "aging": {
+        "table_count": 1,
+        "card_count": 0,
+        "visible_row_count": 1,
+        "header_count": 9,
+        "horizontal_overflow": false,
+        "mobile_values": [],
+        "visible_value_counts": []
+      },
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/financial.aging-default-desktop-1366.png"
+    },
+    {
+      "route": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders"
+            },
+            {
+              "text": "إعدادات اعتماد أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders/policy"
+            },
+            {
+              "text": "عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations"
+            },
+            {
+              "text": "سياسات عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations/policy"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/dashboard-default-tablet-768.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 732,
+            "client": 732,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/customers.show-default-tablet-768.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 732,
+            "client": 732,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/suppliers.show-default-tablet-768.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        },
+        {
+          "name": "dialog-opens",
+          "result": "fail",
+          "details": null
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.dashboard-default-tablet-768.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.document.create-opening-tablet-768.png"
+    },
+    {
+      "route": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 768,
+            "viewport_width": 768
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "فواتير الموردين",
+              "href": "http://127.0.0.1:53487/financial/supplier-invoices"
+            },
+            {
+              "text": "حسابات الموردين",
+              "href": "http://127.0.0.1:53487/financial/ap"
+            },
+            {
+              "text": "فواتير العملاء",
+              "href": "http://127.0.0.1:53487/financial/customer-invoices"
+            },
+            {
+              "text": "حسابات العملاء",
+              "href": "http://127.0.0.1:53487/financial/ar"
+            },
+            {
+              "text": "الإشعارات الدائنة",
+              "href": "http://127.0.0.1:53487/financial/credit-notes"
+            },
+            {
+              "text": "الأعمار والتخصيصات",
+              "href": "http://127.0.0.1:53487/financial/aging"
+            }
+          ]
+        },
+        {
+          "name": "aging-mobile-cards-present",
+          "result": "pass",
+          "details": {
+            "table_count": 1,
+            "card_count": 1,
+            "visible_row_count": 0,
+            "header_count": 9,
+            "horizontal_overflow": false,
+            "mobile_values": [
+              "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+            ],
+            "visible_value_counts": [
+              9
+            ]
+          }
+        },
+        {
+          "name": "aging-nine-values-present",
+          "result": "pass",
+          "details": [
+            9
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "aging": {
+        "table_count": 1,
+        "card_count": 1,
+        "visible_row_count": 0,
+        "header_count": 9,
+        "horizontal_overflow": false,
+        "mobile_values": [
+          "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+        ],
+        "visible_value_counts": [
+          9
+        ]
+      },
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/financial.aging-default-tablet-768.png"
+    },
+    {
+      "route": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders"
+            },
+            {
+              "text": "إعدادات اعتماد أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders/policy"
+            },
+            {
+              "text": "عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations"
+            },
+            {
+              "text": "سياسات عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations/policy"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/dashboard-default-mobile-390.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 358,
+            "client": 358,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/customers.show-default-mobile-390.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 358,
+            "client": 358,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/suppliers.show-default-mobile-390.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        },
+        {
+          "name": "dialog-opens",
+          "result": "fail",
+          "details": null
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.dashboard-default-mobile-390.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.document.create-opening-mobile-390.png"
+    },
+    {
+      "route": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "فواتير الموردين",
+              "href": "http://127.0.0.1:53487/financial/supplier-invoices"
+            },
+            {
+              "text": "حسابات الموردين",
+              "href": "http://127.0.0.1:53487/financial/ap"
+            },
+            {
+              "text": "فواتير العملاء",
+              "href": "http://127.0.0.1:53487/financial/customer-invoices"
+            },
+            {
+              "text": "حسابات العملاء",
+              "href": "http://127.0.0.1:53487/financial/ar"
+            },
+            {
+              "text": "الإشعارات الدائنة",
+              "href": "http://127.0.0.1:53487/financial/credit-notes"
+            },
+            {
+              "text": "الأعمار والتخصيصات",
+              "href": "http://127.0.0.1:53487/financial/aging"
+            }
+          ]
+        },
+        {
+          "name": "aging-mobile-cards-present",
+          "result": "pass",
+          "details": {
+            "table_count": 1,
+            "card_count": 1,
+            "visible_row_count": 0,
+            "header_count": 9,
+            "horizontal_overflow": false,
+            "mobile_values": [
+              "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+            ],
+            "visible_value_counts": [
+              9
+            ]
+          }
+        },
+        {
+          "name": "aging-nine-values-present",
+          "result": "pass",
+          "details": [
+            9
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "aging": {
+        "table_count": 1,
+        "card_count": 1,
+        "visible_row_count": 0,
+        "header_count": 9,
+        "horizontal_overflow": false,
+        "mobile_values": [
+          "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+        ],
+        "visible_value_counts": [
+          9
+        ]
+      },
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/financial.aging-default-mobile-390.png"
+    },
+    {
+      "route": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders"
+            },
+            {
+              "text": "إعدادات اعتماد أوامر البيع",
+              "href": "http://127.0.0.1:53487/sales-orders/policy"
+            },
+            {
+              "text": "عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations"
+            },
+            {
+              "text": "سياسات عروض الأسعار",
+              "href": "http://127.0.0.1:53487/quotations/policy"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/dashboard-default-mobile-360.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 328,
+            "client": 328,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/customers.show-default-mobile-360.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:53487/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:53487/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:53487/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:53487/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 328,
+            "client": 328,
+            "overflow": false
+          }
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/suppliers.show-default-mobile-360.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        },
+        {
+          "name": "dialog-opens",
+          "result": "fail",
+          "details": null
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.dashboard-default-mobile-360.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "لوحة المخزون",
+              "href": "http://127.0.0.1:53487/inventory"
+            },
+            {
+              "text": "المستودعات",
+              "href": "http://127.0.0.1:53487/inventory/warehouses"
+            },
+            {
+              "text": "الأرصدة",
+              "href": "http://127.0.0.1:53487/inventory/balances"
+            },
+            {
+              "text": "الحركات",
+              "href": "http://127.0.0.1:53487/inventory/movements"
+            },
+            {
+              "text": "الحجوزات",
+              "href": "http://127.0.0.1:53487/inventory/reservations"
+            },
+            {
+              "text": "التحويلات",
+              "href": "http://127.0.0.1:53487/inventory/transfers"
+            },
+            {
+              "text": "الجرد",
+              "href": "http://127.0.0.1:53487/inventory/counts"
+            },
+            {
+              "text": "التسويات",
+              "href": "http://127.0.0.1:53487/inventory/adjustments"
+            },
+            {
+              "text": "الأرصدة الافتتاحية",
+              "href": "http://127.0.0.1:53487/inventory/receipts"
+            },
+            {
+              "text": "الصرف",
+              "href": "http://127.0.0.1:53487/inventory/issues"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/inventory.document.create-opening-mobile-360.png"
+    },
+    {
+      "route": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:53487/dashboard"
+            },
+            {
+              "text": "فواتير الموردين",
+              "href": "http://127.0.0.1:53487/financial/supplier-invoices"
+            },
+            {
+              "text": "حسابات الموردين",
+              "href": "http://127.0.0.1:53487/financial/ap"
+            },
+            {
+              "text": "فواتير العملاء",
+              "href": "http://127.0.0.1:53487/financial/customer-invoices"
+            },
+            {
+              "text": "حسابات العملاء",
+              "href": "http://127.0.0.1:53487/financial/ar"
+            },
+            {
+              "text": "الإشعارات الدائنة",
+              "href": "http://127.0.0.1:53487/financial/credit-notes"
+            },
+            {
+              "text": "الأعمار والتخصيصات",
+              "href": "http://127.0.0.1:53487/financial/aging"
+            }
+          ]
+        },
+        {
+          "name": "aging-mobile-cards-present",
+          "result": "pass",
+          "details": {
+            "table_count": 1,
+            "card_count": 1,
+            "visible_row_count": 0,
+            "header_count": 9,
+            "horizontal_overflow": false,
+            "mobile_values": [
+              "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+            ],
+            "visible_value_counts": [
+              9
+            ]
+          }
+        },
+        {
+          "name": "aging-nine-values-present",
+          "result": "pass",
+          "details": [
+            9
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "aging": {
+        "table_count": 1,
+        "card_count": 1,
+        "visible_row_count": 0,
+        "header_count": 9,
+        "horizontal_overflow": false,
+        "mobile_values": [
+          "مورد\nSI-2026-000001\nتاريخ المستند\n2026-10-31\nالاستحقاق\n2026-11-30\nالقيمة الأصلية\n34.20 EGP\nالمسدد\n0.00 EGP\nالمصحح\n0.00 EGP\nالعمر\n0 يوم\nالرصيد المتبقي\n34.20 EGP"
+        ],
+        "visible_value_counts": [
+          9
+        ]
+      },
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-42-15-225Z/screenshots/financial.aging-default-mobile-360.png"
+    }
+  ],
+  "interactions": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "checks": [
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "checks": [
+        {
+          "name": "mobile-drawer-opens",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        },
+        {
+          "name": "mobile-drawer-closes",
+          "result": "fail",
+          "details": null
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "checks": [
+        {
+          "name": "mobile-drawer-opens",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        },
+        {
+          "name": "mobile-drawer-closes",
+          "result": "fail",
+          "details": null
+        }
+      ]
+    }
+  ],
+  "gaps": []
+}

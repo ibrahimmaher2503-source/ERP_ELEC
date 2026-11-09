@@ -1,0 +1,6 @@
+FAIL legacy opening backfill attempt 2
+Stage: safe retry guard used nonexistent tax_rules table name
+Error: Undefined table: relation tax_rules does not exist; actual owner table is accounting_tax_rules.
+Harness response: Corrected only the harness table identifier; no financial action occurred.
+Scope: disposable erp_elec_gate1_legacy on marked private cluster 127.0.0.1:49685; no business application source changed.
+

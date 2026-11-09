@@ -1,0 +1,21 @@
+{
+  "result": "FAIL",
+  "run_id": "816630A2D8",
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('p.mt-4').filter({ hasText: '1.00000000' }).first() to be visible\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "resumed_existing_authenticated_browser_project": "passed",
+      "project_id": 7,
+      "create_edit": true,
+      "phase_task_milestone": true,
+      "independent_budget_approval": true
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

@@ -1,0 +1,9 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Security\DependencySecurityRegressionTest[39m
+  [32;1m✓[39;22m[90m [39m[90mmime parameter names reject crlf and non token characters[39m[90m                                                   [39m [90m0.65s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlivewire authorize uses parameter names after reordered payload keys[39m[90m                                        [39m [90m0.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlivewire json authorization runs before the method side effect[39m[90m                                              [39m [90m0.03s[39m  
+
+  [90mTests:[39m    [32;1m3 passed[39;22m[90m (14 assertions)[39m
+  [90mDuration:[39m [39m1.89s[39m
+

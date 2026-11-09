@@ -1,0 +1,23 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.21
+Configuration: C:\projects\ERP_ELEC_NEW\phpunit.xml
+
+.[41;37mF[0m[41;37mF[0m                                                                 3 / 3 (100%)
+
+Time: 00:00.632, Memory: 58.00 MB
+
+There were 2 failures:
+
+1) Tests\Feature\Security\DependencySecurityRegressionTest::test_livewire_authorize_uses_parameter_names_after_reordered_payload_keys
+Unauthorized reordered action was allowed.
+
+C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php:68
+
+2) Tests\Feature\Security\DependencySecurityRegressionTest::test_livewire_json_authorization_runs_before_the_method_side_effect
+Unauthorized JSON action was allowed.
+
+C:\projects\ERP_ELEC_NEW\tests\Feature\Security\DependencySecurityRegressionTest.php:98
+
+[37;41mFAILURES![0m
+[37;41mTests: 3[0m[37;41m, Assertions: 8[0m[37;41m, Failures: 2[0m[37;41m.[0m

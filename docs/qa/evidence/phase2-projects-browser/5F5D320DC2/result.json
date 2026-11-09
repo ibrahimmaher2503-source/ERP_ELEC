@@ -1,0 +1,519 @@
+{
+  "result": "PASS",
+  "run_id": "5F5D320DC2",
+  "database": "erp_elec_new_test on 127.0.0.1:55435",
+  "browser": "Microsoft Edge via Playwright",
+  "viewport_sizes": [
+    1440,
+    390
+  ],
+  "project": {
+    "id": 7,
+    "name": "اختبار مشروع المتصفح 4A4724BB84 — تعديل محفوظ",
+    "status": "closed"
+  },
+  "source_financial_projection": {
+    "budget": "100.00",
+    "remaining": "47.75",
+    "purchasing": {
+      "order_ids": [
+        1,
+        2
+      ],
+      "open_commitments": "0.00",
+      "received_value": "50.00",
+      "unapproved_documents": 0,
+      "orders": [
+        {
+          "id": 1,
+          "number": "PO-2026-000001",
+          "status": "approved",
+          "open_commitment": "0.00",
+          "received_value": "40.00"
+        },
+        {
+          "id": 2,
+          "number": "PO-2026-000002",
+          "status": "approved",
+          "open_commitment": "0.00",
+          "received_value": "10.00"
+        }
+      ]
+    },
+    "subledger": {
+      "supplier_invoiced": "61.56",
+      "customer_invoiced": "54.72",
+      "grni_cleared": "50.00",
+      "paid": "50.16",
+      "collected": "54.72",
+      "ap_due": "11.40",
+      "ar_due": "0.00",
+      "supplier_credit": "2.00",
+      "customer_credit": "2.00",
+      "unallocated_invoices": 0,
+      "pending_invoices": 0,
+      "invoices": [
+        {
+          "kind": "supplier",
+          "id": 2,
+          "number": "SI-2026-000001",
+          "total": "18.81",
+          "settled": "18.81",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 3,
+          "number": "SI-2026-000002",
+          "total": "18.81",
+          "settled": "18.81",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 4,
+          "number": "SI-2026-000003",
+          "total": "12.54",
+          "settled": "12.54",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 5,
+          "number": "SI-2026-000004",
+          "total": "11.40",
+          "settled": "0.00",
+          "remaining": "11.40",
+          "attributed": true
+        },
+        {
+          "kind": "customer",
+          "id": 2,
+          "number": "CI-2026-000001",
+          "total": "54.72",
+          "settled": "54.72",
+          "remaining": "0.00",
+          "attributed": true
+        }
+      ],
+      "credits": [
+        {
+          "kind": "supplier",
+          "id": 1,
+          "number": "SCN-2026-000001",
+          "amount": "2.00"
+        },
+        {
+          "kind": "customer",
+          "id": 2,
+          "number": "CCN-2026-000001",
+          "amount": "2.00"
+        }
+      ]
+    },
+    "accounting": {
+      "recognized_revenue": "46.25",
+      "recognized_cost": "52.25",
+      "material_cost": "50.00",
+      "ppv": "2.25",
+      "margin": "-6.00",
+      "pending_journals": 0,
+      "rows": [
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "15.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "2.31",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.50",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "18.81"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "15.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "2.31",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.50",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "18.81"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "1.54",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "12.54"
+        },
+        {
+          "journal_id": 8,
+          "source_key": "inventory-movement:5",
+          "official_number": "JV-2026-000008",
+          "kind": "expense",
+          "account_id": 12,
+          "debit": "40.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 8,
+          "source_key": "inventory-movement:5",
+          "official_number": "JV-2026-000008",
+          "kind": "asset",
+          "account_id": 2,
+          "debit": "0.00",
+          "credit": "40.00"
+        },
+        {
+          "journal_id": 9,
+          "source_key": "inventory-movement:6",
+          "official_number": "JV-2026-000009",
+          "kind": "expense",
+          "account_id": 14,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 9,
+          "source_key": "inventory-movement:6",
+          "official_number": "JV-2026-000009",
+          "kind": "asset",
+          "account_id": 2,
+          "debit": "0.00",
+          "credit": "10.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "asset",
+          "account_id": 10,
+          "debit": "54.72",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "income",
+          "account_id": 11,
+          "debit": "0.00",
+          "credit": "48.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "liability",
+          "account_id": 9,
+          "debit": "0.00",
+          "credit": "6.72"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "2.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "0.00",
+          "credit": "1.75"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "0.00",
+          "credit": "0.25"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "income",
+          "account_id": 11,
+          "debit": "1.75",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "liability",
+          "account_id": 9,
+          "debit": "0.25",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "asset",
+          "account_id": 10,
+          "debit": "0.00",
+          "credit": "2.00"
+        },
+        {
+          "journal_id": 18,
+          "source_key": null,
+          "official_number": "JV-2026-000018",
+          "kind": "asset",
+          "account_id": 16,
+          "debit": "1.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 18,
+          "source_key": null,
+          "official_number": "JV-2026-000018",
+          "kind": "asset",
+          "account_id": 17,
+          "debit": "0.00",
+          "credit": "1.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "1.40",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "11.40"
+        }
+      ]
+    },
+    "fifo_gl_difference": "0.00"
+  },
+  "final_postgresql_state": {
+    "id": 7,
+    "code": "PB2-4A4724BB84",
+    "name": "اختبار مشروع المتصفح 4A4724BB84 — تعديل محفوظ",
+    "status": "closed",
+    "version": 17,
+    "baseline": {
+      "revision": 1,
+      "currency": "EGP",
+      "total": "1234.50000000",
+      "approved_by": 2
+    },
+    "phases": 1,
+    "tasks": 1,
+    "task_ids": [
+      5
+    ],
+    "milestones": 1,
+    "requirements": 1,
+    "handovers": 1,
+    "issue": {
+      "id": 4,
+      "reservation_id": 3,
+      "movement_id": 12,
+      "fifo_allocations": 1
+    },
+    "document": {
+      "document_id": 4,
+      "task_id": 5,
+      "number": "DOC-822A25CF17",
+      "title": "مستند قبول 822A25CF17",
+      "revision_id": 4,
+      "status": "approved",
+      "sha256": "cfa3181c1ee36e8bce5e39f84959f4558ea7ba32c0e4539a8ab3c8ce8c716ec6",
+      "size": 69
+    }
+  },
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/projects/7/financial",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/7/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 4A4724BB84",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/7/closure",
+      "viewport": 1440,
+      "expected_text": "اختبار مشروع المتصفح 4A4724BB84 — تعديل محفوظ",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "resumed_closed_project_evidence": true,
+      "project_id": 7,
+      "exports": {
+        "xlsx": {
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "cache_control": "no-store, private",
+          "bytes": 6478
+        },
+        "pdf": {
+          "status": 200,
+          "content_type": "application/pdf",
+          "cache_control": "no-store, private",
+          "bytes": 86053
+        }
+      },
+      "denied_download": 403,
+      "denied_exports": {
+        "xlsx": 403,
+        "pdf": 403
+      },
+      "authorized_pdf_bytes": 69,
+      "task_document_id": 5,
+      "material_issue_id": 4,
+      "fifo_allocations": 1,
+      "status": "closed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    }
+  ]
+}

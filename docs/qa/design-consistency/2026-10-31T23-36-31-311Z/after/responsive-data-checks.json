@@ -1,0 +1,432 @@
+[
+  {
+    "route": "sales-orders.index",
+    "viewport": 1440,
+    "checks": [
+      {
+        "name": "responsive-row-has-all-contract-fields",
+        "result": "pass",
+        "details": {
+          "expected": 10,
+          "actual": 10,
+          "labels": [
+            "رقم الأمر",
+            "الفرع",
+            "العميل",
+            "المشروع / المرجع",
+            "تاريخ الأمر",
+            "التسليم المطلوب",
+            "الحالة / العمليات",
+            "الصافي قبل الضرائب",
+            "المنشئ",
+            "الإجراءات"
+          ]
+        }
+      }
+    ],
+    "sample_row_screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/sales-orders.index-first-row-1440.png"
+  },
+  {
+    "route": "sales-orders.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "responsive-row-has-all-contract-fields",
+        "result": "pass",
+        "details": {
+          "expected": 10,
+          "actual": 10,
+          "labels": [
+            "رقم الأمر",
+            "الفرع",
+            "العميل",
+            "المشروع / المرجع",
+            "تاريخ الأمر",
+            "التسليم المطلوب",
+            "الحالة / العمليات",
+            "الصافي قبل الضرائب",
+            "المنشئ",
+            "الإجراءات"
+          ]
+        }
+      },
+      {
+        "name": "every-mobile-cell-visible",
+        "result": "pass",
+        "details": {
+          "expected": 10,
+          "visible": 10
+        }
+      },
+      {
+        "name": "every-mobile-cell-label-visible",
+        "result": "pass",
+        "details": [
+          {
+            "label": "رقم الأمر",
+            "displayed": "رقم الأمر"
+          },
+          {
+            "label": "الفرع",
+            "displayed": "الفرع"
+          },
+          {
+            "label": "العميل",
+            "displayed": "العميل"
+          },
+          {
+            "label": "المشروع / المرجع",
+            "displayed": "المشروع / المرجع"
+          },
+          {
+            "label": "تاريخ الأمر",
+            "displayed": "تاريخ الأمر"
+          },
+          {
+            "label": "التسليم المطلوب",
+            "displayed": "التسليم المطلوب"
+          },
+          {
+            "label": "الحالة / العمليات",
+            "displayed": "الحالة / العمليات"
+          },
+          {
+            "label": "الصافي قبل الضرائب",
+            "displayed": "الصافي قبل الضرائب"
+          },
+          {
+            "label": "المنشئ",
+            "displayed": "المنشئ"
+          },
+          {
+            "label": "الإجراءات",
+            "displayed": "الإجراءات"
+          }
+        ]
+      },
+      {
+        "name": "clipped-mobile-header-has-no-focusable-controls",
+        "result": "pass",
+        "details": []
+      }
+    ],
+    "sample_row_screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/sales-orders.index-first-row-390.png"
+  },
+  {
+    "route": "sales-orders.index",
+    "viewport": "desktop-1440 vs mobile-390",
+    "checks": [
+      {
+        "name": "responsive-row-values-match",
+        "result": "pass",
+        "details": {
+          "desktop": [
+            {
+              "label": "رقم الأمر",
+              "value": "مسودة c8daf9ca"
+            },
+            {
+              "label": "الفرع",
+              "value": "فرع طنطا - الغربية"
+            },
+            {
+              "label": "العميل",
+              "value": "شركة الأمان للإنارة الحديثة - السادس من أكتوبر 3"
+            },
+            {
+              "label": "المشروع / المرجع",
+              "value": "طلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا"
+            },
+            {
+              "label": "تاريخ الأمر",
+              "value": "2026/10/31"
+            },
+            {
+              "label": "التسليم المطلوب",
+              "value": "2026/11/13"
+            },
+            {
+              "label": "الحالة / العمليات",
+              "value": "مسودة لم يطلب حجز لم يبدأ التسليم لم تطلب فوترة"
+            },
+            {
+              "label": "الصافي قبل الضرائب",
+              "value": "85711.6 ج.م"
+            },
+            {
+              "label": "المنشئ",
+              "value": "مستخدم #1"
+            },
+            {
+              "label": "الإجراءات",
+              "value": ""
+            }
+          ],
+          "mobile": [
+            {
+              "label": "رقم الأمر",
+              "value": "مسودة c8daf9ca"
+            },
+            {
+              "label": "الفرع",
+              "value": "فرع طنطا - الغربية"
+            },
+            {
+              "label": "العميل",
+              "value": "شركة الأمان للإنارة الحديثة - السادس من أكتوبر 3"
+            },
+            {
+              "label": "المشروع / المرجع",
+              "value": "طلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا"
+            },
+            {
+              "label": "تاريخ الأمر",
+              "value": "2026/10/31"
+            },
+            {
+              "label": "التسليم المطلوب",
+              "value": "2026/11/13"
+            },
+            {
+              "label": "الحالة / العمليات",
+              "value": "مسودة لم يطلب حجز لم يبدأ التسليم لم تطلب فوترة"
+            },
+            {
+              "label": "الصافي قبل الضرائب",
+              "value": "85711.6 ج.م"
+            },
+            {
+              "label": "المنشئ",
+              "value": "مستخدم #1"
+            },
+            {
+              "label": "الإجراءات",
+              "value": ""
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": 1440,
+    "checks": [
+      {
+        "name": "responsive-row-has-all-contract-fields",
+        "result": "pass",
+        "details": {
+          "expected": 9,
+          "actual": 9,
+          "labels": [
+            "المرجع الداخلي",
+            "المورد",
+            "التاريخ",
+            "العملة",
+            "الصافي",
+            "حالة الاعتماد",
+            "الإصدار",
+            "الاستلام",
+            "الإجراءات"
+          ]
+        }
+      }
+    ],
+    "sample_row_screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/purchasing.orders.index-first-row-1440.png"
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "responsive-row-has-all-contract-fields",
+        "result": "pass",
+        "details": {
+          "expected": 9,
+          "actual": 9,
+          "labels": [
+            "المرجع الداخلي",
+            "المورد",
+            "التاريخ",
+            "العملة",
+            "الصافي",
+            "حالة الاعتماد",
+            "الإصدار",
+            "الاستلام",
+            "الإجراءات"
+          ]
+        }
+      },
+      {
+        "name": "every-mobile-cell-visible",
+        "result": "pass",
+        "details": {
+          "expected": 9,
+          "visible": 9
+        }
+      },
+      {
+        "name": "every-mobile-cell-label-visible",
+        "result": "pass",
+        "details": [
+          {
+            "label": "المرجع الداخلي",
+            "displayed": "المرجع الداخلي"
+          },
+          {
+            "label": "المورد",
+            "displayed": "المورد"
+          },
+          {
+            "label": "التاريخ",
+            "displayed": "التاريخ"
+          },
+          {
+            "label": "العملة",
+            "displayed": "العملة"
+          },
+          {
+            "label": "الصافي",
+            "displayed": "الصافي"
+          },
+          {
+            "label": "حالة الاعتماد",
+            "displayed": "حالة الاعتماد"
+          },
+          {
+            "label": "الإصدار",
+            "displayed": "الإصدار"
+          },
+          {
+            "label": "الاستلام",
+            "displayed": "الاستلام"
+          },
+          {
+            "label": "الإجراءات",
+            "displayed": "الإجراءات"
+          }
+        ]
+      },
+      {
+        "name": "clipped-mobile-header-has-no-focusable-controls",
+        "result": "pass",
+        "details": []
+      }
+    ],
+    "sample_row_screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/purchasing.orders.index-first-row-390.png"
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": "desktop-1440 vs mobile-390",
+    "checks": [
+      {
+        "name": "responsive-row-values-match",
+        "result": "pass",
+        "details": {
+          "desktop": [
+            {
+              "label": "المرجع الداخلي",
+              "value": "#3"
+            },
+            {
+              "label": "المورد",
+              "value": "شركة العاصمة للإنارة الحديثة - دمياط الجديدة 2824"
+            },
+            {
+              "label": "التاريخ",
+              "value": "2026-10-31"
+            },
+            {
+              "label": "العملة",
+              "value": "EGP"
+            },
+            {
+              "label": "الصافي",
+              "value": "30.00000000"
+            },
+            {
+              "label": "حالة الاعتماد",
+              "value": "معتمد داخليًا"
+            },
+            {
+              "label": "الإصدار",
+              "value": "PO-2026-000001"
+            },
+            {
+              "label": "الاستلام",
+              "value": "مستلم بالكامل"
+            },
+            {
+              "label": "الإجراءات",
+              "value": "التفاصيل"
+            }
+          ],
+          "mobile": [
+            {
+              "label": "المرجع الداخلي",
+              "value": "#3"
+            },
+            {
+              "label": "المورد",
+              "value": "شركة العاصمة للإنارة الحديثة - دمياط الجديدة 2824"
+            },
+            {
+              "label": "التاريخ",
+              "value": "2026-10-31"
+            },
+            {
+              "label": "العملة",
+              "value": "EGP"
+            },
+            {
+              "label": "الصافي",
+              "value": "30.00000000"
+            },
+            {
+              "label": "حالة الاعتماد",
+              "value": "معتمد داخليًا"
+            },
+            {
+              "label": "الإصدار",
+              "value": "PO-2026-000001"
+            },
+            {
+              "label": "الاستلام",
+              "value": "مستلم بالكامل"
+            },
+            {
+              "label": "الإجراءات",
+              "value": "التفاصيل"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "route": "financial.aging",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "aging-mobile-card-retains-nine-visible-values",
+        "result": "pass",
+        "details": {
+          "expected": 9,
+          "actual": 9,
+          "values": [
+            "مورد",
+            "SI-2026-000001",
+            "2026-10-31",
+            "2026-11-30",
+            "34.20 EGP",
+            "0.00 EGP",
+            "0.00 EGP",
+            "0 يوم",
+            "34.20 EGP"
+          ]
+        }
+      }
+    ],
+    "sample_card_screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/financial.aging-first-card-390.png"
+  }
+]

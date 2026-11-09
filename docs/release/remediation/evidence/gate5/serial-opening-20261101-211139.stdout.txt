@@ -1,0 +1,11 @@
+PASS Serialized opening rejects no serials for one base unit (actual Illuminate\Validation\ValidationException)
+PASS Serialized opening rejects more serials than the declared base quantity (actual Illuminate\Validation\ValidationException)
+PASS Serialized opening rejects duplicate normalized serials (actual Illuminate\Validation\ValidationException)
+PASS Quantity-tracked opening rejects nonempty serial identities (actual Illuminate\Validation\ValidationException)
+PASS Rejected serial validation creates no opening batches, lines, or audit events
+PASS Opening entry denies a granted actor without branch membership (actual Symfony\Component\HttpKernel\Exception\HttpException)
+PASS Branch-scope denial leaves opening batch, lines, and audit unchanged
+PASS Opening draft preserves exact serial identities and source quantity/cost/value strings
+PASS Opening batch creator cannot approve the same serial opening (actual Illuminate\Validation\ValidationException)
+PASS Self-approval denial leaves the submitted opening unchanged
+RESULT all_pass=0 assertions=11 rollback_verified=1 phase=independent M11 financial activation and inventory source effects receipt=C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/serial-opening-evidence-20261101T191140Z-3634152afa/receipt.json

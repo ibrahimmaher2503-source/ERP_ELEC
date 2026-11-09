@@ -1,0 +1,30 @@
+PASS unauthorized action rejected
+PASS company save and update persisted
+PASS branch create/edit persisted
+PASS duplicate code rejected
+PASS stale edit rejected
+PASS branch deactivation persisted
+PASS active user assignment blocks deactivation
+PASS unauthorized action rejected
+PASS unauthorized action rejected
+PASS branch A reader cannot query branch B
+PASS company Livewire render and save
+PASS branches Livewire render and create
+PASS Livewire edit and confirmed status persisted
+PASS details render and direct hidden branch denied
+PASS HTTP page resolves /organization/company
+PASS one shared main region
+PASS shell resolves authorized company identity
+PASS HTTP page resolves /organization/branches
+PASS one shared main region
+PASS shell resolves authorized company identity
+PASS HTTP page resolves /organization/branches/1
+PASS one shared main region
+PASS shell resolves authorized company identity
+PASS approved contact fields and private logo saved
+PASS authorized private logo response
+PASS unauthorized action rejected
+PASS SVG logo rejected
+PASS unauthorized action rejected
+PASS master change audit persisted atomically
+Disposable test transaction rolled back.

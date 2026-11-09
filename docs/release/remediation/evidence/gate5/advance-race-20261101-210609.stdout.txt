@@ -1,0 +1,2 @@
+{"all_pass":false,"mode":"m10-advance-concurrency","phase":"migrate disposable advance database","primary_database":"erp_elec_new_test","disposable_database":"erp_elec_new_m10_advance_2320174e5d441c7d","disposable_database_dropped":false,"primary_counts_unchanged":null,"failure":{"class":"RuntimeException","message":"Disposable advance migrations failed or omitted the completion marker."}}
+Private advance race failure receipt preserved.

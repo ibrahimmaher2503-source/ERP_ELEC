@@ -1,0 +1,230 @@
+[Wed Oct 28 00:02:06 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8016) started
+[Wed Oct 28 00:02:06 2026] 127.0.0.1:54207 Accepted
+[Wed Oct 28 00:02:07 2026] 127.0.0.1:54207 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:61827 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:61827 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:53352 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:53352 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64666 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:61968 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:57196 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64666 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:61968 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:57196 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:53352 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64666 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64399 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64399 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:64399 Closing
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:58750 Accepted
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:58750 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:08 2026] 127.0.0.1:58750 Closing
+[Wed Oct 28 00:02:09 2026] 127.0.0.1:59302 Accepted
+[Wed Oct 28 00:02:11 2026] 127.0.0.1:59302 Closing
+[Wed Oct 28 00:02:11 2026] 127.0.0.1:49785 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:49785 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:63771 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:63771 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52504 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52079 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52504 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52079 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52504 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:63771 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:52079 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:55300 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:55300 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:55300 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:54588 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:54588 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:54588 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:62764 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:62764 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:62764 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:56932 Accepted
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:56932 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:56932 Closing
+[Wed Oct 28 00:02:16 2026] 127.0.0.1:49407 Accepted
+[Wed Oct 28 00:02:18 2026] 127.0.0.1:49407 Closing
+[Wed Oct 28 00:02:18 2026] 127.0.0.1:62856 Accepted
+[Wed Oct 28 00:02:18 2026] 127.0.0.1:62856 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:18 2026] 127.0.0.1:61327 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:62856 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:56596 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:61327 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:56596 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:61327 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:56596 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:64504 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:64504 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:64504 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:59302 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:59302 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:59302 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:61024 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:61024 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:61024 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:55151 Accepted
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:55151 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:55151 Closing
+[Wed Oct 28 00:02:19 2026] 127.0.0.1:49977 Accepted
+[Wed Oct 28 00:02:20 2026] 127.0.0.1:49977 Closing
+[Wed Oct 28 00:02:20 2026] 127.0.0.1:56640 Accepted
+[Wed Oct 28 00:02:20 2026] 127.0.0.1:53361 Accepted
+[Wed Oct 28 00:02:21 2026] 127.0.0.1:56640 Closing
+[Wed Oct 28 00:02:21 2026] 127.0.0.1:52824 Accepted
+[Wed Oct 28 00:02:22 2026] 127.0.0.1:53361 Closing
+[Wed Oct 28 00:02:22 2026] 127.0.0.1:62107 Accepted
+[Wed Oct 28 00:02:22 2026] 127.0.0.1:52824 Closing
+[Wed Oct 28 00:02:23 2026] 127.0.0.1:62107 Closing
+[Wed Oct 28 00:02:23 2026] 127.0.0.1:49201 Accepted
+[Wed Oct 28 00:02:24 2026] 127.0.0.1:49201 Closing
+[Wed Oct 28 00:02:24 2026] 127.0.0.1:54810 Accepted
+[Wed Oct 28 00:02:25 2026] 127.0.0.1:54810 Closing
+[Wed Oct 28 00:02:25 2026] 127.0.0.1:52469 Accepted
+[Wed Oct 28 00:02:26 2026] 127.0.0.1:52469 Closing
+[Wed Oct 28 00:02:26 2026] 127.0.0.1:50153 Accepted
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:50153 Closing
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:57737 Accepted
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:57737 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:57737 Closing
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:61856 Accepted
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:61856 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:61856 Closing
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:49329 Accepted
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:49329 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:49329 Closing
+[Wed Oct 28 00:02:28 2026] 127.0.0.1:62515 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:62515 Closing
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:63989 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:63989 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:51878 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:64638 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:51878 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:63989 Closing
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:51878 Closing
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:64638 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:64638 Closing
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:55202 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:62457 Accepted
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:55202 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:62457 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:55202 Closing
+[Wed Oct 28 00:02:29 2026] 127.0.0.1:62457 Closing
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:56372 Accepted
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:56372 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:56372 Closing
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:64068 Accepted
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:64068 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:64068 Closing
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:63488 Accepted
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:63488 Closing
+[Wed Oct 28 00:02:30 2026] 127.0.0.1:60489 Accepted
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:60489 Closing
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:57516 Accepted
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:57516 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:57516 Closing
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:58528 Accepted
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:58528 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:58528 Closing
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:63376 Accepted
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:63376 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:31 2026] 127.0.0.1:63376 Closing
+[Wed Oct 28 00:02:33 2026] 127.0.0.1:59128 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:59128 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51067 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51067 [200]: GET /build/assets/app-CU4m_7XP.css
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:65126 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51067 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:65126 [200]: GET /build/assets/app-BvRk9kiK.js
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:65126 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:52855 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:52855 [200]: GET /images/avatars/neutral.svg
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:52855 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:54819 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:54819 [200]: GET /fonts/noto-sans-arabic.woff2
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:53912 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:54819 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:53912 [200]: GET /fonts/noto-sans-latin.woff2
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:53912 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51082 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51082 [200]: GET /favicon.svg
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:51082 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:55938 Accepted
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:55938 [200]: GET /favicon.ico
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:55938 Closing
+[Wed Oct 28 00:02:35 2026] 127.0.0.1:58161 Accepted
+[2026-10-27 21:02:36] testing.ERROR: Restore the private company logo before official issue. {"userId":23,"exception":"[object] (App\\Modules\\Organization\\Application\\Contracts\\ContractException(code: 503): Restore the private company logo before official issue. at C:/projects/ERP_ELEC_NEW/app/Modules/Organization/Application/OrganizationService.php:32)
+[stacktrace]
+#0 C:/projects/ERP_ELEC_NEW/app/Modules/System/Application/IssueOfficialDocument.php(32): App/Modules/Organization/Application/OrganizationService->documentCompany(23)
+#1 C:/projects/ERP_ELEC_NEW/app/Modules/Sales/Application/QuotationIssuance.php(64): App/Modules/System/Application/IssueOfficialDocument->issue(23, 'quotation', '7', 1, '2026-10-28', Array)
+#2 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App/Modules/Sales/Application/QuotationIssuance->{closure:App/Modules/Sales/Application/QuotationIssuance::issue():25}(Object(Illuminate/Database/PostgresConnection))
+#3 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(502): Illuminate/Database/Connection->transaction(Object(Closure))
+#4 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(364): Illuminate/Database/DatabaseManager->__call('transaction', Array)
+#5 C:/projects/ERP_ELEC_NEW/app/Modules/Sales/Application/QuotationIssuance.php(25): Illuminate/Support/Facades/Facade::__callStatic('transaction', Array)
+#6 C:/projects/ERP_ELEC_NEW/app/Modules/Sales/Presentation/QuotationDetailsPage.php(77): App/Modules/Sales/Application/QuotationIssuance->issue(23, 7, 2)
+#7 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App/Modules/Sales/Presentation/QuotationDetailsPage->operation('issue')
+#8 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#9 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#10 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#11 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Wrapped.php(23): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array)
+#12 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(583): Livewire/Wrapped->__call('operation', Array)
+#13 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(224): Livewire/Mechanisms/HandleComponents/HandleComponents->callMethods(Object(App/Modules/Sales/Presentation/QuotationPdfPage), Array, Object(Livewire/Mechanisms/HandleComponents/ComponentContext))
+#14 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/LivewireManager.php(132): Livewire/Mechanisms/HandleComponents/HandleComponents->update(Array, Array, Array)
+#15 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php(220): Livewire/LivewireManager->update(Array, Array, Array)
+#16 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire/Mechanisms/HandleRequests/HandleRequests->handleUpdate()
+#17 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Route.php(276): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(Livewire/Mechanisms/HandleRequests/HandleRequests), 'handleUpdate')
+#18 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Route.php(216): Illuminate/Routing/Route->runController()
+#19 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Router.php(834): Illuminate/Routing/Route->run()
+#20 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->{closure:Illuminate/Routing/Router::runRouteWithinStack():833}(Object(Illuminate/Http/Request))
+#21 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Mechanisms/HandleRequests/RequireLivewireHeaders.php(19): Illuminate/Pipeline/Pipeline->{closure:Illuminate/Pipeline/Pipeline::prepareDestination():178}(Object(Illuminate/Http/Request))
+#22 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire/Mechanisms/HandleRequests/RequireLivewireHeaders->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 C:/projects/ERP_ELEC_NEW/app/Modules/Organization/Presentation/EnsureActiveAccount.php(29): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#24 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Modules/Organization/Presentation/EnsureActiveAccount->handle(Object(Illuminate/Http/Request), Object(Closure))
+#25 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(52): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#26 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#27 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestForgery.php(104): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#28 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestForgery->handle(Object(Illuminate/Http/Request), Object(Closure))
+#29 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(48): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#30 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/View/Middleware/ShareErrorsFromSession->handle(Object(Illuminate/Http/Request), Object(Closure))
+#31 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(120): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#32 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(63): Illuminate/Session/Middleware/StartSession->handleStatefulRequest(Object(Illuminate/Http/Request), Object(Illuminate/Session/Store), Object(Closure))
+#33 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Session/Middleware/StartSession->handle(Object(Illuminate/Http/Request), Object(Closure))
+#34 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(36): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#35 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(74): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#37 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Cookie/Middleware/EncryptCookies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#39 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Router.php(833): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#40 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Router.php(812): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#41 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Router.php(776): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#42 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Routing/Router.php(765): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#43 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#44 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->{closure:Illuminate/Foundation/Http/Kernel::dispatchToRouter():197}(Object(Illuminate/Http/Request))
+#45 C:/projects/ERP_ELEC_NEW/vendor/livewire/livewire/src/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware.php(19): Illuminate/Pipeline/Pipeline->{closure:Illuminate/Pipeline/Pipeline::prepareDestination():178}(Object(Illuminate/Http/Request))
+#46 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire/Features/SupportDisablingBackButtonCache/DisableBackButtonCacheMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure))
+#47 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(27): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#48 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#49 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(47): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#50 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#51 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#52 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#53 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#54 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#55 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(61): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#56 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#57 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#58 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#59 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#60 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#61 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(28): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#62 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#63 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->{closure:{closure:Illuminate/Pipeline/Pipeline::carry():194}:195}(Object(Illuminate/Http/Request))
+#64 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#65 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#66 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1228): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#67 C:/projects/ERP_ELEC_NEW/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#68 C:/projects/ERP_ELEC_NEW/tests/E2E/support/laravel-static-router.php(8): require('C://projects//ERP...')
+#69 {main}
+"} 
+[Wed Oct 28 00:02:36 2026] 127.0.0.1:58161 Closing

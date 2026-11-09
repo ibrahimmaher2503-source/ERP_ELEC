@@ -1,0 +1,24 @@
+PASS Company factory persists a singleton EGP setup fixture because the isolated test database had no company row
+PASS Branch factory persists a complete branch linked to its existing company
+PASS Existing Administrator role is available for a temporary rollback-only test actor
+PASS Temporary active verified Administrator test actor authorizes the seeder inside the rollback fixture
+PASS Company setup is available and included in existing-record preservation checks
+PASS First seed creates each requested synthetic root set and its summary reports only actual inserts
+PASS M09 demo seeds four inactive workshops and one unreceived draft intake with real demo owner links and no custody event
+PASS M07 Tenders demo seeds three synthetic identified drafts with valid disabled owner links and no bids, events, approvals, submissions, awards, guarantees, or conversions; {"valid":true,"rows":[{"identity":"DEMO-EG-TN-PROJECT","status":"identified","version":1,"technical":null,"financial":null,"submission":null,"customer":null,"branch_active":true,"owner_disabled":true},{"identity":"DEMO-EG-TN-SERVICE","status":"identified","version":1,"technical":null,"financial":null,"submission":null,"customer":null,"branch_active":true,"owner_disabled":true},{"identity":"DEMO-EG-TN-SUPPLY","status":"identified","version":1,"technical":null,"financial":null,"submission":null,"customer":null,"branch_active":true,"owner_disabled":true}],"new_rows":3,"events":[]}
+PASS Demo seed used only the temporary active verified Administrator fixture actor
+PASS Every demo branch references the preserved company and has a meaningful active location
+PASS Demo users are disabled, unverified, uncredentialed, unlogged, and assigned only to generated branches
+PASS Demo users receive no roles, grants, scopes, passkeys, sessions, or reset tokens
+PASS Every demo product has populated electrical identity and valid category, brand, base unit, and actor references
+PASS Product purchase units use dimension-consistent exact 10 or 100 conversions only where required
+PASS Each product has one valid PNG and one clearly synthetic private PDF with matching file metadata
+PASS Customer and supplier fields, contacts, addresses, notes, categories, and private disclaimer documents form complete owner graphs
+PASS Every generated quotation is a coherent priced draft with exact decimals, real owner snapshots, private PDFs, and no approval outcome
+PASS Every sales order is a linked direct draft with valid snapshots and catalog lines, requested prices only, and no reviews or posting outcome
+PASS Second seed is idempotent: no new business records or duplicate dataset rows; first={"branch":4,"user":8,"product":32,"customer":12,"supplier":8,"quotation":10,"sales_order":6,"workshop":4,"workshop_intake":1,"tender":3} second={"branch":4,"user":8,"product":32,"customer":12,"supplier":8,"quotation":10,"sales_order":6,"workshop":4,"workshop_intake":1,"tender":3} summary=[]
+PASS Every preexisting company, branch, catalog, party, document, and quotation row remains byte-for-byte unchanged
+PASS No roles, permissions, grants, scopes, auth sessions, approvals, policies, or data-operation receipts were created
+PASS Actual M01-M09 and M07 Tenders synthetic business inserts have anonymous owner-matched audits without fabricated sign-in, approval or posting history
+PASS Fixture files stay on the application private disk and newly created paths remain within approved private roots
+Egypt-market demo fixture transaction rolled back; generated private files cleaned up.

@@ -1,0 +1,54 @@
+{
+    "ci_run_id": null,
+    "database": "erp_elec_new_test@127.0.0.1:49685",
+    "result": "FAIL",
+    "assertions": 11,
+    "results": [
+        {
+            "name": "No report authority cannot close a company period and leaves no closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "No-scope company close is surfaced as HTTP 403 instead of an unhandled contract exception",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial branch report scope cannot certify a company-wide close without closure or audit effects",
+            "result": "PASS"
+        },
+        {
+            "name": "Partial-scope company close is surfaced as HTTP 403",
+            "result": "PASS"
+        },
+        {
+            "name": "A second-branch reconciliation mismatch denies close without closure/audit effects (owner-contract test double)",
+            "result": "PASS"
+        },
+        {
+            "name": "Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "A second close cannot create another closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate close leaves exactly one immutable closure evidence row",
+            "result": "PASS"
+        },
+        {
+            "name": "Database immutability trigger rejects UPDATE and DELETE without changing evidence or audit state",
+            "result": "PASS"
+        },
+        {
+            "name": "Authorized reopen preserves original immutable closure evidence and advances period version",
+            "result": "PASS"
+        },
+        {
+            "name": "Reclose records a second versioned digest while preserving the first closure evidence bytes",
+            "result": "PASS"
+        }
+    ],
+    "error_class": "Illuminate\\Validation\\ValidationException",
+    "error": "Complete the actual company legal name and address before official issue."
+}

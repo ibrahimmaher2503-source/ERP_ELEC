@@ -1,0 +1,276 @@
+{
+  "status": "PASS",
+  "database": "erp_elec_new_test",
+  "port": 49686,
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "checks": [
+    {
+      "result": "PASS",
+      "message": "synthetic actor authenticated through the login UI"
+    },
+    {
+      "result": "PASS",
+      "message": "M01/M10/M15 manager sees all eight dashboard cards while ungranted financial and business metrics stay unavailable"
+    },
+    {
+      "result": "PASS",
+      "message": "synthetic actor authenticated through the login UI"
+    },
+    {
+      "result": "PASS",
+      "message": "ordinary SalesClerk with scoped read grants can load all eight authorized dashboard sections"
+    },
+    {
+      "result": "PASS",
+      "message": "new scoped branch shows measured zero counts and balances without seeded revenue, invoices, or cash movements"
+    },
+    {
+      "result": "PASS",
+      "message": "AR-only dashboard authority displays customer invoices and omits the unauthorized supplier amount"
+    },
+    {
+      "result": "PASS",
+      "message": "dashboard keeps posted-ledger revenue and treasury cash as separate measures"
+    },
+    {
+      "result": "PASS",
+      "message": "1440x900 dashboard keeps RTL and avoids horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1366x768 dashboard keeps RTL and avoids horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "768x1024 dashboard keeps RTL and avoids horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "390x844 dashboard keeps RTL and avoids horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "360x800 dashboard keeps RTL and avoids horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "M01 employee list rendered for a scoped manager"
+    },
+    {
+      "result": "PASS",
+      "message": "unique scoped employee search shows the truthful empty state"
+    },
+    {
+      "result": "PASS",
+      "message": "M01 employee create persisted after full page reload"
+    },
+    {
+      "result": "PASS",
+      "message": "employee search exposes its loading state while Livewire is working"
+    },
+    {
+      "result": "PASS",
+      "message": "M15 empty schedule state is explicit for a scoped employee/month"
+    },
+    {
+      "result": "PASS",
+      "message": "M15 scheduled shift and actual attendance punch persist after reload"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 create form rendered with current branch authority"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 coverage row is present after the server confirms addRow(coverage)"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 coverage fields contain the synthetic equipment and visit limits before the next server action"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 preventive-row response preserves the previously filled coverage row"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 preventive row exists after the server confirms addRow(preventive_schedule)"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 installment-row response preserves both coverage and preventive schedule values"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 installment row exists after the server confirms addRow(schedule)"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 invalid installment total reports the specific contract-value/schedule mismatch"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 actual business action created a draft contract"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 draft reload preserves explicit pricing tax basis and preventive schedule inputs"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 draft does not expose the billing page link before activation"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 billing page rejects a draft contract that has no active signed revision"
+    },
+    {
+      "result": "PASS",
+      "message": "M10 draft submission persisted after reload"
+    },
+    {
+      "result": "PASS",
+      "message": "1440x900 employee list keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1440x900 attendance report has no horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1440x900 contract page keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1366x768 employee list keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1366x768 attendance report has no horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "1366x768 contract page keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "768x1024 employee list keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "768x1024 attendance report has no horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "768x1024 contract page keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "390x844 employee list keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "390x844 attendance report has no horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "390x844 contract page keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "360x800 employee list keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "360x800 attendance report has no horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "360x800 contract page keeps RTL without horizontal page overflow"
+    },
+    {
+      "result": "PASS",
+      "message": "synthetic actor authenticated through the login UI"
+    },
+    {
+      "result": "PASS",
+      "message": "read-only M01 actor sees records without employee mutation controls"
+    },
+    {
+      "result": "PASS",
+      "message": "read-only M15 actor cannot see shift or punch controls"
+    },
+    {
+      "result": "PASS",
+      "message": "read-only M10 actor can view a contract without workflow mutation controls"
+    },
+    {
+      "result": "PASS",
+      "message": "synthetic actor authenticated through the login UI"
+    },
+    {
+      "result": "PASS",
+      "message": "revoked employee-view grant denies the already authenticated session"
+    },
+    {
+      "result": "PASS",
+      "message": "synthetic actor authenticated through the login UI"
+    },
+    {
+      "result": "PASS",
+      "message": "disabled account loses access and its existing session is invalidated"
+    }
+  ],
+  "screenshots": [
+    "attendance-1366x768.png",
+    "attendance-1440x900.png",
+    "attendance-360x800.png",
+    "attendance-390x844.png",
+    "attendance-768x1024.png",
+    "attendance-empty-1440x900.png",
+    "contract-1366x768.png",
+    "contract-1440x900.png",
+    "contract-360x800.png",
+    "contract-390x844.png",
+    "contract-768x1024.png",
+    "contract-validation-1440x900.png",
+    "dashboard-1366x768.png",
+    "dashboard-1440x900.png",
+    "dashboard-360x800.png",
+    "dashboard-390x844.png",
+    "dashboard-768x1024.png",
+    "dashboard-scoped-1440x900.png",
+    "dashboard-unavailable-1440x900.png",
+    "denied-disabled.png",
+    "denied-revoked.png",
+    "employee-1366x768.png",
+    "employee-1440x900.png",
+    "employee-360x800.png",
+    "employee-390x844.png",
+    "employee-768x1024.png",
+    "employee-empty-1440x900.png",
+    "employee-read-only.png"
+  ],
+  "completedAt": "2026-11-01T18:40:29.190Z"
+}

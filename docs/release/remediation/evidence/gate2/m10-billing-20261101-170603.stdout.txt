@@ -1,0 +1,233 @@
+{
+    "all_pass": false,
+    "mode": "m10-billing",
+    "phase": "M08 independent reviewer verify and M10 coverage consumption",
+    "assertions": 15,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "service_contract_measurements": 0,
+            "service_contract_claims": 0,
+            "service_contract_claim_lines": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "service_contract_recognitions": 0,
+            "service_contract_recognition_reversals": 0,
+            "service_contract_billing_corrections": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_credit_notes": 0,
+            "rp_settlement_allocations": 0,
+            "treasury_movements": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_party_credits": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "service_contract_measurements": 0,
+            "service_contract_claims": 0,
+            "service_contract_claim_lines": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "service_contract_recognitions": 0,
+            "service_contract_recognition_reversals": 0,
+            "service_contract_billing_corrections": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_credit_notes": 0,
+            "rp_settlement_allocations": 0,
+            "treasury_movements": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_party_credits": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Synthetic M11 Go-Live uses owner setup, validated tax, independent no-opening approval and ActivateFinancialPosting inside rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "Installment proposer cannot approve their own billing source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Approved installment allocates once to a source-linked M12 draft using the signed exclusive exempt amount.",
+            "result": "PASS"
+        },
+        {
+            "name": "A schedule line cannot be overbilled through a second source proposal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Billing cannot change the signed exclusive pricing tax mode.",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected tax-mode proposal leaves no billing source behind.",
+            "result": "PASS"
+        },
+        {
+            "name": "Invoice creator without M12 posting authority cannot post the validated invoice.",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied invoice posting leaves validation state, open items and GL unchanged.",
+            "result": "PASS"
+        },
+        {
+            "name": "M12 invoice posting replays the same journal and creates one open item.",
+            "result": "PASS"
+        },
+        {
+            "name": "Recognition posts once from independently approved actual M08 work and cannot duplicate its earning journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Recognition cannot exceed posted deferred billing even with completed work evidence.",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected excess recognition remains unposted and creates no journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Signed contract cannot mix installment and measured-work entitlements.",
+            "result": "PASS"
+        },
+        {
+            "name": "Measurement creator cannot approve their own work quantity.",
+            "result": "PASS"
+        },
+        {
+            "name": "M11 setup/activation, billing, invoice, collection, journals, audit and private scratch all roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+        "message": "المطالبة تتجاوز المتبقي من القياس المعتمد.",
+        "trace_without_arguments": [
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Foundation/helpers.php",
+                "line": 67,
+                "class": "Illuminate\\Foundation\\Application",
+                "function": "abort"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Foundation/helpers.php",
+                "line": 104,
+                "class": null,
+                "function": "abort"
+            },
+            {
+                "file": "app/Modules/ServiceContracts/Application/ServiceContractBilling.php",
+                "line": 248,
+                "class": null,
+                "function": "abort_unless"
+            },
+            {
+                "file": "app/Modules/ServiceContracts/Application/ServiceContractBilling.php",
+                "line": 235,
+                "class": "App\\Modules\\ServiceContracts\\Application\\ServiceContractBilling",
+                "function": "claimCapacity"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php",
+                "line": 35,
+                "class": "App\\Modules\\ServiceContracts\\Application\\ServiceContractBilling",
+                "function": "{closure:App\\Modules\\ServiceContracts\\Application\\ServiceContractBilling::createClaim():210}"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php",
+                "line": 502,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "transaction"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php",
+                "line": 364,
+                "class": "Illuminate\\Database\\DatabaseManager",
+                "function": "__call"
+            },
+            {
+                "file": "app/Modules/ServiceContracts/Application/ServiceContractBilling.php",
+                "line": 210,
+                "class": "Illuminate\\Support\\Facades\\Facade",
+                "function": "__callStatic"
+            },
+            {
+                "file": "tests/Support/check-m10-service-contracts-billing.php",
+                "line": 415,
+                "class": "App\\Modules\\ServiceContracts\\Application\\ServiceContractBilling",
+                "function": "createClaim"
+            }
+        ]
+    },
+    "synthetic_m11_activation": {
+        "performed": true,
+        "rolled_back": true,
+        "go_live_date": "2026-11-01",
+        "zero_opening": true
+    }
+}
+RESULT all_pass=0 assertions=15 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-billing-20261101T150606Z-f929f5.json

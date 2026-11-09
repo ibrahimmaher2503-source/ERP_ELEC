@@ -1,0 +1,121 @@
+[Fri Nov  6 04:45:38 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8001) started
+[Fri Nov  6 04:45:38 2026] 127.0.0.1:50952 Accepted
+[Fri Nov 6 02:45:38 2026] 127.0.0.1:50952 [GET] URI: /login
+[Fri Nov  6 04:45:38 2026] 127.0.0.1:50952 Closing
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:64525 Accepted
+[Fri Nov 6 02:45:40 2026] 127.0.0.1:64525 [GET] URI: /sales-orders
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:64525 Closing
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:58391 Accepted
+[Fri Nov 6 02:45:40 2026] 127.0.0.1:58391 [GET] URI: /login
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:58391 Closing
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:51870 Accepted
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:55971 Accepted
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:57441 Accepted
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:51204 Accepted
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:51870 [200]: GET /build/assets/app-DmJeu2K4.css
+[Fri Nov  6 04:45:40 2026] 127.0.0.1:55971 [200]: GET /build/assets/app-CykuF8qE.js
+[Fri Nov 6 02:45:40 2026] 127.0.0.1:51204 [GET] URI: /livewire-557588bd/livewire.min.js
+[Fri Nov  6 04:45:41 2026] 127.0.0.1:51204 Closing
+[Fri Nov 6 02:45:41 2026] 127.0.0.1:57441 [GET] URI: /flux/flux.min.js
+[Fri Nov  6 04:45:41 2026] 127.0.0.1:57441 Closing
+[Fri Nov  6 04:45:41 2026] 127.0.0.1:51870 Closing
+[Fri Nov  6 04:45:41 2026] 127.0.0.1:55971 Closing
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:51983 Accepted
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:51983 [200]: GET /favicon.svg
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:51983 Closing
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:62094 Accepted
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:62094 [200]: GET /favicon.ico
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:62094 Closing
+[Fri Nov  6 04:45:42 2026] 127.0.0.1:52456 Accepted
+[Fri Nov 6 02:45:42 2026] 127.0.0.1:52456 [GET] URI: /login
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:52456 Closing
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65028 Accepted
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65028 [200]: GET /build/assets/app-DmJeu2K4.css
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65166 Accepted
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65166 [200]: GET /build/assets/app-CykuF8qE.js
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65166 Closing
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:65028 Closing
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:53544 Accepted
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:53544 [200]: GET /favicon.svg
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:53544 Closing
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:55821 Accepted
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:55821 [200]: GET /favicon.ico
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:55821 Closing
+[Fri Nov  6 04:45:43 2026] 127.0.0.1:57652 Accepted
+[Fri Nov 6 02:45:43 2026] 127.0.0.1:57652 [POST] URI: /login
+[Fri Nov  6 04:45:47 2026] 127.0.0.1:57652 Closing
+[Fri Nov  6 04:45:47 2026] 127.0.0.1:49390 Accepted
+[Fri Nov 6 02:45:47 2026] 127.0.0.1:49390 [GET] URI: /sales-orders
+[Fri Nov  6 04:45:47 2026] 127.0.0.1:49390 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:51463 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:53998 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:51463 [200]: GET /build/assets/app-DmJeu2K4.css
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:51463 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60621 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:53998 [200]: GET /build/assets/app-CykuF8qE.js
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60621 [200]: GET /images/avatars/avatar-05.webp
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:53998 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60621 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:54731 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60645 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:54731 [200]: GET /fonts/noto-sans-latin.woff2
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60645 [200]: GET /fonts/noto-sans-arabic.woff2
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:54731 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:60645 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:63528 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:63528 [200]: GET /favicon.svg
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:63528 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:63412 Accepted
+[Fri Nov 6 02:45:48 2026] 127.0.0.1:63412 [GET] URI: /sales-orders
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:63412 Closing
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:55525 Accepted
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:55525 [200]: GET /favicon.ico
+[Fri Nov  6 04:45:48 2026] 127.0.0.1:55525 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60722 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60008 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60722 [200]: GET /build/assets/app-DmJeu2K4.css
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63801 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60722 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60008 [200]: GET /build/assets/app-CykuF8qE.js
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:60008 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63801 [200]: GET /images/avatars/avatar-05.webp
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63801 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61408 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63768 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61408 [200]: GET /fonts/noto-sans-latin.woff2
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61408 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63768 [200]: GET /fonts/noto-sans-arabic.woff2
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:63768 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61661 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61661 [200]: GET /favicon.svg
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:61661 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:50906 Accepted
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:50906 [200]: GET /favicon.ico
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:50906 Closing
+[Fri Nov  6 04:45:49 2026] 127.0.0.1:58302 Accepted
+[Fri Nov 6 02:45:49 2026] 127.0.0.1:58302 [GET] URI: /sales-orders/create
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:58302 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64936 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:56235 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64936 [200]: GET /build/assets/app-DmJeu2K4.css
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64954 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:56235 [200]: GET /build/assets/app-CykuF8qE.js
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64954 [200]: GET /images/avatars/avatar-05.webp
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64936 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:56235 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64954 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:63826 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:58184 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:63826 [200]: GET /fonts/noto-sans-latin.woff2
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:63826 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:58184 [200]: GET /fonts/noto-sans-arabic.woff2
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:58184 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:61620 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:61620 [200]: GET /favicon.svg
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:61620 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64304 Accepted
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64304 [200]: GET /favicon.ico
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:64304 Closing
+[Fri Nov  6 04:45:50 2026] 127.0.0.1:61146 Accepted
+[Fri Nov 6 02:45:50 2026] 127.0.0.1:61146 [POST] URI: /livewire-557588bd/update
+[Fri Nov  6 04:45:51 2026] 127.0.0.1:61146 Closing

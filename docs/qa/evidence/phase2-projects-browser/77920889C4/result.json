@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run_id": "77920889C4",
+  "failure": "check-phase2-projects-financial.php returned no JSON evidence: {\n    \"database\": \"erp_elec_new_test\",\n    \"postgres_port\": 55440,\n    \"all_pass\": false,\n    \"error_class\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\HttpException\",\n    \"error\": \"\",\n    \"trace\": [\n        {\n            \"file\": \"C:\\\\projects\\\\ERP_ELEC_NEW\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\helpers.php\",\n            \"line\": 67,\n            \"function\": \"abort\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Application\",\n            \"type\": \"->\",\n            \"args\": [\n                403,\n                \"\",\n                []\n            ]\n        },\n        {\n            \"file\": \"C:\\\\projects\\\\ERP_ELEC_NEW\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\helpers.php\",\n            \"line\": 104,\n            \"function\": \"abort\",\n            \"args\": [\n                403,\n                \"\",\n                []\n            ]\n        },\n        {\n            \"file\": \"C:\\\\projects\\\\ERP_ELEC_NEW\\\\app\\\\Modules\\\\Projects\\\\Application\\\\ProjectAccess.php\",\n        ",
+  "checks": [],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

@@ -1,0 +1,41 @@
+
+   INFO  Seeding database.  
+
+  Database\Seeders\EgyptMarketDemoSeeder ..................................................................... RUNNING  
+[2026-11-01 01:01:34] testing.ERROR: Active verified identity required. {"exception":"[object] (App\\Modules\\Organization\\Application\\Contracts\\ContractException(code: 403): Active verified identity required. at C:/projects/ERP_ELEC_NEW/app/Modules/Organization/Application/OrganizationService.php:173)
+[stacktrace]
+#0 C:/projects/ERP_ELEC_NEW/app/Modules/Organization/Application/OrganizationService.php(87): App/Modules/Organization/Application/OrganizationService->actor(2)
+#1 C:/projects/ERP_ELEC_NEW/database/seeders/EgyptMarketDemoSeeder.php(67): App/Modules/Organization/Application/OrganizationService->authorize(Object(App/Modules/Organization/Application/Contracts/AuthorizeRequest))
+#2 C:/projects/ERP_ELEC_NEW/database/seeders/EgyptMarketDemoSeeder.php(53): Database/Seeders/EgyptMarketDemoSeeder->seed()
+#3 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database/Seeders/EgyptMarketDemoSeeder->run()
+#4 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#5 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#6 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#7 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/Container.php(803): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#8 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate/Container/Container->call(Array, Array)
+#9 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(191): Illuminate/Database/Seeder->{closure:Illuminate/Database/Seeder::__invoke():183}()
+#10 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(89): Illuminate/Database/Seeder->__invoke()
+#11 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(188): Illuminate/Database/Console/Seeds/SeedCommand->{closure:Illuminate/Database/Console/Seeds/SeedCommand::handle():88}()
+#12 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(88): Illuminate/Database/Eloquent/Model::unguarded(Object(Closure))
+#13 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Database/Console/Seeds/SeedCommand->handle()
+#14 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#15 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#16 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#17 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Container/Container.php(803): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#18 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Console/Command.php(292): Illuminate/Container/Container->call(Array)
+#19 C:/projects/ERP_ELEC_NEW/vendor/symfony/console/Command/Command.php(285): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#20 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Console/Command.php(261): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#21 C:/projects/ERP_ELEC_NEW/vendor/symfony/console/Application.php(1129): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#22 C:/projects/ERP_ELEC_NEW/vendor/symfony/console/Application.php(380): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Database/Console/Seeds/SeedCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#23 C:/projects/ERP_ELEC_NEW/vendor/symfony/console/Application.php(219): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#24 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(205): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#25 C:/projects/ERP_ELEC_NEW/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1243): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#26 C:/projects/ERP_ELEC_NEW/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#27 {main}
+"} 
+
+In OrganizationService.php line 173:
+                                      
+  Active verified identity required.  
+                                      
+

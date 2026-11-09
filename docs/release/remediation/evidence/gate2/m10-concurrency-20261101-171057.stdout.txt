@@ -1,0 +1,10 @@
+
+Fatal error: Uncaught Error: Class "Symfony\Component\Process\Process" not found in C:\projects\ERP_ELEC_NEW\tests\Support\check-m10-last-visit-concurrency.php:153
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\tests\Support\check-m10-last-visit-concurrency.php on line 153
+PHP Fatal error:  Uncaught Error: Class "Symfony\Component\Process\Process" not found in C:\projects\ERP_ELEC_NEW\tests\Support\check-m10-last-visit-concurrency.php:153
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\tests\Support\check-m10-last-visit-concurrency.php on line 153
+M10 disposable database was retained because its shutdown identity/nonce could not be verified.

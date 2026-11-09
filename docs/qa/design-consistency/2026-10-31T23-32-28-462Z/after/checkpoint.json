@@ -1,0 +1,192 @@
+{
+  "run_id": "2026-10-31T23-32-28-462Z",
+  "phase": "after",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via existing Playwright",
+  "route_registry_source": "php artisan route:list --json",
+  "routes": [
+    {
+      "name": "sales-orders.index",
+      "variant": "default",
+      "module": "M04 Sales",
+      "uri": "sales-orders",
+      "url": "/sales-orders",
+      "baseline_status": 200
+    }
+  ],
+  "viewports": [
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "screenshots": [
+    {
+      "route": "sales-orders.index",
+      "module": "M04 Sales",
+      "url": "/sales-orders",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "checks": [
+        {
+          "name": "http-200",
+          "result": "pass",
+          "details": 200
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-and-sidebar",
+          "result": "pass",
+          "details": {
+            "main": true,
+            "sidebar": true
+          }
+        },
+        {
+          "name": "primary-heading-visible",
+          "result": "pass",
+          "details": "أوامر البيع"
+        },
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "visible-inputs-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-render",
+          "result": "pass",
+          "details": 6
+        },
+        {
+          "name": "secondary-actions-are-not-empty",
+          "result": "pass",
+          "details": {
+            "menus": 1,
+            "empty": 0
+          }
+        },
+        {
+          "name": "page-archetype-marker-rendered",
+          "result": "pass",
+          "details": "list"
+        }
+      ],
+      "console_errors": [],
+      "failed_requests": [],
+      "design": {
+        "dir": "rtl",
+        "lang": "ar",
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false,
+        "main": true,
+        "sidebar": true,
+        "heading": "أوامر البيع",
+        "heading_style": {
+          "font_size": "30px",
+          "line_height": "36px",
+          "color": "oklch(0.31 0.14 265)"
+        },
+        "geometry": {
+          "main": {
+            "x": 0,
+            "y": 64,
+            "width": 390,
+            "height": 5690.046875,
+            "right": 390,
+            "bottom": 5754.046875
+          },
+          "sidebar": {
+            "x": 390,
+            "y": 0,
+            "width": 250,
+            "height": 844,
+            "right": 640,
+            "bottom": 844
+          },
+          "topbar": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 64,
+            "right": 390,
+            "bottom": 64
+          },
+          "heading": {
+            "x": 16,
+            "y": 108,
+            "width": 358,
+            "height": 36,
+            "right": 374,
+            "bottom": 144
+          }
+        },
+        "visible_fields": 2,
+        "unlabeled_fields": [],
+        "broken_images": [],
+        "visible_sidebar_links": 6,
+        "page_archetype": "list",
+        "primary_actions": 41,
+        "secondary_action_menu_count": 1,
+        "empty_secondary_action_menus": 0,
+        "visible_table_headers": [
+          "رقم الأمر",
+          "الفرع",
+          "العميل",
+          "المشروع / المرجع",
+          "تاريخ الأمر",
+          "التسليم المطلوب",
+          "الحالة / العمليات",
+          "الصافي قبل الضرائب",
+          "المنشئ",
+          "إجراءات"
+        ],
+        "selected_module_tab": null
+      },
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-32-28-462Z/after/screenshots/sales-orders.index-mobile-390.png"
+    }
+  ],
+  "timing_samples": [],
+  "interactions": [],
+  "excluded_checks": [
+    {
+      "name": "no-authority route denial",
+      "reason": "existing authenticated fixture is the authorized audit actor; no separate safe no-authority actor fixture has been established, so no account or privileges were created"
+    }
+  ],
+  "conditions": {
+    "isolated_existing_database": true,
+    "reset": false,
+    "reseed": false,
+    "business_submissions": false
+  },
+  "checkpoint": true,
+  "source_sha256": "22b485148c52f7a834fc82a90e76a64e42aefb3a11f81a35df6ba17f4c7f60d6",
+  "checkpoint_at": "2026-10-31T23:32:37.443Z"
+}

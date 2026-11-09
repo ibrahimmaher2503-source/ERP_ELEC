@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run_id": "AC1F8750ADD7",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)"
+  ],
+  "failure": "page.waitForFunction: Timeout 30000ms exceeded."
+}

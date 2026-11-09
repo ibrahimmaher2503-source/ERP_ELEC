@@ -1,0 +1,21 @@
+{
+  "run_id": "2026-10-31T23-07-12-188Z",
+  "phase": "before",
+  "route_count": 1,
+  "viewport_count": 5,
+  "screenshots": 5,
+  "timing_route_names": [
+    "dashboard",
+    "customers.show",
+    "financial.aging"
+  ],
+  "timing_viewports": [
+    "desktop-1440",
+    "mobile-390"
+  ],
+  "timing_samples": 0,
+  "interaction_sessions": 0,
+  "failed_checks": 0,
+  "failures": [],
+  "evidence": "C:\\projects\\ERP_ELEC_NEW\\docs\\qa\\design-consistency\\2026-10-31T23-07-12-188Z\\before\\evidence.json"
+}

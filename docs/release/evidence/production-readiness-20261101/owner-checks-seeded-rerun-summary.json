@@ -1,0 +1,20 @@
+[
+  {
+    "name": "phase3-maintenance",
+    "terminal_success_marker": false,
+    "exit": 1,
+    "log": "phase3-maintenance-seeded-rerun.txt"
+  },
+  {
+    "name": "workshop-repairs-intake",
+    "terminal_success_marker": false,
+    "exit": 0,
+    "log": "workshop-repairs-intake-seeded-rerun.txt"
+  },
+  {
+    "name": "tender-actions",
+    "terminal_success_marker": false,
+    "exit": 0,
+    "log": "tender-actions-seeded-rerun.txt"
+  }
+]

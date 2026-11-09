@@ -1,0 +1,16 @@
+{
+  "result": "FAIL",
+  "run_id": "1E70B8AFD71C",
+  "base_url": "http://127.0.0.1:8001",
+  "test_database": "erp_elec_new_test",
+  "checks": [
+    "guest sales-order route redirects to login; Arabic RTL document"
+  ],
+  "failure": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n  navigated to \"http://127.0.0.1:8001/sales-orders\"\n============================================================",
+  "browser_errors": [],
+  "screenshots": [
+    "failure-state.png",
+    "login-guest-desktop.png"
+  ],
+  "downloads": []
+}

@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-10-31T20:35:15.278Z",
+  "status": "separate exploratory experiment; excluded from primary before/after classification",
+  "sample_design": "Five representative desktop pages × one cold+three warm, run independently for each mode (40 total navigations).",
+  "config_cache_off": {
+    "APP_ENV": "testing",
+    "config_cache": false,
+    "route_cache": false,
+    "Debugbar": false,
+    "Pulse": false
+  },
+  "config_cache_on": {
+    "APP_ENV": "testing",
+    "config_cache": true,
+    "route_cache": false,
+    "Debugbar": false,
+    "Pulse": false
+  },
+  "assets": "Existing Vite built asset manifest reused unchanged for both modes.",
+  "runtime_note": "This isolates config-cache state under testing APP_ENV; it is not a production deployment or full production configuration benchmark.",
+  "summary": [
+    {
+      "experiment_mode": "config-cache-off",
+      "route_case": "dashboard|default",
+      "module": "M17 System",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 200,
+      "median_ttfb_ms": 164.5,
+      "median_domcontentloaded_ms": 281.3,
+      "median_load_ms": 295.8,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-off",
+      "route_case": "organization.users.show|default",
+      "module": "M01 Organization",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 290.7,
+      "median_ttfb_ms": 248.5,
+      "median_domcontentloaded_ms": 423.7,
+      "median_load_ms": 446.2,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-off",
+      "route_case": "maintenance.work-orders.show|default",
+      "module": "M08 FieldMaintenance",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 366,
+      "median_ttfb_ms": 321.8,
+      "median_domcontentloaded_ms": 483.9,
+      "median_load_ms": 497,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-off",
+      "route_case": "maintenance.index|default",
+      "module": "M08 FieldMaintenance",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 279.6,
+      "median_ttfb_ms": 228.8,
+      "median_domcontentloaded_ms": 379.8,
+      "median_load_ms": 400.5,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-off",
+      "route_case": "customers.index|default",
+      "module": "M03 Parties",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 280,
+      "median_ttfb_ms": 241.1,
+      "median_domcontentloaded_ms": 506.5,
+      "median_load_ms": 539.4,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-on",
+      "route_case": "dashboard|default",
+      "module": "M17 System",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 202.2,
+      "median_ttfb_ms": 167.8,
+      "median_domcontentloaded_ms": 305.4,
+      "median_load_ms": 314.8,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-on",
+      "route_case": "organization.users.show|default",
+      "module": "M01 Organization",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 268.4,
+      "median_ttfb_ms": 229.2,
+      "median_domcontentloaded_ms": 414.4,
+      "median_load_ms": 429.6,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-on",
+      "route_case": "maintenance.work-orders.show|default",
+      "module": "M08 FieldMaintenance",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 336.5,
+      "median_ttfb_ms": 300.9,
+      "median_domcontentloaded_ms": 461.9,
+      "median_load_ms": 473.6,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-on",
+      "route_case": "maintenance.index|default",
+      "module": "M08 FieldMaintenance",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 290.1,
+      "median_ttfb_ms": 236,
+      "median_domcontentloaded_ms": 417.4,
+      "median_load_ms": 418.5,
+      "failures": 0
+    },
+    {
+      "experiment_mode": "config-cache-on",
+      "route_case": "customers.index|default",
+      "module": "M03 Parties",
+      "viewport": "desktop",
+      "warm_samples": 3,
+      "median_ui_ready_ms": 277.8,
+      "median_ttfb_ms": 240.8,
+      "median_domcontentloaded_ms": 415.5,
+      "median_load_ms": 461.9,
+      "failures": 0
+    }
+  ],
+  "sample_count": 40,
+  "raw_samples_retained_privately": true
+}

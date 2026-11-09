@@ -1,0 +1,29 @@
+{
+  "all_pass": false,
+  "attempt": 1,
+  "stage": "opening save/normalization rejected missing branch-scoped M11.opening_entry",
+  "database": "erp_elec_gate1_legacy",
+  "host": "127.0.0.1",
+  "port": 49685,
+  "cluster_marker_verified": true,
+  "migrations_through_199": true,
+  "migration_200_applied": false,
+  "old_source_sha256": "8D3AFDEA9D7802395231ADB2300EB97F4D71BC7C96D1A4A521CB0B20618C4781",
+  "old_source_bytes": 1497,
+  "fixture_state": {
+    "branches": 1,
+    "suppliers": 1,
+    "companies": 1,
+    "tax_rules": 2,
+    "accounting_periods": 1,
+    "treasury_movements": 0,
+    "opening_batches": 0,
+    "payable_opening_items": 0,
+    "accounting_accounts": 16,
+    "users": 2,
+    "accounting_journals": 0,
+    "account_mappings": 15,
+    "rp_open_items": 0
+  },
+  "raw_log": "legacy-opening-backfill-attempt-1-20261101T035314.txt"
+}

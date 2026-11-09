@@ -88,7 +88,7 @@
     @if(!$setup['activated_at'] && $a->allows(auth()->id(),'opening_manage'))
     <x-ui.panel>
         <h2 id="financial-openings" class="text-lg font-semibold">الأرصدة الافتتاحية والاعتماد</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">GL هو القيد الكامل. الموردون والنقدية والبنوك وFIFO تفاصيل تُصالح معه، ولا تُضاف إلى GL مرة ثانية. لكل طبقة FIFO مرجع مستقل. لا تستورد المعاملات التاريخية التي كوّنت هذه الأرصدة.</p>
+        <p class="mt-2 max-w-3xl text-sm text-slate-600">الأستاذ العام هو القيد الكامل. الموردون والنقدية والبنوك والصرف من الأقدم أولًا تفاصيل تُصالح معه، ولا تُضاف إلى الأستاذ العام مرة ثانية. لكل طبقة الصرف من الأقدم أولًا مرجع مستقل. لا تستورد المعاملات التاريخية التي كوّنت هذه الأرصدة.</p>
         <div class="mt-4 flex flex-wrap items-end gap-3">
             <flux:button wire:click="template" wire:loading.attr="disabled" icon="arrow-down-tray">قالب Excel فارغ</flux:button>
             <flux:input type="file" wire:model="workbook" accept=".xlsx" label="ملف Excel، حتى 5 MB و500 سطر" />
@@ -102,11 +102,11 @@
             <fieldset wire:key="opening-line-{{ $creationKey }}-{{ $i }}" class="border-t pt-4">
                 <legend class="px-2 text-sm font-semibold">بند {{ $i+1 }}</legend>
                 <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                    <flux:select wire:model.live="lines.{{ $i }}.kind" label="النوع"><option value="gl">قيد GL</option><option value="ap">تفاصيل مورد</option><option value="ar">تفاصيل عميل</option><option value="cash">تفاصيل نقدية</option><option value="bank">تفاصيل بنك</option><option value="inventory">طبقة FIFO</option></flux:select>
+                    <flux:select wire:model.live="lines.{{ $i }}.kind" label="النوع"><option value="gl">قيد الأستاذ العام</option><option value="ap">تفاصيل مورد</option><option value="ar">تفاصيل عميل</option><option value="cash">تفاصيل نقدية</option><option value="bank">تفاصيل بنك</option><option value="inventory">طبقة الصرف من الأقدم أولًا</option></flux:select>
                     <flux:input wire:model="lines.{{ $i }}.reference" label="مرجع البند الفريد" required />
                     <flux:select wire:model="lines.{{ $i }}.branch_id" label="الفرع" required><option value="">اختر الفرع</option>@foreach($branches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }}</option>@endforeach</flux:select>
                     @if($line['kind']==='gl')
-                    <flux:select wire:model="lines.{{ $i }}.account_id" label="حساب GL" required><option value="">اختر الحساب</option>@foreach($accounts as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach</flux:select>
+                    <flux:select wire:model="lines.{{ $i }}.account_id" label="حساب الأستاذ العام" required><option value="">اختر الحساب</option>@foreach($accounts as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach</flux:select>
                     <flux:input wire:model="lines.{{ $i }}.debit" label="مدين ج.م" inputmode="decimal" />
                     <flux:input wire:model="lines.{{ $i }}.credit" label="دائن ج.م" inputmode="decimal" />
                     @else
@@ -130,7 +130,7 @@
         @if($previewReconciliation)
         <div class="mt-5 space-y-3 border-t pt-4" aria-live="polite"><h3 class="font-semibold">معاينة {{ count($preview) }} بند، لم يُحفظ أو يُرحل شيء بعد</h3>
             @foreach($previewReconciliation['errors'] as $message)<p class="text-sm text-amber-800">{{ $message }}</p>@endforeach
-            @if($previewReconciliation['balanced'])<p class="text-sm text-emerald-800">قيم GL والتفاصيل متطابقة في المعاينة.</p>@endif
+            @if($previewReconciliation['balanced'])<p class="text-sm text-emerald-800">قيم الأستاذ العام والتفاصيل متطابقة في المعاينة.</p>@endif
             <flux:button wire:click="saveOpening" variant="primary" wire:loading.attr="disabled">حفظ حزمة افتتاح للمراجعة</flux:button>
         </div>
         @endif
@@ -147,7 +147,7 @@
         <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="mt-4 overflow-x-auto"><table><thead><tr><th>النوع</th><th>المرجع</th><th>الفرع</th><th>الحساب / المورد / الصنف</th><th>مدين</th><th>دائن</th><th>القيمة التفصيلية</th><th>الكمية</th><th>تكلفة الوحدة</th></tr></thead><tbody>
         @foreach($savedLines as $line)<tr><td>{{ $line['kind'] }}</td><td>{{ $line['reference'] }}</td><td>{{ $line['branch_id'] }}</td><td>{{ $line['account_id'] ?? $line['supplier_id'] ?? $line['product_id'] ?? '—' }}@if($line['serials'] ?? [])<p class="mt-2 whitespace-pre-line text-xs">أرقام فعلية: {{ implode(', ', $line['serials']) }}</p>@endif</td><td>{{ $line['debit'] }}</td><td>{{ $line['credit'] }}</td><td>{{ $line['amount'] }}</td><td>{{ $line['quantity'] ?? '—' }}</td><td>{{ $line['unit_cost'] ?? '—' }}</td></tr>@endforeach
         </tbody></table></div>
-        <div class="mt-4 space-y-2">@foreach($reconciliation['errors'] as $message)<p class="text-sm text-amber-800">{{ $message }}</p>@endforeach @if($reconciliation['balanced'])<p class="text-sm text-emerald-800">GL متوازن، وتفاصيل الموردين والنقدية والبنوك وFIFO متطابقة لكل فرع.</p>@endif</div>
+        <div class="mt-4 space-y-2">@foreach($reconciliation['errors'] as $message)<p class="text-sm text-amber-800">{{ $message }}</p>@endforeach @if($reconciliation['balanced'])<p class="text-sm text-emerald-800">الأستاذ العام متوازن، وتفاصيل الموردين والنقدية والبنوك والصرف من الأقدم أولًا متطابقة لكل فرع.</p>@endif</div>
         <div class="mt-4 flex flex-wrap gap-3">
             @if($batch->status==='draft' && $batch->created_by===auth()->id() && $a->allows(auth()->id(),'opening_manage'))<flux:button wire:click="advance({{ $batch->id }},{{ $batch->version }},'submit')" wire:loading.attr="disabled">إرسال حزمة الافتتاح للاعتماد</flux:button>@endif
             @if($batch->status==='submitted' && $batch->created_by!==auth()->id() && $setup['configured_by']!==auth()->id() && $a->allows(auth()->id(),'opening_approve'))<flux:button wire:click="advance({{ $batch->id }},{{ $batch->version }},'approve')" wire:confirm="اعتماد الأرصدة الفعلية ومصالحتها بهذه النسخة؟" wire:loading.attr="disabled">اعتماد مستقل للأرصدة الافتتاحية</flux:button>@endif
@@ -157,7 +157,7 @@
 
     <x-ui.panel>
         <h2 class="text-lg font-semibold">7. تفعيل الترحيل المالي</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">التفعيل يرحل الافتتاح المعتمد في GL والموردين والخزينة وFIFO معًا. إذا فشل أي جزء، تُلغى العملية كاملة. لا يمحو النظام تاريخًا سابقًا ولا يولد أرقامًا تعويضية أو أرصدة بديلة.</p>
+        <p class="mt-2 max-w-3xl text-sm text-slate-600">التفعيل يرحل الافتتاح المعتمد في الأستاذ العام والموردين والخزينة والصرف من الأقدم أولًا معًا. إذا فشل أي جزء، تُلغى العملية كاملة. لا يمحو النظام تاريخًا سابقًا ولا يولد أرقامًا تعويضية أو أرصدة بديلة.</p>
         @if(!$setup['activated_at'] && $batch?->status==='approved' && $batch->configuration_version===$setup['version'] && $a->allows(auth()->id(),'financial_activate'))
         <flux:button class="mt-4" variant="primary" wire:click="activate({{ $batch->id }},{{ $batch->version }})" wire:confirm="ترحيل الأرصدة الفعلية المعتمدة وتثبيت تاريخ التشغيل وتفعيل الترحيل؟ هذه عملية مالية غير قابلة للمحو." wire:loading.attr="disabled">ترحيل الافتتاح وتفعيل المالية</flux:button>
         @else<p class="mt-4 text-sm text-slate-600">{{ $setup['activated_at']?'تم التفعيل ببيانات الشركة المعتمدة.':'التفعيل غير متاح حتى اكتمال الإعداد والمصالحة والاعتماد والصلاحية.' }}</p>@endif

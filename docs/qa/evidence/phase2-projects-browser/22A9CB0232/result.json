@@ -1,0 +1,41 @@
+{
+  "result": "FAIL",
+  "run_id": "22A9CB0232",
+  "failure": "locator.waitFor: Error: strict mode violation: getByText('مرحلة تنفيذ 22A9CB0232') resolved to 2 elements:\n    1) <option value=\"2\">مرحلة تنفيذ 22A9CB0232</option> aka getByLabel('المرحلة', { exact: true })\n    2) <span>مرحلة تنفيذ 22A9CB0232</span> aka locator('span').filter({ hasText: 'مرحلة تنفيذ 22A9CB0232' })\n\nCall log:\n\u001b[2m  - waiting for getByText('مرحلة تنفيذ 22A9CB0232') to be visible\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 3,
+      "code": "PB2-22A9CB0232",
+      "saved_name": "اختبار مشروع المتصفح 22A9CB0232 — تعديل محفوظ"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

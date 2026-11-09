@@ -1,0 +1,593 @@
+{
+  "result": "PASS",
+  "mode": "isolated close-morph diagnostic",
+  "run_id": "6E19F022A1",
+  "database": "erp_elec_new_test on 127.0.0.1:55440",
+  "browser": "Microsoft Edge via Playwright",
+  "viewport_sizes": [
+    390
+  ],
+  "project": {
+    "id": 6,
+    "code": "PB2-6E19F022A1",
+    "name": "اختبار مشروع المتصفح 6E19F022A1"
+  },
+  "final_postgresql_state": {
+    "id": 6,
+    "code": "PB2-6E19F022A1",
+    "name": "اختبار مشروع المتصفح 6E19F022A1 — تعديل محفوظ",
+    "status": "closed",
+    "version": 15,
+    "baseline": {
+      "revision": 1,
+      "currency": "EGP",
+      "total": "1234.50000000",
+      "approved_by": 2
+    },
+    "phases": 1,
+    "tasks": 1,
+    "task_ids": [
+      4
+    ],
+    "task_states": [
+      {
+        "id": 4,
+        "title": "مهمة اختبار 6E19F022A1",
+        "status": "completed",
+        "version": 3
+      }
+    ],
+    "milestones": 1,
+    "milestone_states": [
+      {
+        "id": 5,
+        "title": "معلم قبول 6E19F022A1",
+        "status": "completed",
+        "version": 2
+      }
+    ],
+    "requirements": 0,
+    "reservation_ids": [],
+    "handovers": 1,
+    "issue": null,
+    "document": null
+  },
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 6,
+      "code": "PB2-6E19F022A1",
+      "saved_name": "اختبار مشروع المتصفح 6E19F022A1 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 6
+    },
+    {
+      "independent_budget_approval": "passed",
+      "project_id": 6,
+      "reviewer_id": 2,
+      "baseline_visible": true,
+      "database_probe_exit": 0
+    },
+    {
+      "independent_budget_gated_planned_and_active_lifecycle": "passed",
+      "project_id": 6
+    },
+    {
+      "page": "/projects/6/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار 6E19F022A1",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "mobile_create_reopen_edit_and_project_close": "persisted",
+      "project_id": 6,
+      "task_status": "completed",
+      "milestone_status": "completed",
+      "handovers": 1,
+      "status": "closed",
+      "close_http_status": 200
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "save"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "save"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveMetadata"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveMetadata"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addPhase"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addPhase"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addTask"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addTask"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "propose"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "propose"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "planned"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "planned"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "active"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "active"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "completeMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "completeMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "handover"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "handover"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "close"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:9355/projects/6/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "close"
+          }
+        ]
+      }
+    }
+  ]
+}

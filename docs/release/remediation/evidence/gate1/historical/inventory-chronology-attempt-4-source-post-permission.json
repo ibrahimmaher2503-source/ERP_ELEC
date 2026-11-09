@@ -1,0 +1,371 @@
+{
+    "database_identity": {
+        "database": "erp_elec_new_test",
+        "address": "127.0.0.1/32",
+        "port": 49685,
+        "data_directory": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\pgdata",
+        "marker_verified": true
+    },
+    "scenarios": {
+        "before_first_activity": {
+            "cutoff": "2024-05-31",
+            "inventory_fifo": "0.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "0.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "0.00",
+                "cash": "0.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": []
+        },
+        "opening_source_reference": {
+            "source_id": 4,
+            "length": 160,
+            "source_item_count": 1,
+            "original": "10.00"
+        },
+        "after_opening": {
+            "cutoff": "2024-06-01",
+            "inventory_fifo": "20.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "10.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "5.00",
+                "cash": "10.00"
+            },
+            "treasury_movements": [],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "10.00",
+                    "source": "10.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "20.00",
+                    "source": "20.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "5.00",
+                    "source": "5.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "10.00",
+                    "source": "10.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "opening_payable_settlement": {
+            "source_id": 4,
+            "source_reference_length": 160,
+            "original": "10.00",
+            "settled": "3.00",
+            "remaining": "7.00",
+            "settlement_movement_id": 51,
+            "migration_200_replayed_twice": true,
+            "source_item_count": 1,
+            "settlement_preserved": true,
+            "journal_and_treasury_counts_unchanged": true
+        },
+        "after_fifo_issue": {
+            "cutoff": "2024-06-02",
+            "inventory_fifo": "5.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "7.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "5.00",
+                "cash": "7.00"
+            },
+            "treasury_movements": [
+                {
+                    "id": 51,
+                    "branch_id": 40,
+                    "movement_date": "2024-06-02",
+                    "kind": "supplier_payment",
+                    "amount": "3.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "5.00",
+                    "source": "5.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "5.00",
+                    "source": "5.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_partial_reversal": {
+            "cutoff": "2024-06-03",
+            "inventory_fifo": "10.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "7.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "5.00",
+                "cash": "7.00"
+            },
+            "treasury_movements": [
+                {
+                    "id": 51,
+                    "branch_id": 40,
+                    "movement_date": "2024-06-02",
+                    "kind": "supplier_payment",
+                    "amount": "3.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "10.00",
+                    "source": "10.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "5.00",
+                    "source": "5.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        },
+        "after_posted_reversal": {
+            "cutoff": "2024-06-04",
+            "inventory_fifo": "20.00",
+            "inventory_transit": "0.00",
+            "grni": "0.00",
+            "receivables_payables": {
+                "ap": "7.00",
+                "ar": "0.00",
+                "supplier_credits": "0.00",
+                "customer_credits": "0.00",
+                "customer_advances": "0.00",
+                "grni_cleared": "0.00"
+            },
+            "treasury": {
+                "bank": "5.00",
+                "cash": "7.00"
+            },
+            "treasury_movements": [
+                {
+                    "id": 51,
+                    "branch_id": 40,
+                    "movement_date": "2024-06-02",
+                    "kind": "supplier_payment",
+                    "amount": "3.00"
+                }
+            ],
+            "reconciliations": [
+                {
+                    "key": "ap",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "ar",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "grni",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory",
+                    "gl": "20.00",
+                    "source": "20.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "inventory_transit",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "bank",
+                    "gl": "5.00",
+                    "source": "5.00",
+                    "difference": "0.00",
+                    "ok": true
+                },
+                {
+                    "key": "cash",
+                    "gl": "7.00",
+                    "source": "7.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            ]
+        }
+    },
+    "scenario_status": {
+        "before_first_activity": "PASS",
+        "max_length_opening_reference": "PASS",
+        "after_opening": "PASS",
+        "opening_payable_settlement": "PASS",
+        "after_fifo_issue": "PASS",
+        "after_partial_reversal": "PASS",
+        "after_posted_reversal": "PASS",
+        "after_transfer_dispatch": "NOT TESTED",
+        "after_transfer_receipt": "NOT TESTED",
+        "later_adjustment_stability": "NOT TESTED",
+        "partial_reversal_cutoff_stable_after_later_stock_actions": "NOT TESTED",
+        "stable_after_later_stock_actions": "NOT TESTED"
+    },
+    "unused_workshop_or_maintenance_return": "NOT TESTED: this valued inventory fixture covers source-linked correction, not the distinct workshop/maintenance unused-part return lifecycle.",
+    "legacy_missing_opening_link_backfill": "NOT TESTED: migration 200 is replayed against a real linked and partially settled opening source; this rollback fixture does not fabricate a pre-fix opening row with its M12 link missing.",
+    "closed_period_snapshot": "DEFERRED: exercised by the AP/AR chronology and period-close acceptance, not this inventory fixture.",
+    "all_required_scenarios_pass": false
+}

@@ -1,0 +1,95 @@
+{
+  "all_pass": true,
+  "scope": "controlled historical producer reproduction in a dedicated isolated DB; not a production upgrade test",
+  "cluster": {
+    "address": "127.0.0.1/32",
+    "port": 49685,
+    "data_directory": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\pgdata",
+    "marker_verified": true
+  },
+  "database": "erp_elec_gate1_legacy",
+  "schema_through_199_only_before_fixture": true,
+  "old_producer": {
+    "archive": ".tmp/master-remediation-20261101/checkpoint/source-before.zip",
+    "inventory_provenance": ".tmp/master-remediation-20261101/checkpoint/source-inventory.json",
+    "entry": "app/Modules/ReceivablesPayables/Application/PostOpeningPayables.php",
+    "sha256": "8D3AFDEA9D7802395231ADB2300EB97F4D71BC7C96D1A4A521CB0B20618C4781",
+    "bytes": 1497,
+    "private_test_copy": ".tmp/master-remediation-20261101/legacy-opening-private-runtime/historical-source/PostOpeningPayables.php",
+    "loaded_without_modifying_application_file": true
+  },
+  "legacy_source_before_migration_200": {
+    "opening_source": {
+      "id": 1,
+      "branch_id": 1,
+      "supplier_id": 1,
+      "reference": "G1-LEGACY-AP-REFERENCE",
+      "opening_date": "2024-06-01",
+      "amount": "10.00",
+      "journal_id": 1,
+      "journal_lines": [
+        {
+          "account_id": 6,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "10.00"
+        }
+      ]
+    },
+    "opening_batch_evidence_reference": "Genuine controlled pre-fix source-path reproduction",
+    "m12_link_count": 0,
+    "journal_debit": "10.00",
+    "journal_credit": "10.00",
+    "genuine_public_actions": [
+      "OpeningBalances::save",
+      "advance submit",
+      "independent advance approve",
+      "ActivateFinancialPosting::execute"
+    ]
+  },
+  "migration_200": {
+    "applied_by_laravel_migrator": true,
+    "migration_row_recorded": true,
+    "replay_up_calls_before_payment": 2,
+    "replay_up_calls_after_payment": 1,
+    "exact_source_link_count": 1,
+    "opening_item_id": 1,
+    "original": "10.00",
+    "settled": "3.00",
+    "remaining": "7.00",
+    "document_date": "2024-06-01",
+    "due_date": "2024-06-01",
+    "gl_and_opening_source_unchanged": true,
+    "treasury_journal_counts_unchanged_on_replays": true
+  },
+  "settlement": {
+    "actor_action": "TreasuryApi::prepareSupplierPayment/approveSupplierPayment/executeSupplierPayment",
+    "movement_id": 1,
+    "journal_id": 2
+  },
+  "schema_migration_output_excerpt": "INFO  Running migrations.  \n\r\n  2026_11_01_200000_link_unmapped_payable_openings ....................................................... 7.40ms DONE",
+  "prior_fixture_reset": {
+    "performed": true,
+    "authorized_by": "root task owner",
+    "before_reset_identity": "erp_elec_gate1_legacy, marked PGDATA, loopback port 49685",
+    "source_failure_receipt": "legacy-opening-backfill-attempt-1-20261101T035314.json",
+    "migrations_through_199": true,
+    "migration_200_absent": true,
+    "synthetic_identity_counts": {
+      "tax_rules": 2,
+      "supplier": 1,
+      "periods": 1,
+      "company": 1,
+      "account_mappings": 15,
+      "users": 2,
+      "branch": 1,
+      "accounts": 16
+    },
+    "financial_and_inventory_history_counts": "all checked tables zero before the guarded reset",
+    "scope": "dedicated disposable test DB only"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "result": "PASS",
+  "database": "erp_elec_new_test@127.0.0.1:55475",
+  "browser": "Playwright Chromium/Edge",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "fixture": {
+    "tag": "960A14BBF2",
+    "storage_root": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\m09-browser-20261031\\storage-supplemental-960A14BBF2",
+    "actors": {
+      "maker": {
+        "id": 798,
+        "email": "tender-maker-960A14BBF2@example.test"
+      },
+      "technical_reviewer": {
+        "id": 799,
+        "email": "tender-technical_reviewer-960A14BBF2@example.test"
+      },
+      "financial_reviewer": {
+        "id": 800,
+        "email": "tender-financial_reviewer-960A14BBF2@example.test"
+      },
+      "outsider": {
+        "id": 801,
+        "email": "tender-outsider-960A14BBF2@example.test"
+      }
+    }
+  },
+  "checks": [
+    {
+      "tender_report_exports": {
+        "xlsx_bytes": 6919,
+        "xlsx_contains_awarded_tender": true,
+        "pdf_bytes": 87616,
+        "cache_control": "no-store, private"
+      }
+    },
+    {
+      "boq_template_and_preview": {
+        "template_bytes": 12754,
+        "imported_description": "Supplementary imported enclosure assembly",
+        "persisted_revision_unchanged": true,
+        "reloaded_saved_description": "Main distribution panel, 400A, 4-pole"
+      }
+    },
+    {
+      "operational_guarantee": {
+        "id": 1,
+        "amount": "1500.00",
+        "evidence_id": 19,
+        "final_status": "returned",
+        "ledger_counts_unchanged": {
+          "inventory_movements": 84,
+          "accounting_journals": 137,
+          "treasury_movements": 9
+        },
+        "mobile": {
+          "viewport": 390,
+          "document": 390
+        }
+      }
+    },
+    {
+      "failed_tender_reopen": {
+        "id": 1,
+        "status": "preparing_technical",
+        "version_before": 10,
+        "version_after": 11,
+        "audit_actor": 798,
+        "handoff_count": 0
+      }
+    },
+    {
+      "unauthorized_denials": {
+        "reports": 403,
+        "xlsx": 403,
+        "pdf": 403,
+        "attachment": 403
+      }
+    }
+  ],
+  "browser_errors": []
+}

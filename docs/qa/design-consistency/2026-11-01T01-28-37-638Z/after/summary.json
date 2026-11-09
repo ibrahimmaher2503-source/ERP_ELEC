@@ -1,0 +1,24 @@
+{
+  "run_id": "2026-11-01T01-28-37-638Z",
+  "phase": "after",
+  "route_count": 3,
+  "viewport_count": 2,
+  "screenshots": 0,
+  "current_source_screenshots": 0,
+  "preserved_prior_source_screenshots": 0,
+  "timing_route_names": [
+    "dashboard",
+    "customers.show",
+    "financial.aging"
+  ],
+  "timing_viewports": [
+    "desktop-1440",
+    "mobile-390"
+  ],
+  "timing_samples": 18,
+  "interaction_sessions": 0,
+  "failed_checks": 0,
+  "failures": [],
+  "evidence": "C:\\projects\\ERP_ELEC_NEW\\docs\\qa\\design-consistency\\2026-11-01T01-28-37-638Z\\after\\evidence.json",
+  "comparison_gallery": null
+}

@@ -1,0 +1,204 @@
+{
+  "run_id": "2026-10-31T23-34-48-598Z",
+  "phase": "after",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via existing Playwright",
+  "route_registry_source": "php artisan route:list --json",
+  "source_sha256": "22b485148c52f7a834fc82a90e76a64e42aefb3a11f81a35df6ba17f4c7f60d6",
+  "build_assets": {
+    "css": "/build/assets/app-XJUwhpo4.css",
+    "javascript": "/build/assets/app-BvRk9kiK.js"
+  },
+  "routes": [
+    {
+      "name": "projects.dashboard",
+      "variant": "default",
+      "module": "M07 Projects",
+      "uri": "projects/dashboard",
+      "url": "/projects/dashboard",
+      "baseline_status": null
+    },
+    {
+      "name": "purchasing.reports",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "uri": "purchasing/reports",
+      "url": "/purchasing/reports",
+      "baseline_status": null
+    },
+    {
+      "name": "purchasing.returns",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "uri": "purchasing/returns",
+      "url": "/purchasing/returns",
+      "baseline_status": null
+    },
+    {
+      "name": "sales-returns.index",
+      "variant": "default",
+      "module": "M04 Sales",
+      "uri": "sales-returns",
+      "url": "/sales-returns",
+      "baseline_status": null
+    },
+    {
+      "name": "password.confirm",
+      "variant": "default",
+      "module": "password",
+      "uri": "user/confirm-password",
+      "url": "/user/confirm-password",
+      "baseline_status": null
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "screenshots": [],
+  "timing_samples": [],
+  "interactions": [
+    {
+      "route": "projects.dashboard",
+      "module": "M07 Projects",
+      "url": "/projects/dashboard",
+      "expected_status": 200,
+      "checks": [
+        {
+          "name": "parameterless-route-availability-classified",
+          "result": "pass",
+          "details": {
+            "status": 200,
+            "expected": 200,
+            "classification": "available",
+            "final_path": "/projects/dashboard",
+            "heading": "لوحة المشروعات"
+          }
+        }
+      ],
+      "http_status": 200,
+      "final_path": "/projects/dashboard",
+      "heading": "لوحة المشروعات",
+      "livewire_component": 1,
+      "classification": "available",
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-34-48-598Z/after/screenshots/projects.dashboard-availability-1440.png"
+    },
+    {
+      "route": "purchasing.reports",
+      "module": "M05 Purchasing",
+      "url": "/purchasing/reports",
+      "expected_status": 404,
+      "checks": [
+        {
+          "name": "parameterless-route-availability-classified",
+          "result": "pass",
+          "details": {
+            "status": 404,
+            "expected": 404,
+            "classification": "expected-gated-404",
+            "final_path": "/purchasing/reports",
+            "heading": null
+          }
+        }
+      ],
+      "http_status": 404,
+      "final_path": "/purchasing/reports",
+      "heading": null,
+      "livewire_component": 0,
+      "classification": "expected-gated-404"
+    },
+    {
+      "route": "purchasing.returns",
+      "module": "M05 Purchasing",
+      "url": "/purchasing/returns",
+      "expected_status": 404,
+      "checks": [
+        {
+          "name": "parameterless-route-availability-classified",
+          "result": "pass",
+          "details": {
+            "status": 404,
+            "expected": 404,
+            "classification": "expected-gated-404",
+            "final_path": "/purchasing/returns",
+            "heading": null
+          }
+        }
+      ],
+      "http_status": 404,
+      "final_path": "/purchasing/returns",
+      "heading": null,
+      "livewire_component": 0,
+      "classification": "expected-gated-404"
+    },
+    {
+      "route": "sales-returns.index",
+      "module": "M04 Sales",
+      "url": "/sales-returns",
+      "expected_status": 404,
+      "checks": [
+        {
+          "name": "parameterless-route-availability-classified",
+          "result": "pass",
+          "details": {
+            "status": 404,
+            "expected": 404,
+            "classification": "expected-gated-404",
+            "final_path": "/sales-returns",
+            "heading": null
+          }
+        }
+      ],
+      "http_status": 404,
+      "final_path": "/sales-returns",
+      "heading": null,
+      "livewire_component": 0,
+      "classification": "expected-gated-404"
+    },
+    {
+      "route": "password.confirm",
+      "module": "password",
+      "url": "/user/confirm-password",
+      "expected_status": 200,
+      "checks": [
+        {
+          "name": "parameterless-route-availability-classified",
+          "result": "pass",
+          "details": {
+            "status": 200,
+            "expected": 200,
+            "classification": "available",
+            "final_path": "/user/confirm-password",
+            "heading": null
+          }
+        }
+      ],
+      "http_status": 200,
+      "final_path": "/user/confirm-password",
+      "heading": null,
+      "livewire_component": 0,
+      "classification": "available",
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-34-48-598Z/after/screenshots/password.confirm-availability-1440.png"
+    }
+  ],
+  "excluded_checks": [
+    {
+      "name": "no-authority route denial",
+      "reason": "existing authenticated fixture is the authorized audit actor; no separate safe no-authority actor fixture has been established, so no account or privileges were created"
+    }
+  ],
+  "conditions": {
+    "isolated_existing_database": true,
+    "reset": false,
+    "reseed": false,
+    "business_submissions": false
+  },
+  "checkpoint": true,
+  "checkpoint_at": "2026-10-31T23:36:18.807Z"
+}

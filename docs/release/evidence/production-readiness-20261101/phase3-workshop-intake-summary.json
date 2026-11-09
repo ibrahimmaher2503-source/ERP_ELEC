@@ -1,0 +1,12 @@
+[
+  {
+    "exit": 1,
+    "log": "phase3-maintenance.txt",
+    "name": "phase3-maintenance"
+  },
+  {
+    "exit": 0,
+    "log": "workshop-repairs-intake.txt",
+    "name": "workshop-repairs-intake"
+  }
+]

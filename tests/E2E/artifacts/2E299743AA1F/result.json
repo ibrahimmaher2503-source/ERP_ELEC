@@ -1,0 +1,20 @@
+{
+  "result": "FAIL",
+  "run_id": "2E299743AA1F",
+  "base_url": "http://127.0.0.1:8001",
+  "test_database": "erp_elec_new_test",
+  "checks": [
+    "guest sales-order route redirects to login; Arabic RTL document",
+    "wide RTL list layout captured at the supplied 1672x941 reference viewport",
+    "required sales-order data rejected before persistence"
+  ],
+  "failure": "page.reload: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n",
+  "browser_errors": [],
+  "screenshots": [
+    "failure-state.png",
+    "form-validation-error-desktop.png",
+    "list-shared-shell-reference-viewport.png",
+    "login-guest-desktop.png"
+  ],
+  "downloads": []
+}

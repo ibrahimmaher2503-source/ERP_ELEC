@@ -1,0 +1,243 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55437,
+    "synthetic": true,
+    "budget_approval_one_winner": {
+        "project_id": 9,
+        "change_id": 8,
+        "workers": {
+            "ready": [
+                {
+                    "pid": 20880,
+                    "pg_backend_pid": 47896
+                },
+                {
+                    "pid": 15068,
+                    "pg_backend_pid": 62032
+                }
+            ],
+            "workers": [
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "passed",
+                        "operation": "approve_budget",
+                        "pid": 20880,
+                        "pg_backend_pid": 47896,
+                        "result": null
+                    },
+                    "stderr": ""
+                },
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "rejected",
+                        "operation": "approve_budget",
+                        "pid": 15068,
+                        "pg_backend_pid": 62032,
+                        "class": "Illuminate\\Validation\\ValidationException",
+                        "code": 0,
+                        "message": "أعد فتح المشروع للحصول على أحدث نسخة."
+                    },
+                    "stderr": ""
+                }
+            ]
+        },
+        "persisted_baseline_count": 1,
+        "change_status": "approved",
+        "passed": true
+    },
+    "material_demand_cap": {
+        "project_id": 9,
+        "requirement_id": 4,
+        "demand": "1.00000000",
+        "active_reservation_quantity": "1.00000000",
+        "reservation_rows": 1,
+        "workers": {
+            "ready": [
+                {
+                    "pid": 50052,
+                    "pg_backend_pid": 56984
+                },
+                {
+                    "pid": 48156,
+                    "pg_backend_pid": 30148
+                }
+            ],
+            "workers": [
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "rejected",
+                        "operation": "reserve_material",
+                        "pid": 50052,
+                        "pg_backend_pid": 56984,
+                        "class": "Illuminate\\Validation\\ValidationException",
+                        "code": 0,
+                        "message": "الحجز المطلوب يتجاوز كمية المصدر المسموح بها."
+                    },
+                    "stderr": ""
+                },
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "passed",
+                        "operation": "reserve_material",
+                        "pid": 48156,
+                        "pg_backend_pid": 30148,
+                        "result": {
+                            "id": 5,
+                            "idempotency_key": "ce5c3c15-91c3-4d3e-84f4-912f67da70f9",
+                            "source_module": "projects",
+                            "source_id": "9",
+                            "source_line": "4",
+                            "warehouse_id": 1,
+                            "product_id": 1,
+                            "requested": "1.00000000",
+                            "reserved": "1.00000000",
+                            "fulfilled": "0.00000000",
+                            "released": "0.00000000",
+                            "actor_id": 1,
+                            "created_at": "2026-10-29 13:54:02+00",
+                            "updated_at": "2026-10-29 13:54:02+00",
+                            "outstanding": "1.00000000",
+                            "unreserved": "0.00000000"
+                        }
+                    },
+                    "stderr": ""
+                }
+            ]
+        },
+        "passed": true
+    },
+    "source_link_replay": {
+        "project_id": 9,
+        "source_type": "purchase_order",
+        "source_id": 3,
+        "link_rows": 1,
+        "workers": {
+            "ready": [
+                {
+                    "pid": 67380,
+                    "pg_backend_pid": 64660
+                },
+                {
+                    "pid": 36004,
+                    "pg_backend_pid": 17864
+                }
+            ],
+            "workers": [
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "passed",
+                        "operation": "link_source",
+                        "pid": 67380,
+                        "pg_backend_pid": 64660,
+                        "result": null
+                    },
+                    "stderr": ""
+                },
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "passed",
+                        "operation": "link_source",
+                        "pid": 36004,
+                        "pg_backend_pid": 17864,
+                        "result": null
+                    },
+                    "stderr": ""
+                }
+            ]
+        },
+        "passed": true
+    },
+    "repeated_close_version": {
+        "project_id": 10,
+        "status": "closed",
+        "version_before": 10,
+        "version_after": 11,
+        "workers": {
+            "ready": [
+                {
+                    "pid": 32232,
+                    "pg_backend_pid": 24148
+                },
+                {
+                    "pid": 64152,
+                    "pg_backend_pid": 15460
+                }
+            ],
+            "workers": [
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "rejected",
+                        "operation": "close_project",
+                        "pid": 32232,
+                        "pg_backend_pid": 24148,
+                        "class": "Illuminate\\Validation\\ValidationException",
+                        "code": 0,
+                        "message": "أعد فتح المشروع للحصول على أحدث نسخة."
+                    },
+                    "stderr": ""
+                },
+                {
+                    "exit_code": 0,
+                    "result": {
+                        "outcome": "passed",
+                        "operation": "close_project",
+                        "pid": 64152,
+                        "pg_backend_pid": 15460,
+                        "result": null
+                    },
+                    "stderr": ""
+                }
+            ]
+        },
+        "stale_repeat_rejected": true,
+        "passed": true
+    },
+    "injected_financial_failure_rollback": {
+        "project_id": 11,
+        "change_id": 10,
+        "version_after_failure": 3,
+        "change_status_after_failure": "pending",
+        "baseline_rows_after_failure": 0,
+        "injected_error": {
+            "class": "Illuminate\\Database\\QueryException",
+            "message": "intentional M07 concurrency acceptance failure"
+        },
+        "passed": true
+    },
+    "material_financial_failure_rollback": {
+        "project_id": 9,
+        "reservation_id": 5,
+        "issue_key": "2e088cb2-63b9-48e5-a5ca-72f89db45c2c",
+        "injected_error": {
+            "class": "Illuminate\\Database\\QueryException",
+            "message": "intentional M07 inventory GL failure"
+        },
+        "stock_unchanged": true,
+        "fifo_unchanged": true,
+        "gl_unchanged": true,
+        "project_issue_absent": true,
+        "passed": true
+    },
+    "postgres_and_private_file_recovery": {
+        "backup_bytes": 2525417,
+        "restored_database": "erp_elec_new_phase2_restore_test",
+        "migrations_178_181": 4,
+        "task_id_column": true,
+        "task_id_foreign_key": true,
+        "task_id": 6,
+        "task_same_project": true,
+        "project_id": 9,
+        "document_path": "projects/9/Ghf5b2yTdQk8j3GiLI3JBdsf4tOOwn5QJtH6dvmq.pdf",
+        "private_sha256": "034360b8929e7273d543cf892ed752d6f6add7cf407ab271cbdd5a6d290fe5a0",
+        "private_size": 125,
+        "passed": true
+    },
+    "all_pass": true
+}

@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "814E0131F372",
+  "journey": "M01 branch create and repeated edit lifecycle",
+  "record": {
+    "id": 33,
+    "code": "R2-814E0131F372-B",
+    "final_revision": "Branch revision two 814E0131F372"
+  },
+  "checks": [
+    "M01 branch: empty required modal is rejected in the browser",
+    "M01 branch: first save created synthetic branch 33",
+    "M01 branch: create, navigate away, reopen edit, save, reload, second edit and save persisted"
+  ],
+  "postgresql_verification": "Branch revision two 814E0131F372"
+}

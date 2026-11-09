@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "database": "erp_elec_new_test",
+  "postgres_port": 55460,
+  "actor_id": 1,
+  "branch_id": 1,
+  "desktop": "1440x900",
+  "mobile": "390x844",
+  "checks": [
+    {
+      "page": "/customers/1?tab=financial",
+      "viewport": 1440,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "customer period filter",
+      "result": "applied; statement remains available",
+      "pagination": "visible; previous disabled on page 1"
+    },
+    {
+      "page": "/customers/1?tab=financial",
+      "viewport": 390,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/suppliers/1?tab=financial",
+      "viewport": 1440,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "supplier period filter",
+      "result": "applied; statement remains available",
+      "pagination": "visible; previous disabled on page 1"
+    },
+    {
+      "page": "/suppliers/1?tab=financial",
+      "viewport": 390,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 390,
+      "body": 390
+    }
+  ],
+  "browser_errors": []
+}

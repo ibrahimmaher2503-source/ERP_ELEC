@@ -1,0 +1,112 @@
+{
+  "phase": "after",
+  "run_id": "2026-11-01T01-28-37-638Z",
+  "source_sha256": "f77cff3ccdee489648fdefeb4af5295bce68095900908975a8b0520cb02f1f7f",
+  "css_asset": "/build/assets/app-BndKEvZV.css",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via existing Playwright",
+  "instrumentation": {
+    "laravel_debugbar": false,
+    "pulse": false
+  },
+  "temperature": "warm",
+  "warmup_count_per_route_viewport": 1,
+  "samples_per_route_viewport": 3,
+  "readiness": "primary heading plus route-specific visible content; no networkidle dependency",
+  "p95_claimed": false,
+  "reason_no_p95": "Only three samples per route/viewport; summarized with median only.",
+  "total_samples": 18,
+  "healthy_samples": 18,
+  "groups": [
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "viewport": "desktop-1440",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 596,
+      "ttfb_ms_median": 265,
+      "dom_content_loaded_ms_median": 503.1,
+      "load_event_ms_median": 533,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "viewport": "mobile-390",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 643,
+      "ttfb_ms_median": 308.6,
+      "dom_content_loaded_ms_median": 539,
+      "load_event_ms_median": 580.5,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    },
+    {
+      "route": "customers.show",
+      "module": "M03 Parties",
+      "viewport": "desktop-1440",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 622,
+      "ttfb_ms_median": 310.7,
+      "dom_content_loaded_ms_median": 552.4,
+      "load_event_ms_median": 562.2,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    },
+    {
+      "route": "customers.show",
+      "module": "M03 Parties",
+      "viewport": "mobile-390",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 834,
+      "ttfb_ms_median": 381.8,
+      "dom_content_loaded_ms_median": 652.3,
+      "load_event_ms_median": 678.6,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "viewport": "desktop-1440",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 556,
+      "ttfb_ms_median": 292.7,
+      "dom_content_loaded_ms_median": 464.6,
+      "load_event_ms_median": 501,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "viewport": "mobile-390",
+      "sample_count": 3,
+      "http_200_count": 3,
+      "ui_ready_ms_median": 619,
+      "ttfb_ms_median": 325.4,
+      "dom_content_loaded_ms_median": 515.5,
+      "load_event_ms_median": 556.8,
+      "requests_median": 9,
+      "transferred_bytes_median": null,
+      "errors": 0
+    }
+  ],
+  "raw_evidence": "docs/qa/design-consistency/2026-11-01T01-28-37-638Z/after/evidence.json",
+  "localization_file": "lang/ar.json",
+  "localization_sha256": "91b6d8d4f5f299376b205b4399e3aa70ea92eb8b0502d3949f28d389e0b522c3"
+}

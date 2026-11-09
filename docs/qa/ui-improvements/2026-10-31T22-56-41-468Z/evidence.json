@@ -1,0 +1,1014 @@
+{
+  "run_id": "2026-10-31T22-56-41-468Z",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "route_cases": [
+    {
+      "name": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211"
+    },
+    {
+      "name": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "mobile-360",
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "read_only_interactions": false,
+  "pages": [
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:62881/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:62881/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:62881/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:62881/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 358,
+            "client": 358,
+            "overflow": false,
+            "icon": {
+              "left": 305,
+              "right": 353,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 291,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 254,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 374,
+              "top": 164,
+              "bottom": 526.578125,
+              "width": 358,
+              "height": 362.578125
+            },
+            "icon_name_overlap": false,
+            "name_outside_header": false,
+            "date_stats": [
+              {
+                "label": "تاريخ التسجيل",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 201,
+                  "right": 374,
+                  "top": 715.484375,
+                  "bottom": 808,
+                  "width": 173,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 222,
+                  "right": 353,
+                  "top": 761.8125,
+                  "bottom": 787,
+                  "width": 131,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              },
+              {
+                "label": "آخر تحديث",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 16,
+                  "right": 189,
+                  "top": 715.484375,
+                  "bottom": 808,
+                  "width": 173,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 37,
+                  "right": 168,
+                  "top": 761.8125,
+                  "bottom": 787,
+                  "width": 131,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              }
+            ]
+          }
+        },
+        {
+          "name": "party-profile-icon-does-not-overlap-name",
+          "result": "pass",
+          "details": {
+            "icon": {
+              "left": 305,
+              "right": 353,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 291,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 254,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 374,
+              "top": 164,
+              "bottom": 526.578125,
+              "width": 358,
+              "height": 362.578125
+            },
+            "overlap": false,
+            "name_outside_header": false
+          }
+        },
+        {
+          "name": "party-date-cards-show-unclipped-values",
+          "result": "pass",
+          "details": [
+            {
+              "label": "تاريخ التسجيل",
+              "value": "2026/10/31",
+              "card": {
+                "left": 201,
+                "right": 374,
+                "top": 715.484375,
+                "bottom": 808,
+                "width": 173,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 222,
+                "right": 353,
+                "top": 761.8125,
+                "bottom": 787,
+                "width": 131,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            },
+            {
+              "label": "آخر تحديث",
+              "value": "2026/10/31",
+              "card": {
+                "left": 16,
+                "right": 189,
+                "top": 715.484375,
+                "bottom": 808,
+                "width": 173,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 37,
+                "right": 168,
+                "top": 761.8125,
+                "bottom": 787,
+                "width": 131,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-56-41-468Z/screenshots/customers.show-default-mobile-390.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 390,
+            "viewport_width": 390
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:62881/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:62881/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:62881/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:62881/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 358,
+            "client": 358,
+            "overflow": false,
+            "icon": {
+              "left": 305,
+              "right": 353,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 291,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 254,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 374,
+              "top": 164,
+              "bottom": 578.578125,
+              "width": 358,
+              "height": 414.578125
+            },
+            "icon_name_overlap": false,
+            "name_outside_header": false,
+            "date_stats": [
+              {
+                "label": "تاريخ التسجيل",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 201,
+                  "right": 374,
+                  "top": 767.484375,
+                  "bottom": 860,
+                  "width": 173,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 222,
+                  "right": 353,
+                  "top": 813.8125,
+                  "bottom": 839,
+                  "width": 131,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              },
+              {
+                "label": "آخر تحديث",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 16,
+                  "right": 189,
+                  "top": 767.484375,
+                  "bottom": 860,
+                  "width": 173,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 37,
+                  "right": 168,
+                  "top": 813.8125,
+                  "bottom": 839,
+                  "width": 131,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              }
+            ]
+          }
+        },
+        {
+          "name": "party-profile-icon-does-not-overlap-name",
+          "result": "pass",
+          "details": {
+            "icon": {
+              "left": 305,
+              "right": 353,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 291,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 254,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 374,
+              "top": 164,
+              "bottom": 578.578125,
+              "width": 358,
+              "height": 414.578125
+            },
+            "overlap": false,
+            "name_outside_header": false
+          }
+        },
+        {
+          "name": "party-date-cards-show-unclipped-values",
+          "result": "pass",
+          "details": [
+            {
+              "label": "تاريخ التسجيل",
+              "value": "2026/10/31",
+              "card": {
+                "left": 201,
+                "right": 374,
+                "top": 767.484375,
+                "bottom": 860,
+                "width": 173,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 222,
+                "right": 353,
+                "top": 813.8125,
+                "bottom": 839,
+                "width": 131,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            },
+            {
+              "label": "آخر تحديث",
+              "value": "2026/10/31",
+              "card": {
+                "left": 16,
+                "right": 189,
+                "top": 767.484375,
+                "bottom": 860,
+                "width": 173,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 37,
+                "right": 168,
+                "top": 813.8125,
+                "bottom": 839,
+                "width": 131,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-56-41-468Z/screenshots/suppliers.show-default-mobile-390.png"
+    },
+    {
+      "route": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:62881/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:62881/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:62881/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:62881/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 328,
+            "client": 328,
+            "overflow": false,
+            "icon": {
+              "left": 275,
+              "right": 323,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 261,
+              "top": 185,
+              "bottom": 276.78125,
+              "width": 224,
+              "height": 91.78125
+            },
+            "header": {
+              "left": 16,
+              "right": 344,
+              "top": 164,
+              "bottom": 577.171875,
+              "width": 328,
+              "height": 413.171875
+            },
+            "icon_name_overlap": false,
+            "name_outside_header": false,
+            "date_stats": [
+              {
+                "label": "تاريخ التسجيل",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 186,
+                  "right": 344,
+                  "top": 766.078125,
+                  "bottom": 858.59375,
+                  "width": 158,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 207,
+                  "right": 323,
+                  "top": 812.40625,
+                  "bottom": 837.59375,
+                  "width": 116,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              },
+              {
+                "label": "آخر تحديث",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 16,
+                  "right": 174,
+                  "top": 766.078125,
+                  "bottom": 858.59375,
+                  "width": 158,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 37,
+                  "right": 153,
+                  "top": 812.40625,
+                  "bottom": 837.59375,
+                  "width": 116,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              }
+            ]
+          }
+        },
+        {
+          "name": "party-profile-icon-does-not-overlap-name",
+          "result": "pass",
+          "details": {
+            "icon": {
+              "left": 275,
+              "right": 323,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 261,
+              "top": 185,
+              "bottom": 276.78125,
+              "width": 224,
+              "height": 91.78125
+            },
+            "header": {
+              "left": 16,
+              "right": 344,
+              "top": 164,
+              "bottom": 577.171875,
+              "width": 328,
+              "height": 413.171875
+            },
+            "overlap": false,
+            "name_outside_header": false
+          }
+        },
+        {
+          "name": "party-date-cards-show-unclipped-values",
+          "result": "pass",
+          "details": [
+            {
+              "label": "تاريخ التسجيل",
+              "value": "2026/10/31",
+              "card": {
+                "left": 186,
+                "right": 344,
+                "top": 766.078125,
+                "bottom": 858.59375,
+                "width": 158,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 207,
+                "right": 323,
+                "top": 812.40625,
+                "bottom": 837.59375,
+                "width": 116,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            },
+            {
+              "label": "آخر تحديث",
+              "value": "2026/10/31",
+              "card": {
+                "left": 16,
+                "right": 174,
+                "top": 766.078125,
+                "bottom": 858.59375,
+                "width": 158,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 37,
+                "right": 153,
+                "top": 812.40625,
+                "bottom": 837.59375,
+                "width": 116,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-56-41-468Z/screenshots/customers.show-default-mobile-360.png"
+    },
+    {
+      "route": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "checks": [
+        {
+          "name": "no-horizontal-overflow",
+          "result": "pass",
+          "details": {
+            "scroll_width": 360,
+            "viewport_width": 360
+          }
+        },
+        {
+          "name": "rtl-document",
+          "result": "pass",
+          "details": "rtl"
+        },
+        {
+          "name": "main-content",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "sidebar-landmark",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "all-visible-fields-labeled",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "no-broken-images",
+          "result": "pass",
+          "details": []
+        },
+        {
+          "name": "authorized-sidebar-links-have-destinations",
+          "result": "pass",
+          "details": [
+            {
+              "text": "Synthetic Electrical\nإدارة الأعمال الكهربائية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "الرئيسية",
+              "href": "http://127.0.0.1:62881/dashboard"
+            },
+            {
+              "text": "العملاء",
+              "href": "http://127.0.0.1:62881/customers"
+            },
+            {
+              "text": "قائمة الموردين",
+              "href": "http://127.0.0.1:62881/suppliers"
+            },
+            {
+              "text": "إضافة مورد",
+              "href": "http://127.0.0.1:62881/suppliers/create"
+            },
+            {
+              "text": "تصنيفات الموردين",
+              "href": "http://127.0.0.1:62881/suppliers/categories"
+            }
+          ]
+        },
+        {
+          "name": "party-profile-no-inner-overflow",
+          "result": "pass",
+          "details": {
+            "scroll": 328,
+            "client": 328,
+            "overflow": false,
+            "icon": {
+              "left": 275,
+              "right": 323,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 261,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 224,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 344,
+              "top": 164,
+              "bottom": 578.578125,
+              "width": 328,
+              "height": 414.578125
+            },
+            "icon_name_overlap": false,
+            "name_outside_header": false,
+            "date_stats": [
+              {
+                "label": "تاريخ التسجيل",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 186,
+                  "right": 344,
+                  "top": 767.484375,
+                  "bottom": 860,
+                  "width": 158,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 207,
+                  "right": 323,
+                  "top": 813.8125,
+                  "bottom": 839,
+                  "width": 116,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              },
+              {
+                "label": "آخر تحديث",
+                "value": "2026/10/31",
+                "card": {
+                  "left": 16,
+                  "right": 174,
+                  "top": 767.484375,
+                  "bottom": 860,
+                  "width": 158,
+                  "height": 92.515625
+                },
+                "value_rect": {
+                  "left": 37,
+                  "right": 153,
+                  "top": 813.8125,
+                  "bottom": 839,
+                  "width": 116,
+                  "height": 25.1875
+                },
+                "value_clipped": false,
+                "icon_display": "none"
+              }
+            ]
+          }
+        },
+        {
+          "name": "party-profile-icon-does-not-overlap-name",
+          "result": "pass",
+          "details": {
+            "icon": {
+              "left": 275,
+              "right": 323,
+              "top": 185,
+              "bottom": 233,
+              "width": 48,
+              "height": 48
+            },
+            "name": {
+              "left": 37,
+              "right": 261,
+              "top": 185,
+              "bottom": 246.1875,
+              "width": 224,
+              "height": 61.1875
+            },
+            "header": {
+              "left": 16,
+              "right": 344,
+              "top": 164,
+              "bottom": 578.578125,
+              "width": 328,
+              "height": 414.578125
+            },
+            "overlap": false,
+            "name_outside_header": false
+          }
+        },
+        {
+          "name": "party-date-cards-show-unclipped-values",
+          "result": "pass",
+          "details": [
+            {
+              "label": "تاريخ التسجيل",
+              "value": "2026/10/31",
+              "card": {
+                "left": 186,
+                "right": 344,
+                "top": 767.484375,
+                "bottom": 860,
+                "width": 158,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 207,
+                "right": 323,
+                "top": 813.8125,
+                "bottom": 839,
+                "width": 116,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            },
+            {
+              "label": "آخر تحديث",
+              "value": "2026/10/31",
+              "card": {
+                "left": 16,
+                "right": 174,
+                "top": 767.484375,
+                "bottom": 860,
+                "width": 158,
+                "height": 92.515625
+              },
+              "value_rect": {
+                "left": 37,
+                "right": 153,
+                "top": 813.8125,
+                "bottom": 839,
+                "width": 116,
+                "height": 25.1875
+              },
+              "value_clipped": false,
+              "icon_display": "none"
+            }
+          ]
+        }
+      ],
+      "http_status": 200,
+      "console_errors": [],
+      "failed_requests": [],
+      "screenshot": "docs/qa/ui-improvements/2026-10-31T22-56-41-468Z/screenshots/suppliers.show-default-mobile-360.png"
+    }
+  ],
+  "interactions": [],
+  "gaps": []
+}

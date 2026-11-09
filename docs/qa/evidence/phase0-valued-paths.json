@@ -1,0 +1,345 @@
+{
+    "database": "erp_elec_new_test",
+    "server_version_num": "170011",
+    "results": {
+        "synthetic actors and masters": {
+            "status": "PASS",
+            "evidence": {
+                "branch_id": 50,
+                "warehouse_id": 23,
+                "product_id": 222,
+                "supplier_id": 56,
+                "actor_count": 3,
+                "only_synthetic": true
+            }
+        },
+        "real financial setup and dated synthetic tax rules": {
+            "status": "PASS",
+            "evidence": {
+                "configuration_version": 5,
+                "mapping_count": 15,
+                "tax_rules_added": 2,
+                "synthetic_go_live": "2024-06-01"
+            }
+        },
+        "detailed GL AP cash bank FIFO opening and internal FIFO issue": {
+            "status": "PASS",
+            "evidence": {
+                "opening_batch_id": 1,
+                "opening_gl_posted": true,
+                "payable_amount": "10.00",
+                "cash_amount": "10.00",
+                "bank_amount": "5.00",
+                "opening_fifo_quantity": "2.00000000",
+                "opening_fifo_value": "20.00",
+                "issue_document_id": 21,
+                "issue_movement_id": 2,
+                "issue_fifo_quantity": "1.50000000",
+                "issue_fifo_cost": "15.00",
+                "issue_journal_id": 2,
+                "issue_debit": "15.00",
+                "issue_credit": "15.00",
+                "remaining_quantity": "0.50000000",
+                "internal_issue_correction": {
+                    "partial_fifo_date": "2024-06-01",
+                    "partial_unit_cost": "10.0000000000000000",
+                    "partial_value": "5.00",
+                    "full_quantity_restored": "2.00000000",
+                    "same_payload_retry_idempotent": true,
+                    "exact_gl_reversal_total": "15.00",
+                    "gl_journal_count": 2,
+                    "deferred_constraints_immediate": true
+                },
+                "positive_adjustment_value": "12.00",
+                "positive_adjustment_reversal_movement_id": 6,
+                "positive_adjustment_constraints_immediate": true,
+                "correction_denials": {
+                    "unauthorized": true,
+                    "over_cap": true,
+                    "altered_payload": true,
+                    "later_dependency": true
+                },
+                "same_branch_transfer": {
+                    "document_id": 23,
+                    "destination_id": 24,
+                    "quantity": "2.00000000",
+                    "transit_value": "11.00",
+                    "received_fifo_value": "11.00",
+                    "partial_retry_idempotent": true,
+                    "movement_count": 4,
+                    "journal_count": 4
+                },
+                "cross_branch_transfer": {
+                    "document_id": 24,
+                    "destination_id": 25,
+                    "quantity": "1.00000000",
+                    "transit_value": "4.00",
+                    "received_fifo_value": "4.00",
+                    "partial_retry_idempotent": true,
+                    "movement_count": 3,
+                    "journal_count": 3
+                },
+                "count_surplus_journal_amount": "4.00",
+                "count_shortage_fifo_quantity": "0.25000000",
+                "same_destination_on_hand": "3.00000000",
+                "cross_destination_on_hand": "0.75000000",
+                "constraints": "IMMEDIATE"
+            }
+        },
+        "opening declaration independent approval and real activation": {
+            "status": "PASS",
+            "evidence": {
+                "opening_batch_id": 2,
+                "status": "posted",
+                "activated": true,
+                "fake_zero_journals": 0
+            }
+        },
+        "exact tax arithmetic": {
+            "status": "PASS",
+            "evidence": {
+                "net": "1.01",
+                "tax": "0.14",
+                "total": "1.15",
+                "tax_rate": "14"
+            }
+        },
+        "inclusive price discount and future exemption effective date": {
+            "status": "PASS",
+            "evidence": {
+                "inclusive_net": "1.93",
+                "inclusive_tax": "0.27",
+                "inclusive_total": "2.20",
+                "line_discount": "0.10",
+                "pre_effective_tax": "1.40",
+                "effective_exempt_tax": "0.00",
+                "effective_date": "2099-01-01"
+            }
+        },
+        "official quotation issuance written acceptance and controlled draft conversion": {
+            "status": "PASS",
+            "evidence": {
+                "quotation_id": 63,
+                "issue_id": 1,
+                "official_number": "QT-2026-000001",
+                "official_sha256": "1fa096d0f297dd3456685d45861fad11e6f271bd49c6352a5f2612745aec2dc9",
+                "product_ids": [
+                    223,
+                    224
+                ],
+                "tax": {
+                    "net": "40.00",
+                    "tax": "5.60",
+                    "date": "2026-10-29",
+                    "mode": "exclusive",
+                    "lines": [
+                        {
+                            "net": "20.00",
+                            "tax": "2.80",
+                            "rate": "14.00000",
+                            "total": "22.80",
+                            "tax_raw": "2.80000000000000000000000000000000",
+                            "quantity": "2.00000000",
+                            "tax_code": "FA-SALE-eh2XD",
+                            "gross_raw": "20.00000000000000000000000000000000",
+                            "tax_scale": 2,
+                            "treatment": "percentage",
+                            "product_id": 223,
+                            "unit_price": "10.00000000",
+                            "tax_rule_id": 1,
+                            "taxable_raw": "20.00000000000000000000000000000000",
+                            "eligible_raw": "20.00000000000000000000000000000000",
+                            "net_document": "20.00",
+                            "tax_document": "2.80",
+                            "legal_reference": "Synthetic audit fixture reference 2024",
+                            "line_discount_raw": "0.00000000000000000000000000000000",
+                            "net_posting_rounding": "0.00000",
+                            "purchase_recoverable": null,
+                            "tax_posting_rounding": "0.00000",
+                            "document_discount_raw": "0.00000000000000000000000000000000"
+                        },
+                        {
+                            "net": "20.00",
+                            "tax": "2.80",
+                            "rate": "14.00000",
+                            "total": "22.80",
+                            "tax_raw": "2.80000000000000000000000000000000",
+                            "quantity": "2.00000000",
+                            "tax_code": "FA-SALE-eh2XD",
+                            "gross_raw": "20.00000000000000000000000000000000",
+                            "tax_scale": 2,
+                            "treatment": "percentage",
+                            "product_id": 224,
+                            "unit_price": "10.00000000",
+                            "tax_rule_id": 1,
+                            "taxable_raw": "20.00000000000000000000000000000000",
+                            "eligible_raw": "20.00000000000000000000000000000000",
+                            "net_document": "20.00",
+                            "tax_document": "2.80",
+                            "legal_reference": "Synthetic audit fixture reference 2024",
+                            "line_discount_raw": "0.00000000000000000000000000000000",
+                            "net_posting_rounding": "0.00000",
+                            "purchase_recoverable": null,
+                            "tax_posting_rounding": "0.00000",
+                            "document_discount_raw": "0.00000000000000000000000000000000"
+                        }
+                    ],
+                    "total": "45.60",
+                    "currency": "EGP",
+                    "rounding": "half_away_from_zero_largest_remainder",
+                    "tax_totals": [
+                        {
+                            "code": "FA-SALE-eh2XD",
+                            "rate": "14.00000",
+                            "tax_scale": 2,
+                            "treatment": "percentage",
+                            "posted_amount": "5.60",
+                            "document_amount": "5.60000",
+                            "purchase_recoverable": null
+                        }
+                    ],
+                    "internal_scale": 32,
+                    "transaction_type": "sale",
+                    "production_validated": true,
+                    "configuration_version": 5
+                },
+                "company_identity_readiness_denials": {
+                    "missing configured legal identity": true,
+                    "missing referenced private company logo": true
+                },
+                "written_acceptance_sha256": "4cf61bf79c8070608ae28cb9e9ebf77f5900d41e96ce588cb8c84cef9502f56e",
+                "acceptance_retry_idempotent": true,
+                "altered_acceptance_rejected": true,
+                "source_lock_held": true,
+                "other_source_lock_available": true,
+                "converted_sales_order_id": 38,
+                "conversion_status": "draft",
+                "conversion_retry_idempotent": true,
+                "altered_key_rejected": true,
+                "altered_branch_rejected": true,
+                "no_conversion_side_effects": true,
+                "submitted_review_id": 7,
+                "sales_order_issue_order_id": 38,
+                "allocation_count": 2,
+                "backorder_reservations": [
+                    {
+                        "requested": "2.00000000",
+                        "reserved": "1.50000000"
+                    },
+                    {
+                        "requested": "2.00000000",
+                        "reserved": "1.50000000"
+                    }
+                ],
+                "approval_replay_idempotent": true,
+                "altered_warehouse_rejected": true,
+                "supply_adjustment_id": 29,
+                "confirmed_deliveries": [
+                    1,
+                    2
+                ],
+                "delivery_issue_movements": 4,
+                "delivery_cogs_journals": 4,
+                "reserved_quantity_fulfilled": true,
+                "unreserved_backorder_preserved": true
+            }
+        },
+        "approved PO official issuance PDF and reported-tax rejection": {
+            "status": "PASS",
+            "evidence": {
+                "order_id": 6,
+                "official_number": "PO-2024-000001",
+                "document_id": "cd764c80-6e76-46a0-8e31-5ecd1ac806b9",
+                "pdf_bytes": 47969,
+                "sha256": "1ad5aea0ab4d974cc8be027e18ef4743cbd4ca526e764c797ddf9b4b8e5e2003",
+                "net": "1.01",
+                "tax": "0.14",
+                "total": "1.15",
+                "same_issue_retry": true,
+                "bad_reported_tax_rejected": true,
+                "pdf_update_delete": {
+                    "update": "rejected",
+                    "delete": "rejected"
+                },
+                "m05_branch_scoped_not_received_and_number_search": true
+            }
+        },
+        "unauthorized actor and rollback on pending receipt": {
+            "status": "PASS",
+            "evidence": {
+                "receipt_id": 1,
+                "status": "integration_pending",
+                "denied_actor": 194,
+                "movement_count_before_after": [
+                    10,
+                    10
+                ]
+            }
+        },
+        "mid-flight failure rolls back all source effects": {
+            "status": "PASS",
+            "evidence": {
+                "receipt_id": 1,
+                "sentinel": "FINANCIAL_AUDIT_INJECTED_AFTER_RECEIPT_POSTED",
+                "counts_before": {
+                    "movements": 0,
+                    "layers": 0,
+                    "journals": 0,
+                    "documents": 17
+                },
+                "counts_after": {
+                    "movements": 0,
+                    "layers": 0,
+                    "journals": 0,
+                    "documents": 17
+                },
+                "rolled_back": true
+            }
+        },
+        "partial receipt post, atomic references, value and retry": {
+            "status": "PASS",
+            "evidence": {
+                "receipt_id": 1,
+                "receipt_journal_id": 27,
+                "movement_count": 1,
+                "movement_id": 27,
+                "fifo_layer_id": 16,
+                "amount": "0.34",
+                "journal_id": 27,
+                "retry_idempotent": true,
+                "m05_partially_received_filter": true
+            }
+        },
+        "final receipt exhausts cumulative order value and exact stock delta": {
+            "status": "PASS",
+            "evidence": {
+                "receipt_id": 2,
+                "receipt_journal_id": 28,
+                "journal_id": 28,
+                "posting_movement_id": 28,
+                "posting_layer_id": 17,
+                "capitalized_amount": "0.67",
+                "cumulative_amount": "1.01",
+                "fifo_layer_count": 2,
+                "fifo_value": "1.01",
+                "on_hand": "3.00000000",
+                "m05_received_filter": true
+            }
+        },
+        "pre-Go-Live rejection": {
+            "status": "PASS",
+            "evidence": {
+                "rejected_date": "2024-05-31",
+                "go_live_date": "2024-06-01"
+            }
+        },
+        "deferred PostgreSQL constraints immediate": {
+            "status": "PASS",
+            "evidence": {
+                "constraint_mode": "IMMEDIATE",
+                "executed": true
+            }
+        }
+    },
+    "all_pass": true
+}

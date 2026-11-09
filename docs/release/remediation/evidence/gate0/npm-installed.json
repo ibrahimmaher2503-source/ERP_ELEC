@@ -1,0 +1,40 @@
+{
+  "name": "erp-electrical",
+  "dependencies": {
+    "@laravel/passkeys": {
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/@laravel/passkeys/-/passkeys-0.2.0.tgz",
+      "overridden": false
+    },
+    "@tailwindcss/vite": {
+      "version": "4.3.3",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.3.tgz",
+      "overridden": false
+    },
+    "concurrently": {
+      "version": "10.0.6",
+      "resolved": "https://registry.npmjs.org/concurrently/-/concurrently-10.0.6.tgz",
+      "overridden": false
+    },
+    "laravel-vite-plugin": {
+      "version": "3.2.0",
+      "resolved": "https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-3.2.0.tgz",
+      "overridden": false
+    },
+    "playwright": {
+      "version": "1.62.1",
+      "resolved": "https://registry.npmjs.org/playwright/-/playwright-1.62.1.tgz",
+      "overridden": false
+    },
+    "tailwindcss": {
+      "version": "4.3.3",
+      "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.3.tgz",
+      "overridden": false
+    },
+    "vite": {
+      "version": "8.3.4",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.4.tgz",
+      "overridden": false
+    }
+  }
+}

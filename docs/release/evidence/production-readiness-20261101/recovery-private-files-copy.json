@@ -1,0 +1,9 @@
+{
+  "source_files": [
+    "company-logos/phase0-recovery-logo.png",
+    "recovery/private-source-fixture.txt"
+  ],
+  "source_sha256_matched_manifest": true,
+  "copy_from": ".tmp/production-readiness-20261101/storage/app/private",
+  "restore_private_root": ".tmp/production-readiness-20261101/recovery-restore-private"
+}

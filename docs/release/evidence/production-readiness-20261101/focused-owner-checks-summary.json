@@ -1,0 +1,17 @@
+[
+  {
+    "check": "m05-m06-roundtrip",
+    "exit_code": 0,
+    "log": "m05-m06-roundtrip.txt"
+  },
+  {
+    "check": "m06-inventory-canonical",
+    "exit_code": 0,
+    "log": "m06-inventory-canonical.txt"
+  },
+  {
+    "check": "phase2-projects",
+    "exit_code": 0,
+    "log": "phase2-projects.txt"
+  }
+]

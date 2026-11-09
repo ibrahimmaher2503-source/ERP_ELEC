@@ -1,0 +1,29 @@
+{
+  "run_id": "2026-10-31T23-04-30-908Z",
+  "phase": "before",
+  "route_count": 7,
+  "viewport_count": 5,
+  "screenshots": 35,
+  "timing_route_names": [
+    "dashboard",
+    "customers.show",
+    "financial.aging"
+  ],
+  "timing_viewports": [
+    "desktop-1440",
+    "mobile-390"
+  ],
+  "timing_samples": 18,
+  "interaction_sessions": 3,
+  "failed_checks": 1,
+  "failures": [
+    {
+      "route": "inventory.dashboard",
+      "viewport": null,
+      "name": "inventory-livewire-filter-journey",
+      "result": "fail",
+      "details": "page.waitForResponse: Timeout 15000ms exceeded while waiting for event \"response\""
+    }
+  ],
+  "evidence": "C:\\projects\\ERP_ELEC_NEW\\docs\\qa\\design-consistency\\2026-10-31T23-04-30-908Z\\before\\evidence.json"
+}

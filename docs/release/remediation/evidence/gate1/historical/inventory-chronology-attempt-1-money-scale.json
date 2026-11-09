@@ -1,0 +1,8 @@
+{
+  "attempt": 1,
+  "check": "phase0 Gate1 historical inventory chronology",
+  "status": "HARNESS_FAIL_BEFORE_SOURCE_ASSERTIONS",
+  "cause": "The pre-activity zero assertion compared a PostgreSQL aggregate string at scale 0 with a scale-2 expected string.",
+  "database_mutation": "All fixture actions were enclosed by the existing rollback-only transaction and rolled back.",
+  "resolution": "Normalized monetary API strings to scale 2 before comparisons."
+}

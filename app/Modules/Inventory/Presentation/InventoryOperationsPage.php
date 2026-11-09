@@ -25,6 +25,8 @@ final class InventoryOperationsPage extends Component
 
     public string $search = '';
 
+    public string $sourceSearch = '';
+
     public array $form = ['source_movement_id' => '', 'quantity' => '', 'reason' => '', 'serials' => ''];
 
     public array $releaseQuantities = [];
@@ -147,7 +149,7 @@ final class InventoryOperationsPage extends Component
         }
         $executeIds = $this->screen === 'serials' ? [] : app(InventoryAccess::class)->ids(auth()->id(), $this->screen === 'isolations' ? 'isolation_manage' : 'correction_execute');
 
-        return view('inventory.operations', ['canExecute' => $executeIds !== [], 'rows' => $rows, 'history' => $history, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', $ids)->get(), 'access' => app(InventoryAccess::class), 'sources' => DB::table('inventory_movements')->whereIn('warehouse_id', array_values(array_intersect($scope, $executeIds)))->when($this->screen === 'isolations', fn ($q) => $q->where('quantity', '>', '0'))->orderByDesc('id')->limit(100)->get()])->layout('layouts::app', ['title' => match ($this->screen) {
+        return view('inventory.operations', ['canExecute' => $executeIds !== [], 'rows' => $rows, 'history' => $history, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', $ids)->get(), 'access' => app(InventoryAccess::class), 'sources' => DB::table('inventory_movements')->whereIn('warehouse_id', array_values(array_intersect($scope, $executeIds)))->when($this->screen === 'isolations', fn ($q) => $q->where('quantity', '>', '0'))->when($this->sourceSearch !== '', fn ($q) => $q->where(fn ($q) => $q->where('id', ctype_digit($this->sourceSearch) ? (int) $this->sourceSearch : -1)->orWhere('sku', 'ilike', '%'.mb_substr($this->sourceSearch, 0, 100).'%')->orWhere('id', (int) $this->form['source_movement_id'])))->orderByDesc('id')->limit(100)->get()])->layout('layouts::app', ['title' => match ($this->screen) {
             'serials' => 'الأرقام المسلسلة','isolations' => 'المخزون غير المتاح',default => 'تصحيح حركات المخزون'
         }]);
     }

@@ -1,0 +1,170 @@
+{
+  "result": "PASS",
+  "database": "erp_elec_new_test@127.0.0.1:55475",
+  "browser": "Playwright Chromium/Edge",
+  "viewport_sizes": [
+    [
+      1440,
+      900
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "workflow": {
+    "workshop_id": 17,
+    "intake_id": 45,
+    "intake_number": "WI-2027-000001",
+    "job_id": 45,
+    "job_number": "WJ-2027-000001",
+    "final_status": "delivered",
+    "custody_events": [
+      "received",
+      "inspection",
+      "repair",
+      "testing",
+      "ready",
+      "delivered"
+    ],
+    "estimates": 1,
+    "estimate_approval_count": 1,
+    "work_record_count": 1,
+    "test_outcomes": [
+      "failed",
+      "passed"
+    ],
+    "verified_report_bytes": 46855,
+    "invoice_id": 72,
+    "invoice_status": "posted",
+    "attachment_sha256": "512cd5c052965f9930e9e26febd6576207fa718e309c1111927e02a5884de253",
+    "delivery_recipient": "DEMO-EG M09 workshop acceptance record",
+    "delivered_accessories": "DEMO-EG M09 workshop acceptance record"
+  },
+  "inventory": {
+    "before": {
+      "movements": 82,
+      "fifo_layers": 41,
+      "balances": 16,
+      "on_hand": "7.00000000",
+      "reserved": "0.00000000"
+    },
+    "after": {
+      "movements": 84,
+      "fifo_layers": 42,
+      "balance_rows": 16,
+      "on_hand": "6.00000000",
+      "reserved": "0.00000000"
+    }
+  },
+  "checks": [
+    {
+      "browser_four_workshops_created": {
+        "count": 4,
+        "new_workshop_codes": [
+          "DEMO-EG-M09-WORKSHOP-8A231255DA",
+          "DEMO-EG-M09-WORKSHOP-8A231255DA-2",
+          "DEMO-EG-M09-WORKSHOP-8A231255DA-3",
+          "DEMO-EG-M09-WORKSHOP-8A231255DA-4"
+        ],
+        "edited_workshop_version": 4
+      }
+    },
+    {
+      "browser_mobile_intake_create_resave": {
+        "id": 45,
+        "version": 2
+      }
+    },
+    {
+      "mobile": "intake-resaved",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "private_attachment": {
+        "id": 1,
+        "sha256": "512cd5c052965f9930e9e26febd6576207fa718e309c1111927e02a5884de253",
+        "bytes": 97
+      }
+    },
+    {
+      "browser_receipt_and_job_conversion": {
+        "intakeId": 45,
+        "jobId": 45,
+        "state": "inspection"
+      }
+    },
+    {
+      "browser_assignment_and_diagnosis": {
+        "technician_id": 751,
+        "required_tests": 1
+      }
+    },
+    {
+      "mobile": "diagnosis",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "separate_estimate_approval_quote_issue_and_acceptance": {
+        "estimate_id": 9,
+        "issued_quote_pdf_bytes": 50664,
+        "customer_accepted_by_dispatcher": true,
+        "tax": "14.00"
+      }
+    },
+    {
+      "real_m06_part_reservation_and_issue": {
+        "requirement_id": 1,
+        "reservation_id": 135,
+        "issued": "1.50000000",
+        "movement_id": 202
+      }
+    },
+    {
+      "required_test_guard": "failed result blocked verification without issuing a report"
+    },
+    {
+      "supervisor_verification_and_private_report": {
+        "document_id": "630bec73-5eaf-4b6a-b208-16aeaa244584",
+        "bytes": 46855,
+        "sha256": "b940ba4a8c12954dab4038d40a6aa8913d29f6f7f9eafcc3b5c5bcd3e4f915c2"
+      }
+    },
+    {
+      "customer_handover": {
+        "intake_status": "delivered",
+        "job_status": "delivered",
+        "unrepaired": false
+      }
+    },
+    {
+      "mobile": "delivery",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "m12_invoice_post_and_private_pdf": {
+        "invoice_id": 72,
+        "status": "posted",
+        "official_number": "CI-2027-000016",
+        "bytes": 44642
+      }
+    },
+    {
+      "branch_scope_denials": {
+        "job": 403,
+        "attachment": 403,
+        "report": 403,
+        "quote": 403,
+        "invoice": 403
+      }
+    }
+  ],
+  "browser_errors": []
+}

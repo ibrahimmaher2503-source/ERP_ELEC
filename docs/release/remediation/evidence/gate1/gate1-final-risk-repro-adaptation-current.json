@@ -1,0 +1,13 @@
+{
+  "adaptations": [
+    "target.json -> risk-test-target.json",
+    "database identity erp_elec_new_test -> erp_elec_gate1_race_test",
+    "exact marker text verification",
+    "unique race-specific evidence output names"
+  ],
+  "database": "erp_elec_gate1_race_test@127.0.0.1:49685",
+  "application_code_changed": false,
+  "script": ".tmp/master-remediation-20261101/financial-gate1-green-repro-race.php",
+  "base_script": ".tmp/master-remediation-20261101/financial-gate1-green-repro.php",
+  "sha256": "696B23220F830674CFAA6F6B3BD353DDEDDC42D1ED56538F11B9CB92F3D42A73"
+}

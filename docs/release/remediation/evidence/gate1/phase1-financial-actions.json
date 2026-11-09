@@ -1,0 +1,314 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 49685,
+    "financial_date": "2026-11-01",
+    "synthetic": true,
+    "source_order_id": 1,
+    "posted_receipts": [
+        1,
+        2,
+        3
+    ],
+    "invoice_ids": [
+        2,
+        3,
+        4
+    ],
+    "source_journals": [
+        {
+            "invoice_id": 2,
+            "journal_id": 4,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 3,
+            "journal_id": 5,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 4,
+            "journal_id": 6,
+            "debit": "12.54",
+            "credit": "12.54",
+            "grni_net": "10.00",
+            "ppv_net": "1.00",
+            "tax_input_net": "1.54",
+            "ap_net": "-12.54"
+        }
+    ],
+    "official_pdf_integrity": [
+        {
+            "invoice_id": 2,
+            "official_number": "SI-2026-000001",
+            "sha256": "14a76b366728a5fe0de9399db28384e71adb7c51ca11092fb065c72c9d95621d",
+            "bytes": 45082
+        },
+        {
+            "invoice_id": 3,
+            "official_number": "SI-2026-000002",
+            "sha256": "30f7a6d449b5ea93acff2e66c6576a2b72400065aee7422c3c4fc14b3b958952",
+            "bytes": 45085
+        },
+        {
+            "invoice_id": 4,
+            "official_number": "SI-2026-000003",
+            "sha256": "f5ebdc716b668ee2138a1a93111420f290c7625b5d2e9fcaa2b3336fe607f9e3",
+            "bytes": 45079
+        }
+    ],
+    "matching": {
+        "invoice_count": 3,
+        "receipt_count": 3,
+        "quantity": "4.00000000",
+        "grni": "40.00",
+        "net": "44.00",
+        "recoverable_input_tax": "6.16",
+        "ppv": "4.00",
+        "ap": "50.16"
+    },
+    "stock_and_fifo_unchanged_by_invoice_posting": true,
+    "same_key_replay": true,
+    "factory_persistence": {
+        "supplier_invoice_id": 1,
+        "supplier_draft": true,
+        "customer_invoice_id": 1,
+        "customer_draft": true,
+        "treasury_accounts": [
+            1,
+            2
+        ]
+    },
+    "ap": {
+        "payment_movement_ids": [
+            4,
+            5
+        ],
+        "retry_idempotent": true,
+        "remaining": "0.00"
+    },
+    "customer": {
+        "sales_order_id": 1,
+        "delivery_id": 1,
+        "invoice_id": 2,
+        "advance_movement_id": 3,
+        "collection_movement_ids": [
+            1,
+            2
+        ],
+        "remaining_ar": "0.00"
+    },
+    "party_financial_profiles": {
+        "actor_id": 1,
+        "branch_id": 1,
+        "supplier_id": 1,
+        "customer_id": 1,
+        "aging_read_clock": "100 days after actual action dates",
+        "supplier": {
+            "invoice_count": 4,
+            "settled": "50.16",
+            "outstanding": "12.54",
+            "overdue": "12.54",
+            "unapplied_credit": "2.00",
+            "statement_closing": "10.54"
+        },
+        "customer": {
+            "invoice_count": 1,
+            "settled": "54.72",
+            "outstanding": "0.00",
+            "advance": "1.00",
+            "unapplied_credit": "2.00",
+            "statement_closing": "-2.00"
+        },
+        "unmapped_opening_payables": {
+            "supplier": "0.00",
+            "customer": "0.00"
+        },
+        "no_ar_ap_scope": "authorized_false",
+        "foreign_branch_filter": "403"
+    },
+    "credit_notes": {
+        "supplier": {
+            "credit_note_id": 1,
+            "journal_id": 14,
+            "number": "SCN-2026-000001"
+        },
+        "customer": {
+            "credit_note_id": 2,
+            "journal_id": 15,
+            "number": "CCN-2026-000001"
+        },
+        "party_credit_rows": 2
+    },
+    "direct_transfer": {
+        "out_movement_id": 6,
+        "in_movement_id": 7,
+        "journal_id": 18,
+        "number": "TR-2026-000001"
+    },
+    "reports": {
+        "trial_balance_debit": "318.30",
+        "trial_balance_credit": "318.30",
+        "income_row_count": 3,
+        "balance_row_count": 9,
+        "reconciliations": [
+            {
+                "key": "ap",
+                "label": "مراقبة الموردين مقابل الذمم الدائنة",
+                "gl": "10.54",
+                "source": "10.54",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "ar",
+                "label": "مراقبة العملاء مقابل الذمم المدينة",
+                "gl": "-2.00",
+                "source": "-2.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "grni",
+                "label": "GRNI مقابل الاستلامات غير المفوترة",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "10.00",
+                "source": "10.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "bank",
+                "label": "حساب البنك مقابل حركات الخزينة",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "cash",
+                "label": "حساب النقدية مقابل حركات الخزينة",
+                "gl": "4.56",
+                "source": "4.56",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "customer_advance",
+                "label": "دفعات العملاء المقدمة مقابل سجل الذمم",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        ]
+    },
+    "negative_cases": {
+        "duplicate_supplier_number": "rejected",
+        "supplier_mismatch": "rejected",
+        "overmatch": "rejected",
+        "unauthorized": "403",
+        "closed_period": "rejected_without_partial_post"
+    },
+    "committed_worker_fixtures": null,
+    "all_pass": true,
+    "financial_release_risks": {
+        "captured_utc": "2026-11-01T01:24:30+00:00",
+        "database": "erp_elec_new_test@127.0.0.1:49685",
+        "source": "app/Modules/Accounting/Application/FinancialReports.php + JournalPosting.php",
+        "source_hashes": {
+            "financial_reports": "3da9006cfd8ddfd58304cb0084d8ec4bbe66300b2e02bee63ab84889afdad57b",
+            "journal_posting": "e36268d8dae48ca2a25ca8bf039ff29d3bc14ff2529f533b6f234bc0c7eb4a62"
+        },
+        "findings": [
+            {
+                "id": "FIN-P0-01",
+                "expectation": "Period close must fail when the actor cannot reconcile any report branch.",
+                "test_result": "FAIL",
+                "report_authority": false,
+                "close_outcome": "closed"
+            },
+            {
+                "id": "FIN-P0-02",
+                "expectation": "Historical GL and FIFO source values must use the same cutoff.",
+                "test_result": "FAIL",
+                "cutoff": "2000-12-31",
+                "pre_cutoff_journals": 0,
+                "inventory_reconciliation": {
+                    "key": "inventory",
+                    "label": "المخزون العام مقابل طبقات FIFO",
+                    "gl": "0.00",
+                    "source": "10.00",
+                    "difference": "-10.00",
+                    "ok": false
+                },
+                "reproduced": true
+            },
+            {
+                "id": "FIN-P0-03",
+                "expectation": "Manual posting must not change the customer-advance control account without a source advance record.",
+                "test_result": "FAIL",
+                "journal_status": "posted",
+                "source_advance_records_before": 1,
+                "source_advance_records_after": 1,
+                "source_advance_records_delta": 0,
+                "customer_advance_reconciliation": {
+                    "key": "customer_advance",
+                    "label": "دفعات العملاء المقدمة مقابل سجل الذمم",
+                    "gl": "126.00",
+                    "source": "1.00",
+                    "difference": "125.00",
+                    "ok": false
+                },
+                "posted_via_public_actions": true,
+                "independent_approval": true
+            }
+        ],
+        "rollback_verified": true,
+        "row_counts_before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "access_grants": 0,
+            "accounting_periods": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "rp_supplier_invoices": 0,
+            "system_official_documents": 0,
+            "audit_entries": 0
+        },
+        "row_counts_after": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "access_grants": 0,
+            "accounting_periods": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "rp_supplier_invoices": 0,
+            "system_official_documents": 0,
+            "audit_entries": 0
+        },
+        "result": "FAIL"
+    }
+}

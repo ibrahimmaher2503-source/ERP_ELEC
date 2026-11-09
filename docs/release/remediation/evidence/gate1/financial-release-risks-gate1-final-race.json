@@ -1,0 +1,75 @@
+{
+    "captured_utc": "2026-11-01T01:45:07+00:00",
+    "database": "erp_elec_gate1_race_test@127.0.0.1:49685",
+    "source": "app/Modules/Accounting/Application/FinancialReports.php + JournalPosting.php",
+    "source_hashes": {
+        "financial_reports": "f8c9fa379d18d48a99c4a6f3ea2f622ce2bf1c64913fb8d7b0876aa73f616512",
+        "journal_posting": "c94aaf955e227a9d9d67468770a10b3513b4501f18ad2ac0f3703d427dfd5b4f"
+    },
+    "findings": [
+        {
+            "id": "FIN-P0-01",
+            "expectation": "Period close must fail when the actor cannot reconcile any report branch.",
+            "test_result": "PASS",
+            "report_authority": false,
+            "close_outcome": "EXPECTED_FORBIDDEN"
+        },
+        {
+            "id": "FIN-P0-02",
+            "expectation": "Historical GL and FIFO source values must use the same cutoff.",
+            "test_result": "PASS",
+            "cutoff": "2000-12-31",
+            "pre_cutoff_journals": 0,
+            "inventory_reconciliation": {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            "reproduced": false
+        },
+        {
+            "id": "FIN-P0-03",
+            "expectation": "Manual control-account entry is rejected at creation before changing GL or customer-advance source rows.",
+            "test_result": "PASS",
+            "rejected_stage": "create",
+            "expected_control_guard_message": true,
+            "no_journal_or_source_effects": true,
+            "exception_class": "Illuminate\\Validation\\ValidationException",
+            "source_advance_records_before": 1,
+            "source_advance_records_after": 1
+        }
+    ],
+    "rollback_verified": true,
+    "row_counts_before": {
+        "companies": 0,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "accounting_periods": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_fifo_layers": 0,
+        "rp_supplier_invoices": 0,
+        "system_official_documents": 0,
+        "audit_entries": 0
+    },
+    "row_counts_after": {
+        "companies": 0,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "accounting_periods": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_fifo_layers": 0,
+        "rp_supplier_invoices": 0,
+        "system_official_documents": 0,
+        "audit_entries": 0
+    },
+    "result": "PASS"
+}

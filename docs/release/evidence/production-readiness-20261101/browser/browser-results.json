@@ -1,0 +1,2030 @@
+{
+  "scope": "Representative implemented-owner pages × 5 viewports; not all routes/states. Document check covers authorized project document listing, not the private file download.",
+  "generatedAt": "2026-11-01T00:56:41.798Z",
+  "results": [
+    {
+      "owner": "Shared-Home",
+      "route": "/dashboard",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "مساحة العمل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "Shared-Home-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\n\nال"
+    },
+    {
+      "owner": "M01-Organization",
+      "route": "/organization/company",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "بيانات الشركة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M01-Organization-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M02-Products",
+      "route": "/products",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M02-Products-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Parties",
+      "route": "/customers",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Parties-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-detail",
+      "route": "/customers/1",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "تفاصيل العميل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-detail-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-create-form",
+      "route": "/customers/create",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "إضافة عميل جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-create-form-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Sales",
+      "route": "/quotations",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "عروض الأسعار - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Sales-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Quotation-create-form",
+      "route": "/quotations/create",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "إنشاء عرض سعر جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Quotation-create-form-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M05-Purchasing",
+      "route": "/purchasing/orders",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "أوامر الشراء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M05-Purchasing-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M06-Inventory",
+      "route": "/inventory",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "لوحة المخزون - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M06-Inventory-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M07-Projects",
+      "route": "/projects",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "المشروعات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M07-Projects-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M08-FieldMaintenance",
+      "route": "/maintenance/requests",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M08-FieldMaintenance-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M09-WorkshopRepairs",
+      "route": "/workshops/intakes",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M09-WorkshopRepairs-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Accounting",
+      "route": "/accounting/dashboard",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "لوحة المحاسبة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Accounting-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Trial-balance-report",
+      "route": "/accounting/trial-balance",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "ميزان المراجعة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Trial-balance-report-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M12-ReceivablesPayables",
+      "route": "/financial/customer-invoices",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "فواتير العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M12-ReceivablesPayables-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M13-Treasury",
+      "route": "/treasury/accounts",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "البنك والخزينة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M13-Treasury-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M17-System",
+      "route": "/data-operations/import/products",
+      "viewport": "1440x900",
+      "status": 200,
+      "title": "عمليات البيانات · الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M17-System-1440x900.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "Shared-Home",
+      "route": "/dashboard",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "مساحة العمل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "Shared-Home-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\n\nال"
+    },
+    {
+      "owner": "M01-Organization",
+      "route": "/organization/company",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "بيانات الشركة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M01-Organization-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M02-Products",
+      "route": "/products",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M02-Products-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Parties",
+      "route": "/customers",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Parties-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-detail",
+      "route": "/customers/1",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "تفاصيل العميل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-detail-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-create-form",
+      "route": "/customers/create",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "إضافة عميل جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-create-form-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Sales",
+      "route": "/quotations",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "عروض الأسعار - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Sales-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Quotation-create-form",
+      "route": "/quotations/create",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "إنشاء عرض سعر جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Quotation-create-form-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M05-Purchasing",
+      "route": "/purchasing/orders",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "أوامر الشراء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M05-Purchasing-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M06-Inventory",
+      "route": "/inventory",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "لوحة المخزون - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M06-Inventory-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M07-Projects",
+      "route": "/projects",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "المشروعات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M07-Projects-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M08-FieldMaintenance",
+      "route": "/maintenance/requests",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M08-FieldMaintenance-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M09-WorkshopRepairs",
+      "route": "/workshops/intakes",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M09-WorkshopRepairs-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Accounting",
+      "route": "/accounting/dashboard",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "لوحة المحاسبة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Accounting-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Trial-balance-report",
+      "route": "/accounting/trial-balance",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "ميزان المراجعة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Trial-balance-report-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M12-ReceivablesPayables",
+      "route": "/financial/customer-invoices",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "فواتير العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M12-ReceivablesPayables-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M13-Treasury",
+      "route": "/treasury/accounts",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "البنك والخزينة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M13-Treasury-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M17-System",
+      "route": "/data-operations/import/products",
+      "viewport": "1366x768",
+      "status": 200,
+      "title": "عمليات البيانات · الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M17-System-1366x768.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "Shared-Home",
+      "route": "/dashboard",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "مساحة العمل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "Shared-Home-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\n\nال"
+    },
+    {
+      "owner": "M01-Organization",
+      "route": "/organization/company",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "بيانات الشركة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M01-Organization-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M02-Products",
+      "route": "/products",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M02-Products-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Parties",
+      "route": "/customers",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Parties-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-detail",
+      "route": "/customers/1",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "تفاصيل العميل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-detail-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M03-Customer-create-form",
+      "route": "/customers/create",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "إضافة عميل جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-create-form-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Sales",
+      "route": "/quotations",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "عروض الأسعار - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Sales-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M04-Quotation-create-form",
+      "route": "/quotations/create",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "إنشاء عرض سعر جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Quotation-create-form-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M05-Purchasing",
+      "route": "/purchasing/orders",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "أوامر الشراء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M05-Purchasing-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M06-Inventory",
+      "route": "/inventory",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "لوحة المخزون - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M06-Inventory-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M07-Projects",
+      "route": "/projects",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "المشروعات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M07-Projects-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M08-FieldMaintenance",
+      "route": "/maintenance/requests",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M08-FieldMaintenance-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M09-WorkshopRepairs",
+      "route": "/workshops/intakes",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M09-WorkshopRepairs-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Accounting",
+      "route": "/accounting/dashboard",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "لوحة المحاسبة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Accounting-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M11-Trial-balance-report",
+      "route": "/accounting/trial-balance",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "ميزان المراجعة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Trial-balance-report-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M12-ReceivablesPayables",
+      "route": "/financial/customer-invoices",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "فواتير العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M12-ReceivablesPayables-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M13-Treasury",
+      "route": "/treasury/accounts",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "البنك والخزينة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M13-Treasury-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "M17-System",
+      "route": "/data-operations/import/products",
+      "viewport": "768x1024",
+      "status": 200,
+      "title": "عمليات البيانات · الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M17-System-768x1024.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\n2026-11-01\nSynthetic production audit\nPR-AUDIT-CO\nالر"
+    },
+    {
+      "owner": "Shared-Home",
+      "route": "/dashboard",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "مساحة العمل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "Shared-Home-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\n\nالأحد، 1 نوفم"
+    },
+    {
+      "owner": "M01-Organization",
+      "route": "/organization/company",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "بيانات الشركة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M01-Organization-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالتنظ"
+    },
+    {
+      "owner": "M02-Products",
+      "route": "/products",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M02-Products-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمنت"
+    },
+    {
+      "owner": "M03-Parties",
+      "route": "/customers",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Parties-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M03-Customer-detail",
+      "route": "/customers/1",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "تفاصيل العميل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-detail-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M03-Customer-create-form",
+      "route": "/customers/create",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "إضافة عميل جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-create-form-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M04-Sales",
+      "route": "/quotations",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "عروض الأسعار - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Sales-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمبي"
+    },
+    {
+      "owner": "M04-Quotation-create-form",
+      "route": "/quotations/create",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "إنشاء عرض سعر جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Quotation-create-form-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمبي"
+    },
+    {
+      "owner": "M05-Purchasing",
+      "route": "/purchasing/orders",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "أوامر الشراء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M05-Purchasing-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمشت"
+    },
+    {
+      "owner": "M06-Inventory",
+      "route": "/inventory",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "لوحة المخزون - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M06-Inventory-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمخز"
+    },
+    {
+      "owner": "M07-Projects",
+      "route": "/projects",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "المشروعات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M07-Projects-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمشر"
+    },
+    {
+      "owner": "M08-FieldMaintenance",
+      "route": "/maintenance/requests",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M08-FieldMaintenance-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالصيا"
+    },
+    {
+      "owner": "M09-WorkshopRepairs",
+      "route": "/workshops/intakes",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M09-WorkshopRepairs-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالورش"
+    },
+    {
+      "owner": "M11-Accounting",
+      "route": "/accounting/dashboard",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "لوحة المحاسبة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Accounting-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمحا"
+    },
+    {
+      "owner": "M11-Trial-balance-report",
+      "route": "/accounting/trial-balance",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "ميزان المراجعة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Trial-balance-report-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمحا"
+    },
+    {
+      "owner": "M12-ReceivablesPayables",
+      "route": "/financial/customer-invoices",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "فواتير العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M12-ReceivablesPayables-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالذمم"
+    },
+    {
+      "owner": "M13-Treasury",
+      "route": "/treasury/accounts",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "البنك والخزينة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M13-Treasury-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالخزي"
+    },
+    {
+      "owner": "M17-System",
+      "route": "/data-operations/import/products",
+      "viewport": "390x844",
+      "status": 200,
+      "title": "عمليات البيانات · الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M17-System-390x844.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأصن"
+    },
+    {
+      "owner": "Shared-Home",
+      "route": "/dashboard",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "مساحة العمل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "Shared-Home-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\n\nالأحد، 1 نوفم"
+    },
+    {
+      "owner": "M01-Organization",
+      "route": "/organization/company",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "بيانات الشركة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M01-Organization-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالتنظ"
+    },
+    {
+      "owner": "M02-Products",
+      "route": "/products",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M02-Products-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمنت"
+    },
+    {
+      "owner": "M03-Parties",
+      "route": "/customers",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Parties-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M03-Customer-detail",
+      "route": "/customers/1",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "تفاصيل العميل - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-detail-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M03-Customer-create-form",
+      "route": "/customers/create",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "إضافة عميل جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M03-Customer-create-form-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأطر"
+    },
+    {
+      "owner": "M04-Sales",
+      "route": "/quotations",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "عروض الأسعار - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Sales-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمبي"
+    },
+    {
+      "owner": "M04-Quotation-create-form",
+      "route": "/quotations/create",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "إنشاء عرض سعر جديد - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M04-Quotation-create-form-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمبي"
+    },
+    {
+      "owner": "M05-Purchasing",
+      "route": "/purchasing/orders",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "أوامر الشراء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M05-Purchasing-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمشت"
+    },
+    {
+      "owner": "M06-Inventory",
+      "route": "/inventory",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "لوحة المخزون - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M06-Inventory-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمخز"
+    },
+    {
+      "owner": "M07-Projects",
+      "route": "/projects",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "المشروعات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M07-Projects-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمشر"
+    },
+    {
+      "owner": "M08-FieldMaintenance",
+      "route": "/maintenance/requests",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M08-FieldMaintenance-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالصيا"
+    },
+    {
+      "owner": "M09-WorkshopRepairs",
+      "route": "/workshops/intakes",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M09-WorkshopRepairs-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالورش"
+    },
+    {
+      "owner": "M11-Accounting",
+      "route": "/accounting/dashboard",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "لوحة المحاسبة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Accounting-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمحا"
+    },
+    {
+      "owner": "M11-Trial-balance-report",
+      "route": "/accounting/trial-balance",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "ميزان المراجعة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M11-Trial-balance-report-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالمحا"
+    },
+    {
+      "owner": "M12-ReceivablesPayables",
+      "route": "/financial/customer-invoices",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "فواتير العملاء - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M12-ReceivablesPayables-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالذمم"
+    },
+    {
+      "owner": "M13-Treasury",
+      "route": "/treasury/accounts",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "البنك والخزينة - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M13-Treasury-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالخزي"
+    },
+    {
+      "owner": "M17-System",
+      "route": "/data-operations/import/products",
+      "viewport": "360x800",
+      "status": 200,
+      "title": "عمليات البيانات · الأصناف والمنتجات - ERP Electrical Tests",
+      "rtl": true,
+      "horizontalOverflow": false,
+      "tabFocus": {
+        "tag": "BUTTON",
+        "text": "browser-reader",
+        "visible": true
+      },
+      "filterInteraction": {
+        "attempted": false,
+        "reason": "Per-owner filters were not exercised in this screenshot sweep; see customer-list-filter.json for the one targeted customer search test."
+      },
+      "brokenImages": 0,
+      "consoleErrors": [],
+      "screenshot": "M17-System-360x800.png",
+      "bodyExcerpt": "انتقل إلى المحتوى\nSynthetic Electrical\nإدارة الأعمال الكهربائية\nالبحث في الصفحات المتاحة\n\nلا توجد صفحات مطابقة\n\nbrowser-reader\nSynthetic production audit\nPR-AUDIT-CO\nالرئيسية\nالأصن"
+    }
+  ],
+  "idor": [
+    {
+      "kind": "customer",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    },
+    {
+      "kind": "project",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    },
+    {
+      "kind": "project_document",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    },
+    {
+      "kind": "tender",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    },
+    {
+      "kind": "invoice",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    },
+    {
+      "kind": "workshop",
+      "readerStatus": 200,
+      "outsiderStatus": 403,
+      "isolationObserved": true,
+      "classification": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "result": "PASS_WITH_LIMITS",
+  "run_id": "7420A9872B2E",
+  "database": "erp_elec_new_test on private port 55434",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 3 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing"
+  ],
+  "browser_errors": [],
+  "quote_id": 3,
+  "postgresql_verification": {
+    "quotation_id": 3,
+    "status": "draft",
+    "project_name": "PHASE0-7420A9872B2E edited",
+    "lines": [
+      {
+        "product_id": 1,
+        "quantity": "2.00000000",
+        "requested_price": "25.00000000"
+      },
+      {
+        "product_id": 2,
+        "quantity": "2.00000000",
+        "requested_price": "25.00000000"
+      }
+    ]
+  },
+  "screenshot_files": [
+    "quotation-create-desktop.png",
+    "quotation-create-mobile.png",
+    "quotation-details-desktop.png"
+  ],
+  "limits": [
+    "This run exercised quotation create/reopen/edit only. Issuance/PDF, acceptance/conversion, independent sales-order approval/delivery, Purchasing and Inventory journeys were not performed by this harness."
+  ]
+}

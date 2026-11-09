@@ -1,0 +1,62 @@
+PASS M03 permissions default-deny for non-administrator roles while Administrator receives all registered keys
+PASS Customer access denies an authenticated actor without an explicit grant
+PASS Customer creation is denied without customer permissions
+PASS Customer factory persists a valid versioned profile
+PASS Contact factory creates a valid customer relationship
+PASS Address factory creates a valid customer relationship
+PASS Note factory creates synthetic un-attributed content without fake authorship
+PASS Document factory writes an exact-size private one-page synthetic PDF with a valid cross-reference
+PASS Customer action persists a canonical profile and starts its version
+PASS Duplicate customer codes are rejected
+PASS Duplicate customer codes are rejected reports code
+PASS Unsupported customer entity types are rejected
+PASS Unsupported customer entity types are rejected reports entity_type
+PASS Stale customer edits are rejected
+PASS Stale customer edits are rejected reports code
+PASS Customer update persists once with an incremented version
+PASS Customers API returns an authorized active source when active is required
+PASS Customers API returns an authorized inactive source when active is not required
+PASS Customers API denies an inactive source when active is required
+PASS Inactive customer source denial reports the documented 422 contract code
+PASS Customers API active search excludes an inactive source
+PASS Contact actions keep one primary contact for the customer
+PASS Address actions keep one primary address per purpose
+PASS A contact from another customer cannot be edited
+PASS An address from another customer cannot be edited
+PASS Customer child isolation leaves the other customer intact
+PASS Notes append with the actual author and preserve prior entries
+PASS Customer document action stores an accepted file on the private disk
+PASS Customer document action rejects unsupported files
+PASS Customer document action rejects unsupported files reports file
+PASS Customer catalog query searches normalized persisted customer text
+PASS Customer validate-only save returns a preview without database writes
+PASS Customer demo seeder creates its identifiable synthetic customer set
+PASS Demo customers receive realistic contact, address, note and private-document relationships
+PASS Customer demo seeder reruns without duplicates or overwriting existing owner data
+PASS Customer seeding adds no permission grants
+PASS Customer seeding adds no access_grants records
+PASS Customer seeding adds no access_audits records
+PASS Customer seeding adds no user_roles records
+PASS Customer seeding adds no user_branch_scopes records
+PASS Customer seeding adds no audit_entries records
+PASS Selected-customer bulk preview persists a single valid operation receipt
+PASS Bulk preview stores the selected change plan without mutating either customer
+PASS Bulk execution applies changes only to explicitly selected customers
+PASS Customer template round-trips with required sheets and current entity/version metadata
+PASS Customer import rejects an outdated template version
+PASS Customer import rejects an outdated template version reports file
+PASS Outdated customer template error identifies its version mismatch
+PASS Customer import rejects formula cells before preview
+PASS Customer import rejects formula cells before preview reports file
+PASS Formula rejection identifies unsafe workbook content
+PASS Customer import preview persists a versioned plan without creating a customer
+PASS Confirmed customer import executes through normal customer actions
+PASS Customer update preview preserves blank cells and does not mutate the target
+PASS Confirmed customer update applies explicit cells and preserves blank cells
+PASS Selected customer export opens as XLSX and formula-like customer text stays a literal string
+PASS Customer create form saves profile and authorized primary contact, addresses, and note
+PASS Customer edit form saves through the versioned customer action
+PASS Customer create form displays validation errors for invalid required fields
+PASS All four customer detail tabs render for an explicitly authorized actor
+PASS Authenticated customer catalog, create/edit forms, details, and shared data-operation pages render persisted records
+M03 customer focused checks passed.

@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "E1C1D01F6A87",
+  "journey": "M01 user create and repeated edit lifecycle",
+  "record": {
+    "id": 45,
+    "email": "round2-managed-e1c1d01f6a87@example.test",
+    "final_revision": "Managed user revision two E1C1D01F6A87"
+  },
+  "checks": [
+    "M01 user: empty required account modal is rejected in the browser",
+    "M01 user: account provisioned without roles or automatic business grants (45)",
+    "M01 user: create, navigate away, reopen edit, save, reload, second edit and final save"
+  ],
+  "postgresql_verification": "Managed user revision two E1C1D01F6A87"
+}

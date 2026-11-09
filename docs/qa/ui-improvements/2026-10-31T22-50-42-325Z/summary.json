@@ -1,0 +1,85 @@
+{
+  "run_id": "2026-10-31T22-50-42-325Z",
+  "page_viewport_captures": 30,
+  "interaction_viewports": 3,
+  "failed_checks": 7,
+  "failures": [
+    {
+      "name": "workspace-filter-تجاري",
+      "result": "fail",
+      "details": {
+        "active": "true",
+        "visible": 18,
+        "initial": 18
+      }
+    },
+    {
+      "name": "workspace-management-routes-match-sidebar",
+      "result": "fail",
+      "details": {
+        "expected": [
+          "الشركة",
+          "الفروع",
+          "المستخدمون",
+          "الأدوار والصلاحيات"
+        ],
+        "titles": [
+          "المحاسبة",
+          "الذمم والفواتير",
+          "الخزينة"
+        ]
+      }
+    },
+    {
+      "name": "workspace-filter-reset",
+      "result": "fail",
+      "details": {
+        "visible": 4,
+        "initial": 18
+      }
+    },
+    {
+      "name": "workspace-filter-reset",
+      "result": "fail",
+      "details": {
+        "visible": 4,
+        "initial": 18
+      }
+    },
+    {
+      "name": "workspace-filter-تجاري",
+      "result": "fail",
+      "details": {
+        "active": "true",
+        "visible": 18,
+        "initial": 18
+      }
+    },
+    {
+      "name": "workspace-management-routes-match-sidebar",
+      "result": "fail",
+      "details": {
+        "expected": [
+          "الشركة",
+          "الفروع",
+          "المستخدمون",
+          "الأدوار والصلاحيات"
+        ],
+        "titles": [
+          "المحاسبة",
+          "الذمم والفواتير",
+          "الخزينة"
+        ]
+      }
+    },
+    {
+      "name": "workspace-filter-reset",
+      "result": "fail",
+      "details": {
+        "visible": 4,
+        "initial": 18
+      }
+    }
+  ],
+  "evidence": "C:\\projects\\ERP_ELEC_NEW\\docs\\qa\\ui-improvements\\2026-10-31T22-50-42-325Z\\evidence.json"
+}

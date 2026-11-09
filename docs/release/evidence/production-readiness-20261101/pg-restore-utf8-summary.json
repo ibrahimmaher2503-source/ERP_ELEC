@@ -1,0 +1,6 @@
+{
+  "pg_restore_exit": 0,
+  "log": "pg_restore-utf8.stderr.txt",
+  "initial_win1252_attempt": "failed_encoding_not_app",
+  "restore_target_encoding": "UTF8"
+}

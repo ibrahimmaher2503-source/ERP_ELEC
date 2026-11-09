@@ -1,0 +1,16 @@
+{
+  "result": "INCOMPLETE_BLOCKED",
+  "run_id": "36FBE6EC00AD",
+  "database": "erp_elec_new_test on isolated PostgreSQL port 55434; left running and preserved",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Explicit Administrator role assignment and scoped branch/warehouse login",
+    "Arabic RTL rendering; mobile viewport has no horizontal overflow",
+    "Quotation draft created through actual Livewire UI with blank requested price and approved source price hints",
+    "Draft reopened and edited through actual UI",
+    "Actual PDF readiness page rendered and screenshot captured"
+  ],
+  "blocked_action": "Clicked actual QuotationIssuance Livewire issue control; PHP development server accepted the Livewire request but did not return or close it for several minutes. Harness/server/browser were stopped after preserving logs and screenshots.",
+  "not_passed": ["Official quotation issue/PDF download", "Written acceptance upload", "Conversion", "Independent Sales Order approval/reservation/delivery", "Purchasing", "Inventory transfer/count/adjustment", "Denied actions"],
+  "evidence_files": ["quotation-create-desktop.png", "quotation-create-mobile.png", "quotation-details-desktop.png", "quotation-issuance-readiness.png", "server.log.redacted.txt"]
+}

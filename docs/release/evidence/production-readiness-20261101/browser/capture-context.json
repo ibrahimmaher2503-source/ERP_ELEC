@@ -1,0 +1,19 @@
+{
+  "capturedScreenshots": {
+    "lastUtc": "2026-11-01T00:59:33.2878570Z",
+    "count": 91,
+    "firstUtc": "2026-11-01T00:53:44.6038315Z"
+  },
+  "targetedFilterScreenshotUtc": "2026-11-01T00:59:33.2878570Z",
+  "laterWorkspaceAssets": {
+    "builtCssSha256": "d5f566bf5a66d691ab690fa7cc7d1eb91278ffeebda22faca183c173ba189d2e",
+    "builtCss": "public/build/assets/app-BndKEvZV.css",
+    "manifest": "public/build/manifest.json",
+    "sourceCssLastWriteUtc": "2026-11-01T01:06:54.7168813Z",
+    "manifestSha256": "876dbddfc7efb970633e0ad60b8b9e06facaec34520de7e0f1c8bc6c017173dd",
+    "sourceCss": "resources/css/app.css",
+    "manifestLastWriteUtc": "2026-11-01T01:07:27.2499336Z",
+    "sourceCssSha256": "0c92486fd770ed80bad96be13bb6290b2daf996d9c1d7375ff8eac5d2a382b87"
+  },
+  "interpretation": "The browser screenshots predate the later CSS/manifest write; the current asset candidate was not re-captured in this run. The load run followed the asset change and only reports local loopback performance."
+}

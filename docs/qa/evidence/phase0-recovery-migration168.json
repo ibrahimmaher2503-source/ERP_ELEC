@@ -1,0 +1,89 @@
+{
+  "acceptance": "PASS",
+  "date": "2026-10-27",
+  "isolation": {
+    "source_cluster": "private PostgreSQL cluster, 127.0.0.1:55432",
+    "restore_cluster": "separate private PostgreSQL cluster, 127.0.0.1:55433",
+    "database_name": "erp_elec_new_test",
+    "postgresql": "17.11",
+    "shared_test_database_touched": false,
+    "credentials_recorded": false
+  },
+  "source_actions": {
+    "harness": "tests/Support/check-phase0-recovery-seed.php (isolated committed copy of the existing business-action fixture)",
+    "all_recorded_actions_passed": true,
+    "coverage": [
+      "company/branch/user/supplier/product real-action setup",
+      "financial activation, dated tax rules and opening balances",
+      "GL, AP/cash/bank and FIFO inventory posting",
+      "same-branch and cross-branch FIFO transfers",
+      "quotation issue, written acceptance, conversion and approval",
+      "sales-order issue, backorder reservations, replenishment and confirmed deliveries",
+      "approved purchase order, official issuance PDF and tax rejection",
+      "denied receipt poster, injected mid-transaction failure rollback and receipt retry",
+      "cumulative receipt value, FIFO and balanced GRNI journal"
+    ],
+    "committed_fixture_counts": {
+      "migrations_at_backup": 61,
+      "users": 6,
+      "branches": 2,
+      "products": 3,
+      "purchase_order_issues": 1,
+      "quotation_issues": 1,
+      "sales_order_issues": 1,
+      "confirmed_deliveries": 4,
+      "posted_journals": 12,
+      "fifo_layers": 6,
+      "official_documents": 19
+    }
+  },
+  "backup_restore": {
+    "format": "pg_dump custom archive",
+    "archive_file_for_this_run": ".tmp/phase0-recovery-20261027/phase0-recovery.dump",
+    "archive_bytes": 1443414,
+    "archive_sha256": "4a1ebdc39c1bfa833b2bb139e44b5de98f012867d1161deb57e8e4ad88cdaf41",
+    "restore": "pg_restore into the second isolated cluster; applied current migration 168 afterward",
+    "restored_migrations": 62,
+    "restored_public_tables": 122,
+    "business_counts_match_source": true,
+    "source_relationships_retrieved": {
+      "purchase_issue_to_order": 1,
+      "quotation_issue_to_quotation": 1,
+      "sales_issue_to_order": 1,
+      "confirmed_delivery_to_order": 4
+    }
+  },
+  "private_storage": {
+    "restored_file_hashes_match": true,
+    "files": {
+      "company-logos/phase0-recovery-logo.png": "4cf61bf79c8070608ae28cb9e9ebf77f5900d41e96ce588cb8c84cef9502f56e",
+      "recovery/private-source-fixture.txt": "5106a8fbb841667afde2baa29d24725d17b1880475f893d6787e9f935a129947"
+    }
+  },
+  "persisted_official_pdfs": {
+    "verified_count": 19,
+    "types": ["journal", "purchase_order", "quotation", "sales_delivery", "sales_order"],
+    "verification": "Decoded bytes after restore; required %PDF prefix; SHA-256 matched both the persisted row and the source manifest for every document. Full per-document hashes are in docs/qa/evidence/phase0-recovery-source.json."
+  },
+  "restored_access_controller_checks": {
+    "authorized_company_logo": 200,
+    "authorized_purchase_order_pdf": 200,
+    "denied_company_logo": 403,
+    "denied_purchase_order_pdf": 403,
+    "method": "Invoked the actual owner controllers with authenticated restored actors; router dispatch was not used because it redirected without a browser session."
+  },
+  "concurrency": {
+    "evidence": "phase0-concurrency.json",
+    "cluster": "restored isolated PostgreSQL cluster on 127.0.0.1:55433, after migration 168",
+    "result": "PASS",
+    "races": [
+      "two processes posted the same pending receipt; both returned successfully and only one source movement persisted",
+      "two processes attempted real receipt creation whose combined quantity exceeded the remaining purchase-order quantity; exactly one action was accepted, and it posted through PostPurchaseReceipt once",
+      "two processes issued distinct approved purchase orders simultaneously; both persisted unique official numbers and different PDF documents"
+    ]
+  },
+  "limits": [
+    "This is a local isolated single-run recovery acceptance, not a production disaster-recovery exercise or remote backup validation.",
+    "The fixture snapshot was taken at migration 167 and the restored database was then migrated to 168; the source cluster remains at the backed-up migration level."
+  ]
+}

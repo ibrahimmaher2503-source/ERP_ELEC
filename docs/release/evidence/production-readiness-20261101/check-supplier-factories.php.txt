@@ -1,0 +1,67 @@
+PASS Supplier category factory persists an active classification
+PASS Supplier factory persists a valid categorized profile
+PASS Supplier contact factory persists an owner-local relationship
+PASS Supplier address factory uses supplier-specific address purposes
+PASS Supplier note factory uses synthetic content without fabricated authorship
+PASS Supplier document factory writes an exact-size private synthetic PDF with a valid cross-reference
+PASS All sixteen Supplier permissions are registered as explicit catalog entries
+PASS Administrator receives all registered Supplier permissions while other roles receive no automatic grants
+PASS Customer permission does not grant Supplier visibility
+PASS Supplier creation is denied without explicit Supplier permissions
+PASS Authorized supplier create persists a canonical versioned profile
+PASS Duplicate supplier codes are rejected
+PASS Duplicate supplier codes are rejected reports code
+PASS Unsupported supplier types are rejected
+PASS Unsupported supplier types are rejected reports supplier_type
+PASS Stale supplier updates are rejected
+PASS Stale supplier updates are rejected reports code
+PASS Supplier update persists once and increments its version
+PASS Supplier status action applies an authorized status change
+PASS Supplier contacts retain one primary contact
+PASS Supplier address primary uniqueness is enforced per purpose
+PASS A contact owned by another supplier cannot be edited
+PASS An address owned by another supplier cannot be edited
+PASS Supplier note records the actual actor and stays supplier-local
+PASS Supplier upload stores accepted files on the private disk
+PASS Supplier upload rejects unsupported files
+PASS Supplier upload rejects unsupported files reports file
+PASS Supplier catalog searches its own normalized supplier text
+PASS Supplier lookup contract returns only the approved supplier identity fields
+PASS Supplier search contract returns matching active supplier identities
+PASS Supplier lookup contract denies a customer-only actor
+PASS Supplier category mutation uses its independent category permission
+PASS Selected supplier bulk preview stores one valid proposed change
+PASS Supplier bulk preview does not mutate selected or unselected records
+PASS Supplier bulk execution changes only the selected supplier
+PASS Supplier-specific XLSX template has all sheets and the current entity/version metadata
+PASS Supplier workbook imports category_code instead of exposing internal category IDs
+PASS Supplier import rejects an outdated template version
+PASS Supplier import rejects an outdated template version reports file
+PASS Supplier template-version error is clear
+PASS Supplier import rejects formula cells before preview
+PASS Supplier import rejects formula cells before preview reports file
+PASS Supplier formula rejection identifies unsafe workbook content
+PASS Supplier XLSX import creates a versioned preview without persisting the supplier
+PASS Confirmed supplier import resolves category_code and persists through SupplierActions
+PASS Selected supplier export opens as XLSX and formula-like supplier text remains literal
+PASS Supplier create form saves its profile, primary contact, registered/office addresses, and note
+PASS Supplier edit form saves through the versioned Supplier action
+PASS Supplier detail contact editor persists through SupplierActions
+PASS Supplier detail address editor persists through SupplierActions
+PASS Supplier category page renders and creates a category with explicit category authority
+PASS Customer form still saves through the existing Customer action
+PASS Supplier list/create/details render, and shared Customers list/form/details still render without supplier-only fields
+PASS Real HTTP request resolves the Supplier details route for an authorized actor
+PASS Real HTTP requests resolve the Supplier index, create, and import routes
+PASS Real HTTP request binds the actor-owned Supplier import operation receipt
+PASS Real HTTP document route binds a supplier-owned private document
+PASS Real HTTP document route rejects a document owned by another supplier
+PASS Explicit supplier demo seeder creates its identifiable synthetic supplier set
+PASS Demo suppliers have coherent contact, purpose-specific addresses, note and private-document relationships
+PASS Supplier demo seeder reruns without duplicates or overwriting existing supplier data
+PASS Supplier demo seeding adds no access_grants history or grants
+PASS Supplier demo seeding adds no access_audits history or grants
+PASS Supplier demo seeding adds no user_roles history or grants
+PASS Supplier demo seeding adds no user_branch_scopes history or grants
+PASS Supplier demo seeding adds no audit_entries history or grants
+Supplier factory and demo persistence checks passed.

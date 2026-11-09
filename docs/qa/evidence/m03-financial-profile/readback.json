@@ -1,0 +1,27 @@
+{
+    "status": "passed",
+    "database": "erp_elec_new_test",
+    "port": 55460,
+    "supplier": {
+        "invoice_count": 8,
+        "outstanding": "12.54",
+        "overdue": "0.00",
+        "statement_closing": "10.54"
+    },
+    "customer": {
+        "invoice_count": 1,
+        "outstanding": "0.00",
+        "advance": "1.00",
+        "statement_closing": "-2.00"
+    },
+    "customer_export": {
+        "statement_rows": 4,
+        "workbook_rows": 7,
+        "reconciled_closing": "-2.00",
+        "cache_control": "no-store, private"
+    },
+    "legacy_opening_warning_amount": {
+        "supplier": "0.00",
+        "customer": "0.00"
+    }
+}

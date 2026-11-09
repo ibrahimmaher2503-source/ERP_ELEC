@@ -78,6 +78,9 @@ interface ReceivablesPayablesApi
     /** Open customer balance, and what the given sales order lines have already invoiced. */
     public function customerCreditExposure(int $customer, array $orderLines): array;
 
+    /** Authorized invoice headers linked to M04 order line IDs; no Sales model crosses the boundary. */
+    public function salesOrderInvoices(int $actor, int $branch, array $orderLineIds): array;
+
     /** Invoiced quantity not yet returned, per delivery or receipt line. */
     public function returnableQuantities(string $kind, array $sourceLines): array;
 

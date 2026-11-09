@@ -1,0 +1,45 @@
+{
+  "result": "FAIL",
+  "run_id": "B5CFF33947",
+  "failure": "locator.waitFor: Error: strict mode violation: getByText('مهمة اختبار B5CFF33947') resolved to 4 elements:\n    1) <span>…</span> aka getByText('مهمة اختبار B5CFF33947 normal')\n    2) <option value=\"2\">مهمة اختبار B5CFF33947</option> aka getByLabel('المهمة التابعة')\n    3) <option value=\"2\">مهمة اختبار B5CFF33947</option> aka getByLabel('تعتمد على اكتمال')\n    4) <span>تعليق: مهمة اختبار B5CFF33947</span> aka getByRole('button', { name: 'تعليق: مهمة اختبار B5CFF33947' })\n\nCall log:\n\u001b[2m  - waiting for getByText('مهمة اختبار B5CFF33947') to be visible\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 4,
+      "code": "PB2-B5CFF33947",
+      "saved_name": "اختبار مشروع المتصفح B5CFF33947 — تعديل محفوظ"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+PASS Administrator role exists in the isolated fixture schema
+PASS Existing active customer and catalog product are available for the isolated handoff fixture
+PASS Tender creation saves an identified draft with an existing customer and no bid, submission, or award
+PASS Exact creation-key replay returns the original tender without a duplicate row
+PASS Same creation key rejects a changed tender payload (HTTP 409)
+PASS Normalized issuer and external reference reject a second tender identity (HTTP 409)
+PASS Tender date validation rejects a technical deadline after the final submission deadline (HTTP 422)
+PASS Tender state transition increments its optimistic concurrency version
+PASS Stale tender version cannot overwrite a later state transition (HTTP 409)
+PASS Only the accepted tender creation and review transition produce lifecycle rows
+PASS Tender technical evidence is uploaded to isolated private storage and bound to its source
+PASS Technical BOQ is an immutable hashed external line without an invented catalog product
+PASS Tender technical maker cannot approve their own revision (HTTP 403)
+PASS Financial worksheet uses real dated M11 tax on the unmapped BOQ, exact decimal costs, and creates no journal
+PASS Tender financial maker cannot approve their own revision (HTTP 403)
+PASS Issuing the approved bid creates a private official document but does not claim that the tender was submitted
+PASS Submission requires the issued bid PDF and a separately classified real submission receipt
+PASS Tender submission creation key cannot be replayed with a different payload (HTTP 409)
+COMMITTED SYNTHETIC SUBMISSION RACE FIXTURE ./.tmp/tender-multirace-D3E561853C/fixture.json
+PASS Two independent workers submitting the same tender key and immutable payload return one submission: [{"outcome":"passed","id":5},{"outcome":"passed","id":5}]
+PASS Two award-result workers produce one immutable result and one stale-version 409: [{"outcome":"passed","id":4},{"outcome":"rejected","status":409}]
+PASS Injected failure after project and M04 quotation draft creation rolls both owners, handoff rows and audits back atomically
+PASS Concurrent handoff conversion commits exactly one project and one ordinary M04 draft; the second worker is rejected: [{"outcome":"passed","targets":{"project":102,"quotation":81}},{"outcome":"rejected","status":409}]
+Committed isolated fixture IDs: tender=18 branch=213 actor=815 checker=816

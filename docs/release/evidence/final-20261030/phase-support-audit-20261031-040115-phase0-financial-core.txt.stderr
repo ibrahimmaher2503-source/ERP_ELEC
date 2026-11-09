@@ -1,0 +1,5 @@
+[2026-10-31 02:01:43] testing.ERROR: Synthetic 2024 open accounting period missing. {"exception":"[object] (RuntimeException(code: 0): Synthetic 2024 open accounting period missing. at C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase0-financial-core.php:47)
+[stacktrace]
+#0 C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase0-financial-core.php(79): {closure:C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase0-financial-core.php:45}(false, 'Synthetic 2024 ...')
+#1 {main}
+"} 

@@ -1,0 +1,1198 @@
+{
+  "result": "FAIL",
+  "run_id": "60EBD5EC1811",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 2 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue action completed through its actual Livewire button",
+    "Official quotation PDF downloaded through its authorized UI link (58315 bytes)",
+    "Written acceptance recorded with actual uploaded private image evidence and downloaded from its authorized UI link",
+    "Accepted quotation converted once through the actual UI to Sales Order 2",
+    "Converted order 2 submitted for its independent review through the actual UI",
+    "Different scoped reviewer 9 approved Sales Order 2 and requested actual warehouse reservations",
+    "Authorized sales-order delivery/backorder screen captured mobile RTL (390px/document 390px)",
+    "Real synthetic procurement order 3 created and submitted through Purchasing UI to supply the accepted backorder",
+    "Different authorized reviewer approved and issued the Purchase Order; official PDF downloaded from its UI link",
+    "Operator 8 saved/submitted receipt 3; independent poster 9 posted it through UI with FIFO and GRNI",
+    "PostgreSQL confirms partial receipt 1/2 for transfer 11; transfer remains dispatched with one immutable receipt",
+    "PostgreSQL confirms final receipt 2/2 for transfer 11; transfer is received",
+    "Inventory transfer 11: operator submitted and dispatched; independent scoped reviewer approved and recorded the actual received quantity through UI",
+    "Inventory count 12 independently approved at PostgreSQL's actual post-transfer on-hand quantity (2.00000000); no count variance was fabricated",
+    "Synthetic QA negative inventory adjustment 14 independently approved then posted through the Inventory UI",
+    "Actual backorder for order line 4 was explicitly allocated after the authorized PO receipt",
+    "Partial delivery 5 confirmed after actual PO receipt and backorder allocation; Inventory/FIFO/Accounting posted through Sales UI",
+    "Final delivery 6 completed after real receipt posting and actual Inventory backorder allocation; mobile viewport 390px/document 390px",
+    "Branch-scoped user named Administrator without role or grants was denied Sales Order view (HTTP 403)"
+  ],
+  "failure": "[2026-10-28 13:36:36] testing.ERROR: Inventory documents do not match the authorized source and destination warehouses. {\"exception\":\"[object] (RuntimeException(code: 0): Inventory documents do not match the authorized source and destination warehouses. at C:/projects/ERP_ELEC_NEW/tests/E2E/support/prepare-phase0-financial-fixtures.php:87)\n[stacktrace]\n#0 {main}\n\"}",
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "addLine",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "addLine",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 110912,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "issue",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "operation",
+          "params": [
+            "issue"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 11198,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "accept",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "accept",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 12456,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "convert",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "convert",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": null,
+            "redirect": "http://127.0.0.1:8363/sales-orders/2"
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "operate",
+          "params": [
+            "submit"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 22794,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "approve",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "operate",
+          "params": [
+            "approve"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 21558,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "addLine",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "addLine",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 59585,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "addLine",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "addLine",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 71910,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "submit"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 42859,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "approve",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "approve"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 55627,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "issue",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "issue",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 54845,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "loadOrder",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "loadOrder",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 30192,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "submit",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 20960,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "post",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "post",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 20949,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "save",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "save",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 54376,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "submit"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 34054,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "approve",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "approve"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 32074,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "dispatch",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "dispatch"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 51632,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "receivePartial",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "receivePartial",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 51886,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "receivePartial",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "receivePartial",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 30249,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "save",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "save",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 56168,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "submit"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 29730,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "approve",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "approve"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 26181,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "save",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "save",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 54590,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "submit",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "submit"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 34288,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "approve",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "approve"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 32300,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "post",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "applyAction",
+          "params": [
+            "post"
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 29951,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": null,
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "allocateBackorder",
+          "params": [
+            4
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 28634,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "createDelivery",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "createDelivery",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 31394,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": null,
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "confirmDelivery",
+          "params": [
+            5
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 30497,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": "createDelivery",
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "createDelivery",
+          "params": []
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 33295,
+            "redirect": null
+          }
+        }
+      ]
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8363/livewire-c6214651/update"
+    },
+    {
+      "event": "action-result",
+      "action": null,
+      "status": 200,
+      "request_calls": [
+        {
+          "method": "confirmDelivery",
+          "params": [
+            6
+          ]
+        }
+      ],
+      "response": [
+        {
+          "calls": [],
+          "effects": {
+            "errors": {},
+            "html_length": 32409,
+            "redirect": null
+          }
+        }
+      ]
+    }
+  ]
+}

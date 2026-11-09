@@ -1,0 +1,8 @@
+[2026-10-31 02:01:55] testing.ERROR: PHASE2_EVIDENCE_PATH must stay under docs/qa/evidence/phase2-projects-browser/. {"exception":"[object] (RuntimeException(code: 0): PHASE2_EVIDENCE_PATH must stay under docs/qa/evidence/phase2-projects-browser/. at C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase2-projects-financial.php:845)
+[stacktrace]
+#0 {main}
+
+[previous exception] [object] (RuntimeException(code: 0): Refusing to replace an existing activation state in the isolated test database. at C:/projects/ERP_ELEC_NEW/.tmp/phase-support-audit-20261031-040115/tests/Support/phase2-projects-financial.php:160)
+[stacktrace]
+#0 {main}
+"} 

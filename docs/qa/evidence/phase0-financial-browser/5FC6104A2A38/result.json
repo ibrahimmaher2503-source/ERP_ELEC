@@ -1,0 +1,159 @@
+{
+  "result": "FAIL",
+  "run_id": "5FC6104A2A38",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 20 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue action completed through its actual Livewire button",
+    "Official quotation PDF downloaded through its authorized UI link (58314 bytes)"
+  ],
+  "failure": "Livewire action returned HTTP 422 at http://127.0.0.1:8779/livewire-c6214651/update; response=<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"robots\" content=\"noindex,nofollow,noarchive\" />\n    <title>An Error Occurred: Unprocessable Content</title>\n    <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>\" />\n    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif; margin: 0; }\n.container { margin: 30px; max-width: 600px; }\nh1 { color: #dc3545; font-size: 24px; }\nh2 { font-size: 18px; }</style>\n</head>\n<body>\n<div class=\"container\">\n    <h1>Oops! An Error Occurred</h1>\n    <h2>The server returned a \"422 Unprocessable Content\".</h2>\n\n    <p>\n        Something is broken. Please let us know what you were doing when this error occurred.\n        We will fix it as soon as possible. Sorry for any inconvenience caused.\n    </p>\n</div>\n</body>\n</html>; page=انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nأوامر البيع\nإعدادات اعتماد أوامر البيع\nعروض الأسعار\nسياسات عروض الأسعار\nالمخزون\nالمشتريات\nالمحاسبة والمالية\nPhase0 operator 5FC6104A2A38\nالبحث في النظام، مخطط له\n2026-10-28\nSynthetic financial audit\nFIN-AUDIT\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nقبول العميل\nقبول العميل\n\nQT-2026-000008 · مراجعة 1\n\nعروض الأسعار\nتصدير Excel\nالعميل\nشركة النيل للتوريدات الصناعية - الغردقة 2773\nالمشروع / المرجع\nPHASE0-5FC6104A2A38 edited\nتاريخ العرض\n2026/10/28\nانتهاء الصلاحية\n2026/11/27\nحالة التحويل\nلم يتم التحويل\nحالة العرض\nصادر\nقبول الإصدار QT-2026-000008\nنوع الإثبات\nأمر شراء من العميل\nبريد إلكتروني\nقبول كتابي موقع\nتاريخ القبول\nمرجع قبول العميل\nالإثبات المكتوب، PDF أو صورة\nChoose file\nphase0-recovery-logo.png\nتسجيل القبول المكتوب",
+  "browser_errors": [
+    "Failed to load resource: the server responded with a status of 422 (Unprocessable Content)"
+  ],
+  "livewire_traffic": [
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 422,
+      "url": "http://127.0.0.1:8779/livewire-c6214651/update"
+    }
+  ]
+}

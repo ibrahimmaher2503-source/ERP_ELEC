@@ -1,0 +1,161 @@
+{
+    "database": "erp_elec_new_test",
+    "server_version_num": "170011",
+    "counts": {
+        "migrations": 61,
+        "users": 6,
+        "branches": 2,
+        "products": 3,
+        "purchase_order_issues": 1,
+        "quotation_issues": 1,
+        "sales_order_issues": 1,
+        "confirmed_deliveries": 4,
+        "posted_journals": 12,
+        "fifo_layers": 6
+    },
+    "files": {
+        "company-logos/phase0-recovery-logo.png": "4cf61bf79c8070608ae28cb9e9ebf77f5900d41e96ce588cb8c84cef9502f56e",
+        "recovery/private-source-fixture.txt": "5106a8fbb841667afde2baa29d24725d17b1880475f893d6787e9f935a129947"
+    },
+    "official_pdfs": [
+        {
+            "id": "fe039b7b-39e6-4fae-803d-b586538a0a25",
+            "type": "journal",
+            "number": "JV-2024-000001",
+            "sha256": "5b864b68d10a21e60cbe4b1734f9179ffa8d4aa47edcd98d213cbe42c330b6f0",
+            "bytes": 43573
+        },
+        {
+            "id": "155af648-7a07-436b-bd1e-6cc155e54f15",
+            "type": "journal",
+            "number": "JV-2024-000002",
+            "sha256": "f82e0b7e48f2681ad53733059a17725eaaa43c97d4e9874e077653878dc229d5",
+            "bytes": 43574
+        },
+        {
+            "id": "782c7b31-3f2f-4e63-9333-84ccf61a1eec",
+            "type": "journal",
+            "number": "JV-2026-000001",
+            "sha256": "83929d3b9f632433e714986b43f2a4d3f50c7675189d54794dac1089d7d5aad8",
+            "bytes": 43571
+        },
+        {
+            "id": "8cfd82e4-fa56-4d3d-a26d-b7d141843781",
+            "type": "journal",
+            "number": "JV-2026-000002",
+            "sha256": "9b98f637f67a6515c0456f6059c1111fba335f9b26081e9e8d44c0abf74cd612",
+            "bytes": 43573
+        },
+        {
+            "id": "4c70204c-f42d-45aa-89d5-2b3006137f70",
+            "type": "journal",
+            "number": "JV-2026-000003",
+            "sha256": "a083ab2f467f89514cca7a62af8c1d1fda3e77fd7a3324b67fbafc3336c73a12",
+            "bytes": 43516
+        },
+        {
+            "id": "8fdb8587-e0b0-4535-a219-c27f94e426e7",
+            "type": "journal",
+            "number": "JV-2026-000004",
+            "sha256": "c3ff45b8e1921f6b76af9052abd2a0bf72459c9e5b8678c947c6ac25ae71a67f",
+            "bytes": 43516
+        },
+        {
+            "id": "82df7511-1d60-4153-93cf-58942430288b",
+            "type": "journal",
+            "number": "JV-2026-000005",
+            "sha256": "b798ca56b1eb36713b7fb6ccf8240b240a9b7c1cdbccba4d0974a17ed51dd11e",
+            "bytes": 43513
+        },
+        {
+            "id": "c2b2522d-0f7c-4e44-b092-b067e2b3bea0",
+            "type": "journal",
+            "number": "JV-2026-000006",
+            "sha256": "f7bf69cf427e7b08f68539187b104e3bc33b0a461a1ffcdc774c8807e4a270e2",
+            "bytes": 43513
+        },
+        {
+            "id": "8a07b625-76e6-40d5-9b27-8a81a35d91fa",
+            "type": "journal",
+            "number": "JV-2026-000007",
+            "sha256": "e81752291859889c14f5fe44d5b61a50c174b169d3f522764aca362eca24e308",
+            "bytes": 43574
+        },
+        {
+            "id": "de5027a8-b80a-4098-b629-96410019a3c4",
+            "type": "journal",
+            "number": "JV-2026-000008",
+            "sha256": "2ecdc93c266ce77171e9ba6980a67c0bd2d933af5709fa6bb70d80edebf1196c",
+            "bytes": 43575
+        },
+        {
+            "id": "167a140e-4e9d-4ac3-91e9-1e627e95c712",
+            "type": "journal",
+            "number": "JV-2026-000009",
+            "sha256": "8c7a9bc723067c198c981b89a138171511e3004e6502b60c1222fbadd417ec2f",
+            "bytes": 43517
+        },
+        {
+            "id": "0af49d32-c320-418b-89ba-8c6add8e3a97",
+            "type": "journal",
+            "number": "JV-2026-000010",
+            "sha256": "00afbd9d145e55d39fe93aa9adb4b6e2d93803cab6e50e7252e81108b9c360e1",
+            "bytes": 43515
+        },
+        {
+            "id": "cf0ffc95-2a01-45c9-ad30-443443da7807",
+            "type": "purchase_order",
+            "number": "PO-2024-000001",
+            "sha256": "85b4391916323e703a3bc40617d626cdd370b5afef2d1aee2e249855aa522360",
+            "bytes": 47789
+        },
+        {
+            "id": "777184e4-2b50-44dc-88a2-3d4c9dcca900",
+            "type": "quotation",
+            "number": "QT-2026-000001",
+            "sha256": "204873ca6cb193035ef0dc36d5514c9aa1fc1184faed32b023f98eabccf350a4",
+            "bytes": 48791
+        },
+        {
+            "id": "a21bb219-e438-46b7-9977-701935081f4c",
+            "type": "sales_delivery",
+            "number": "DN-2026-000001",
+            "sha256": "1fe637a7e56f6f0c73695c9d174736808dcfa338acea8ad4245a0ce13b0e8523",
+            "bytes": 44910
+        },
+        {
+            "id": "16f865e9-f70e-4a4a-a905-508a882cc764",
+            "type": "sales_delivery",
+            "number": "DN-2026-000002",
+            "sha256": "011e15eee8637e71c6d56b69693ef07b377f87c8fda03d2e8979b5144f1985ce",
+            "bytes": 44906
+        },
+        {
+            "id": "c718377f-7858-44f3-8acc-eca848047dc1",
+            "type": "sales_delivery",
+            "number": "DN-2026-000003",
+            "sha256": "6a4263774aaad4201d603645b42e274643283a13398470216e47d948f2edbc6d",
+            "bytes": 44833
+        },
+        {
+            "id": "2b24b05b-9fe8-4379-844d-394035fd748f",
+            "type": "sales_delivery",
+            "number": "DN-2026-000004",
+            "sha256": "9350aa9f8fe3617a85ee3f730d7cfe9880d60f4d32ed4eb536c36f88f9393f63",
+            "bytes": 44835
+        },
+        {
+            "id": "7e44d56f-982c-4624-a24e-9bef436a4ad0",
+            "type": "sales_order",
+            "number": "SO-2026-000001",
+            "sha256": "fa65614f0f9aba4f27865c404640bf5b621f5a674e58aa3d929dffdd6352c25c",
+            "bytes": 46934
+        }
+    ],
+    "relationships": {
+        "po_issue_to_order": 1,
+        "quotation_issue_to_quotation": 1,
+        "sales_issue_to_order": 1,
+        "delivery_docs_to_orders": 4
+    }
+}

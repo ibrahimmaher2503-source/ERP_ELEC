@@ -1,0 +1,307 @@
+{
+  "run_id": "after-20261031200934",
+  "source_fingerprint": "fddffec637f3654b8a72e996bffe640a54f977dd7b715973c07c9a3d565fe493",
+  "database": "erp_elec_new_test@127.0.0.1:55461",
+  "plan_type": "EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON), actual SELECT execution in a read-only transaction, 3 second statement timeout per statement",
+  "private_raw_evidence": "actual-query-plans-private.json",
+  "module_plans": [
+    {
+      "module": "M11 Accounting",
+      "route_case": "accounting.reconciliation|default",
+      "statement_index": 15,
+      "status": "explained",
+      "query_duration_ms": 2.7,
+      "planning_time_ms": 3.223,
+      "execution_time_ms": 0.382,
+      "root_node": "Aggregate",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 6,
+      "shared_read_blocks": 0,
+      "total_cost": 25.57,
+      "seq_scan_relations": [
+        "rp_supplier_invoice_lines",
+        "rp_supplier_invoices"
+      ],
+      "index_scans": [
+        {
+          "relation": "rp_supplier_invoice_matches",
+          "index": "rp_supplier_invoice_matches_invoice_line_id_receipt_line_id_key",
+          "node_type": "Index Scan"
+        }
+      ],
+      "sort_keys": [],
+      "node_types": [
+        "Aggregate",
+        "Nested Loop",
+        "Hash Join",
+        "Seq Scan",
+        "Hash",
+        "Index Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M01 Organization",
+      "route_case": "organization.branches|default",
+      "statement_index": 8,
+      "status": "explained",
+      "query_duration_ms": 3.81,
+      "planning_time_ms": 0.473,
+      "execution_time_ms": 0.041,
+      "root_node": "Aggregate",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 11.51,
+      "seq_scan_relations": [
+        "branches"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Aggregate",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M03 Parties",
+      "route_case": "customers.show|financial",
+      "statement_index": 23,
+      "status": "explained",
+      "query_duration_ms": 1.81,
+      "planning_time_ms": 1.353,
+      "execution_time_ms": 0.06,
+      "root_node": "Limit",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 11.75,
+      "seq_scan_relations": [
+        "rp_customer_invoices"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Limit",
+        "Aggregate",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M17 System",
+      "route_case": "operations.show|default",
+      "statement_index": 14,
+      "status": "explained",
+      "query_duration_ms": 2.37,
+      "planning_time_ms": 0.984,
+      "execution_time_ms": 0.048,
+      "root_node": "Result",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 30.26,
+      "seq_scan_relations": [
+        "projects",
+        "project_members"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Result",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M12 ReceivablesPayables",
+      "route_case": "financial.invoices.show|customer",
+      "statement_index": 14,
+      "status": "explained",
+      "query_duration_ms": 1.52,
+      "planning_time_ms": 0.16,
+      "execution_time_ms": 0.03,
+      "root_node": "Result",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 30.26,
+      "seq_scan_relations": [
+        "projects",
+        "project_members"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Result",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M06 Inventory",
+      "route_case": "inventory.document.show|transfer",
+      "statement_index": 20,
+      "status": "explained",
+      "query_duration_ms": 2.73,
+      "planning_time_ms": 0.999,
+      "execution_time_ms": 0.155,
+      "root_node": "Limit",
+      "plan_rows": 100,
+      "actual_rows": 100,
+      "shared_hit_blocks": 15,
+      "shared_read_blocks": 0,
+      "total_cost": 16.87,
+      "seq_scan_relations": [],
+      "index_scans": [
+        {
+          "relation": "products",
+          "index": "products_pkey",
+          "node_type": "Index Scan"
+        }
+      ],
+      "sort_keys": [],
+      "node_types": [
+        "Limit",
+        "Index Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M02 Products",
+      "route_case": "products.index|default",
+      "statement_index": 12,
+      "status": "explained",
+      "query_duration_ms": 7.84,
+      "planning_time_ms": 0.471,
+      "execution_time_ms": 1.393,
+      "root_node": "Sort",
+      "plan_rows": 20,
+      "actual_rows": 20,
+      "shared_hit_blocks": 131,
+      "shared_read_blocks": 0,
+      "total_cost": 188.51,
+      "seq_scan_relations": [
+        "product_media"
+      ],
+      "index_scans": [],
+      "sort_keys": [
+        "id"
+      ],
+      "node_types": [
+        "Sort",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M07 Projects",
+      "route_case": "projects.financial|default",
+      "statement_index": 24,
+      "status": "explained",
+      "query_duration_ms": 9.26,
+      "planning_time_ms": 1.97,
+      "execution_time_ms": 0.071,
+      "root_node": "Sort",
+      "plan_rows": 1,
+      "actual_rows": 0,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 18.02,
+      "seq_scan_relations": [],
+      "index_scans": [
+        {
+          "relation": "accounting_journals",
+          "index": "accounting_journals_branch_date",
+          "node_type": "Index Scan"
+        },
+        {
+          "relation": "accounting_journal_lines",
+          "index": "accounting_lines_journal",
+          "node_type": "Index Scan"
+        },
+        {
+          "relation": "accounting_project_dimensions",
+          "index": "accounting_project_dimensions_pkey",
+          "node_type": "Index Scan"
+        },
+        {
+          "relation": "accounting_accounts",
+          "index": "accounting_accounts_pkey",
+          "node_type": "Index Scan"
+        }
+      ],
+      "sort_keys": [
+        "j.id",
+        "l.id"
+      ],
+      "node_types": [
+        "Sort",
+        "Nested Loop",
+        "Index Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M05 Purchasing",
+      "route_case": "purchasing.requisitions.show|default",
+      "statement_index": 16,
+      "status": "explained",
+      "query_duration_ms": 2.47,
+      "planning_time_ms": 0.168,
+      "execution_time_ms": 0.031,
+      "root_node": "Result",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 1,
+      "shared_read_blocks": 0,
+      "total_cost": 30.26,
+      "seq_scan_relations": [
+        "projects",
+        "project_members"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Result",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "GLOBAL_AUTH",
+      "route_case": "purchasing.requisitions.show|default",
+      "statement_index": 1,
+      "status": "explained",
+      "query_duration_ms": 390.87,
+      "planning_time_ms": 0.671,
+      "execution_time_ms": 0.065,
+      "root_node": "Limit",
+      "plan_rows": 1,
+      "actual_rows": 1,
+      "shared_hit_blocks": 5,
+      "shared_read_blocks": 0,
+      "total_cost": 6.89,
+      "seq_scan_relations": [
+        "users"
+      ],
+      "index_scans": [],
+      "sort_keys": [],
+      "node_types": [
+        "Limit",
+        "Seq Scan"
+      ],
+      "error_code": null
+    },
+    {
+      "module": "M08 FieldMaintenance",
+      "status": "no captured domain SELECT with replayable bindings"
+    }
+  ]
+}

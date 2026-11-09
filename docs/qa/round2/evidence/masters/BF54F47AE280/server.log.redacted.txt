@@ -1,0 +1,127 @@
+[Tue Oct 27 19:14:19 2026] PHP 8.4.21 Development Server (http://127.0.0.1:8013) started
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64214 Accepted
+[Tue Oct 27 16:14:20 2026] 127.0.0.1:64214 [GET] URI: /login
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64214 Closing
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64218 Accepted
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64218 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64219 Accepted
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64219 [200]: GET /build/assets/app-BvRk9kiK.js
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64219 Closing
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64220 Accepted
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64220 [200]: GET /build/assets/passkeys-CsxEE3hN.js
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64220 Closing
+[Tue Oct 27 19:14:20 2026] 127.0.0.1:64218 Closing
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:63111 Accepted
+[Tue Oct 27 16:14:21 2026] 127.0.0.1:63111 [GET] URI: /login
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:63111 Closing
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:63998 Accepted
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:63998 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:58261 Accepted
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:52201 Accepted
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:52997 Accepted
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:58261 [200]: GET /build/assets/app-BvRk9kiK.js
+[Tue Oct 27 16:14:21 2026] 127.0.0.1:52201 [GET] URI: /flux/flux.min.js
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:52201 Closing
+[Tue Oct 27 16:14:21 2026] 127.0.0.1:52997 [GET] URI: /livewire-557588bd/livewire.min.js
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:52997 Closing
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:58261 Closing
+[Tue Oct 27 19:14:21 2026] 127.0.0.1:63998 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50403 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50403 [200]: GET /favicon.svg
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50403 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:64000 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:64000 [200]: GET /favicon.ico
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:64000 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:58616 Accepted
+[Tue Oct 27 16:14:22 2026] 127.0.0.1:58616 [GET] URI: /login
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:58616 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:61935 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:61935 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:51869 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:61935 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:51869 [200]: GET /build/assets/app-BvRk9kiK.js
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:51869 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:55214 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:55214 [200]: GET /favicon.svg
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:55214 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50363 Accepted
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50363 [200]: GET /favicon.ico
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:50363 Closing
+[Tue Oct 27 19:14:22 2026] 127.0.0.1:59962 Accepted
+[Tue Oct 27 16:14:22 2026] 127.0.0.1:59962 [POST] URI: /login
+[Tue Oct 27 19:14:23 2026] 127.0.0.1:59962 Closing
+[Tue Oct 27 19:14:23 2026] 127.0.0.1:63999 Accepted
+[Tue Oct 27 16:14:23 2026] 127.0.0.1:63999 [GET] URI: /dashboard
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:63999 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62694 Accepted
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62694 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:56348 Accepted
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:53103 Accepted
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:56348 [200]: GET /build/assets/app-BvRk9kiK.js
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:53103 [200]: GET /images/avatars/avatar-01.webp
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:56348 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62694 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:53103 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:64591 Accepted
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:64591 [200]: GET /fonts/noto-sans-arabic.woff2
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62459 Accepted
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62459 [200]: GET /fonts/noto-sans-latin.woff2
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:62459 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:64591 Closing
+[Tue Oct 27 19:14:24 2026] 127.0.0.1:53690 Accepted
+[Tue Oct 27 16:14:24 2026] 127.0.0.1:53690 [GET] URI: /organization/users
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:53690 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:53330 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:53330 [200]: GET /favicon.svg
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:53330 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:49679 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:49679 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:49679 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:64911 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:64911 [200]: GET /build/assets/app-BvRk9kiK.js
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:64911 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:63599 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:63599 [200]: GET /images/avatars/avatar-01.webp
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:63599 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60183 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60183 [200]: GET /fonts/noto-sans-arabic.woff2
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:50712 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60183 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:50712 [200]: GET /fonts/noto-sans-latin.woff2
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:50712 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60772 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60772 [200]: GET /images/avatars/avatar-03.webp
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60772 Closing
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60499 Accepted
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60499 [200]: GET /favicon.svg
+[Tue Oct 27 19:14:25 2026] 127.0.0.1:60499 Closing
+[Tue Oct 27 19:14:26 2026] 127.0.0.1:59220 Accepted
+[Tue Oct 27 19:14:26 2026] 127.0.0.1:59220 [200]: GET /favicon.ico
+[Tue Oct 27 19:14:26 2026] 127.0.0.1:59220 Closing
+[Tue Oct 27 19:14:26 2026] 127.0.0.1:53329 Accepted
+[Tue Oct 27 16:14:26 2026] 127.0.0.1:53329 [POST] URI: /livewire-557588bd/update
+[Tue Oct 27 19:14:26 2026] 127.0.0.1:53329 Closing
+[Tue Oct 27 19:14:27 2026] 127.0.0.1:63273 Accepted
+[Tue Oct 27 16:14:27 2026] 127.0.0.1:63273 [POST] URI: /livewire-557588bd/update
+[Tue Oct 27 19:14:27 2026] 127.0.0.1:63273 Closing
+[Tue Oct 27 19:14:27 2026] 127.0.0.1:63499 Accepted
+[Tue Oct 27 16:14:27 2026] 127.0.0.1:63499 [GET] URI: /organization/users/83
+[Tue Oct 27 19:14:28 2026] 127.0.0.1:63499 Closing
+[Tue Oct 27 19:14:28 2026] 127.0.0.1:52873 Accepted
+[Tue Oct 27 19:14:28 2026] 127.0.0.1:52874 Accepted
+[Tue Oct 27 16:14:28 2026] 127.0.0.1:52873 [POST] URI: /livewire-557588bd/update
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:52873 Closing
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:58372 Accepted
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:52874 Closed without sending a request; it was probably just an unused speculative preconnection
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:52874 Closing
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:53512 Accepted
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:58372 [200]: GET /build/assets/app-CU4m_7XP.css
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:62697 Accepted
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:53512 [200]: GET /images/avatars/avatar-05.webp
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:62697 [200]: GET /favicon.svg
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:53512 Closing
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:62697 Closing
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:58372 Closing
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:61497 Accepted
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:61497 [200]: GET /favicon.ico
+[Tue Oct 27 19:14:29 2026] 127.0.0.1:61497 Closing

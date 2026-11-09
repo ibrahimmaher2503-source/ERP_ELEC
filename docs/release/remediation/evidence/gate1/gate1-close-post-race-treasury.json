@@ -1,0 +1,39 @@
+{
+    "database": "erp_elec_gate1_race2@127.0.0.1:49685",
+    "marker_verified": true,
+    "synthetic_committed_fixture": true,
+    "actor_ids": {
+        "creator": 1,
+        "approver_poster": 2,
+        "closer": 3
+    },
+    "branch_id": 1,
+    "period_id": 1,
+    "customer_id": 1,
+    "workers": {
+        "close_exit": 0,
+        "close": {
+            "mode": "close",
+            "outcome": "success",
+            "collection": null
+        },
+        "collect_exit": 0,
+        "collect": {
+            "mode": "collect",
+            "outcome": "rejected",
+            "exception": "Illuminate\\Validation\\ValidationException",
+            "message": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0642\u064a\u062f \u062e\u0627\u0631\u062c \u0627\u0644\u0641\u062a\u0631\u0627\u062a \u0627\u0644\u0645\u0641\u062a\u0648\u062d\u0629."
+        }
+    },
+    "final_state": {
+        "period_status": "closed",
+        "journal_status": null,
+        "treasury_movement_count": 0,
+        "customer_advance_count": 0,
+        "closure_count": 1,
+        "closure_hash_valid": true
+    },
+    "serialized_invariant": true,
+    "expected_order": "close commits under advisory lock before collection; later source posting is denied atomically",
+    "result": "PASS"
+}

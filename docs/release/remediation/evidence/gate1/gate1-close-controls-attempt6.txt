@@ -1,0 +1,18 @@
+PASS No report authority cannot close a company period and leaves no closure evidence
+PASS Partial branch report scope cannot certify a company-wide period close
+PASS A reconciliation mismatch in the second required branch denies close without closure evidence (owner-contract test double)
+PASS Fully scoped clean company close succeeds once and stores immutable, digest-verified cutoff evidence
+PASS A second close cannot create another closure evidence row
+PASS Duplicate close leaves exactly one immutable closure evidence row
+PASS An account used by a posted manual journal cannot become a new maintenance accrual control mapping
+PASS Rejected control mapping addition leaves the optional purpose unmapped
+PASS Legacy control mapping fixture is isolated configuration only; journal fixtures were created through public Actions
+PASS Protected control account is rejected at manual journal submission
+PASS Protected control account is rejected at independent approval
+PASS Protected control account is rejected at manual posting
+PASS Protected control account is rejected at manual journal creation
+PASS Rejected manual control attempts leave no journal, lines, source, or audit state
+PASS Customer advance mapping cannot be remapped after it is used as a source-owned control
+PASS Rejected optional mapping change preserves the established account mapping
+PASS Ordinary non-control manual posting and reversal remain functional
+FAIL Symfony\Component\HttpKernel\Exception\HttpException: حساب الخزينة غير نشط.

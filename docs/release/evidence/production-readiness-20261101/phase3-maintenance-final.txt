@@ -1,0 +1,27 @@
+PASS M08 factories persist request, work-order, checklist and planned-visit graphs without fabricated labor or inventory postings
+PASS explicit M08 demo seeder repeat is idempotent and leaves labor, part issues, and completion evidence unmanufactured
+PASS factory-backed branch/customer/users persist a request and its creation key safely replays
+PASS maintenance request snapshots customer identity and starts at draft version one
+PASS unscoped user cannot create a maintenance request
+PASS unsubmitted request cannot be accepted
+PASS request requires submit then accept and each transition advances its version
+PASS stale request state version is rejected
+PASS accepted request converts once to a work order and lost-response retry returns the same order
+PASS work order retains request link and conversion status without inventing completion
+PASS stale accepted-request version cannot create a second work order
+PASS authorized dispatcher assigns a scoped technician within an explicit schedule window
+PASS scheduled visit is idempotent on its creation key and snapshots its checklist
+PASS assigned technician can start work within the active assignment window
+PASS unassigned user cannot record technician visit
+PASS required checklist evidence blocks visit completion
+PASS assigned technician records real visit times, work, customer acknowledgement and required checklist result
+PASS recorded visit cannot be overwritten or retried as new evidence
+PASS labor-rate proposer cannot approve their own proposal
+PASS labor creation key retry does not duplicate recorded time
+PASS approved labor rate allocates exact decimal job cost without exposing a salary record
+PASS completion is permitted only after recorded visit, actual labor, checklist, acknowledgement, and parts reconciliation
+PASS stale work-order version cannot verify completion
+PASS independent reviewer verifies immutable completion evidence before closure
+PASS authorized reopen clears closure state while preserving the independent verification record
+PASS PostgreSQL prevents edits to recorded visit evidence
+RESULT all_pass=true assertions=26

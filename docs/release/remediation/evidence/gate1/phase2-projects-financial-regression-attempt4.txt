@@ -1,0 +1,104 @@
+DIAG report rows income=4 balance=10 recon=7 categories=ap,ar,grni,inventory,inventory_transit,bank,cash all_ok=yes
+{
+    "database": "erp_elec_gate1_race_test",
+    "postgres_port": 49685,
+    "all_pass": false,
+    "error_class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+    "error": "إقفال الشركة يتطلب صلاحية تقارير جميع الفروع وبياناتها المكتملة.",
+    "trace": [
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php",
+            "line": 67,
+            "function": "abort",
+            "class": "Illuminate\\Foundation\\Application",
+            "type": "->",
+            "args": [
+                403,
+                "إقفال الشركة يتطلب صلاحية تقارير جميع الفروع وبياناتها المكتملة.",
+                []
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Accounting\\Application\\AccountingAccess.php",
+            "line": 41,
+            "function": "abort",
+            "args": [
+                403,
+                "إقفال الشركة يتطلب صلاحية تقارير جميع الفروع وبياناتها المكتملة."
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Accounting\\Application\\FinancialReports.php",
+            "line": 115,
+            "function": "closingBranches",
+            "class": "App\\Modules\\Accounting\\Application\\AccountingAccess",
+            "type": "->",
+            "args": [
+                55
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\ManagesTransactions.php",
+            "line": 35,
+            "function": "{closure:App\\Modules\\Accounting\\Application\\FinancialReports::closePeriod():113}",
+            "class": "App\\Modules\\Accounting\\Application\\FinancialReports",
+            "type": "->",
+            "args": [
+                {}
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php",
+            "line": 502,
+            "function": "transaction",
+            "class": "Illuminate\\Database\\Connection",
+            "type": "->",
+            "args": [
+                {}
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php",
+            "line": 364,
+            "function": "__call",
+            "class": "Illuminate\\Database\\DatabaseManager",
+            "type": "->",
+            "args": [
+                "transaction",
+                [
+                    {}
+                ]
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\app\\Modules\\Accounting\\Application\\FinancialReports.php",
+            "line": 113,
+            "function": "__callStatic",
+            "class": "Illuminate\\Support\\Facades\\Facade",
+            "type": "::",
+            "args": [
+                "transaction",
+                [
+                    {}
+                ]
+            ]
+        },
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\regression-copies\\check-phase2-projects-financial.php",
+            "line": 772,
+            "function": "closePeriod",
+            "class": "App\\Modules\\Accounting\\Application\\FinancialReports",
+            "type": "->",
+            "args": [
+                55,
+                23
+            ]
+        }
+    ]
+}
+
+In Application.php line 1448:
+                                                                    
+  إقفال الشركة يتطلب صلاحية تقارير جميع الفروع وبياناتها المكتملة.  
+                                                                    
+

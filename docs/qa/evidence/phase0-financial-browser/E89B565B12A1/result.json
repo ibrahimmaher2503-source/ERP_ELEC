@@ -1,0 +1,14 @@
+{
+  "result": "FAIL",
+  "run_id": "E89B565B12A1",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 9 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue action completed through its actual Livewire button",
+    "Official quotation PDF downloaded through its authorized UI link (58315 bytes)"
+  ],
+  "failure": "Written acceptance did not save through the UI. Visible errors: \n     | \n     | \n     | \n     | \n                        \n  \n\n\n                \n        حقل file مطلوب.\n     | \n    "
+}

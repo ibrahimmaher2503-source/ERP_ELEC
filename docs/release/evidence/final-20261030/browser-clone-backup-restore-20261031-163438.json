@@ -1,0 +1,38 @@
+﻿{
+    "source_database":  {
+                            "database":  "erp_elec_new_test",
+                            "address":  "127.0.0.1",
+                            "port":  55475
+                        },
+    "source_data_path_guard":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\m09-browser-20261031\\pgclone-final\\pgdata",
+    "restore_database":  {
+                             "database":  "erp_elec_new_test",
+                             "address":  "127.0.0.1",
+                             "port":  55487
+                         },
+    "source_pgdata":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\m09-browser-20261031\\pgclone-final\\pgdata",
+    "restore_pgdata":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\browser-backup-restore-20261031-163438\\pgdata",
+    "restore_port":  55487,
+    "source_dump":  "C:\\projects\\ERP_ELEC_NEW\\.tmp\\browser-backup-restore-20261031-163438\\erp_elec_new_test.dump",
+    "source_table_count":  209,
+    "restore_table_count":  209,
+    "all_table_counts_equal":  true,
+    "schema_dump_text_identical":  false,
+    "schema_catalog_inventory_equal":  true,
+    "source_schema_sha256":  "3881DE6BDC876A89FD64C4E446BD88D930CBD9DD1C0CC990FB808106BF7D1FB6",
+    "restore_schema_sha256":  "833912D8F3F865A3E4A475781F285714D614A120552A3F0888F35F57A308CBAC",
+    "source_private_file_count":  20,
+    "restored_private_file_count":  20,
+    "private_files_and_metadata_hashes_equal":  true,
+    "source_tender_evidence_count":  19,
+    "restored_tender_evidence_count":  19,
+    "source_official_pdf_count":  223,
+    "restored_official_pdf_count":  223,
+    "source_official_pdfs_integrity_valid":  true,
+    "restored_official_pdfs_integrity_valid":  true,
+    "official_pdf_ids_numbers_hashes_equal":  true,
+    "source_private_missing_count":  0,
+    "restored_private_missing_count":  0,
+    "receipt_time_local":  "2026-10-31 16:35:01 +02:00",
+    "restoration_scope":  "browser-derived disposable local PostgreSQL clone only; not a production recovery-time or recovery-point claim"
+}

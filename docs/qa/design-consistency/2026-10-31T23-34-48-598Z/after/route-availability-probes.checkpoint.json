@@ -1,0 +1,124 @@
+[
+  {
+    "route": "projects.dashboard",
+    "module": "M07 Projects",
+    "url": "/projects/dashboard",
+    "expected_status": 200,
+    "checks": [
+      {
+        "name": "parameterless-route-availability-classified",
+        "result": "pass",
+        "details": {
+          "status": 200,
+          "expected": 200,
+          "classification": "available",
+          "final_path": "/projects/dashboard",
+          "heading": "لوحة المشروعات"
+        }
+      }
+    ],
+    "http_status": 200,
+    "final_path": "/projects/dashboard",
+    "heading": "لوحة المشروعات",
+    "livewire_component": 1,
+    "classification": "available",
+    "screenshot": "docs/qa/design-consistency/2026-10-31T23-34-48-598Z/after/screenshots/projects.dashboard-availability-1440.png"
+  },
+  {
+    "route": "purchasing.reports",
+    "module": "M05 Purchasing",
+    "url": "/purchasing/reports",
+    "expected_status": 404,
+    "checks": [
+      {
+        "name": "parameterless-route-availability-classified",
+        "result": "pass",
+        "details": {
+          "status": 404,
+          "expected": 404,
+          "classification": "expected-gated-404",
+          "final_path": "/purchasing/reports",
+          "heading": null
+        }
+      }
+    ],
+    "http_status": 404,
+    "final_path": "/purchasing/reports",
+    "heading": null,
+    "livewire_component": 0,
+    "classification": "expected-gated-404"
+  },
+  {
+    "route": "purchasing.returns",
+    "module": "M05 Purchasing",
+    "url": "/purchasing/returns",
+    "expected_status": 404,
+    "checks": [
+      {
+        "name": "parameterless-route-availability-classified",
+        "result": "pass",
+        "details": {
+          "status": 404,
+          "expected": 404,
+          "classification": "expected-gated-404",
+          "final_path": "/purchasing/returns",
+          "heading": null
+        }
+      }
+    ],
+    "http_status": 404,
+    "final_path": "/purchasing/returns",
+    "heading": null,
+    "livewire_component": 0,
+    "classification": "expected-gated-404"
+  },
+  {
+    "route": "sales-returns.index",
+    "module": "M04 Sales",
+    "url": "/sales-returns",
+    "expected_status": 404,
+    "checks": [
+      {
+        "name": "parameterless-route-availability-classified",
+        "result": "pass",
+        "details": {
+          "status": 404,
+          "expected": 404,
+          "classification": "expected-gated-404",
+          "final_path": "/sales-returns",
+          "heading": null
+        }
+      }
+    ],
+    "http_status": 404,
+    "final_path": "/sales-returns",
+    "heading": null,
+    "livewire_component": 0,
+    "classification": "expected-gated-404"
+  },
+  {
+    "route": "password.confirm",
+    "module": "password",
+    "url": "/user/confirm-password",
+    "expected_status": 200,
+    "checks": [
+      {
+        "name": "parameterless-route-availability-classified",
+        "result": "pass",
+        "details": {
+          "status": 200,
+          "expected": 200,
+          "classification": "available",
+          "final_path": "/user/confirm-password",
+          "heading": null
+        }
+      }
+    ],
+    "http_status": 200,
+    "final_path": "/user/confirm-password",
+    "heading": null,
+    "livewire_component": 0,
+    "classification": "available",
+    "screenshot": "docs/qa/design-consistency/2026-10-31T23-34-48-598Z/after/screenshots/password.confirm-availability-1440.png"
+  }
+]

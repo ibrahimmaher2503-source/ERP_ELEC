@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\DB;
 
 final class ReceivablesPayablesService implements ReceivablesPayablesApi
 {
+    public function salesOrderInvoices(int $actor, int $branch, array $orderLineIds): array
+    {
+        if (! app(ReceivablesPayablesAccess::class)->allows($actor, 'customer_invoice_view', $branch)) {
+            return ['state' => 'restricted', 'invoices' => []];
+        }
+        if ($orderLineIds === []) {
+            return ['state' => 'none', 'invoices' => []];
+        }
+
+        $invoices = DB::table('rp_customer_invoices as i')->join('rp_customer_invoice_lines as l', 'l.invoice_id', '=', 'i.id')
+            ->where('i.branch_id', $branch)->whereIn('l.sales_order_line_id', $orderLineIds)
+            ->select('i.id', 'i.official_number as number', 'i.status', 'i.invoice_date', 'i.total_amount')
+            ->distinct()->orderByDesc('i.id')->get()->map(fn ($invoice) => (array) $invoice)->all();
+        $posted = collect($invoices)->contains(fn ($invoice) => in_array($invoice['status'], ['posted', 'partially_collected', 'collected', 'credited'], true));
+
+        return ['state' => $posted ? 'invoiced' : ($invoices ? 'requested' : 'none'), 'invoices' => $invoices];
+    }
+
     public function prepareCashReversal(int $actor, int $originalMovement, string $date): void
     {
         app(CashReversals::class)->prepare($actor, $originalMovement, $date);

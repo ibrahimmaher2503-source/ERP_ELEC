@@ -1,0 +1,377 @@
+{
+  "route": "security.edit",
+  "variant": "least-privilege-ui-acceptance",
+  "checks": [
+    {
+      "name": "ordinary-fixture-has-no-roles-grants-or-scopes",
+      "result": "pass",
+      "details": {
+        "roles": 0,
+        "direct_grants": 0,
+        "branch_scopes": 0,
+        "warehouse_scopes": 0
+      }
+    },
+    {
+      "name": "owner-fixture-has-only-required-customer-permissions",
+      "result": "pass",
+      "details": {
+        "permissions": [
+          "M03.customer_bulk_update",
+          "M03.customer_update",
+          "M03.customer_view"
+        ],
+        "role_count": 0,
+        "scope_count": 0
+      }
+    },
+    {
+      "name": "real-bulk-preview-keeps-customer-unchanged",
+      "result": "pass",
+      "details": {
+        "before": "القاهرة",
+        "planned_after": "الجيزة",
+        "persisted_after_preview": "القاهرة",
+        "item_status": "valid",
+        "preview_executed": false
+      }
+    },
+    {
+      "name": "ordinary-user-genuine-login",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "landed_path": "/dashboard"
+      }
+    },
+    {
+      "name": "ordinary-user-opens-security-after-real-password-confirmation",
+      "result": "pass",
+      "details": {
+        "submitted_through_ui": true,
+        "mutation_submitted": false,
+        "post_confirm_path": "/dashboard",
+        "security_status": 200,
+        "security_path": "/settings/security"
+      }
+    },
+    {
+      "name": "ordinary-user-cannot-open-products-without-role-or-grant",
+      "result": "pass",
+      "details": [
+        {
+          "kind": "no-role-products-page",
+          "viewport": "desktop-1440",
+          "status": 403,
+          "path": "/products",
+          "database_port": 55462,
+          "actor_id": 65,
+          "actor_kind": "synthetic-unprivileged"
+        },
+        {
+          "kind": "no-role-products-page",
+          "viewport": "desktop-1366",
+          "status": 403,
+          "path": "/products",
+          "database_port": 55462,
+          "actor_id": 65,
+          "actor_kind": "synthetic-unprivileged"
+        },
+        {
+          "kind": "no-role-products-page",
+          "viewport": "tablet-768",
+          "status": 403,
+          "path": "/products",
+          "database_port": 55462,
+          "actor_id": 65,
+          "actor_kind": "synthetic-unprivileged"
+        },
+        {
+          "kind": "no-role-products-page",
+          "viewport": "mobile-390",
+          "status": 403,
+          "path": "/products",
+          "database_port": 55462,
+          "actor_id": 65,
+          "actor_kind": "synthetic-unprivileged"
+        },
+        {
+          "kind": "no-role-products-page",
+          "viewport": "mobile-360",
+          "status": 403,
+          "path": "/products",
+          "database_port": 55462,
+          "actor_id": 65,
+          "actor_kind": "synthetic-unprivileged"
+        }
+      ]
+    },
+    {
+      "name": "ordinary-user-cannot-read-another-actors-preview",
+      "result": "pass",
+      "details": [
+        {
+          "kind": "foreign-operation-preview-owner",
+          "viewport": "desktop-1440",
+          "status": 404,
+          "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+          "database_port": 55462,
+          "actor_id": 65,
+          "preview_owner_id": 66
+        },
+        {
+          "kind": "foreign-operation-preview-owner",
+          "viewport": "desktop-1366",
+          "status": 404,
+          "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+          "database_port": 55462,
+          "actor_id": 65,
+          "preview_owner_id": 66
+        },
+        {
+          "kind": "foreign-operation-preview-owner",
+          "viewport": "tablet-768",
+          "status": 404,
+          "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+          "database_port": 55462,
+          "actor_id": 65,
+          "preview_owner_id": 66
+        },
+        {
+          "kind": "foreign-operation-preview-owner",
+          "viewport": "mobile-390",
+          "status": 404,
+          "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+          "database_port": 55462,
+          "actor_id": 65,
+          "preview_owner_id": 66
+        },
+        {
+          "kind": "foreign-operation-preview-owner",
+          "viewport": "mobile-360",
+          "status": 404,
+          "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+          "database_port": 55462,
+          "actor_id": 65,
+          "preview_owner_id": 66
+        }
+      ]
+    },
+    {
+      "name": "least-privilege-owner-genuine-login",
+      "result": "pass",
+      "details": "/dashboard"
+    },
+    {
+      "name": "owner-preview-details-survive-reload",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "identity": true,
+        "preview": true
+      }
+    }
+  ],
+  "authorization_checks": [
+    {
+      "kind": "no-role-products-page",
+      "viewport": "desktop-1440",
+      "status": 403,
+      "path": "/products",
+      "database_port": 55462,
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged"
+    },
+    {
+      "kind": "foreign-operation-preview-owner",
+      "viewport": "desktop-1440",
+      "status": 404,
+      "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "database_port": 55462,
+      "actor_id": 65,
+      "preview_owner_id": 66
+    },
+    {
+      "kind": "no-role-products-page",
+      "viewport": "desktop-1366",
+      "status": 403,
+      "path": "/products",
+      "database_port": 55462,
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged"
+    },
+    {
+      "kind": "foreign-operation-preview-owner",
+      "viewport": "desktop-1366",
+      "status": 404,
+      "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "database_port": 55462,
+      "actor_id": 65,
+      "preview_owner_id": 66
+    },
+    {
+      "kind": "no-role-products-page",
+      "viewport": "tablet-768",
+      "status": 403,
+      "path": "/products",
+      "database_port": 55462,
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged"
+    },
+    {
+      "kind": "foreign-operation-preview-owner",
+      "viewport": "tablet-768",
+      "status": 404,
+      "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "database_port": 55462,
+      "actor_id": 65,
+      "preview_owner_id": 66
+    },
+    {
+      "kind": "no-role-products-page",
+      "viewport": "mobile-390",
+      "status": 403,
+      "path": "/products",
+      "database_port": 55462,
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged"
+    },
+    {
+      "kind": "foreign-operation-preview-owner",
+      "viewport": "mobile-390",
+      "status": 404,
+      "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "database_port": 55462,
+      "actor_id": 65,
+      "preview_owner_id": 66
+    },
+    {
+      "kind": "no-role-products-page",
+      "viewport": "mobile-360",
+      "status": 403,
+      "path": "/products",
+      "database_port": 55462,
+      "actor_id": 65,
+      "actor_kind": "synthetic-unprivileged"
+    },
+    {
+      "kind": "foreign-operation-preview-owner",
+      "viewport": "mobile-360",
+      "status": 404,
+      "path": "/data-operations/1e669c15-6a50-4c80-b560-496755a80fe9",
+      "database_port": 55462,
+      "actor_id": 65,
+      "preview_owner_id": 66
+    }
+  ],
+  "operation_owner_screenshots": [
+    {
+      "viewport": "desktop-1440",
+      "status": 200,
+      "identity": true,
+      "preview": true,
+      "planned_customer": true,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/operations.show-least-privilege-preview-actor66-desktop-1440-2228a3f7.png"
+    },
+    {
+      "viewport": "desktop-1366",
+      "status": 200,
+      "identity": true,
+      "preview": true,
+      "planned_customer": true,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/operations.show-least-privilege-preview-actor66-desktop-1366-2228a3f7.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "status": 200,
+      "identity": true,
+      "preview": true,
+      "planned_customer": true,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/operations.show-least-privilege-preview-actor66-tablet-768-2228a3f7.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "status": 200,
+      "identity": true,
+      "preview": true,
+      "planned_customer": true,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/operations.show-least-privilege-preview-actor66-mobile-390-2228a3f7.png"
+    },
+    {
+      "viewport": "mobile-360",
+      "status": 200,
+      "identity": true,
+      "preview": true,
+      "planned_customer": true,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/operations.show-least-privilege-preview-actor66-mobile-360-2228a3f7.png"
+    }
+  ],
+  "mutation_submitted": false,
+  "private_view_cache_clear": ".tmp/ui-acceptance/compiled-views",
+  "ordinary_actor_id": 65,
+  "owner_actor_id": 66,
+  "preview_run_id": "1e669c15-6a50-4c80-b560-496755a80fe9",
+  "customer_code": "DEMO-EG-QAOP-ME2FBWX7XG",
+  "customer_city_before": "القاهرة",
+  "customer_city_after": "الجيزة",
+  "customer_city_persisted": "القاهرة",
+  "preview_item_status": "valid",
+  "preview_only": true,
+  "permission_codes": [
+    "M03.customer_bulk_update",
+    "M03.customer_update",
+    "M03.customer_view"
+  ],
+  "ordinary_authority_rows": {
+    "roles": 0,
+    "direct_grants": 0,
+    "branch_scopes": 0,
+    "warehouse_scopes": 0
+  },
+  "owner_role_count": 0,
+  "owner_scope_count": 0,
+  "password_confirmation": {
+    "submitted_through_ui": true,
+    "mutation_submitted": false,
+    "post_confirm_path": "/dashboard",
+    "security_status": 200,
+    "security_path": "/settings/security"
+  },
+  "security_screenshots": [
+    {
+      "viewport": "desktop-1440",
+      "status": 200,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/security.edit-ordinary-unprivileged-actor65-desktop-1440-2228a3f7.png",
+      "overflow": false
+    },
+    {
+      "viewport": "desktop-1366",
+      "status": 200,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/security.edit-ordinary-unprivileged-actor65-desktop-1366-2228a3f7.png",
+      "overflow": false
+    },
+    {
+      "viewport": "tablet-768",
+      "status": 200,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/security.edit-ordinary-unprivileged-actor65-tablet-768-2228a3f7.png",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile-390",
+      "status": 200,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/security.edit-ordinary-unprivileged-actor65-mobile-390-2228a3f7.png",
+      "overflow": false
+    },
+    {
+      "viewport": "mobile-360",
+      "status": 200,
+      "screenshot": "docs/qa/design-consistency/2026-10-31T23-36-31-311Z/after/screenshots/security.edit-ordinary-unprivileged-actor65-mobile-360-2228a3f7.png",
+      "overflow": false
+    }
+  ],
+  "owner_reload": {
+    "status": 200,
+    "identity": true,
+    "preview": true
+  }
+}

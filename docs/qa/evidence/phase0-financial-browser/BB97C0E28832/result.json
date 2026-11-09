@@ -1,0 +1,7 @@
+{
+  "result": "FAIL",
+  "run_id": "BB97C0E28832",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [],
+  "failure": "Unexpected token 'I', \"\r\nIn prepare\"... is not valid JSON"
+}

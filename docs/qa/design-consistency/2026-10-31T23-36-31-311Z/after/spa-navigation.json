@@ -1,0 +1,38 @@
+{
+  "route": "sales-orders.index",
+  "checks": [
+    {
+      "name": "read-only-spa-detail-content-ready",
+      "result": "pass",
+      "details": {
+        "kind": "wire-navigate-to-read-only-detail",
+        "elapsed_ms": 444.4,
+        "from": "/sales-orders",
+        "to": "/sales-orders/400",
+        "previous_heading": "أوامر البيع",
+        "detail_heading": "مسودة c8daf9ca",
+        "wire_navigated_count": 1,
+        "livewire_posts": []
+      }
+    },
+    {
+      "name": "spa-back-restores-list",
+      "result": "pass",
+      "details": {
+        "url": "http://127.0.0.1:53473/sales-orders"
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "kind": "wire-navigate-to-read-only-detail",
+      "elapsed_ms": 444.4,
+      "from": "/sales-orders",
+      "to": "/sales-orders/400",
+      "previous_heading": "أوامر البيع",
+      "detail_heading": "مسودة c8daf9ca",
+      "wire_navigated_count": 1,
+      "livewire_posts": []
+    }
+  ]
+}

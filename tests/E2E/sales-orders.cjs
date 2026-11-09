@@ -86,12 +86,12 @@ async function waitForServer(server) {
     throw new Error('The isolated test application did not become ready on port 8001.');
 }
 
-async function login(page, account) {
+async function login(page, account, destination = '/dashboard') {
     await page.goto(baseUrl + '/login');
     await page.locator('input[name="email"]').fill(account.email);
     await page.locator('input[name="password"]').fill(account.password);
     await page.locator('[data-test="login-button"]').click();
-    await page.waitForURL(url => url.pathname === '/dashboard');
+    await page.waitForURL(url => url.pathname === destination);
 }
 
 async function saveScreenshot(page, outputDirectory, filename) {
@@ -186,7 +186,7 @@ async function main() {
         await saveScreenshot(ownerPage, outputDirectory, 'login-guest-desktop.png');
         checks.push('guest sales-order route redirects to login; Arabic RTL document');
 
-        await login(ownerPage, creator);
+        await login(ownerPage, creator, '/sales-orders');
         await ownerPage.goto(baseUrl + '/sales-orders');
         await ownerPage.getByRole('heading', { name: 'أوامر البيع' }).waitFor();
         const wideListWidth = await ownerPage.evaluate(() => ({
@@ -199,34 +199,33 @@ async function main() {
         await ownerPage.goto(baseUrl + '/sales-orders/create');
         await ownerPage.getByRole('heading', { name: 'إنشاء أمر بيع مباشر' }).waitFor();
 
-        const invalidSave = ownerPage.getByRole('button', { name: 'حفظ المسودة', exact: true }).first();
+        const invalidSave = ownerPage.getByRole('button', { name: 'حفظ أمر البيع', exact: true }).first();
         await invalidSave.click();
-        await ownerPage.locator('main li').first().waitFor();
-        assert.match(await ownerPage.locator('main').innerText(), /مطلوب|required/);
+        await ownerPage.locator('#main-content [data-erp-validation] li').first().waitFor();
+        assert.match(await ownerPage.locator('#main-content [data-erp-validation]').innerText(), /مطلوب|required/);
         assert.equal(new URL(ownerPage.url()).pathname, '/sales-orders/create');
         await saveScreenshot(ownerPage, outputDirectory, 'form-validation-error-desktop.png');
         checks.push('required sales-order data rejected before persistence');
 
-        await ownerPage.reload();
         const branchSelect = ownerPage.locator('select[wire\\:model="form.branch_id"]');
         await branchSelect.selectOption(String(fixture.branch.id));
-        const orderDateInput = ownerPage.locator('input[wire\\:model="form.order_date"]');
+        const orderDateInput = ownerPage.locator('input[wire\\:model\\.live="form.order_date"]');
         const orderDate = await orderDateInput.inputValue();
-        await ownerPage.getByLabel('تاريخ التسليم المطلوب', { exact: true }).fill(addDays(orderDate, 5));
-        await ownerPage.getByLabel('العميل *', { exact: true }).selectOption(String(fixture.customer.id));
+        await ownerPage.getByLabel(/^تاريخ التسليم المطلوب/).fill(addDays(orderDate, 5));
+        await ownerPage.getByLabel(/^العميل(?:\s|$)/).selectOption(String(fixture.customer.id));
         const reference = 'E2E-SO-' + runId;
-        await ownerPage.getByLabel('مرجع العميل', { exact: true }).fill(reference);
-        await ownerPage.getByLabel('اسم المشروع (اختياري)', { exact: true }).fill('مشروع تجريبي لاختبار أمر البيع');
-        const productSelect = ownerPage.getByLabel('الصنف للبند 1', { exact: true });
+        await ownerPage.getByLabel(/^مرجع العميل/).fill(reference);
+        await ownerPage.getByLabel(/^اسم المشروع/).fill('مشروع تجريبي لاختبار أمر البيع');
+        const productSelect = ownerPage.locator('select[wire\\:model\\.live="lines.0.product_id"]');
         await productSelect.selectOption(String(fixture.product.id));
-        const unitSelect = ownerPage.getByLabel('الوحدة للبند 1', { exact: true });
+        const unitSelect = ownerPage.locator('select[wire\\:model\\.live="lines.0.unit_id"]');
         await ownerPage.waitForFunction(unitId => {
-            const field = document.querySelector('select[wire\\:model="lines.0.unit_id"]');
+            const field = document.querySelector('select[wire\\:model\\.live="lines.0.unit_id"]');
             return field && field.value === String(unitId);
         }, fixture.unit.id);
         assert.equal(await unitSelect.inputValue(), String(fixture.unit.id));
-        await ownerPage.getByLabel('كمية البند 1', { exact: true }).fill('2.50000000');
-        await ownerPage.getByLabel('السعر المقترح للبند 1', { exact: true }).fill('123.45000000');
+        await ownerPage.locator('input[wire\\:model\\.live\\.debounce\\.500ms="lines.0.quantity"]').fill('2.50000000');
+        await ownerPage.locator('input[wire\\:model\\.live\\.debounce\\.500ms="lines.0.requested_price"]').fill('123.45000000');
 
         await branchSelect.focus();
         await ownerPage.keyboard.press('Tab');
@@ -248,16 +247,16 @@ async function main() {
                 const pathParts = url.pathname.split('/');
                 return pathParts.length === 3 && pathParts[1] === 'sales-orders' && /^\d+$/.test(pathParts[2]);
             }),
-            ownerPage.getByRole('button', { name: 'حفظ المسودة', exact: true }).last().click(),
+            ownerPage.getByRole('button', { name: 'حفظ أمر البيع', exact: true }).last().click(),
         ]);
         const orderId = Number(new URL(ownerPage.url()).pathname.split('/').pop());
         assert.ok(Number.isInteger(orderId) && orderId > 0);
         await ownerPage.getByText('تم حفظ مسودة أمر البيع.', { exact: true }).waitFor();
         assert.equal(await ownerPage.locator('html').getAttribute('dir'), 'rtl');
-        assert.match(await ownerPage.locator('main').innerText(), /مسودة/);
-        assert.ok((await ownerPage.locator('main').innerText()).includes('123.45'));
-        assert.ok((await ownerPage.locator('main').innerText()).includes('2.5'));
-        assert.match(await ownerPage.locator('main').innerText(), new RegExp(reference));
+        assert.match(await ownerPage.locator('#main-content').innerText(), /مسودة/);
+        assert.ok((await ownerPage.locator('#main-content').innerText()).includes('123.45'));
+        assert.ok((await ownerPage.locator('#main-content').innerText()).includes('2.5'));
+        assert.match(await ownerPage.locator('#main-content').innerText(), new RegExp(reference));
         checks.push('creator saves a persisted direct draft with exact decimal strings');
         await saveScreenshot(ownerPage, outputDirectory, 'order-overview-desktop.png');
 
@@ -271,14 +270,14 @@ async function main() {
         ];
         for (const [key, label, fileBase] of screens) {
             await clickOrderScreen(ownerPage, orderId, key, label);
-            assert.ok((await ownerPage.locator('main').innerText()).length > 50);
+            assert.ok((await ownerPage.locator('#main-content').innerText()).length > 50);
             if (key === 'review') {
                 const approval = ownerPage.getByRole('button', { name: 'اعتماد أمر البيع', exact: true });
                 assert.equal(await approval.isDisabled(), true);
-                assert.match(await ownerPage.locator('main').innerText(), /لا يسجل هذا القسم أي موافقة/);
+                assert.match(await ownerPage.locator('#main-content').innerText(), /لا يسجل هذا القسم أي موافقة/);
             }
             if (key === 'delivery') {
-                assert.match(await ownerPage.locator('main').innerText(), /لا توجد حجوزات مخزون/);
+                assert.match(await ownerPage.locator('#main-content').innerText(), /لا توجد حجوزات مخزون/);
                 assert.equal(await ownerPage.getByRole('button', { name: 'إنشاء مستند تسليم', exact: true }).isDisabled(), true);
             }
             if (key === 'invoices') {
@@ -330,7 +329,7 @@ async function main() {
         checks.push('list search, status, branch, date filters and clear action');
 
         await ownerPage.goto(baseUrl + '/sales-orders/' + orderId + '/edit');
-        const project = ownerPage.getByLabel('اسم المشروع (اختياري)', { exact: true });
+        const project = ownerPage.getByLabel(/^اسم المشروع/);
         await project.fill('تعديل غير محفوظ لاختبار التنقل');
         let confirmSeen = false;
         ownerPage.once('dialog', async dialog => {
@@ -342,11 +341,11 @@ async function main() {
         assert.equal(new URL(ownerPage.url()).pathname, '/sales-orders/' + orderId + '/edit');
         assert.equal(confirmSeen, true);
         await project.fill('مشروع تجريبي - تم حفظ التعديل');
-        await ownerPage.getByRole('button', { name: 'حفظ المسودة', exact: true }).last().click();
+        await ownerPage.getByRole('button', { name: 'حفظ أمر البيع', exact: true }).last().click();
         await ownerPage.waitForURL(url => url.pathname === '/sales-orders/' + orderId);
-        assert.match(await ownerPage.locator('main').innerText(), /مشروع تجريبي - تم حفظ التعديل/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /مشروع تجريبي - تم حفظ التعديل/);
         await ownerPage.reload();
-        assert.match(await ownerPage.locator('main').innerText(), /مشروع تجريبي - تم حفظ التعديل/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /مشروع تجريبي - تم حفظ التعديل/);
         checks.push('editing persists across reload and dirty-navigation confirmation blocks leaving');
 
         await ownerPage.setViewportSize({ width: 390, height: 844 });
@@ -372,17 +371,17 @@ async function main() {
         await ownerPage.goto(baseUrl + '/sales-orders/' + orderId + '/review');
         await ownerPage.getByRole('button', { name: 'تقديم للمراجعة', exact: true }).click();
         await ownerPage.getByText('تم تقديم أمر البيع للمراجعة.', { exact: true }).waitFor();
-        assert.match(await ownerPage.locator('main').innerText(), /بانتظار المراجعة/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /بانتظار المراجعة/);
         await saveScreenshot(ownerPage, outputDirectory, 'review-pending-desktop.png');
         assert.equal(await ownerPage.getByRole('button', { name: 'اعتماد أمر البيع', exact: true }).isDisabled(), true);
 
         await ownerPage.getByRole('button', { name: 'سحب طلب المراجعة', exact: true }).click();
         await ownerPage.getByText('تم سحب طلب المراجعة.', { exact: true }).waitFor();
-        assert.match(await ownerPage.locator('main').innerText(), /مسودة/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /مسودة/);
         await saveScreenshot(ownerPage, outputDirectory, 'review-withdrawn-desktop.png');
         await ownerPage.getByRole('button', { name: 'تقديم للمراجعة', exact: true }).click();
         await ownerPage.getByText('تم تقديم أمر البيع للمراجعة.', { exact: true }).waitFor();
-        assert.match(await ownerPage.locator('main').innerText(), /لا يصدر مقدم طلب المراجعة قرارًا على طلبه/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /لا يصدر مقدم طلب المراجعة قرارًا على طلبه/);
         assert.equal(await ownerPage.getByText('رفض المراجعة وإعادة الأمر للمسودة', { exact: true }).count(), 0);
         checks.push('requester submits and withdraws, then cannot decide their own pending review');
 
@@ -408,10 +407,10 @@ async function main() {
         await reviewerPage.goto(baseUrl + '/sales-orders/' + orderId + '/review');
         await reviewerPage.getByText('رفض المراجعة وإعادة الأمر للمسودة', { exact: true }).waitFor();
         await reviewerPage.locator('summary').filter({ hasText: 'رفض المراجعة وإعادة الأمر للمسودة' }).click();
-        await reviewerPage.getByLabel('سبب الرفض', { exact: true }).fill('يرجى مراجعة بيانات بند الاختبار.');
+        await reviewerPage.getByLabel(/^سبب الرفض/).fill('يرجى مراجعة بيانات بند الاختبار.');
         await reviewerPage.getByRole('button', { name: 'تأكيد الرفض', exact: true }).click();
         await reviewerPage.getByText('تم رفض المراجعة وإرجاع أمر البيع إلى المسودة.', { exact: true }).waitFor();
-        assert.match(await reviewerPage.locator('main').innerText(), /مسودة/);
+        assert.match(await reviewerPage.locator('#main-content').innerText(), /مسودة/);
         assert.equal(await reviewerPage.getByRole('button', { name: 'تقديم للمراجعة', exact: true }).count(), 0);
         await saveScreenshot(reviewerPage, outputDirectory, 'review-rejected-desktop.png');
         checks.push('separate reviewer can reject with a reason; reviewer cannot create or submit');
@@ -419,11 +418,11 @@ async function main() {
         currentPage = ownerPage;
         await ownerPage.goto(baseUrl + '/sales-orders/' + orderId);
         await ownerPage.locator('summary').filter({ hasText: 'إلغاء أمر البيع' }).first().click();
-        await ownerPage.getByLabel('سبب الإلغاء', { exact: true }).fill('إلغاء بيانات اختبار E2E بعد التحقق.');
+        await ownerPage.getByLabel(/^سبب الإلغاء/).fill('إلغاء بيانات اختبار E2E بعد التحقق.');
         await saveScreenshot(ownerPage, outputDirectory, 'order-cancellation-form-desktop.png');
         await ownerPage.getByRole('button', { name: 'تأكيد الإلغاء', exact: true }).click();
         await ownerPage.getByText('تم إلغاء أمر البيع.', { exact: true }).waitFor();
-        assert.match(await ownerPage.locator('main').innerText(), /ملغي/);
+        assert.match(await ownerPage.locator('#main-content').innerText(), /ملغي/);
         await saveScreenshot(ownerPage, outputDirectory, 'order-cancelled-desktop.png');
         checks.push('unexecuted order cancellation requires and persists a reason');
 
@@ -487,11 +486,22 @@ async function main() {
         }
         console.error(failure);
     } finally {
+        if (exitCode !== 0) {
+            try {
+                fs.copyFileSync(serverLogPath, path.join(outputDirectory, 'test-server.log'));
+            } catch {
+                // Preserve the browser failure when the server log is unavailable.
+            }
+        }
         if (browser) {
             await browser.close().catch(() => {});
         }
         if (server && server.exitCode === null) {
-            server.kill();
+            if (process.platform === 'win32' && server.pid) {
+                spawnSync('taskkill', ['/PID', String(server.pid), '/T', '/F'], { windowsHide: true, timeout: 3000 });
+            } else {
+                server.kill();
+            }
             await new Promise(resolve => {
                 const timeout = setTimeout(resolve, 1500);
                 server.once('exit', () => {

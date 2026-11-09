@@ -1,0 +1,21 @@
+{
+    "captured_utc": "2026-10-31T14:58:35+00:00",
+    "scope": "read-only development metadata; no role names, passwords or connection secrets emitted",
+    "database": "erp_elec_new",
+    "port": 5443,
+    "current_application_role_privilege_flags": {
+        "superuser": false,
+        "can_create_databases": false,
+        "can_create_roles": false,
+        "replication": false
+    },
+    "server_settings": {
+        "server_version": "17.11",
+        "ssl": "off",
+        "password_encryption": "scram-sha-256",
+        "statement_timeout": "0",
+        "lock_timeout": "0",
+        "idle_in_transaction_session_timeout": "0"
+    },
+    "connection_uses_ssl": false
+}

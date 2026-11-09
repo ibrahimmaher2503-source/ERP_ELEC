@@ -1,0 +1,46 @@
+{
+  "result": "FAIL",
+  "run_id": "F577AB2A68",
+  "failure": "finalize-phase2-projects-browser-sources.php returned no JSON evidence: \r\nIn ValidationException.php line 70:\r\n                                                 \r\n  تغير أمر البيع. أعد تحميله قبل تنفيذ الإجراء.  \r\n                                                 \r\n\r\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "resumed_existing_authenticated_browser_project": "passed",
+      "project_id": 7,
+      "create_edit": true,
+      "phase_task_milestone": true,
+      "independent_budget_approval": true
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 7,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "issue_id": 4,
+      "fifo_allocations": 1,
+      "product_id": 1
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    }
+  ]
+}

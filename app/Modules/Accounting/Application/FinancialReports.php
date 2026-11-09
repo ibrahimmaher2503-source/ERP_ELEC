@@ -83,8 +83,8 @@ final class FinancialReports
         $rows = [
             ['key' => 'ap', 'label' => 'مراقبة الموردين مقابل الذمم الدائنة', 'gl' => bcsub('0', $gl('ap'), 2), 'source' => bcadd($ap, '0', 2)],
             ['key' => 'ar', 'label' => 'مراقبة العملاء مقابل الذمم المدينة', 'gl' => bcadd($gl('receivable'), '0', 2), 'source' => bcadd($ar, '0', 2)],
-            ['key' => 'grni', 'label' => 'GRNI مقابل الاستلامات غير المفوترة', 'gl' => bcsub('0', $gl('grni'), 2), 'source' => bcsub($grni, $cleared, 2)],
-            ['key' => 'inventory', 'label' => 'المخزون العام مقابل طبقات FIFO', 'gl' => bcadd($gl('inventory'), '0', 2), 'source' => bcadd($fifo, '0', 2)],
+            ['key' => 'grni', 'label' => 'استلامات بانتظار الفوترة مقابل الاستلامات غير المفوترة', 'gl' => bcsub('0', $gl('grni'), 2), 'source' => bcsub($grni, $cleared, 2)],
+            ['key' => 'inventory', 'label' => 'المخزون العام مقابل طبقات الصرف من الأقدم أولًا', 'gl' => bcadd($gl('inventory'), '0', 2), 'source' => bcadd($fifo, '0', 2)],
             ['key' => 'inventory_transit', 'label' => 'المخزون بالطريق مقابل طبقات النقل', 'gl' => bcadd($gl('inventory_transit'), '0', 2), 'source' => $transit],
             ['key' => 'bank', 'label' => 'حساب البنك مقابل حركات الخزينة', 'gl' => bcadd($gl('bank'), '0', 2), 'source' => $treasury['bank']],
             ['key' => 'cash', 'label' => 'حساب النقدية مقابل حركات الخزينة', 'gl' => bcadd($gl('cash'), '0', 2), 'source' => $treasury['cash']],
@@ -129,7 +129,7 @@ final class FinancialReports
             foreach ($branches as $branch) {
                 $results[$branch['id']] = $this->reconciliationRows($actor, $branch['id'], $row->ends_on);
                 if (collect($results[$branch['id']])->contains(fn ($item) => ! $item['ok'])) {
-                    $this->fail('لا يمكن الإقفال قبل نجاح مصالحات المخزون وGRNI والذمم لكل الفروع.');
+                    $this->fail('لا يمكن الإقفال قبل نجاح مصالحات المخزون واستلامات بانتظار الفوترة والذمم لكل الفروع.');
                 }
             }
             $evidence = ['contract_version' => 1, 'date_basis' => 'inclusive_business_date', 'period_id' => $period,

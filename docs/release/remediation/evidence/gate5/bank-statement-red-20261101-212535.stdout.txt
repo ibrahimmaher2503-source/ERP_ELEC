@@ -1,0 +1,13 @@
+{
+    "all_pass": false,
+    "mode": "treasury-bank-statement-reconciliation",
+    "phase": "source preflight",
+    "assertions": 0,
+    "rollback_verified": false,
+    "checks": [],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "TreasuryStatementActions is not implemented yet."
+    }
+}
+RESULT all_pass=0 assertions=0 rollback_verified=0 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate5/treasury-statement-20261101T192535Z-387cb3.json

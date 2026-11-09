@@ -1,0 +1,215 @@
+{
+    "database": "erp_elec_new_test",
+    "postgres_port": 55442,
+    "financial_date": "2026-10-30",
+    "synthetic": true,
+    "source_order_id": 17,
+    "posted_receipts": [
+        10,
+        11,
+        12
+    ],
+    "invoice_ids": [
+        10,
+        11,
+        12
+    ],
+    "source_journals": [
+        {
+            "invoice_id": 10,
+            "journal_id": 71,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 11,
+            "journal_id": 72,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 12,
+            "journal_id": 73,
+            "debit": "12.54",
+            "credit": "12.54",
+            "grni_net": "10.00",
+            "ppv_net": "1.00",
+            "tax_input_net": "1.54",
+            "ap_net": "-12.54"
+        }
+    ],
+    "official_pdf_integrity": [
+        {
+            "invoice_id": 10,
+            "official_number": "SI-2026-000001",
+            "sha256": "81c3a89b2d622ec2f047d95c178ca6d2171a8700d7b0b7b00fe4e361397aec52",
+            "bytes": 45191
+        },
+        {
+            "invoice_id": 11,
+            "official_number": "SI-2026-000002",
+            "sha256": "fafe4689cdfa8ee48f7b7d381f0db9094842dab368fcdcfdf7acb6b08f26bf70",
+            "bytes": 45193
+        },
+        {
+            "invoice_id": 12,
+            "official_number": "SI-2026-000003",
+            "sha256": "c71e065a2865376f3e4c029d7fef3b67e37317da793243ea919503a399b6dbbf",
+            "bytes": 45188
+        }
+    ],
+    "matching": {
+        "invoice_count": 3,
+        "receipt_count": 3,
+        "quantity": "4.00000000",
+        "grni": "40.00",
+        "net": "44.00",
+        "recoverable_input_tax": "6.16",
+        "ppv": "4.00",
+        "ap": "50.16"
+    },
+    "stock_and_fifo_unchanged_by_invoice_posting": true,
+    "same_key_replay": true,
+    "factory_persistence": {
+        "supplier_invoice_id": 9,
+        "supplier_draft": true,
+        "customer_invoice_id": 3,
+        "customer_draft": true,
+        "treasury_accounts": [
+            3,
+            4
+        ]
+    },
+    "ap": {
+        "payment_movement_ids": [
+            9,
+            10
+        ],
+        "retry_idempotent": true,
+        "remaining": "0.00"
+    },
+    "customer": {
+        "sales_order_id": 57,
+        "delivery_id": 6,
+        "invoice_id": 4,
+        "collection_movement_ids": [
+            7,
+            8
+        ],
+        "remaining_ar": "0.00"
+    },
+    "credit_notes": {
+        "supplier": {
+            "credit_note_id": 3,
+            "journal_id": 80,
+            "number": "SCN-2026-000001"
+        },
+        "customer": {
+            "credit_note_id": 4,
+            "journal_id": 81,
+            "number": "CCN-2026-000001"
+        },
+        "party_credit_rows": 2
+    },
+    "direct_transfer": {
+        "out_movement_id": 11,
+        "in_movement_id": 12,
+        "journal_id": 82,
+        "number": "TR-2026-000001"
+    },
+    "reports": {
+        "trial_balance_debit": "294.76",
+        "trial_balance_credit": "294.76",
+        "income_row_count": 3,
+        "balance_row_count": 8,
+        "reconciliations": [
+            {
+                "key": "ap",
+                "label": "مراقبة الموردين مقابل الذمم الدائنة",
+                "gl": "-2.00",
+                "source": "-2.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "ar",
+                "label": "مراقبة العملاء مقابل الذمم المدينة",
+                "gl": "-2.00",
+                "source": "-2.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "grni",
+                "label": "GRNI مقابل الاستلامات غير المفوترة",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "bank",
+                "label": "حساب البنك مقابل حركات الخزينة",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "cash",
+                "label": "حساب النقدية مقابل حركات الخزينة",
+                "gl": "3.56",
+                "source": "3.56",
+                "difference": "0.00",
+                "ok": true
+            }
+        ]
+    },
+    "negative_cases": {
+        "duplicate_supplier_number": "rejected",
+        "supplier_mismatch": "rejected",
+        "overmatch": "rejected",
+        "unauthorized": "403",
+        "closed_period": "deferred_to_serial_run"
+    },
+    "committed_worker_fixtures": [
+        {
+            "invoice_id": 16,
+            "actor_id": 350,
+            "version": 4,
+            "receipt_id": 15,
+            "branch_id": 95
+        },
+        {
+            "invoice_id": 17,
+            "actor_id": 350,
+            "version": 4,
+            "receipt_id": 16,
+            "branch_id": 95
+        },
+        {
+            "invoice_id": 18,
+            "actor_id": 350,
+            "version": 4,
+            "receipt_id": 17,
+            "branch_id": 95
+        }
+    ],
+    "all_pass": true
+}

@@ -1,0 +1,34 @@
+
+> build
+> vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+node.exe : 
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+/fonts/noto-sans-arabic.woff2 referenced in /fonts/noto-sans-arabic.woff2 didn't resolve at build time, it will remain 
+unchanged to be resolved at runtime
+
+/fonts/noto-sans-latin.woff2 referenced in /fonts/noto-sans-latin.woff2 didn't resolve at build time, it will remain 
+unchanged to be resolved at runtime
+✓ 22 modules transformed.
+rendering chunks...
+computing gzip size...
+public/build/manifest.json                  0.49 kB │ gzip:  0.19 kB
+public/build/assets/app-DZPN6i5H.css      445.75 kB │ gzip: 47.80 kB
+public/build/assets/app-BvRk9kiK.js         0.00 kB │ gzip:  0.02 kB
+public/build/assets/passkeys-CsxEE3hN.js   12.07 kB │ gzip:  3.90 kB
+
+✓ built in 35.79s
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 35.7s of this 35.8s build (100%).
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits 
+is included):
+  - plugin @tailwindcss/vite:generate:build transform (99%, 35.3s, 1 call)
+Additional callback time came from callbacks under 1s.
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+

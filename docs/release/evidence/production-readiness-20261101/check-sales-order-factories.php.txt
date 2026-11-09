@@ -1,0 +1,4 @@
+PASS Sales order factory persists an unattributed direct draft with branch and customer snapshots
+PASS Sales order line factory persists an exact quantity and matching product/unit snapshot without inventing a price
+PASS Sales order review factory persists an unattributed pending fixture matching the submitted snapshot and version without decision history
+PASS Sales order demo seeder is repeat-safe, creates a draft-only order and null-priced line, and fabricates no review history

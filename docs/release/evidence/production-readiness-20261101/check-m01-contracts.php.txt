@@ -1,0 +1,24 @@
+PASS OrganizationApi resolves through the OrganizationService binding
+PASS AuthorizeRequest is readonly
+PASS GetBranchRequest is readonly
+PASS ListAllowedWarehousesRequest is readonly
+PASS AuthorizeResult is readonly
+PASS GetBranchResult is readonly
+PASS ListAllowedWarehousesResult is readonly
+PASS authorize returns only requested safe branch fields and exact branch scope
+PASS getBranch returns company-one safe scalar fields
+PASS getBranch result contains no model or object values
+PASS cross-branch read is hidden
+PASS sensitive branch fields are denied
+PASS authorization field allowlist rejects secrets
+PASS revoked permission is denied immediately
+PASS inactive actor is denied
+PASS unverified actor is denied
+PASS request constructor rejects invalid branch identifier
+PASS branch query rejects unsupported filters
+PASS warehouse query validates filters before setup state
+PASS warehouse listing intersects explicit warehouse and branch scopes
+PASS warehouse listing honors requested branch and warehouse filters
+PASS warehouse listing hides a warehouse outside explicit branch scope
+PASS database enforces singleton company and branch association
+Disposable test transaction rolled back.

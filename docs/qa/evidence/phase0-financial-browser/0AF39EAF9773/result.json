@@ -1,0 +1,264 @@
+{
+  "result": "FAIL",
+  "run_id": "0AF39EAF9773",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 25 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue action completed through its actual Livewire button",
+    "Official quotation PDF downloaded through its authorized UI link (58312 bytes)",
+    "Written acceptance recorded with actual uploaded private image evidence and downloaded from its authorized UI link",
+    "Accepted quotation converted once through the actual UI to Sales Order 5",
+    "Converted order 5 submitted for its independent review through the actual UI",
+    "Different scoped reviewer 84 approved Sales Order 5 and requested actual warehouse reservations",
+    "Partial delivery 6 confirmed through Sales UI and posted by Inventory with real FIFO/Accounting effects",
+    "Authorized official delivery PDF downloaded through its UI link",
+    "Real synthetic procurement order 3 created and submitted through Purchasing UI to supply the accepted backorder"
+  ],
+  "failure": "page.waitForResponse: Timeout 30000ms exceeded while waiting for event \"response\"",
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/upload-file"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "request",
+      "method": "POST",
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    },
+    {
+      "event": "response",
+      "status": 200,
+      "url": "http://127.0.0.1:8204/livewire-c6214651/update"
+    }
+  ]
+}

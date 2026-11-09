@@ -1,0 +1,40 @@
+
+   INFO  Seeding database.  
+
+  Database\Seeders\EgyptMarketDemoSeeder ..................................................................... RUNNING  
+  Database\Seeders\PurchasingDemoSeeder ...................................................................... RUNNING  
+  Database\Seeders\PurchasingDemoSeeder ................................................................... 28 ms DONE  
+
+  Database\Seeders\ProjectsDemoSeeder ........................................................................ RUNNING  
+  Database\Seeders\ProjectsDemoSeeder ..................................................................... 65 ms DONE  
+
+  Database\Seeders\FieldMaintenanceDemoSeeder ................................................................ RUNNING  
+  Database\Seeders\FieldMaintenanceDemoSeeder ............................................................. 25 ms DONE  
+
+  Database\Seeders\WorkshopDemoSeeder ........................................................................ RUNNING  
+  Database\Seeders\WorkshopDemoSeeder ..................................................................... 14 ms DONE  
+
+  Database\Seeders\TendersDemoSeeder ......................................................................... RUNNING  
+  Database\Seeders\TendersDemoSeeder ...................................................................... 14 ms DONE  
+
+  Database\Seeders\FinancialActivationDemoSeeder ............................................................. RUNNING  
+  Database\Seeders\AccountingDemoSeeder ...................................................................... RUNNING  
+  Database\Seeders\AccountingDemoSeeder ................................................................... 11 ms DONE  
+
+  Database\Seeders\OpeningPayablesDemoSeeder ................................................................. RUNNING  
+  Database\Seeders\OpeningPayablesDemoSeeder ............................................................... 0 ms DONE  
+
+  Database\Seeders\OpeningTreasuryDemoSeeder ................................................................. RUNNING  
+  Database\Seeders\OpeningTreasuryDemoSeeder ............................................................... 0 ms DONE  
+
+  Database\Seeders\FinancialActivationDemoSeeder .......................................................... 15 ms DONE  
+
+  Database\Seeders\FinancialOperationsDemoSeeder ............................................................. RUNNING  
+  Database\Seeders\FinancialOperationsDemoSeeder .......................................................... 10 ms DONE  
+
+Egyptian-market demo data ready: {"branch":1,"user":1,"product":1,"customer":1,"supplier":1,"quotation":1,"sales_order":1}
+  Database\Seeders\InventoryDemoSeeder ....................................................................... RUNNING  
+  Database\Seeders\InventoryDemoSeeder .................................................................... 16 ms DONE  
+
+  Database\Seeders\EgyptMarketDemoSeeder ................................................................. 917 ms DONE  
+

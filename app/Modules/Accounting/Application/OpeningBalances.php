@@ -58,7 +58,7 @@ final class OpeningBalances
                 $dr = Decimal::value($line['debit'] ?? '0', 2);
                 $cr = Decimal::value($line['credit'] ?? '0', 2);
                 if (! ((bccomp($dr, '0', 2) > 0 && bccomp($cr, '0', 2) === 0) || (bccomp($cr, '0', 2) > 0 && bccomp($dr, '0', 2) === 0))) {
-                    FinancialActivation::fail('كل بند GL افتتاحي مدين أو دائن بمبلغ موجب.');
+                    FinancialActivation::fail('كل بند الأستاذ العام افتتاحي مدين أو دائن بمبلغ موجب.');
                 }
                 $row['account_id'] = $account->id;
                 $row['debit'] = bcadd($dr, '0', 2);
@@ -87,7 +87,7 @@ final class OpeningBalances
                     $qty = Decimal::value($line['quantity'] ?? null, 8);
                     $cost = Decimal::value($line['unit_cost'] ?? null, 16);
                     if (bccomp($qty, '0', 8) <= 0 || Decimal::round(bcmul($qty, $cost, Decimal::SCALE)) !== $row['amount']) {
-                        FinancialActivation::fail('قيمة افتتاح المخزون يجب أن تساوي الكمية × تكلفة FIFO مقربة إلى منزلتين.');
+                        FinancialActivation::fail('قيمة افتتاح المخزون يجب أن تساوي الكمية × تكلفة الصرف من الأقدم أولًا مقربة إلى منزلتين.');
                     }
                     $row['warehouse_id'] = $wid;
                     $row['product_id'] = $product['id'];
@@ -142,10 +142,10 @@ final class OpeningBalances
                     $gl = bcsub('0', $gl, 2);
                 }
                 if (bccomp($gl, $detail, 2) !== 0) {
-                    $errors[] = 'اختلاف '.$purpose.' بين GL والتفاصيل للفرع #'.$branch;
+                    $errors[] = 'اختلاف '.$purpose.' بين الأستاذ العام والتفاصيل للفرع #'.$branch;
                 }
             }
-            // Unmatched GRNI has no detailed producer; settle it as supplier payables before go-live.
+            // Unmatched استلامات بانتظار الفوترة has no detailed producer; settle it as supplier payables before go-live.
             foreach (['grni'] as $purpose) {
                 if (bccomp($group['gl'][$maps[$purpose] ?? 0] ?? '0', '0', 2) !== 0) {
                     $errors[] = 'الرصيد الافتتاحي '.$purpose.' يتطلب تفاصيل من منتجه، غير مدعوم في مسار الافتتاح الحالي.';

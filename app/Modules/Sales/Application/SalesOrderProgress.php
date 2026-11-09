@@ -3,6 +3,7 @@
 namespace App\Modules\Sales\Application;
 
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\Sales\Domain\SalesOrder;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -41,6 +42,8 @@ final class SalesOrderProgress
         $reservation = $lines === [] ? 'not_requested' : ($restricted ? 'restricted'
             : (bccomp($backorder, '0', 8) > 0 ? 'backorder' : ($delivery === 'fulfilled' ? 'fulfilled' : 'reserved')));
 
-        return ['reservation' => $reservation, 'delivery' => $delivery, 'invoicing' => 'not_requested', 'lines' => $lines];
+        $invoices = app(ReceivablesPayablesApi::class)->salesOrderInvoices($actor, (int) $order->branch_id, $order->lines()->pluck('id')->all());
+
+        return ['reservation' => $reservation, 'delivery' => $delivery, 'invoicing' => $invoices['state'], 'invoices' => $invoices['invoices'], 'lines' => $lines];
     }
 }

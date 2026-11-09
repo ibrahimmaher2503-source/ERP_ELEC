@@ -1,0 +1,671 @@
+[
+  {
+    "route": "sales-orders.index",
+    "viewport": 768,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_salesord_768"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      },
+      {
+        "name": "mobile-date-sort-action-available",
+        "result": "pass",
+        "details": {
+          "button": "ترتيب حسب تاريخ الأمر",
+          "response_path": "/livewire-0b809833/update",
+          "before_first": "لا توجد أوامر بيع\n\nغيّر معايير البحث أو راجع نطاق الفرع المصرح به.\n\nإنشاء أمر بيع",
+          "after_first": "مسودة c8daf9ca\nفرع طنطا - الغربية\nشركة الأمان للإنارة الحديثة - السادس من أكتوبر 3\nطلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا\n2026/10/31\n2026/11/13\nمسودة\nلم يطلب حجز\nلم يبدأ التسليم\nلم تطلب فوترة\n85711.6 ج.م\nمستخدم #1",
+          "rows": 10
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": 768,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_purchasi_768"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "inventory.dashboard",
+    "viewport": 768,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث في المخزون",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_inventor_768"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "financial.aging",
+    "viewport": 768,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "بحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_financia_768"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "sales-orders.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_salesord_390"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      },
+      {
+        "name": "mobile-date-sort-action-available",
+        "result": "pass",
+        "details": {
+          "button": "ترتيب حسب تاريخ الأمر",
+          "response_path": "/livewire-0b809833/update",
+          "before_first": "مسودة c8daf9ca\nفرع طنطا - الغربية\nشركة الأمان للإنارة الحديثة - السادس من أكتوبر 3\nطلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا\n2026/10/31\n2026/11/13\nمسودة\nلم يطلب حجز\nلم يبدأ التسليم\nلم تطلب فوترة\n85711.6 ج.م\nمستخدم #1",
+          "after_first": "مسودة c8daf9ca\nفرع طنطا - الغربية\nشركة الأمان للإنارة الحديثة - السادس من أكتوبر 3\nطلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا\n2026/10/31\n2026/11/13\nمسودة\nلم يطلب حجز\nلم يبدأ التسليم\nلم تطلب فوترة\n85711.6 ج.م\nمستخدم #1",
+          "rows": 10
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_purchasi_390"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "inventory.dashboard",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث في المخزون",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_inventor_390"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "financial.aging",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "بحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_financia_390"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "sales-orders.index",
+    "viewport": 360,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_salesord_360"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      },
+      {
+        "name": "mobile-date-sort-action-available",
+        "result": "pass",
+        "details": {
+          "button": "ترتيب حسب تاريخ الأمر",
+          "response_path": "/livewire-0b809833/update",
+          "before_first": "مسودة c8daf9ca\nفرع طنطا - الغربية\nشركة الأمان للإنارة الحديثة - السادس من أكتوبر 3\nطلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا\n2026/10/31\n2026/11/13\nمسودة\nلم يطلب حجز\nلم يبدأ التسليم\nلم تطلب فوترة\n85711.6 ج.م\nمستخدم #1",
+          "after_first": "مسودة c8daf9ca\nفرع طنطا - الغربية\nشركة الأمان للإنارة الحديثة - السادس من أكتوبر 3\nطلب مباشر تجريبي - كهرباء مجمع تجاري - طنطا\n2026/10/31\n2026/11/13\nمسودة\nلم يطلب حجز\nلم يبدأ التسليم\nلم تطلب فوترة\n85711.6 ج.م\nمستخدم #1",
+          "rows": 10
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "purchasing.orders.index",
+    "viewport": 360,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_purchasi_360"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "inventory.dashboard",
+    "viewport": 360,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "البحث في المخزون",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_inventor_360"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  },
+  {
+    "route": "financial.aging",
+    "viewport": 360,
+    "checks": [
+      {
+        "name": "mobile-filters-start-collapsed",
+        "result": "pass",
+        "details": "false"
+      },
+      {
+        "name": "search-visible-before-expanding-filters",
+        "result": "pass",
+        "details": {
+          "label": "بحث",
+          "location": "outside-collapsed-body"
+        }
+      },
+      {
+        "name": "filter-value-survives-collapse-reopen",
+        "result": "pass",
+        "details": "NO_MATCH_QA_financia_360"
+      },
+      {
+        "name": "filter-reset-accepted",
+        "result": "pass",
+        "details": {
+          "path": "/livewire-0b809833/update",
+          "status": 200
+        }
+      }
+    ],
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      },
+      {
+        "method": "POST",
+        "path": "/livewire-0b809833/update"
+      }
+    ],
+    "livewire_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200,
+      "request_count": 1,
+      "component_ready": true
+    },
+    "reset_transition": {
+      "path": "/livewire-0b809833/update",
+      "status": 200
+    }
+  }
+]

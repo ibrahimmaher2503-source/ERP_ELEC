@@ -1,0 +1,13 @@
+{
+  "result": "FAIL",
+  "run_id": "F7B14E72A918",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 7 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue control was clicked; official-issued state did not appear"
+  ],
+  "failure": "Browser console/runtime errors: HTTP 500 http://127.0.0.1:8016/livewire-557588bd/update; Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+}

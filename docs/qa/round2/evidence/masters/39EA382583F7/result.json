@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "run_id": "39EA382583F7",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "M01 user: empty required account modal is rejected in the browser",
+    "M01 user: account provisioned without roles or automatic business grants (110)",
+    "M01 user: create, navigate away, reopen edit, save, reload, second edit and final save"
+  ],
+  "browser_errors": [],
+  "master_records": {
+    "user": {
+      "id": 110,
+      "email": "round2-managed-39ea382583f7@example.test",
+      "final_revision": "Managed user revision two 39EA382583F7"
+    }
+  },
+  "postgresql_verification": {
+    "persisted_name": "Managed user revision two 39EA382583F7"
+  },
+  "screenshots": [
+    "user-details-desktop.png"
+  ],
+  "note": "Synthetic test-database account created through the M01 UI. It has no roles or business grants; its random password stayed in process memory."
+}

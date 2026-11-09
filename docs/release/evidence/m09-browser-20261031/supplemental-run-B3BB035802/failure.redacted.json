@@ -1,0 +1,107 @@
+{
+  "message": "browser.newContext: Unknown permission: downloads",
+  "stack": [
+    "browser.newContext: Unknown permission: downloads",
+    "    at async main (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\supplemental-acceptance.cjs:152:19)"
+  ],
+  "last_request": "",
+  "last_response": "",
+  "readback": {
+    "database": "erp_elec_new_test",
+    "port": 55475,
+    "tender": {
+      "id": 1,
+      "number": "TN-2027-000001",
+      "status": "preparing_technical",
+      "version": 7,
+      "technical_id": null,
+      "financial_id": null
+    },
+    "handoff_count": 0,
+    "events": [
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 3,
+          "classification": "award"
+        }
+      },
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 2,
+          "classification": "submission"
+        }
+      },
+      {
+        "action": "document.uploaded",
+        "actor_id": 754,
+        "snapshot": {
+          "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77",
+          "document": 1,
+          "classification": "technical"
+        }
+      },
+      {
+        "action": "tender.preparing_technical",
+        "actor_id": 754,
+        "snapshot": {
+          "from": "under_review",
+          "reason": "Proceed with the documented technical offer preparation."
+        }
+      },
+      {
+        "action": "tender.under_review",
+        "actor_id": 754,
+        "snapshot": {
+          "from": "identified",
+          "reason": "Synthetic opening review recorded for acceptance."
+        }
+      },
+      {
+        "action": "tender.updated",
+        "actor_id": 754,
+        "snapshot": {
+          "title": "DEMO-EG-M07-1E5019CAD2 Distribution Panel Upgrade - Revised"
+        }
+      },
+      {
+        "action": "tender.created",
+        "actor_id": 754,
+        "snapshot": {
+          "number": "TN-2027-000001"
+        }
+      }
+    ],
+    "documents": [
+      {
+        "id": 1,
+        "title": "DEMO-EG Technical specification",
+        "classification": "technical",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 2,
+        "title": "DEMO-EG Physical submission receipt",
+        "classification": "submission",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 3,
+        "title": "DEMO-EG Award decision evidence",
+        "classification": "award",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      }
+    ],
+    "guarantees": [],
+    "ledger_counts": {
+      "inventory_movements": 84,
+      "accounting_journals": 137,
+      "treasury_movements": 9
+    }
+  }
+}

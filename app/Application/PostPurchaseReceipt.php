@@ -16,7 +16,7 @@ final class PostPurchaseReceipt
             if ($source['already_posted'] ?? false) {
                 return;
             }
-            abort_unless($source['receipt']['version'] === $version, 409, 'Receipt version changed.');
+            abort_unless($source['receipt']['version'] === $version, 409, 'تغير إصدار الاستلام. أعد تحميل الصفحة.');
             $stock = app(InventoryApi::class)->receivePurchase($actor, $receipt);
             $journal = app(AccountingApi::class)->postReceipt($actor, $receipt);
             app(PurchasingApi::class)->completeReceiptPosting($actor, $receipt, $version, $stock, $journal);

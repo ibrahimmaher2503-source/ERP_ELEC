@@ -1,0 +1,137 @@
+PASS Manual M10 grant works only in scoped branch A.
+PASS Manual branch-A grant cannot authorize branch B.
+PASS Manual M10/M06 grants do not imply M15 role capability.
+PASS Ordinary role can view its explicitly scoped branch A warehouse.
+PASS Ordinary role cannot view branch B warehouse.
+PASS Warehouse access rejects a mismatched branch and warehouse pair.
+PASS Actual Administrator membership inherits current M15 export capability.
+PASS Administrator branch authority still requires a branch scope.
+PASS Administrator warehouse access still requires a matching warehouse scope.
+PASS Disabled Administrator account receives no effective branch permission.
+PASS Real contract-create Action denies an out-of-scope branch.
+PASS Real contract-create Action denies a disabled Administrator account.
+PASS Denied contract Actions create no business records.
+PASS Real contract Action denies an existing object outside the actor branch scope.
+PASS Revoking the manual grant removes its permission on the next authorization snapshot.
+PASS Real contract-create Action denies after its manual grant is revoked.
+RESULT gate=6 scope=stateful-rbac result=PASS assertions=17 rollback_verified=yes evidence=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate6/rbac-stateful-20261101T150104Z-1e6f4e.json
+{
+    "all_pass": true,
+    "phase": "Gate 6 guarded stateful RBAC behavior",
+    "assertions": 17,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "users": 0,
+            "companies": 0,
+            "branches": 0,
+            "roles": 14,
+            "role_permissions": 311,
+            "user_roles": 0,
+            "user_branch_scopes": 0,
+            "user_warehouse_scopes": 0,
+            "access_grants": 0,
+            "permission_catalog": 311,
+            "inventory_warehouses": 0,
+            "customers": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "audit_entries": 0
+        },
+        "after_rollback": {
+            "users": 0,
+            "companies": 0,
+            "branches": 0,
+            "roles": 14,
+            "role_permissions": 311,
+            "user_roles": 0,
+            "user_branch_scopes": 0,
+            "user_warehouse_scopes": 0,
+            "access_grants": 0,
+            "permission_catalog": 311,
+            "inventory_warehouses": 0,
+            "customers": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Manual M10 grant works only in scoped branch A.",
+            "result": "PASS"
+        },
+        {
+            "name": "Manual branch-A grant cannot authorize branch B.",
+            "result": "PASS"
+        },
+        {
+            "name": "Manual M10/M06 grants do not imply M15 role capability.",
+            "result": "PASS"
+        },
+        {
+            "name": "Ordinary role can view its explicitly scoped branch A warehouse.",
+            "result": "PASS"
+        },
+        {
+            "name": "Ordinary role cannot view branch B warehouse.",
+            "result": "PASS"
+        },
+        {
+            "name": "Warehouse access rejects a mismatched branch and warehouse pair.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actual Administrator membership inherits current M15 export capability.",
+            "result": "PASS"
+        },
+        {
+            "name": "Administrator branch authority still requires a branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Administrator warehouse access still requires a matching warehouse scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Disabled Administrator account receives no effective branch permission.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies an out-of-scope branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies a disabled Administrator account.",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied contract Actions create no business records.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract Action denies an existing object outside the actor branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Revoking the manual grant removes its permission on the next authorization snapshot.",
+            "result": "PASS"
+        },
+        {
+            "name": "Real contract-create Action denies after its manual grant is revoked.",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic RBAC rows roll back and original database counts remain unchanged.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}

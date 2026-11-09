@@ -1,0 +1,26 @@
+﻿Phase 3 standalone regression checks
+Date: 2026-10-30 (Africa/Cairo)
+Environment: disposable PostgreSQL `erp_elec_new_test`, loopback port 55442; synthetic data only.
+
+PASS `php -d opcache.enable_cli=0 .tools/check-m05-m06-roundtrip.php` — Purchasing/Inventory lifecycle round trips; transaction rollback marker observed.
+PASS `php -d opcache.enable_cli=0 .tools/check-m06-inventory.php` — M06 permissions, demo factory, reservation/ledger/FIFO, receipt/transfer/count/adjustment flows; transaction rollback marker observed.
+PASS `php -d opcache.enable_cli=0 -d memory_limit=768M tests/Support/check-phase0-valued-inventory.php` — `all_pass=true`; exact FIFO/GL and official document flows, rollback evidence included.
+PASS `php -d opcache.enable_cli=0 -d memory_limit=768M tests/Support/check-phase1-financial-journeys.php` — `all_pass=true`; AP/AR, settlement, credits, reconciliation and official PDF integrity. A second explicit run committed only synthetic worker fixtures in the disposable 55442 DB to enable concurrency acceptance; its receipt is `phase3-financial-journeys-regression.json`.
+PASS `php -d opcache.enable_cli=0 tests/Support/check-phase1-financial-concurrency.php` with `PHASE1_REUSE_COMMITTED_FIXTURES=1` — `all_pass=true`; duplicate posting idempotency, simultaneous official numbering, credits, period-close race and injected posting rollback. Receipt `phase3-financial-concurrency-regression.json`.
+PASS `php -d opcache.enable_cli=0 tests/Support/check-phase1-journal-reversal.php` — `all_pass=true`; reversal retry, immutability, source-denial and balanced journal. Receipt `phase3-journal-reversal-regression.json`.
+PASS `php -d opcache.enable_cli=0 tests/Support/check-phase2-projects.php` — `RESULT all_pass=true assertions=36`; M07 lifecycle, budget, tasks, history, closure and UTC persistence.
+PASS `.tools/check-egypt-market-demo.php` — 21 assertions including complete synthetic FieldMaintenance audit-event accounting and visit identity.
+PASS `.tools/check-sales-order-factories.php` — 4 assertions after implementing the updated CustomersApi test-double contract.
+
+Known isolated-state preconditions (not product assertion failures):
+- `tests/Support/check-phase1-supplier-invoice.php` and `tests/Support/check-phase2-projects-financial.php` were invoked after Phase 1 journey/concurrency acceptance had committed the synthetic financial activation in 55442. Both safely refused to overwrite that activation state. They require a fresh isolated DB; historical passing receipts remain in phase2 evidence.
+- Initial invocation of the journal reversal check correctly refused to run before committed concurrency fixtures existed; it passed after the synthetic fixtures were prepared.
+
+Test-only portability updates retain exact database/loopback validation while allowing disposable port 55442 in the M07 focused, Phase 1 concurrency, journal reversal and concurrency worker guards. No app code or business assertions were changed by these updates.
+
+Fresh baseline follow-up (disposable PostgreSQL loopback port 55443): source-test.dump was restored to a preserved database, but inspection showed it contained an existing activated accounting setup and 33 journals. To preserve that snapshot, a separate new `erp_elec_new_test` was migrated through 187 and used for these clean checks:
+PASS `tests/Support/check-phase1-supplier-invoice.php` — `all_pass=true`; 3 supplier invoice PDFs verified by SHA-256; close-period rejection created no partial posting.
+PASS `tests/Support/check-phase2-projects-financial.php` — `all_pass=true`; six reconciliation checks; project fixture `committed=false`.
+After both checks, the clean database remained unactivated with zero journals, maintenance requests, and companies. Receipts: `phase3-supplier-invoice-fresh-regression.json` and `phase3-projects-financial-fresh-regression.json`.
+PASS Full `php artisan test --env=testing` against the 55443 database at schema 187 — 41 passed, 106 assertions, 40.56 seconds. Receipt: `phase3-laravel-schema187-regression.txt`.
+PASS PostgreSQL backup/restore acceptance: 45 owner-table row fingerprints and 212 official PDF hashes matched between 55441 and restored 55444; source remained unchanged. See `phase3-backup-restore-regression.txt` and the paired JSON receipts.

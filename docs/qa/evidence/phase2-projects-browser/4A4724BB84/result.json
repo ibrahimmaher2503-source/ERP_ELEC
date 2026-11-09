@@ -1,0 +1,94 @@
+{
+  "result": "FAIL",
+  "run_id": "4A4724BB84",
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('المتاح:') to be visible\u001b[22m\n",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 7,
+      "code": "PB2-4A4724BB84",
+      "saved_name": "اختبار مشروع المتصفح 4A4724BB84 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 7
+    },
+    {
+      "independent_budget_approval": "passed",
+      "project_id": 7,
+      "reviewer_id": 2,
+      "baseline_visible": true,
+      "database_probe_exit": 0
+    },
+    {
+      "independent_budget_gated_planned_and_active_lifecycle": "passed",
+      "project_id": 7
+    }
+  ],
+  "browser_errors": [
+    "Cannot read properties of null (reading 'before')"
+  ],
+  "livewire_traffic": [
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "method": "POST"
+    }
+  ]
+}

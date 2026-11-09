@@ -1,0 +1,156 @@
+PASS M04 Sales Order permissions are registered
+PASS Administrator role exists
+PASS Administrator permission synchronization restores every registered Sales Order permission
+PASS A configured exception-responsible role is available from M01 security roles
+PASS Administrator receives registered Sales Order capability but branch scope is still required
+PASS Administrator branch actions remain limited to the explicitly scoped branch
+PASS M01-managed dynamic approval permission authorizes a role within its explicit branch scope
+PASS Direct Sales Order grants remain limited to their assigned branch
+PASS OrganizationApi returns only explicitly granted Sales Order branches
+PASS M01-managed dynamic approval permission authorizes a different actor for a branch-scoped order
+PASS Exception decision fails closed until a responsible role is configured
+PASS Exception decision fails closed until a responsible role is configured reports policy
+PASS Exception decision fails closed until a responsible role is configured explains حدد دور مسؤول الاستثناءات
+PASS Security settings persist one versioned exception-responsible role without approval limits
+PASS Selecting a responsible role grants no Sales Order permission by itself
+PASS Stale exception-settings version is rejected
+PASS Stale exception-settings version is rejected reports policy
+PASS Stale settings save preserves the configured responsible role and version
+PASS Exception permission alone cannot bypass the configured responsible role
+PASS Order requester cannot approve their own Sales Order
+PASS Sales Order product changes resolve full catalog records outside productSearch, refresh unit/name/SKU, and clear stale requested price
+PASS Sales Order draft save normalizes the empty Livewire delivery-date value to PostgreSQL NULL
+PASS Direct save persists a branch/customer snapshot as an unnumbered direct draft
+PASS Sales Order route sales-orders.index is registered at its expected URI
+PASS Sales Order route sales-orders.create is registered at its expected URI
+PASS Sales Order route sales-orders.policy is registered at its expected URI
+PASS Sales Order route sales-orders.edit is registered at its expected URI
+PASS Sales Order route sales-orders.screen is registered at its expected URI
+PASS Sales Order route sales-orders.show is registered at its expected URI
+PASS Sales Order route sales-returns.index is registered at its expected URI
+PASS Authorized Livewire route /sales-orders renders its expected screen content
+PASS Authorized Livewire route /sales-orders/create renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/edit renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7 renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/review renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/amendment renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/delivery renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/invoices renders its expected screen content
+PASS Authorized Livewire route /sales-orders/7/closure renders its expected screen content
+PASS Sales Returns remains unavailable behind its current route gate
+PASS M01 security administrator can render exception settings without invented approval limits
+PASS A repeated actor-scoped creation key returns the original draft without duplicating rows
+PASS Draft quantity and proposed price persist exactly while client-supplied price source and snapshots are ignored
+PASS Server recalculates exact unrounded draft amounts without inventing tax or an official total
+PASS Quotation source is rejected while no accepted issued revision contract exists
+PASS Quotation source is rejected while no accepted issued revision contract exists reports source_type
+PASS Rejected quotation conversion creates no Sales Order or line allocation
+PASS List queries enforce branch scope even when a different branch filter or record ID is supplied
+PASS Creating in an ungranted branch is denied
+PASS Moving an editable draft to an ungranted branch is denied
+PASS Editing another branch draft is denied
+PASS Denied branch moves preserve the original branch, version, and draft
+PASS Historical order remains visible on an inactive but still authorized branch
+PASS Inactive authorized branch is excluded from create choices
+PASS Creating new orders in an inactive branch is rejected
+PASS Creating new orders in an inactive branch is rejected reports branch_id
+PASS Submitting a historical draft in an inactive branch is rejected
+PASS Submitting a historical draft in an inactive branch is rejected reports order
+PASS Inactive-branch create/submit denials preserve the historical draft
+PASS A current-version draft edit advances exactly one version
+PASS Stale concurrent draft edit is rejected
+PASS Stale concurrent draft edit is rejected reports order
+PASS A stale edit leaves current draft data unchanged
+PASS Future draft version is rejected
+PASS Future draft version is rejected reports order
+PASS Version mismatch does not alter the persisted order
+PASS Database requires an independent review and real Inventory commitments before an order can become approved
+PASS The database rejects an approved order without independent review and Inventory commitments
+PASS A direct draft has one independent-review prerequisite before approval readiness
+PASS An authorized M01 approver cannot approve a direct draft before an independent review exists
+PASS An authorized M01 approver cannot approve a direct draft before an independent review exists reports readiness
+PASS approve readiness identifies its actual unavailable business dependency
+PASS approve is blocked despite explicit permission grants
+PASS approve is blocked despite explicit permission grants reports readiness
+PASS approve is blocked despite explicit permission grants explains مراجعة مستقل
+PASS approve denial leaves the order unchanged
+PASS amend readiness identifies its actual unavailable business dependency
+PASS amend is blocked despite explicit permission grants
+PASS amend is blocked despite explicit permission grants reports readiness
+PASS amend is blocked despite explicit permission grants explains معتمدة
+PASS amend denial leaves the order unchanged
+PASS delivery_create readiness identifies its actual unavailable business dependency
+PASS delivery_create is blocked despite explicit permission grants
+PASS delivery_create is blocked despite explicit permission grants reports readiness
+PASS delivery_create is blocked despite explicit permission grants explains غير معتمد
+PASS delivery_create denial leaves the order unchanged
+PASS delivery_confirm readiness identifies its actual unavailable business dependency
+PASS delivery_confirm is blocked despite explicit permission grants
+PASS delivery_confirm is blocked despite explicit permission grants reports readiness
+PASS delivery_confirm is blocked despite explicit permission grants explains غير معتمد
+PASS delivery_confirm denial leaves the order unchanged
+PASS invoice_view readiness identifies its actual unavailable business dependency
+PASS invoice_view is blocked despite explicit permission grants
+PASS invoice_view is blocked despite explicit permission grants reports readiness
+PASS invoice_view is blocked despite explicit permission grants explains فاتورة
+PASS invoice_view denial leaves the order unchanged
+PASS close readiness identifies its actual unavailable business dependency
+PASS close is blocked despite explicit permission grants
+PASS close is blocked despite explicit permission grants reports readiness
+PASS close is blocked despite explicit permission grants explains فواتير
+PASS close denial leaves the order unchanged
+PASS return_create readiness identifies its actual unavailable business dependency
+PASS return_create is blocked despite explicit permission grants
+PASS return_create is blocked despite explicit permission grants reports readiness
+PASS return_create is blocked despite explicit permission grants explains مرتجع
+PASS return_create denial leaves the order unchanged
+PASS convert readiness identifies its actual unavailable business dependency
+PASS convert is blocked despite explicit permission grants
+PASS convert is blocked despite explicit permission grants reports readiness
+PASS convert is blocked despite explicit permission grants explains المقبول
+PASS convert denial leaves the order unchanged
+PASS Sales Order export is written through WorkbookCodec to its private temporary folder
+PASS WorkbookCodec export contains only authorized branch rows and labels values as unrounded proposals
+PASS Single-order export cannot cross the actor branch scope
+PASS Draft creation writes an attributed append-only Sales audit event
+PASS Audit snapshot records server-resolved commercial data and excludes forged or credential fields
+PASS Sales audit entries reject updates at the database boundary
+PASS Sales audit entries reject deletion at the database boundary
+PASS Rejected audit mutations preserve the original event
+PASS Sales Order history reader is bound
+PASS Authorized history reader returns the persisted Sales Order audit event
+PASS Submission records the pending review against the exact new order version
+PASS Submission stores the complete immutable review snapshot
+PASS Review content hash matches the submitted snapshot
+PASS Database rejects mutation of a pending review snapshot
+PASS Database rejects deletion of pending review history
+PASS Rejected pending-review database probes preserve snapshot and hash
+PASS Review audit states that submission requested review and did not reserve inventory
+PASS Stale review action is rejected
+PASS Stale review action is rejected reports order
+PASS Generic save cannot modify a pending-review snapshot
+PASS Generic save cannot modify a pending-review snapshot reports order
+PASS Stale action and generic edit preserve the pending review
+PASS Requester withdrawal closes only its pending review and returns the order to draft
+PASS A decision against content changed after review submission is rejected
+PASS A decision against content changed after review submission is rejected reports order
+PASS Rejected stale-content decision preserves the pending review and original line quantity
+PASS Review creator cannot reject their own request
+PASS Review creator cannot reject their own request reports order
+PASS Self-rejection leaves the review and order pending
+PASS A separately authorized reviewer can reject with an attributable reason and preserve the draft
+PASS Database rejects status changes to completed review history
+PASS Database rejects deletion of completed review history
+PASS Rejected completed-review database probes preserve the decision and snapshot hash
+PASS Pending cancellation preserves line quantities and closes review as withdrawn without operational release
+PASS Cancelled order remains blocked from approval
+PASS Cancelled order remains blocked from approval reports readiness
+PASS Blocked downstream operations create no approval or inventory records
+PASS Permission revocation takes effect immediately for draft edits
+PASS Revoked edit grant immediately blocks a write
+PASS Revoked edit attempt leaves the order unchanged
+PASS Permission revocation takes effect immediately for reads
+PASS Revoked view grant immediately blocks queries
+PASS Revoked view grant immediately blocks actions
+PASS Revoked read/action access cannot change order state
+Sales Order checks passed: direct drafts, exact recalculation, branch-scoped authorization/export, route and screen rendering, review lifecycle, cancellation, audit integrity, Administrator scope enforcement, and fail-closed downstream readiness.

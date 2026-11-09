@@ -22,7 +22,7 @@
 
     <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_17rem]">
         <x-ui.panel class="!p-0 overflow-hidden">
-            <x-ui.filters class="p-5 !mb-0 border-b border-[#E5E8EE]" id="product-filters" target="search,brandFilter,statusFilter,typeFilter,unitFilter,categoryFilter" :reset="['search' => '', 'brandFilter' => '', 'statusFilter' => '', 'typeFilter' => '', 'unitFilter' => '', 'categoryFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن صنف" placeholder="الاسم أو SKU أو الباركود..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <x-ui.filters class="p-5 !mb-0 border-b border-[#E5E8EE]" id="product-filters" target="search,brandFilter,statusFilter,typeFilter,unitFilter,categoryFilter" :reset="['search' => '', 'brandFilter' => '', 'statusFilter' => '', 'typeFilter' => '', 'unitFilter' => '', 'categoryFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن صنف" placeholder="الاسم أو رمز الصنف أو الباركود..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 
                     <flux:select wire:model.live="brandFilter" label="العلامة التجارية">
                         <option value="">كل العلامات التجارية</option>
@@ -51,7 +51,7 @@
                         @php($visiblePartiallySelected = $visibleSelectedCount > 0 && ! $visibleSelected)
 <div class="erp-mobile-table-tools"><button type="button" role="checkbox" aria-label="تحديد الأصناف الظاهرة" aria-checked="{{ $visibleSelected ? 'true' : ($visiblePartiallySelected ? 'mixed' : 'false') }}" @disabled($products->count() === 0) wire:click="selectVisible" class="inline-flex size-6 items-center justify-center rounded border border-slate-300 bg-white text-white transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50 {{ $visibleSelected ? 'border-blue-600 bg-blue-600' : '' }}">
                                     @if ($visibleSelected)<flux:icon name="check" class="size-4" aria-hidden="true" />@elseif ($visiblePartiallySelected)<span aria-hidden="true" class="h-0.5 w-3 rounded bg-blue-600"></span>@endif
-                                </button><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">SKU</button></div><x-ui.responsive-table class="erp-catalog-records" label="السجلات المعروضة"><table role="table" class="w-full min-w-[1100px] text-start text-sm">
+                                </button><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">رمز الصنف</button></div><x-ui.responsive-table class="erp-catalog-records" label="السجلات المعروضة"><table role="table" class="w-full min-w-[1100px] text-start text-sm">
                     <thead role="rowgroup" class="bg-slate-50 text-slate-500">                        <tr role="row">
                             <th role="columnheader" class="p-4 text-start">
                                 <span class="erp-mobile-column-label">التحديد</span><button type="button" role="checkbox" aria-label="تحديد الأصناف الظاهرة" aria-checked="{{ $visibleSelected ? 'true' : ($visiblePartiallySelected ? 'mixed' : 'false') }}" @disabled($products->count() === 0) wire:click="selectVisible" class="inline-flex size-6 items-center justify-center rounded border border-slate-300 bg-white text-white transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-50 {{ $visibleSelected ? 'border-blue-600 bg-blue-600' : '' }}">
@@ -60,7 +60,7 @@
                             </th>
                             <th role="columnheader" class="p-4 text-start">#</th>
                             <th role="columnheader" class="p-4 text-start"><span class="erp-mobile-column-label">الصنف</span><button type="button" wire:click="sortBy('name')" class="font-semibold hover:text-slate-900">الصنف</button></th>
-                            <th role="columnheader" class="p-4 text-start"><span class="erp-mobile-column-label">SKU</span><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">SKU</button></th>
+                            <th role="columnheader" class="p-4 text-start"><span class="erp-mobile-column-label">رمز الصنف</span><button type="button" wire:click="sortBy('sku')" class="font-semibold hover:text-slate-900">رمز الصنف</button></th>
                             <th role="columnheader" class="p-4 text-start">الباركود</th>
                             <th role="columnheader" class="p-4 text-start">التصنيف</th>
                             <th role="columnheader" class="p-4 text-start">العلامة التجارية</th>
@@ -86,7 +86,7 @@
                                         <span class="min-w-0"><span class="block truncate">{{ $product->name }}</span><span class="mt-1 block text-xs font-normal text-slate-500">{{ $product->short_description ?: '—' }}</span></span>
                                     </a>
                                 </div></td>
-                                <td role="cell" data-label="SKU" class="p-4"><div><bdi class="font-medium">{{ $product->sku }}</bdi></div></td>
+                                <td role="cell" data-label="رمز الصنف" class="p-4"><div><bdi class="font-medium">{{ $product->sku }}</bdi></div></td>
                                 <td role="cell" data-label="الباركود" class="p-4"><div><bdi>{{ $product->barcode ?: '—' }}</bdi></div></td>
                                 <td role="cell" data-label="التصنيف" class="p-4"><div>{{ $product->category?->name ?: '—' }}</div></td>
                                 <td role="cell" data-label="العلامة التجارية" class="p-4"><div>{{ $product->brand?->name ?: '—' }}</div></td>

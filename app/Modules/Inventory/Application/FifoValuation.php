@@ -19,7 +19,7 @@ final class FifoValuation
             'original_value' => $amount, 'remaining_value' => $amount, 'unit_cost' => $unitCost ?? bcdiv($amount, $m->quantity, 16), 'created_at' => now()]);
     }
 
-    /** Used only by an authorized owner transaction with its matching GL effect. */
+    /** Used only by an authorized owner transaction with its matching الأستاذ العام effect. */
     public function consume(int $movement, ?int $onlyLayer = null): array
     {
         abort_unless(DB::transactionLevel() > 0, 500);
@@ -32,7 +32,7 @@ final class FifoValuation
         $layers = DB::table('inventory_fifo_layers')->where('warehouse_id', $m->warehouse_id)->where('product_id', $m->product_id)->where('received_on', '<=', $date)->where('remaining_quantity', '>', '0')
             ->when($onlyLayer !== null, fn ($q) => $q->where('id', $onlyLayer))->orderBy('received_on')->orderBy('id')->lockForUpdate()->get();
         if (DB::table('inventory_fifo_allocations')->where('movement_id', $movement)->exists()) {
-            InventoryActions::fail('FIFO allocation already exists for this movement.');
+            InventoryActions::fail('الصرف من الأقدم أولًا allocation already exists for this movement.');
         }
         foreach ($layers as $layer) {
             if (bccomp($left, '0', 8) === 0) {
@@ -52,7 +52,7 @@ final class FifoValuation
             $rawTotal = bcadd($rawTotal, $raw, 16);
         }
         if (bccomp($left, '0', 8) !== 0) {
-            InventoryActions::fail('طبقات FIFO لا تكفي. لن يتم إنشاء تكلفة أو مخزون بديل.');
+            InventoryActions::fail('طبقات الصرف من الأقدم أولًا لا تكفي. لن يتم إنشاء تكلفة أو مخزون بديل.');
         }
 
         return ['amount' => $total, 'raw_value' => $rawTotal];

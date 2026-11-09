@@ -1,0 +1,106 @@
+[
+  {
+    "route": "sales-orders.index",
+    "checks": [
+      {
+        "name": "primary-button-uses-accent-token",
+        "result": "pass",
+        "details": {
+          "accent_token_computed": "rgb(37, 99, 235)",
+          "accent_is_blue": true,
+          "primary_button_bg": "rgb(37, 99, 235)",
+          "primary_button_class": "relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-3 pe-4 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--color-accent-foreground)] border border-black/10 dark:border-0 shadow-[inset_0px_1px_--theme(--color-white/.2)] [[data-flux-button-group]_&]:border-e-0 [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-[1px] dark:[:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-0 [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[1px]! [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[color-mix(in_srgb,var(--color-accent-foreground),transparent_85%)]",
+          "selected_tab": null,
+          "tab_box": null,
+          "duplicate_stat_labels": [],
+          "viewport": 390
+        }
+      },
+      {
+        "name": "sales-stat-labels-not-duplicated",
+        "result": "pass",
+        "details": []
+      }
+    ]
+  },
+  {
+    "route": "financial.aging",
+    "checks": [
+      {
+        "name": "primary-button-uses-accent-token",
+        "result": "pass",
+        "details": {
+          "accent_token_computed": "rgb(37, 99, 235)",
+          "accent_is_blue": true,
+          "primary_button_bg": "rgb(37, 99, 235)",
+          "primary_button_class": "relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-8 text-sm rounded-md gap-2 ps-3 pe-3 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--color-accent-foreground)] border border-black/10 dark:border-0 shadow-[inset_0px_1px_--theme(--color-white/.2)] [[data-flux-button-group]_&]:border-e-0 [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-[1px] dark:[:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-0 [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[1px]! [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[color-mix(in_srgb,var(--color-accent-foreground),transparent_85%)]",
+          "selected_tab": {
+            "text": "الأعمار والتخصيصات",
+            "color": "rgb(255, 255, 255)"
+          },
+          "tab_box": {
+            "x": 15.75,
+            "right": 155.171875,
+            "width": 139.421875
+          },
+          "duplicate_stat_labels": [],
+          "viewport": 390
+        }
+      },
+      {
+        "name": "selected-tab-visible",
+        "result": "pass",
+        "details": {
+          "accent_token_computed": "rgb(37, 99, 235)",
+          "accent_is_blue": true,
+          "primary_button_bg": "rgb(37, 99, 235)",
+          "primary_button_class": "relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-8 text-sm rounded-md gap-2 ps-3 pe-3 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--color-accent-foreground)] border border-black/10 dark:border-0 shadow-[inset_0px_1px_--theme(--color-white/.2)] [[data-flux-button-group]_&]:border-e-0 [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-[1px] dark:[:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-0 [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[1px]! [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[color-mix(in_srgb,var(--color-accent-foreground),transparent_85%)]",
+          "selected_tab": {
+            "text": "الأعمار والتخصيصات",
+            "color": "rgb(255, 255, 255)"
+          },
+          "tab_box": {
+            "x": 15.75,
+            "right": 155.171875,
+            "width": 139.421875
+          },
+          "duplicate_stat_labels": [],
+          "viewport": 390
+        }
+      }
+    ]
+  },
+  {
+    "route": "suppliers.index",
+    "checks": [
+      {
+        "name": "primary-button-uses-accent-token",
+        "result": "pass",
+        "details": {
+          "accent_token_computed": "rgb(37, 99, 235)",
+          "accent_is_blue": true,
+          "primary_button_bg": "rgb(37, 99, 235)",
+          "primary_button_class": "relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-3 pe-4 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--color-accent-foreground)] border border-black/10 dark:border-0 shadow-[inset_0px_1px_--theme(--color-white/.2)] [[data-flux-button-group]_&]:border-e-0 [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-[1px] dark:[:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-0 [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[1px]! [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[color-mix(in_srgb,var(--color-accent-foreground),transparent_85%)]",
+          "selected_tab": null,
+          "tab_box": null,
+          "duplicate_stat_labels": [],
+          "viewport": 390
+        }
+      },
+      {
+        "name": "party-primary-action-is-blue",
+        "result": "pass",
+        "details": {
+          "accent_token_computed": "rgb(37, 99, 235)",
+          "accent_is_blue": true,
+          "primary_button_bg": "rgb(37, 99, 235)",
+          "primary_button_class": "relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-3 pe-4 inline-flex  bg-[var(--color-accent)] hover:bg-[color-mix(in_oklab,_var(--color-accent),_transparent_10%)] text-[var(--color-accent-foreground)] border border-black/10 dark:border-0 shadow-[inset_0px_1px_--theme(--color-white/.2)] [[data-flux-button-group]_&]:border-e-0 [:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-[1px] dark:[:is([data-flux-button-group]>&:last-child,_[data-flux-button-group]_:last-child>&)]:border-e-0 [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[1px]! [:is([data-flux-button-group]>&:not(:first-child),_[data-flux-button-group]_:not(:first-child)>&)]:border-s-[color-mix(in_srgb,var(--color-accent-foreground),transparent_85%)]",
+          "selected_tab": null,
+          "tab_box": null,
+          "duplicate_stat_labels": [],
+          "viewport": 390
+        }
+      }
+    ]
+  }
+]

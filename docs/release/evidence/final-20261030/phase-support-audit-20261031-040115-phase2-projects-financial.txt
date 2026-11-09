@@ -1,0 +1,11 @@
+﻿
+In phase2-projects-financial.php line 845:
+                                                                                   
+  PHASE2_EVIDENCE_PATH must stay under docs/qa/evidence/phase2-projects-browser/.  
+                                                                                   
+
+In phase2-projects-financial.php line 160:
+                                                                                   
+  Refusing to replace an existing activation state in the isolated test database.  
+                                                                                   
+

@@ -1,0 +1,105 @@
+{
+    "all_pass": true,
+    "mode": "m10-m17-official-documents",
+    "assertions": 9,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_official_documents": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "service_contract_activities": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 1,
+            "users": 4,
+            "customers": 1,
+            "products": 1,
+            "organization_employees": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 2,
+            "service_contract_official_documents": 2,
+            "system_official_documents": 2,
+            "system_official_sequences": 1,
+            "service_contract_activities": 14,
+            "access_grants": 17,
+            "user_branch_scopes": 3,
+            "audit_entries": 14
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_official_documents": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "service_contract_activities": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M17 issuance fixture reaches an active M10 revision through independent approval and private signature actions",
+            "result": "PASS"
+        },
+        {
+            "name": "M17 official PDF is issued only for the exact active contract revision with persisted integrity metadata",
+            "result": "PASS"
+        },
+        {
+            "name": "M17 issuance retry returns the same immutable document and does not duplicate its revision link",
+            "result": "PASS"
+        },
+        {
+            "name": "M10.document_issue permission is required independently of contract view",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied official issuance creates no M17 document or service-contract revision link",
+            "result": "PASS"
+        },
+        {
+            "name": "M17 refuses official issuance while current revision is an unsigned draft",
+            "result": "PASS"
+        },
+        {
+            "name": "M17 preserves the issued PDF link to its old exact revision and creates nothing for a draft amendment",
+            "result": "PASS"
+        },
+        {
+            "name": "M17 issues amendment as a new document bound to revision 2 while retaining revision 1 evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic source fixtures and official issuance rows roll back; private scratch is removed.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}

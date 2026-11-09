@@ -1,0 +1,84 @@
+[
+  {
+    "viewport": {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900
+    },
+    "checks": [
+      {
+        "name": "navigation-search-filters-authorized-links",
+        "result": "pass",
+        "details": [
+          "لوحة المخزون"
+        ]
+      },
+      {
+        "name": "navigation-search-escape-resets",
+        "result": "pass",
+        "details": null
+      },
+      {
+        "name": "keyboard-focus-indicator",
+        "result": "pass",
+        "details": {
+          "focused": true,
+          "outline": "solid",
+          "border": "rgb(37, 99, 235)"
+        }
+      },
+      {
+        "name": "no-navigation-js-errors",
+        "result": "pass",
+        "details": []
+      }
+    ],
+    "console_errors": []
+  },
+  {
+    "viewport": {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    "checks": [
+      {
+        "name": "mobile-drawer-opens",
+        "result": "pass",
+        "details": null
+      },
+      {
+        "name": "navigation-search-filters-authorized-links",
+        "result": "pass",
+        "details": [
+          "لوحة المخزون"
+        ]
+      },
+      {
+        "name": "navigation-search-escape-resets",
+        "result": "pass",
+        "details": null
+      },
+      {
+        "name": "keyboard-focus-indicator",
+        "result": "pass",
+        "details": {
+          "focused": true,
+          "outline": "solid",
+          "border": "rgb(37, 99, 235)"
+        }
+      },
+      {
+        "name": "mobile-drawer-closes",
+        "result": "pass",
+        "details": null
+      },
+      {
+        "name": "no-navigation-js-errors",
+        "result": "pass",
+        "details": []
+      }
+    ],
+    "console_errors": []
+  }
+]

@@ -13,7 +13,7 @@
         </x-ui.filters>
     </x-ui.panel>
     @if(in_array($screen,['ap','ar','aging'],true))
-        <div class="erp-kpi-summary grid grid-cols-2 gap-3"><x-erp.stat-card label="القيمة الأصلية" :value="$totals['original'].' EGP'" icon="document-text"/><x-erp.stat-card label="الرصيد المتبقي" :value="$totals['remaining'].' EGP'" icon="calculator"/></div>
+        <div class="erp-kpi-summary grid grid-cols-2 gap-3"><x-erp.stat-card label="القيمة الأصلية" :value="$totals['original'].' ج.م'" icon="document-text"/><x-erp.stat-card label="الرصيد المتبقي" :value="$totals['remaining'].' ج.م'" icon="calculator"/></div>
     @endif
     @if($screen==='supplier-invoices' && $access->branches(auth()->id(),'supplier_invoice_manage')!==[])
         <x-ui.panel><h2 class="mb-3 font-semibold">فاتورة مورد من استلام مرحّل</h2><p class="mb-4 text-sm text-slate-600">أدخل معرفات المصدر الظاهرة في أمر الشراء والاستلام. المطابقة والكمية والسعر والضريبة يعاد التحقق منها داخل M05 وM11.</p>
@@ -41,7 +41,7 @@
     <x-ui.panel>
         <div @class(['overflow-x-auto', 'financial-open-items-table'=>in_array($screen,['ap','ar','aging'],true)])><table>
             @if($screen==='supplier-invoices')
-                <thead><tr><th>رقم المورد</th><th>المورد</th><th>التاريخ</th><th>الاستحقاق</th><th>الإجمالي</th><th>GRNI</th><th>PPV</th><th>الحالة</th><th>الإجراء</th></tr></thead>
+                <thead><tr><th>رقم المورد</th><th>المورد</th><th>التاريخ</th><th>الاستحقاق</th><th>الإجمالي</th><th>استلامات بانتظار الفوترة</th><th>فروق سعر الشراء</th><th>الحالة</th><th>الإجراء</th></tr></thead>
                 <tbody>@forelse($rows as $row)<tr><td dir="ltr">{{ $row->supplier_invoice_number }}</td><td>{{ $row->supplier_name }}</td><td>{{ $row->invoice_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->total_amount }}</td><td>{{ $row->grni_amount }}</td><td>{{ $row->ppv_amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1">@if($row->status==='draft'&&$access->allows(auth()->id(),'supplier_invoice_manage',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'validate')" size="sm">تحقق</flux:button>@elseif($row->status==='validated')<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'match')" size="sm">مطابقة</flux:button>@elseif($row->status==='matched'&&$access->allows(auth()->id(),'supplier_invoice_post',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'approve')" size="sm">اعتماد</flux:button>@elseif($row->status==='approved'&&$access->allows(auth()->id(),'supplier_invoice_post',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'post')" wire:confirm="ترحيل الفاتورة وإنشاء AP وقيد رسمي؟" size="sm" variant="primary">ترحيل</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد فواتير موردين" description="تظهر هنا الفواتير المبنية على استلامات مخزون مرحّلة."/></td></tr>@endforelse</tbody>
             @elseif($screen==='customer-invoices')
                 <thead><tr><th>الرقم الرسمي</th><th>العميل</th><th>التاريخ</th><th>الاستحقاق</th><th>الصافي</th><th>الضريبة</th><th>الإجمالي</th><th>الحالة</th><th>الإجراء</th></tr></thead>

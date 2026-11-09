@@ -1,0 +1,9 @@
+{
+    "all_pass": false,
+    "database": "erp_elec_new_test",
+    "postgres_port": 49685,
+    "error_class": "Illuminate\\Database\\QueryException",
+    "error": "SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table \"branches\" violates foreign key constraint \"branches_company_id_foreign\"\nDETAIL:  Key (company_id)=(1) is not present in table \"companies\". (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_new_test, SQL: insert into \"branches\" (\"company_id\", \"code\", \"name\", \"address\", \"active\", \"version\", \"updated_at\", \"created_at\") values (1, DEMO-EG-M08F-4SOL2E, فرع مدينة نصر, 51 شارع مصطفى النحاس، مدينة نصر، القاهرة, 1, 1, 2027-10-31 10:00:00, 2027-10-31 10:00:00) returning \"id\")",
+    "assertions": [],
+    "fixture_committed": false
+}

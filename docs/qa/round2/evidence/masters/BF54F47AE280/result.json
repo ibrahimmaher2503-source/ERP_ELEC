@@ -1,0 +1,16 @@
+{
+  "result": "FAIL",
+  "run_id": "BF54F47AE280",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "M01 user: empty required account modal is rejected in the browser"
+  ],
+  "browser_errors": [],
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('tr').filter({ hasText: 'round2-managed-bf54f47ae280@example.test' }) to be visible\u001b[22m\n",
+  "screenshots": [
+    "failure-state.png"
+  ]
+}

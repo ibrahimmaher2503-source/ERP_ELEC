@@ -1,0 +1,100 @@
+PASS Omitting optional preventive terms preserves the existing contract snapshot and idempotent core replay
+RESULT gate=2 scope=m10-preventive result=FAIL assertions=2 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-preventive-schedule-20261101T151023Z-9844366d4bdc.json
+{
+    "all_pass": false,
+    "phase": "Gate2 M10 preventive-schedule guarded acceptance",
+    "assertions": 2,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_preventive_dispatches": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_activities": 0,
+            "maintenance_assignments": 0,
+            "maintenance_visits": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 5,
+            "customers": 1,
+            "products": 1,
+            "organization_employees": 1,
+            "service_contracts": 2,
+            "service_contract_revisions": 2,
+            "service_contract_documents": 0,
+            "service_contract_activities": 2,
+            "service_contract_work": 0,
+            "service_contract_preventive_dispatches": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_activities": 0,
+            "maintenance_assignments": 0,
+            "maintenance_visits": 0,
+            "access_grants": 32,
+            "user_branch_scopes": 4,
+            "user_roles": 0,
+            "audit_entries": 3
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_preventive_dispatches": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_activities": 0,
+            "maintenance_assignments": 0,
+            "maintenance_visits": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "private_storage_clean": true,
+    "checks": [
+        {
+            "name": "Omitting optional preventive terms preserves the existing contract snapshot and idempotent core replay",
+            "result": "PASS"
+        },
+        {
+            "name": "Signed-term draft persists the exact optional preventive schedule unchanged",
+            "result": "FAIL"
+        },
+        {
+            "name": "All preventive fixture rows and private signature files roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "FAIL Signed-term draft persists the exact optional preventive schedule unchanged"
+    }
+}

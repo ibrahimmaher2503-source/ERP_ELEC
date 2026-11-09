@@ -1,0 +1,104 @@
+{
+    "database": "erp_elec_gate1_race",
+    "postgres_port": 49685,
+    "rollback_only": true,
+    "result": "FAIL",
+    "assertions": 3,
+    "findings": [
+        {
+            "id": "FIN-P0-01",
+            "test_result": "PASS",
+            "expectation": "Period close requires report authority for every company branch and denial leaves accounting state unchanged.",
+            "denial_class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+            "http_status": 403,
+            "state_unchanged": true,
+            "before": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            },
+            "after": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            }
+        },
+        {
+            "id": "FIN-P0-02",
+            "test_result": "PASS",
+            "expectation": "Historical inventory GL and FIFO source values share the same inclusive cutoff.",
+            "cutoff": "2000-12-31",
+            "post_cutoff_source_activity_exists": true,
+            "inventory_reconciliation": {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        },
+        {
+            "id": "FIN-P0-03",
+            "test_result": "FAIL",
+            "expectation": "Manual journal creation rejects a mapped customer-advance control account before posting or source changes.",
+            "rejected_at_creation": false,
+            "no_posting_or_source_effects": true,
+            "before": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            },
+            "after": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            }
+        }
+    ]
+}
+FIN-P0 RESULT FAIL assertions=3
+{
+    "database": "erp_elec_gate1_race",
+    "postgres_port": 49685,
+    "all_pass": false,
+    "error_class": "RuntimeException",
+    "error": "FIN-P0 risk regression cases did not all pass: {\"result\":\"FAIL\",\"assertions\":3,\"findings\":[{\"id\":\"FIN-P0-01\",\"test_result\":\"PASS\",\"expectation\":\"Period close requires report authority for every company branch and denial leaves accounting state unchanged.\",\"denial_class\":\"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\HttpException\",\"http_status\":403,\"state_unchanged\":true,\"before\":{\"period_status\":\"open\",\"closures\":0,\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":111},\"after\":{\"period_status\":\"open\",\"closures\":0,\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":111}},{\"id\":\"FIN-P0-02\",\"test_result\":\"PASS\",\"expectation\":\"Historical inventory GL and FIFO source values share the same inclusive cutoff.\",\"cutoff\":\"2000-12-31\",\"post_cutoff_source_activity_exists\":true,\"inventory_reconciliation\":{\"key\":\"inventory\",\"label\":\"\\u0627\\u0644\\u0645\\u062e\\u0632\\u0648\\u0646 \\u0627\\u0644\\u0639\\u0627\\u0645 \\u0645\\u0642\\u0627\\u0628\\u0644 \\u0637\\u0628\\u0642\\u0627\\u062a FIFO\",\"gl\":\"0.00\",\"source\":\"0.00\",\"difference\":\"0.00\",\"ok\":true}},{\"id\":\"FIN-P0-03\",\"test_result\":\"FAIL\",\"expectation\":\"Manual journal creation rejects a mapped customer-advance control account before posting or source changes.\",\"rejected_at_creation\":false,\"no_posting_or_source_effects\":true,\"before\":{\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":112},\"after\":{\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":112}}]}",
+    "trace": [
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\regression-copies\\check-phase1-financial-risk.php",
+            "line": 669,
+            "function": "{closure:C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\regression-copies\\check-phase1-financial-risk.php:96}",
+            "args": [
+                false,
+                "FIN-P0 risk regression cases did not all pass: {\"result\":\"FAIL\",\"assertions\":3,\"findings\":[{\"id\":\"FIN-P0-01\",\"test_result\":\"PASS\",\"expectation\":\"Period close requires report authority for every company branch and denial leaves accounting state unchanged.\",\"denial_class\":\"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\HttpException\",\"http_status\":403,\"state_unchanged\":true,\"before\":{\"period_status\":\"open\",\"closures\":0,\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":111},\"after\":{\"period_status\":\"open\",\"closures\":0,\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":111}},{\"id\":\"FIN-P0-02\",\"test_result\":\"PASS\",\"expectation\":\"Historical inventory GL and FIFO source values share the same inclusive cutoff.\",\"cutoff\":\"2000-12-31\",\"post_cutoff_source_activity_exists\":true,\"inventory_reconciliation\":{\"key\":\"inventory\",\"label\":\"\\u0627\\u0644\\u0645\\u062e\\u0632\\u0648\\u0646 \\u0627\\u0644\\u0639\\u0627\\u0645 \\u0645\\u0642\\u0627\\u0628\\u0644 \\u0637\\u0628\\u0642\\u0627\\u062a FIFO\",\"gl\":\"0.00\",\"source\":\"0.00\",\"difference\":\"0.00\",\"ok\":true}},{\"id\":\"FIN-P0-03\",\"test_result\":\"FAIL\",\"expectation\":\"Manual journal creation rejects a mapped customer-advance control account before posting or source changes.\",\"rejected_at_creation\":false,\"no_posting_or_source_effects\":true,\"before\":{\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":112},\"after\":{\"journals\":18,\"journal_lines\":47,\"customer_advances\":1,\"audit_entries\":112}}]}"
+            ]
+        }
+    ]
+}
+
+In check-phase1-financial-risk.php line 98:
+                                                                                                                       
+  FIN-P0 risk regression cases did not all pass: {"result":"FAIL","assertions":3,"findings":[{"id":"FIN-P0-01","test_  
+  result":"PASS","expectation":"Period close requires report authority for every company branch and denial leaves acc  
+  ounting state unchanged.","denial_class":"Symfony\\Component\\HttpKernel\\Exception\\HttpException","http_status":4  
+  03,"state_unchanged":true,"before":{"period_status":"open","closures":0,"journals":18,"journal_lines":47,"customer_  
+  advances":1,"audit_entries":111},"after":{"period_status":"open","closures":0,"journals":18,"journal_lines":47,"cus  
+  tomer_advances":1,"audit_entries":111}},{"id":"FIN-P0-02","test_result":"PASS","expectation":"Historical inventory   
+  GL and FIFO source values share the same inclusive cutoff.","cutoff":"2000-12-31","post_cutoff_source_activity_exis  
+  ts":true,"inventory_reconciliation":{"key":"inventory","label":"\u0627\u0644\u0645\u062e\u0632\u0648\u0646 \u0627\u  
+  0644\u0639\u0627\u0645 \u0645\u0642\u0627\u0628\u0644 \u0637\u0628\u0642\u0627\u062a FIFO","gl":"0.00","source":"0.  
+  00","difference":"0.00","ok":true}},{"id":"FIN-P0-03","test_result":"FAIL","expectation":"Manual journal creation r  
+  ejects a mapped customer-advance control account before posting or source changes.","rejected_at_creation":false,"n  
+  o_posting_or_source_effects":true,"before":{"journals":18,"journal_lines":47,"customer_advances":1,"audit_entries":  
+  112},"after":{"journals":18,"journal_lines":47,"customer_advances":1,"audit_entries":112}}]}                         
+                                                                                                                       
+

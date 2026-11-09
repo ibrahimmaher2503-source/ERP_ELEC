@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run_id": "D847EAB38FF0",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)"
+  ],
+  "failure": "Quotation draft did not save (current path /quotations/create; visible errors: \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n    )."
+}

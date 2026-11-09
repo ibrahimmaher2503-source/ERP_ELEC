@@ -1,0 +1,6 @@
+{
+  "check": "clean-migration",
+  "exit_code": 0,
+  "database": "erp_elec_new_test",
+  "port": "49683"
+}

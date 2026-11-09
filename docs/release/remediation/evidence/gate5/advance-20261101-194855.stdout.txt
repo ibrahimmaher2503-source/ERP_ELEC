@@ -1,0 +1,236 @@
+{
+    "all_pass": true,
+    "mode": "treasury-advance-lifecycle",
+    "phase": "source GL and subledger reconciliation",
+    "assertions": 24,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 6,
+            "customers": 1,
+            "products": 1,
+            "organization_employees": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 1,
+            "service_contract_documents": 1,
+            "service_contract_billing_sources": 1,
+            "service_contract_billing_allocations": 1,
+            "rp_customer_invoices": 1,
+            "rp_customer_invoice_lines": 1,
+            "rp_open_items": 1,
+            "rp_customer_advances": 1,
+            "rp_customer_advance_applications": 1,
+            "rp_customer_advance_application_lines": 1,
+            "rp_customer_advance_refunds": 1,
+            "treasury_accounts": 1,
+            "treasury_movements": 2,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 17,
+            "accounting_account_mappings": 17,
+            "accounting_tax_rules": 3,
+            "accounting_periods": 1,
+            "accounting_opening_batches": 1,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 4,
+            "accounting_journal_lines": 8,
+            "system_official_sequences": 4,
+            "system_official_documents": 7,
+            "access_grants": 79,
+            "user_branch_scopes": 5,
+            "audit_entries": 46
+        },
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Synthetic M11 uses real setup and independent no-opening approval inside rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "Later M12 invoice posts through a real M10 contract source.",
+            "result": "PASS"
+        },
+        {
+            "name": "A real Treasury collection creates the source-bound customer advance.",
+            "result": "PASS"
+        },
+        {
+            "name": "As-of history excludes sources dated after the requested cutoff.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same-payload advance application replay returns the original immutable application.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed application payload under the same key is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Application dated before its source collection is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Application above the remaining advance balance is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without M12 advance authority is denied.",
+            "result": "PASS"
+        },
+        {
+            "name": "M12 advance application cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Application conflicts, over-cap and authorization denials leave no partial journal or settlement state.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same-payload refund replay returns the original Treasury movement and journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed refund payload under the same key is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refund above the remaining advance balance is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without M13 advance-refund authority is denied.",
+            "result": "PASS"
+        },
+        {
+            "name": "M13 advance refund cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refund conflicts, over-cap and authorization denials leave no partial Treasury or journal state.",
+            "result": "PASS"
+        },
+        {
+            "name": "Collection source journal reconciles cash debit to customer-advance credit.",
+            "result": "PASS"
+        },
+        {
+            "name": "Application source journal releases the advance against receivables.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refund source journal reduces advance liability and cash.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated M12 controls reconcile net advance 15.00 and receivable 85.00 after the actual source chain.",
+            "result": "PASS"
+        },
+        {
+            "name": "Immutable lifecycle history preserves one application line and one partial refund.",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic customer, M10, M11, M12 and Treasury records, company profile and private scratch roll back.",
+            "result": "PASS"
+        },
+        {
+            "name": "Synthetic M11 activation and version roll back to the owned database state.",
+            "result": "PASS"
+        }
+    ],
+    "evidence": {
+        "synthetic_sources": "real M11 setup and no-opening approval, M10 contract/invoice, M13 collection/refund, and M12 advance application inside outer rollback",
+        "synthetic_m11_activation": {
+            "performed": true,
+            "rolled_back": true,
+            "go_live_date": "2026-11-01",
+            "zero_opening": true
+        },
+        "company_profile": {
+            "synthetic_fields_set_inside_transaction": true,
+            "exact_baseline_restored": true
+        },
+        "failure_trace": []
+    }
+}
+RESULT all_pass=1 assertions=24 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate5/treasury-advance-20261101T174902Z-8ab439.json

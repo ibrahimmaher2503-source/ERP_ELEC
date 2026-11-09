@@ -1,0 +1,16 @@
+{
+  "operational_counts_unchanged": true,
+  "activation_unchanged": true,
+  "tables_before": 187,
+  "tables_after": 209,
+  "last_migration": {
+    "migration": "2026_10_31_198000_make_tender_guard_refresh_safe",
+    "batch": 49
+  },
+  "administrator_after": {
+    "role_present": true,
+    "registered_permission_keys": 288,
+    "persisted_administrator_permission_rows": 288,
+    "missing_registered_permission_keys": 0
+  }
+}

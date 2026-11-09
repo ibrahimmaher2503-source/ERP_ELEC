@@ -1,0 +1,157 @@
+{
+    "all_pass": true,
+    "mode": "gate5-serial-financial-opening",
+    "phase": "deferred source, serial, FIFO, and GL constraints",
+    "phase_arguments": [],
+    "database": "erp_elec_new_test",
+    "port": 49685,
+    "server_version_num": 170011,
+    "assertions": 14,
+    "rollback_verified": true,
+    "company_baseline_restored": true,
+    "activation_baseline_restored": true,
+    "before_counts": {
+        "companies": 1,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "user_branch_scopes": 0,
+        "user_warehouse_scopes": 0,
+        "inventory_warehouses": 0,
+        "products": 0,
+        "accounting_activation": 1,
+        "accounting_accounts": 0,
+        "accounting_account_mappings": 0,
+        "accounting_periods": 0,
+        "accounting_tax_rules": 0,
+        "accounting_tax_rule_endings": 0,
+        "accounting_opening_batches": 0,
+        "accounting_opening_lines": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_balances": 0,
+        "inventory_fifo_layers": 0,
+        "inventory_fifo_allocations": 0,
+        "inventory_serials": 0,
+        "inventory_serial_events": 0,
+        "inventory_fifo_serial_allocations": 0,
+        "inventory_movement_journals": 0,
+        "audit_entries": 0
+    },
+    "after_counts": {
+        "companies": 1,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "user_branch_scopes": 0,
+        "user_warehouse_scopes": 0,
+        "inventory_warehouses": 0,
+        "products": 0,
+        "accounting_activation": 1,
+        "accounting_accounts": 0,
+        "accounting_account_mappings": 0,
+        "accounting_periods": 0,
+        "accounting_tax_rules": 0,
+        "accounting_tax_rule_endings": 0,
+        "accounting_opening_batches": 0,
+        "accounting_opening_lines": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "inventory_movements": 0,
+        "inventory_balances": 0,
+        "inventory_fifo_layers": 0,
+        "inventory_fifo_allocations": 0,
+        "inventory_serials": 0,
+        "inventory_serial_events": 0,
+        "inventory_fifo_serial_allocations": 0,
+        "inventory_movement_journals": 0,
+        "audit_entries": 0
+    },
+    "passed": [
+        "Serialized opening rejects no serials for one base unit (actual Illuminate\\Validation\\ValidationException)",
+        "Serialized opening rejects more serials than the declared base quantity (actual Illuminate\\Validation\\ValidationException)",
+        "Serialized opening rejects duplicate normalized serials (actual Illuminate\\Validation\\ValidationException)",
+        "Quantity-tracked opening rejects nonempty serial identities (actual Illuminate\\Validation\\ValidationException)",
+        "Rejected serial validation creates no opening batches, lines, or audit events",
+        "Opening entry denies a granted actor without branch membership (actual Symfony\\Component\\HttpKernel\\Exception\\HttpException)",
+        "Branch-scope denial leaves opening batch, lines, and audit unchanged",
+        "Opening draft preserves exact serial identities and source quantity/cost/value strings",
+        "Opening batch creator cannot approve the same serial opening (actual Illuminate\\Validation\\ValidationException)",
+        "Self-approval denial leaves the submitted opening unchanged",
+        "Independent activation creates one real serial source, exact $10 FIFO valuation, available balance and balanced inventory/equity GL without inventing an issue allocation",
+        "Exact opening activation replay is denied after activation (actual Illuminate\\Validation\\ValidationException)",
+        "Denied exact activation replay changes no opening, inventory, serial, FIFO, journal, or audit row",
+        "SET CONSTRAINTS ALL IMMEDIATE validates every deferred Gate5 opening/serial/FIFO/GL constraint"
+    ],
+    "private_diagnostics": [
+        {
+            "assertion": "Opening draft preserves exact serial identities and source quantity/cost/value strings",
+            "expected": {
+                "serials": [
+                    "G5-OPEN-SERIAL-A"
+                ],
+                "quantity": "1.00000000",
+                "unit_cost": "10.0000000000000000",
+                "amount": "10.00"
+            },
+            "actual": {
+                "serials": [
+                    "G5-OPEN-SERIAL-A"
+                ],
+                "lines_api_serials": [
+                    "G5-OPEN-SERIAL-A"
+                ],
+                "quantity": "1.00000000",
+                "unit_cost": "10.0000000000000000",
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "Independent activation creates one real serial source, exact $10 FIFO valuation, available balance and balanced inventory/equity GL without inventing an issue allocation",
+            "expected": {
+                "movement_quantity": "1.00000000",
+                "serial": "G5-OPEN-SERIAL-A",
+                "fifo_original_value": "10.00",
+                "fifo_remaining_quantity": "1.00000000",
+                "fifo_remaining_value": "10.0000000000000000",
+                "outgoing_serial_fifo_allocations": 0,
+                "opening_status": "posted",
+                "activation_recorded": true,
+                "inventory_debit": "10.00",
+                "equity_credit": "10.00",
+                "journal_lines": 2,
+                "on_hand": "1.00000000"
+            },
+            "actual": {
+                "movement_quantity": "1.00000000",
+                "source_key": "opening:21:SERIAL-OPENING-001",
+                "fifo": {
+                    "quantity": "1.00000000",
+                    "original_value": "10.00",
+                    "remaining_quantity": "1.00000000",
+                    "remaining_value": "10.0000000000000000",
+                    "unit_cost": "10.0000000000000000"
+                },
+                "serials": [
+                    {
+                        "normalized": "G5-OPEN-SERIAL-A",
+                        "entered": "G5-OPEN-SERIAL-A",
+                        "source_movement_id": 56,
+                        "state": "available"
+                    }
+                ],
+                "serial_events": 1,
+                "serial_fifo": [],
+                "balance_on_hand": "1.00000000",
+                "journal_line_count": 2,
+                "opening_status": "posted",
+                "activation_recorded": true,
+                "inventory_debit": "10.00",
+                "equity_credit": "10.00"
+            }
+        }
+    ],
+    "failure": null,
+    "recorded_at_utc": "2026-11-01T19:15:48+00:00"
+}

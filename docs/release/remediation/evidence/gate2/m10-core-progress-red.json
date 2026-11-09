@@ -1,0 +1,19 @@
+{
+    "all_pass": false,
+    "phase": "Gate2 source preflight before implementation",
+    "scope": "M10 ServiceContracts core owner plus the required M01 employee identity dependency; no database or business fixture writes",
+    "m10_registry_ready": false,
+    "missing_files": [
+        "M10 owner actions",
+        "M10 public contract",
+        "M10 private evidence owner",
+        "M10 contract domain model"
+    ],
+    "missing_classes": [
+        "M10 actions",
+        "M10 API",
+        "M10 documents",
+        "M10 model"
+    ],
+    "missing_or_wrong_scope_permissions": []
+}

@@ -1,0 +1,37 @@
+app/Modules/Inventory/Application/FinancialStock.php:27:        if ($m && $m->operation === 'project_issue' && $m->source_module === 'Projects' && bccomp($m->quantity, '0', 8) < 0) {
+app/Modules/Inventory/Application/FinancialStock.php:29:            $source = app(ProjectsApi::class)->authorizeMaterialIssue($actor, $m->source_id, $m->source_line, substr($m->idempotency_key, strlen('reservation:')), $m->warehouse_id, bcsub('0', $m->quantity, 8));
+app/Modules/Inventory/Application/FinancialStock.php:32:            $allocations = DB::table('inventory_fifo_allocations')->where('movement_id', $movement)->selectRaw('coalesce(sum(quantity),0) quantity,coalesce(sum(amount),0) amount')->first();
+app/Modules/Inventory/Application/FinancialStock.php:33:            abort_unless(bccomp($allocations->quantity, bcsub('0', $m->quantity, 8), 8) === 0, 422);
+app/Modules/Inventory/Application/FinancialStock.php:37:        if ($m && $m->operation === 'reservation_issue' && $m->source_module === 'Sales' && bccomp($m->quantity, '0', 8) < 0) {
+app/Modules/Inventory/Application/FinancialStock.php:40:                $m->source_id, $m->source_line, substr($m->idempotency_key, strlen('reservation:')), $m->warehouse_id, bcsub('0', $m->quantity, 8));
+app/Modules/Inventory/Application/FinancialStock.php:41:            $quantity = '0.00000000';
+app/Modules/Inventory/Application/FinancialStock.php:44:                $quantity = bcadd($quantity, $allocation->quantity, 8);
+app/Modules/Inventory/Application/FinancialStock.php:47:            abort_unless(bccomp($quantity, bcsub('0', $m->quantity, 8), 8) === 0, 422);
+app/Modules/Inventory/Application/FinancialStock.php:61:            $positive = bccomp($m->quantity, '0', 8) > 0;
+app/Modules/Inventory/Application/FinancialStock.php:64:                abort_unless($layer && bccomp($layer->original_quantity, $m->quantity, 8) === 0, 422);
+app/Modules/Inventory/Application/FinancialStock.php:68:                $quantity = '0.00000000';
+app/Modules/Inventory/Application/FinancialStock.php:71:                    $quantity = bcadd($quantity, $allocation->quantity, 8);
+app/Modules/Inventory/Application/FinancialStock.php:73:                abort_unless(bccomp($quantity, bcsub('0', $m->quantity, 8), 8) === 0, 422);
+app/Modules/Inventory/Application/FinancialStock.php:87:        app(InventoryAccess::class)->authorize($actor, $transfer ? (bccomp($m->quantity, '0', 8) < 0 ? 'transfer_dispatch' : 'transfer_receive') : $doc->kind.'_post', $m->warehouse_id);
+app/Modules/Inventory/Application/FinancialStock.php:89:        $quantity = '0.00000000';
+app/Modules/Inventory/Application/FinancialStock.php:92:            $quantity = bcadd($quantity, $allocation->quantity, 8);
+app/Modules/Inventory/Application/FinancialStock.php:95:        $positive = bccomp($m->quantity, '0', 8) > 0;
+app/Modules/Inventory/Application/FinancialStock.php:99:            $quantity = $layer->original_quantity;
+app/Modules/Inventory/Application/FinancialStock.php:102:        if (bccomp($quantity, $positive ? $m->quantity : bcsub('0', $m->quantity, 8), 8) !== 0) {
+app/Modules/Inventory/Application/FinancialStock.php:123:            $this->receive($actor, $line['warehouse_id'], $line['product_id'], $line['quantity'], $line['amount'], $date,
+app/Modules/Inventory/Application/FinancialStock.php:139:            $posted[] = $this->receive($actor, $warehouse, $line['product_id'], $line['quantity'], $line['amount'], $source['receipt']['receipt_date'],
+app/Modules/Inventory/Application/FinancialStock.php:146:    private function receive(int $actor, int $warehouse, int $product, string $quantity, string $amount, string $date, string $operation, string $owner, string $source, string $sourceLine, string $key, ?string $unitCost = null): array
+app/Modules/Inventory/Application/FinancialStock.php:149:        if (! $p['active'] || $p['kind'] === 'service' || $p['tracking'] !== 'quantity') {
+app/Modules/Inventory/Application/FinancialStock.php:155:            $quantity, $operation, $owner, $source, $sourceLine, $key);
+app/Modules/Inventory/Application/InventoryLedger.php:16:        if (! $p['active'] || $p['kind'] === 'service' || ! in_array($p['tracking'], ['quantity', 'serial'], true)) {
+app/Modules/Inventory/Application/InventoryLedger.php:19:        DB::table('inventory_balances')->insertOrIgnore(['warehouse_id' => $warehouse, 'product_id' => $product, 'tracking' => $p['tracking'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'unit_name' => $p['unit_name'], 'category_id' => $p['category_id'], 'category_name' => $p['category_name'], 'on_hand' => '0', 'reserved' => '0', 'version' => 1, 'created_at' => now(), 'updated_at' => now()]);
+app/Modules/Inventory/Application/InventoryLedger.php:24:    public function quantity(mixed $value, bool $signed = false, bool $zero = false): string
+app/Modules/Inventory/Application/InventoryLedger.php:36:        $delta = $this->quantity($delta, true);
+app/Modules/Inventory/Application/InventoryLedger.php:37:        $consumeReserved = $this->quantity($consumeReserved, false, true);
+app/Modules/Inventory/Application/InventoryLedger.php:43:            if ($existing->warehouse_id !== $warehouse || $existing->product_id !== (int) $line['product_id'] || bccomp($existing->quantity, $delta, 8) !== 0
+app/Modules/Inventory/Application/InventoryLedger.php:51:            if ($p['tracking'] === 'serial') {
+app/Modules/Inventory/Application/InventoryLedger.php:81:        if ($p['tracking'] !== 'serial' && $values !== []) {
+app/Modules/Inventory/Application/InventoryLedger.php:82:            InventoryActions::fail('Unexpected serial selections for quantity stock.');
+app/Modules/Inventory/Application/InventoryLedger.php:84:        if (($costedIssue || $costedReceipt) && $p['tracking'] !== 'quantity') {
+app/Modules/Inventory/Application/InventoryLedger.php:92:        $movementId = DB::table('inventory_movements')->insertGetId(['reversal_id' => $reversal, 'operation' => $operation, 'source_module' => $sourceModule, 'source_id' => $sourceId, 'source_line' => $sourceLine, 'document_id' => $document, 'warehouse_id' => $warehouse, 'product_id' => $line['product_id'], 'quantity' => $delta, 'base_unit_id' => $line['base_unit_id'], 'sku' => $line['sku'], 'product_name' => $line['product_name'], 'actor_id' => $actor, 'posted_at' => now(), 'idempotency_key' => $key]);
+app/Modules/Inventory/Application/InventoryLedger.php:93:        if ($p['tracking'] === 'serial') {

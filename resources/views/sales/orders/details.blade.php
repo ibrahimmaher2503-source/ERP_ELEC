@@ -39,7 +39,7 @@
         <div class="grid gap-4 xl:grid-cols-3">
             <x-erp.section-card :title="'بنود أمر البيع ('.$record->lines->count().')'" icon="rectangle-stack" class="xl:col-span-2">
                 <div class="mb-3 flex flex-wrap items-center justify-between gap-2"><span class="text-xs text-slate-500">كميات مطلوبة وأسعار مقترحة للمسودة</span></div>
-                <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="overflow-x-auto"><table class="w-full min-w-[800px] text-sm"><thead class="bg-slate-50 text-end text-xs text-slate-600"><tr><th class="p-2">#</th><th class="p-2">SKU</th><th class="p-2">الصنف</th><th class="p-2">الوحدة</th><th class="p-2">الكمية المطلوبة</th><th class="p-2">السعر المقترح</th><th class="p-2">صافي البند</th></tr></thead><tbody class="divide-y divide-slate-100">
+                <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="overflow-x-auto"><table class="w-full min-w-[800px] text-sm"><thead class="bg-slate-50 text-end text-xs text-slate-600"><tr><th class="p-2">#</th><th class="p-2">رمز الصنف</th><th class="p-2">الصنف</th><th class="p-2">الوحدة</th><th class="p-2">الكمية المطلوبة</th><th class="p-2">السعر المقترح</th><th class="p-2">صافي البند</th></tr></thead><tbody class="divide-y divide-slate-100">
                     @foreach($record->lines as $index => $line)<tr><td class="p-2">{{ $index + 1 }}</td><td class="p-2"><bdi>{{ $line->product_snapshot['sku'] ?? '—' }}</bdi></td><td class="p-2">{{ $line->description }}</td><td class="p-2">{{ $line->product_snapshot['unit_name'] ?? '—' }}</td><td class="p-2 tabular-nums"><bdi>{{ $money((string) $line->quantity) }}</bdi></td><td class="p-2 tabular-nums"><bdi>{{ ($line->requested_price ?? $line->suggested_price) === null ? 'غير محدد' : $money((string) ($line->requested_price ?? $line->suggested_price)).' ج.م' }}</bdi></td><td class="p-2 tabular-nums"><bdi>{{ $money($record->calculation['lines'][$index]['net'] ?? null) }} ج.م</bdi></td></tr>@endforeach
                 </tbody></table></div>
             </x-erp.section-card>
@@ -67,7 +67,20 @@
     @elseif($screen === 'delivery')
         @include('sales.orders.partials.delivery-action')
     @elseif($screen === 'invoices')
-            <x-erp.section-card title="الفواتير" icon="document-text"><div class="flex flex-wrap items-start justify-between gap-3"><p class="max-w-3xl text-sm leading-6 text-slate-600">لا توجد فواتير مسجلة لهذا الأمر. إنشاء الفاتورة وقراءة حالتها يتطلبان ربطًا من الوحدة المالية.</p><flux:button disabled icon="document-text">عرض الفواتير</flux:button></div><ul class="mt-4 list-inside list-disc space-y-2 text-sm text-amber-900">@foreach($blockers as $reason)<li>{{ $reason }}</li>@endforeach</ul><p class="mt-4 text-sm text-slate-500">لا توجد كمية مفوترة مسجلة في مصدر تشغيلي.</p></x-erp.section-card>
+            <x-erp.section-card title="الفواتير" icon="document-text">
+                @if($progress['invoicing'] === 'restricted')
+                    <p class="text-sm text-slate-600">عرض فواتير هذا الأمر يتطلب صلاحية عرض فواتير العملاء.</p>
+                @elseif($progress['invoices'] === [])
+                    <p class="text-sm text-slate-600">لا توجد فواتير مرتبطة ببنود هذا الأمر.</p>
+                @else
+                    <ul class="space-y-3">@foreach($progress['invoices'] as $invoice)
+                        <li class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                            <div><p class="font-medium">{{ $invoice['number'] ?: 'فاتورة قيد الإعداد #'.$invoice['id'] }}</p><p class="text-sm text-slate-600">{{ $invoice['invoice_date'] }} · {{ ['draft' => 'مسودة', 'validated' => 'تم التحقق', 'issued' => 'صادرة', 'posted' => 'مرحلة', 'partially_collected' => 'محصلة جزئيًا', 'collected' => 'محصلة', 'credited' => 'لها إشعار دائن'][$invoice['status']] ?? $invoice['status'] }} · {{ $invoice['total_amount'] }} ج.م</p></div>
+                            <flux:button size="sm" :href="route('financial.invoices.show', ['type' => 'customer', 'invoice' => $invoice['id']])" wire:navigate>عرض الفاتورة</flux:button>
+                        </li>
+                    @endforeach</ul>
+                @endif
+            </x-erp.section-card>
     @elseif($screen === 'closure')
         <div class="grid gap-4 xl:grid-cols-3">
             <x-erp.section-card title="إغلاق أمر البيع" icon="archive-box"><p class="text-sm text-slate-600">الإغلاق ينتظر اكتمال الاعتماد والفوترة والتسوية التشغيلية.</p><ul class="mt-4 list-inside list-disc space-y-2 text-sm text-amber-900">@foreach($dependencyBlockers['close'] ?? [] as $reason)<li>{{ $reason }}</li>@endforeach</ul><flux:button class="mt-4" disabled icon="archive-box">إغلاق الأمر</flux:button></x-erp.section-card>

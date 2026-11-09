@@ -1,0 +1,10 @@
+{
+  "result": "FAIL",
+  "run_id": "C8759F824EA4",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)"
+  ],
+  "failure": "Quotation draft did not save (current path /quotations/create; visible errors: \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n     | \n    ; body: لنيل للتوريدات الصناعية - الغردقة 2773 (DEMO-EG-CUS-443547)\n\nيعتمد العرض على هوية العميل المسجلة في دليل العملاء.\n\nمعلومات المشروع\nاسم المشروع (اختياري)\nمرجع طلب عرض السعر RFQ\n\nربط سجل مشروع قائم متاح عند اكتمال عقد المشاريع.\n\nبنود العرض\nاستيراد بنود Excel\nإضافة بند جديد\nالبحث في كتالوج المنتجات\nيعرض السعر المعتمد للصنف والوحدة والتاريخ عند توفره وصلاحية عرضه. السعر المطلوب اقتراح يخضع للسياسة التجارية عند الإصدار.\n#\tالمنتج *\tSKU\tالوحدة *\tالكمية *\tالسعر المقترح (ج.م)\tالسعر المطلوب (ج.م)\tنوع الخصم\tالخصم\tصافي البند (ج.م)\tالإجراءات\n1\t\nاختر صنفًا\nمفتاح فصل دوار 26 أمبير - سلسلة 2739 / فئة 6\nمرحل حماية حراري نطاق 17-25 أمبير - سلسلة 1741 / فئة 8\nبلوك طرفي نحاس 95 مم² - سلسلة 1202 / فئة 11\n\tDEMO-EG-PROD-334200\t\nالوحدة\nقط"
+}

@@ -1,0 +1,120 @@
+{
+    "all_pass": false,
+    "mode": "m10-source-integrations",
+    "assertions": 13,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "maintenance_work_orders": 0,
+            "maintenance_visits": 0,
+            "maintenance_labor_entries": 0,
+            "workshop_intakes": 0,
+            "workshop_jobs": 0,
+            "workshop_work_records": 0,
+            "workshop_labor_entries": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M08 and M09 source journeys use a real independently approved and signed active contract revision",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 linking denies an actor without branch work authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 owner projection rejects an equipment reference outside actual contract coverage",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 owner projection rejects service dates outside contract term",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 contract link reserves one entitlement from its own draft nonbillable work order and safely retries",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 source actions immediately synchronize reserved visit/labor totals and exact parts snapshot",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 contract-work projection is derived from its recorded visit and labor entries before consumption",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 verify consumes its actual one visit and 20 labor minutes exactly once with zero unissued part usage",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 duplicate consume and duplicate link return the same consumed reservation without double counting",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 cannot reserve another visit after its source-derived visit cap is consumed",
+            "result": "PASS"
+        },
+        {
+            "name": "M08 exhausted visit handoff leaves no entitlement reservation",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects a consumption request that has no real M08 source reservation",
+            "result": "PASS"
+        },
+        {
+            "name": "All source graph fixtures roll back from the exact isolated database.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "M10 blocks actual M08 labor above remaining contract minutes at the source action was unexpectedly accepted."
+    }
+}

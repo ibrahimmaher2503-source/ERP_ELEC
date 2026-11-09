@@ -1,0 +1,5673 @@
+{
+  "generated_at": "2026-10-31T23:34:42.241Z",
+  "source": "current `php artisan route:list --json`; action class inheritance and static Blade view references are resolved from route/component source; route-only aliases are recorded separately",
+  "counts": {
+    "registered_named_authenticated_get_pages": 145,
+    "other_get_routes_excluded": 66,
+    "with_valid_fixture": 140,
+    "with_view_candidate": 144,
+    "with_existing_blade_view": 144,
+    "representative_count": 58,
+    "parameterless_routes_without_fixture": 5
+  },
+  "grouped_modules": {
+    "M11 Accounting": {
+      "routes": 13,
+      "archetypes": {
+        "list-or-catalog": 1,
+        "workflow-or-module-screen": 10,
+        "dashboard": 1,
+        "report-or-analysis": 1
+      },
+      "pages": [
+        "accounting.accounts",
+        "accounting.balance-sheet",
+        "accounting.closing",
+        "accounting.dashboard",
+        "accounting.grni",
+        "accounting.income-statement",
+        "accounting.journals",
+        "accounting.ledger",
+        "accounting.periods",
+        "accounting.ppv",
+        "accounting.reconciliation",
+        "accounting.setup",
+        "accounting.trial-balance"
+      ]
+    },
+    "M03 Parties": {
+      "routes": 11,
+      "archetypes": {
+        "list-or-catalog": 2,
+        "form-or-import": 6,
+        "detail": 2,
+        "workflow-or-module-screen": 1
+      },
+      "pages": [
+        "customers.index",
+        "customers.create",
+        "customers.import",
+        "customers.show",
+        "customers.edit",
+        "suppliers.index",
+        "suppliers.categories",
+        "suppliers.create",
+        "suppliers.import",
+        "suppliers.show",
+        "suppliers.edit"
+      ]
+    },
+    "M17 System": {
+      "routes": 3,
+      "archetypes": {
+        "dashboard": 1,
+        "form-or-import": 1,
+        "detail": 1
+      },
+      "pages": [
+        "dashboard",
+        "operations.import",
+        "operations.show"
+      ]
+    },
+    "M12 ReceivablesPayables": {
+      "routes": 7,
+      "archetypes": {
+        "report-or-analysis": 1,
+        "workflow-or-module-screen": 5,
+        "detail": 1
+      },
+      "pages": [
+        "financial.aging",
+        "financial.ap",
+        "financial.ar",
+        "financial.credit-notes",
+        "financial.customer-invoices",
+        "financial.supplier-invoices",
+        "financial.invoices.show"
+      ]
+    },
+    "M06 Inventory": {
+      "routes": 15,
+      "archetypes": {
+        "dashboard": 1,
+        "workflow-or-module-screen": 12,
+        "form-or-import": 1,
+        "detail": 1
+      },
+      "pages": [
+        "inventory.dashboard",
+        "inventory.adjustments",
+        "inventory.balances",
+        "inventory.corrections",
+        "inventory.counts",
+        "inventory.document.create",
+        "inventory.document.show",
+        "inventory.isolations",
+        "inventory.issues",
+        "inventory.movements",
+        "inventory.receipts",
+        "inventory.reservations",
+        "inventory.serials",
+        "inventory.transfers",
+        "inventory.warehouses"
+      ]
+    },
+    "M08 FieldMaintenance": {
+      "routes": 12,
+      "archetypes": {
+        "list-or-catalog": 2,
+        "workflow-or-module-screen": 4,
+        "dashboard": 1,
+        "report-or-analysis": 1,
+        "form-or-import": 2,
+        "detail": 2
+      },
+      "pages": [
+        "maintenance.index",
+        "maintenance.assignments",
+        "maintenance.checklists",
+        "maintenance.dashboard",
+        "maintenance.reports",
+        "maintenance.requests",
+        "maintenance.requests.create",
+        "maintenance.requests.show",
+        "maintenance.schedule",
+        "maintenance.work-orders",
+        "maintenance.work-orders.create",
+        "maintenance.work-orders.show"
+      ]
+    },
+    "M01 Organization": {
+      "routes": 11,
+      "archetypes": {
+        "workflow-or-module-screen": 4,
+        "detail": 3,
+        "settings-or-profile": 1,
+        "form-or-import": 3
+      },
+      "pages": [
+        "organization.branches",
+        "organization.branches.show",
+        "organization.company",
+        "organization.permissions",
+        "organization.roles",
+        "organization.roles.show",
+        "organization.users",
+        "organization.users.show",
+        "appearance.edit",
+        "profile.edit",
+        "security.edit"
+      ]
+    },
+    "M02 Products": {
+      "routes": 9,
+      "archetypes": {
+        "list-or-catalog": 1,
+        "workflow-or-module-screen": 4,
+        "form-or-import": 3,
+        "detail": 1
+      },
+      "pages": [
+        "products.index",
+        "products.brands",
+        "products.categories",
+        "products.create",
+        "products.import",
+        "products.units",
+        "products.show",
+        "products.edit",
+        "products.prices"
+      ]
+    },
+    "M07 Projects": {
+      "routes": 11,
+      "archetypes": {
+        "list-or-catalog": 1,
+        "form-or-import": 1,
+        "dashboard": 1,
+        "report-or-analysis": 1,
+        "detail": 1,
+        "workflow-or-module-screen": 6
+      },
+      "pages": [
+        "projects.index",
+        "projects.create",
+        "projects.dashboard",
+        "projects.reports",
+        "projects.show",
+        "projects.budget",
+        "projects.closure",
+        "projects.documents",
+        "projects.financial",
+        "projects.operations",
+        "projects.tasks"
+      ]
+    },
+    "M05 Purchasing": {
+      "routes": 19,
+      "archetypes": {
+        "dashboard": 1,
+        "workflow-or-module-screen": 2,
+        "list-or-catalog": 5,
+        "form-or-import": 5,
+        "detail": 5,
+        "report-or-analysis": 1
+      },
+      "pages": [
+        "purchasing.dashboard",
+        "purchasing.comparison",
+        "purchasing.offers.index",
+        "purchasing.offers.create",
+        "purchasing.offers.show",
+        "purchasing.orders.index",
+        "purchasing.orders.create",
+        "purchasing.orders.show",
+        "purchasing.receipts.index",
+        "purchasing.receipts.create",
+        "purchasing.receipts.show",
+        "purchasing.reports",
+        "purchasing.requisitions.index",
+        "purchasing.requisitions.create",
+        "purchasing.requisitions.show",
+        "purchasing.returns",
+        "purchasing.rfqs.index",
+        "purchasing.rfqs.create",
+        "purchasing.rfqs.show"
+      ]
+    },
+    "M04 Sales": {
+      "routes": 15,
+      "archetypes": {
+        "list-or-catalog": 3,
+        "form-or-import": 4,
+        "workflow-or-module-screen": 6,
+        "detail": 2
+      },
+      "pages": [
+        "quotations.index",
+        "quotations.create",
+        "quotations.policy",
+        "quotations.show",
+        "quotations.acceptance",
+        "quotations.approval",
+        "quotations.convert",
+        "quotations.edit",
+        "sales-orders.index",
+        "sales-orders.create",
+        "sales-orders.policy",
+        "sales-orders.show",
+        "sales-orders.edit",
+        "sales-orders.screen",
+        "sales-returns.index"
+      ]
+    },
+    "M07 Projects (Tenders)": {
+      "routes": 5,
+      "archetypes": {
+        "list-or-catalog": 1,
+        "form-or-import": 1,
+        "dashboard": 1,
+        "report-or-analysis": 1,
+        "detail": 1
+      },
+      "pages": [
+        "tenders.index",
+        "tenders.create",
+        "tenders.dashboard",
+        "tenders.reports",
+        "tenders.show"
+      ]
+    },
+    "M13 Treasury": {
+      "routes": 5,
+      "archetypes": {
+        "list-or-catalog": 1,
+        "workflow-or-module-screen": 3,
+        "detail": 1
+      },
+      "pages": [
+        "treasury.accounts",
+        "treasury.collections",
+        "treasury.movements.show",
+        "treasury.payments",
+        "treasury.transfers"
+      ]
+    },
+    "Authentication": {
+      "routes": 1,
+      "archetypes": {
+        "workflow-or-module-screen": 1
+      },
+      "pages": [
+        "password.confirm"
+      ]
+    },
+    "M09 WorkshopRepairs": {
+      "routes": 8,
+      "archetypes": {
+        "dashboard": 1,
+        "workflow-or-module-screen": 2,
+        "form-or-import": 1,
+        "detail": 2,
+        "report-or-analysis": 1,
+        "settings-or-profile": 1
+      },
+      "pages": [
+        "workshops.dashboard",
+        "workshops.intakes",
+        "workshops.intakes.create",
+        "workshops.intakes.show",
+        "workshops.jobs",
+        "workshops.jobs.show",
+        "workshops.reports",
+        "workshops.settings"
+      ]
+    }
+  },
+  "representatives": [
+    {
+      "name": "accounting.dashboard",
+      "variant": "default",
+      "module": "M11 Accounting",
+      "archetype": "dashboard",
+      "url": "/accounting/dashboard",
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "accounting.accounts",
+      "variant": "default",
+      "module": "M11 Accounting",
+      "archetype": "list-or-catalog",
+      "url": "/accounting/accounts",
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "accounting.income-statement",
+      "variant": "default",
+      "module": "M11 Accounting",
+      "archetype": "report-or-analysis",
+      "url": "/accounting/income-statement",
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "accounting.balance-sheet",
+      "variant": "default",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "url": "/accounting/balance-sheet",
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "customers.index",
+      "variant": "default",
+      "module": "M03 Parties",
+      "archetype": "list-or-catalog",
+      "url": "/customers",
+      "view_candidates": [
+        {
+          "name": "parties.catalog",
+          "file": "resources/views/parties/catalog.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "archetype": "detail",
+      "url": "/customers/1211",
+      "view_candidates": [
+        {
+          "name": "parties.details",
+          "file": "resources/views/parties/details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "customers.create",
+      "variant": "default",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "url": "/customers/create",
+      "view_candidates": [
+        {
+          "name": "parties.form",
+          "file": "resources/views/parties/form.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "suppliers.categories",
+      "variant": "default",
+      "module": "M03 Parties",
+      "archetype": "workflow-or-module-screen",
+      "url": "/suppliers/categories",
+      "view_candidates": [
+        {
+          "name": "parties.categories",
+          "file": "resources/views/parties/categories.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "archetype": "dashboard",
+      "url": "/dashboard",
+      "view_candidates": [
+        {
+          "name": "dashboard",
+          "file": "resources/views/dashboard.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "operations.show",
+      "variant": "default",
+      "module": "M17 System",
+      "archetype": "detail",
+      "url": "/data-operations/1c27d4b3-efab-4f9a-951f-73e767ff066f",
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "operations.import",
+      "variant": "customers",
+      "module": "M17 System",
+      "archetype": "form-or-import",
+      "url": "/data-operations/import/customers",
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "financial.invoices.show",
+      "variant": "customer",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "detail",
+      "url": "/financial/customer-invoices/1",
+      "view_candidates": [
+        {
+          "name": "receivables-payables.invoice-details",
+          "file": "resources/views/receivables-payables/invoice-details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "report-or-analysis",
+      "url": "/financial/aging",
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "financial.ap",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "url": "/financial/ap",
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "archetype": "dashboard",
+      "url": "/inventory",
+      "view_candidates": [
+        {
+          "name": "inventory.overview",
+          "file": "resources/views/inventory/overview.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "inventory.document.show",
+      "variant": "adjustment",
+      "module": "M06 Inventory",
+      "archetype": "detail",
+      "url": "/inventory/documents/adjustment/9",
+      "view_candidates": [
+        {
+          "name": "inventory.document",
+          "file": "resources/views/inventory/document.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "inventory.document.create",
+      "variant": "adjustment",
+      "module": "M06 Inventory",
+      "archetype": "form-or-import",
+      "url": "/inventory/documents/adjustment/create",
+      "view_candidates": [
+        {
+          "name": "inventory.document",
+          "file": "resources/views/inventory/document.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "inventory.adjustments",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "url": "/inventory/adjustments",
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "maintenance.dashboard",
+      "variant": "default",
+      "module": "M08 FieldMaintenance",
+      "archetype": "dashboard",
+      "url": "/maintenance/dashboard",
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "maintenance.index",
+      "variant": "default",
+      "module": "M08 FieldMaintenance",
+      "archetype": "list-or-catalog",
+      "url": "/maintenance",
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "maintenance.requests.show",
+      "variant": "default",
+      "module": "M08 FieldMaintenance",
+      "archetype": "detail",
+      "url": "/maintenance/requests/1",
+      "view_candidates": [
+        {
+          "name": "maintenance.request",
+          "file": "resources/views/maintenance/request.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "maintenance.requests.create",
+      "variant": "default",
+      "module": "M08 FieldMaintenance",
+      "archetype": "form-or-import",
+      "url": "/maintenance/requests/create",
+      "view_candidates": [
+        {
+          "name": "maintenance.request",
+          "file": "resources/views/maintenance/request.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "maintenance.reports",
+      "variant": "default",
+      "module": "M08 FieldMaintenance",
+      "archetype": "report-or-analysis",
+      "url": "/maintenance/reports",
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "organization.branches.show",
+      "variant": "default",
+      "module": "M01 Organization",
+      "archetype": "detail",
+      "url": "/organization/branches/1",
+      "view_candidates": [
+        {
+          "name": "organization.branch-details",
+          "file": "resources/views/organization/branch-details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "appearance.edit",
+      "variant": "default",
+      "module": "M01 Organization",
+      "archetype": "form-or-import",
+      "url": "/settings/appearance",
+      "view_candidates": [
+        {
+          "name": "pages::settings.appearance",
+          "file": "resources/views/pages/settings/appearance.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "organization.company",
+      "variant": "default",
+      "module": "M01 Organization",
+      "archetype": "settings-or-profile",
+      "url": "/organization/company",
+      "view_candidates": [
+        {
+          "name": "organization.company",
+          "file": "resources/views/organization/company.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "organization.branches",
+      "variant": "default",
+      "module": "M01 Organization",
+      "archetype": "workflow-or-module-screen",
+      "url": "/organization/branches",
+      "view_candidates": [
+        {
+          "name": "organization.branches",
+          "file": "resources/views/organization/branches.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "products.index",
+      "variant": "default",
+      "module": "M02 Products",
+      "archetype": "list-or-catalog",
+      "url": "/products",
+      "view_candidates": [
+        {
+          "name": "products.catalog",
+          "file": "resources/views/products/catalog.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "products.show",
+      "variant": "default",
+      "module": "M02 Products",
+      "archetype": "detail",
+      "url": "/products/1",
+      "view_candidates": [
+        {
+          "name": "products.details",
+          "file": "resources/views/products/details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "products.create",
+      "variant": "default",
+      "module": "M02 Products",
+      "archetype": "form-or-import",
+      "url": "/products/create",
+      "view_candidates": [
+        {
+          "name": "products.product-form",
+          "file": "resources/views/products/product-form.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "products.brands",
+      "variant": "default",
+      "module": "M02 Products",
+      "archetype": "workflow-or-module-screen",
+      "url": "/products/brands",
+      "view_candidates": [
+        {
+          "name": "products.masters",
+          "file": "resources/views/products/masters.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "projects.index",
+      "variant": "default",
+      "module": "M07 Projects",
+      "archetype": "list-or-catalog",
+      "url": "/projects",
+      "view_candidates": [
+        {
+          "name": "projects.index",
+          "file": "resources/views/projects/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "projects.show",
+      "variant": "default",
+      "module": "M07 Projects",
+      "archetype": "detail",
+      "url": "/projects/1",
+      "view_candidates": [
+        {
+          "name": "projects.show",
+          "file": "resources/views/projects/show.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "projects.create",
+      "variant": "default",
+      "module": "M07 Projects",
+      "archetype": "form-or-import",
+      "url": "/projects/create",
+      "view_candidates": [
+        {
+          "name": "projects.show",
+          "file": "resources/views/projects/show.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "projects.reports",
+      "variant": "default",
+      "module": "M07 Projects",
+      "archetype": "report-or-analysis",
+      "url": "/projects/reports",
+      "view_candidates": [
+        {
+          "name": "projects.reports",
+          "file": "resources/views/projects/reports.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "projects.budget",
+      "variant": "default",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "url": "/projects/1/budget",
+      "view_candidates": [
+        {
+          "name": "projects.budget",
+          "file": "resources/views/projects/budget.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "purchasing.dashboard",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "archetype": "dashboard",
+      "url": "/purchasing",
+      "view_candidates": [
+        {
+          "name": "purchasing.dashboard",
+          "file": "resources/views/purchasing/dashboard.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "purchasing.offers.index",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "url": "/purchasing/offers",
+      "view_candidates": [
+        {
+          "name": "purchasing.offers",
+          "file": "resources/views/purchasing/offers.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "purchasing.offers.show",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "url": "/purchasing/offers/1",
+      "view_candidates": [
+        {
+          "name": "purchasing.offer",
+          "file": "resources/views/purchasing/offer.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "purchasing.offers.create",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "url": "/purchasing/offers/create",
+      "view_candidates": [
+        {
+          "name": "purchasing.offer",
+          "file": "resources/views/purchasing/offer.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "purchasing.comparison",
+      "variant": "default",
+      "module": "M05 Purchasing",
+      "archetype": "workflow-or-module-screen",
+      "url": "/purchasing/comparison",
+      "view_candidates": [
+        {
+          "name": "purchasing.comparison",
+          "file": "resources/views/purchasing/comparison.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "quotations.index",
+      "variant": "default",
+      "module": "M04 Sales",
+      "archetype": "list-or-catalog",
+      "url": "/quotations",
+      "view_candidates": [
+        {
+          "name": "sales.quotations.index",
+          "file": "resources/views/sales/quotations/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "quotations.show",
+      "variant": "default",
+      "module": "M04 Sales",
+      "archetype": "detail",
+      "url": "/quotations/1",
+      "view_candidates": [
+        {
+          "name": "sales.quotations.",
+          "file": "resources/views/sales/quotations.blade.php",
+          "exists": false
+        },
+        {
+          "name": "sales.quotations.details",
+          "file": "resources/views/sales/quotations/details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "quotations.create",
+      "variant": "default",
+      "module": "M04 Sales",
+      "archetype": "form-or-import",
+      "url": "/quotations/create",
+      "view_candidates": [
+        {
+          "name": "sales.quotations.form",
+          "file": "resources/views/sales/quotations/form.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "quotations.policy",
+      "variant": "default",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "url": "/quotations/policy",
+      "view_candidates": [
+        {
+          "name": "sales.quotations.policy",
+          "file": "resources/views/sales/quotations/policy.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "tenders.dashboard",
+      "variant": "default",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "dashboard",
+      "url": "/tenders/dashboard",
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "tenders.index",
+      "variant": "default",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "list-or-catalog",
+      "url": "/tenders",
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "tenders.show",
+      "variant": "default",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "detail",
+      "url": "/tenders/1",
+      "view_candidates": [
+        {
+          "name": "tenders.show",
+          "file": "resources/views/tenders/show.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "tenders.create",
+      "variant": "default",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "form-or-import",
+      "url": "/tenders/create",
+      "view_candidates": [
+        {
+          "name": "tenders.show",
+          "file": "resources/views/tenders/show.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "tenders.reports",
+      "variant": "default",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "report-or-analysis",
+      "url": "/tenders/reports",
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "treasury.accounts",
+      "variant": "default",
+      "module": "M13 Treasury",
+      "archetype": "list-or-catalog",
+      "url": "/treasury/accounts",
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "treasury.movements.show",
+      "variant": "default",
+      "module": "M13 Treasury",
+      "archetype": "detail",
+      "url": "/treasury/movements/1",
+      "view_candidates": [
+        {
+          "name": "treasury.movement-details",
+          "file": "resources/views/treasury/movement-details.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "treasury.collections",
+      "variant": "default",
+      "module": "M13 Treasury",
+      "archetype": "workflow-or-module-screen",
+      "url": "/treasury/collections",
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "workshops.dashboard",
+      "variant": "default",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "dashboard",
+      "url": "/workshops/dashboard",
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "workshops.intakes.show",
+      "variant": "default",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "detail",
+      "url": "/workshops/intakes/1",
+      "view_candidates": [
+        {
+          "name": "workshops.intake",
+          "file": "resources/views/workshops/intake.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "workshops.intakes.create",
+      "variant": "default",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "form-or-import",
+      "url": "/workshops/intakes/create",
+      "view_candidates": [
+        {
+          "name": "workshops.intake",
+          "file": "resources/views/workshops/intake.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "workshops.reports",
+      "variant": "default",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "report-or-analysis",
+      "url": "/workshops/reports",
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "workshops.settings",
+      "variant": "default",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "settings-or-profile",
+      "url": "/workshops/settings",
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ]
+    }
+  ],
+  "parameterless_uncovered": [
+    {
+      "name": "projects.dashboard",
+      "uri": "projects/dashboard",
+      "module": "M07 Projects",
+      "archetype": "dashboard",
+      "url": "/projects/dashboard",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectsDashboardPage",
+      "status_probe_required": true
+    },
+    {
+      "name": "purchasing.reports",
+      "uri": "purchasing/reports",
+      "module": "M05 Purchasing",
+      "archetype": "report-or-analysis",
+      "url": "/purchasing/reports",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchasingDashboard",
+      "status_probe_required": true
+    },
+    {
+      "name": "purchasing.returns",
+      "uri": "purchasing/returns",
+      "module": "M05 Purchasing",
+      "archetype": "workflow-or-module-screen",
+      "url": "/purchasing/returns",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchaseReturnsPage",
+      "status_probe_required": true
+    },
+    {
+      "name": "sales-returns.index",
+      "uri": "sales-returns",
+      "module": "M04 Sales",
+      "archetype": "list-or-catalog",
+      "url": "/sales-returns",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesReturnsPage",
+      "status_probe_required": true
+    },
+    {
+      "name": "password.confirm",
+      "uri": "user/confirm-password",
+      "module": "Authentication",
+      "archetype": "workflow-or-module-screen",
+      "url": "/user/confirm-password",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@show",
+      "status_probe_required": true
+    }
+  ],
+  "routes": [
+    {
+      "name": "accounting.accounts",
+      "uri": "accounting/accounts",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Accounting\\Presentation\\AccountingPage",
+      "component_file": "app/Modules/Accounting/Presentation/AccountingPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/AccountingPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/accounts",
+      "safe_parameterless_url": "/accounting/accounts"
+    },
+    {
+      "name": "accounting.balance-sheet",
+      "uri": "accounting/balance-sheet",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/balance-sheet",
+      "safe_parameterless_url": "/accounting/balance-sheet"
+    },
+    {
+      "name": "accounting.closing",
+      "uri": "accounting/closing",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/closing",
+      "safe_parameterless_url": "/accounting/closing"
+    },
+    {
+      "name": "accounting.dashboard",
+      "uri": "accounting/dashboard",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\Accounting\\Presentation\\AccountingPage",
+      "component_file": "app/Modules/Accounting/Presentation/AccountingPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/AccountingPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/dashboard",
+      "safe_parameterless_url": "/accounting/dashboard"
+    },
+    {
+      "name": "accounting.grni",
+      "uri": "accounting/grni",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/grni",
+      "safe_parameterless_url": "/accounting/grni"
+    },
+    {
+      "name": "accounting.income-statement",
+      "uri": "accounting/income-statement",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/income-statement",
+      "safe_parameterless_url": "/accounting/income-statement"
+    },
+    {
+      "name": "accounting.journals",
+      "uri": "accounting/journals",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\AccountingPage",
+      "component_file": "app/Modules/Accounting/Presentation/AccountingPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/AccountingPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/journals",
+      "safe_parameterless_url": "/accounting/journals"
+    },
+    {
+      "name": "accounting.ledger",
+      "uri": "accounting/ledger",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/ledger",
+      "safe_parameterless_url": "/accounting/ledger"
+    },
+    {
+      "name": "accounting.periods",
+      "uri": "accounting/periods",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\AccountingPage",
+      "component_file": "app/Modules/Accounting/Presentation/AccountingPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/AccountingPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.index",
+          "file": "resources/views/accounting/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/periods",
+      "safe_parameterless_url": "/accounting/periods"
+    },
+    {
+      "name": "accounting.ppv",
+      "uri": "accounting/ppv",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/ppv",
+      "safe_parameterless_url": "/accounting/ppv"
+    },
+    {
+      "name": "accounting.reconciliation",
+      "uri": "accounting/reconciliation",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/reconciliation",
+      "safe_parameterless_url": "/accounting/reconciliation"
+    },
+    {
+      "name": "accounting.setup",
+      "uri": "accounting/setup",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialSetupPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialSetupPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialSetupPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.setup",
+          "file": "resources/views/accounting/setup.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/setup",
+      "safe_parameterless_url": "/accounting/setup"
+    },
+    {
+      "name": "accounting.trial-balance",
+      "uri": "accounting/trial-balance",
+      "method": "GET|HEAD",
+      "module": "M11 Accounting",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportsPage",
+      "component_file": "app/Modules/Accounting/Presentation/FinancialReportsPage.php",
+      "component_chain": [
+        "app/Modules/Accounting/Presentation/FinancialReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "accounting.reports",
+          "file": "resources/views/accounting/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/accounting/trial-balance",
+      "safe_parameterless_url": "/accounting/trial-balance"
+    },
+    {
+      "name": "customers.index",
+      "uri": "customers",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Parties\\Presentation\\CatalogPage",
+      "component_file": "app/Modules/Parties/Presentation/CatalogPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/CatalogPage.php",
+        "app/Modules/Parties/Presentation/PartyCatalogPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.catalog",
+          "file": "resources/views/parties/catalog.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/customers",
+      "safe_parameterless_url": "/customers"
+    },
+    {
+      "name": "customers.create",
+      "uri": "customers/create",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Parties\\Presentation\\CustomerFormPage",
+      "component_file": "app/Modules/Parties/Presentation/CustomerFormPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/CustomerFormPage.php",
+        "app/Modules/Parties/Presentation/PartyFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.form",
+          "file": "resources/views/parties/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/customers/create",
+      "safe_parameterless_url": "/customers/create"
+    },
+    {
+      "name": "customers.import",
+      "uri": "customers/import",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\System\\Presentation\\DataOperationPage",
+      "component_file": "app/Modules/System/Presentation/DataOperationPage.php",
+      "component_chain": [
+        "app/Modules/System/Presentation/DataOperationPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/customers/import",
+      "safe_parameterless_url": "/customers/import"
+    },
+    {
+      "name": "customers.show",
+      "uri": "customers/{customer}",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "detail",
+      "action": "App\\Modules\\Parties\\Presentation\\CustomerDetailsPage",
+      "component_file": "app/Modules/Parties/Presentation/CustomerDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/CustomerDetailsPage.php",
+        "app/Modules/Parties/Presentation/PartyDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.details",
+          "file": "resources/views/parties/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/customers/1211",
+      "safe_parameterless_url": "/customers/1211"
+    },
+    {
+      "name": "customers.edit",
+      "uri": "customers/{customer}/edit",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Parties\\Presentation\\CustomerFormPage",
+      "component_file": "app/Modules/Parties/Presentation/CustomerFormPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/CustomerFormPage.php",
+        "app/Modules/Parties/Presentation/PartyFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.form",
+          "file": "resources/views/parties/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/customers/1211/edit",
+      "safe_parameterless_url": "/customers/1211/edit"
+    },
+    {
+      "name": "dashboard",
+      "uri": "dashboard",
+      "method": "GET|HEAD",
+      "module": "M17 System",
+      "archetype": "dashboard",
+      "action": "Illuminate\\Routing\\ViewController",
+      "component_file": null,
+      "component_chain": [],
+      "view_candidates": [
+        {
+          "name": "dashboard",
+          "file": "resources/views/dashboard.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/dashboard",
+      "safe_parameterless_url": "/dashboard"
+    },
+    {
+      "name": "operations.import",
+      "uri": "data-operations/import/{entity}",
+      "method": "GET|HEAD",
+      "module": "M17 System",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\System\\Presentation\\DataOperationPage",
+      "component_file": "app/Modules/System/Presentation/DataOperationPage.php",
+      "component_chain": [
+        "app/Modules/System/Presentation/DataOperationPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "customers",
+      "fixture_url": "/data-operations/import/customers",
+      "safe_parameterless_url": "/data-operations/import/customers"
+    },
+    {
+      "name": "operations.show",
+      "uri": "data-operations/{runId}",
+      "method": "GET|HEAD",
+      "module": "M17 System",
+      "archetype": "detail",
+      "action": "App\\Modules\\System\\Presentation\\DataOperationPage",
+      "component_file": "app/Modules/System/Presentation/DataOperationPage.php",
+      "component_chain": [
+        "app/Modules/System/Presentation/DataOperationPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/data-operations/1c27d4b3-efab-4f9a-951f-73e767ff066f",
+      "safe_parameterless_url": "/data-operations/1c27d4b3-efab-4f9a-951f-73e767ff066f"
+    },
+    {
+      "name": "financial.aging",
+      "uri": "financial/aging",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/aging",
+      "safe_parameterless_url": "/financial/aging"
+    },
+    {
+      "name": "financial.ap",
+      "uri": "financial/ap",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/ap",
+      "safe_parameterless_url": "/financial/ap"
+    },
+    {
+      "name": "financial.ar",
+      "uri": "financial/ar",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/ar",
+      "safe_parameterless_url": "/financial/ar"
+    },
+    {
+      "name": "financial.credit-notes",
+      "uri": "financial/credit-notes",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/credit-notes",
+      "safe_parameterless_url": "/financial/credit-notes"
+    },
+    {
+      "name": "financial.customer-invoices",
+      "uri": "financial/customer-invoices",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/customer-invoices",
+      "safe_parameterless_url": "/financial/customer-invoices"
+    },
+    {
+      "name": "financial.supplier-invoices",
+      "uri": "financial/supplier-invoices",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialOperationsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/FinancialOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.index",
+          "file": "resources/views/receivables-payables/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/financial/supplier-invoices",
+      "safe_parameterless_url": "/financial/supplier-invoices"
+    },
+    {
+      "name": "financial.invoices.show",
+      "uri": "financial/{type}-invoices/{invoice}",
+      "method": "GET|HEAD",
+      "module": "M12 ReceivablesPayables",
+      "archetype": "detail",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\InvoiceDetailsPage",
+      "component_file": "app/Modules/ReceivablesPayables/Presentation/InvoiceDetailsPage.php",
+      "component_chain": [
+        "app/Modules/ReceivablesPayables/Presentation/InvoiceDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "receivables-payables.invoice-details",
+          "file": "resources/views/receivables-payables/invoice-details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "customer",
+      "fixture_url": "/financial/customer-invoices/1",
+      "safe_parameterless_url": "/financial/customer-invoices/1"
+    },
+    {
+      "name": "inventory.dashboard",
+      "uri": "inventory",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.overview",
+          "file": "resources/views/inventory/overview.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory",
+      "safe_parameterless_url": "/inventory"
+    },
+    {
+      "name": "inventory.adjustments",
+      "uri": "inventory/adjustments",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/adjustments",
+      "safe_parameterless_url": "/inventory/adjustments"
+    },
+    {
+      "name": "inventory.balances",
+      "uri": "inventory/balances",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.overview",
+          "file": "resources/views/inventory/overview.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/balances",
+      "safe_parameterless_url": "/inventory/balances"
+    },
+    {
+      "name": "inventory.corrections",
+      "uri": "inventory/corrections",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryOperationsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryOperationsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.operations",
+          "file": "resources/views/inventory/operations.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/corrections",
+      "safe_parameterless_url": "/inventory/corrections"
+    },
+    {
+      "name": "inventory.counts",
+      "uri": "inventory/counts",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/counts",
+      "safe_parameterless_url": "/inventory/counts"
+    },
+    {
+      "name": "inventory.document.create",
+      "uri": "inventory/documents/{kind}/create",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.document",
+          "file": "resources/views/inventory/document.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "adjustment",
+      "fixture_url": "/inventory/documents/adjustment/create",
+      "safe_parameterless_url": "/inventory/documents/adjustment/create"
+    },
+    {
+      "name": "inventory.document.show",
+      "uri": "inventory/documents/{kind}/{document}",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "detail",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.document",
+          "file": "resources/views/inventory/document.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "adjustment",
+      "fixture_url": "/inventory/documents/adjustment/9",
+      "safe_parameterless_url": "/inventory/documents/adjustment/9"
+    },
+    {
+      "name": "inventory.isolations",
+      "uri": "inventory/isolations",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryOperationsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryOperationsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.operations",
+          "file": "resources/views/inventory/operations.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/isolations",
+      "safe_parameterless_url": "/inventory/isolations"
+    },
+    {
+      "name": "inventory.issues",
+      "uri": "inventory/issues",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/issues",
+      "safe_parameterless_url": "/inventory/issues"
+    },
+    {
+      "name": "inventory.movements",
+      "uri": "inventory/movements",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.overview",
+          "file": "resources/views/inventory/overview.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/movements",
+      "safe_parameterless_url": "/inventory/movements"
+    },
+    {
+      "name": "inventory.receipts",
+      "uri": "inventory/receipts",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/receipts",
+      "safe_parameterless_url": "/inventory/receipts"
+    },
+    {
+      "name": "inventory.reservations",
+      "uri": "inventory/reservations",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.overview",
+          "file": "resources/views/inventory/overview.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/reservations",
+      "safe_parameterless_url": "/inventory/reservations"
+    },
+    {
+      "name": "inventory.serials",
+      "uri": "inventory/serials",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryOperationsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryOperationsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.operations",
+          "file": "resources/views/inventory/operations.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/serials",
+      "safe_parameterless_url": "/inventory/serials"
+    },
+    {
+      "name": "inventory.transfers",
+      "uri": "inventory/transfers",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryDocumentsPage",
+      "component_file": "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/InventoryDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.documents",
+          "file": "resources/views/inventory/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/transfers",
+      "safe_parameterless_url": "/inventory/transfers"
+    },
+    {
+      "name": "inventory.warehouses",
+      "uri": "inventory/warehouses",
+      "method": "GET|HEAD",
+      "module": "M06 Inventory",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Inventory\\Presentation\\WarehousesPage",
+      "component_file": "app/Modules/Inventory/Presentation/WarehousesPage.php",
+      "component_chain": [
+        "app/Modules/Inventory/Presentation/WarehousesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "inventory.warehouses",
+          "file": "resources/views/inventory/warehouses.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/inventory/warehouses",
+      "safe_parameterless_url": "/inventory/warehouses"
+    },
+    {
+      "name": "maintenance.index",
+      "uri": "maintenance",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance",
+      "safe_parameterless_url": "/maintenance"
+    },
+    {
+      "name": "maintenance.assignments",
+      "uri": "maintenance/assignments",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/assignments",
+      "safe_parameterless_url": "/maintenance/assignments"
+    },
+    {
+      "name": "maintenance.checklists",
+      "uri": "maintenance/checklists",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/checklists",
+      "safe_parameterless_url": "/maintenance/checklists"
+    },
+    {
+      "name": "maintenance.dashboard",
+      "uri": "maintenance/dashboard",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/dashboard",
+      "safe_parameterless_url": "/maintenance/dashboard"
+    },
+    {
+      "name": "maintenance.reports",
+      "uri": "maintenance/reports",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/reports",
+      "safe_parameterless_url": "/maintenance/reports"
+    },
+    {
+      "name": "maintenance.requests",
+      "uri": "maintenance/requests",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/requests",
+      "safe_parameterless_url": "/maintenance/requests"
+    },
+    {
+      "name": "maintenance.requests.create",
+      "uri": "maintenance/requests/create",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceRequestPage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.request",
+          "file": "resources/views/maintenance/request.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/requests/create",
+      "safe_parameterless_url": "/maintenance/requests/create"
+    },
+    {
+      "name": "maintenance.requests.show",
+      "uri": "maintenance/requests/{request}",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "detail",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceRequestPage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.request",
+          "file": "resources/views/maintenance/request.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/requests/1",
+      "safe_parameterless_url": "/maintenance/requests/1"
+    },
+    {
+      "name": "maintenance.schedule",
+      "uri": "maintenance/schedule",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/schedule",
+      "safe_parameterless_url": "/maintenance/schedule"
+    },
+    {
+      "name": "maintenance.work-orders",
+      "uri": "maintenance/work-orders",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenancePage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenancePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.index",
+          "file": "resources/views/maintenance/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/work-orders",
+      "safe_parameterless_url": "/maintenance/work-orders"
+    },
+    {
+      "name": "maintenance.work-orders.create",
+      "uri": "maintenance/work-orders/create",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceRequestPage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenanceRequestPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.request",
+          "file": "resources/views/maintenance/request.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/work-orders/create",
+      "safe_parameterless_url": "/maintenance/work-orders/create"
+    },
+    {
+      "name": "maintenance.work-orders.show",
+      "uri": "maintenance/work-orders/{workOrder}",
+      "method": "GET|HEAD",
+      "module": "M08 FieldMaintenance",
+      "archetype": "detail",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceWorkOrderPage",
+      "component_file": "app/Modules/FieldMaintenance/Presentation/MaintenanceWorkOrderPage.php",
+      "component_chain": [
+        "app/Modules/FieldMaintenance/Presentation/MaintenanceWorkOrderPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "maintenance.work-order",
+          "file": "resources/views/maintenance/work-order.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/maintenance/work-orders/1",
+      "safe_parameterless_url": "/maintenance/work-orders/1"
+    },
+    {
+      "name": "organization.branches",
+      "uri": "organization/branches",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Organization\\Presentation\\BranchesPage",
+      "component_file": "app/Modules/Organization/Presentation/BranchesPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/BranchesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.branches",
+          "file": "resources/views/organization/branches.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/branches",
+      "safe_parameterless_url": "/organization/branches"
+    },
+    {
+      "name": "organization.branches.show",
+      "uri": "organization/branches/{branch}",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "detail",
+      "action": "App\\Modules\\Organization\\Presentation\\BranchDetailsPage",
+      "component_file": "app/Modules/Organization/Presentation/BranchDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/BranchDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.branch-details",
+          "file": "resources/views/organization/branch-details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/branches/1",
+      "safe_parameterless_url": "/organization/branches/1"
+    },
+    {
+      "name": "organization.company",
+      "uri": "organization/company",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "settings-or-profile",
+      "action": "App\\Modules\\Organization\\Presentation\\CompanyPage",
+      "component_file": "app/Modules/Organization/Presentation/CompanyPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/CompanyPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.company",
+          "file": "resources/views/organization/company.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/company",
+      "safe_parameterless_url": "/organization/company"
+    },
+    {
+      "name": "organization.permissions",
+      "uri": "organization/permissions",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Organization\\Presentation\\RolesPage",
+      "component_file": "app/Modules/Organization/Presentation/RolesPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/RolesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.roles",
+          "file": "resources/views/organization/roles.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/permissions",
+      "safe_parameterless_url": "/organization/permissions"
+    },
+    {
+      "name": "organization.roles",
+      "uri": "organization/roles",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Organization\\Presentation\\RolesPage",
+      "component_file": "app/Modules/Organization/Presentation/RolesPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/RolesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.roles",
+          "file": "resources/views/organization/roles.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/roles",
+      "safe_parameterless_url": "/organization/roles"
+    },
+    {
+      "name": "organization.roles.show",
+      "uri": "organization/roles/{role}",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "detail",
+      "action": "App\\Modules\\Organization\\Presentation\\RoleDetailsPage",
+      "component_file": "app/Modules/Organization/Presentation/RoleDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/RoleDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.role-details",
+          "file": "resources/views/organization/role-details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/roles/2",
+      "safe_parameterless_url": "/organization/roles/2"
+    },
+    {
+      "name": "organization.users",
+      "uri": "organization/users",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Organization\\Presentation\\UsersPage",
+      "component_file": "app/Modules/Organization/Presentation/UsersPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/UsersPage.php",
+        "app/Modules/Organization/Presentation/UserManagementPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.users",
+          "file": "resources/views/organization/users.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/users",
+      "safe_parameterless_url": "/organization/users"
+    },
+    {
+      "name": "organization.users.show",
+      "uri": "organization/users/{user}",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "detail",
+      "action": "App\\Modules\\Organization\\Presentation\\UserDetailsPage",
+      "component_file": "app/Modules/Organization/Presentation/UserDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Organization/Presentation/UserDetailsPage.php",
+        "app/Modules/Organization/Presentation/UserManagementPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "organization.user-details",
+          "file": "resources/views/organization/user-details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/organization/users/133",
+      "safe_parameterless_url": "/organization/users/133"
+    },
+    {
+      "name": "products.index",
+      "uri": "products",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Products\\Presentation\\CatalogPage",
+      "component_file": "app/Modules/Products/Presentation/CatalogPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/CatalogPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.catalog",
+          "file": "resources/views/products/catalog.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products",
+      "safe_parameterless_url": "/products"
+    },
+    {
+      "name": "products.brands",
+      "uri": "products/brands",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Products\\Presentation\\MastersPage",
+      "component_file": "app/Modules/Products/Presentation/MastersPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/MastersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.masters",
+          "file": "resources/views/products/masters.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/brands",
+      "safe_parameterless_url": "/products/brands"
+    },
+    {
+      "name": "products.categories",
+      "uri": "products/categories",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Products\\Presentation\\MastersPage",
+      "component_file": "app/Modules/Products/Presentation/MastersPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/MastersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.masters",
+          "file": "resources/views/products/masters.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/categories",
+      "safe_parameterless_url": "/products/categories"
+    },
+    {
+      "name": "products.create",
+      "uri": "products/create",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Products\\Presentation\\ProductFormPage",
+      "component_file": "app/Modules/Products/Presentation/ProductFormPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/ProductFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.product-form",
+          "file": "resources/views/products/product-form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/create",
+      "safe_parameterless_url": "/products/create"
+    },
+    {
+      "name": "products.import",
+      "uri": "products/import",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\System\\Presentation\\DataOperationPage",
+      "component_file": "app/Modules/System/Presentation/DataOperationPage.php",
+      "component_chain": [
+        "app/Modules/System/Presentation/DataOperationPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/import",
+      "safe_parameterless_url": "/products/import"
+    },
+    {
+      "name": "products.units",
+      "uri": "products/units",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Products\\Presentation\\MastersPage",
+      "component_file": "app/Modules/Products/Presentation/MastersPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/MastersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.masters",
+          "file": "resources/views/products/masters.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/units",
+      "safe_parameterless_url": "/products/units"
+    },
+    {
+      "name": "products.show",
+      "uri": "products/{product}",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "detail",
+      "action": "App\\Modules\\Products\\Presentation\\ProductDetailsPage",
+      "component_file": "app/Modules/Products/Presentation/ProductDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/ProductDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.details",
+          "file": "resources/views/products/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/1",
+      "safe_parameterless_url": "/products/1"
+    },
+    {
+      "name": "products.edit",
+      "uri": "products/{product}/edit",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Products\\Presentation\\ProductFormPage",
+      "component_file": "app/Modules/Products/Presentation/ProductFormPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/ProductFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.product-form",
+          "file": "resources/views/products/product-form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/1/edit",
+      "safe_parameterless_url": "/products/1/edit"
+    },
+    {
+      "name": "products.prices",
+      "uri": "products/{product}/prices",
+      "method": "GET|HEAD",
+      "module": "M02 Products",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Products\\Presentation\\ProductPricesPage",
+      "component_file": "app/Modules/Products/Presentation/ProductPricesPage.php",
+      "component_chain": [
+        "app/Modules/Products/Presentation/ProductPricesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "products.prices",
+          "file": "resources/views/products/prices.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/products/1/prices",
+      "safe_parameterless_url": "/products/1/prices"
+    },
+    {
+      "name": "projects.index",
+      "uri": "projects",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectsPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectsPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.index",
+          "file": "resources/views/projects/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects",
+      "safe_parameterless_url": "/projects"
+    },
+    {
+      "name": "projects.create",
+      "uri": "projects/create",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.show",
+          "file": "resources/views/projects/show.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/create",
+      "safe_parameterless_url": "/projects/create"
+    },
+    {
+      "name": "projects.dashboard",
+      "uri": "projects/dashboard",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectsDashboardPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectsDashboardPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectsDashboardPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.dashboard",
+          "file": "resources/views/projects/dashboard.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": null,
+      "fixture_variant": null,
+      "fixture_url": null,
+      "safe_parameterless_url": "/projects/dashboard"
+    },
+    {
+      "name": "projects.reports",
+      "uri": "projects/reports",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectReportsPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectReportsPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectReportsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.reports",
+          "file": "resources/views/projects/reports.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/reports",
+      "safe_parameterless_url": "/projects/reports"
+    },
+    {
+      "name": "projects.show",
+      "uri": "projects/{project}",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "detail",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.show",
+          "file": "resources/views/projects/show.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1",
+      "safe_parameterless_url": "/projects/1"
+    },
+    {
+      "name": "projects.budget",
+      "uri": "projects/{project}/budget",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectBudgetPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectBudgetPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectBudgetPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.budget",
+          "file": "resources/views/projects/budget.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/budget",
+      "safe_parameterless_url": "/projects/1/budget"
+    },
+    {
+      "name": "projects.closure",
+      "uri": "projects/{project}/closure",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectClosurePage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectClosurePage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectClosurePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.closure",
+          "file": "resources/views/projects/closure.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/closure",
+      "safe_parameterless_url": "/projects/1/closure"
+    },
+    {
+      "name": "projects.documents",
+      "uri": "projects/{project}/documents",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectDocumentsPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectDocumentsPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectDocumentsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.documents",
+          "file": "resources/views/projects/documents.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/documents",
+      "safe_parameterless_url": "/projects/1/documents"
+    },
+    {
+      "name": "projects.financial",
+      "uri": "projects/{project}/financial",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectFinancialPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectFinancialPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectFinancialPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.financial",
+          "file": "resources/views/projects/financial.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/financial",
+      "safe_parameterless_url": "/projects/1/financial"
+    },
+    {
+      "name": "projects.operations",
+      "uri": "projects/{project}/operations",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectOperationsPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectOperationsPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectOperationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.operations",
+          "file": "resources/views/projects/operations.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/operations",
+      "safe_parameterless_url": "/projects/1/operations"
+    },
+    {
+      "name": "projects.tasks",
+      "uri": "projects/{project}/tasks",
+      "method": "GET|HEAD",
+      "module": "M07 Projects",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectPage",
+      "component_file": "app/Modules/Projects/Presentation/ProjectPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/ProjectPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "projects.show",
+          "file": "resources/views/projects/show.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/projects/1/tasks",
+      "safe_parameterless_url": "/projects/1/tasks"
+    },
+    {
+      "name": "purchasing.dashboard",
+      "uri": "purchasing",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchasingDashboard",
+      "component_file": "app/Modules/Purchasing/Presentation/PurchasingDashboard.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/PurchasingDashboard.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.dashboard",
+          "file": "resources/views/purchasing/dashboard.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing",
+      "safe_parameterless_url": "/purchasing"
+    },
+    {
+      "name": "purchasing.comparison",
+      "uri": "purchasing/comparison",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Purchasing\\Presentation\\ComparisonPage",
+      "component_file": "app/Modules/Purchasing/Presentation/ComparisonPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/ComparisonPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.comparison",
+          "file": "resources/views/purchasing/comparison.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/comparison",
+      "safe_parameterless_url": "/purchasing/comparison"
+    },
+    {
+      "name": "purchasing.offers.index",
+      "uri": "purchasing/offers",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OffersPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OffersPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OffersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.offers",
+          "file": "resources/views/purchasing/offers.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/offers",
+      "safe_parameterless_url": "/purchasing/offers"
+    },
+    {
+      "name": "purchasing.offers.create",
+      "uri": "purchasing/offers/create",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OfferPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OfferPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OfferPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.offer",
+          "file": "resources/views/purchasing/offer.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/offers/create",
+      "safe_parameterless_url": "/purchasing/offers/create"
+    },
+    {
+      "name": "purchasing.offers.show",
+      "uri": "purchasing/offers/{offer}",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OfferPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OfferPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OfferPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.offer",
+          "file": "resources/views/purchasing/offer.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/offers/1",
+      "safe_parameterless_url": "/purchasing/offers/1"
+    },
+    {
+      "name": "purchasing.orders.index",
+      "uri": "purchasing/orders",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OrdersPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OrdersPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OrdersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.orders",
+          "file": "resources/views/purchasing/orders.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/orders",
+      "safe_parameterless_url": "/purchasing/orders"
+    },
+    {
+      "name": "purchasing.orders.create",
+      "uri": "purchasing/orders/create",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OrderPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OrderPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OrderPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.order",
+          "file": "resources/views/purchasing/order.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/orders/create",
+      "safe_parameterless_url": "/purchasing/orders/create"
+    },
+    {
+      "name": "purchasing.orders.show",
+      "uri": "purchasing/orders/{order}",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OrderPage",
+      "component_file": "app/Modules/Purchasing/Presentation/OrderPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/OrderPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.order",
+          "file": "resources/views/purchasing/order.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/orders/1",
+      "safe_parameterless_url": "/purchasing/orders/1"
+    },
+    {
+      "name": "purchasing.receipts.index",
+      "uri": "purchasing/receipts",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Purchasing\\Presentation\\ReceiptsPage",
+      "component_file": "app/Modules/Purchasing/Presentation/ReceiptsPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/ReceiptsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.receipts",
+          "file": "resources/views/purchasing/receipts.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/receipts",
+      "safe_parameterless_url": "/purchasing/receipts"
+    },
+    {
+      "name": "purchasing.receipts.create",
+      "uri": "purchasing/receipts/create",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Purchasing\\Presentation\\ReceiptPage",
+      "component_file": "app/Modules/Purchasing/Presentation/ReceiptPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/ReceiptPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.receipt",
+          "file": "resources/views/purchasing/receipt.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/receipts/create",
+      "safe_parameterless_url": "/purchasing/receipts/create"
+    },
+    {
+      "name": "purchasing.receipts.show",
+      "uri": "purchasing/receipts/{receipt}",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "action": "App\\Modules\\Purchasing\\Presentation\\ReceiptPage",
+      "component_file": "app/Modules/Purchasing/Presentation/ReceiptPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/ReceiptPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.receipt",
+          "file": "resources/views/purchasing/receipt.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/receipts/2",
+      "safe_parameterless_url": "/purchasing/receipts/2"
+    },
+    {
+      "name": "purchasing.reports",
+      "uri": "purchasing/reports",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchasingDashboard",
+      "component_file": "app/Modules/Purchasing/Presentation/PurchasingDashboard.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/PurchasingDashboard.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.dashboard",
+          "file": "resources/views/purchasing/dashboard.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified",
+        "App\\Http\\Middleware\\EnsureV2Available"
+      ],
+      "fixture_status": null,
+      "fixture_variant": null,
+      "fixture_url": null,
+      "safe_parameterless_url": "/purchasing/reports"
+    },
+    {
+      "name": "purchasing.requisitions.index",
+      "uri": "purchasing/requisitions",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RequisitionsPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RequisitionsPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RequisitionsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.requisitions",
+          "file": "resources/views/purchasing/requisitions.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/requisitions",
+      "safe_parameterless_url": "/purchasing/requisitions"
+    },
+    {
+      "name": "purchasing.requisitions.create",
+      "uri": "purchasing/requisitions/create",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RequisitionPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RequisitionPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RequisitionPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.requisition",
+          "file": "resources/views/purchasing/requisition.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/requisitions/create",
+      "safe_parameterless_url": "/purchasing/requisitions/create"
+    },
+    {
+      "name": "purchasing.requisitions.show",
+      "uri": "purchasing/requisitions/{requisition}",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RequisitionPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RequisitionPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RequisitionPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.requisition",
+          "file": "resources/views/purchasing/requisition.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/requisitions/1",
+      "safe_parameterless_url": "/purchasing/requisitions/1"
+    },
+    {
+      "name": "purchasing.returns",
+      "uri": "purchasing/returns",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchaseReturnsPage",
+      "component_file": "app/Modules/Purchasing/Presentation/PurchaseReturnsPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/PurchaseReturnsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.returns",
+          "file": "resources/views/purchasing/returns.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified",
+        "App\\Http\\Middleware\\EnsureV2Available"
+      ],
+      "fixture_status": null,
+      "fixture_variant": null,
+      "fixture_url": null,
+      "safe_parameterless_url": "/purchasing/returns"
+    },
+    {
+      "name": "purchasing.rfqs.index",
+      "uri": "purchasing/rfqs",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RfqsPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RfqsPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RfqsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.rfqs",
+          "file": "resources/views/purchasing/rfqs.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/rfqs",
+      "safe_parameterless_url": "/purchasing/rfqs"
+    },
+    {
+      "name": "purchasing.rfqs.create",
+      "uri": "purchasing/rfqs/create",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RfqPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RfqPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RfqPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.rfq",
+          "file": "resources/views/purchasing/rfq.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/rfqs/create",
+      "safe_parameterless_url": "/purchasing/rfqs/create"
+    },
+    {
+      "name": "purchasing.rfqs.show",
+      "uri": "purchasing/rfqs/{rfq}",
+      "method": "GET|HEAD",
+      "module": "M05 Purchasing",
+      "archetype": "detail",
+      "action": "App\\Modules\\Purchasing\\Presentation\\RfqPage",
+      "component_file": "app/Modules/Purchasing/Presentation/RfqPage.php",
+      "component_chain": [
+        "app/Modules/Purchasing/Presentation/RfqPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "purchasing.rfq",
+          "file": "resources/views/purchasing/rfq.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/purchasing/rfqs/1",
+      "safe_parameterless_url": "/purchasing/rfqs/1"
+    },
+    {
+      "name": "quotations.index",
+      "uri": "quotations",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationsPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationsPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.index",
+          "file": "resources/views/sales/quotations/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations",
+      "safe_parameterless_url": "/quotations"
+    },
+    {
+      "name": "quotations.create",
+      "uri": "quotations/create",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationFormPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationFormPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.form",
+          "file": "resources/views/sales/quotations/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/create",
+      "safe_parameterless_url": "/quotations/create"
+    },
+    {
+      "name": "quotations.policy",
+      "uri": "quotations/policy",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationPolicyPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationPolicyPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationPolicyPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.policy",
+          "file": "resources/views/sales/quotations/policy.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/policy",
+      "safe_parameterless_url": "/quotations/policy"
+    },
+    {
+      "name": "quotations.show",
+      "uri": "quotations/{quotation}",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "detail",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationDetailsPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.",
+          "file": "resources/views/sales/quotations.blade.php",
+          "exists": false
+        },
+        {
+          "name": "sales.quotations.details",
+          "file": "resources/views/sales/quotations/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/1",
+      "safe_parameterless_url": "/quotations/1"
+    },
+    {
+      "name": "quotations.acceptance",
+      "uri": "quotations/{quotation}/acceptance",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationAcceptancePage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationAcceptancePage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationAcceptancePage.php",
+        "app/Modules/Sales/Presentation/QuotationDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.",
+          "file": "resources/views/sales/quotations.blade.php",
+          "exists": false
+        },
+        {
+          "name": "sales.quotations.acceptance",
+          "file": "resources/views/sales/quotations/acceptance.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/1/acceptance",
+      "safe_parameterless_url": "/quotations/1/acceptance"
+    },
+    {
+      "name": "quotations.approval",
+      "uri": "quotations/{quotation}/approval",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationApprovalPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationApprovalPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationApprovalPage.php",
+        "app/Modules/Sales/Presentation/QuotationDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.",
+          "file": "resources/views/sales/quotations.blade.php",
+          "exists": false
+        },
+        {
+          "name": "sales.quotations.approval",
+          "file": "resources/views/sales/quotations/approval.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/1/approval",
+      "safe_parameterless_url": "/quotations/1/approval"
+    },
+    {
+      "name": "quotations.convert",
+      "uri": "quotations/{quotation}/convert",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationConversionPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationConversionPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationConversionPage.php",
+        "app/Modules/Sales/Presentation/QuotationDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.",
+          "file": "resources/views/sales/quotations.blade.php",
+          "exists": false
+        },
+        {
+          "name": "sales.quotations.conversion",
+          "file": "resources/views/sales/quotations/conversion.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/1/convert",
+      "safe_parameterless_url": "/quotations/1/convert"
+    },
+    {
+      "name": "quotations.edit",
+      "uri": "quotations/{quotation}/edit",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationFormPage",
+      "component_file": "app/Modules/Sales/Presentation/QuotationFormPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/QuotationFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.quotations.form",
+          "file": "resources/views/sales/quotations/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/quotations/1/edit",
+      "safe_parameterless_url": "/quotations/1/edit"
+    },
+    {
+      "name": "sales-orders.index",
+      "uri": "sales-orders",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrdersPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrdersPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrdersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.index",
+          "file": "resources/views/sales/orders/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/sales-orders",
+      "safe_parameterless_url": "/sales-orders"
+    },
+    {
+      "name": "sales-orders.create",
+      "uri": "sales-orders/create",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderFormPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrderFormPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrderFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.form",
+          "file": "resources/views/sales/orders/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/sales-orders/create",
+      "safe_parameterless_url": "/sales-orders/create"
+    },
+    {
+      "name": "sales-orders.policy",
+      "uri": "sales-orders/policy",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderPolicyPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrderPolicyPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrderPolicyPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.policy",
+          "file": "resources/views/sales/orders/policy.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/sales-orders/policy",
+      "safe_parameterless_url": "/sales-orders/policy"
+    },
+    {
+      "name": "sales-orders.show",
+      "uri": "sales-orders/{order}",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "detail",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderDetailsPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrderDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrderDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.details",
+          "file": "resources/views/sales/orders/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/sales-orders/1",
+      "safe_parameterless_url": "/sales-orders/1"
+    },
+    {
+      "name": "sales-orders.edit",
+      "uri": "sales-orders/{order}/edit",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderFormPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrderFormPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrderFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.form",
+          "file": "resources/views/sales/orders/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/sales-orders/1/edit",
+      "safe_parameterless_url": "/sales-orders/1/edit"
+    },
+    {
+      "name": "sales-orders.screen",
+      "uri": "sales-orders/{order}/{screen}",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderDetailsPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesOrderDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesOrderDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.orders.details",
+          "file": "resources/views/sales/orders/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "amendment",
+      "fixture_url": "/sales-orders/1/amendment",
+      "safe_parameterless_url": "/sales-orders/1/amendment"
+    },
+    {
+      "name": "sales-returns.index",
+      "uri": "sales-returns",
+      "method": "GET|HEAD",
+      "module": "M04 Sales",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesReturnsPage",
+      "component_file": "app/Modules/Sales/Presentation/SalesReturnsPage.php",
+      "component_chain": [
+        "app/Modules/Sales/Presentation/SalesReturnsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "sales.returns.index",
+          "file": "resources/views/sales/returns/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified",
+        "App\\Http\\Middleware\\EnsureV2Available"
+      ],
+      "fixture_status": null,
+      "fixture_variant": null,
+      "fixture_url": null,
+      "safe_parameterless_url": "/sales-returns"
+    },
+    {
+      "name": "appearance.edit",
+      "uri": "settings/appearance",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "form-or-import",
+      "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController",
+      "component_file": null,
+      "component_chain": [],
+      "view_candidates": [
+        {
+          "name": "pages::settings.appearance",
+          "file": "resources/views/pages/settings/appearance.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/settings/appearance",
+      "safe_parameterless_url": "/settings/appearance"
+    },
+    {
+      "name": "profile.edit",
+      "uri": "settings/profile",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "form-or-import",
+      "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController",
+      "component_file": null,
+      "component_chain": [],
+      "view_candidates": [
+        {
+          "name": "pages::settings.profile",
+          "file": "resources/views/pages/settings/profile.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/settings/profile",
+      "safe_parameterless_url": "/settings/profile"
+    },
+    {
+      "name": "security.edit",
+      "uri": "settings/security",
+      "method": "GET|HEAD",
+      "module": "M01 Organization",
+      "archetype": "form-or-import",
+      "action": "Livewire\\Mechanisms\\HandleRouting\\LivewirePageController",
+      "component_file": null,
+      "component_chain": [],
+      "view_candidates": [
+        {
+          "name": "pages::settings.security",
+          "file": "resources/views/pages/settings/security.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified",
+        "Illuminate\\Auth\\Middleware\\RequirePassword"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/settings/security",
+      "safe_parameterless_url": "/settings/security"
+    },
+    {
+      "name": "suppliers.index",
+      "uri": "suppliers",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierCatalogPage",
+      "component_file": "app/Modules/Parties/Presentation/SupplierCatalogPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/SupplierCatalogPage.php",
+        "app/Modules/Parties/Presentation/PartyCatalogPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.catalog",
+          "file": "resources/views/parties/catalog.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers",
+      "safe_parameterless_url": "/suppliers"
+    },
+    {
+      "name": "suppliers.categories",
+      "uri": "suppliers/categories",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierCategoriesPage",
+      "component_file": "app/Modules/Parties/Presentation/SupplierCategoriesPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/SupplierCategoriesPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.categories",
+          "file": "resources/views/parties/categories.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers/categories",
+      "safe_parameterless_url": "/suppliers/categories"
+    },
+    {
+      "name": "suppliers.create",
+      "uri": "suppliers/create",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierFormPage",
+      "component_file": "app/Modules/Parties/Presentation/SupplierFormPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/SupplierFormPage.php",
+        "app/Modules/Parties/Presentation/PartyFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.form",
+          "file": "resources/views/parties/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers/create",
+      "safe_parameterless_url": "/suppliers/create"
+    },
+    {
+      "name": "suppliers.import",
+      "uri": "suppliers/import",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\System\\Presentation\\DataOperationPage",
+      "component_file": "app/Modules/System/Presentation/DataOperationPage.php",
+      "component_chain": [
+        "app/Modules/System/Presentation/DataOperationPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "data-operations.workflow",
+          "file": "resources/views/data-operations/workflow.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers/import",
+      "safe_parameterless_url": "/suppliers/import"
+    },
+    {
+      "name": "suppliers.show",
+      "uri": "suppliers/{supplier}",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "detail",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierDetailsPage",
+      "component_file": "app/Modules/Parties/Presentation/SupplierDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/SupplierDetailsPage.php",
+        "app/Modules/Parties/Presentation/PartyDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.details",
+          "file": "resources/views/parties/details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers/612",
+      "safe_parameterless_url": "/suppliers/612"
+    },
+    {
+      "name": "suppliers.edit",
+      "uri": "suppliers/{supplier}/edit",
+      "method": "GET|HEAD",
+      "module": "M03 Parties",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierFormPage",
+      "component_file": "app/Modules/Parties/Presentation/SupplierFormPage.php",
+      "component_chain": [
+        "app/Modules/Parties/Presentation/SupplierFormPage.php",
+        "app/Modules/Parties/Presentation/PartyFormPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "parties.form",
+          "file": "resources/views/parties/form.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/suppliers/612/edit",
+      "safe_parameterless_url": "/suppliers/612/edit"
+    },
+    {
+      "name": "tenders.index",
+      "uri": "tenders",
+      "method": "GET|HEAD",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Projects\\Presentation\\TendersPage",
+      "component_file": "app/Modules/Projects/Presentation/TendersPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/TendersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/tenders",
+      "safe_parameterless_url": "/tenders"
+    },
+    {
+      "name": "tenders.create",
+      "uri": "tenders/create",
+      "method": "GET|HEAD",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\Projects\\Presentation\\TenderPage",
+      "component_file": "app/Modules/Projects/Presentation/TenderPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/TenderPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "tenders.show",
+          "file": "resources/views/tenders/show.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/tenders/create",
+      "safe_parameterless_url": "/tenders/create"
+    },
+    {
+      "name": "tenders.dashboard",
+      "uri": "tenders/dashboard",
+      "method": "GET|HEAD",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\Projects\\Presentation\\TendersPage",
+      "component_file": "app/Modules/Projects/Presentation/TendersPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/TendersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/tenders/dashboard",
+      "safe_parameterless_url": "/tenders/dashboard"
+    },
+    {
+      "name": "tenders.reports",
+      "uri": "tenders/reports",
+      "method": "GET|HEAD",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\Projects\\Presentation\\TendersPage",
+      "component_file": "app/Modules/Projects/Presentation/TendersPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/TendersPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "tenders.index",
+          "file": "resources/views/tenders/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/tenders/reports",
+      "safe_parameterless_url": "/tenders/reports"
+    },
+    {
+      "name": "tenders.show",
+      "uri": "tenders/{tender}",
+      "method": "GET|HEAD",
+      "module": "M07 Projects (Tenders)",
+      "archetype": "detail",
+      "action": "App\\Modules\\Projects\\Presentation\\TenderPage",
+      "component_file": "app/Modules/Projects/Presentation/TenderPage.php",
+      "component_chain": [
+        "app/Modules/Projects/Presentation/TenderPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "tenders.show",
+          "file": "resources/views/tenders/show.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/tenders/1",
+      "safe_parameterless_url": "/tenders/1"
+    },
+    {
+      "name": "treasury.accounts",
+      "uri": "treasury/accounts",
+      "method": "GET|HEAD",
+      "module": "M13 Treasury",
+      "archetype": "list-or-catalog",
+      "action": "App\\Modules\\Treasury\\Presentation\\TreasuryPage",
+      "component_file": "app/Modules/Treasury/Presentation/TreasuryPage.php",
+      "component_chain": [
+        "app/Modules/Treasury/Presentation/TreasuryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/treasury/accounts",
+      "safe_parameterless_url": "/treasury/accounts"
+    },
+    {
+      "name": "treasury.collections",
+      "uri": "treasury/collections",
+      "method": "GET|HEAD",
+      "module": "M13 Treasury",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Treasury\\Presentation\\TreasuryPage",
+      "component_file": "app/Modules/Treasury/Presentation/TreasuryPage.php",
+      "component_chain": [
+        "app/Modules/Treasury/Presentation/TreasuryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/treasury/collections",
+      "safe_parameterless_url": "/treasury/collections"
+    },
+    {
+      "name": "treasury.movements.show",
+      "uri": "treasury/movements/{movement}",
+      "method": "GET|HEAD",
+      "module": "M13 Treasury",
+      "archetype": "detail",
+      "action": "App\\Modules\\Treasury\\Presentation\\MovementDetailsPage",
+      "component_file": "app/Modules/Treasury/Presentation/MovementDetailsPage.php",
+      "component_chain": [
+        "app/Modules/Treasury/Presentation/MovementDetailsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "treasury.movement-details",
+          "file": "resources/views/treasury/movement-details.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/treasury/movements/1",
+      "safe_parameterless_url": "/treasury/movements/1"
+    },
+    {
+      "name": "treasury.payments",
+      "uri": "treasury/payments",
+      "method": "GET|HEAD",
+      "module": "M13 Treasury",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Treasury\\Presentation\\TreasuryPage",
+      "component_file": "app/Modules/Treasury/Presentation/TreasuryPage.php",
+      "component_chain": [
+        "app/Modules/Treasury/Presentation/TreasuryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/treasury/payments",
+      "safe_parameterless_url": "/treasury/payments"
+    },
+    {
+      "name": "treasury.transfers",
+      "uri": "treasury/transfers",
+      "method": "GET|HEAD",
+      "module": "M13 Treasury",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\Treasury\\Presentation\\TreasuryPage",
+      "component_file": "app/Modules/Treasury/Presentation/TreasuryPage.php",
+      "component_chain": [
+        "app/Modules/Treasury/Presentation/TreasuryPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "treasury.index",
+          "file": "resources/views/treasury/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/treasury/transfers",
+      "safe_parameterless_url": "/treasury/transfers"
+    },
+    {
+      "name": "password.confirm",
+      "uri": "user/confirm-password",
+      "method": "GET|HEAD",
+      "module": "Authentication",
+      "archetype": "workflow-or-module-screen",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@show",
+      "component_file": null,
+      "component_chain": [],
+      "view_candidates": [],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate:web"
+      ],
+      "fixture_status": null,
+      "fixture_variant": null,
+      "fixture_url": null,
+      "safe_parameterless_url": "/user/confirm-password"
+    },
+    {
+      "name": "workshops.dashboard",
+      "uri": "workshops/dashboard",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "dashboard",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopsPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/dashboard",
+      "safe_parameterless_url": "/workshops/dashboard"
+    },
+    {
+      "name": "workshops.intakes",
+      "uri": "workshops/intakes",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopsPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/intakes",
+      "safe_parameterless_url": "/workshops/intakes"
+    },
+    {
+      "name": "workshops.intakes.create",
+      "uri": "workshops/intakes/create",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "form-or-import",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\IntakePage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/IntakePage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/IntakePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.intake",
+          "file": "resources/views/workshops/intake.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/intakes/create",
+      "safe_parameterless_url": "/workshops/intakes/create"
+    },
+    {
+      "name": "workshops.intakes.show",
+      "uri": "workshops/intakes/{intake}",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "detail",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\IntakePage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/IntakePage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/IntakePage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.intake",
+          "file": "resources/views/workshops/intake.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/intakes/1",
+      "safe_parameterless_url": "/workshops/intakes/1"
+    },
+    {
+      "name": "workshops.jobs",
+      "uri": "workshops/jobs",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "workflow-or-module-screen",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopsPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/jobs",
+      "safe_parameterless_url": "/workshops/jobs"
+    },
+    {
+      "name": "workshops.jobs.show",
+      "uri": "workshops/jobs/{job}",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "detail",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\JobPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/JobPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/JobPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.job",
+          "file": "resources/views/workshops/job.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/jobs/1",
+      "safe_parameterless_url": "/workshops/jobs/1"
+    },
+    {
+      "name": "workshops.reports",
+      "uri": "workshops/reports",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "report-or-analysis",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopsPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/reports",
+      "safe_parameterless_url": "/workshops/reports"
+    },
+    {
+      "name": "workshops.settings",
+      "uri": "workshops/settings",
+      "method": "GET|HEAD",
+      "module": "M09 WorkshopRepairs",
+      "archetype": "settings-or-profile",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopsPage",
+      "component_file": "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php",
+      "component_chain": [
+        "app/Modules/WorkshopRepairs/Presentation/WorkshopsPage.php"
+      ],
+      "view_candidates": [
+        {
+          "name": "workshops.index",
+          "file": "resources/views/workshops/index.blade.php",
+          "exists": true
+        }
+      ],
+      "middleware": [
+        "web",
+        "Illuminate\\Auth\\Middleware\\Authenticate",
+        "Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified"
+      ],
+      "fixture_status": 200,
+      "fixture_variant": "default",
+      "fixture_url": "/workshops/settings",
+      "safe_parameterless_url": "/workshops/settings"
+    }
+  ],
+  "excluded_get_routes": [
+    {
+      "name": "well-known.passkeys",
+      "uri": ".well-known/passkey-endpoints",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "home",
+      "uri": "/",
+      "action": "Illuminate\\Routing\\RedirectController",
+      "reason": "route has no authenticated-page middleware"
+    },
+    {
+      "name": "accounting.journals.pdf",
+      "uri": "accounting/journals/{journal}/pdf",
+      "action": "App\\Modules\\Accounting\\Presentation\\JournalPdfController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "accounting.reports.export",
+      "uri": "accounting/reports/{report}/{format}",
+      "action": "App\\Modules\\Accounting\\Presentation\\FinancialReportExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "customers.documents",
+      "uri": "customers/{customer}/documents/{document}",
+      "action": "App\\Modules\\Parties\\Presentation\\CustomerDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "verification.notice",
+      "uri": "email/verify",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationPromptController@__invoke",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "verification.verify",
+      "uri": "email/verify/{id}/{hash}",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\VerifyEmailController@__invoke",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "financial.documents",
+      "uri": "financial/documents/{type}/{record}",
+      "action": "App\\Modules\\ReceivablesPayables\\Presentation\\FinancialDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": null,
+      "uri": "flux/editor.css",
+      "action": "Flux\\AssetManager@editorCss",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/editor.js",
+      "action": "Flux\\AssetManager@editorJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/editor.min.js",
+      "action": "Flux\\AssetManager@editorMinJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": "__flux.flag",
+      "uri": "flux/flags/{country}",
+      "action": "Flux\\AssetManager@flag",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": null,
+      "uri": "flux/flux.js",
+      "action": "Flux\\AssetManager@fluxJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/flux.min.js",
+      "action": "Flux\\AssetManager@fluxMinJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/phone-utils.js",
+      "action": "Flux\\AssetManager@phoneUtilsJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/phone.js",
+      "action": "Flux\\AssetManager@phoneJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "flux/phone.min.js",
+      "action": "Flux\\AssetManager@phoneMinJs",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": "password.request",
+      "uri": "forgot-password",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@create",
+      "reason": "route has no authenticated-page middleware"
+    },
+    {
+      "name": "inventory.export",
+      "uri": "inventory/export/{entity}",
+      "action": "App\\Modules\\Inventory\\Presentation\\InventoryExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/css/{component}.css",
+      "action": "Closure",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/css/{component}.global.css",
+      "action": "Closure",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/js/{component}.js",
+      "action": "Closure",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/livewire.csp.min.js.map",
+      "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@cspMaps",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/livewire.min.js",
+      "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": null,
+      "uri": "livewire-0b809833/livewire.min.js.map",
+      "action": "Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": "livewire.preview-file",
+      "uri": "livewire-0b809833/preview-file/{filename}",
+      "action": "Livewire\\Features\\SupportFileUploads\\FilePreviewController@handle",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "login",
+      "uri": "login",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "maintenance.documents",
+      "uri": "maintenance/documents/{document}",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceDownloadController@document",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "maintenance.report",
+      "uri": "maintenance/work-orders/{workOrder}/reports/{completion}",
+      "action": "App\\Modules\\FieldMaintenance\\Presentation\\MaintenanceDownloadController@report",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "organization.company.logo",
+      "uri": "organization/company/logo",
+      "action": "App\\Modules\\Organization\\Presentation\\CompanyLogoController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "passkey.confirm-options",
+      "uri": "passkeys/confirm/options",
+      "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyConfirmationController@index",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "passkey.login-options",
+      "uri": "passkeys/login/options",
+      "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyLoginController@index",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "products.media",
+      "uri": "products/media/{media}",
+      "action": "App\\Modules\\Products\\Presentation\\ProductMediaController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "products.media.download",
+      "uri": "products/media/{media}/download",
+      "action": "App\\Modules\\Products\\Presentation\\ProductMediaController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "projects.export",
+      "uri": "projects/export",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "projects.download",
+      "uri": "projects/{project}/documents/{revision}",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectDownloadController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "projects.financial.export",
+      "uri": "projects/{project}/financial/{format}",
+      "action": "App\\Modules\\Projects\\Presentation\\ProjectFinancialExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "pulse",
+      "uri": "pulse",
+      "action": "Closure",
+      "reason": "route has no authenticated-page middleware"
+    },
+    {
+      "name": "purchasing.export",
+      "uri": "purchasing/export/{entity}",
+      "action": "App\\Modules\\Purchasing\\Presentation\\PurchasingExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "purchasing.offer-file",
+      "uri": "purchasing/offer-files/{file}",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OfferFileController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "purchasing.orders.pdf",
+      "uri": "purchasing/orders/{order}/pdf",
+      "action": "App\\Modules\\Purchasing\\Presentation\\OrderPdfController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "quotations.acceptance-evidence",
+      "uri": "quotations/{quotation}/acceptance-evidence",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationOfficialController@acceptance",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "quotations.documents",
+      "uri": "quotations/{quotation}/documents/{document}",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "quotations.official-pdf",
+      "uri": "quotations/{quotation}/official-pdf",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationOfficialController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "quotations.pdf",
+      "uri": "quotations/{quotation}/pdf",
+      "action": "App\\Modules\\Sales\\Presentation\\QuotationPdfPage",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "password.reset",
+      "uri": "reset-password/{token}",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@create",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "sales-orders.delivery-pdf",
+      "uri": "sales-orders/{order}/deliveries/{instruction}/pdf",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderOfficialController",
+      "reason": "PDF, export, download, official document, or report response controller"
+    },
+    {
+      "name": "sales-orders.pdf",
+      "uri": "sales-orders/{order}/pdf",
+      "action": "App\\Modules\\Sales\\Presentation\\SalesOrderOfficialController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": null,
+      "uri": "settings",
+      "action": "Illuminate\\Routing\\RedirectController",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": "storage.local",
+      "uri": "storage/{path}",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "suppliers.documents",
+      "uri": "suppliers/{supplier}/documents/{document}",
+      "action": "App\\Modules\\Parties\\Presentation\\SupplierDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "tenders.document",
+      "uri": "tenders/documents/{document}",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "tenders.export",
+      "uri": "tenders/exports/{format}",
+      "action": "App\\Modules\\Projects\\Presentation\\TenderExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "tenders.bid",
+      "uri": "tenders/{tender}/bids/{financial}/pdf",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "treasury.movements.pdf",
+      "uri": "treasury/movements/{movement}/pdf",
+      "action": "App\\Modules\\Treasury\\Presentation\\TreasuryDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "two-factor.login",
+      "uri": "two-factor-challenge",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@create",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": null,
+      "uri": "up",
+      "action": "Illuminate\\Foundation\\Http\\HealthCheck",
+      "reason": "unnamed GET route"
+    },
+    {
+      "name": "password.confirmation",
+      "uri": "user/confirmed-password-status",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedPasswordStatusController@show",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "passkey.registration-options",
+      "uri": "user/passkeys/options",
+      "action": "Laravel\\Passkeys\\Http\\Controllers\\PasskeyRegistrationController@index",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "two-factor.qr-code",
+      "uri": "user/two-factor-qr-code",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorQrCodeController@show",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "two-factor.recovery-codes",
+      "uri": "user/two-factor-recovery-codes",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\RecoveryCodeController@index",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "two-factor.secret-key",
+      "uri": "user/two-factor-secret-key",
+      "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorSecretKeyController@show",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "workshops.documents",
+      "uri": "workshops/documents/{document}",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "workshops.exports",
+      "uri": "workshops/exports/{format}",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\WorkshopExportController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "workshops.reports.download",
+      "uri": "workshops/jobs/{job}/report",
+      "action": "Closure",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    },
+    {
+      "name": "workshops.official",
+      "uri": "workshops/jobs/{job}/{type}/{record}/pdf",
+      "action": "App\\Modules\\WorkshopRepairs\\Presentation\\RepairDocumentController",
+      "reason": "authentication, transport, download, export, PDF, or file response route"
+    }
+  ]
+}

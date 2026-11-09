@@ -1,0 +1,6 @@
+PASS Migration provides required serial-valued table purchasing_receipt_lines
+PASS Migration provides required serial-valued table inventory_fifo_serial_allocations
+PASS Migration provides required serial-valued table inventory_serials
+PASS Migration provides required serial-valued table inventory_fifo_allocations
+PASS M05 receipt lines persist source-owned serial identities
+RESULT all_pass=0 assertions=5 rollback_verified=1 phase=M11 source-cost posting fixture receipt=C:\projects\ERP_ELEC_NEW/.tmp/master-remediation-20261101/gate5-serial-valued-20261101T181607Z-d98ec48872/receipt.json

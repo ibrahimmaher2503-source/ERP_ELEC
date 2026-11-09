@@ -1,0 +1,6 @@
+FAIL legacy opening backfill attempt 3
+Stage: opening save reached SupplierAccess and was denied
+Error: Supplier access denied because M03.supplier_view had been assigned branch scope although PermissionCatalog defines it at company scope.
+Harness response: Moved the fixture grant to company scope; the guarded retry reset only its exact synthetic DB after confirming no financial or inventory history.
+Scope: disposable erp_elec_gate1_legacy on marked private cluster 127.0.0.1:49685; no business application source changed.
+

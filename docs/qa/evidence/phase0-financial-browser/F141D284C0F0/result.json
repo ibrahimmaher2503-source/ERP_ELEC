@@ -1,0 +1,7 @@
+{
+  "result": "FAIL",
+  "run_id": "F141D284C0F0",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [],
+  "failure": "Port 8016 is occupied; refusing to use an unknown server."
+}

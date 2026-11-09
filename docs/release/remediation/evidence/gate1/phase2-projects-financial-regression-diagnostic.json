@@ -1,0 +1,18 @@
+{
+    "database": "erp_elec_gate1_race_test",
+    "postgres_port": 49685,
+    "all_pass": false,
+    "error_class": "RuntimeException",
+    "error": "Financial report APIs omitted posted-source income/balance/reconciliation rows.",
+    "trace": [
+        {
+            "file": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\regression-copies\\check-phase2-projects-financial.php",
+            "line": 600,
+            "function": "{closure:C:\\projects\\ERP_ELEC_NEW\\.tmp\\master-remediation-20261101\\regression-copies\\check-phase2-projects-financial.php:102}",
+            "args": [
+                false,
+                "Financial report APIs omitted posted-source income/balance/reconciliation rows."
+            ]
+        }
+    ]
+}

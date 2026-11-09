@@ -1,0 +1,94 @@
+{
+  "result": "PASS",
+  "run_id": "814E0131F372",
+  "base_url": "http://127.0.0.1:8013",
+  "test_database": "erp_elec_new_test",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic RTL login succeeds with this run’s synthetic, explicitly scoped test actor",
+    "products: empty required form rejected with visible recovery state",
+    "products: first real save navigated to persisted details 38",
+    "products: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 10",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "suppliers: empty required form rejected with visible recovery state",
+    "suppliers: first real save navigated to persisted details 27",
+    "suppliers: navigate away, reopen, edit, reload, reopen, edit again and verify final save",
+    "M01 company: created setup company through the real organization action",
+    "M01 company: navigate away, reopen, save, reload, third save; synthetic setup remains identifiable",
+    "M01 branch: empty required modal is rejected in the browser",
+    "M01 branch: first save created synthetic branch 33",
+    "M01 branch: create, navigate away, reopen edit, save, reload, second edit and save persisted",
+    "M01 user: empty required account modal is rejected in the browser",
+    "M01 user: account provisioned without roles or automatic business grants (113)",
+    "M01 user: create, navigate away, reopen edit, save, reload, second edit and final save",
+    "direct PostgreSQL reads confirm original identities and final revisions persisted after the third save"
+  ],
+  "browser_errors": [],
+  "master_records": {
+    "company": {
+      "code": "R2-814E0131F372-CO",
+      "name": "Round2 synthetic company 814E0131F372",
+      "legal_name": "Company lifecycle revision three 814E0131F372"
+    },
+    "branch": {
+      "id": 33,
+      "code": "R2-814E0131F372-B",
+      "final_revision": "Branch revision two 814E0131F372"
+    },
+    "user": {
+      "id": 113,
+      "email": "round2-managed-814e0131f372@example.test",
+      "final_revision": "Managed user revision two 814E0131F372"
+    },
+    "product": {
+      "id": 38,
+      "sku": "R2-814E0131F372-P",
+      "final_revision": "Revision two 814E0131F372"
+    },
+    "customer": {
+      "id": 10,
+      "code": "R2-814E0131F372-C",
+      "final_revision": "Revision two 814E0131F372"
+    },
+    "supplier": {
+      "id": 27,
+      "code": "R2-814E0131F372-S",
+      "final_revision": "Revision two 814E0131F372"
+    }
+  },
+  "postgresql_verification": {
+    "persisted": {
+      "product": "Round2 product 814E0131F372",
+      "product_revision": "Revision two 814E0131F372",
+      "customer": "Round2 customer 814E0131F372",
+      "customer_revision": "Revision two 814E0131F372",
+      "supplier": "Round2 supplier 814E0131F372",
+      "supplier_revision": "Revision two 814E0131F372",
+      "branch": "Branch revision two 814E0131F372",
+      "managed_user": "Managed user revision two 814E0131F372",
+      "company": {
+        "name": "Round2 synthetic company 814E0131F372",
+        "code": "R2-814E0131F372-CO",
+        "legal_name": "Company lifecycle revision three 814E0131F372"
+      }
+    }
+  },
+  "screenshots": [
+    "branch-create-desktop.png",
+    "branch-create-mobile.png",
+    "company-revision-one-desktop.png",
+    "customers-create-desktop.png",
+    "customers-create-mobile.png",
+    "customers-invalid-desktop.png",
+    "products-create-desktop.png",
+    "products-create-mobile.png",
+    "products-invalid-desktop.png",
+    "suppliers-create-desktop.png",
+    "suppliers-create-mobile.png",
+    "suppliers-invalid-desktop.png",
+    "user-details-desktop.png"
+  ],
+  "note": "Synthetic test-database data only. The browser actor is a per-run test identity with explicit M02/M03 grants; no business postings or external services were created."
+}

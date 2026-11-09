@@ -1,0 +1,58 @@
+{
+  "result": "FAIL",
+  "run_id": "22CC71DB6F",
+  "failure": "Authorized financial xlsx export did not return a private valid document: HTTP 200 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet cache=no-store, public bytes=6478 signature=504b030414.",
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "resumed_existing_authenticated_browser_project": "passed",
+      "project_id": 7,
+      "create_edit": true,
+      "phase_task_milestone": true,
+      "independent_budget_approval": true
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 7,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "issue_id": 4,
+      "fifo_allocations": 1,
+      "product_id": 1
+    },
+    {
+      "browser_project_financial_summary": "passed",
+      "project_id": 7,
+      "recognized_cost": "20.00",
+      "recognized_revenue": "12.00",
+      "grni_cleared": "10.00",
+      "fifo_gl_difference": "0.00"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-557588bd/livewire.min.js",
+      "method": "GET"
+    }
+  ]
+}

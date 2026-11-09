@@ -1,0 +1,21 @@
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:1:# ERP UI unification acceptance
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:3:**ERP UI UNIFICATION INCOMPLETE — REMAINING PAGES**
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:7:## Delivered
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:20:## Verification completed
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:37:The lead directly reviewed rendered examples of all five archetypes, including Sales Orders and Quotations mobile registers, customer creation, home workspace, workshop intake details, accounting income statement, aging cards and the repaired product tablet detail. Remaining pages are not called visually accepted solely because HTTP/overflow assertions pass.
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:39:## Browser performance — observed, not attributed
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:41:Eighteen strict-content warm navigation samples (three routes × desktop/mobile × three runs) are retained against the matched earlier UI samples. Readiness is the actual workspace/profile/aging content, not heading-only timing. Page P95 is withheld at n=3; these samples do not replace the historical 166-case campaign.
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:49:| Aging / 1440 | 540ms | 1178ms | 245 / 771.4ms |
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:50:| Aging / 390 | 685ms | 763ms | 358.7 / 429.1ms |
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:52:The aging desktop increase is material in this small sample and remains an open performance acceptance issue. Its after TTFB varies approximately 320–800ms; that does not identify a CSS cause or establish a sustained regression. Do not claim a passed no-regression gate. Browser performance must be diagnosed separately from instrumented Debugbar SQL/PHP profiles. No additional chart library or frontend runtime was added; the final CSS gzip increase over the original UI reference is approximately 1.25KB.
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:54:## Outstanding acceptance / dependencies
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:60:- The home workspace still needs authoritative owner projections for executive financial analytics. No fictional KPIs, balances, trends or charts were inserted.
+docs/design/ERP_UI_UNIFICATION_FINAL_REPORT.md:63:## Exact reproduction commands
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:1:# Performance Phase 2 — current checkpoint
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:3:**PHASE 2 INCOMPLETE — REMAINING DEFECTS**
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:7:## Reconciled primary BEFORE baseline
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:9:Use the actual successful `after-20261031200934` campaign, source fingerprint `fddffec637f3654b8a72e996bffe640a54f977dd7b715973c07c9a3d565fe493`. Its final comparable warm pool reports desktop median/P95 **261.1 / 421.5ms** and mobile **272.1 / 469.6ms**, 483 samples per viewport. The supplied request's approximate numbers differ slightly; the stored final receipt is authoritative. Original baseline remains archived for historical comparison.
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:11:These are historical local PHP built-in server / isolated PostgreSQL / Edge results, not a measurement of the current UI candidate or production capacity. Page P95 remains withheld at n=3.
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:13:## Delivered investigation and preserved safety
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:20:## Remaining required work
+docs/performance/ERP_PHASE2_FINAL_REPORT.md:24:No Phase 2 improved/regressed counts, current aggregate median/P95, zero-functional-regression result or full coverage claim is manufactured. Refer to `ERP_PHASE2_DEFECT_MATRIX.md`, `ERP_PHASE2_SQL_FINDINGS.md`, `ERP_PHASE2_INTERACTION_RESULTS.md` and `ERP_PHASE2_BEFORE_AFTER.csv` for exact current status.

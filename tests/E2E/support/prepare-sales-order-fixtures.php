@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use App\Modules\Inventory\Domain\Warehouse;
 use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Parties\Domain\Customer;
@@ -17,18 +18,37 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
-putenv('APP_ENV=testing');
-$_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
+$root = dirname(__DIR__, 3);
+$private = $root.'/.tmp/master-remediation-20261101/ui-private';
+$finance = $private.'/finance';
+$cluster = realpath($root.'/.tmp/master-remediation-20261101/ui-pgdata');
+$bootstrap = is_file($finance.'/gate2-finance-ui-bootstrap.json') ? json_decode(file_get_contents($finance.'/gate2-finance-ui-bootstrap.json'), true, 512, JSON_THROW_ON_ERROR) : [];
+$nonce = (string) getenv('E2E_FINANCE_DB_NONCE');
+$database = 'erp_elec_new_finance_ui_'.substr($nonce, 0, 32);
+if (getenv('APP_ENV') !== 'testing' || getenv('E2E_DB_PORT') !== '49686' || getenv('DB_PORT') !== '49686'
+    || ! preg_match('/^[a-f0-9]{64}$/D', $nonce) || getenv('DB_DATABASE') !== $database || $cluster === false
+    || ! is_file($private.'/.codex-ui-owned.txt') || trim(file_get_contents($private.'/.codex-ui-owned.txt')) !== 'master-remediation-20261101 Gate2 UI private PostgreSQL marker'
+    || ($bootstrap['database'] ?? null) !== $database || ! hash_equals((string) ($bootstrap['ownership_nonce'] ?? ''), $nonce)
+    || (int) ($bootstrap['port'] ?? 0) !== 49686 || realpath((string) ($bootstrap['data_directory'] ?? '')) !== $cluster
+    || ($bootstrap['app_key'] ?? null) !== getenv('APP_KEY')) {
+    throw new RuntimeException('ABORT: Sales Order browser fixture requires the owned Gate2 finance UI database.');
+}
 
-require dirname(__DIR__, 3).'/vendor/autoload.php';
+require $root.'/vendor/autoload.php';
 
-$app = require dirname(__DIR__, 3).'/bootstrap/app.php';
+$app = require $root.'/bootstrap/app.php';
 $app->loadEnvironmentFrom('.env.testing');
+$app->useStoragePath($finance.'/storage');
 $app->make(Kernel::class)->bootstrap();
 
-if (DB::connection()->getDriverName() !== 'pgsql' || DB::connection()->getDatabaseName() !== 'erp_elec_new_test') {
-    throw new RuntimeException('E2E fixtures require the exact separate PostgreSQL test database.');
+$identity = DB::selectOne('select current_database() as db, host(inet_server_addr()) as host, inet_server_port() as port, current_user as db_user');
+if (DB::connection()->getDriverName() !== 'pgsql' || $identity->db !== $database || $identity->host !== '127.0.0.1'
+    || (int) $identity->port !== 49686 || $identity->db_user !== 'postgres'
+    || realpath((string) DB::scalar('show data_directory')) !== $cluster
+    || DB::table('codex_test_guard.ownership_receipts')->where('database', $database)->value('nonce') !== $nonce) {
+    throw new RuntimeException('ABORT before writes: unexpected Sales Order browser PostgreSQL identity.');
 }
 
 $requiredTables = [
@@ -42,14 +62,92 @@ foreach ($requiredTables as $table) {
 }
 
 $input = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
-$mode = $argv[1] ?? '';
+$mode = $_SERVER['argv'][1] ?? '';
+
+if ($mode === 'inspect-actors') {
+    fwrite(STDOUT, json_encode(User::query()->whereIn('email', [
+        'sales-order-e2e-creator@example.test', 'sales-order-e2e-reviewer@example.test',
+    ])->orderBy('id')->get(['id', 'email', 'name', 'active'])->all(), JSON_THROW_ON_ERROR));
+    exit(0);
+}
 
 if ($mode === 'cleanup') {
     $actorIds = array_values(array_filter(array_map('intval', $input['actor_ids'] ?? [])));
     if ($actorIds !== []) {
-        DB::table('sessions')->whereIn('user_id', $actorIds)->delete();
+        DB::transaction(function () use ($actorIds): void {
+            DB::table('sessions')->whereIn('user_id', $actorIds)->delete();
+            DB::table('access_grants')->whereIn('user_id', $actorIds)->where('permission_code', 'M12.customer_invoice_view')->delete();
+            foreach (User::query()->whereIn('id', $actorIds)->whereIn('email', [
+                'sales-order-e2e-creator@example.test', 'sales-order-e2e-reviewer@example.test',
+            ])->get() as $actor) {
+                $actor->forceFill(['active' => false, 'email_verified_at' => null,
+                    'password' => Hash::make(bin2hex(random_bytes(32))), 'session_version' => $actor->session_version + 1])->save();
+            }
+        });
     }
-    fwrite(STDOUT, json_encode(['sessions_cleared' => true], JSON_THROW_ON_ERROR));
+    fwrite(STDOUT, json_encode(['sessions_cleared' => true, 'actors_disabled' => true], JSON_THROW_ON_ERROR));
+    exit(0);
+}
+
+if ($mode === 'prepare-invoice-tab') {
+    $creator = User::query()->where('email', 'sales-order-e2e-creator@example.test')->where('name', 'Synthetic E2E Sales Order Creator')->where('active', true)->firstOrFail();
+    $reviewer = User::query()->where('email', 'sales-order-e2e-reviewer@example.test')->where('name', 'Synthetic E2E Sales Order Reviewer')->where('active', true)->firstOrFail();
+    $branch = Branch::query()->where('code', 'E2E-SO-CAI')->where('active', true)->firstOrFail();
+    $customer = Customer::query()->where('code', 'E2E-SO-CUSTOMER')->where('status', 'active')->firstOrFail();
+    $product = Product::query()->where('sku', 'E2E-SO-CABLE-001')->where('active', true)->firstOrFail();
+    $unit = Unit::query()->where('code', 'E2E-SO-EACH')->firstOrFail();
+    $result = DB::transaction(function () use ($creator, $reviewer, $branch, $customer, $product, $unit): array {
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $creator->id, 'permission_code' => 'M12.customer_invoice_view',
+            'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+        $order = SalesOrderFactory::new()->create(['branch_id' => $branch->id,
+            'branch_snapshot' => ['id' => $branch->id, 'code' => $branch->code, 'name' => $branch->name, 'address' => $branch->address],
+            'customer_id' => $customer->id,
+            'customer_reference' => 'E2E-INVOICE-TAB-'.Str::upper(Str::random(8)), 'created_by' => $creator->id]);
+        $line = SalesOrderLineFactory::new()->create(['sales_order_id' => $order->id, 'product_id' => $product->id, 'unit_id' => $unit->id]);
+        $warehouse = Warehouse::factory()->create(['branch_id' => $branch->id]);
+        $reservation = DB::table('inventory_reservations')->insertGetId(['idempotency_key' => (string) Str::uuid(),
+            'source_module' => 'Sales', 'source_id' => (string) $order->id, 'source_line' => (string) $line->id,
+            'warehouse_id' => $warehouse->id, 'product_id' => $product->id, 'requested' => '1.00000000',
+            'reserved' => '0.00000000', 'actor_id' => $creator->id, 'created_at' => now(), 'updated_at' => now()]);
+        $instruction = DB::table('sales_delivery_instructions')->insertGetId(['order_id' => $order->id,
+            'creation_key' => (string) Str::uuid(), 'payload_hash' => str_repeat('a', 64), 'reference' => 'TEST-INVOICE-TAB',
+            'status' => 'draft', 'created_by' => $creator->id, 'created_at' => now()]);
+        $deliveryLine = DB::table('sales_delivery_instruction_lines')->insertGetId(['instruction_id' => $instruction,
+            'line_id' => $line->id, 'reservation_id' => $reservation, 'quantity' => '1.00000000', 'issue_key' => (string) Str::uuid()]);
+        $tax = DB::table('accounting_tax_rules')->insertGetId(['code' => 'E2E-INV-TAB-'.Str::upper(Str::random(8)),
+            'name' => 'قاعدة اختبار مصطنعة', 'transaction_type' => 'sale', 'rate' => '0.00000',
+            'starts_on' => '2020-01-01', 'treatment' => 'exempt', 'tax_scale' => 2,
+            'legal_reference' => 'Synthetic E2E draft only', 'created_by' => $creator->id]);
+        $invoice = DB::table('rp_customer_invoices')->insertGetId(['creation_key' => (string) Str::uuid(),
+            'branch_id' => $branch->id, 'customer_id' => $customer->id, 'customer_name' => $customer->name,
+            'invoice_date' => now('Africa/Cairo')->toDateString(), 'due_date' => now('Africa/Cairo')->toDateString(),
+            'status' => 'draft', 'created_by' => $creator->id]);
+        DB::table('rp_customer_invoice_lines')->insert(['invoice_id' => $invoice, 'sales_order_line_id' => $line->id,
+            'delivery_line_id' => $deliveryLine, 'product_id' => $product->id, 'description' => 'بند فاتورة اختبار',
+            'quantity' => '1.00000000', 'net_amount' => '0.00', 'tax_amount' => '0.00', 'total_amount' => '0.00',
+            'tax_rule_id' => $tax, 'tax_snapshot' => json_encode(['fixture' => true], JSON_THROW_ON_ERROR)]);
+
+        return ['creator_id' => $creator->id, 'reviewer_id' => $reviewer->id, 'order_id' => $order->id, 'invoice_id' => $invoice];
+    });
+    fwrite(STDOUT, json_encode($result, JSON_THROW_ON_ERROR));
+    exit(0);
+}
+
+if ($mode === 'verify-draft') {
+    $order = SalesOrder::query()->with('lines')->findOrFail((int) ($input['order_id'] ?? 0));
+    $line = $order->lines->sole();
+    if ($order->status !== 'draft' || (int) $order->created_by !== (int) ($input['creator_id'] ?? 0)
+        || (int) $order->branch_id !== (int) ($input['branch_id'] ?? 0)
+        || (int) $order->customer_id !== (int) ($input['customer_id'] ?? 0)
+        || $order->customer_reference !== ($input['customer_reference'] ?? null)
+        || $order->project_name !== ($input['project_name'] ?? null)
+        || (int) $line->product_id !== (int) ($input['product_id'] ?? 0)
+        || (int) $line->unit_id !== (int) ($input['unit_id'] ?? 0)
+        || (string) $line->quantity !== '2.50000000'
+        || (string) $line->requested_price !== '123.45000000') {
+        throw new RuntimeException('The saved draft or its exact decimal line does not match the browser flow.');
+    }
+    fwrite(STDOUT, json_encode(['status' => $order->status, 'version' => $order->version], JSON_THROW_ON_ERROR));
     exit(0);
 }
 

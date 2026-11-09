@@ -1,0 +1,154 @@
+[
+  {
+    "route": "products.index",
+    "viewport": 1440,
+    "checks": [
+      {
+        "name": "product-pagination-changes-existing-records",
+        "result": "pass",
+        "details": {
+          "initial_count": 10,
+          "second_count": 10,
+          "initial_first": "product-1",
+          "second_first": "product-11",
+          "response_path": "/livewire-0b809833/update"
+        }
+      },
+      {
+        "name": "product-search-resets-pagination-to-empty-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "no_product_rows": true
+        }
+      },
+      {
+        "name": "product-search-clear-restores-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "rows": [
+            "product-1",
+            "product-2",
+            "product-3",
+            "product-4",
+            "product-5",
+            "product-6",
+            "product-7",
+            "product-8",
+            "product-9",
+            "product-10"
+          ]
+        }
+      },
+      {
+        "name": "product-sort-resets-to-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "before_first_visible_row": "11",
+          "after_first_visible_row": "1",
+          "before_first": "product-11",
+          "after_first": "product-15"
+        }
+      }
+    ],
+    "livewire_paths": [
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update"
+    ],
+    "page_before_sort": "11",
+    "page_two_before_sort_keys": [
+      "product-11",
+      "product-12",
+      "product-13",
+      "product-14",
+      "product-15",
+      "product-16",
+      "product-17",
+      "product-18",
+      "product-19",
+      "product-20"
+    ],
+    "page_two_response_path": "/livewire-0b809833/update"
+  },
+  {
+    "route": "products.index",
+    "viewport": 390,
+    "checks": [
+      {
+        "name": "product-pagination-changes-existing-records",
+        "result": "pass",
+        "details": {
+          "initial_count": 10,
+          "second_count": 10,
+          "initial_first": "product-1",
+          "second_first": "product-11",
+          "response_path": "/livewire-0b809833/update"
+        }
+      },
+      {
+        "name": "product-search-resets-pagination-to-empty-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "no_product_rows": true
+        }
+      },
+      {
+        "name": "product-search-clear-restores-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "rows": [
+            "product-1",
+            "product-2",
+            "product-3",
+            "product-4",
+            "product-5",
+            "product-6",
+            "product-7",
+            "product-8",
+            "product-9",
+            "product-10"
+          ]
+        }
+      },
+      {
+        "name": "product-sort-resets-to-first-page",
+        "result": "pass",
+        "details": {
+          "response_path": "/livewire-0b809833/update",
+          "before_first_visible_row": "11",
+          "after_first_visible_row": "1",
+          "before_first": "product-11",
+          "after_first": "product-15"
+        }
+      }
+    ],
+    "livewire_paths": [
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update",
+      "/livewire-0b809833/update"
+    ],
+    "page_before_sort": "11",
+    "page_two_before_sort_keys": [
+      "product-11",
+      "product-12",
+      "product-13",
+      "product-14",
+      "product-15",
+      "product-16",
+      "product-17",
+      "product-18",
+      "product-19",
+      "product-20"
+    ],
+    "page_two_response_path": "/livewire-0b809833/update"
+  }
+]

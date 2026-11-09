@@ -1,0 +1,758 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ModuleIdentityRegistryTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprojects keeps the m07 runtime identity and permission ownership[39m
+  [32;1m✓[39;22m[90m [39m[90mprojects feature gate is independent from the v2 release gate[39m
+  [32;1m✓[39;22m[90m [39m[90mdelivery returns m07 is historical only and owns no runtime permissions[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                                [39m [90m4.96s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can authenticate using the login screen[39m[90m                                                               [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can not authenticate with invalid password[39m[90m                                                            [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers with two factor enabled are redirected to two factor challenge[39m[90m                                        [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                                            [39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\EmailVerificationTest[39m
+  [32;1m✓[39;22m[90m [39m[90memail verification screen can be rendered[39m[90m                                                                   [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90munverified users are redirected to the email verification prompt[39m[90m                                            [39m [90m0.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail can be verified[39m[90m                                                                                       [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail is not verified with invalid hash[39m[90m                                                                     [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90malready verified user visiting verification link is redirected without firing event again[39m[90m                   [39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordConfirmationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mconfirm password screen can be rendered[39m[90m                                                                     [39m [90m0.16s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordResetTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreset password link screen can be rendered[39m[90m                                                                  [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password link can be requested[39m[90m                                                                        [39m [90m0.31s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password screen can be rendered[39m[90m                                                                       [39m [90m0.39s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be reset with valid token[39m[90m                                                                      [39m [90m0.33s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\TwoFactorChallengeTest[39m
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge redirects to login when not authenticated[39m[90m                                              [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge can be rendered[39m[90m                                                                        [39m [90m0.10s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\DashboardTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguests are redirected to the login page[39m[90m                                                                     [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated users can visit the dashboard[39m[90m                                                                 [39m [90m0.54s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreturns a successful response[39m[90m                                                                               [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\FoundationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpublic registration cannot create an erp account[39m[90m                                                            [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90moperator profile does not offer destructive account deletion[39m[90m                                                [39m [90m0.33s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard renders arabic rtl without business totals[39m[90m                                                        [39m [90m0.22s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\LocalUserCommandTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlocal account is created with a hashed password and verified email[39m[90m                                          [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlocal account command is unavailable in production[39m[90m                                                          [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mshort password cannot create an account[39m[90m                                                                     [39m [90m0.08s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\OptimizationRegressionTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mprojects dashboard renders with authorized scoped project access[39m
+  [31;1m⨯[39;22m[90m [39m[90mtender documents hide financial classifications without financial scope[39m
+  [31;1m⨯[39;22m[90m [39m[90mbatched project progress matches existing decimal formula with one read[39m
+  [31;1m⨯[39;22m[90m [39m[90mproduct image and pdf downloads emit safe dispositions and require authority[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission checks preserve default deny admin scope and same process updates[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission snapshot keeps many checks within a small query budget[39m
+  [31;1m⨯[39;22m[90m [39m[90mrequest snapshot is actor specific and raw cte mutations invalidate it[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission snapshot tracks user branch move and scope updates[39m
+  [31;1m⨯[39;22m[90m [39m[90morganization contract refreshes active and verified actor state immediately[39m
+  [31;1m⨯[39;22m[90m [39m[90minventory scope projection downgrades inactive branch and tracks warehouse revocation[39m
+  [31;1m⨯[39;22m[90m [39m[90mmaintenance list does not load other tab collections or dashboard stats[39m
+  [31;1m⨯[39;22m[90m [39m[90mworkshop settings counts jobs with one grouped query for all workshops[39m
+  [31;1m⨯[39;22m[90m [39m[90ma new http request observes revoked branch authority[39m
+  [31;1m⨯[39;22m[90m [39m[90maccess history only render skips effective permission matrix queries[39m
+  [31;1m⨯[39;22m[90m [39m[90muser access checks do not probe each target role and grant for admin[39m
+  [31;1m⨯[39;22m[90m [39m[90mbranch creator without company view keeps create action without company link[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\ProfileUpdateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprofile page is displayed[39m[90m                                                                                   [39m [90m0.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mprofile information can be updated[39m[90m                                                                          [39m [90m0.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail verification status is unchanged when email address is unchanged[39m[90m                                      [39m [90m0.24s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\SecurityTest[39m
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page can be rendered[39m[90m                                                                      [39m [90m0.46s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page requires password confirmation when enabled[39m[90m                                          [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page renders without two factor when feature is disabled[39m[90m                                  [39m [90m0.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor authentication disabled when confirmation abandoned between requests[39m[90m                             [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be updated[39m[90m                                                                                     [39m [90m0.43s[39m  
+  [32;1m✓[39;22m[90m [39m[90mweak password is rejected without replacing the existing password[39m[90m                                           [39m [90m0.44s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to update password[39m[90m                                                        [39m [90m0.43s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\WorkbookCodecSparseTemplateTest[39m
+  [32;1m✓[39;22m[90m [39m[90moriginal 500 row template reads sparse empty rows without creating a large cell cache[39m[90m                       [39m [90m1.36s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m projects dashboard renders with authorized s… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m tender documents hide financial classificati… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m batched project progress matches existing de… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m product image and pdf downloads emit safe di… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission checks preserve default deny admi… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission snapshot keeps many checks within… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m request snapshot is actor specific and raw c… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission snapshot tracks user branch move…  [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m organization contract refreshes active and v… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m inventory scope projection downgrades inacti… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m maintenance list does not load other tab col… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m workshop settings counts jobs with one group… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m a new http request observes revoked branch a… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m access history only render skips effective p… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m user access checks do not probe each target…  [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m branch creator without company view keeps cr… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+
+  [90mTests:[39m    [31;1m16 failed[39;22m[90m,[39m[39m [39m[32;1m41 passed[39;22m[90m (111 assertions)[39m
+  [90mDuration:[39m [39m13.84s[39m
+
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ModuleIdentityRegistryTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprojects keeps the m07 runtime identity and permission ownership[39m
+  [32;1m✓[39;22m[90m [39m[90mprojects feature gate is independent from the v2 release gate[39m
+  [32;1m✓[39;22m[90m [39m[90mdelivery returns m07 is historical only and owns no runtime permissions[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                                [39m [90m4.27s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can authenticate using the login screen[39m[90m                                                               [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can not authenticate with invalid password[39m[90m                                                            [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers with two factor enabled are redirected to two factor challenge[39m[90m                                        [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                                            [39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\EmailVerificationTest[39m
+  [32;1m✓[39;22m[90m [39m[90memail verification screen can be rendered[39m[90m                                                                   [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90munverified users are redirected to the email verification prompt[39m[90m                                            [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail can be verified[39m[90m                                                                                       [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail is not verified with invalid hash[39m[90m                                                                     [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90malready verified user visiting verification link is redirected without firing event again[39m[90m                   [39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordConfirmationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mconfirm password screen can be rendered[39m[90m                                                                     [39m [90m0.09s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordResetTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreset password link screen can be rendered[39m[90m                                                                  [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password link can be requested[39m[90m                                                                        [39m [90m0.28s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password screen can be rendered[39m[90m                                                                       [39m [90m0.30s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be reset with valid token[39m[90m                                                                      [39m [90m0.28s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\TwoFactorChallengeTest[39m
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge redirects to login when not authenticated[39m[90m                                              [39m [90m0.06s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge can be rendered[39m[90m                                                                        [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\DashboardTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguests are redirected to the login page[39m[90m                                                                     [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated users can visit the dashboard[39m[90m                                                                 [39m [90m0.18s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreturns a successful response[39m[90m                                                                               [39m [90m0.08s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\FoundationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpublic registration cannot create an erp account[39m[90m                                                            [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90moperator profile does not offer destructive account deletion[39m[90m                                                [39m [90m0.21s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard renders arabic rtl without business totals[39m[90m                                                        [39m [90m0.15s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\LocalUserCommandTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlocal account is created with a hashed password and verified email[39m[90m                                          [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlocal account command is unavailable in production[39m[90m                                                          [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mshort password cannot create an account[39m[90m                                                                     [39m [90m0.08s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\OptimizationRegressionTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mprojects dashboard renders with authorized scoped project access[39m
+  [31;1m⨯[39;22m[90m [39m[90mtender documents hide financial classifications without financial scope[39m
+  [31;1m⨯[39;22m[90m [39m[90mbatched project progress matches existing decimal formula with one read[39m
+  [31;1m⨯[39;22m[90m [39m[90mproduct image and pdf downloads emit safe dispositions and require authority[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission checks preserve default deny admin scope and same process updates[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission snapshot keeps many checks within a small query budget[39m
+  [31;1m⨯[39;22m[90m [39m[90mrequest snapshot is actor specific and raw cte mutations invalidate it[39m
+  [31;1m⨯[39;22m[90m [39m[90mpermission snapshot tracks user branch move and scope updates[39m
+  [31;1m⨯[39;22m[90m [39m[90morganization contract refreshes active and verified actor state immediately[39m
+  [31;1m⨯[39;22m[90m [39m[90minventory scope projection downgrades inactive branch and tracks warehouse revocation[39m
+  [31;1m⨯[39;22m[90m [39m[90mmaintenance list does not load other tab collections or dashboard stats[39m
+  [31;1m⨯[39;22m[90m [39m[90mworkshop settings counts jobs with one grouped query for all workshops[39m
+  [31;1m⨯[39;22m[90m [39m[90ma new http request observes revoked branch authority[39m
+  [31;1m⨯[39;22m[90m [39m[90maccess history only render skips effective permission matrix queries[39m
+  [31;1m⨯[39;22m[90m [39m[90muser access checks do not probe each target role and grant for admin[39m
+  [31;1m⨯[39;22m[90m [39m[90mbranch creator without company view keeps create action without company link[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\ProfileUpdateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprofile page is displayed[39m[90m                                                                                   [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90mprofile information can be updated[39m[90m                                                                          [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail verification status is unchanged when email address is unchanged[39m[90m                                      [39m [90m0.14s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\SecurityTest[39m
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page can be rendered[39m[90m                                                                      [39m [90m0.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page requires password confirmation when enabled[39m[90m                                          [39m [90m0.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page renders without two factor when feature is disabled[39m[90m                                  [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor authentication disabled when confirmation abandoned between requests[39m[90m                             [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be updated[39m[90m                                                                                     [39m [90m0.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90mweak password is rejected without replacing the existing password[39m[90m                                           [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to update password[39m[90m                                                        [39m [90m0.16s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\WorkbookCodecSparseTemplateTest[39m
+  [32;1m✓[39;22m[90m [39m[90moriginal 500 row template reads sparse empty rows without creating a large cell cache[39m[90m                       [39m [90m1.35s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m projects dashboard renders with authorized s… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m tender documents hide financial classificati… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m batched project progress matches existing de… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m product image and pdf downloads emit safe di… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission checks preserve default deny admi… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission snapshot keeps many checks within… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m request snapshot is actor specific and raw c… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m permission snapshot tracks user branch move…  [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m organization contract refreshes active and v… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m inventory scope projection downgrades inacti… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m maintenance list does not load other tab col… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m workshop settings counts jobs with one group… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m a new http request observes revoked branch a… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m access history only render skips effective p… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m user access checks do not probe each target…  [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\OptimizationRegressionTest[22m [90m>[39m branch creator without company view keeps cr… [41;1m RuntimeException [49;22m  
+[39;1m  Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.[39;22m
+
+  at [32mtests\Feature\OptimizationRegressionTest.php[39m:[32m54[39m
+     50▕             $clusterPath = $acceptanceClusterPath;
+     51▕             $expectedMarkerPath = $acceptanceClusterPath.'/codex-owned.json';
+     52▕             $expectedKind = 'codex-ui-acceptance';
+     53▕         } else {
+  ➜  54▕             throw new \RuntimeException('Refusing optimization regression checks outside explicitly allowed isolated PostgreSQL ports 55460 and 55462.');
+     55▕         }
+     56▕         $markerPath = (string) (getenv('E2E_CLUSTER_MARKER') ?: $expectedMarkerPath);
+     57▕         $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
+     58▕         $providedToken = [REDACTED] (getenv('E2E_CLUSTER_TOKEN') ?: '');
+
+  [33m1   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m54[39;22m
+  [33m2   [39m[39;1mtests\Feature\OptimizationRegressionTest.php[39;22m:[39;1m116[39;22m
+
+
+  [90mTests:[39m    [31;1m16 failed[39;22m[90m,[39m[39m [39m[32;1m41 passed[39;22m[90m (111 assertions)[39m
+  [90mDuration:[39m [39m10.50s[39m
+

@@ -1,0 +1,2176 @@
+{
+  "result": "PASS",
+  "run_id": "EB5C765344",
+  "database": "erp_elec_new_test on 127.0.0.1:55440",
+  "browser": "Microsoft Edge via Playwright",
+  "viewport_sizes": [
+    1440,
+    390
+  ],
+  "fixture": {
+    "database": "erp_elec_new_test",
+    "host": "127.0.0.1",
+    "port": 55440,
+    "actor": {
+      "id": 1,
+      "email": "astrid88@example.com"
+    },
+    "reviewer": {
+      "id": 2,
+      "email": "kautzer.aracely@example.com"
+    },
+    "denied_actor": {
+      "id": 3,
+      "email": "dave12@example.com"
+    },
+    "project": {
+      "id": 2,
+      "code": "PH2-QHXIZB66",
+      "name": "Synthetic project financial integration",
+      "branch_id": 1,
+      "customer_id": 1,
+      "customer_name": "شركة الرواد للهندسة والخدمات - دمنهور 4905",
+      "status": "closed"
+    },
+    "sales_order_ids": [
+      1
+    ],
+    "purchase_order_ids": [
+      1,
+      2
+    ],
+    "product_id": 1,
+    "warehouse_id": 1,
+    "project_issue_id": 1,
+    "issue_movement_id": 6,
+    "linkable_sales_order": {
+      "id": 2,
+      "line_id": 2,
+      "status": "draft"
+    },
+    "linkable_purchase_order": {
+      "order_id": 4,
+      "order_line_id": 4,
+      "receipt_line_id": 6
+    },
+    "finance_evidence": {
+      "source_fixture_readback": true,
+      "database": "erp_elec_new_test",
+      "postgres_port": 55440,
+      "project_financial_projection": {
+        "budget": "100.00",
+        "remaining": "47.75",
+        "purchasing": {
+          "order_ids": [
+            1,
+            2
+          ],
+          "open_commitments": "0.00",
+          "received_value": "50.00",
+          "unapproved_documents": 0,
+          "orders": [
+            {
+              "id": 1,
+              "number": "PO-2026-000001",
+              "status": "approved",
+              "open_commitment": "0.00",
+              "received_value": "40.00"
+            },
+            {
+              "id": 2,
+              "number": "PO-2026-000002",
+              "status": "approved",
+              "open_commitment": "0.00",
+              "received_value": "10.00"
+            }
+          ]
+        },
+        "subledger": {
+          "supplier_invoiced": "61.56",
+          "customer_invoiced": "54.72",
+          "grni_cleared": "50.00",
+          "paid": "50.16",
+          "collected": "54.72",
+          "ap_due": "11.40",
+          "ar_due": "0.00",
+          "supplier_credit": "2.00",
+          "customer_credit": "2.00",
+          "unallocated_invoices": 0,
+          "pending_invoices": 0,
+          "invoices": [
+            {
+              "kind": "supplier",
+              "id": 2,
+              "number": "SI-2026-000001",
+              "total": "18.81",
+              "settled": "18.81",
+              "remaining": "0.00",
+              "attributed": true
+            },
+            {
+              "kind": "supplier",
+              "id": 3,
+              "number": "SI-2026-000002",
+              "total": "18.81",
+              "settled": "18.81",
+              "remaining": "0.00",
+              "attributed": true
+            },
+            {
+              "kind": "supplier",
+              "id": 4,
+              "number": "SI-2026-000003",
+              "total": "12.54",
+              "settled": "12.54",
+              "remaining": "0.00",
+              "attributed": true
+            },
+            {
+              "kind": "supplier",
+              "id": 5,
+              "number": "SI-2026-000004",
+              "total": "11.40",
+              "settled": "0.00",
+              "remaining": "11.40",
+              "attributed": true
+            },
+            {
+              "kind": "customer",
+              "id": 2,
+              "number": "CI-2026-000001",
+              "total": "54.72",
+              "settled": "54.72",
+              "remaining": "0.00",
+              "attributed": true
+            }
+          ],
+          "credits": [
+            {
+              "kind": "supplier",
+              "id": 1,
+              "number": "SCN-2026-000001",
+              "amount": "2.00"
+            },
+            {
+              "kind": "customer",
+              "id": 2,
+              "number": "CCN-2026-000001",
+              "amount": "2.00"
+            }
+          ]
+        },
+        "accounting": {
+          "recognized_revenue": "46.25",
+          "recognized_cost": "52.25",
+          "material_cost": "50.00",
+          "ppv": "2.25",
+          "margin": "-6.00",
+          "pending_journals": 0,
+          "rows": [
+            {
+              "journal_id": 5,
+              "source_key": "supplier-invoice:2",
+              "official_number": "JV-2026-000005",
+              "kind": "liability",
+              "account_id": 3,
+              "debit": "15.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 5,
+              "source_key": "supplier-invoice:2",
+              "official_number": "JV-2026-000005",
+              "kind": "asset",
+              "account_id": 8,
+              "debit": "2.31",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 5,
+              "source_key": "supplier-invoice:2",
+              "official_number": "JV-2026-000005",
+              "kind": "expense",
+              "account_id": 4,
+              "debit": "1.50",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 5,
+              "source_key": "supplier-invoice:2",
+              "official_number": "JV-2026-000005",
+              "kind": "liability",
+              "account_id": 5,
+              "debit": "0.00",
+              "credit": "18.81"
+            },
+            {
+              "journal_id": 6,
+              "source_key": "supplier-invoice:3",
+              "official_number": "JV-2026-000006",
+              "kind": "liability",
+              "account_id": 3,
+              "debit": "15.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 6,
+              "source_key": "supplier-invoice:3",
+              "official_number": "JV-2026-000006",
+              "kind": "asset",
+              "account_id": 8,
+              "debit": "2.31",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 6,
+              "source_key": "supplier-invoice:3",
+              "official_number": "JV-2026-000006",
+              "kind": "expense",
+              "account_id": 4,
+              "debit": "1.50",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 6,
+              "source_key": "supplier-invoice:3",
+              "official_number": "JV-2026-000006",
+              "kind": "liability",
+              "account_id": 5,
+              "debit": "0.00",
+              "credit": "18.81"
+            },
+            {
+              "journal_id": 7,
+              "source_key": "supplier-invoice:4",
+              "official_number": "JV-2026-000007",
+              "kind": "liability",
+              "account_id": 3,
+              "debit": "10.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 7,
+              "source_key": "supplier-invoice:4",
+              "official_number": "JV-2026-000007",
+              "kind": "asset",
+              "account_id": 8,
+              "debit": "1.54",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 7,
+              "source_key": "supplier-invoice:4",
+              "official_number": "JV-2026-000007",
+              "kind": "expense",
+              "account_id": 4,
+              "debit": "1.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 7,
+              "source_key": "supplier-invoice:4",
+              "official_number": "JV-2026-000007",
+              "kind": "liability",
+              "account_id": 5,
+              "debit": "0.00",
+              "credit": "12.54"
+            },
+            {
+              "journal_id": 8,
+              "source_key": "inventory-movement:5",
+              "official_number": "JV-2026-000008",
+              "kind": "expense",
+              "account_id": 12,
+              "debit": "40.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 8,
+              "source_key": "inventory-movement:5",
+              "official_number": "JV-2026-000008",
+              "kind": "asset",
+              "account_id": 2,
+              "debit": "0.00",
+              "credit": "40.00"
+            },
+            {
+              "journal_id": 9,
+              "source_key": "inventory-movement:6",
+              "official_number": "JV-2026-000009",
+              "kind": "expense",
+              "account_id": 14,
+              "debit": "10.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 9,
+              "source_key": "inventory-movement:6",
+              "official_number": "JV-2026-000009",
+              "kind": "asset",
+              "account_id": 2,
+              "debit": "0.00",
+              "credit": "10.00"
+            },
+            {
+              "journal_id": 10,
+              "source_key": "customer-invoice:2",
+              "official_number": "JV-2026-000010",
+              "kind": "asset",
+              "account_id": 10,
+              "debit": "54.72",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 10,
+              "source_key": "customer-invoice:2",
+              "official_number": "JV-2026-000010",
+              "kind": "income",
+              "account_id": 11,
+              "debit": "0.00",
+              "credit": "48.00"
+            },
+            {
+              "journal_id": 10,
+              "source_key": "customer-invoice:2",
+              "official_number": "JV-2026-000010",
+              "kind": "liability",
+              "account_id": 9,
+              "debit": "0.00",
+              "credit": "6.72"
+            },
+            {
+              "journal_id": 15,
+              "source_key": "supplier-credit-note:1",
+              "official_number": "JV-2026-000015",
+              "kind": "liability",
+              "account_id": 5,
+              "debit": "2.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 15,
+              "source_key": "supplier-credit-note:1",
+              "official_number": "JV-2026-000015",
+              "kind": "expense",
+              "account_id": 4,
+              "debit": "0.00",
+              "credit": "1.75"
+            },
+            {
+              "journal_id": 15,
+              "source_key": "supplier-credit-note:1",
+              "official_number": "JV-2026-000015",
+              "kind": "asset",
+              "account_id": 8,
+              "debit": "0.00",
+              "credit": "0.25"
+            },
+            {
+              "journal_id": 16,
+              "source_key": "customer-credit-note:2",
+              "official_number": "JV-2026-000016",
+              "kind": "income",
+              "account_id": 11,
+              "debit": "1.75",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 16,
+              "source_key": "customer-credit-note:2",
+              "official_number": "JV-2026-000016",
+              "kind": "liability",
+              "account_id": 9,
+              "debit": "0.25",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 16,
+              "source_key": "customer-credit-note:2",
+              "official_number": "JV-2026-000016",
+              "kind": "asset",
+              "account_id": 10,
+              "debit": "0.00",
+              "credit": "2.00"
+            },
+            {
+              "journal_id": 18,
+              "source_key": null,
+              "official_number": "JV-2026-000018",
+              "kind": "asset",
+              "account_id": 16,
+              "debit": "1.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 18,
+              "source_key": null,
+              "official_number": "JV-2026-000018",
+              "kind": "asset",
+              "account_id": 17,
+              "debit": "0.00",
+              "credit": "1.00"
+            },
+            {
+              "journal_id": 19,
+              "source_key": "supplier-invoice:5",
+              "official_number": "JV-2026-000019",
+              "kind": "liability",
+              "account_id": 3,
+              "debit": "10.00",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 19,
+              "source_key": "supplier-invoice:5",
+              "official_number": "JV-2026-000019",
+              "kind": "asset",
+              "account_id": 8,
+              "debit": "1.40",
+              "credit": "0.00"
+            },
+            {
+              "journal_id": 19,
+              "source_key": "supplier-invoice:5",
+              "official_number": "JV-2026-000019",
+              "kind": "liability",
+              "account_id": 5,
+              "debit": "0.00",
+              "credit": "11.40"
+            }
+          ]
+        },
+        "fifo_gl_difference": "0.00"
+      },
+      "customer": {
+        "sales_order_id": 1
+      },
+      "project_fixture": {
+        "project_id": 2,
+        "manager_id": 1,
+        "reviewer_id": 2,
+        "denied_actor_id": 3,
+        "branch_id": 1,
+        "customer_id": 1,
+        "product_id": 1,
+        "warehouse_id": 1,
+        "purchase_order_ids": [
+          1,
+          2
+        ],
+        "sales_order_id": 1,
+        "project_issue_id": 1,
+        "source_link_ids": [
+          1,
+          2,
+          3
+        ],
+        "committed": true
+      }
+    },
+    "linkable_sales_order_id": 2,
+    "linkable_sales_order_line_id": 2
+  },
+  "new_project": {
+    "id": 3,
+    "code": "PB2-EB5C765344",
+    "name": "اختبار مشروع المتصفح EB5C765344 — تعديل محفوظ"
+  },
+  "source_financial_projection": {
+    "budget": "100.00",
+    "remaining": "47.75",
+    "purchasing": {
+      "order_ids": [
+        1,
+        2
+      ],
+      "open_commitments": "0.00",
+      "received_value": "50.00",
+      "unapproved_documents": 0,
+      "orders": [
+        {
+          "id": 1,
+          "number": "PO-2026-000001",
+          "status": "approved",
+          "open_commitment": "0.00",
+          "received_value": "40.00"
+        },
+        {
+          "id": 2,
+          "number": "PO-2026-000002",
+          "status": "approved",
+          "open_commitment": "0.00",
+          "received_value": "10.00"
+        }
+      ]
+    },
+    "subledger": {
+      "supplier_invoiced": "61.56",
+      "customer_invoiced": "54.72",
+      "grni_cleared": "50.00",
+      "paid": "50.16",
+      "collected": "54.72",
+      "ap_due": "11.40",
+      "ar_due": "0.00",
+      "supplier_credit": "2.00",
+      "customer_credit": "2.00",
+      "unallocated_invoices": 0,
+      "pending_invoices": 0,
+      "invoices": [
+        {
+          "kind": "supplier",
+          "id": 2,
+          "number": "SI-2026-000001",
+          "total": "18.81",
+          "settled": "18.81",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 3,
+          "number": "SI-2026-000002",
+          "total": "18.81",
+          "settled": "18.81",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 4,
+          "number": "SI-2026-000003",
+          "total": "12.54",
+          "settled": "12.54",
+          "remaining": "0.00",
+          "attributed": true
+        },
+        {
+          "kind": "supplier",
+          "id": 5,
+          "number": "SI-2026-000004",
+          "total": "11.40",
+          "settled": "0.00",
+          "remaining": "11.40",
+          "attributed": true
+        },
+        {
+          "kind": "customer",
+          "id": 2,
+          "number": "CI-2026-000001",
+          "total": "54.72",
+          "settled": "54.72",
+          "remaining": "0.00",
+          "attributed": true
+        }
+      ],
+      "credits": [
+        {
+          "kind": "supplier",
+          "id": 1,
+          "number": "SCN-2026-000001",
+          "amount": "2.00"
+        },
+        {
+          "kind": "customer",
+          "id": 2,
+          "number": "CCN-2026-000001",
+          "amount": "2.00"
+        }
+      ]
+    },
+    "accounting": {
+      "recognized_revenue": "46.25",
+      "recognized_cost": "52.25",
+      "material_cost": "50.00",
+      "ppv": "2.25",
+      "margin": "-6.00",
+      "pending_journals": 0,
+      "rows": [
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "15.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "2.31",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.50",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 5,
+          "source_key": "supplier-invoice:2",
+          "official_number": "JV-2026-000005",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "18.81"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "15.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "2.31",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.50",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 6,
+          "source_key": "supplier-invoice:3",
+          "official_number": "JV-2026-000006",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "18.81"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "1.54",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "1.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 7,
+          "source_key": "supplier-invoice:4",
+          "official_number": "JV-2026-000007",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "12.54"
+        },
+        {
+          "journal_id": 8,
+          "source_key": "inventory-movement:5",
+          "official_number": "JV-2026-000008",
+          "kind": "expense",
+          "account_id": 12,
+          "debit": "40.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 8,
+          "source_key": "inventory-movement:5",
+          "official_number": "JV-2026-000008",
+          "kind": "asset",
+          "account_id": 2,
+          "debit": "0.00",
+          "credit": "40.00"
+        },
+        {
+          "journal_id": 9,
+          "source_key": "inventory-movement:6",
+          "official_number": "JV-2026-000009",
+          "kind": "expense",
+          "account_id": 14,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 9,
+          "source_key": "inventory-movement:6",
+          "official_number": "JV-2026-000009",
+          "kind": "asset",
+          "account_id": 2,
+          "debit": "0.00",
+          "credit": "10.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "asset",
+          "account_id": 10,
+          "debit": "54.72",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "income",
+          "account_id": 11,
+          "debit": "0.00",
+          "credit": "48.00"
+        },
+        {
+          "journal_id": 10,
+          "source_key": "customer-invoice:2",
+          "official_number": "JV-2026-000010",
+          "kind": "liability",
+          "account_id": 9,
+          "debit": "0.00",
+          "credit": "6.72"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "2.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "expense",
+          "account_id": 4,
+          "debit": "0.00",
+          "credit": "1.75"
+        },
+        {
+          "journal_id": 15,
+          "source_key": "supplier-credit-note:1",
+          "official_number": "JV-2026-000015",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "0.00",
+          "credit": "0.25"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "income",
+          "account_id": 11,
+          "debit": "1.75",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "liability",
+          "account_id": 9,
+          "debit": "0.25",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 16,
+          "source_key": "customer-credit-note:2",
+          "official_number": "JV-2026-000016",
+          "kind": "asset",
+          "account_id": 10,
+          "debit": "0.00",
+          "credit": "2.00"
+        },
+        {
+          "journal_id": 18,
+          "source_key": null,
+          "official_number": "JV-2026-000018",
+          "kind": "asset",
+          "account_id": 16,
+          "debit": "1.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 18,
+          "source_key": null,
+          "official_number": "JV-2026-000018",
+          "kind": "asset",
+          "account_id": 17,
+          "debit": "0.00",
+          "credit": "1.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "liability",
+          "account_id": 3,
+          "debit": "10.00",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "asset",
+          "account_id": 8,
+          "debit": "1.40",
+          "credit": "0.00"
+        },
+        {
+          "journal_id": 19,
+          "source_key": "supplier-invoice:5",
+          "official_number": "JV-2026-000019",
+          "kind": "liability",
+          "account_id": 5,
+          "debit": "0.00",
+          "credit": "11.40"
+        }
+      ]
+    },
+    "fifo_gl_difference": "0.00"
+  },
+  "source_documents": {
+    "sales_order_id": 1,
+    "purchase_order_ids": [
+      1,
+      2
+    ],
+    "project_issue_id": 1,
+    "linked_sources": [
+      1,
+      2,
+      3
+    ]
+  },
+  "browser_linked_source_postings": {
+    "sales_order_id": 2,
+    "sales_delivery_id": 2,
+    "customer_invoice_id": 3,
+    "supplier_invoice_id": 9,
+    "project_summary": {
+      "currency": "EGP",
+      "approved_budget": "1234.50",
+      "remaining_budget": "1214.50",
+      "over_budget": false,
+      "forecast_remaining": "1214.50",
+      "estimated_profitability": null,
+      "estimate_unavailable_reason": "يلزم تقدير معتمد للإيرادات وتكلفة الإكمال؛ الهامش المعترف به أدناه من GL فقط.",
+      "purchasing": {
+        "order_ids": [
+          4
+        ],
+        "open_commitments": "0.00",
+        "received_value": "10.00",
+        "unapproved_documents": 0,
+        "orders": [
+          {
+            "id": 4,
+            "number": "PO-2026-000004",
+            "status": "approved",
+            "open_commitment": "0.00",
+            "received_value": "10.00"
+          }
+        ]
+      },
+      "inventory": {
+        "outstanding_quantity": "0.00000000",
+        "unreserved_quantity": "0.00000000",
+        "issued_quantity": "1.00000000",
+        "fifo_cost": "10.00",
+        "sales_fifo_cost": "10.00",
+        "movements": [
+          {
+            "id": 9,
+            "operation": "project_issue",
+            "source_module": "Projects",
+            "source_id": "3",
+            "source_line": "2",
+            "document_id": null,
+            "warehouse_id": 1,
+            "product_id": 1,
+            "quantity": "-1.00000000",
+            "base_unit_id": 1,
+            "sku": "DEMO-EG-PROD-512536",
+            "product_name": "مرحل حماية حراري نطاق 9-13 أمبير - سلسلة 2670 / فئة 6",
+            "actor_id": 2,
+            "posted_at": "2026-10-29 14:25:25+00",
+            "idempotency_key": "reservation:30e9021b-ace9-42e9-85c4-fb994496cad8",
+            "reversal_id": null,
+            "amount": "10.00",
+            "journal_id": 23
+          },
+          {
+            "id": 10,
+            "operation": "reservation_issue",
+            "source_module": "Sales",
+            "source_id": "2",
+            "source_line": "2",
+            "document_id": null,
+            "warehouse_id": 1,
+            "product_id": 1,
+            "quantity": "-1.00000000",
+            "base_unit_id": 1,
+            "sku": "DEMO-EG-PROD-512536",
+            "product_name": "مرحل حماية حراري نطاق 9-13 أمبير - سلسلة 2670 / فئة 6",
+            "actor_id": 2,
+            "posted_at": "2026-10-29 14:25:30+00",
+            "idempotency_key": "reservation:f0bd4dc6-8128-5263-8840-fca7b8e93b3c",
+            "reversal_id": null,
+            "amount": "10.00",
+            "journal_id": 24
+          }
+        ]
+      },
+      "subledger": {
+        "supplier_invoiced": "11.40",
+        "customer_invoiced": "13.68",
+        "grni_cleared": "10.00",
+        "paid": "0.00",
+        "collected": "0.00",
+        "ap_due": "11.40",
+        "ar_due": "13.68",
+        "supplier_credit": "0.00",
+        "customer_credit": "0.00",
+        "unallocated_invoices": 0,
+        "pending_invoices": 0,
+        "invoices": [
+          {
+            "kind": "supplier",
+            "id": 9,
+            "number": "SI-2026-000005",
+            "total": "11.40",
+            "settled": "0.00",
+            "remaining": "11.40",
+            "attributed": true
+          },
+          {
+            "kind": "customer",
+            "id": 3,
+            "number": "CI-2026-000002",
+            "total": "13.68",
+            "settled": "0.00",
+            "remaining": "13.68",
+            "attributed": true
+          }
+        ],
+        "credits": []
+      },
+      "accounting": {
+        "recognized_revenue": "12.00",
+        "recognized_cost": "20.00",
+        "material_cost": "20.00",
+        "ppv": "0.00",
+        "margin": "-8.00",
+        "pending_journals": 0,
+        "rows": [
+          {
+            "journal_id": 23,
+            "source_key": "inventory-movement:9",
+            "official_number": "JV-2026-000022",
+            "kind": "expense",
+            "account_id": 14,
+            "debit": "10.00",
+            "credit": "0.00"
+          },
+          {
+            "journal_id": 23,
+            "source_key": "inventory-movement:9",
+            "official_number": "JV-2026-000022",
+            "kind": "asset",
+            "account_id": 2,
+            "debit": "0.00",
+            "credit": "10.00"
+          },
+          {
+            "journal_id": 24,
+            "source_key": "inventory-movement:10",
+            "official_number": "JV-2026-000023",
+            "kind": "expense",
+            "account_id": 12,
+            "debit": "10.00",
+            "credit": "0.00"
+          },
+          {
+            "journal_id": 24,
+            "source_key": "inventory-movement:10",
+            "official_number": "JV-2026-000023",
+            "kind": "asset",
+            "account_id": 2,
+            "debit": "0.00",
+            "credit": "10.00"
+          },
+          {
+            "journal_id": 25,
+            "source_key": "customer-invoice:3",
+            "official_number": "JV-2026-000024",
+            "kind": "asset",
+            "account_id": 10,
+            "debit": "13.68",
+            "credit": "0.00"
+          },
+          {
+            "journal_id": 25,
+            "source_key": "customer-invoice:3",
+            "official_number": "JV-2026-000024",
+            "kind": "income",
+            "account_id": 11,
+            "debit": "0.00",
+            "credit": "12.00"
+          },
+          {
+            "journal_id": 25,
+            "source_key": "customer-invoice:3",
+            "official_number": "JV-2026-000024",
+            "kind": "liability",
+            "account_id": 9,
+            "debit": "0.00",
+            "credit": "1.68"
+          },
+          {
+            "journal_id": 26,
+            "source_key": "supplier-invoice:9",
+            "official_number": "JV-2026-000025",
+            "kind": "liability",
+            "account_id": 3,
+            "debit": "10.00",
+            "credit": "0.00"
+          },
+          {
+            "journal_id": 26,
+            "source_key": "supplier-invoice:9",
+            "official_number": "JV-2026-000025",
+            "kind": "asset",
+            "account_id": 8,
+            "debit": "1.40",
+            "credit": "0.00"
+          },
+          {
+            "journal_id": 26,
+            "source_key": "supplier-invoice:9",
+            "official_number": "JV-2026-000025",
+            "kind": "liability",
+            "account_id": 5,
+            "debit": "0.00",
+            "credit": "11.40"
+          }
+        ]
+      },
+      "sales": [
+        {
+          "id": 2,
+          "number": "SO-2026-000002",
+          "status": "approved",
+          "delivery": "fulfilled"
+        }
+      ],
+      "fifo_gl_difference": "0.00",
+      "recognized_margin": "-8.00",
+      "closure_blockers": {
+        "حجوزات المواد": false,
+        "طلبات مواد مؤجلة غير محسومة": false,
+        "التزامات شراء مفتوحة": false,
+        "مستندات مشتريات غير محسومة": false,
+        "استلامات غير مطابقة بفواتير": false,
+        "فواتير أو إشعارات غير مرحلة": false,
+        "قيود مشروع غير مرحلة": false,
+        "مصادر مالية تاريخية غير مخصصة": false,
+        "حجوزات بيع مرتبطة": false,
+        "اختلاف FIFO وGL": false
+      }
+    }
+  },
+  "final_postgresql_state": {
+    "id": 3,
+    "code": "PB2-EB5C765344",
+    "name": "اختبار مشروع المتصفح EB5C765344 — تعديل محفوظ",
+    "status": "closed",
+    "version": 17,
+    "baseline": {
+      "revision": 1,
+      "currency": "EGP",
+      "total": "1234.50000000",
+      "approved_by": 2
+    },
+    "phases": 1,
+    "tasks": 1,
+    "task_ids": [
+      2
+    ],
+    "task_states": [
+      {
+        "id": 2,
+        "title": "مهمة اختبار EB5C765344",
+        "status": "completed",
+        "version": 3
+      }
+    ],
+    "milestones": 1,
+    "milestone_states": [
+      {
+        "id": 3,
+        "title": "معلم قبول EB5C765344",
+        "status": "completed",
+        "version": 2
+      }
+    ],
+    "requirements": 1,
+    "reservation_ids": [
+      3
+    ],
+    "handovers": 1,
+    "issue": {
+      "id": 2,
+      "reservation_id": 3,
+      "movement_id": 9,
+      "fifo_allocations": 1
+    },
+    "document": {
+      "document_id": 1,
+      "task_id": 2,
+      "number": "DOC-EB5C765344",
+      "title": "مستند قبول EB5C765344",
+      "revision_id": 1,
+      "status": "approved",
+      "sha256": "cfa3181c1ee36e8bce5e39f84959f4558ea7ba32c0e4539a8ab3c8ce8c716ec6",
+      "size": 69
+    }
+  },
+  "checks": [
+    {
+      "login": "committed synthetic project manager",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "project_create_save_reopen_edit": "passed",
+      "project_id": 3,
+      "code": "PB2-EB5C765344",
+      "saved_name": "اختبار مشروع المتصفح EB5C765344 — تعديل محفوظ"
+    },
+    {
+      "browser_created_phase_task_milestone": "passed",
+      "project_id": 3
+    },
+    {
+      "independent_budget_approval": "passed",
+      "project_id": 3,
+      "reviewer_id": 2,
+      "baseline_visible": true,
+      "database_probe_exit": 0
+    },
+    {
+      "independent_budget_gated_planned_and_active_lifecycle": "passed",
+      "project_id": 3
+    },
+    {
+      "availability_debug": {
+        "requirement": "2",
+        "warehouse": "1",
+        "button": "<button type=\"button\" class=\"relative items-center font-medium justify-center whitespace-nowrap disabled:opacity-50 dark:disabled:opacity-50 disabled:cursor-default disabled:pointer-events-none disabled:shadow-none justify-center h-10 text-sm rounded-lg gap-2 ps-4 pe-4 inline-flex  bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75 text-zinc-800 dark:text-white border border-zinc-200 hover:border-zinc-200 disabled:border-zinc-200 border-b-zinc-300/80 dark:border-zinc-600 dark:hover:border-zinc-600 dark:disabled:border-zinc-600 shadow-xs [[data-flux-button-group]_&amp;]:border-s-0 [:is([data-flux-button-group]&gt;&amp;:first-child,_[data-flux-button-group]_:first-child&gt;&amp;)]:border-s-[1px] *:transition-opacity [&amp;[data-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-flux-loading]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[data-loading]&gt;[data-flux-loading-indicator]]:opacity-100 [&amp;[data-flux-loading]&gt;[data-flux-loading-indicator]]:opacity-100 data-loading:pointer-events-none data-flux-loading:pointer-events-none\" data-flux-button=\"data-flux-button\" data-flux-group-target=\"data-flux-group-target\" wire:target=\"checkAvailability\" wire:loading.attr=\"data-flux-loading\" wire:click=\"checkAvailability\">\n        <div class=\"absolute inset-0 flex items-center justify-center opacity-0\" data-flux-loading-indicator=\"\">\n                <svg class=\"shrink-0 [:where(&amp;)]:size-4 animate-spin\" data-flux-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" data-slot=\"icon\">\n    <circle class=\"opacity-25\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"currentColor\" stroke-width=\"4\"></circle>\n    <path class=\"opacity-75\" fill=\"currentColor\" d=\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\"></path>\n</svg>\n                    </div>\n        \n        \n                    \n            \n            <span>استعلام المتاح</span>\n    </button>",
+        "livewire": [
+          {
+            "request": "/livewire-c6214651/update",
+            "method": "POST",
+            "action": {
+              "url": "/livewire-c6214651/update",
+              "methods": [
+                {
+                  "method": "addMaterial"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "method": "POST",
+            "url": "http://127.0.0.1:8928/projects/3/operations",
+            "action": {
+              "url": "/livewire-c6214651/update",
+              "methods": [
+                {
+                  "method": "addMaterial"
+                }
+              ]
+            }
+          },
+          {
+            "request": "/livewire-c6214651/update",
+            "method": "POST",
+            "action": {
+              "url": "/livewire-c6214651/update",
+              "methods": [
+                {
+                  "method": "checkAvailability"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "method": "POST",
+            "url": "http://127.0.0.1:8928/projects/3/operations",
+            "action": {
+              "url": "/livewire-c6214651/update",
+              "methods": [
+                {
+                  "method": "checkAvailability"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser_linked_sales_and_purchase_order": "passed",
+      "sales_order_id": 2,
+      "purchase_order_id": 4,
+      "browser_material_reservation_and_fifo_issue": "passed",
+      "project_id": 3,
+      "requirement_id": 2,
+      "reservation_id": 3,
+      "issue_id": 2,
+      "fifo_allocations": 1,
+      "product_id": 1
+    },
+    {
+      "browser_project_financial_summary": "passed",
+      "project_id": 3,
+      "recognized_cost": "20.00",
+      "recognized_revenue": "12.00",
+      "grni_cleared": "10.00",
+      "fifo_gl_difference": "0.00"
+    },
+    {
+      "scoped_financial_exports": {
+        "xlsx": {
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 6479
+        },
+        "pdf": {
+          "status": 200,
+          "content_type": "application/pdf",
+          "cache_control": "no-store, private",
+          "private": true,
+          "bytes": 86055
+        }
+      },
+      "denied_actor_statuses": {
+        "xlsx": 403,
+        "pdf": 403
+      }
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/operations",
+      "viewport": 1440,
+      "expected_text": "Synthetic project financial integration",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "/projects/2/financial",
+      "viewport": 390,
+      "expected_text": "Synthetic project financial integration",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/3/tasks",
+      "viewport": 390,
+      "expected_text": "مهمة اختبار EB5C765344",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/projects/3/budget",
+      "viewport": 1440,
+      "expected_text": "1234.50",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "private_project_document": "saved, independently approved, PDF signature verified",
+      "denied_download_status": 403,
+      "bytes": 69,
+      "sha256": "cfa3181c1ee36e8bce5e39f84959f4558ea7ba32c0e4539a8ab3c8ce8c716ec6"
+    },
+    {
+      "handover_completion_closure": "passed",
+      "project_id": 3,
+      "status": "closed"
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": [
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "$commit"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "save"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/create",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "save"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveMetadata"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveMetadata"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addPhase"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addPhase"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addTask"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addTask"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "propose"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "propose"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/budget",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "planned"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "planned"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "active"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "active"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "link"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "link"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "link"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "link"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMaterial"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "addMaterial"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "checkAvailability"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "checkAvailability"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "reserve"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "reserve"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "issue"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/operations",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "issue"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "_startUpload"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/documents",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "_startUpload"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/upload-file",
+      "method": "POST"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "_finishUpload"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/documents",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "_finishUpload"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveDocument"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/documents",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "saveDocument"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/documents",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/documents",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "decide"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "taskStatus"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "completeMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/tasks",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "completeMilestone"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "handover"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "handover"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "changeLifecycle",
+            "state": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "request": "/livewire-c6214651/livewire.min.js",
+      "method": "GET"
+    },
+    {
+      "request": "/livewire-c6214651/update",
+      "method": "POST",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "close"
+          }
+        ]
+      }
+    },
+    {
+      "status": 200,
+      "method": "POST",
+      "url": "http://127.0.0.1:8928/projects/3/closure",
+      "action": {
+        "url": "/livewire-c6214651/update",
+        "methods": [
+          {
+            "method": "close"
+          }
+        ]
+      }
+    }
+  ]
+}

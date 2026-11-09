@@ -43,6 +43,7 @@ class ValidationPresentationRegressionTest extends TestCase
         $html = Blade::render('<x-ui.validation-summary :errors="$errors" />', compact('errors'));
 
         $this->assertStringContainsString('data-erp-validation', $html);
+        $this->assertStringContainsString('راجع البيانات التالية لإكمال العملية', $html);
         $this->assertMatchesRegularExpression('/role="alert"/', $html);
         $this->assertMatchesRegularExpression('/<h[1-6][^>]*>/', $html);
         foreach ($errors->keys() as $field) {

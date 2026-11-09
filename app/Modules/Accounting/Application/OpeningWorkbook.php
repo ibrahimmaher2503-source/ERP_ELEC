@@ -9,13 +9,13 @@ final class OpeningWorkbook
     public function columns(): array
     {
         $labels = ['kind' => 'النوع: gl/ap/ar/cash/bank/inventory', 'reference' => 'مرجع فريد لكل نوع', 'branch_id' => 'رقم الفرع',
-            'account_id' => 'حساب GL', 'debit' => 'مدين GL', 'credit' => 'دائن GL', 'supplier_id' => 'رقم المورد AP', 'customer_id' => 'رقم العميل AR',
-            'warehouse_id' => 'رقم المستودع', 'product_id' => 'رقم الصنف', 'quantity' => 'كمية FIFO', 'unit_cost' => 'تكلفة FIFO', 'amount' => 'القيمة التفصيلية EGP', 'serials' => 'للصنف المسلسل: رقم لكل سطر'];
+            'account_id' => 'حساب الأستاذ العام', 'debit' => 'مدين الأستاذ العام', 'credit' => 'دائن الأستاذ العام', 'supplier_id' => 'رقم المورد AP', 'customer_id' => 'رقم العميل AR',
+            'warehouse_id' => 'رقم المستودع', 'product_id' => 'رقم الصنف', 'quantity' => 'كمية الصرف من الأقدم أولًا', 'unit_cost' => 'تكلفة الصرف من الأقدم أولًا', 'amount' => 'القيمة التفصيلية EGP', 'serials' => 'للصنف المسلسل: رقم لكل سطر'];
         $columns = [];
         foreach ($labels as $key => $label) {
             $columns[] = ['key' => $key, 'label' => $label, 'required' => in_array($key, ['kind', 'reference', 'branch_id'], true),
                 'type' => 'string', 'allowed' => $key === 'kind' ? ['gl', 'ap', 'ar', 'cash', 'bank', 'inventory'] : [], 'example' => null,
-                'description' => 'أدخل الأرقام المالية كنص عشري، دون صيغ أو فواصل آلاف. GL هو القيد، وبقية الأنواع تفاصيل للمصالحة لا قيود إضافية.'];
+                'description' => 'أدخل الأرقام المالية كنص عشري، دون صيغ أو فواصل آلاف. الأستاذ العام هو القيد، وبقية الأنواع تفاصيل للمصالحة لا قيود إضافية.'];
         }
 
         return $columns;

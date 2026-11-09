@@ -1,0 +1,8 @@
+{
+    "all_pass": false,
+    "phase": "Gate2 guarded preventive bootstrap/schema preflight",
+    "failure": {
+        "class": "Exception",
+        "message": "The C:\\projects\\ERP_ELEC_NEW\\C:\\projects\\ERP_ELEC_NEW/.tmp/master-remediation-20261101/m10-check-cache directory must be present and writable."
+    }
+}

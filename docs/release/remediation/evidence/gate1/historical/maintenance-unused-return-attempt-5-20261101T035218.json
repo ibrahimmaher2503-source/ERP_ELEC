@@ -1,0 +1,9 @@
+{
+    "all_pass": false,
+    "database": "erp_elec_new_test",
+    "postgres_port": 49685,
+    "error_class": "Illuminate\\Database\\QueryException",
+    "error": "SQLSTATE[P0001]: Raise exception: 7 ERROR:  Financial posting is disabled or Go-Live has not arrived\nCONTEXT:  PL/pgSQL function accounting_financial_posting_gate() line 7 at RAISE (Connection: pgsql, Host: 127.0.0.1, Port: 49685, Database: erp_elec_new_test, SQL: update \"accounting_journals\" set \"status\" = posted, \"period_id\" = 60, \"official_number\" = JV-2027-000001, \"official_document_id\" = 94747d5e-eca8-4119-bfb2-3ee562bdd309, \"posted_by\" = 143, \"posted_at\" = 2027-11-01 10:00:00, \"version\" = 4, \"updated_at\" = 2027-11-01 10:00:00 where \"id\" = 267)",
+    "assertions": [],
+    "fixture_committed": false
+}

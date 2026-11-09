@@ -103,7 +103,7 @@ final class FinancialStock
             $amount = $layer->original_value;
         }
         if (bccomp($quantity, $positive ? $m->quantity : bcsub('0', $m->quantity, 8), 8) !== 0) {
-            InventoryActions::fail('تكلفة FIFO لا تطابق الكمية المصروفة.');
+            InventoryActions::fail('تكلفة الصرف من الأقدم أولًا لا تطابق الكمية المصروفة.');
         }
         $warehouse = DB::table('inventory_warehouses')->find($m->warehouse_id);
 

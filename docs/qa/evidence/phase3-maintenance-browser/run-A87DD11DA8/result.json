@@ -1,0 +1,230 @@
+{
+  "result": "PASS",
+  "database": "erp_elec_new_test@127.0.0.1:55440",
+  "browser": "Microsoft Edge via Playwright",
+  "viewport_sizes": [
+    1440,
+    390
+  ],
+  "request_id": 82,
+  "work_order_id": 86,
+  "final_postgresql_state": {
+    "database": "erp_elec_new_test",
+    "port": 55440,
+    "accounting_activated": true,
+    "accounting_periods": [
+      {
+        "starts_on": "2026-01-01",
+        "ends_on": "2026-12-31",
+        "status": "open"
+      }
+    ],
+    "inventory_product_count": 6,
+    "stocked_inventory": [
+      {
+        "product_id": 1,
+        "warehouse_id": 1,
+        "branch_id": 1,
+        "on_hand": "6.00000000"
+      }
+    ],
+    "work_order": {
+      "id": 86,
+      "number": "WO-2026-000037",
+      "status": "closed",
+      "version": 13,
+      "closed_at": "2026-10-30 16:41:08+00",
+      "request_id": 82
+    },
+    "request": null,
+    "visits": [
+      {
+        "id": 55,
+        "status": "recorded",
+        "outcome": "completed",
+        "recorded_by": 460,
+        "acknowledgment": "Customer confirms the service visit."
+      }
+    ],
+    "assignments": [
+      {
+        "id": 58,
+        "technician_id": 460,
+        "active": false
+      }
+    ],
+    "part_requirements": [
+      {
+        "id": 7,
+        "product_id": 1,
+        "warehouse_id": 1,
+        "quantity": "1.00000000"
+      }
+    ],
+    "part_reservations": [
+      {
+        "requirement_id": 7,
+        "reservation_id": 8
+      }
+    ],
+    "part_issues": [
+      {
+        "id": 1,
+        "movement_id": 15,
+        "journal_id": 41,
+        "quantity": "1.00000000",
+        "amount": "10.00"
+      }
+    ],
+    "documents": [
+      {
+        "id": 2,
+        "visit_id": 55,
+        "original_name": "maintenance-evidence.pdf",
+        "mime": "application/pdf",
+        "sha256": "77951a44a4f858f62edde2ded6bf8ff4b50b426a0dad01288b35804d26d8d187"
+      }
+    ],
+    "inventory_on_hand": "6.00000000",
+    "checklist_results": 1,
+    "labor": [
+      {
+        "duration_minutes": 15,
+        "work_type": "Electrical terminal repair",
+        "cost": null
+      }
+    ],
+    "completions": [
+      {
+        "id": 3,
+        "revision": 1,
+        "official_document_id": "cec3bb42-2292-47d4-b6d8-611b87477c3d"
+      }
+    ],
+    "completion_count": 1,
+    "activity_count": 14
+  },
+  "checks": [
+    {
+      "browser_reopened_and_resaved_request": {
+        "id": 82,
+        "version": 2
+      }
+    },
+    {
+      "functional_mobile_request_saved": 82,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "browser_created_checklist": "M08-BR-A87DD11DA8"
+    },
+    {
+      "browser_tab_navigation": "assignments",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=assignments"
+    },
+    {
+      "browser_tab_navigation": "visits",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=visits"
+    },
+    {
+      "browser_tab_navigation": "parts",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=parts"
+    },
+    {
+      "browser_part_request_and_reservation": 7,
+      "inventory_on_hand_unchanged": "7.00000000"
+    },
+    {
+      "browser_tab_navigation": "documents",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=documents"
+    },
+    {
+      "browser_private_attachment_upload_download": 2,
+      "sha256": "77951a44a4f858f62edde2ded6bf8ff4b50b426a0dad01288b35804d26d8d187",
+      "bytes": 86
+    },
+    {
+      "browser_tab_navigation": "completion",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=completion"
+    },
+    {
+      "browser_missing_reason_validation": "work order remained assigned without a Livewire error dialog"
+    },
+    {
+      "browser_tab_navigation": "visits",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=visits"
+    },
+    {
+      "functional_mobile_visit_recording_form": {
+        "viewport": 390,
+        "width": 390
+      }
+    },
+    {
+      "browser_recorded_visit": 55,
+      "technician_id": 460
+    },
+    {
+      "browser_tab_navigation": "parts",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=parts"
+    },
+    {
+      "browser_part_issue": 1,
+      "movement_id": 15,
+      "journal_id": 41,
+      "inventory_on_hand": "6.00000000"
+    },
+    {
+      "browser_tab_navigation": "labor",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=labor"
+    },
+    {
+      "browser_tab_navigation": "costs",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=costs"
+    },
+    {
+      "browser_cost_screen_fifo_amount": "10.00"
+    },
+    {
+      "browser_tab_navigation": "completion",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=completion"
+    },
+    {
+      "browser_tab_navigation": "completion",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=completion"
+    },
+    {
+      "browser_private_report_download": 3,
+      "bytes": 44348
+    },
+    {
+      "browser_denied_actor_http": 403
+    },
+    {
+      "browser_denied_private_downloads": {
+        "attachment": 403,
+        "report": 403
+      }
+    },
+    {
+      "browser_tab_navigation": "history",
+      "href": "http://127.0.0.1:9854/maintenance/work-orders/86?tab=history"
+    },
+    {
+      "page": "closed-work-order-desktop",
+      "viewport": 1440,
+      "persisted_value": "WO-2026-000037",
+      "document": 1440
+    },
+    {
+      "page": "closed-work-order-mobile",
+      "viewport": 390,
+      "persisted_value": "WO-2026-000037",
+      "document": 390
+    }
+  ],
+  "browser_errors": [],
+  "livewire_failures": [],
+  "evidence_directory": "C:\\projects\\ERP_ELEC_NEW\\.tmp\\phase3-maintenance-browser\\run-A87DD11DA8"
+}

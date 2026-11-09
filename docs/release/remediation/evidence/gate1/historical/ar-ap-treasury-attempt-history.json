@@ -1,0 +1,23 @@
+{
+  "check": "phase1 Gate1 historical AP/AR/Treasury chronology",
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "HARNESS_FAIL_AFTER_CHRONOLOGY",
+      "cause": "Existing report row assertion used only the final business date although Gate1 actions span multiple dates; income row count was 0.",
+      "resolution": "Widened opt-in report range to the chronology base date through final date; default report behavior unchanged."
+    },
+    {
+      "attempt": 2,
+      "status": "HARNESS_FIXTURE_AUTHORIZATION_FAIL_AT_CLOSE",
+      "cause": "New full-company close contract correctly rejected a test actor whose report-view scopes covered only the synthetic branch.",
+      "resolution": "Added explicit report-view grant and branch scope for every actual company branch in the synthetic full-close fixture."
+    },
+    {
+      "attempt": 3,
+      "status": "PASS",
+      "evidence": "ar-ap-treasury-chronology.json"
+    }
+  ],
+  "all_fixture_transactions_rollback": true
+}

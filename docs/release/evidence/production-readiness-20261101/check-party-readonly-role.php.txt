@@ -1,0 +1,8 @@
+PASS ManagerReadOnly accepts Supplier view, document, note, and history permissions
+PASS ManagerReadOnly rejects M03.supplier_update
+PASS Rejected M03.supplier_update leaves the temporary role matrix unchanged
+PASS ManagerReadOnly rejects M03.supplier_import
+PASS Rejected M03.supplier_import leaves the temporary role matrix unchanged
+PASS Read-only role version is unchanged after the rollback-only check
+PASS Original ManagerReadOnly permission matrix is preserved
+Supplier read-only role checks passed.

@@ -1,0 +1,13 @@
+{
+  "source_harness": ".tmp/production-readiness-20261101/financial-release-audit.php",
+  "adapted": ".tmp/master-remediation-20261101/financial-red-repro.php",
+  "adaptations": [
+    "test port/PGDATA marker/output evidence paths only"
+  ],
+  "production_source_modified": false,
+  "current_financial_reports_sha256": "3DA9006CFD8DDFD58304CB0084D8EC4BBE66300B2E02BEE63AB84889AFDAD57B",
+  "matches_previous_red_hash": true,
+  "current_journal_posting_sha256": "E36268D8DAE48CA2A25CA8BF039FF29D3BC14FF2529F533B6F234BC0C7EB4A62",
+  "matches_previous_posting_red_hash": true,
+  "target_database": "erp_elec_new_test@127.0.0.1:49685"
+}

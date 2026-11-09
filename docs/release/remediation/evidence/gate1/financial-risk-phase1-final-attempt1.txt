@@ -1,0 +1,382 @@
+{
+    "ci_run_id": null,
+    "database": "erp_elec_gate1_race",
+    "postgres_port": 49685,
+    "rollback_only": true,
+    "result": "PASS",
+    "assertions": 3,
+    "findings": [
+        {
+            "id": "FIN-P0-01",
+            "test_result": "PASS",
+            "expectation": "Period close requires report authority for every company branch and denial leaves accounting state unchanged.",
+            "denial_class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+            "http_status": 403,
+            "state_unchanged": true,
+            "before": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            },
+            "after": {
+                "period_status": "open",
+                "closures": 0,
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 111
+            }
+        },
+        {
+            "id": "FIN-P0-02",
+            "test_result": "PASS",
+            "expectation": "Historical inventory GL and FIFO source values share the same inclusive cutoff.",
+            "cutoff": "2000-12-31",
+            "post_cutoff_source_activity_exists": true,
+            "inventory_reconciliation": {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        },
+        {
+            "id": "FIN-P0-03",
+            "test_result": "PASS",
+            "expectation": "Manual journal creation rejects a mapped customer-advance control account before posting or source changes.",
+            "rejected_at_creation": true,
+            "rejection_class": "Illuminate\\Validation\\ValidationException",
+            "rejection_message": "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة.",
+            "validation_messages": [
+                "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة."
+            ],
+            "no_posting_or_source_effects": true,
+            "before": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            },
+            "after": {
+                "journals": 18,
+                "journal_lines": 47,
+                "customer_advances": 1,
+                "audit_entries": 112
+            }
+        }
+    ]
+}
+{
+    "database": "erp_elec_gate1_race",
+    "postgres_port": 49685,
+    "financial_date": "2026-11-01",
+    "synthetic": true,
+    "source_order_id": 10,
+    "posted_receipts": [
+        16,
+        17,
+        18
+    ],
+    "invoice_ids": [
+        21,
+        22,
+        23
+    ],
+    "source_journals": [
+        {
+            "invoice_id": 21,
+            "journal_id": 80,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 22,
+            "journal_id": 81,
+            "debit": "18.81",
+            "credit": "18.81",
+            "grni_net": "15.00",
+            "ppv_net": "1.50",
+            "tax_input_net": "2.31",
+            "ap_net": "-18.81"
+        },
+        {
+            "invoice_id": 23,
+            "journal_id": 82,
+            "debit": "12.54",
+            "credit": "12.54",
+            "grni_net": "10.00",
+            "ppv_net": "1.00",
+            "tax_input_net": "1.54",
+            "ap_net": "-12.54"
+        }
+    ],
+    "official_pdf_integrity": [
+        {
+            "invoice_id": 21,
+            "official_number": "SI-2026-000001",
+            "sha256": "e7e16119199531ce780f7616d4e04af2e4ee5e95814e34a703eb7f30aa0409cf",
+            "bytes": 45636
+        },
+        {
+            "invoice_id": 22,
+            "official_number": "SI-2026-000002",
+            "sha256": "7d2700fae3b7669615c9f949b706f31bf8c54474362064440217c6a50b64a0ec",
+            "bytes": 45637
+        },
+        {
+            "invoice_id": 23,
+            "official_number": "SI-2026-000003",
+            "sha256": "3b5151c621ec1fbef854b2348026333b863dca6cf6443f110deaeddb1dd56b00",
+            "bytes": 45632
+        }
+    ],
+    "matching": {
+        "invoice_count": 3,
+        "receipt_count": 3,
+        "quantity": "4.00000000",
+        "grni": "40.00",
+        "net": "44.00",
+        "recoverable_input_tax": "6.16",
+        "ppv": "4.00",
+        "ap": "50.16"
+    },
+    "stock_and_fifo_unchanged_by_invoice_posting": true,
+    "same_key_replay": true,
+    "factory_persistence": {
+        "supplier_invoice_id": 20,
+        "supplier_draft": true,
+        "customer_invoice_id": 7,
+        "customer_draft": true,
+        "treasury_accounts": [
+            9,
+            10
+        ]
+    },
+    "ap": {
+        "payment_movement_ids": [
+            27,
+            28
+        ],
+        "retry_idempotent": true,
+        "remaining": "0.00"
+    },
+    "customer": {
+        "sales_order_id": 4,
+        "delivery_id": 4,
+        "invoice_id": 8,
+        "advance_movement_id": 26,
+        "collection_movement_ids": [
+            24,
+            25
+        ],
+        "remaining_ar": "0.00"
+    },
+    "party_financial_profiles": {
+        "actor_id": 39,
+        "branch_id": 18,
+        "supplier_id": 10,
+        "customer_id": 9,
+        "aging_read_clock": "100 days after actual action dates",
+        "supplier": {
+            "invoice_count": 4,
+            "settled": "50.16",
+            "outstanding": "12.54",
+            "overdue": "12.54",
+            "unapplied_credit": "2.00",
+            "statement_closing": "10.54"
+        },
+        "customer": {
+            "invoice_count": 1,
+            "settled": "54.72",
+            "outstanding": "0.00",
+            "advance": "1.00",
+            "unapplied_credit": "2.00",
+            "statement_closing": "-2.00"
+        },
+        "unmapped_opening_payables": {
+            "supplier": "0.00",
+            "customer": "0.00"
+        },
+        "no_ar_ap_scope": "authorized_false",
+        "foreign_branch_filter": "403"
+    },
+    "credit_notes": {
+        "supplier": {
+            "credit_note_id": 7,
+            "journal_id": 90,
+            "number": "SCN-2026-000001"
+        },
+        "customer": {
+            "credit_note_id": 8,
+            "journal_id": 91,
+            "number": "CCN-2026-000001"
+        },
+        "party_credit_rows": 2
+    },
+    "direct_transfer": {
+        "out_movement_id": 29,
+        "in_movement_id": 30,
+        "journal_id": 94,
+        "number": "TR-2026-000001"
+    },
+    "reports": {
+        "trial_balance_debit": "318.30",
+        "trial_balance_credit": "318.30",
+        "income_row_count": 3,
+        "balance_row_count": 9,
+        "reconciliations": [
+            {
+                "key": "ap",
+                "label": "مراقبة الموردين مقابل الذمم الدائنة",
+                "gl": "10.54",
+                "source": "10.54",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "ar",
+                "label": "مراقبة العملاء مقابل الذمم المدينة",
+                "gl": "-2.00",
+                "source": "-2.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "grni",
+                "label": "GRNI مقابل الاستلامات غير المفوترة",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "inventory",
+                "label": "المخزون العام مقابل طبقات FIFO",
+                "gl": "10.00",
+                "source": "10.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "inventory_transit",
+                "label": "المخزون بالطريق مقابل طبقات النقل",
+                "gl": "0.00",
+                "source": "0.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "bank",
+                "label": "حساب البنك مقابل حركات الخزينة",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "cash",
+                "label": "حساب النقدية مقابل حركات الخزينة",
+                "gl": "4.56",
+                "source": "4.56",
+                "difference": "0.00",
+                "ok": true
+            },
+            {
+                "key": "customer_advance",
+                "label": "دفعات العملاء المقدمة مقابل سجل الذمم",
+                "gl": "1.00",
+                "source": "1.00",
+                "difference": "0.00",
+                "ok": true
+            }
+        ]
+    },
+    "negative_cases": {
+        "duplicate_supplier_number": "rejected",
+        "supplier_mismatch": "rejected",
+        "overmatch": "rejected",
+        "unauthorized": "403",
+        "closed_period": "rejected_without_partial_post"
+    },
+    "committed_worker_fixtures": null,
+    "gate1_financial_risk_cases": {
+        "result": "PASS",
+        "assertions": 3,
+        "findings": [
+            {
+                "id": "FIN-P0-01",
+                "test_result": "PASS",
+                "expectation": "Period close requires report authority for every company branch and denial leaves accounting state unchanged.",
+                "denial_class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+                "http_status": 403,
+                "state_unchanged": true,
+                "before": {
+                    "period_status": "open",
+                    "closures": 0,
+                    "journals": 18,
+                    "journal_lines": 47,
+                    "customer_advances": 1,
+                    "audit_entries": 111
+                },
+                "after": {
+                    "period_status": "open",
+                    "closures": 0,
+                    "journals": 18,
+                    "journal_lines": 47,
+                    "customer_advances": 1,
+                    "audit_entries": 111
+                }
+            },
+            {
+                "id": "FIN-P0-02",
+                "test_result": "PASS",
+                "expectation": "Historical inventory GL and FIFO source values share the same inclusive cutoff.",
+                "cutoff": "2000-12-31",
+                "post_cutoff_source_activity_exists": true,
+                "inventory_reconciliation": {
+                    "key": "inventory",
+                    "label": "المخزون العام مقابل طبقات FIFO",
+                    "gl": "0.00",
+                    "source": "0.00",
+                    "difference": "0.00",
+                    "ok": true
+                }
+            },
+            {
+                "id": "FIN-P0-03",
+                "test_result": "PASS",
+                "expectation": "Manual journal creation rejects a mapped customer-advance control account before posting or source changes.",
+                "rejected_at_creation": true,
+                "rejection_class": "Illuminate\\Validation\\ValidationException",
+                "rejection_message": "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة.",
+                "validation_messages": [
+                    "الحسابات الرقابية تُرحل وتُصحح من مصدرها فقط لحماية مصالحة المخزون والذمم والخزينة."
+                ],
+                "no_posting_or_source_effects": true,
+                "before": {
+                    "journals": 18,
+                    "journal_lines": 47,
+                    "customer_advances": 1,
+                    "audit_entries": 112
+                },
+                "after": {
+                    "journals": 18,
+                    "journal_lines": 47,
+                    "customer_advances": 1,
+                    "audit_entries": 112
+                }
+            }
+        ]
+    },
+    "all_pass": true
+}
+FIN-P0 RESULT PASS assertions=3

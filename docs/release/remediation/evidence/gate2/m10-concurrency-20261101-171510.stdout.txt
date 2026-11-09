@@ -1,0 +1,29 @@
+{
+    "all_pass": true,
+    "assertions": 1,
+    "database": "erp_elec_new_m10_race_a5322e17a2fcd1f5",
+    "port": 49685,
+    "worker_backend_pids": [
+        14704,
+        69220
+    ],
+    "outcomes": [
+        {
+            "exit_code": 0,
+            "result": {
+                "status": "PASS"
+            }
+        },
+        {
+            "exit_code": 2,
+            "result": {
+                "status": "REJECTED",
+                "code": 422,
+                "class": "Illuminate\\Validation\\ValidationException"
+            }
+        }
+    ],
+    "reserved_entitlements": 1,
+    "linked_work_orders": 1,
+    "reserved_visit_units": 1
+}

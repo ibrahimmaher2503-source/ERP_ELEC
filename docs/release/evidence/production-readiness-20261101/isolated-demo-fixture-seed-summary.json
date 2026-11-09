@@ -1,0 +1,6 @@
+{
+  "log": "isolated-demo-fixture-seed.txt",
+  "database": "erp_elec_new_test@127.0.0.1:49683",
+  "exit": 1,
+  "command": "php artisan db:seed --class=EgyptMarketDemoSeeder --env=testing --force"
+}

@@ -1,0 +1,13 @@
+PASS Administrator role exists in the isolated fixture schema
+PASS Tender/M02/security fixtures and business records fully roll back on the disposable database
+[2026-11-01 01:01:18] testing.ERROR: Existing active customer and catalog product are available for the isolated handoff fixture {"exception":"[object] (RuntimeException(code: 0): Existing active customer and catalog product are available for the isolated handoff fixture at C:/projects/ERP_ELEC_NEW/.tmp/production-readiness-20261101/tender-actions-adapted.php:47)
+[stacktrace]
+#0 C:/projects/ERP_ELEC_NEW/.tmp/production-readiness-20261101/tender-actions-adapted.php(147): {closure:C:/projects/ERP_ELEC_NEW/.tmp/production-readiness-20261101/tender-actions-adapted.php:45}(false, 'Existing active...')
+#1 {main}
+"} 
+
+In tender-actions-adapted.php line 47:
+                                                                                               
+  Existing active customer and catalog product are available for the isolated handoff fixture  
+                                                                                               
+

@@ -70,7 +70,7 @@ final class InventoryDocumentPage extends Component
         }
         app(InventoryTransfers::class)->receive(Auth::id(), $this->document, ['idempotency_key' => $this->receiptKey, 'reason' => $this->receiptReason, 'evidence' => $this->receiptEvidence, 'lines' => array_values(array_filter($rows, fn ($l) => ! collect(['accepted', 'damaged', 'missing', 'recovered_missing'])->every(fn ($k) => preg_match('/^0(?:\.0+)?$/D', $l[$k] ?? '0'))))]);
         $this->reload();
-        session()->flash('status', 'Receipt event saved. Damaged stock is unavailable; missing stock remains unresolved.');
+        session()->flash('status', 'تم حفظ واقعة الاستلام. المخزون التالف غير متاح، والكمية الناقصة ما زالت معلّقة.');
     }
 
     public function addByBarcode(): void

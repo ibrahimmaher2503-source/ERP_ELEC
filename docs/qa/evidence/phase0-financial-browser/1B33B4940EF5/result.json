@@ -1,0 +1,43 @@
+{
+  "result": "PASS_WITH_LIMITS",
+  "run_id": "1B33B4940EF5",
+  "database": "erp_elec_new_test on private port 55434",
+  "browser": "Microsoft Edge via Playwright",
+  "checks": [
+    "Arabic login completed with explicitly assigned Administrator and branch/warehouse scopes",
+    "Quotation form mobile viewport captured (390px; document width 390px)",
+    "Quotation 5 created through the actual Livewire form with two restored, approved-price catalog products",
+    "Guarded isolated PostgreSQL read confirms saved draft and both real product lines after reopening and editing",
+    "Quotation issue control was clicked; official-issued state did not appear"
+  ],
+  "browser_errors": [],
+  "quote_id": 5,
+  "quote_issued": false,
+  "issuance_page_text": "انتقل إلى المحتوى\nERP Electrical\nسياق العمل\nالرئيسية\nالوحدات\nالتنظيم\nالعملاء والموردون\nالمنتجات\nالمبيعات\nأوامر البيع\nإعدادات اعتماد أوامر البيع\nعروض الأسعار\nسياسات عروض الأسعار\nالمخزون\nالمشتريات\nالمحاسبة والمالية\nPhase0 operator 1B33B4940EF5\nالبحث في النظام، مخطط له\n2026-10-27\nSynthetic financial audit\nFIN-AUDIT\nEnglish\nالرئيسية\nالمبيعات\nعروض الأسعار\nمعاينة عرض السعر (PDF)\nمعاينة عرض السعر (PDF)\n\nمسودة 3b67967a · مراجعة 1\n\nعروض الأسعار\nتصدير Excel\nتعديل المسودة\nيلزم اعتماد الاستثناءات التجارية الحالية.\nإصدار عرض السعر الرسمي\n\nيتحقق الإصدار من السعر والسياسة التجارية وقواعد الضريبة وهوية الشركة. يحفظ رقمًا ولقطة مبالغ وملف PDF ثابتًا.\n\nالاستثناءات التجارية تحتاج طلب موافقة مرتبطًا بهذه المسودة والسياسة الحالية.\n يلزم اعتماد الاستثناءات التجارية الحالية.\nإصدار عرض السعر الرسمي",
+  "postgresql_verification": {
+    "quotation_id": 5,
+    "status": "draft",
+    "project_name": "PHASE0-1B33B4940EF5 edited",
+    "lines": [
+      {
+        "product_id": 2,
+        "quantity": "2.00000000",
+        "requested_price": "25.00000000"
+      },
+      {
+        "product_id": 3,
+        "quantity": "2.00000000",
+        "requested_price": "25.00000000"
+      }
+    ]
+  },
+  "screenshot_files": [
+    "quotation-create-desktop.png",
+    "quotation-create-mobile.png",
+    "quotation-details-desktop.png",
+    "quotation-issuance-readiness.png"
+  ],
+  "limits": [
+    "Written acceptance/conversion, independent sales-order approval/reservation/delivery, Purchasing, and Inventory journeys remain untested."
+  ]
+}

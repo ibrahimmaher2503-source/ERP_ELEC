@@ -1,0 +1,59 @@
+{
+  "route": "operations.show",
+  "checks": [
+    {
+      "name": "operation-preview-owner-identity",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "actor_id": 162,
+        "url": "/data-operations/3d5a2a24-3450-4be7-ad4a-d0c9ec3e5bc1"
+      }
+    },
+    {
+      "name": "operation-remains-preview-and-not-executed",
+      "result": "pass",
+      "details": {
+        "preview_marker": true,
+        "confirmation_button_visible": true
+      }
+    },
+    {
+      "name": "operation-preview-retains-row-plan",
+      "result": "pass",
+      "details": {
+        "item_count": 1,
+        "planned_after_value_visible": true
+      }
+    },
+    {
+      "name": "operation-preview-identity-history-survives-reload",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "identity": true,
+        "preview": true
+      }
+    },
+    {
+      "name": "operation-page-has-no-browser-errors",
+      "result": "pass",
+      "details": []
+    }
+  ],
+  "preview_only": true,
+  "mutation_submitted": false,
+  "preview_run_id": "3d5a2a24-3450-4be7-ad4a-d0c9ec3e5bc1",
+  "actor_id": 162,
+  "item_count": 1,
+  "url": "/data-operations/3d5a2a24-3450-4be7-ad4a-d0c9ec3e5bc1",
+  "status": 200,
+  "first_load_identity": true,
+  "first_load_preview": true,
+  "first_load_has_planned_after_value": true,
+  "confirmation_button_visible": true,
+  "reload_status": 200,
+  "reload_identity": true,
+  "reload_preview": true,
+  "browser_errors": []
+}

@@ -1,0 +1,1158 @@
+{
+    "captured_utc": "2026-10-31T14:07:43+00:00",
+    "phase": "after",
+    "application": {
+        "environment": "local",
+        "laravel": "13.38.0",
+        "php": "8.4.21",
+        "timezone": "UTC",
+        "git_head": "28cca25ef242bbcdcfcd29a976f8e3a552768a87",
+        "git_dirty_entry_count": 458,
+        "git_changed_tracked_count": 151,
+        "git_untracked_entry_count": 307
+    },
+    "database": {
+        "driver": "pgsql",
+        "host": "127.0.0.1",
+        "port": 5443,
+        "name": "erp_elec_new",
+        "server_version": "17.11",
+        "current_schema": "public",
+        "size_pretty": "43 MB",
+        "relations": [
+            {
+                "schemaname": "public",
+                "tablename": "access_audits"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "access_grants"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_account_mappings"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_accounts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_activation"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_journal_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_journals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_opening_batches"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_opening_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_periods"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_project_dimensions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_service_expense_attributions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_tax_rule_endings"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "accounting_tax_rules"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "audit_entries"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "branches"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "brands"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "cache"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "cache_locks"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "companies"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "customer_addresses"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "customer_contacts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "customer_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "customer_notes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "customers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "data_operation_items"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "data_operation_runs"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "failed_jobs"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_balances"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_condition_events"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_corrections"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_document_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_fifo_allocations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_fifo_corrections"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_fifo_layers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_isolations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_movement_journals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_movements"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_reservation_events"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_reservations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_serial_events"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_serials"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_transfer_allocations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_transfer_lots"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_transfer_receipt_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_transfer_receipts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "inventory_warehouses"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "job_batches"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "jobs"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_activities"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_assignments"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_checklist_results"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_checklist_templates"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_commercial_approvals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_completions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_cost_proposals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_expense_sources"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_labor_entries"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_labor_rates"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_labor_recognitions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_part_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_part_requirements"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_part_reservations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_part_returns"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_part_usage"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_requests"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_visits"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "maintenance_work_orders"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "migrations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "passkeys"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "password_reset_tokens"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "payable_opening_items"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "permission_catalog"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "product_categories"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "product_media"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "product_sale_prices"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "product_unit_conversions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "products"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_activities"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_baselines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_changes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_document_revisions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_handovers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_material_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_material_reservations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_members"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_milestones"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_phases"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_requirements"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_source_links"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_task_comments"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_task_dependencies"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "project_tasks"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "projects"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchase_requisition_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchase_requisition_reviews"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchase_requisitions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_amendment_requests"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_awards"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_offer_files"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_offer_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_offers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_order_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_order_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_order_reviews"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_orders"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_receipt_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_receipt_postings"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_receipts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_rfq_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_rfq_suppliers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "purchasing_rfqs"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "quotation_self_approval_policies"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "role_permissions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "roles"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_credit_notes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_customer_advances"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_customer_invoice_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_customer_invoices"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_open_items"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_party_credits"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_settlement_allocations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_supplier_invoice_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_supplier_invoice_matches"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "rp_supplier_invoices"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_delivery_instruction_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_delivery_instructions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_allocations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_exception_decisions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_policies"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_order_reviews"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_orders"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_acceptances"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_approvals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_attachments"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_conversions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_lines"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_policies"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotation_terms"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sales_quotations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "sessions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "supplier_addresses"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "supplier_categories"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "supplier_contacts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "supplier_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "supplier_notes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "suppliers"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "system_official_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "system_official_sequences"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "treasury_accounts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "treasury_movements"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "treasury_opening_balances"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "treasury_payment_requests"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "units_of_measure"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "user_branch_scopes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "user_roles"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "user_warehouse_scopes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "users"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_activities"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_custody_events"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_customer_parts"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_deliveries"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_documents"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_estimate_approvals"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_estimates"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_expense_sources"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_intakes"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_jobs"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_labor_entries"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_labor_recognitions"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_members"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_part_issues"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_part_requirements"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_part_reservations"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_part_returns"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_part_usage"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_rates"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_tests"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_verifications"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshop_work_records"
+            },
+            {
+                "schemaname": "public",
+                "tablename": "workshops"
+            }
+        ],
+        "relation_count": 187,
+        "migrations": [
+            {
+                "migration": "0001_01_01_000000_create_users_table",
+                "batch": 1
+            },
+            {
+                "migration": "0001_01_01_000001_create_cache_table",
+                "batch": 1
+            },
+            {
+                "migration": "0001_01_01_000002_create_jobs_table",
+                "batch": 1
+            },
+            {
+                "migration": "2024_01_01_000000_create_passkeys_table",
+                "batch": 1
+            },
+            {
+                "migration": "2025_08_14_170933_add_two_factor_columns_to_users_table",
+                "batch": 1
+            },
+            {
+                "migration": "2026_10_21_010000_create_organization_setup",
+                "batch": 2
+            },
+            {
+                "migration": "2026_10_21_020000_add_approved_company_profile_fields",
+                "batch": 3
+            },
+            {
+                "migration": "2026_10_21_030000_add_user_management_state",
+                "batch": 4
+            },
+            {
+                "migration": "2026_10_21_040000_add_user_gender",
+                "batch": 5
+            },
+            {
+                "migration": "2026_10_21_050000_create_dynamic_rbac",
+                "batch": 6
+            },
+            {
+                "migration": "2026_10_21_060000_extend_security_audit_metadata",
+                "batch": 7
+            },
+            {
+                "migration": "2026_10_21_070000_create_product_masters",
+                "batch": 8
+            },
+            {
+                "migration": "2026_10_21_071000_create_product_catalog",
+                "batch": 8
+            },
+            {
+                "migration": "2026_10_21_072000_harden_product_identity_keys",
+                "batch": 9
+            },
+            {
+                "migration": "2026_10_21_073000_add_product_trade_units",
+                "batch": 10
+            },
+            {
+                "migration": "2026_10_21_080000_create_data_operation_receipts",
+                "batch": 11
+            },
+            {
+                "migration": "2026_10_21_090000_create_customer_master",
+                "batch": 12
+            },
+            {
+                "migration": "2026_10_21_091000_normalize_customer_permission_labels",
+                "batch": 13
+            },
+            {
+                "migration": "2026_10_21_100000_create_supplier_master",
+                "batch": 14
+            },
+            {
+                "migration": "2026_10_21_110000_create_quotation_drafts",
+                "batch": 15
+            },
+            {
+                "migration": "2026_10_21_111000_create_quotation_internal_documents",
+                "batch": 15
+            },
+            {
+                "migration": "2026_10_21_112000_create_quotation_commercial_configuration",
+                "batch": 16
+            },
+            {
+                "migration": "2026_10_21_113000_create_quotation_approval_workflow",
+                "batch": 16
+            },
+            {
+                "migration": "2026_10_21_114000_enable_administrator_default_permissions",
+                "batch": 17
+            },
+            {
+                "migration": "2026_10_21_120000_create_sales_order_drafts",
+                "batch": 18
+            },
+            {
+                "migration": "2026_10_21_121000_create_sales_order_policy",
+                "batch": 19
+            },
+            {
+                "migration": "2026_10_21_122000_protect_sales_order_review_history",
+                "batch": 20
+            },
+            {
+                "migration": "2026_10_21_123000_normalize_sales_permission_modules",
+                "batch": 21
+            },
+            {
+                "migration": "2026_10_22_130000_create_inventory_foundation",
+                "batch": 22
+            },
+            {
+                "migration": "2026_10_22_131000_register_inventory_alert_settings",
+                "batch": 23
+            },
+            {
+                "migration": "2026_10_22_132000_harden_inventory_snapshot_guards",
+                "batch": 24
+            },
+            {
+                "migration": "2026_10_22_140000_create_purchase_requisitions",
+                "batch": 25
+            },
+            {
+                "migration": "2026_10_22_141000_create_purchasing_rfqs",
+                "batch": 26
+            },
+            {
+                "migration": "2026_10_22_142000_harden_requisition_review_versions",
+                "batch": 27
+            },
+            {
+                "migration": "2026_10_22_143000_create_supplier_offers",
+                "batch": 28
+            },
+            {
+                "migration": "2026_10_22_144000_create_purchasing_orders",
+                "batch": 28
+            },
+            {
+                "migration": "2026_10_22_145000_create_purchase_receiving_coordination",
+                "batch": 28
+            },
+            {
+                "migration": "2026_10_22_146000_harden_inventory_lifecycle",
+                "batch": 29
+            },
+            {
+                "migration": "2026_10_22_147000_create_projects",
+                "batch": 30
+            },
+            {
+                "migration": "2026_10_22_148000_create_project_baselines",
+                "batch": 31
+            },
+            {
+                "migration": "2026_10_22_149000_create_project_documents",
+                "batch": 32
+            },
+            {
+                "migration": "2026_10_22_150000_create_project_requirements_links",
+                "batch": 33
+            },
+            {
+                "migration": "2026_10_22_151000_extend_project_sources",
+                "batch": 34
+            },
+            {
+                "migration": "2026_10_22_150000_enable_standalone_rfqs",
+                "batch": 35
+            },
+            {
+                "migration": "2026_10_22_151000_extend_inventory_occupancy_and_receipts",
+                "batch": 35
+            },
+            {
+                "migration": "2026_10_22_152000_strengthen_inventory_occupancy_reconciliation",
+                "batch": 35
+            },
+            {
+                "migration": "2026_10_22_153000_guard_inventory_receipt_reconciliation",
+                "batch": 35
+            },
+            {
+                "migration": "2026_10_22_154000_create_accounting_foundation",
+                "batch": 35
+            },
+            {
+                "migration": "2026_10_27_155000_create_financial_activation",
+                "batch": 36
+            },
+            {
+                "migration": "2026_10_27_156000_create_official_documents",
+                "batch": 36
+            },
+            {
+                "migration": "2026_10_27_157000_create_opening_contributors_and_fifo",
+                "batch": 36
+            },
+            {
+                "migration": "2026_10_27_158000_harden_financial_activation",
+                "batch": 37
+            },
+            {
+                "migration": "2026_10_27_159000_guard_scheduled_go_live",
+                "batch": 38
+            },
+            {
+                "migration": "2026_10_27_160000_complete_valued_inventory_paths",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_161000_create_approved_sale_prices",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_162000_create_sales_commercial_evidence",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_163000_reconcile_transfer_fifo_receipts",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_164000_preserve_quotation_order_sources",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_165000_create_sales_order_commitments",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_166000_create_sales_delivery_instructions",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_167000_allow_evidenced_backorder_allocation",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_168000_link_internal_fifo_corrections",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_169000_harden_commercial_and_correction_evidence",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_27_170000_preserve_fifo_unit_cost_lineage",
+                "batch": 39
+            },
+            {
+                "migration": "2026_10_28_171000_record_sales_order_exception_decisions",
+                "batch": 40
+            },
+            {
+                "migration": "2026_10_28_172000_create_financial_operations",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_173000_allow_atomic_treasury_transfers",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_174000_create_party_credit_balances",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_175000_allow_invoice_settlement_projections",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_176000_create_customer_advances",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_177000_allow_optional_financial_mappings",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_178000_complete_project_operations",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_179000_harden_project_acceptance_guards",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_28_180000_reconcile_project_stock_sources",
+                "batch": 41
+            },
+            {
+                "migration": "2026_10_29_181000_link_project_task_documents",
+                "batch": 42
+            },
+            {
+                "migration": "2026_10_30_182000_create_field_maintenance",
+                "batch": 43
+            },
+            {
+                "migration": "2026_10_30_183000_link_maintenance_owner_sources",
+                "batch": 43
+            },
+            {
+                "migration": "2026_10_30_184000_complete_maintenance_cost_sources",
+                "batch": 44
+            },
+            {
+                "migration": "2026_10_30_185000_link_maintenance_planning_evidence",
+                "batch": 45
+            },
+            {
+                "migration": "2026_10_30_186000_protect_maintenance_source_history",
+                "batch": 46
+            },
+            {
+                "migration": "2026_10_30_187000_separate_maintenance_identity_guards",
+                "batch": 47
+            },
+            {
+                "migration": "2026_10_30_188000_create_workshop_repairs",
+                "batch": 48
+            },
+            {
+                "migration": "2026_10_30_189000_link_workshop_stock_sources",
+                "batch": 48
+            },
+            {
+                "migration": "2026_10_30_190000_link_workshop_invoices",
+                "batch": 48
+            },
+            {
+                "migration": "2026_10_30_191000_guard_service_expense_attribution",
+                "batch": 48
+            }
+        ]
+    },
+    "selected_record_counts": {
+        "companies": 1,
+        "branches": 37,
+        "users": 134,
+        "projects": 3,
+        "inventory_movements": 0,
+        "accounting_journals": 0,
+        "rp_customer_invoices": 0,
+        "rp_supplier_invoices": 0,
+        "treasury_movements": 0,
+        "maintenance_work_orders": 1,
+        "workshop_jobs": 0
+    },
+    "administrator_permission_coverage": {
+        "role_present": true,
+        "registered_permission_keys": 250,
+        "persisted_administrator_permission_rows": 250,
+        "missing_registered_permission_keys": 0
+    },
+    "activation_snapshot": {
+        "projects": [
+            {
+                "id": 1,
+                "status": "draft",
+                "version": 1
+            },
+            {
+                "id": 2,
+                "status": "draft",
+                "version": 1
+            },
+            {
+                "id": 3,
+                "status": "draft",
+                "version": 1
+            }
+        ],
+        "accounting": {
+            "go_live_date": null,
+            "activated": false
+        }
+    }
+}

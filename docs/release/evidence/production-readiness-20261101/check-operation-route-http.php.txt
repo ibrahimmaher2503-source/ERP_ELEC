@@ -1,0 +1,13 @@
+PASS GET /data-operations/{runId} returns 200 for customer import receipt (received HTTP 200)
+PASS customer import receipt resolves its entity from the owned run
+PASS GET /data-operations/{runId} returns 200 for customer bulk receipt (received HTTP 200)
+PASS customer bulk receipt resolves its entity from the owned run
+PASS GET /data-operations/{runId} returns 200 for product import receipt (received HTTP 200)
+PASS product import receipt resolves its entity from the owned run
+PASS customer static import route resolves its route entity and returns 200
+PASS product static import route resolves its route entity and returns 200
+PASS generic customer import route resolves its route entity and returns 200
+PASS another actor cannot read a run receipt
+PASS a missing run receipt returns 404
+PASS the customer import route still requires its import permission
+Disposable HTTP route fixtures rolled back.

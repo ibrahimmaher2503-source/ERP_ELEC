@@ -1,0 +1,136 @@
+{
+    "all_pass": true,
+    "mode": "employee-only",
+    "assertions": 13,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 3,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 4,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 5,
+            "user_branch_scopes": 2,
+            "user_roles": 0,
+            "audit_entries": 4
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M01 Employee factory persists an active employment identity without a linked login or authority",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 Employee factory creates no authentication, role, permission, or branch-scope history",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 EmployeeActions creates a versioned branch-owned employment record from controlled master fields",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 EmployeeActions updates permitted fields with an optimistic version increment",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee code is immutable after identity creation",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee branch is immutable after identity creation",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee creation requires explicit branch permission and scope",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract returns current scoped employment identity without payroll or costing fields",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract denies unscoped and unpermitted readers",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employee contract hides identities outside the requested branch",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employment contract denies inactive employee identities",
+            "result": "PASS"
+        },
+        {
+            "name": "M01 employment contract denies identities outside their effective date range",
+            "result": "PASS"
+        },
+        {
+            "name": "All fixture database rows roll back after acceptance.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}

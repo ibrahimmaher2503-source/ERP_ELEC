@@ -1,0 +1,8 @@
+{
+  "check": "action-based-financial-release-risks",
+  "exit_code": 2,
+  "database": "erp_elec_new_test",
+  "port": "49683",
+  "receipt": "financial-release-risks.json",
+  "phase1": "phase1-financial-actions.json"
+}

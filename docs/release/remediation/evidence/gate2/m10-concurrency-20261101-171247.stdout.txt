@@ -1,0 +1,2 @@
+{"all_pass":false,"mode":"m10-last-visit-concurrency","phase":"migrate disposable M10 database","primary_database":"erp_elec_new_test","disposable_database":"erp_elec_new_m10_race_5a81eaa9c1a6927f","disposable_database_dropped":false,"primary_counts_unchanged":null,"failure":{"class":"RuntimeException","message":"Disposable M10 race database migrations failed or omitted the completion marker."}}
+Private failure receipt preserved.

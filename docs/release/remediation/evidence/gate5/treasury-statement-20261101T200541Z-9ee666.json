@@ -1,0 +1,277 @@
+{
+    "all_pass": true,
+    "mode": "treasury-bank-statement-reconciliation",
+    "phase": "missing statement line retains difference without ledger plugs",
+    "assertions": 35,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 8,
+            "customers": 1,
+            "products": 1,
+            "organization_employees": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 1,
+            "service_contract_documents": 1,
+            "service_contract_billing_sources": 1,
+            "service_contract_billing_allocations": 1,
+            "rp_customer_invoices": 1,
+            "rp_customer_invoice_lines": 1,
+            "rp_open_items": 1,
+            "rp_customer_advances": 4,
+            "rp_customer_advance_refunds": 2,
+            "treasury_accounts": 2,
+            "treasury_movements": 6,
+            "accounting_accounts": 17,
+            "accounting_account_mappings": 17,
+            "accounting_tax_rules": 3,
+            "accounting_periods": 1,
+            "accounting_opening_batches": 1,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 7,
+            "accounting_journal_lines": 15,
+            "system_official_sequences": 4,
+            "system_official_documents": 14,
+            "access_grants": 96,
+            "user_branch_scopes": 7,
+            "audit_entries": 62,
+            "treasury_statements": 2,
+            "treasury_statement_lines": 3,
+            "treasury_statement_matches": 3,
+            "treasury_statement_reviews": 3
+        },
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Matched collection and refund are real dated movements on the statement bank account and exact branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "Exact statement import replay returns the original immutable statement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same import key with changed CSV payload is rejected as a conflict.",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate account-period statement import under a changed key is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Unexpected CSV header is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "CSV money amount with more than two decimal places is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement import cannot cross the manager branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without statement_manage cannot import a bank statement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed-key duplicates, malformed CSV, and authorization denials create no extra statement, file source, or journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot create an inactive initial match.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot match a movement from the wrong account.",
+            "result": "PASS"
+        },
+        {
+            "name": "Uploaded CSV is private, hash-verified, and downloaded with no-store/nosniff headers.",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 report-only actor cannot view bank statement lines or matches.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without statement_view cannot download the private CSV.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement line view cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Private statement download cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Signed amount/direction mismatch cannot match a bank line to the refund movement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected cross-direction match creates no reconciliation row.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement review requires an independent actor from its importer.",
+            "result": "PASS"
+        },
+        {
+            "name": "A statement with an unmatched refund line and movement is reviewed_with_differences, never reconciled.",
+            "result": "PASS"
+        },
+        {
+            "name": "Independent reviewer creates immutable review evidence with a SHA-256 snapshot digest.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot append statement lines after independent review.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot append statement matches after independent review.",
+            "result": "PASS"
+        },
+        {
+            "name": "Reopening preserves byte-identical immutable review/match evidence and leaves the missing line visibly unmatched.",
+            "result": "PASS"
+        },
+        {
+            "name": "Both real 100.00 collection and 20.00 refund reconcile to external 0.00 opening and 80.00 closing balance.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement reconciliation scope is explicitly limited to branch cash flow, not a company-wide account or GL opening balance.",
+            "result": "PASS"
+        },
+        {
+            "name": "Captured external opening/closing inputs create no GL opening allocation or statement-generated journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Authorized unmatch restores both unmatched bank-line and Treasury-movement evidence.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot attach a line owned by another statement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Missing actual 20.00 refund line preserves a visible 20.00 difference and unmatched movement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Reopen preserves the 20.00 review difference and never creates a balancing GL journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Direct SQL cannot bind another statement review to this statement status.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement import, match, unmatch, review, and reopen create no GL journals or balancing plugs.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement review keeps the real Treasury bank balance at 80.00 from exactly the collection and refund sources.",
+            "result": "PASS"
+        },
+        {
+            "name": "M11 activation, synthetic M10/M12/M13 sources, statement rows, company snapshot, and private upload all roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null,
+    "company_profile": {
+        "exact_baseline_restored": true
+    },
+    "m11_activation": {
+        "performed": true,
+        "rolled_back": true,
+        "go_live_date": "2026-11-01"
+    }
+}

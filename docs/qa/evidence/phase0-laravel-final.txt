@@ -1,0 +1,72 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mthat true is true[39m[90m                                                                                           [39m [90m0.01s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Unit\ModuleIdentityRegistryTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprojects keeps the m07 runtime identity and permission ownership[39m[90m                                            [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdelivery returns m07 is historical only and owns no runtime permissions[39m
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                                [39m [90m4.95s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can authenticate using the login screen[39m[90m                                                               [39m [90m0.32s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can not authenticate with invalid password[39m[90m                                                            [39m [90m0.36s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers with two factor enabled are redirected to two factor challenge[39m[90m                                        [39m [90m0.33s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                                            [39m [90m0.20s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\EmailVerificationTest[39m
+  [32;1m✓[39;22m[90m [39m[90memail verification screen can be rendered[39m[90m                                                                   [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90munverified users are redirected to the email verification prompt[39m[90m                                            [39m [90m0.15s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail can be verified[39m[90m                                                                                       [39m [90m0.13s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail is not verified with invalid hash[39m[90m                                                                     [39m [90m0.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90malready verified user visiting verification link is redirected without firing event again[39m[90m                   [39m [90m0.11s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordConfirmationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mconfirm password screen can be rendered[39m[90m                                                                     [39m [90m0.42s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordResetTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreset password link screen can be rendered[39m[90m                                                                  [39m [90m0.40s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password link can be requested[39m[90m                                                                        [39m [90m0.59s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password screen can be rendered[39m[90m                                                                       [39m [90m0.63s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be reset with valid token[39m[90m                                                                      [39m [90m0.45s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\TwoFactorChallengeTest[39m
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge redirects to login when not authenticated[39m[90m                                              [39m [90m0.31s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor challenge can be rendered[39m[90m                                                                        [39m [90m0.30s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\DashboardTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguests are redirected to the login page[39m[90m                                                                     [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mauthenticated users can visit the dashboard[39m[90m                                                                 [39m [90m0.52s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ExampleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreturns a successful response[39m[90m                                                                               [39m [90m0.15s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\FoundationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpublic registration cannot create an erp account[39m[90m                                                            [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90moperator profile does not offer destructive account deletion[39m[90m                                                [39m [90m0.86s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard renders arabic rtl without business totals[39m[90m                                                        [39m [90m0.70s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\LocalUserCommandTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlocal account is created with a hashed password and verified email[39m[90m                                          [39m [90m0.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlocal account command is unavailable in production[39m[90m                                                          [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90mshort password cannot create an account[39m[90m                                                                     [39m [90m0.31s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\ProfileUpdateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mprofile page is displayed[39m[90m                                                                                   [39m [90m0.49s[39m  
+  [32;1m✓[39;22m[90m [39m[90mprofile information can be updated[39m[90m                                                                          [39m [90m0.57s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail verification status is unchanged when email address is unchanged[39m[90m                                      [39m [90m0.23s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Settings\SecurityTest[39m
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page can be rendered[39m[90m                                                                      [39m [90m0.63s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page requires password confirmation when enabled[39m[90m                                          [39m [90m0.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90msecurity settings page renders without two factor when feature is disabled[39m[90m                                  [39m [90m0.42s[39m  
+  [32;1m✓[39;22m[90m [39m[90mtwo factor authentication disabled when confirmation abandoned between requests[39m[90m                             [39m [90m0.20s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be updated[39m[90m                                                                                     [39m [90m0.37s[39m  
+  [32;1m✓[39;22m[90m [39m[90mweak password is rejected without replacing the existing password[39m[90m                                           [39m [90m0.75s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to update password[39m[90m                                                        [39m [90m0.42s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\WorkbookCodecSparseTemplateTest[39m
+  [32;1m✓[39;22m[90m [39m[90moriginal 500 row template reads sparse empty rows without creating a large cell cache[39m[90m                       [39m [90m3.59s[39m  
+
+  [90mTests:[39m    [32;1m40 passed[39;22m[90m (103 assertions)[39m
+  [90mDuration:[39m [39m21.91s[39m
+

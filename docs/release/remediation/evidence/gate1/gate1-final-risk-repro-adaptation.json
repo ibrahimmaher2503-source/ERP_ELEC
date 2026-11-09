@@ -1,0 +1,13 @@
+{
+  "script": ".tmp/master-remediation-20261101/financial-gate1-green-repro-race.php",
+  "adaptations": [
+    "target.json -> race-target.json",
+    "database identity erp_elec_new_test -> erp_elec_gate1_race",
+    "exact marker text verification",
+    "unique race-specific evidence output names"
+  ],
+  "sha256": "D6AEF75ABCCCBB3BA16B8A74005B20E86935990D1C772536F6D5B8EA86B6602D",
+  "base_script": ".tmp/master-remediation-20261101/financial-gate1-green-repro.php",
+  "database": "erp_elec_gate1_race@127.0.0.1:49685",
+  "application_code_changed": false
+}

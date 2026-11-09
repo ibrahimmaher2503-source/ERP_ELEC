@@ -1,0 +1,32 @@
+PASS authorized workshop configuration persists at version one in its branch
+PASS stale workshop configuration version is rejected
+PASS authorized scoped technician membership is persisted and advances workshop version
+PASS stale workshop version cannot overwrite membership
+PASS intake creation key safely replays the same draft after a lost response
+PASS customer property intake remains a draft without receiving or company-stock effect
+PASS draft intake can be saved with its current version while preserving the customer property snapshot
+PASS stale intake version is rejected
+PASS receipt replay with the same key records one immutable custody event
+PASS second receipt with a new key cannot receive the same intake again
+PASS received intake converts to one workshop job and lost-response retry returns that job
+PASS job retains intake identity and enters inspection without fabricated repair execution
+PASS stale intake version cannot create another job
+PASS contract billing mode is blocked until approved coverage is connected
+PASS dispatcher assigns only the active workshop member and advances job version
+PASS stale job version cannot repeat assignment
+PASS assigned technician records diagnosis, planned work and required tests without changing status to repaired or tested
+PASS unscoped user cannot diagnose the workshop job
+PASS repair cannot start while the estimate has no independent customer approval
+PASS work record cannot be captured before the approved repair is started
+PASS test evidence cannot be recorded before the job enters testing
+PASS supervisor cannot verify a job before execution and required tests
+PASS rejected lifecycle attempts create no labor, test or verification evidence
+PASS assigned technician cannot release equipment as unrepairable without verification authority
+PASS authorized unrepairable decision keeps a separate repair result and an auditable custody event
+PASS unrepaired return records its authorized recipient and original accessories and safely replays delivery
+
+In Application.php line 1448:
+                                                          
+  [Symfony\Component\HttpKernel\Exception\HttpException]  
+                                                          
+

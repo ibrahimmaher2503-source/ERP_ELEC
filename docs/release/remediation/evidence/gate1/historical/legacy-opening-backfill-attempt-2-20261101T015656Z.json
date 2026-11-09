@@ -1,0 +1,12 @@
+{
+  "all_pass": false,
+  "attempt": 2,
+  "database": "erp_elec_gate1_legacy",
+  "port": 49685,
+  "cluster_marker_verified": true,
+  "stage": "safe retry guard used nonexistent tax_rules table name",
+  "error": "Undefined table: relation tax_rules does not exist; actual owner table is accounting_tax_rules.",
+  "no_financial_postings_before_retry": true,
+  "harness_response": "Corrected only the harness table identifier; no financial action occurred.",
+  "recorded_at_utc": "2026-11-01T01:56:56Z"
+}

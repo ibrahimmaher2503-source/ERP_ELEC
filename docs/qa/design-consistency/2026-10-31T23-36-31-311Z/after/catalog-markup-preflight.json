@@ -1,0 +1,69 @@
+{
+  "source_sha256": "2228a3f727cf85a407beadf3ffde3238358e996f6495c600b6381cc338c3ce1b",
+  "css_asset": "/build/assets/app-BndKEvZV.css",
+  "viewport": {
+    "width": 360,
+    "height": 800
+  },
+  "routes": [
+    {
+      "route": "products.index",
+      "url": "/products",
+      "http_status": 200,
+      "dom": {
+        "summary": true,
+        "records": true,
+        "mobileMore": true,
+        "documentWidth": 360,
+        "viewportWidth": 360
+      },
+      "assets": [
+        {
+          "url": "http://127.0.0.1:59296/build/assets/app-BndKEvZV.css",
+          "status": 200
+        }
+      ],
+      "checks": [
+        {
+          "name": "fresh-catalog-summary-rendered",
+          "result": "pass",
+          "details": true
+        },
+        {
+          "name": "fresh-catalog-records-wrapper-rendered",
+          "result": "pass",
+          "details": true
+        },
+        {
+          "name": "mobile-more-action-visible",
+          "result": "pass",
+          "details": true
+        },
+        {
+          "name": "document-fits-360-viewport",
+          "result": "pass",
+          "details": {
+            "documentWidth": 360,
+            "viewportWidth": 360
+          }
+        },
+        {
+          "name": "current-built-css-served",
+          "result": "pass",
+          "details": [
+            {
+              "url": "http://127.0.0.1:59296/build/assets/app-BndKEvZV.css",
+              "status": 200
+            }
+          ]
+        },
+        {
+          "name": "catalog-route-http-200",
+          "result": "pass",
+          "details": 200
+        }
+      ]
+    }
+  ],
+  "pass": true
+}

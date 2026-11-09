@@ -1,0 +1,19 @@
+PASS Administrator and known registered permission catalog entries exist
+PASS Administrator matrix contains every current registered known permission
+PASS Administrator membership grants every known registered capability
+PASS Administrator role name without user membership grants no capability
+PASS Unknown permission keys are rejected for Administrator
+PASS Active unverified Administrator has its role capability
+PASS Organization API preserves its verified-identity gate for Administrator
+PASS Assigned Administrator branch permission remains limited to explicit branch scope
+PASS Assigned Administrator still cannot access a warehouse
+PASS Administrator membership retains a known capability when its matrix row is absent
+PASS Synchronizer restores a missing Administrator key with one role version bump and audit record
+PASS Repeated synchronization is idempotent and creates no extra version or audit change
+PASS Synchronization leaves every other role permission unchanged
+PASS Administrator matrix cannot be manually reduced
+PASS Active verified Administrator membership satisfies the security invariant without a matrix security key
+PASS Removing Administrator membership immediately removes role capability
+PASS Security invariant rejects removal of its only active verified Administrator
+PASS Inactive account gate remains effective for Administrator
+Administrator-default check transaction rolled back.

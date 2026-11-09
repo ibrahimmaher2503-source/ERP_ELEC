@@ -1,0 +1,241 @@
+{
+    "all_pass": false,
+    "mode": "treasury-bank-statement-reconciliation",
+    "phase": "rollback-only real M11/M10/M12/M13 statement sources",
+    "assertions": 20,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0,
+            "treasury_statements": 0,
+            "treasury_statement_lines": 0,
+            "treasury_statement_matches": 0,
+            "treasury_statement_reviews": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Matched collection and refund are real dated movements on the statement bank account and exact branch.",
+            "result": "PASS"
+        },
+        {
+            "name": "Exact statement import replay returns the original immutable statement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same import key with changed CSV payload is rejected as a conflict.",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate account-period statement import under a changed key is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Unexpected CSV header is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "CSV money amount with more than two decimal places is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement import cannot cross the manager branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without statement_manage cannot import a bank statement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed-key duplicates, malformed CSV, and authorization denials create no extra statement, file source, or journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Uploaded CSV is private, hash-verified, and downloaded with no-store/nosniff headers.",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 report-only actor cannot view bank statement lines or matches.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without statement_view cannot download the private CSV.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement line view cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Private statement download cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Signed amount/direction mismatch cannot match a bank line to the refund movement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Rejected cross-direction match creates no reconciliation row.",
+            "result": "PASS"
+        },
+        {
+            "name": "Statement review requires an independent actor from its importer.",
+            "result": "PASS"
+        },
+        {
+            "name": "A statement with an unmatched refund line and movement is reviewed_with_differences, never reconciled.",
+            "result": "PASS"
+        },
+        {
+            "name": "Independent reviewer creates immutable review evidence with a SHA-256 snapshot digest.",
+            "result": "PASS"
+        },
+        {
+            "name": "M11 activation, synthetic M10/M12/M13 sources, statement rows, company snapshot, and private upload all roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "Symfony\\Component\\HttpKernel\\Exception\\HttpException",
+        "message": "صلاحية الخزينة أو نطاق الفرع غير متاح.",
+        "trace_without_arguments": [
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Foundation/helpers.php",
+                "line": 67,
+                "class": "Illuminate\\Foundation\\Application",
+                "function": "abort"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryAccess.php",
+                "line": 28,
+                "class": null,
+                "function": "abort"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryStatementActions.php",
+                "line": 25,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryAccess",
+                "function": "authorize"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryStatementActions.php",
+                "line": 203,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryStatementActions",
+                "function": "statement"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php",
+                "line": 35,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryStatementActions",
+                "function": "{closure:App\\Modules\\Treasury\\Application\\TreasuryStatementActions::reopen():202}"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php",
+                "line": 502,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "transaction"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php",
+                "line": 364,
+                "class": "Illuminate\\Database\\DatabaseManager",
+                "function": "__call"
+            },
+            {
+                "file": "app/Modules/Treasury/Application/TreasuryStatementActions.php",
+                "line": 202,
+                "class": "Illuminate\\Support\\Facades\\Facade",
+                "function": "__callStatic"
+            },
+            {
+                "file": "tests/Support/check-treasury-bank-statement-reconciliation.php",
+                "line": 279,
+                "class": "App\\Modules\\Treasury\\Application\\TreasuryStatementActions",
+                "function": "reopen"
+            }
+        ]
+    },
+    "company_profile": {
+        "exact_baseline_restored": true
+    },
+    "m11_activation": {
+        "performed": true,
+        "rolled_back": true,
+        "go_live_date": "2026-11-01"
+    }
+}
+RESULT all_pass=0 assertions=20 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate5/treasury-statement-20261101T193335Z-e588dd.json

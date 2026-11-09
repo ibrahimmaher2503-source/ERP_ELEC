@@ -1,0 +1,221 @@
+{
+  "message": "Tender project conversion did not preserve source handoff: {\"handoff\":null,\"project\":null}",
+  "stack": [
+    "Error: Tender project conversion did not preserve source handoff: {\"handoff\":null,\"project\":null}",
+    "    at main (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\tender-acceptance.cjs:383:150)"
+  ],
+  "last_request": "{\"components\":[{\"calls\":[\"convert\"],\"updates\":{}}]}",
+  "last_response": "{\"components\":[{\"errors\":[],\"htmlTail\":\"icator])]:opacity-0 [&amp;[data-loading]&gt;[data-flux-loading-indicator]]:opacity-100 [&amp;[data-flux-loading]&gt;[data-flux-loading-indicator]]:opacity-100 data-loading:pointer-events-none data-flux-loading:pointer-events-none   mt-3\\\" data-flux-button=\\\"data-flux-button\\\" data-flux-group-target=\\\"data-flux-group-target\\\" wire:target=\\\"convert\\\" wire:loading.attr=\\\"disabled\\\" wire:click=\\\"convert\\\">\\n        <div class=\\\"absolute inset-0 flex items-center justify-center opacity-0\\\" data-flux-loading-indicator>\\n                <svg class=\\\"shrink-0 [:where(&amp;)]:size-4 animate-spin\\\" data-flux-icon xmlns=\\\"http://www.w3.org/2000/svg\\\" fill=\\\"none\\\" viewBox=\\\"0 0 24 24\\\" aria-hidden=\\\"true\\\" data-slot=\\\"icon\\\">\\n    <circle class=\\\"opacity-25\\\" cx=\\\"12\\\" cy=\\\"12\\\" r=\\\"10\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"4\\\"></circle>\\n    <path class=\\\"opacity-75\\\" fill=\\\"currentColor\\\" d=\\\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\\\"></path>\\n</svg>\\n                    </div>\\n        \\n        \\n                    \\n            \\n            <span>تنفيذ الخطة المحددة</span>\\n    </button>\\n<!--[if ENDBLOCK]><![endif]-->\\r\\n</section>\\r\\n<!--[if ENDBLOCK]><![endif]--></div>\\n\"}]}",
+  "readback": {
+    "database": "erp_elec_new_test",
+    "port": 55475,
+    "tender": {
+      "id": 4,
+      "number": "TN-2027-000004",
+      "status": "awarded",
+      "version": 17,
+      "title": "DEMO-EG-M07-178074562E Distribution Panel Upgrade - Revised",
+      "technical_id": 2,
+      "financial_id": 2,
+      "submitted_id": 1
+    },
+    "technical": {
+      "id": 2,
+      "revision": 1,
+      "prepared_by": 766,
+      "snapshot": {
+        "lines": [
+          {
+            "unit": "piece",
+            "product": null,
+            "position": 1,
+            "quantity": "2.00000000",
+            "deviation": "",
+            "compliance": "compliant",
+            "product_id": "",
+            "alternative": "",
+            "description": "Main distribution panel, 400A, 4-pole",
+            "specification": "Copper busbar, 400A, IP54 enclosure, tested assembly.",
+            "catalog_reference": ""
+          }
+        ],
+        "documents": [
+          {
+            "id": 10,
+            "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+          }
+        ],
+        "requirements": "One low-voltage distribution panel meeting the published protection and enclosure specification."
+      }
+    },
+    "financial": {
+      "id": 2,
+      "revision": 1,
+      "prepared_by": 766,
+      "net": "200.00",
+      "tax": "28.00",
+      "total": "228.00",
+      "snapshot": {
+        "tax": {
+          "net": "200.00",
+          "tax": "28.00",
+          "date": "2027-10-30",
+          "mode": "exclusive",
+          "lines": [
+            {
+              "net": "200.00",
+              "tax": "28.00",
+              "rate": "14.00000",
+              "total": "228.00",
+              "tax_raw": "28.00000000000000000000000000000000",
+              "quantity": "2.00000000",
+              "tax_code": "PH1-SALE-4JFTH",
+              "gross_raw": "200.00000000000000000000000000000000",
+              "tax_scale": 2,
+              "treatment": "percentage",
+              "product_id": null,
+              "unit_price": "100.00000000",
+              "tax_rule_id": 1,
+              "taxable_raw": "200.00000000000000000000000000000000",
+              "eligible_raw": "200.00000000000000000000000000000000",
+              "net_document": "200.00",
+              "tax_document": "28.00",
+              "legal_reference": "Synthetic isolated PostgreSQL Phase 1 acceptance fixture",
+              "line_discount_raw": "0",
+              "net_posting_rounding": "0.00000",
+              "purchase_recoverable": null,
+              "tax_posting_rounding": "0.00000",
+              "document_discount_raw": "0.00000000000000000000000000000000"
+            }
+          ],
+          "total": "228.00",
+          "currency": "EGP",
+          "rounding": "half_away_from_zero_largest_remainder",
+          "tax_totals": [
+            {
+              "code": "PH1-SALE-4JFTH",
+              "rate": "14.00000",
+              "tax_scale": 2,
+              "treatment": "percentage",
+              "posted_amount": "28.00",
+              "document_amount": "28.00000",
+              "purchase_recoverable": null
+            }
+          ],
+          "internal_scale": 32,
+          "transaction_type": "sale",
+          "production_validated": true,
+          "configuration_version": 5
+        },
+        "cost": "100.00000000",
+        "date": "2027-10-30",
+        "mode": "exclusive",
+        "labor": "0",
+        "lines": [
+          {
+            "unit_id": null,
+            "position": 1,
+            "quantity": "2.00000000",
+            "unit_cost": "50.00000000",
+            "product_id": null,
+            "description": "Main distribution panel, 400A, 4-pole",
+            "selling_price": "100.00000000",
+            "approved_price": null,
+            "cost_reference": "DEMO-EG vendor budget 178074562E",
+            "price_reference": "DEMO-EG approved quotation basis 178074562E",
+            "commercial_exception": true
+          }
+        ],
+        "other": "0",
+        "terms": "Synthetic offer valid through the published deadline, inclusive of installation.",
+        "currency": "EGP",
+        "discount": "0",
+        "reference": "Synthetic documented cost and commercial pricing basis.",
+        "transport": "0",
+        "contingency": "0",
+        "margin_amount": "100.00000000",
+        "margin_percent": "50.00000000",
+        "technical_sha256": "6117dfd0695a4defeff4d719292d9fa4fbaa56f5fb5722784be0bcbb8479cb18"
+      }
+    },
+    "approvals": [
+      {
+        "kind": "technical",
+        "approved_by": 767,
+        "reference": "Independent technical review 178074562E"
+      },
+      {
+        "kind": "financial",
+        "approved_by": 768,
+        "reference": "Independent financial review 178074562E"
+      }
+    ],
+    "submission": {
+      "id": 1,
+      "method": "portal",
+      "reference": "DEMO-EG portal receipt 178074562E",
+      "financial_id": 2,
+      "technical_id": 2,
+      "document_id": "930a571a-e22d-437f-9f15-9bd03339caf6",
+      "evidence_id": 11
+    },
+    "bid_document": {
+      "financial_id": 2,
+      "document_id": "930a571a-e22d-437f-9f15-9bd03339caf6",
+      "issued_by": 766
+    },
+    "result": {
+      "id": 1,
+      "outcome": "awarded",
+      "award_amount": "228.00",
+      "submission_id": 1
+    },
+    "plan": {
+      "id": 1,
+      "result_id": 1,
+      "proposed_by": 766,
+      "snapshot": {
+        "reference": "Award handoff to M07 delivery project 178074562E",
+        "result_id": 1,
+        "destinations": {
+          "project": {
+            "code": "DEMO-178074562E",
+            "name": "DEMO-EG Panel Upgrade 178074562E",
+            "members": [],
+            "end_date": "2027-12-29",
+            "manager_id": "766",
+            "start_date": "2027-11-09"
+          }
+        }
+      }
+    },
+    "plan_approvals": [
+      {
+        "approved_by": 768,
+        "reference": "Independent handoff plan approval 178074562E"
+      }
+    ],
+    "handoff": null,
+    "project": null,
+    "documents": [
+      {
+        "id": 10,
+        "title": "DEMO-EG Technical specification",
+        "classification": "technical",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 11,
+        "title": "DEMO-EG Physical submission receipt",
+        "classification": "submission",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 12,
+        "title": "DEMO-EG Award decision evidence",
+        "classification": "award",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      }
+    ]
+  }
+}

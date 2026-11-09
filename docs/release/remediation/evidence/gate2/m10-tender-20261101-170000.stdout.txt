@@ -1,0 +1,189 @@
+PASS Real M07 technical action stores the tender-scoped private evidence and frozen hashed service BOQ
+PASS M07 financial action uses one explicit current test tax rule, keeps exact costs, and posts no journal
+PASS M07 issues the approved bid as a real immutable official document before submission evidence
+PASS M07 submission links the issued bid and separately classified real submission receipt
+PASS M07 award outcome follows a submitted source and separate award-classified evidence
+PASS M07 proposes a contract destination as an unapproved handoff plan
+PASS M10 refuses tender draft creation until an independent handoff plan approval exists
+PASS Unapproved TenderAward creates no M10 contract or handoff row
+PASS M10 rejects changed customer terms outside the exact approved TenderAward mapping
+PASS Changed TenderAward mapping leaves no M10 draft or source-link row
+PASS M10 rejects changed branch terms outside the exact approved TenderAward mapping
+PASS Changed branch mapping leaves no M10 draft or source-link row
+PASS Approved M07 TenderAward creates an exact-source-linked M10 draft without approving, signing, activating, or issuing it
+PASS Repeated approved TenderAward conversion returns the same M10 draft without duplicate source, contract, revision, or handoff rows
+{
+    "all_pass": true,
+    "mode": "m07-tender-to-m10-draft",
+    "assertions": 15,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "accounting_activation": 1,
+            "accounting_tax_rules": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "project_tenders": 0,
+            "project_tender_events": 0,
+            "project_tender_documents": 0,
+            "project_tender_technical": 0,
+            "project_tender_financial": 0,
+            "project_tender_approvals": 0,
+            "project_tender_bid_documents": 0,
+            "project_tender_submissions": 0,
+            "project_tender_results": 0,
+            "project_tender_handoff_plans": 0,
+            "project_tender_handoff_approvals": 0,
+            "project_tender_handoffs": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_tender_sources": 0,
+            "service_contract_activities": 0,
+            "service_contract_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 1,
+            "users": 3,
+            "customers": 1,
+            "products": 1,
+            "organization_employees": 1,
+            "accounting_activation": 1,
+            "accounting_tax_rules": 1,
+            "system_official_documents": 1,
+            "system_official_sequences": 2,
+            "project_tenders": 1,
+            "project_tender_events": 17,
+            "project_tender_documents": 3,
+            "project_tender_technical": 1,
+            "project_tender_financial": 1,
+            "project_tender_approvals": 2,
+            "project_tender_bid_documents": 1,
+            "project_tender_submissions": 1,
+            "project_tender_results": 1,
+            "project_tender_handoff_plans": 1,
+            "project_tender_handoff_approvals": 1,
+            "project_tender_handoffs": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 1,
+            "service_contract_tender_sources": 1,
+            "service_contract_activities": 1,
+            "service_contract_official_documents": 0,
+            "access_grants": 29,
+            "user_branch_scopes": 2,
+            "audit_entries": 19
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "accounting_activation": 1,
+            "accounting_tax_rules": 0,
+            "system_official_documents": 0,
+            "system_official_sequences": 0,
+            "project_tenders": 0,
+            "project_tender_events": 0,
+            "project_tender_documents": 0,
+            "project_tender_technical": 0,
+            "project_tender_financial": 0,
+            "project_tender_approvals": 0,
+            "project_tender_bid_documents": 0,
+            "project_tender_submissions": 0,
+            "project_tender_results": 0,
+            "project_tender_handoff_plans": 0,
+            "project_tender_handoff_approvals": 0,
+            "project_tender_handoffs": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_tender_sources": 0,
+            "service_contract_activities": 0,
+            "service_contract_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Real M07 technical action stores the tender-scoped private evidence and frozen hashed service BOQ",
+            "result": "PASS"
+        },
+        {
+            "name": "M07 financial action uses one explicit current test tax rule, keeps exact costs, and posts no journal",
+            "result": "PASS"
+        },
+        {
+            "name": "M07 issues the approved bid as a real immutable official document before submission evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "M07 submission links the issued bid and separately classified real submission receipt",
+            "result": "PASS"
+        },
+        {
+            "name": "M07 award outcome follows a submitted source and separate award-classified evidence",
+            "result": "PASS"
+        },
+        {
+            "name": "M07 proposes a contract destination as an unapproved handoff plan",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 refuses tender draft creation until an independent handoff plan approval exists",
+            "result": "PASS"
+        },
+        {
+            "name": "Unapproved TenderAward creates no M10 contract or handoff row",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects changed customer terms outside the exact approved TenderAward mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed TenderAward mapping leaves no M10 draft or source-link row",
+            "result": "PASS"
+        },
+        {
+            "name": "M10 rejects changed branch terms outside the exact approved TenderAward mapping",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed branch mapping leaves no M10 draft or source-link row",
+            "result": "PASS"
+        },
+        {
+            "name": "Approved M07 TenderAward creates an exact-source-linked M10 draft without approving, signing, activating, or issuing it",
+            "result": "PASS"
+        },
+        {
+            "name": "Repeated approved TenderAward conversion returns the same M10 draft without duplicate source, contract, revision, or handoff rows",
+            "result": "PASS"
+        },
+        {
+            "name": "Tender, accounting-rule, M10 source, official-document and private evidence fixtures roll back.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}
+RESULT all_pass=1 assertions=15 rollback_verified=1 receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-tender-20261101T150002Z-f9f086.json

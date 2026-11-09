@@ -22,7 +22,7 @@ final class OrganizationService implements OrganizationApi
     {
         $row = DB::table('organization_employees')->find($employee);
         if (! $row) {
-            throw new ContractException(ErrorCode::NotFound, 'Employee identity is unavailable.');
+            throw new ContractException(ErrorCode::NotFound, 'هوية الموظف غير متاحة.');
         }
         $this->authorize(new AuthorizeRequest($actor, 'M01.employee_view', (int) $row->branch_id));
 
@@ -45,7 +45,7 @@ final class OrganizationService implements OrganizationApi
         Validator::make(['date' => $date], ['date' => 'required|date_format:Y-m-d'])->validate();
         $row = DB::table('organization_employees')->where('id', $employee)->where('branch_id', $branch)->first();
         if (! $row || ! $row->active || $row->starts_on > $date || ($row->ends_on !== null && $row->ends_on < $date)) {
-            throw new ContractException(ErrorCode::ValidationFailed, 'Employee employment is unavailable for this branch/date.');
+            throw new ContractException(ErrorCode::ValidationFailed, 'توظيف الموظف غير متاح لهذا الفرع أو التاريخ.');
         }
 
         return array_intersect_key((array) $row, array_flip(['id', 'code', 'name', 'branch_id', 'user_id', 'starts_on', 'ends_on', 'active', 'version']));
@@ -57,7 +57,7 @@ final class OrganizationService implements OrganizationApi
         $this->authorize(new AuthorizeRequest($actor, 'M11.period_close'));
         $branches = DB::table('branches')->where('company_id', 1)->orderBy('id')->get(['id', 'code', 'name', 'active']);
         if ($branches->isEmpty()) {
-            throw new ContractException(ErrorCode::IncompleteSetup, 'Company branches are required for financial close.');
+            throw new ContractException(ErrorCode::IncompleteSetup, 'يلزم وجود فروع الشركة لإقفال الفترة المالية.');
         }
         foreach ($branches as $branch) {
             $this->authorize(new AuthorizeRequest($actor, 'M11.report_view', (int) $branch->id));
@@ -71,7 +71,7 @@ final class OrganizationService implements OrganizationApi
         $this->actor($actor);
         $company = DB::table('companies')->where('setup_complete', true)->find(1, ['id', 'code', 'name', 'legal_name', 'tax_registration', 'address', 'currency', 'logo_path']);
         if (! $company || ! $company->legal_name || ! $company->address) {
-            throw new ContractException(ErrorCode::IncompleteSetup, 'Complete the actual company legal name and address before official issue.');
+            throw new ContractException(ErrorCode::IncompleteSetup, 'أكمل الاسم القانوني والعنوان الفعلي للشركة قبل الإصدار الرسمي.');
         }
 
         $identity = (array) $company;
@@ -79,7 +79,7 @@ final class OrganizationService implements OrganizationApi
         if ($company->logo_path) {
             $disk = Storage::disk('local');
             if (! $disk->exists($company->logo_path)) {
-                throw new ContractException(ErrorCode::IncompleteSetup, 'Restore the private company logo before official issue.');
+                throw new ContractException(ErrorCode::IncompleteSetup, 'استعد شعار الشركة الخاص قبل الإصدار الرسمي.');
             }
             $mime = $disk->mimeType($company->logo_path);
             abort_unless(in_array($mime, ['image/jpeg', 'image/png', 'image/webp'], true), 422);
@@ -108,7 +108,7 @@ final class OrganizationService implements OrganizationApi
     public function projectAssignees(int $actor, int $branch): array
     {
         if (! $this->projectBranchMember($actor, $branch)) {
-            throw new ContractException(ErrorCode::Forbidden, 'Branch scope required.');
+            throw new ContractException(ErrorCode::Forbidden, 'يلزم نطاق فرع.');
         }
 
         return DB::table('users as u')->join('user_branch_scopes as s', 's.user_id', '=', 'u.id')->where('s.branch_id', $branch)->where('u.active', true)->whereNotNull('u.email_verified_at')->orderBy('u.name')->get(['u.id', 'u.name'])->map(fn ($u) => (array) $u)->all();
@@ -117,7 +117,7 @@ final class OrganizationService implements OrganizationApi
     public function projectParticipantNames(int $actor, int $branch, array $users): array
     {
         if (! $this->projectBranchMember($actor, $branch)) {
-            throw new ContractException(ErrorCode::Forbidden, 'Branch scope required.');
+            throw new ContractException(ErrorCode::Forbidden, 'يلزم نطاق فرع.');
         }
 
         return DB::table('users as u')->join('user_branch_scopes as s', 's.user_id', '=', 'u.id')
@@ -138,18 +138,18 @@ final class OrganizationService implements OrganizationApi
                 return;
             }
         }
-        throw new ContractException(ErrorCode::Forbidden, 'Inventory lookup requires effective warehouse authority.');
+        throw new ContractException(ErrorCode::Forbidden, 'يتطلب البحث في المخزون صلاحية مستودع سارية.');
     }
 
     public function authorize(AuthorizeRequest $request): AuthorizeResult
     {
         $actor = $this->actor($request->actorId);
         if (! app(PermissionAccess::class)->allows($actor, $request->permissionCode, $request->recordBranchId, $request->warehouseId)) {
-            throw new ContractException(ErrorCode::Forbidden, 'Operation or scope is not authorized.');
+            throw new ContractException(ErrorCode::Forbidden, 'العملية أو النطاق غير مصرح بهما.');
         }
         if ($request->warehouseId !== null && ! str_ends_with($request->permissionCode, '_view') && $request->permissionCode !== 'M06.export'
             && ! DB::table('branches')->where('id', $request->recordBranchId)->where('active', true)->exists()) {
-            throw new ContractException(ErrorCode::Forbidden, 'Inactive branch cannot accept warehouse operations.');
+            throw new ContractException(ErrorCode::Forbidden, 'لا يقبل الفرع غير النشط عمليات المستودعات.');
         }
         $fields = match ($request->permissionCode) {
             'M01.branch_view' => self::BRANCH_FIELDS,
@@ -167,16 +167,16 @@ final class OrganizationService implements OrganizationApi
         $actor = $this->actor($request->actorId);
         $this->query($request->scopeBranchId, $request->warehouseIds, $request->filters, $request->page, $request->pageSize);
         if ($request->branchId < 1) {
-            throw new ContractException(ErrorCode::ValidationFailed, 'Invalid branch identifier.');
+            throw new ContractException(ErrorCode::ValidationFailed, 'معرّف الفرع غير صالح.');
         }
         $fields = $request->requestedFields ?: self::BRANCH_FIELDS;
         $this->fields($fields, self::BRANCH_FIELDS);
         if (($request->scopeBranchId !== null && $request->scopeBranchId !== $request->branchId) || $request->warehouseIds !== [] || ! app(OrganizationAccess::class)->branchAllows($actor, 'M01.branch_view', $request->branchId)) {
-            throw new ContractException(ErrorCode::NotFound, 'Branch is unavailable.');
+            throw new ContractException(ErrorCode::NotFound, 'الفرع غير متاح.');
         }
         $branch = DB::table('branches')->where('id', $request->branchId)->where('company_id', 1)->first($fields);
         if (! $branch) {
-            throw new ContractException(ErrorCode::NotFound, 'Branch is unavailable.');
+            throw new ContractException(ErrorCode::NotFound, 'الفرع غير متاح.');
         }
 
         return new GetBranchResult((array) $branch);
@@ -204,7 +204,7 @@ final class OrganizationService implements OrganizationApi
     {
         $actor = $this->actor($request->actorId);
         if ((PermissionCatalog::DEFINITIONS[$request->permissionCode][1] ?? null) !== 'branch' || $request->warehouseId !== null || $request->requestedFields !== []) {
-            throw new ContractException(ErrorCode::Forbidden, 'Branch-scoped permission required.');
+            throw new ContractException(ErrorCode::Forbidden, 'يلزم تصريح مقيد بنطاق فرع.');
         }
         $rows = app(PermissionAccess::class)->permissionBranches($actor->id, $request->permissionCode);
 
@@ -229,7 +229,7 @@ final class OrganizationService implements OrganizationApi
     {
         $actor = app(PermissionAccess::class)->actor($id);
         if (! $actor?->active || ! $actor->email_verified_at) {
-            throw new ContractException(ErrorCode::Forbidden, 'Active verified identity required.');
+            throw new ContractException(ErrorCode::Forbidden, 'يلزم حساب نشط ومؤكد.');
         }
 
         return $actor;
@@ -238,14 +238,14 @@ final class OrganizationService implements OrganizationApi
     private function fields(array $requested, array $allowed): void
     {
         if (! array_is_list($requested) || count($requested) > 100 || array_filter($requested, fn ($field) => ! is_string($field)) || array_diff($requested, $allowed)) {
-            throw new ContractException(ErrorCode::Forbidden, 'Requested fields are unavailable.');
+            throw new ContractException(ErrorCode::Forbidden, 'الحقول المطلوبة غير متاحة.');
         }
     }
 
     private function query(?int $scopeBranchId, array $warehouseIds, array $filters, int $page, int $pageSize): void
     {
         if (($scopeBranchId !== null && $scopeBranchId < 1) || $page < 1 || $pageSize < 1 || $pageSize > 100 || ! array_is_list($warehouseIds) || count($warehouseIds) > 100 || array_filter($warehouseIds, fn ($id) => ! is_int($id) || $id < 1) || $filters !== []) {
-            throw new ContractException(ErrorCode::ValidationFailed, 'Invalid or unsupported query context.');
+            throw new ContractException(ErrorCode::ValidationFailed, 'سياق البحث غير صالح أو غير مدعوم.');
         }
     }
 }

@@ -1,0 +1,781 @@
+{
+    "all_pass": true,
+    "mode": "gate5-serialized-valued-stock",
+    "phase": "deferred serialized FIFO, correction, transit, and GL constraints",
+    "phase_arguments": {
+        "actor_id": 203,
+        "original_movement_id": 48,
+        "serial": "SER-ONE-C",
+        "expected_amount": "0.01"
+    },
+    "database": "erp_elec_new_test",
+    "port": 49685,
+    "server_version_num": 170011,
+    "assertions": 88,
+    "rollback_verified": true,
+    "before_counts": {
+        "companies": 1,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "user_branch_scopes": 0,
+        "user_warehouse_scopes": 0,
+        "inventory_warehouses": 0,
+        "products": 0,
+        "suppliers": 0,
+        "accounting_accounts": 0,
+        "accounting_periods": 0,
+        "accounting_activation": 1,
+        "accounting_tax_rules": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "accounting_opening_batches": 0,
+        "purchasing_orders": 0,
+        "purchasing_order_lines": 0,
+        "purchasing_order_reviews": 0,
+        "purchasing_order_issues": 0,
+        "purchasing_receipts": 0,
+        "purchasing_receipt_lines": 0,
+        "purchasing_receipt_postings": 0,
+        "inventory_documents": 0,
+        "inventory_document_lines": 0,
+        "inventory_movements": 0,
+        "inventory_balances": 0,
+        "inventory_fifo_layers": 0,
+        "inventory_fifo_allocations": 0,
+        "inventory_fifo_serial_allocations": 0,
+        "inventory_serials": 0,
+        "inventory_serial_events": 0,
+        "inventory_movement_journals": 0,
+        "inventory_corrections": 0,
+        "inventory_fifo_corrections": 0,
+        "inventory_transfer_lots": 0,
+        "inventory_transfer_allocations": 0,
+        "inventory_transfer_receipts": 0,
+        "inventory_transfer_receipt_lines": 0,
+        "inventory_isolations": 0,
+        "inventory_condition_events": 0,
+        "audit_entries": 0
+    },
+    "after_counts": {
+        "companies": 1,
+        "branches": 0,
+        "users": 0,
+        "access_grants": 0,
+        "user_branch_scopes": 0,
+        "user_warehouse_scopes": 0,
+        "inventory_warehouses": 0,
+        "products": 0,
+        "suppliers": 0,
+        "accounting_accounts": 0,
+        "accounting_periods": 0,
+        "accounting_activation": 1,
+        "accounting_tax_rules": 0,
+        "accounting_journals": 0,
+        "accounting_journal_lines": 0,
+        "accounting_opening_batches": 0,
+        "purchasing_orders": 0,
+        "purchasing_order_lines": 0,
+        "purchasing_order_reviews": 0,
+        "purchasing_order_issues": 0,
+        "purchasing_receipts": 0,
+        "purchasing_receipt_lines": 0,
+        "purchasing_receipt_postings": 0,
+        "inventory_documents": 0,
+        "inventory_document_lines": 0,
+        "inventory_movements": 0,
+        "inventory_balances": 0,
+        "inventory_fifo_layers": 0,
+        "inventory_fifo_allocations": 0,
+        "inventory_fifo_serial_allocations": 0,
+        "inventory_serials": 0,
+        "inventory_serial_events": 0,
+        "inventory_movement_journals": 0,
+        "inventory_corrections": 0,
+        "inventory_fifo_corrections": 0,
+        "inventory_transfer_lots": 0,
+        "inventory_transfer_allocations": 0,
+        "inventory_transfer_receipts": 0,
+        "inventory_transfer_receipt_lines": 0,
+        "inventory_isolations": 0,
+        "inventory_condition_events": 0,
+        "audit_entries": 0
+    },
+    "passed": [
+        "Migration provides required serial-valued table purchasing_receipt_lines",
+        "Migration provides required serial-valued table inventory_fifo_serial_allocations",
+        "Migration provides required serial-valued table inventory_serials",
+        "Migration provides required serial-valued table inventory_serial_events",
+        "Migration provides required serial-valued table inventory_movements",
+        "Migration provides required serial-valued table inventory_balances",
+        "Migration provides required serial-valued table inventory_documents",
+        "Migration provides required serial-valued table inventory_document_lines",
+        "Migration provides required serial-valued table inventory_fifo_layers",
+        "Migration provides required serial-valued table inventory_fifo_allocations",
+        "Migration provides required serial-valued table inventory_corrections",
+        "Migration provides required serial-valued table inventory_fifo_corrections",
+        "Migration provides required serial-valued table inventory_transfer_lots",
+        "Migration provides required serial-valued table inventory_transfer_allocations",
+        "Migration provides required serial-valued table inventory_transfer_receipts",
+        "Migration provides required serial-valued table inventory_transfer_receipt_lines",
+        "Migration provides required serial-valued table inventory_isolations",
+        "Migration provides required serial-valued table inventory_condition_events",
+        "Migration provides required serial-valued table inventory_movement_journals",
+        "Migration provides required serial-valued table accounting_journals",
+        "Migration provides required serial-valued table accounting_journal_lines",
+        "M05 receipt lines persist source-owned serial identities",
+        "Financial posting is activated through independent M11 opening approval",
+        "Three real M05 serial receipt sources post through the M05/M06/M11 coordinator",
+        "M05 immutable receipt line retains its exact serial source",
+        "M05 receipt creates exact source-cost FIFO layer for SER-OLD-A",
+        "Received serial occupancy points to its actual M05 source movement",
+        "M05 serial receipt has one immutable received event",
+        "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+        "Recoverable tax treatment capitalizes the exact source net cost",
+        "M11 receipt journal is posted exactly once against its M05 source",
+        "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+        "M05 immutable receipt line retains its exact serial source",
+        "M05 receipt creates exact source-cost FIFO layer for SER-NEW-B",
+        "Received serial occupancy points to its actual M05 source movement",
+        "M05 serial receipt has one immutable received event",
+        "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+        "Recoverable tax treatment capitalizes the exact source net cost",
+        "M11 receipt journal is posted exactly once against its M05 source",
+        "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+        "M05 immutable receipt line retains its exact serial source",
+        "M05 receipt creates exact source-cost FIFO layer for SER-ONE-C",
+        "Received serial occupancy points to its actual M05 source movement",
+        "M05 serial receipt has one immutable received event",
+        "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+        "Recoverable tax treatment capitalizes the exact source net cost",
+        "M11 receipt journal is posted exactly once against its M05 source",
+        "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+        "Three M05 receipts produce exactly three source-keyed M11 journals without duplicates",
+        "M05 receipt serial occupancy contains exactly one row per distinct source serial",
+        "Approved M06 issue posts the selected serialized base quantity",
+        "Selected newer serial becomes issued at the source warehouse",
+        "Selected serial has one issue event linked to the actual M06 movement",
+        "FIFO issue consumes the oldest M05 lot at its exact $10.00 source cost",
+        "FIFO layer balances retain exact residual quantity and value after issue",
+        "Selected newer physical serial maps exactly once to the actual older FIFO allocation and cents",
+        "Database guard makes the serial-to-FIFO value mapping immutable (actual Illuminate\\Database\\QueryException)",
+        "Rejected mapping mutation leaves the original FIFO amount intact",
+        "M11 issue valuation journals exact FIFO cost once against the M06 movement",
+        "M11 issue journal contains only the exact $10.00 expense debit and Inventory credit",
+        "M06 physical balance equals two remaining serialized units",
+        "M06 serial occupancy reconciles two available, one issued, and three lifetime identities",
+        "M06 rejects a second source document for the already-issued serial identity (actual Illuminate\\Validation\\ValidationException)",
+        "Duplicate selected serial attempt creates no movement, FIFO, journal, mapping, or event rows",
+        "Correction links the selected serial to its exact original $10.00 allocation and layer",
+        "Correction restores exact source date, quantity, value, and unit cost",
+        "Corrected physical serial becomes available at source with one linked correction event",
+        "M11 correction journal restores the exact $10.00 Inventory debit and expense credit",
+        "Same correction idempotency key replays without duplicate source, FIFO, serial, or GL rows",
+        "Correction idempotency key rejects a different selected serial (actual Illuminate\\Validation\\ValidationException)",
+        "Rejected correction-key collision leaves all correction, FIFO, serial, and GL rows unchanged",
+        "Three selected physical serials map one-to-one to $10.00, $20.00, and $0.01 FIFO allocations",
+        "Database records exactly three immutable serial allocation links including the one-cent unit",
+        "Serial SER-NEW-B correction restores its saved FIFO allocation, exact cents, and M11 journal",
+        "Serial SER-OLD-A correction restores its saved FIFO allocation, exact cents, and M11 journal",
+        "Serial SER-ONE-C correction restores its saved FIFO allocation, exact cents, and M11 journal",
+        "All three corrected physical serials are available again at their original warehouse",
+        "Dispatch creates three transit lots with original FIFO values preserved exactly",
+        "Dispatch serial-to-FIFO cents retain all three source mappings",
+        "First partial receive records accepted and damaged physical identities while one dispatch unit remains unresolved",
+        "Accepted serial reaches destination, damaged serial is isolated there, and unresolved serial stays in transit",
+        "Partial transfer preserves one unique physical identity row per selected serial",
+        "Recovered missing serial moves from transit to available at the destination",
+        "Destination balance reconciles accepted and quarantined serial quantities",
+        "Transfer receipt allocations preserve exact original FIFO cents including one-cent lot",
+        "Accepted serials inherit their actual per-lot FIFO cents; damaged serial remains in destination quarantine",
+        "All named serial/FIFO/correction/transit/source-GL constraints exist and are deferred",
+        "SET CONSTRAINTS ALL IMMEDIATE completed: deferred serial/FIFO identity, correction source, transit allocation, and M11 GL guards validated before PASS"
+    ],
+    "private_diagnostics": [
+        {
+            "assertion": "M05 receipt creates exact source-cost FIFO layer for SER-OLD-A",
+            "expected": {
+                "original_quantity": "1.00000000",
+                "original_value": "10.00",
+                "remaining_value": "10.00",
+                "unit_cost": "10.0000000000000000"
+            },
+            "actual": {
+                "original_quantity": "1.00000000",
+                "original_value": "10.00",
+                "remaining_value": "10.0000000000000000",
+                "unit_cost": "10.0000000000000000"
+            }
+        },
+        {
+            "assertion": "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+            "expected": {
+                "count": 1,
+                "movement_id": 42,
+                "layer_id": 30,
+                "amount": "10.00"
+            },
+            "actual": {
+                "count": 1,
+                "movement_id": 42,
+                "layer_id": 30,
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "Recoverable tax treatment capitalizes the exact source net cost",
+            "expected": {
+                "capitalized_amount": "10.00"
+            },
+            "actual": {
+                "capitalized_amount": "10.00"
+            }
+        },
+        {
+            "assertion": "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+            "expected": {
+                "line_count": 2,
+                "inventory_debit": "10.00",
+                "grni_credit": "10.00"
+            },
+            "actual": {
+                "line_count": 2,
+                "inventory_debit": "10.00",
+                "grni_credit": "10.00"
+            }
+        },
+        {
+            "assertion": "M05 receipt creates exact source-cost FIFO layer for SER-NEW-B",
+            "expected": {
+                "original_quantity": "1.00000000",
+                "original_value": "20.00",
+                "remaining_value": "20.00",
+                "unit_cost": "20.0000000000000000"
+            },
+            "actual": {
+                "original_quantity": "1.00000000",
+                "original_value": "20.00",
+                "remaining_value": "20.0000000000000000",
+                "unit_cost": "20.0000000000000000"
+            }
+        },
+        {
+            "assertion": "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+            "expected": {
+                "count": 1,
+                "movement_id": 43,
+                "layer_id": 31,
+                "amount": "20.00"
+            },
+            "actual": {
+                "count": 1,
+                "movement_id": 43,
+                "layer_id": 31,
+                "amount": "20.00"
+            }
+        },
+        {
+            "assertion": "Recoverable tax treatment capitalizes the exact source net cost",
+            "expected": {
+                "capitalized_amount": "20.00"
+            },
+            "actual": {
+                "capitalized_amount": "20.00"
+            }
+        },
+        {
+            "assertion": "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+            "expected": {
+                "line_count": 2,
+                "inventory_debit": "20.00",
+                "grni_credit": "20.00"
+            },
+            "actual": {
+                "line_count": 2,
+                "inventory_debit": "20.00",
+                "grni_credit": "20.00"
+            }
+        },
+        {
+            "assertion": "M05 receipt creates exact source-cost FIFO layer for SER-ONE-C",
+            "expected": {
+                "original_quantity": "1.00000000",
+                "original_value": "0.01",
+                "remaining_value": "0.01",
+                "unit_cost": "0.0100000000000000"
+            },
+            "actual": {
+                "original_quantity": "1.00000000",
+                "original_value": "0.01",
+                "remaining_value": "0.0100000000000000",
+                "unit_cost": "0.0100000000000000"
+            }
+        },
+        {
+            "assertion": "Receipt posting links exact M05 source line, M06 movement and FIFO layer",
+            "expected": {
+                "count": 1,
+                "movement_id": 44,
+                "layer_id": 32,
+                "amount": "0.01"
+            },
+            "actual": {
+                "count": 1,
+                "movement_id": 44,
+                "layer_id": 32,
+                "amount": "0.01"
+            }
+        },
+        {
+            "assertion": "Recoverable tax treatment capitalizes the exact source net cost",
+            "expected": {
+                "capitalized_amount": "0.01"
+            },
+            "actual": {
+                "capitalized_amount": "0.01"
+            }
+        },
+        {
+            "assertion": "M11 receipt journal contains only the exact Inventory debit and GRNI credit",
+            "expected": {
+                "line_count": 2,
+                "inventory_debit": "0.01",
+                "grni_credit": "0.01"
+            },
+            "actual": {
+                "line_count": 2,
+                "inventory_debit": "0.01",
+                "grni_credit": "0.01"
+            }
+        },
+        {
+            "assertion": "Approved M06 issue posts the selected serialized base quantity",
+            "expected": {
+                "quantity": "-1.00000000",
+                "product_id": 41,
+                "warehouse_id": 18
+            },
+            "actual": {
+                "quantity": "-1.00000000",
+                "product_id": 41,
+                "warehouse_id": 18
+            }
+        },
+        {
+            "assertion": "FIFO issue consumes the oldest M05 lot at its exact $10.00 source cost",
+            "expected": {
+                "layer_id": 30,
+                "quantity": "1.00000000",
+                "amount": "10.00"
+            },
+            "actual": {
+                "layer_id": 30,
+                "quantity": "1.00000000",
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "FIFO layer balances retain exact residual quantity and value after issue",
+            "expected": {
+                "old_remaining_quantity": "0.00000000",
+                "old_remaining_value": "0.0000000000000000",
+                "new_remaining_quantity": "1.00000000",
+                "new_remaining_value": "20.0000000000000000"
+            },
+            "actual": {
+                "old_remaining_quantity": "0.00000000",
+                "old_remaining_value": "0.0000000000000000",
+                "new_remaining_quantity": "1.00000000",
+                "new_remaining_value": "20.0000000000000000"
+            }
+        },
+        {
+            "assertion": "Selected newer physical serial maps exactly once to the actual older FIFO allocation and cents",
+            "expected": {
+                "mapping_count": 1,
+                "allocation_id": 12,
+                "amount": "10.00"
+            },
+            "actual": {
+                "mapping_count": 1,
+                "allocation_id": 12,
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "Rejected mapping mutation leaves the original FIFO amount intact",
+            "expected": {
+                "amount": "10.00"
+            },
+            "actual": {
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "M11 issue valuation journals exact FIFO cost once against the M06 movement",
+            "expected": {
+                "amount": "10.00",
+                "status": "posted",
+                "source_key": "inventory-movement:45"
+            },
+            "actual": {
+                "amount": "10.00",
+                "status": "posted",
+                "source_key": "inventory-movement:45"
+            }
+        },
+        {
+            "assertion": "M11 issue journal contains only the exact $10.00 expense debit and Inventory credit",
+            "expected": {
+                "line_count": 2,
+                "issue_debit": "10.00",
+                "inventory_credit": "10.00"
+            },
+            "actual": {
+                "line_count": 2,
+                "issue_debit": "10.00",
+                "inventory_credit": "10.00"
+            }
+        },
+        {
+            "assertion": "M06 physical balance equals two remaining serialized units",
+            "expected": {
+                "on_hand": "2.00000000",
+                "reserved": "0.00000000"
+            },
+            "actual": {
+                "on_hand": "2.00000000",
+                "reserved": "0.00000000"
+            }
+        },
+        {
+            "assertion": "Correction links the selected serial to its exact original $10.00 allocation and layer",
+            "expected": {
+                "status": "posted",
+                "original_movement_id": 45,
+                "operation": "correction",
+                "reversal_id": 45,
+                "allocation_id": 12,
+                "source_layer_id": 30,
+                "quantity": "1.00000000",
+                "amount": "10.00"
+            },
+            "actual": {
+                "status": "posted",
+                "original_movement_id": 45,
+                "operation": "correction",
+                "reversal_id": 45,
+                "allocation_id": 12,
+                "source_layer_id": 30,
+                "quantity": "1.00000000",
+                "amount": "10.00"
+            }
+        },
+        {
+            "assertion": "Correction restores exact source date, quantity, value, and unit cost",
+            "expected": {
+                "received_on": "2026-10-29",
+                "original_quantity": "1.00000000",
+                "original_value": "10.00",
+                "unit_cost": "10.0000000000000000"
+            },
+            "actual": {
+                "received_on": "2026-10-29",
+                "original_quantity": "1.00000000",
+                "original_value": "10.00",
+                "unit_cost": "10.0000000000000000"
+            }
+        },
+        {
+            "assertion": "M11 correction journal restores the exact $10.00 Inventory debit and expense credit",
+            "expected": {
+                "status": "posted",
+                "source_key": "inventory-movement:47",
+                "inventory_debit": "10.00",
+                "issue_credit": "10.00"
+            },
+            "actual": {
+                "status": "posted",
+                "source_key": "inventory-movement:47",
+                "inventory_debit": "10.00",
+                "issue_credit": "10.00"
+            }
+        },
+        {
+            "assertion": "Three selected physical serials map one-to-one to $10.00, $20.00, and $0.01 FIFO allocations",
+            "expected": {
+                "quantity": "-3.00000000",
+                "allocation_count": 3,
+                "serial_mappings": [
+                    {
+                        "serial": "SER-NEW-B",
+                        "amount": "10.00",
+                        "layer_id": 33
+                    },
+                    {
+                        "serial": "SER-OLD-A",
+                        "amount": "20.00",
+                        "layer_id": 31
+                    },
+                    {
+                        "serial": "SER-ONE-C",
+                        "amount": "0.01",
+                        "layer_id": 32
+                    }
+                ]
+            },
+            "actual": {
+                "quantity": "-3.00000000",
+                "allocation_count": 3,
+                "serial_mappings": [
+                    {
+                        "serial": "SER-NEW-B",
+                        "amount": "10.00",
+                        "layer_id": 33
+                    },
+                    {
+                        "serial": "SER-OLD-A",
+                        "amount": "20.00",
+                        "layer_id": 31
+                    },
+                    {
+                        "serial": "SER-ONE-C",
+                        "amount": "0.01",
+                        "layer_id": 32
+                    }
+                ]
+            }
+        },
+        {
+            "assertion": "Serial SER-NEW-B correction restores its saved FIFO allocation, exact cents, and M11 journal",
+            "expected": {
+                "allocation_id": 13,
+                "source_layer_id": 33,
+                "amount": "10.00",
+                "journal_amount": "10.00",
+                "journal_status": "posted",
+                "inventory_debit": "10.00",
+                "issue_credit": "10.00"
+            },
+            "actual": {
+                "allocation_id": 13,
+                "source_layer_id": 33,
+                "amount": "10.00",
+                "journal_amount": "10.00",
+                "journal_status": "posted",
+                "inventory_debit": "10.00",
+                "issue_credit": "10.00"
+            }
+        },
+        {
+            "assertion": "Serial SER-OLD-A correction restores its saved FIFO allocation, exact cents, and M11 journal",
+            "expected": {
+                "allocation_id": 14,
+                "source_layer_id": 31,
+                "amount": "20.00",
+                "journal_amount": "20.00",
+                "journal_status": "posted",
+                "inventory_debit": "20.00",
+                "issue_credit": "20.00"
+            },
+            "actual": {
+                "allocation_id": 14,
+                "source_layer_id": 31,
+                "amount": "20.00",
+                "journal_amount": "20.00",
+                "journal_status": "posted",
+                "inventory_debit": "20.00",
+                "issue_credit": "20.00"
+            }
+        },
+        {
+            "assertion": "Serial SER-ONE-C correction restores its saved FIFO allocation, exact cents, and M11 journal",
+            "expected": {
+                "allocation_id": 15,
+                "source_layer_id": 32,
+                "amount": "0.01",
+                "journal_amount": "0.01",
+                "journal_status": "posted",
+                "inventory_debit": "0.01",
+                "issue_credit": "0.01"
+            },
+            "actual": {
+                "allocation_id": 15,
+                "source_layer_id": 32,
+                "amount": "0.01",
+                "journal_amount": "0.01",
+                "journal_status": "posted",
+                "inventory_debit": "0.01",
+                "issue_credit": "0.01"
+            }
+        },
+        {
+            "assertion": "Dispatch creates three transit lots with original FIFO values preserved exactly",
+            "expected": {
+                "quantity": "-3.00000000",
+                "lot_count": 3,
+                "original_values": [
+                    "10.00",
+                    "20.00",
+                    "0.01"
+                ]
+            },
+            "actual": {
+                "quantity": "-3.00000000",
+                "lot_count": 3,
+                "original_values": [
+                    "10.00",
+                    "20.00",
+                    "0.01"
+                ]
+            }
+        },
+        {
+            "assertion": "Dispatch serial-to-FIFO cents retain all three source mappings",
+            "expected": [
+                {
+                    "normalized": "SER-NEW-B",
+                    "amount": "10.00"
+                },
+                {
+                    "normalized": "SER-OLD-A",
+                    "amount": "20.00"
+                },
+                {
+                    "normalized": "SER-ONE-C",
+                    "amount": "0.01"
+                }
+            ],
+            "actual": [
+                {
+                    "normalized": "SER-NEW-B",
+                    "amount": "10.00"
+                },
+                {
+                    "normalized": "SER-OLD-A",
+                    "amount": "20.00"
+                },
+                {
+                    "normalized": "SER-ONE-C",
+                    "amount": "0.01"
+                }
+            ]
+        },
+        {
+            "assertion": "Destination balance reconciles accepted and quarantined serial quantities",
+            "expected": {
+                "on_hand": "3.00000000",
+                "unavailable": "1.00000000",
+                "available": "2.00000000"
+            },
+            "actual": {
+                "on_hand": "3.00000000",
+                "unavailable": "1.00000000",
+                "available": "2.00000000"
+            }
+        },
+        {
+            "assertion": "Transfer receipt allocations preserve exact original FIFO cents including one-cent lot",
+            "expected": {
+                "count": 3,
+                "amounts": [
+                    "10.00",
+                    "20.00",
+                    "0.01"
+                ]
+            },
+            "actual": {
+                "count": 3,
+                "amounts": [
+                    "10.00",
+                    "20.00",
+                    "0.01"
+                ]
+            }
+        },
+        {
+            "assertion": "Accepted serials inherit their actual per-lot FIFO cents; damaged serial remains in destination quarantine",
+            "expected": [
+                {
+                    "normalized": "SER-NEW-B",
+                    "amount": "10.00",
+                    "operation": "transfer_receive"
+                },
+                {
+                    "normalized": "SER-OLD-A",
+                    "amount": "20.00",
+                    "operation": "transfer_receive"
+                },
+                {
+                    "normalized": "SER-ONE-C",
+                    "amount": "0.01",
+                    "operation": "transfer_receive"
+                }
+            ],
+            "actual": [
+                {
+                    "normalized": "SER-NEW-B",
+                    "amount": "10.00",
+                    "operation": "transfer_receive"
+                },
+                {
+                    "normalized": "SER-OLD-A",
+                    "amount": "20.00",
+                    "operation": "transfer_receive"
+                },
+                {
+                    "normalized": "SER-ONE-C",
+                    "amount": "0.01",
+                    "operation": "transfer_receive"
+                }
+            ]
+        },
+        {
+            "assertion": "All named serial/FIFO/correction/transit/source-GL constraints exist and are deferred",
+            "expected": {
+                "constraints": [
+                    "inventory_correction_commit",
+                    "inventory_fifo_allocation_reconcile",
+                    "inventory_fifo_correction_reconcile",
+                    "inventory_fifo_cost_lineage",
+                    "inventory_fifo_layer_reconcile",
+                    "inventory_financial_commit",
+                    "inventory_serial_balance_check",
+                    "inventory_serial_fifo_mapping",
+                    "inventory_serial_fifo_movement",
+                    "inventory_serial_location_check",
+                    "inventory_serial_movement_quantity",
+                    "inventory_transfer_receipt_quantity",
+                    "inventory_transit_allocation_reconcile",
+                    "inventory_transit_lot_reconcile",
+                    "inventory_valued_extension_commit",
+                    "purchasing_receipt_evidence_reconcile",
+                    "purchasing_receipt_finance_reconcile"
+                ]
+            },
+            "actual": {
+                "constraints": [
+                    "inventory_correction_commit",
+                    "inventory_fifo_allocation_reconcile",
+                    "inventory_fifo_correction_reconcile",
+                    "inventory_fifo_cost_lineage",
+                    "inventory_fifo_layer_reconcile",
+                    "inventory_financial_commit",
+                    "inventory_serial_balance_check",
+                    "inventory_serial_fifo_mapping",
+                    "inventory_serial_fifo_movement",
+                    "inventory_serial_location_check",
+                    "inventory_serial_movement_quantity",
+                    "inventory_transfer_receipt_quantity",
+                    "inventory_transit_allocation_reconcile",
+                    "inventory_transit_lot_reconcile",
+                    "inventory_valued_extension_commit",
+                    "purchasing_receipt_evidence_reconcile",
+                    "purchasing_receipt_finance_reconcile"
+                ]
+            }
+        }
+    ],
+    "failure": null,
+    "recorded_at_utc": "2026-11-01T19:14:01+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "database": "erp_elec_new_test",
+  "postgres_port": 55460,
+  "error": "apiRequestContext.get: Protocol \"blob:\" not supported. Expected \"http:\"",
+  "checks": [
+    {
+      "page": "/customers/1?tab=financial",
+      "viewport": 1440,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "customer period filter",
+      "result": "inverted dates rejected without changing balance; valid period applied",
+      "pagination": "visible; previous disabled on page 1"
+    },
+    {
+      "movement_route": "authorized HTTP 200"
+    }
+  ],
+  "browser_errors": []
+}

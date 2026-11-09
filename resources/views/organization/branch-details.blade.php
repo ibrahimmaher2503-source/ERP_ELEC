@@ -14,6 +14,7 @@
             <x-erp.information-row label="كود الفرع"><bdi>{{ $record->code }}</bdi></x-erp.information-row>
             <x-erp.information-row label="الحالة"><x-erp.status-badge :active="$record->active" /></x-erp.information-row>
             <x-erp.information-row label="العنوان">{{ $record->address ?: 'غير مسجل' }}</x-erp.information-row>
+            <x-erp.information-row label="مدير الفرع">{{ $record->manager_name ?: 'غير محدد' }}</x-erp.information-row>
             <x-erp.information-row label="الشركة">
                 @if (app(\App\Modules\Organization\Application\OrganizationAccess::class)->allows(auth()->user(), 'M01.company_view') && \Illuminate\Support\Facades\Route::has('organization.company'))
                     <a href="{{ route('organization.company') }}" wire:navigate class="font-medium text-blue-700 hover:text-blue-800">الشركة · <bdi>{{ $record->company_id }}</bdi></a>

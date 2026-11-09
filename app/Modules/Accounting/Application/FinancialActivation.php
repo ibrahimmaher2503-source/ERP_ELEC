@@ -14,8 +14,8 @@ final class FinancialActivation implements FinancialSetup
 {
     public const MAPPINGS = [
         'inventory_transit' => ['مخزون بالطريق بين المستودعات', 'asset', true],
-        'inventory' => ['المخزون', 'asset', true], 'grni' => ['استلام غير مفوتر GRNI', 'liability', true],
-        'ppv' => ['فروق أسعار الشراء PPV', 'expense'], 'ap' => ['مراقبة الموردين', 'liability', true],
+        'inventory' => ['المخزون', 'asset', true], 'grni' => ['استلام غير مفوتر استلامات بانتظار الفوترة', 'liability', true],
+        'ppv' => ['فروق سعر الشراء فروق سعر الشراء', 'expense'], 'ap' => ['مراقبة الموردين', 'liability', true],
         'cash' => ['مراقبة النقدية', 'asset', true], 'bank' => ['مراقبة البنوك', 'asset', true],
         'tax_input' => ['ضريبة مدخلات', 'asset', true], 'tax_output' => ['ضريبة مخرجات', 'liability', true],
         'receivable' => ['مراقبة العملاء', 'asset', true], 'sales' => ['المبيعات', 'income'],

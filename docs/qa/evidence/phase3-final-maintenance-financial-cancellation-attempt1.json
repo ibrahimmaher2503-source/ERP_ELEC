@@ -1,0 +1,11 @@
+{
+    "all_pass": false,
+    "database": "erp_elec_new_test",
+    "postgres_port": 55441,
+    "error_class": "Illuminate\\Validation\\ValidationException",
+    "error": "مصدر الحجز غير صالح للصنف أو الفرع.",
+    "assertions": [
+        "posted M06 receipt creates five real on-hand FIFO units"
+    ],
+    "fixture_committed": false
+}

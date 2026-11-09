@@ -1,0 +1,67 @@
+PASS M02 permissions are registered at company scope
+PASS M02 permissions default-deny for non-administrator roles while Administrator receives all registered keys
+PASS non-administrator ManagerReadOnly membership does not grant Product permissions
+PASS category mutation requires an explicit grant
+PASS company-wide product access is a direct grant without role assignment
+PASS explicit company grant authorizes product access
+PASS category code is canonical and versioned
+PASS category parent-child relationship persists
+PASS category rejects self-parenting
+PASS category rejects circular ancestry
+PASS category code uniqueness applies after canonicalization
+PASS master updates reject stale versions
+PASS brand names reject case and surrounding-space duplicates
+PASS brand and dimensional unit masters persist
+PASS explicit trade unit requires a conversion to the base unit
+PASS internal notes require their separate update permission
+PASS denied sensitive-field write persists no product
+PASS product accepts an explicit converted purchase unit and base-unit sales default
+PASS unit conversion persists exact decimal precision
+PASS product attributes persist as structured values
+PASS ProductsApi resolves through ProductsService
+PASS GetProductRequest is readonly
+PASS FindByBarcodeRequest is readonly
+PASS ConvertQuantityRequest is readonly
+PASS ListMastersRequest is readonly
+PASS getProduct returns the approved safe identity projection
+PASS barcode lookup resolves its active product
+PASS product selector uses bounded database search and pagination
+PASS public conversion returns an exact base-unit decimal
+PASS public conversion preserves quantity in the base unit
+PASS public conversion rejects silent rounding beyond supported precision
+PASS public product lookup reauthorizes every actor
+PASS catalog, category master, edit form and details render persisted records
+PASS SKU uniqueness is enforced after canonicalization
+PASS barcode cannot belong to two products
+PASS conversion rejects a different unit dimension
+PASS conversion rejects zero factors
+PASS conversion rejects negative factors
+PASS conversion input must remain a decimal string
+PASS invalid catalog writes leave no partial products
+PASS product form maps public specifications into persisted attributes
+PASS invalid specification errors bind to the public form field without saving
+PASS saved conversion definitions cannot be rewritten
+PASS product SKU is stable after creation
+PASS product base unit is stable after creation
+PASS internal notes are stored only with permission and hidden from default serialization
+PASS product audit uses the Products owner, records its actor and scope, and excludes internal notes
+PASS product update persists atomically and advances its version
+PASS product update rejects stale versions
+PASS product edit grant does not imply status authority
+PASS denied status change leaves product active
+PASS authorized status change deactivates without deleting the product
+PASS status change rejects stale versions
+PASS new products reject inactive alternative conversion units
+PASS existing products remain editable while preserving an inactive historical conversion
+PASS media upload requires separate media-management permission
+PASS media upload also requires product-view permission
+PASS safe product image is stored privately with actor metadata
+PASS media path is product-owned and filename is sanitized
+PASS media rejects unsupported upload types
+PASS media rejects oversized uploads
+PASS invalid second oversized image rolls back the product, media, audit entries, and earlier stored file
+PASS direct media download requires current product-view access
+PASS authorized media response carries private content-safety headers
+PASS media removal preserves its file and history
+PASS removed media is no longer downloadable
+Disposable M02 database transaction rolled back.

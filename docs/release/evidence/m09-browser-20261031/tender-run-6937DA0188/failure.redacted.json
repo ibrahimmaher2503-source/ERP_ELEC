@@ -1,0 +1,193 @@
+{
+  "message": "locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n\u001b[2m  - waiting for locator('[wire\\\\:model=\"submission.method\"], [wire\\\\:model\\\\.live=\"submission.method\"], [wire\\\\:model\\\\.live\\\\.debounce\\\\.300ms=\"submission.method\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <select data-flux-control=\"\" label=\"وسيلة التقديم\" name=\"submission.method\" data-flux-group-target=\"\" data-flux-select-native=\"\" wire:model=\"submission.method\" aria-labelledby=\"lofi-label-9227519497aaf\" class=\"appearance-none [:where(&)]:w-full ps-3 pe-10 block h-10 py-2 text-base sm:text-sm leading-[1.375rem] rounded-lg shadow-xs border bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 dark:text-zinc-300 disabled:text-zinc-500 dark:disabled:text-zinc-400 has-[option.placeholder:chec…>…</select>\u001b[22m\n\u001b[2m    - fill(\"portal\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n",
+  "stack": [
+    "locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element",
+    "Call log:",
+    "\u001b[2m  - waiting for locator('[wire\\\\:model=\"submission.method\"], [wire\\\\:model\\\\.live=\"submission.method\"], [wire\\\\:model\\\\.live\\\\.debounce\\\\.300ms=\"submission.method\"]').first()\u001b[22m",
+    "\u001b[2m    - locator resolved to <select data-flux-control=\"\" label=\"وسيلة التقديم\" name=\"submission.method\" data-flux-group-target=\"\" data-flux-select-native=\"\" wire:model=\"submission.method\" aria-labelledby=\"lofi-label-9227519497aaf\" class=\"appearance-none [:where(&)]:w-full ps-3 pe-10 block h-10 py-2 text-base sm:text-sm leading-[1.375rem] rounded-lg shadow-xs border bg-white dark:bg-white/10 dark:disabled:bg-white/[7%] text-zinc-700 dark:text-zinc-300 disabled:text-zinc-500 dark:disabled:text-zinc-400 has-[option.placeholder:chec…>…</select>\u001b[22m",
+    "\u001b[2m    - fill(\"portal\")\u001b[22m",
+    "\u001b[2m  - attempting fill action\u001b[22m",
+    "\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m",
+    "",
+    "    at setModel (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\tender-acceptance.cjs:87:16)",
+    "    at async main (C:\\projects\\ERP_ELEC_NEW\\docs\\release\\evidence\\m09-browser-20261031\\tender-acceptance.cjs:346:3)"
+  ],
+  "last_request": "{\"components\":[{\"calls\":[\"issue\"],\"updates\":{}}]}",
+  "last_response": "{\"components\":[{\"errors\":[],\"htmlTail\":\"ground),transparent_85%)] *:transition-opacity [&amp;[disabled]&gt;:not([data-flux-loading-indicator])]:opacity-0 [&amp;[disabled]&gt;[data-flux-loading-indicator]]:opacity-100 [&amp;[disabled]]:pointer-events-none\\\" data-flux-button=\\\"data-flux-button\\\" data-flux-group-target=\\\"data-flux-group-target\\\" wire:loading.attr=\\\"disabled\\\">\\n        <div class=\\\"absolute inset-0 flex items-center justify-center opacity-0\\\" data-flux-loading-indicator>\\n                <svg class=\\\"shrink-0 [:where(&amp;)]:size-4 animate-spin\\\" data-flux-icon xmlns=\\\"http://www.w3.org/2000/svg\\\" fill=\\\"none\\\" viewBox=\\\"0 0 24 24\\\" aria-hidden=\\\"true\\\" data-slot=\\\"icon\\\">\\n    <circle class=\\\"opacity-25\\\" cx=\\\"12\\\" cy=\\\"12\\\" r=\\\"10\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"4\\\"></circle>\\n    <path class=\\\"opacity-75\\\" fill=\\\"currentColor\\\" d=\\\"M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z\\\"></path>\\n</svg>\\n                    </div>\\n        \\n        \\n                    \\n            \\n            <span>تسجيل التقديم الفعلي</span>\\n    </button>\\n</form><!--[if ENDBLOCK]><![endif]--><!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->\\r\\n</section>\\r\\n<!--[if ENDBLOCK]><![endif]--></div>\\n\"}]}",
+  "readback": {
+    "database": "erp_elec_new_test",
+    "port": 55475,
+    "tender": {
+      "id": 3,
+      "number": "TN-2027-000003",
+      "status": "internal_approval",
+      "version": 12,
+      "title": "DEMO-EG-M07-6937DA0188 Distribution Panel Upgrade - Revised",
+      "technical_id": 1,
+      "financial_id": 1,
+      "submitted_id": null
+    },
+    "technical": {
+      "id": 1,
+      "revision": 1,
+      "prepared_by": 762,
+      "snapshot": {
+        "lines": [
+          {
+            "unit": "piece",
+            "product": null,
+            "position": 1,
+            "quantity": "2.00000000",
+            "deviation": "",
+            "compliance": "compliant",
+            "product_id": "",
+            "alternative": "",
+            "description": "Main distribution panel, 400A, 4-pole",
+            "specification": "Copper busbar, 400A, IP54 enclosure, tested assembly.",
+            "catalog_reference": ""
+          }
+        ],
+        "documents": [
+          {
+            "id": 7,
+            "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+          }
+        ],
+        "requirements": "One low-voltage distribution panel meeting the published protection and enclosure specification."
+      }
+    },
+    "financial": {
+      "id": 1,
+      "revision": 1,
+      "prepared_by": 762,
+      "net": "200.00",
+      "tax": "28.00",
+      "total": "228.00",
+      "snapshot": {
+        "tax": {
+          "net": "200.00",
+          "tax": "28.00",
+          "date": "2027-10-30",
+          "mode": "exclusive",
+          "lines": [
+            {
+              "net": "200.00",
+              "tax": "28.00",
+              "rate": "14.00000",
+              "total": "228.00",
+              "tax_raw": "28.00000000000000000000000000000000",
+              "quantity": "2.00000000",
+              "tax_code": "PH1-SALE-4JFTH",
+              "gross_raw": "200.00000000000000000000000000000000",
+              "tax_scale": 2,
+              "treatment": "percentage",
+              "product_id": null,
+              "unit_price": "100.00000000",
+              "tax_rule_id": 1,
+              "taxable_raw": "200.00000000000000000000000000000000",
+              "eligible_raw": "200.00000000000000000000000000000000",
+              "net_document": "200.00",
+              "tax_document": "28.00",
+              "legal_reference": "Synthetic isolated PostgreSQL Phase 1 acceptance fixture",
+              "line_discount_raw": "0",
+              "net_posting_rounding": "0.00000",
+              "purchase_recoverable": null,
+              "tax_posting_rounding": "0.00000",
+              "document_discount_raw": "0.00000000000000000000000000000000"
+            }
+          ],
+          "total": "228.00",
+          "currency": "EGP",
+          "rounding": "half_away_from_zero_largest_remainder",
+          "tax_totals": [
+            {
+              "code": "PH1-SALE-4JFTH",
+              "rate": "14.00000",
+              "tax_scale": 2,
+              "treatment": "percentage",
+              "posted_amount": "28.00",
+              "document_amount": "28.00000",
+              "purchase_recoverable": null
+            }
+          ],
+          "internal_scale": 32,
+          "transaction_type": "sale",
+          "production_validated": true,
+          "configuration_version": 5
+        },
+        "cost": "100.00000000",
+        "date": "2027-10-30",
+        "mode": "exclusive",
+        "labor": "0",
+        "lines": [
+          {
+            "unit_id": null,
+            "position": 1,
+            "quantity": "2.00000000",
+            "unit_cost": "50.00000000",
+            "product_id": null,
+            "description": "Main distribution panel, 400A, 4-pole",
+            "selling_price": "100.00000000",
+            "approved_price": null,
+            "cost_reference": "DEMO-EG vendor budget 6937DA0188",
+            "price_reference": "DEMO-EG approved quotation basis 6937DA0188",
+            "commercial_exception": true
+          }
+        ],
+        "other": "0",
+        "terms": "Synthetic offer valid through the published deadline, inclusive of installation.",
+        "currency": "EGP",
+        "discount": "0",
+        "reference": "Synthetic documented cost and commercial pricing basis.",
+        "transport": "0",
+        "contingency": "0",
+        "margin_amount": "100.00000000",
+        "margin_percent": "50.00000000",
+        "technical_sha256": "d64c4dc288fe6e136778bc33bf50cef161ccf18b8f0e4182dfa80ab00950aa59"
+      }
+    },
+    "approvals": [
+      {
+        "kind": "technical",
+        "approved_by": 763,
+        "reference": "Independent technical review 6937DA0188"
+      },
+      {
+        "kind": "financial",
+        "approved_by": 764,
+        "reference": "Independent financial review 6937DA0188"
+      }
+    ],
+    "submission": null,
+    "bid_document": {
+      "financial_id": 1,
+      "document_id": "f0ea1add-98a0-48f1-bf7e-2a3a765126ab",
+      "issued_by": 762
+    },
+    "result": null,
+    "plan": null,
+    "plan_approvals": [],
+    "handoff": null,
+    "project": null,
+    "documents": [
+      {
+        "id": 7,
+        "title": "DEMO-EG Technical specification",
+        "classification": "technical",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 8,
+        "title": "DEMO-EG Physical submission receipt",
+        "classification": "submission",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      },
+      {
+        "id": 9,
+        "title": "DEMO-EG Award decision evidence",
+        "classification": "award",
+        "sha256": "60ab96fe41c2639a6387662183300eca25e537839c1b778344ab6afb4512bc77"
+      }
+    ]
+  }
+}

@@ -137,6 +137,12 @@ final class RfqPage extends Component
         $editable = ! $doc || ($doc->status === 'draft' && $doc->created_by === auth()->id() && $access->allows(auth()->id(), 'rfq_update', $doc->branch_id));
         $sourceIds = array_column($access->branches(auth()->id(), 'requisition_view'), 'id');
         $requisitions = PurchaseRequisition::where('status', 'approved')->whereIn('branch_id', $sourceIds)->orderByDesc('id')->limit(100)->get();
+        if ($this->form['requisition_id'] && ! $requisitions->contains('id', (int) $this->form['requisition_id'])) {
+            $selectedRequisition = PurchaseRequisition::where('status', 'approved')->whereIn('branch_id', $sourceIds)->find((int) $this->form['requisition_id']);
+            if ($selectedRequisition) {
+                $requisitions->push($selectedRequisition);
+            }
+        }
         $source = null;
         if (! empty($this->form['requisition_id'])) {
             $source = PurchaseRequisition::whereIn('branch_id', $sourceIds)->with('lines')->find((int) $this->form['requisition_id']);

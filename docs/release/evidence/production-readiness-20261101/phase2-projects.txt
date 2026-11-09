@@ -1,0 +1,11 @@
+[2026-11-01 00:59:54] testing.ERROR: ABORT before writes: M07 check requires isolated PostgreSQL erp_elec_new_test on loopback port 5443 or disposable 55442. {"exception":"[object] (RuntimeException(code: 0): ABORT before writes: M07 check requires isolated PostgreSQL erp_elec_new_test on loopback port 5443 or disposable 55442. at C:/projects/ERP_ELEC_NEW/tests/Support/check-phase2-projects.php:36)
+[stacktrace]
+#0 {main}
+"} 
+
+In check-phase2-projects.php line 36:
+                                                                                                                       
+  ABORT before writes: M07 check requires isolated PostgreSQL erp_elec_new_test on loopback port 5443 or disposable 5  
+  5442.                                                                                                                
+                                                                                                                       
+

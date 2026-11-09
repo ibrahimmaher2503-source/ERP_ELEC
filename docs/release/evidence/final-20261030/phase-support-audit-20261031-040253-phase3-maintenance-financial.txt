@@ -1,0 +1,36 @@
+﻿PASS posted M06 receipt creates five real on-hand FIFO units
+PASS unexecuted work-order cancellation requires outstanding reservation release
+PASS blocked cancellation preserves assignment, version, and on-hand stock
+PASS released reservation allows cancellation without changing on-hand stock
+PASS stale cancellation retry is rejected after the work-order version advances
+PASS maintenance issue posts one FIFO movement and same-key replay returns identical evidence
+PASS over-reservation issue is rejected inside the owner transaction
+PASS failed issue rolls back the maintenance issue row and all inventory effects
+PASS FIFO issue attributes actual maintenance work and requirement source
+PASS migration 186 prevents edits to posted maintenance issue evidence
+PASS migration 186/187 prevents reassignment of work-order project source identity
+PASS maintenance FIFO issue journal carries actual linked M07 project dimension
+PASS warehouse scope prevents reserving from an unavailable warehouse
+PASS unused maintenance part return posts exact-source FIFO reversal
+PASS maintenance return journal preserves the original source project dimension through AccountingApi
+PASS same-key return replay does not duplicate return evidence
+PASS maintenance cost removes returned exact-source value
+PASS labor rate approval consumes a separate actor submitted matching proposal
+PASS approved hourly rate calculates exact half-hour labor cost
+PASS recognized maintenance labor posts once to its project dimension
+PASS billable service approval snapshots authorized amount and applicable 14% tax
+PASS M12 service invoice validates/posts real AR and tax journal with stable replay
+PASS service invoice GL is balanced at gross invoice amount
+PASS maintenance job cost includes exact approved labor and complete status
+PASS M07 financial projection denies missing supplier-subledger read scope
+PASS M07 reads net maintenance FIFO and labor GL once each, without double counting source inventory cost
+PASS approved project-dimensioned manual expense is linked without creating another journal
+PASS other expense is recognized once in maintenance and M07 project costs
+PASS maintenance expense linker rejects protected labor/control journal
+PASS maintenance expense linker rejects wrong project attribution
+PASS rejected expense sources leave no maintenance linkage rows
+PASS closed M07 project rejects new M08 linkage
+PASS closed-project linkage denial preserves lifecycle state and creates no M08 work order
+PASS injected post-FIFO failure rolls back M08 issue, inventory movement, FIFO allocation and GL source
+PASS unrated technician time remains an honest unavailable cost rather than a fabricated zero
+RESULT all_pass=true assertions=35 database=erp_elec_new_test port=55476 fixture_committed=false

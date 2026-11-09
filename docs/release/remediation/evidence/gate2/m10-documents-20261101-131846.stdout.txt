@@ -1,0 +1,10 @@
+
+Fatal error: Declaration of App\Modules\ServiceContracts\Presentation\ServiceContractPage::transition(string $action): void must be compatible with Livewire\Component::transition($type = null, $skip = false) in C:\projects\ERP_ELEC_NEW\app\Modules\ServiceContracts\Presentation\ServiceContractPage.php on line 111
+PHP Fatal error:  Declaration of App\Modules\ServiceContracts\Presentation\ServiceContractPage::transition(string $action): void must be compatible with Livewire\Component::transition($type = null, $skip = false) in C:\projects\ERP_ELEC_NEW\app\Modules\ServiceContracts\Presentation\ServiceContractPage.php on line 111
+
+In ServiceContractPage.php line 111:
+                                                                                                                       
+  Declaration of App\Modules\ServiceContracts\Presentation\ServiceContractPage::transition(string $action): void must  
+   be compatible with Livewire\Component::transition($type = null, $skip = false)                                      
+                                                                                                                       
+

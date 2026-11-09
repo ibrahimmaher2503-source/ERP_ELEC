@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "run_id": "E1C1D01F6A87",
+  "journey": "M03 customer create and repeated edit lifecycle",
+  "record": {
+    "id": 3,
+    "code": "R2-E1C1D01F6A87-C",
+    "final_revision": "Revision two E1C1D01F6A87"
+  },
+  "checks": [
+    "customers: empty required form rejected with visible recovery state",
+    "customers: first real save navigated to persisted details 3",
+    "customers: navigate away, reopen, edit, reload, reopen, edit again and verify final save"
+  ],
+  "postgresql_verification": "Round2 customer E1C1D01F6A87"
+}

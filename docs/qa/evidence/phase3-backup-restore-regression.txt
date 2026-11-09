@@ -1,0 +1,17 @@
+﻿Phase 3 PostgreSQL backup/restore regression
+Date: 2026-10-30 (Africa/Cairo)
+
+Source: disposable PostgreSQL 17.11 `erp_elec_new_test` on 127.0.0.1:55441. Restore target: independently initialized PostgreSQL 17.11 `erp_elec_new_test` on 127.0.0.1:55444. Dump: `.tmp/phase3-current-m08-55441.dump`, custom format, SHA-256 `C9B8AA87220F4C9701175CB5F5BB464248B15B0584B8CE678C932D4C072B2998`.
+
+`pg_dump -Fc` completed from 55441; `pg_restore --no-owner --no-privileges` completed into 55444. Both databases report migration `2026_10_30_187000_separate_maintenance_identity_guards`.
+
+Read-only acceptance uses `tests/Support/check-phase3-backup-restore.php` and fingerprints every row in 45 M08, M06/FIFO, M11, M12 AR, M07 project-source, and official-document tables. Source/restore row counts and SHA-256 fingerprints match for all tables. All 212 official private PDF payloads decode and match their stored SHA-256 and byte lengths; the ordered official-document SHA records match exactly.
+
+Source and restored readback reconciliation match exactly:
+- Maintenance part issues: 39 rows, EGP 540.00; returns: 15 rows, EGP 150.00.
+- Labor entries: 30, EGP 337.50.
+- Inventory: 82 movements, 41 FIFO layers, EGP 1,020.00 original layer value and EGP 430.0000000000000000 remaining layer value.
+- Accounting: 134 posted journals, 301 journal lines, debit and credit each EGP 3,955.96; zero unbalanced posted journals.
+- Maintenance customer invoices: 15, EGP 1,710.00 gross; customer open items: 17, EGP 1,716.83 remaining.
+
+A second read-only source fingerprint after restore matches the first source fingerprint for all 45 table hashes, reconciliation totals, and 212 PDF hashes: no source-side changes were observed. Detailed receipts: `phase3-backup-source-regression.json` and `phase3-backup-restore-regression.json`.

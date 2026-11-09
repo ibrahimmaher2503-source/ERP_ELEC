@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run_id": "02474126E7",
+  "failure": "check-phase2-projects-financial.php failed: PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 16777248 bytes) in C:\\projects\\ERP_ELEC_NEW\\vendor\\maennchen\\zipstream-php\\src\\File.php on line 334\n[2026-10-29 14:08:47] testing.ERROR: Allowed memory size of 134217728 bytes exhausted (tried to allocate 16777248 bytes) {\"userId\":6,\"exception\":\"[object] (Symfony\\\\Component\\\\ErrorHandler\\\\Error\\\\FatalError(code: 0): Allowed memory size of 134217728 bytes exhausted (tried to allocate 16777248 bytes) at C:/projects/ERP_ELEC_NEW/vendor/maennchen/zipstream-php/src/File.php:334)\n[stacktrace]\n#0 {main}\n\"} \n",
+  "checks": [],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

@@ -46,7 +46,7 @@ final class AccountingAccess
     {
         return array_filter(['setup' => 'إعداد التفعيل المالي', 'dashboard' => 'لوحة المحاسبة', 'accounts' => 'دليل الحسابات', 'periods' => 'الفترات المالية', 'journals' => 'القيود اليومية',
             'ledger' => 'الأستاذ العام', 'trial-balance' => 'ميزان المراجعة', 'income-statement' => 'قائمة الدخل', 'balance-sheet' => 'الميزانية',
-            'grni' => 'مصادقة GRNI', 'ppv' => 'فروق أسعار الشراء', 'reconciliation' => 'المصالحات المالية', 'closing' => 'إقفال الفترات'], fn ($label, $screen) => match ($screen) {
+            'grni' => 'مصادقة استلامات بانتظار الفوترة', 'ppv' => 'فروق سعر الشراء', 'reconciliation' => 'المصالحات المالية', 'closing' => 'إقفال الفترات'], fn ($label, $screen) => match ($screen) {
                 'setup' => $this->allows($actor, 'setup_view'), 'accounts' => $this->allows($actor, 'account_view'), 'periods' => $this->allows($actor, 'period_view'), default => $this->branches($actor) !== []
             }, ARRAY_FILTER_USE_BOTH);
     }

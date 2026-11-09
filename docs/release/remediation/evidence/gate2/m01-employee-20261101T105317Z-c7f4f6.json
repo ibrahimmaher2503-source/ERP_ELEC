@@ -1,0 +1,95 @@
+{
+    "all_pass": false,
+    "mode": "employee-only",
+    "assertions": 2,
+    "rollback_verified": true,
+    "private_scratch_clean": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 3,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 1,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 5,
+            "user_branch_scopes": 2,
+            "user_roles": 0,
+            "audit_entries": 0
+        },
+        "after_rollback": {
+            "companies": 0,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "product_categories": 0,
+            "brands": 0,
+            "units_of_measure": 0,
+            "product_unit_conversions": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_activities": 0,
+            "service_contract_work": 0,
+            "service_contract_work_parts": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M01 Employee factory persists an active employment identity without a linked login or authority",
+            "result": "FAIL"
+        },
+        {
+            "name": "All fixture database rows roll back after acceptance.",
+            "result": "PASS"
+        }
+    ],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "M01 Employee factory persists an active employment identity without a linked login or authority"
+    }
+}

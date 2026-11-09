@@ -1,0 +1,15 @@
+{
+    "database": "erp_elec_new_test",
+    "port": 55442,
+    "manual_journal_id": 103,
+    "reversal_journal_id": 104,
+    "retry_same_id": true,
+    "reversal_balanced": true,
+    "original_unchanged": true,
+    "reversal_of_reversal_denied": true,
+    "source_journal_id": 89,
+    "source_reversal_denied": true,
+    "setup_period_reopened_in_rollback_transaction": true,
+    "source_journal_unchanged": true,
+    "all_pass": true
+}

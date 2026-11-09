@@ -1,0 +1,15 @@
+{
+    "database": "erp_elec_gate1_race_test",
+    "port": 49685,
+    "manual_journal_id": 172,
+    "reversal_journal_id": 173,
+    "retry_same_id": true,
+    "reversal_balanced": true,
+    "original_unchanged": true,
+    "reversal_of_reversal_denied": true,
+    "source_journal_id": 165,
+    "source_reversal_denied": true,
+    "setup_period_reopened_in_rollback_transaction": false,
+    "source_journal_unchanged": true,
+    "all_pass": true
+}

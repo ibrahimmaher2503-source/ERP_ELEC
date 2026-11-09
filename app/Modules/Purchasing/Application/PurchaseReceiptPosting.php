@@ -77,13 +77,13 @@ final class PurchaseReceiptPosting
         $receipt = $source['receipt'];
         if ($receipt['version'] !== $version || $stock['amount'] !== $source['total'] || $journal['amount'] !== $source['total']
             || count($stock['lines']) !== count($source['lines'])) {
-            app(SupplierOffers::class)->fail('تغير الاستلام أو اختلفت مصالحة FIFO وGRNI. تم إلغاء المعاملة كاملة.');
+            app(SupplierOffers::class)->fail('تغير الاستلام أو اختلفت مصالحة الصرف من الأقدم أولًا واستلامات بانتظار الفوترة. تم إلغاء المعاملة كاملة.');
         }
         $expected = collect($source['lines'])->keyBy('id');
         foreach ($stock['lines'] as $line) {
             $row = $expected->pull($line['line_id']);
             if (! $row || $row['amount'] !== $line['amount']) {
-                app(SupplierOffers::class)->fail('اختلاف قيمة أو هوية بند المخزون وGRNI.');
+                app(SupplierOffers::class)->fail('اختلاف قيمة أو هوية بند المخزون واستلامات بانتظار الفوترة.');
             }
             DB::table('purchasing_receipt_postings')->insert(['receipt_id' => $id, 'line_id' => $line['line_id'], 'movement_id' => $line['movement_id'], 'layer_id' => $line['layer_id'], 'amount' => $line['amount'], 'posted_at' => now()]);
         }

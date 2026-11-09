@@ -1,0 +1,1 @@
+FAIL TypeError: App\Modules\Organization\Application\SaveCompany::execute(): Argument #1 ($actor) must be of type App\Models\User, int given, called in C:\projects\ERP_ELEC_NEW\tests\Support\check-gate1-financial-close-controls.php on line 120

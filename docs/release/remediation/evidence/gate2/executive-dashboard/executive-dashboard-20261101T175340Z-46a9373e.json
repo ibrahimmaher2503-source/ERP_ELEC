@@ -1,0 +1,156 @@
+{
+    "all_pass": true,
+    "phase": "executive dashboard scoped and truthful summary acceptance",
+    "assertions": 35,
+    "rollback_verified": true,
+    "checks": [
+        {
+            "name": "Executive Dashboard sales exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard projects exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard tenders exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard maintenance exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard workshops exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard accounting exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard receivables exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard treasury exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Dashboard presents posted GL, customer invoices, supplier invoices, and treasury balances as separate measures",
+            "result": "PASS"
+        },
+        {
+            "name": "Financial basis labels distinguish posted ledger, posted invoices, and cash/bank balances",
+            "result": "PASS"
+        },
+        {
+            "name": "A new branch reports measured zero financial values without fabricated GL, invoice, opening-balance, or cash rows",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard sales exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Sales dashboard reflects a real branch-owned draft order only as an order and draft, not revenue",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard sales exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard projects exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard tenders exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard maintenance exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard workshops exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "A separately authorized empty branch reports real zero counts instead of another branch data",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard projects denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard tenders denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard maintenance denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard workshops denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard receivables denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard treasury denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard receivables exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "AR-only authority returns customer invoices and omits supplier amounts",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard receivables exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "AP-only authority returns supplier invoices and omits customer amounts",
+            "result": "PASS"
+        },
+        {
+            "name": "Dashboard rejects a selected branch outside the actor scope",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard sales exposes scoped metrics with source basis and route",
+            "result": "PASS"
+        },
+        {
+            "name": "Executive Dashboard sales denies unavailable data without metric or amount leakage",
+            "result": "PASS"
+        },
+        {
+            "name": "Dashboard revalidates a disabled or unverified actor on each read",
+            "result": "PASS"
+        },
+        {
+            "name": "Dashboard response preserves the requested period and selected authorized branch",
+            "result": "PASS"
+        },
+        {
+            "name": "Dashboard fixtures and grant revocation leave owner counts and company snapshot unchanged after rollback",
+            "result": "PASS"
+        }
+    ],
+    "failures": [],
+    "target": {
+        "database": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "data_directory": "C:/projects/ERP_ELEC_NEW/.tmp/master-remediation-20261101/pgdata",
+        "current_user": "postgres"
+    }
+}

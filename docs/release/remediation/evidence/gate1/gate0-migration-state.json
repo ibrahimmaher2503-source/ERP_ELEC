@@ -1,0 +1,8 @@
+{
+  "database": "erp_elec_new_test",
+  "latest_migration": "2026_10_31_198000_make_tender_guard_refresh_safe",
+  "migrations": "92",
+  "pgdata": ".tmp/master-remediation-20261101/pgdata",
+  "migration_exit": 0,
+  "port": 49685
+}

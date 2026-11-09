@@ -1,0 +1,9 @@
+RESULT gate=2 scope=m10-preventive result=BLOCKED_OR_FAIL receipt=C:\projects\ERP_ELEC_NEW/docs/release/remediation/evidence/gate2/m10-preventive-schedule-20261101T150747Z-17fc0965ba17.json
+{
+    "all_pass": false,
+    "phase": "Gate2 guarded preventive bootstrap/schema preflight",
+    "failure": {
+        "class": "Exception",
+        "message": "The C:\\projects\\ERP_ELEC_NEW\\C:\\projects\\ERP_ELEC_NEW/.tmp/master-remediation-20261101/m10-check-cache directory must be present and writable."
+    }
+}

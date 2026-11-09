@@ -1,0 +1,32 @@
+{
+  "route": "operations.show",
+  "checks": [],
+  "preview_only": true,
+  "mutation_submitted": false,
+  "reused_existing_owner_fixture": true,
+  "actor_id": 162,
+  "preview_run_id": "3d5a2a24-3450-4be7-ad4a-d0c9ec3e5bc1",
+  "url": "/data-operations/3d5a2a24-3450-4be7-ad4a-d0c9ec3e5bc1",
+  "preview_screenshots": [
+    {
+      "viewport": "desktop-1440",
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content h1, #main-content [role=\"heading\"], main h1, main [role=\"heading\"]').first() to be visible\u001b[22m\n"
+    },
+    {
+      "viewport": "desktop-1366",
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content h1, #main-content [role=\"heading\"], main h1, main [role=\"heading\"]').first() to be visible\u001b[22m\n"
+    },
+    {
+      "viewport": "tablet-768",
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content h1, #main-content [role=\"heading\"], main h1, main [role=\"heading\"]').first() to be visible\u001b[22m\n"
+    },
+    {
+      "viewport": "mobile-390",
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content h1, #main-content [role=\"heading\"], main h1, main [role=\"heading\"]').first() to be visible\u001b[22m\n"
+    },
+    {
+      "viewport": "mobile-360",
+      "error": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#main-content h1, #main-content [role=\"heading\"], main h1, main [role=\"heading\"]').first() to be visible\u001b[22m\n"
+    }
+  ]
+}

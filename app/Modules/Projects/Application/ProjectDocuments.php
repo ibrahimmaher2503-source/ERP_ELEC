@@ -22,7 +22,7 @@ final class ProjectDocuments
         Validator::make(['file' => $file, 'key' => $key], ['file' => 'required|file|mimes:pdf,png,jpg,jpeg|max:10240', 'key' => 'required|uuid'])->validate();
         $path = $file->store('projects/'.$id, 'local');
         if (! $path) {
-            throw new \RuntimeException('Unable to store document.');
+            throw new \RuntimeException('تعذر حفظ المستند.');
         }
         try {
             DB::transaction(function () use ($actor, $id, $key, $d, $file, $path, $task) {

@@ -17,7 +17,7 @@
                         <option value="">اختر فرعًا مصرحًا به</option>
                         @foreach($branches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }} ({{ $branch['code'] }})</option>@endforeach
                     </flux:select>
-                    <flux:input type="date" wire:model="form.order_date" label="تاريخ الأمر" required />
+                    <flux:input type="date" wire:model.live="form.order_date" label="تاريخ الأمر" required />
                     <flux:input type="date" wire:model="form.requested_delivery_date" label="تاريخ التسليم المطلوب" />
                     <flux:input field:class="sm:col-span-2" wire:model="form.customer_reference" label="مرجع العميل" maxlength="100" />
                 </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="erp-sales-line-grid">
                             <flux:select wire:model.live="lines.{{ $index }}.product_id" label="الصنف" search-model="productSearch" required><option value="">اختر صنفًا</option>@foreach($products as $product)<option value="{{ $product['id'] }}">{{ $product['name'] }} · {{ $product['sku'] }}</option>@endforeach</flux:select>
-                            <flux:select wire:model="lines.{{ $index }}.unit_id" label="الوحدة" required><option value="">اختر الوحدة</option>@foreach($units as $unit)<option value="{{ $unit['id'] }}">{{ $unit['name'] }} ({{ $unit['code'] }})</option>@endforeach</flux:select>
+                            <flux:select wire:model.live="lines.{{ $index }}.unit_id" label="الوحدة" required><option value="">اختر الوحدة</option>@foreach($units as $unit)<option value="{{ $unit['id'] }}">{{ $unit['name'] }} ({{ $unit['code'] }})</option>@endforeach</flux:select>
                             <flux:input wire:model.live.debounce.500ms="lines.{{ $index }}.quantity" label="الكمية" inputmode="decimal" required />
                             <flux:input wire:model.live.debounce.500ms="lines.{{ $index }}.requested_price" label="السعر المقترح (ج.م)" inputmode="decimal" placeholder="السعر المرجعي عند تركه فارغًا" />
                             <flux:select wire:model.live="lines.{{ $index }}.discount_mode" label="نوع الخصم"><option value="percent">نسبة %</option><option value="fixed">مبلغ ج.م</option></flux:select>

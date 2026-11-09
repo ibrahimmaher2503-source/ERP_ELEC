@@ -1,0 +1,39 @@
+{
+  "all_pass": false,
+  "phase": "Gate2 source preflight before M01 employee and M10 implementation",
+  "scope": "Source-only audit; no DB or business fixture writes",
+  "m10_registry_ready": false,
+  "missing_files": [
+    "M10 owner actions",
+    "M10 public contract",
+    "M10 private evidence owner",
+    "M10 contract domain model",
+    "M01 employee actions",
+    "M01 employee domain model",
+    "M01 employee factory"
+  ],
+  "missing_classes": [
+    "M10 actions",
+    "M10 API",
+    "M10 documents",
+    "M10 model",
+    "M01 employee actions",
+    "M01 employee model"
+  ],
+  "missing_or_wrong_scope_permissions": [
+    "M10.contract_view",
+    "M10.contract_create",
+    "M10.contract_edit",
+    "M10.contract_approve",
+    "M10.contract_sign",
+    "M10.contract_activate",
+    "M10.coverage_use",
+    "M10.billing_manage",
+    "M10.billing_approve",
+    "M10.document_manage",
+    "M10.document_view",
+    "M10.reports_view",
+    "M01.employee_view",
+    "M01.employee_manage"
+  ]
+}

@@ -1,0 +1,3 @@
+PASS Two independent PHP/PostgreSQL workers reached the shared creation barrier
+PASS Concurrent exact creation-key retries return the same one tender and produce one creation event: {"workers":[{"outcome":"passed","tender_id":19},{"outcome":"passed","tender_id":19}],"rows":1,"events":1}
+Committed isolated fixture IDs: tender=19 branch=216 actor=819

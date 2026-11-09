@@ -1,0 +1,2 @@
+PASS No report authority cannot close a company period and leaves no closure or audit effects
+FAIL RuntimeException: FAIL No-scope company close is surfaced as HTTP 403 instead of an unhandled contract exception

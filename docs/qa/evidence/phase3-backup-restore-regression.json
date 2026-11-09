@@ -1,0 +1,1697 @@
+﻿{
+    "all_pass": true,
+    "database": "erp_elec_new_test",
+    "host": "127.0.0.1",
+    "port": 55444,
+    "schema": "2026_10_30_187000_separate_maintenance_identity_guards",
+    "owner_table_fingerprints": {
+        "maintenance_activities": {
+            "rows": 481,
+            "sha256": "3aabc51faac3220b6f8ed2cb98e06a104b6f417ff505839ed00778539846d5ed"
+        },
+        "maintenance_assignments": {
+            "rows": 36,
+            "sha256": "de09170c16fb585bc82db34f94896606d57a802a32d390d90aeac736eae0d1a0"
+        },
+        "maintenance_checklist_results": {
+            "rows": 30,
+            "sha256": "adb10275e779901832aa86c44fa03a6133c53734421f0113b5cf6b227f7fc082"
+        },
+        "maintenance_checklist_templates": {
+            "rows": 15,
+            "sha256": "70870884555c9bc12bab52469cf675305f15a3bf21402b85719cc84848d4a1bf"
+        },
+        "maintenance_commercial_approvals": {
+            "rows": 15,
+            "sha256": "57d7006bc41c815dcff53a0a075f81fd940f90aae5bcdc2fddc408a67a190a89"
+        },
+        "maintenance_completions": {
+            "rows": 15,
+            "sha256": "e00c09938f69102a143758a84379494333f0ca7b02f5e359965f9447f41c711e"
+        },
+        "maintenance_cost_proposals": {
+            "rows": 30,
+            "sha256": "8636473268a3e34bf6f130a815e9f4149eec0131c414c756109a1ea81e69f8c4"
+        },
+        "maintenance_documents": {
+            "rows": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "maintenance_expense_sources": {
+            "rows": 1,
+            "sha256": "34ebcda66eefd35243461cfdfa9c7ca435aa9ca5a3ad4a30ab6cbd65eda97d4c"
+        },
+        "maintenance_labor_entries": {
+            "rows": 30,
+            "sha256": "c3eaaf133b6745317ed40650f036cfa0c8e0e75771de66cc02a8f82fd91414f2"
+        },
+        "maintenance_labor_rates": {
+            "rows": 15,
+            "sha256": "26398d649698b2e3487ab1db2ea85992be758f69105f6f69e3dad35a2cb06b92"
+        },
+        "maintenance_labor_recognitions": {
+            "rows": 15,
+            "sha256": "beb2d5df790e32b4f5167f1dcf897ca35967c37fa711668dc4bbdb2b2d71ef75"
+        },
+        "maintenance_part_issues": {
+            "rows": 39,
+            "sha256": "f1c89081f185f58e4bdc3c71ed2155bd549fcb4bd4f84e9de51fb3249b440bdb"
+        },
+        "maintenance_part_requirements": {
+            "rows": 45,
+            "sha256": "56a1a93040b8e7e54b59eab76ce2060507c6e1c68c724f81bf229f795740081e"
+        },
+        "maintenance_part_reservations": {
+            "rows": 63,
+            "sha256": "492592ef95f2d42abea66a5facc2beb633758c2ffffc2bea36fd9566de6b797f"
+        },
+        "maintenance_part_returns": {
+            "rows": 15,
+            "sha256": "005efe4df89fa35413350c616b00a9666fe714ad7a5f311e2cf290786f2e77b8"
+        },
+        "maintenance_part_usage": {
+            "rows": 15,
+            "sha256": "baf45da7dd18451e4ea64bb0f8fb3923003ae25c5ed82e9030f887f1cbe6537d"
+        },
+        "maintenance_requests": {
+            "rows": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "maintenance_visits": {
+            "rows": 30,
+            "sha256": "0fb4751571187e4a8fc5f28aa0ad4d2e1f8c6b57d8aca67514419266315761bd"
+        },
+        "maintenance_work_orders": {
+            "rows": 30,
+            "sha256": "81670ef64f20cba8c8725df1164046d5c8616df845ba440d03380d1e745474bd"
+        },
+        "inventory_balances": {
+            "rows": 16,
+            "sha256": "1d5fb1c90bb1fee065944e5772ea003b27c1fcc6e5188e35094779390bb317a2"
+        },
+        "inventory_documents": {
+            "rows": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "inventory_document_lines": {
+            "rows": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "inventory_fifo_allocations": {
+            "rows": 43,
+            "sha256": "de3d7a435b49e0e086ecfce52ed878725b075a16b7d59dc0e228b11b18e4c3e3"
+        },
+        "inventory_fifo_layers": {
+            "rows": 41,
+            "sha256": "a9dfa152c428d0991ccb54d82b518987d8c045e1685f1640677a87b6d43a3c19"
+        },
+        "inventory_movement_journals": {
+            "rows": 56,
+            "sha256": "0f8374c66c7534f93b659ed30ed19953d553c1bc2c70c275ae8a65b09c04c9ef"
+        },
+        "inventory_movements": {
+            "rows": 82,
+            "sha256": "9b4e1909defa9579720caafc1210b6b7fff59e70c9d2105511c2d9573d6fc209"
+        },
+        "inventory_reservation_events": {
+            "rows": 106,
+            "sha256": "7c76d9bb39c7bdf673b5176275956b3964ebbf15a4f54d32c97096fb598715b7"
+        },
+        "inventory_reservations": {
+            "rows": 65,
+            "sha256": "f336a7a3dab2eee3212c9c40e1a7eece56abb7eaec5f7b573387c2c2c7778ae8"
+        },
+        "accounting_activation": {
+            "rows": 1,
+            "sha256": "1a6395ccb222be3a2f720e7b2af110bd530096756870e1332b8f317fafbd6ee4"
+        },
+        "accounting_journal_lines": {
+            "rows": 301,
+            "sha256": "a94632bb82fbb7d9f8875b75f2865f334cde798eaaa0b50b2d404d5fd3e7b776"
+        },
+        "accounting_journals": {
+            "rows": 134,
+            "sha256": "1ceca4073586075a8c2dad68a136ff88bd844ffd4a86fe631f2f0fb7464b7a9e"
+        },
+        "accounting_periods": {
+            "rows": 2,
+            "sha256": "67971512c3b875905f863d2d146e554ad11fa17a6558128abdd3c74bfef87df8"
+        },
+        "accounting_project_dimensions": {
+            "rows": 61,
+            "sha256": "bd68c453564e10be7fc2d14a514b0659f1d4eaabd631e3d16f1f946da70a7d5b"
+        },
+        "rp_customer_invoice_lines": {
+            "rows": 17,
+            "sha256": "e5d0fc4f069dd0a90c0d68863d7a7e101cf30d44a86bde755d69eb3c9544ec0a"
+        },
+        "rp_customer_invoices": {
+            "rows": 18,
+            "sha256": "2c72e0f71d07e1de6b300188388592d44e0f2b77cd09088e5f91cf7621b78647"
+        },
+        "rp_open_items": {
+            "rows": 23,
+            "sha256": "4ee9c9d63a737014e23cf4ed98b5b8e9af319727a236d567036fadb6ff0b0992"
+        },
+        "rp_settlement_allocations": {
+            "rows": 8,
+            "sha256": "52fc6d9c483abba155aacb9c779cb36e8683ed7b47ecefad41347c55c1bab121"
+        },
+        "rp_supplier_invoice_lines": {
+            "rows": 10,
+            "sha256": "ae583512355106a0f36177c4dc682421deef49ad45b2aa35a0b2567a50d6e11e"
+        },
+        "rp_supplier_invoice_matches": {
+            "rows": 12,
+            "sha256": "2f0f2dfe033cffdc9b09c5cd72cb52e4c4a6a2d20e18b05f2e5bf76c3662227b"
+        },
+        "rp_supplier_invoices": {
+            "rows": 11,
+            "sha256": "5b706312c153c70f3be74b0199302199f2238203dfd45117332f4382c6e06cb2"
+        },
+        "projects": {
+            "rows": 20,
+            "sha256": "9f7e3459c5313727d17b4a54bc7cd2f3e7df013c60b52c6df9d4a96d03f44379"
+        },
+        "project_activities": {
+            "rows": 190,
+            "sha256": "f6fd3f9500365e329f8bfe73cb3d5cec077eadbefb010b1d8c7455aff67fcfae"
+        },
+        "project_source_links": {
+            "rows": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "system_official_documents": {
+            "rows": 212,
+            "sha256": "ed8dbd2cb30f0eee39de873e982cc08fd14ff874c24e8c331c46e0af6a7def91"
+        }
+    },
+    "owner_reconciliation_totals": {
+        "maintenance_issues": 39,
+        "maintenance_issue_cost": "540.00",
+        "maintenance_returns": 15,
+        "maintenance_return_value": "150.00",
+        "labor_entries": 30,
+        "labor_cost": "337.50",
+        "inventory_movements": 82,
+        "fifo_layers": 41,
+        "fifo_original_value": "1020.00",
+        "fifo_remaining_value": "430.0000000000000000",
+        "posted_journals": 134,
+        "journal_lines": 301,
+        "journal_debits": "3955.96",
+        "journal_credits": "3955.96",
+        "maintenance_ar_invoices": 15,
+        "maintenance_ar_gross": "1710.00",
+        "customer_open_items": 17,
+        "customer_open_remaining": "1716.83"
+    },
+    "unbalanced_posted_journals": 0,
+    "verified_official_private_pdfs": [
+        {
+            "document_type": "customer_collection",
+            "source_id": "6057b923-765b-47a5-a084-abfda30de239",
+            "official_number": "RV-2026-000001",
+            "sha256": "402092ce072eff6639d898dd01ee4d0147eb9b9163d845eb0ecb6b997991b095",
+            "bytes": 43026
+        },
+        {
+            "document_type": "customer_collection",
+            "source_id": "0b3afb3d-973c-43d3-aa8a-356c89dc99ae",
+            "official_number": "RV-2026-000002",
+            "sha256": "a769bbc97f42fde0aa8b5fdeb87c89fa910f9b460f48f98636a6900c1e903783",
+            "bytes": 43024
+        },
+        {
+            "document_type": "customer_collection",
+            "source_id": "f8d5399f-950e-4c54-9822-708de12c6934",
+            "official_number": "RV-2026-000003",
+            "sha256": "75f1e8b38e05f41f099c7eca5fa8b4f6dc5baf3a4f88970442945dcf855b5e15",
+            "bytes": 43037
+        },
+        {
+            "document_type": "customer_credit_note",
+            "source_id": "2",
+            "official_number": "CCN-2026-000001",
+            "sha256": "075bd404df15b5b920b0f3bcee3db81b3d24d64141bc4c2e5a9017d8d06a3743",
+            "bytes": 44334
+        },
+        {
+            "document_type": "customer_credit_note",
+            "source_id": "4",
+            "official_number": "CCN-2026-000002",
+            "sha256": "677306bb319d4be1b7636e85ece93dceb9b63b461aafe369baad8e64f99eec8c",
+            "bytes": 44337
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "2",
+            "official_number": "CI-2026-000001",
+            "sha256": "2f0fdebe812fff9d7e21c5e2c8f54764d42531f9a6d1153c0cacdbe9290b8829",
+            "bytes": 44569
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "3",
+            "official_number": "CI-2026-000002",
+            "sha256": "0356276ce5f1d1dc6904a62a1ace276651e5df76eb6bf2c65b7657b927eb04f9",
+            "bytes": 44566
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "48",
+            "official_number": "CI-2027-000001",
+            "sha256": "525e187c1df1d0f1b971d7e12c6a0f49e9aca69dba63aa1275d059a77b87f07f",
+            "bytes": 44565
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "49",
+            "official_number": "CI-2027-000002",
+            "sha256": "9e841f1c84b4224f312741c715c3c8b1d131f006b81781c538a03753e8ff0e2f",
+            "bytes": 44706
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "50",
+            "official_number": "CI-2027-000003",
+            "sha256": "ff1f085ceedb166f580943c5092951a77f27807d948b41893408b8290026658d",
+            "bytes": 44919
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "52",
+            "official_number": "CI-2027-000004",
+            "sha256": "47fd506e78970c9bc00ecb68be4b582fc17b0f0ce9e49dcecefb6780a62f0c69",
+            "bytes": 44411
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "54",
+            "official_number": "CI-2027-000005",
+            "sha256": "fadef428330eb47549d34c0f130386a538532dea9d973fb0246cead60e0afaf8",
+            "bytes": 45042
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "55",
+            "official_number": "CI-2027-000006",
+            "sha256": "b339deea062a7b24b247c34e61db0b0b467996de0f9c8ba6c8895a8fd2de741f",
+            "bytes": 44571
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "56",
+            "official_number": "CI-2027-000007",
+            "sha256": "5ec35d9ca417af655bebe0faa8200b1f2c24267893b7fb6aea45da0e2833b685",
+            "bytes": 44457
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "57",
+            "official_number": "CI-2027-000008",
+            "sha256": "6ba0fb9b10c5733feec0d7d6c9c92383633916f678f005371e7c930ebdfa1f49",
+            "bytes": 44582
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "58",
+            "official_number": "CI-2027-000009",
+            "sha256": "09e9375674db14ebb897809010f8371adb846e2b71dab284b1b2bb19062ac137",
+            "bytes": 44586
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "59",
+            "official_number": "CI-2027-000010",
+            "sha256": "0a80343953ba9d37086b1de2de5e9f6200669e18bd1eada8ed52e656e70d0e08",
+            "bytes": 44469
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "62",
+            "official_number": "CI-2027-000011",
+            "sha256": "ffed2e62c890eb700b73e15e6626aa2c30eaf131918ad25e380aa89c8dff390d",
+            "bytes": 44590
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "63",
+            "official_number": "CI-2027-000012",
+            "sha256": "0387e436ef4c5b2ac08cd72bb49737bef468f0d28e2d69aa897ed0400d44799d",
+            "bytes": 44546
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "64",
+            "official_number": "CI-2027-000013",
+            "sha256": "8dcb8c611bed0734437c4d575f283e42e57c46534e087c8a0f02c3e73bdeae97",
+            "bytes": 44980
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "65",
+            "official_number": "CI-2027-000014",
+            "sha256": "e199013c1900223d4ad8d0317ed695165beaa793dd7f11fda6da833f7a203a88",
+            "bytes": 44705
+        },
+        {
+            "document_type": "customer_invoice",
+            "source_id": "66",
+            "official_number": "CI-2027-000015",
+            "sha256": "73f26616da6cf42e99cece750177af98a16d52fa4c5c415f07841eda1e145b51",
+            "bytes": 44705
+        },
+        {
+            "document_type": "journal",
+            "source_id": "1",
+            "official_number": "JV-2026-000001",
+            "sha256": "3268c62e1ce0ce9a67d66fda4d03c306d58a9696e33767f59f30327031097d92",
+            "bytes": 44161
+        },
+        {
+            "document_type": "journal",
+            "source_id": "2",
+            "official_number": "JV-2026-000002",
+            "sha256": "4829336a8c142d15ebe31f1afdc5d76726967abedf28c1ab6ebe0fd7d14f368e",
+            "bytes": 44160
+        },
+        {
+            "document_type": "journal",
+            "source_id": "3",
+            "official_number": "JV-2026-000003",
+            "sha256": "f48f74c03532f74521cfe61e2f0764bc529fd6514cdb5a91731212763d84028a",
+            "bytes": 44160
+        },
+        {
+            "document_type": "journal",
+            "source_id": "4",
+            "official_number": "JV-2026-000004",
+            "sha256": "663511ee74993b45550291fd735cf546530edd5b6ba173dff1e417fb911aa126",
+            "bytes": 45334
+        },
+        {
+            "document_type": "journal",
+            "source_id": "5",
+            "official_number": "JV-2026-000005",
+            "sha256": "5670e7066f120c762b408183300df6b85297ea9c8ff1803d882cdd1546614699",
+            "bytes": 45333
+        },
+        {
+            "document_type": "journal",
+            "source_id": "6",
+            "official_number": "JV-2026-000006",
+            "sha256": "995cde9d7f2d5a27496a22b529ef2cd9b1ec20ce12ab7bc1d2ee2969154115d6",
+            "bytes": 45327
+        },
+        {
+            "document_type": "journal",
+            "source_id": "7",
+            "official_number": "JV-2026-000007",
+            "sha256": "e088e6954d4fc94c3e09103f31ecfc60c51d4393bcbb522587f4abe7d5cf1320",
+            "bytes": 44150
+        },
+        {
+            "document_type": "journal",
+            "source_id": "8",
+            "official_number": "JV-2026-000008",
+            "sha256": "0566bb763e40c923bb04cddb9ad63774a31c947c75fe4cf2a61e8b72f6908b4b",
+            "bytes": 44498
+        },
+        {
+            "document_type": "journal",
+            "source_id": "9",
+            "official_number": "JV-2026-000009",
+            "sha256": "ae1891b5ed3a8eb6f5c73c1a7f9564c7dd4838d0aa101078bab68d9127885da7",
+            "bytes": 44023
+        },
+        {
+            "document_type": "journal",
+            "source_id": "10",
+            "official_number": "JV-2026-000010",
+            "sha256": "908fbdd5fe7fb9ea3446c0c689f6b5532507d548f2c3f4eb0202d998fbcb1862",
+            "bytes": 44020
+        },
+        {
+            "document_type": "journal",
+            "source_id": "11",
+            "official_number": "JV-2026-000011",
+            "sha256": "80d7c776be503ec858f2f072f689e05b64a3694fdc0976e558bdb96c3dc762bc",
+            "bytes": 44271
+        },
+        {
+            "document_type": "journal",
+            "source_id": "12",
+            "official_number": "JV-2026-000012",
+            "sha256": "addacc6b94cc00438b8d4b31af28a13516297d8278accb619a8b3c64ad95d5ba",
+            "bytes": 44273
+        },
+        {
+            "document_type": "journal",
+            "source_id": "13",
+            "official_number": "JV-2026-000013",
+            "sha256": "edd33f08a8df87fd63178442572ccf756b7e64696a61372720213f0eaf9e1cb5",
+            "bytes": 45279
+        },
+        {
+            "document_type": "journal",
+            "source_id": "14",
+            "official_number": "JV-2026-000014",
+            "sha256": "13b525a890cd39efd1f62514aae7b76d73d57fd343ce99881a772b68c127aa8c",
+            "bytes": 44830
+        },
+        {
+            "document_type": "journal",
+            "source_id": "15",
+            "official_number": "JV-2026-000015",
+            "sha256": "f571ea7a39606e5924555068d586ef7a6e3cee2806d70d3554eade47b9ccd774",
+            "bytes": 44202
+        },
+        {
+            "document_type": "journal",
+            "source_id": "16",
+            "official_number": "JV-2026-000016",
+            "sha256": "68fa847ad814389e72d0d82a60212134b32d79b14351faa11c85a8e309e438f7",
+            "bytes": 44162
+        },
+        {
+            "document_type": "journal",
+            "source_id": "17",
+            "official_number": "JV-2026-000017",
+            "sha256": "5fafa6df41143b6a34ddbb39e96fae425d13beff1580e4b1364a9c036bd6d000",
+            "bytes": 44162
+        },
+        {
+            "document_type": "journal",
+            "source_id": "18",
+            "official_number": "JV-2026-000018",
+            "sha256": "1dd4e4ddb5567411ccaf129d69ce09762589dca2e23052913aff502fcb6981c0",
+            "bytes": 44162
+        },
+        {
+            "document_type": "journal",
+            "source_id": "19",
+            "official_number": "JV-2026-000019",
+            "sha256": "2fd889971adafd4207a1f29e027005513869e675311e7cf4785411db4b305b03",
+            "bytes": 44161
+        },
+        {
+            "document_type": "journal",
+            "source_id": "20",
+            "official_number": "JV-2026-000020",
+            "sha256": "d66e9ba681b66b6b8dca6077d5997580f664e159a918fed157f63b8603f8530b",
+            "bytes": 44160
+        },
+        {
+            "document_type": "journal",
+            "source_id": "21",
+            "official_number": "JV-2026-000021",
+            "sha256": "5f838de950cf1b2bbe32873c3565ad97c42fd24561bc260df4ff548b5f326de4",
+            "bytes": 45337
+        },
+        {
+            "document_type": "journal",
+            "source_id": "22",
+            "official_number": "JV-2026-000022",
+            "sha256": "a20e3b65fe3c050e7513165d9af83c8da15032d42a486f41c6df7ca1f5fb23c2",
+            "bytes": 45344
+        },
+        {
+            "document_type": "journal",
+            "source_id": "23",
+            "official_number": "JV-2026-000023",
+            "sha256": "69e6815923886d38ec3a10e2404b23b2eb139064c9fb368e052502e18e17b95a",
+            "bytes": 45333
+        },
+        {
+            "document_type": "journal",
+            "source_id": "24",
+            "official_number": "JV-2026-000024",
+            "sha256": "368556721e433631ba8d45722f6c5ae6eac3f08882f3128d27d1df768703631a",
+            "bytes": 44162
+        },
+        {
+            "document_type": "journal",
+            "source_id": "25",
+            "official_number": "JV-2026-000025",
+            "sha256": "2e4aa54914469cfe4933f924970dbc616f88da21a6bfc18291104f34aedd371e",
+            "bytes": 45285
+        },
+        {
+            "document_type": "journal",
+            "source_id": "26",
+            "official_number": "JV-2026-000026",
+            "sha256": "1a74dfed0c5fc3a37182a2e32f8122eccc8ea931e73bb37bb5904685205d808c",
+            "bytes": 44278
+        },
+        {
+            "document_type": "journal",
+            "source_id": "27",
+            "official_number": "JV-2026-000027",
+            "sha256": "dabbfc9110941b34a831c94b1fda9a4741c9924b6cf8866387d869735c1b0e22",
+            "bytes": 44284
+        },
+        {
+            "document_type": "journal",
+            "source_id": "28",
+            "official_number": "JV-2026-000028",
+            "sha256": "7d56bd225b4ddc925a24ced70bda37124e5380010e19910ed0eaff23b8a28344",
+            "bytes": 44155
+        },
+        {
+            "document_type": "journal",
+            "source_id": "29",
+            "official_number": "JV-2026-000029",
+            "sha256": "21de843f8bf3b0e62380cc97137420cb3d249cc0b7eb13fbbc7369d0a8fef672",
+            "bytes": 44500
+        },
+        {
+            "document_type": "journal",
+            "source_id": "30",
+            "official_number": "JV-2026-000030",
+            "sha256": "feb257ea0128e661b1f7aa057d6460cd12e623363d1dc24edf446e61d6c13ddc",
+            "bytes": 44833
+        },
+        {
+            "document_type": "journal",
+            "source_id": "31",
+            "official_number": "JV-2026-000031",
+            "sha256": "0ce66c2043c730f7dcfc107d9d5ebb9a32254a9c9b775c964301e338552b877f",
+            "bytes": 43967
+        },
+        {
+            "document_type": "journal",
+            "source_id": "32",
+            "official_number": "JV-2026-000032",
+            "sha256": "4c2fceb42b4fc5614813d312d45d980ebd3a42618e72394e17dd47d2b16881f0",
+            "bytes": 44164
+        },
+        {
+            "document_type": "journal",
+            "source_id": "34",
+            "official_number": "JV-2026-000033",
+            "sha256": "e2e7331129ae7d9ff702e97c709cdca6770ecc53c17960d25575fc54b86a7df2",
+            "bytes": 44164
+        },
+        {
+            "document_type": "journal",
+            "source_id": "134",
+            "official_number": "JV-2027-000001",
+            "sha256": "35f54349f8f82a145ea5655df35dd2b196d6311f6fb4291261ed684d83794a4e",
+            "bytes": 44166
+        },
+        {
+            "document_type": "journal",
+            "source_id": "135",
+            "official_number": "JV-2027-000002",
+            "sha256": "b9e194ba5b05b4ffecd19a36db0de25a87dd26a182ff0bc7cfb55afa63f1ccec",
+            "bytes": 44177
+        },
+        {
+            "document_type": "journal",
+            "source_id": "136",
+            "official_number": "JV-2027-000003",
+            "sha256": "06506fb78ed57a86e4dd165d0fb8fe28000542ab8e5f1f96b8ff77537a3cb865",
+            "bytes": 44170
+        },
+        {
+            "document_type": "journal",
+            "source_id": "137",
+            "official_number": "JV-2027-000004",
+            "sha256": "1fe27c3197a8f5cc2666c5732c6e906ac8c3c233f91c7b5eb7a854ce5b5091ba",
+            "bytes": 43947
+        },
+        {
+            "document_type": "journal",
+            "source_id": "138",
+            "official_number": "JV-2027-000005",
+            "sha256": "0ee857dacf097905d00cc0683b9b8857ee9de89ab68def6633f787891c7f0123",
+            "bytes": 44505
+        },
+        {
+            "document_type": "journal",
+            "source_id": "139",
+            "official_number": "JV-2027-000006",
+            "sha256": "c3c4fd81c2abce891f38881faaed89aef62218f378998326ff02207066641d00",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "140",
+            "official_number": "JV-2027-000007",
+            "sha256": "e669cd31599f7ee0245a2a6e1fec61891dcb5f8f30c95a61111bb9cbc9501d76",
+            "bytes": 44176
+        },
+        {
+            "document_type": "journal",
+            "source_id": "141",
+            "official_number": "JV-2027-000008",
+            "sha256": "2a96fe4b125b79fc19f8f26a3ee3f5b125f18918c0b3da0a8054ac8287fd53a9",
+            "bytes": 44171
+        },
+        {
+            "document_type": "journal",
+            "source_id": "142",
+            "official_number": "JV-2027-000009",
+            "sha256": "62aed7cc6081b5b942acc89909c0b67a9f0726d401d49cab7bbf89f0d243d933",
+            "bytes": 43948
+        },
+        {
+            "document_type": "journal",
+            "source_id": "143",
+            "official_number": "JV-2027-000010",
+            "sha256": "876709ebdbd55d5a149902b81bfaf893bbb11155ea69fc9268e3c04181884081",
+            "bytes": 44505
+        },
+        {
+            "document_type": "journal",
+            "source_id": "144",
+            "official_number": "JV-2027-000011",
+            "sha256": "017b80237f8ba771f94f4f4a8f63f5d8c51fa3570ef3b3d874082953941508fd",
+            "bytes": 44165
+        },
+        {
+            "document_type": "journal",
+            "source_id": "145",
+            "official_number": "JV-2027-000012",
+            "sha256": "cbb072de51e0f54825f1d5189023dd8da6b331505c8a0ce7603487ab2b77defe",
+            "bytes": 44191
+        },
+        {
+            "document_type": "journal",
+            "source_id": "146",
+            "official_number": "JV-2027-000013",
+            "sha256": "02036f4f7daa29d9a07d829b1f0eba3f3083e9cbd341a967a9cfdc90d1e18f1b",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "147",
+            "official_number": "JV-2027-000014",
+            "sha256": "8ceffdf90caed2408fb90d0f8d3251fd3212ae2f58214cdb4954a247cf8664fd",
+            "bytes": 43950
+        },
+        {
+            "document_type": "journal",
+            "source_id": "148",
+            "official_number": "JV-2027-000015",
+            "sha256": "64fa83aa10d47fd9272c9dba3f4aeb88ff4f70bb96f8bb45bd558d99a60621e3",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "149",
+            "official_number": "JV-2027-000016",
+            "sha256": "5572ca1e9681e8e437f631bc4a904801e16a66663a13d9d491aecbae0a640525",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "155",
+            "official_number": "JV-2027-000017",
+            "sha256": "2416d389b02cdb5cc5cf4c202107cb9db81f9de0b00dc4a7b2b1ea226c4e212b",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "156",
+            "official_number": "JV-2027-000018",
+            "sha256": "0546c793f0da08185258ebcf881fa8163d87356303ca7cd1e0cf2ff8d5b426fe",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "157",
+            "official_number": "JV-2027-000019",
+            "sha256": "08e98ff17c9b71bde2967d1f4f79256af6f576e48931c329a1c5bd3e6119bd98",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "158",
+            "official_number": "JV-2027-000020",
+            "sha256": "32c9a807a0ed8d1e9d2aa14f2c5d37e0d5ba33d67a121213c6684db7b7c300b1",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "159",
+            "official_number": "JV-2027-000021",
+            "sha256": "e1459c7d69ef47e6b692d6a699b8da6b1c69302ed76a8942f341c2bf0b7fa156",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "160",
+            "official_number": "JV-2027-000022",
+            "sha256": "f8332a2b1e8d3926ef6365d49db20ee0d7034dd82097f110e317e05cae6717c2",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "167",
+            "official_number": "JV-2027-000023",
+            "sha256": "b6464f10ff799e5986e11e9cbc707b0310094e8fba90d129c15e329e9b44fe2f",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "168",
+            "official_number": "JV-2027-000024",
+            "sha256": "2cc13a1ddca6ff9d3ed0251f6488c88a8d8e23d25077fff7c3c4c131e3ef539a",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "169",
+            "official_number": "JV-2027-000025",
+            "sha256": "5105fe3f731a63a31e49d1ae0f6cb0185e43c83b969dcf10126a7a4268800b23",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "170",
+            "official_number": "JV-2027-000026",
+            "sha256": "cfc695d8116048eef01275dc593a9ce2466df108a806bd40d8918c6e5ba0cd9d",
+            "bytes": 43950
+        },
+        {
+            "document_type": "journal",
+            "source_id": "171",
+            "official_number": "JV-2027-000027",
+            "sha256": "f13f235afae9f87f7f208d8bbac82f084bdc4bc11492193b080042d5428d6d48",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "173",
+            "official_number": "JV-2027-000028",
+            "sha256": "222534e2ed98de6e5e25809b39cccbbb9d8fbe9d220d28ac0b535fbb7088d5cb",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "174",
+            "official_number": "JV-2027-000029",
+            "sha256": "d65a0d74c72059f599811f500793679c26b6c8cfb1463124d3eb6b222f20d6a0",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "175",
+            "official_number": "JV-2027-000030",
+            "sha256": "6af99643bbf77223dae7eb44c83eb5d905413f97cc9fe3bd9fa622beed6345ea",
+            "bytes": 44165
+        },
+        {
+            "document_type": "journal",
+            "source_id": "176",
+            "official_number": "JV-2027-000031",
+            "sha256": "25acc05e41011f124a1014cc88c7da2d78b4bb3814dd4573ca5acd6f1140c378",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "177",
+            "official_number": "JV-2027-000032",
+            "sha256": "d7a61419de5691f4b5e7694608beec2cbe6c452914b7b3db7d675e201d7950dd",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "178",
+            "official_number": "JV-2027-000033",
+            "sha256": "102858e78df4e9009627a8a99db6b9dc18330ee7fd45ec015668dd99f2a534cd",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "179",
+            "official_number": "JV-2027-000034",
+            "sha256": "4b086855ace161aee3ee14f04d605b2343a2a4d92db8b4e624a6d4825cc15d08",
+            "bytes": 44505
+        },
+        {
+            "document_type": "journal",
+            "source_id": "181",
+            "official_number": "JV-2027-000035",
+            "sha256": "99b04cec08479715ebfc6413f496f253269439da3ef3296dc1b510066ab593ff",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "182",
+            "official_number": "JV-2027-000036",
+            "sha256": "27d64601331025df23e1278bc4c3d7d1a72fd8f97e79c884664e18f2576c34d0",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "183",
+            "official_number": "JV-2027-000037",
+            "sha256": "9bb4bff605bad66fd209e78002374e67367b793672fe91b5215cdd3b5390e0fa",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "184",
+            "official_number": "JV-2027-000038",
+            "sha256": "62fc574a54292ca13d62931a4eab625dab038f3dcc3e54089d5e3261f47349ff",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "185",
+            "official_number": "JV-2027-000039",
+            "sha256": "c50a62d0bc9f2e10a3f96dcfcc421c6fc13d4968f5176d7b46f856d5c21764ea",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "186",
+            "official_number": "JV-2027-000040",
+            "sha256": "cef2d5133901368ddee50448dd378c51a2e3aa1e2e03582f116e8c5f45a0dd53",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "187",
+            "official_number": "JV-2027-000041",
+            "sha256": "52e3ee9ad310584528d45bb6a4283f1fdf12a170b0f71b86aa8ca4a7f7aa2e42",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "189",
+            "official_number": "JV-2027-000042",
+            "sha256": "bb3d12a43bc90333c31857ad03c3bc76ea1b98b7b94eb7162c0083a7f3adb91f",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "190",
+            "official_number": "JV-2027-000043",
+            "sha256": "7543e38a2c47be6d77a13e5ce8f0239b34ab728ee4962fdd9b420c3e08a78f4b",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "191",
+            "official_number": "JV-2027-000044",
+            "sha256": "927a149be224174e217c767af691220b0cba93b0875ef9a95780911409e7d439",
+            "bytes": 44165
+        },
+        {
+            "document_type": "journal",
+            "source_id": "192",
+            "official_number": "JV-2027-000045",
+            "sha256": "abc1750388693d053a2cdec10525c57db879ed786bfc8822ac6040287f9061a9",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "193",
+            "official_number": "JV-2027-000046",
+            "sha256": "06bbd9ffb86fdc16a0cf94aaae45b314e0f30edc769be605295b8ea71c6f8752",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "194",
+            "official_number": "JV-2027-000047",
+            "sha256": "49e4655973f75b9c5e41546d1916872a58c19d0995a82d38d3037ee9c9497a41",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "195",
+            "official_number": "JV-2027-000048",
+            "sha256": "4de3a347bf26f8a0559548527cacb84398707e319d454a8c2d38090a6ad6ad70",
+            "bytes": 44507
+        },
+        {
+            "document_type": "journal",
+            "source_id": "197",
+            "official_number": "JV-2027-000049",
+            "sha256": "5b577c482efc83904a70df6123b71758e816e6d9cedb4f2d8687aedffe25c1a3",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "198",
+            "official_number": "JV-2027-000050",
+            "sha256": "3a136e4b202ebd2e540eeb98010574f2275c4d1b15021919bcd74971a95d7298",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "199",
+            "official_number": "JV-2027-000051",
+            "sha256": "968a2ebacacdd8b82ac0fd55edc060963ca814bf012793288a843bce114aa15d",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "200",
+            "official_number": "JV-2027-000052",
+            "sha256": "c2aec18addc7af1fadf6904ddecf36e649c4cd2616055bcd4d2dede1f09b0f50",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "201",
+            "official_number": "JV-2027-000053",
+            "sha256": "47b1dd94401ab165dfdd5b634044f18e7b96370934ded0c16098dd1b735a9489",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "202",
+            "official_number": "JV-2027-000054",
+            "sha256": "8b05b3fe0c5da32654a2b1fcb87926ca2687ed4fa6695339b3c9baa0420cfcaa",
+            "bytes": 43950
+        },
+        {
+            "document_type": "journal",
+            "source_id": "203",
+            "official_number": "JV-2027-000055",
+            "sha256": "6bab94d36a271db1136366b5efdd544244c1ccc249b29d72f67298f85abe7c44",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "205",
+            "official_number": "JV-2027-000056",
+            "sha256": "d83a19053c820e0ad6f2526c12a18f4a38c94734b3899f8f865ae8052f3c1f0c",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "206",
+            "official_number": "JV-2027-000057",
+            "sha256": "42fa14c91d58d215cca993a4dba609d3b019f0822b51d165f062f5c830cca38a",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "207",
+            "official_number": "JV-2027-000058",
+            "sha256": "1c642416c6577da9e3f07c4f5a5036cb360795d497c3d62096c2e4425233970e",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "208",
+            "official_number": "JV-2027-000059",
+            "sha256": "a110177fecb3924157531d7b37ed8a51d33c7e75bea0457b4d43c488d7b88563",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "209",
+            "official_number": "JV-2027-000060",
+            "sha256": "d08a44c3e40cacea2fc153f76975f3d22d84431595e859c118c43be406a450e8",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "210",
+            "official_number": "JV-2027-000061",
+            "sha256": "2fbcb654b65d7d4cf7ccbabf32c41f96751cb9aadc25a9604372818952f6a523",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "211",
+            "official_number": "JV-2027-000062",
+            "sha256": "f0407e2bf374ac596b347dcb9f008a4db7e48f4f9f4c4f98dd4cbdf3cd046494",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "213",
+            "official_number": "JV-2027-000063",
+            "sha256": "92b13aaf7de5ed63d2b3fd7b99911da8facfd74b01f384a5a8f4419b50886af7",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "214",
+            "official_number": "JV-2027-000064",
+            "sha256": "0d79e635390f49ca26e1a0e13aa781ab0235db8ea443cee39bd7f4f3f6389a7f",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "226",
+            "official_number": "JV-2027-000065",
+            "sha256": "5d6b3e9fbeb0a4dc0efe3be618afe6ed3d48a252acb54dd2cdd3fd39232f4a56",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "227",
+            "official_number": "JV-2027-000066",
+            "sha256": "06efe2661d713326c83604f7d528f7607b0e3d33ee69b311137564aa9a79f681",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "228",
+            "official_number": "JV-2027-000067",
+            "sha256": "f6632b7a551cf4186680019767e33a37db43b9793c1aa3079f3416e270f50242",
+            "bytes": 44192
+        },
+        {
+            "document_type": "journal",
+            "source_id": "229",
+            "official_number": "JV-2027-000068",
+            "sha256": "5e78193ffe477ba47461f1c78597f2eb5e88d7342bf90926bd5e801ea7001864",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "230",
+            "official_number": "JV-2027-000069",
+            "sha256": "201e86dddbfe11721d7c593d5efae061792c9f99330c736a156a7289457f1a35",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "232",
+            "official_number": "JV-2027-000070",
+            "sha256": "219f647f197438425449d7d3d43a802b91ee2a8d0816e05a7242fc036ede4dc0",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "233",
+            "official_number": "JV-2027-000071",
+            "sha256": "addca4e111d91f8db323fd2359510bbc22505db16a7dcc8993f2ab9df3d03581",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "234",
+            "official_number": "JV-2027-000072",
+            "sha256": "c7eed6fa678ce6c453e4de5fa1fcd76aec130b0dfa86631b22d6462508d20d5d",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "235",
+            "official_number": "JV-2027-000073",
+            "sha256": "824ff211add41f450e01411a77b4252a01e6812f87fb05e7a12517e785969497",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "236",
+            "official_number": "JV-2027-000074",
+            "sha256": "d3b784ea937d77b88d1e9cc20d5ee80b6e939bb0a8deb470328c29ff0fbe9607",
+            "bytes": 44191
+        },
+        {
+            "document_type": "journal",
+            "source_id": "237",
+            "official_number": "JV-2027-000075",
+            "sha256": "617e0a433168da732687bc30d28a5a361a0395034b831df2d3ff6124963247c1",
+            "bytes": 43950
+        },
+        {
+            "document_type": "journal",
+            "source_id": "238",
+            "official_number": "JV-2027-000076",
+            "sha256": "baa408320741cb7dbabed85217c7a1f07c8280de058e9addc1205247f6171e07",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "240",
+            "official_number": "JV-2027-000077",
+            "sha256": "ba24b112376e4ea0fa92638284e87ecfff7c63976cd173f4c1f200aa1ba0f964",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "241",
+            "official_number": "JV-2027-000078",
+            "sha256": "dd8839097e94fb5bc922dc4b0e6131b3fd8e7520292b08acacf87c217da339e2",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "242",
+            "official_number": "JV-2027-000079",
+            "sha256": "b9e7dd765de59098a7e958f9d7c14214cb7668387717384f615f081a446024c8",
+            "bytes": 44168
+        },
+        {
+            "document_type": "journal",
+            "source_id": "243",
+            "official_number": "JV-2027-000080",
+            "sha256": "3c7a83ade4ef2b0b364da7d23ff9b5f7d5eae438f803dc034cc771978624a6b5",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "244",
+            "official_number": "JV-2027-000081",
+            "sha256": "952d1e746e64574e63ef26b36c666ea480f5fa0bb512d53ef33d0688851ec816",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "245",
+            "official_number": "JV-2027-000082",
+            "sha256": "43b642e3c126b41099ec8b6db6797816d022e6eaf65dad157abc93e8dc96d6b2",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "246",
+            "official_number": "JV-2027-000083",
+            "sha256": "af9f1bb195e444c3a973090d3093125727e8bbeb5c0c7e6370a9e57556bf0e4a",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "248",
+            "official_number": "JV-2027-000084",
+            "sha256": "cee3af48bf2d99f84217d50f8cb739d078fd0795751f784f1a101cd0151b3709",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "249",
+            "official_number": "JV-2027-000085",
+            "sha256": "9332919e28910872731050ebd82f2cc3376c7f5bb40171d9fe8b208608c008e4",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "250",
+            "official_number": "JV-2027-000086",
+            "sha256": "2e206df6cfc7e2e80016e5cc521872bb4f2520c71b542b0f5e3b5d97defdcd41",
+            "bytes": 44167
+        },
+        {
+            "document_type": "journal",
+            "source_id": "251",
+            "official_number": "JV-2027-000087",
+            "sha256": "a73f25f78ee7149a143e08dda586ec95e5f438894197291f3ec3e206cc4aaf3b",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "252",
+            "official_number": "JV-2027-000088",
+            "sha256": "9a11753c747e6ef90d509eede47bd57c832461a9c57b5e48e7879da6b3a81285",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "253",
+            "official_number": "JV-2027-000089",
+            "sha256": "52e7970e10d680d6d9d8335a8b1e042c2b8fc62e0b902a40adaf2feb54b812a9",
+            "bytes": 43951
+        },
+        {
+            "document_type": "journal",
+            "source_id": "254",
+            "official_number": "JV-2027-000090",
+            "sha256": "cce2d1e7cc5158324d3c30d5ec5f054ddd6953a46a5985eff80112eab7f46fd4",
+            "bytes": 44506
+        },
+        {
+            "document_type": "journal",
+            "source_id": "256",
+            "official_number": "JV-2027-000091",
+            "sha256": "ecfe818e01832d5f55d20c5f7a14e08a0ef7217e7f520bad14c880c25119f662",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "257",
+            "official_number": "JV-2027-000092",
+            "sha256": "6bab6bd884f06a48a0481b074444522e770a28b5a4c7de897c4e4ac3e2609e15",
+            "bytes": 44195
+        },
+        {
+            "document_type": "journal",
+            "source_id": "258",
+            "official_number": "JV-2027-000093",
+            "sha256": "6bc43fbb84751613b412697a2af5c60b45022787a2275b5a334ee2679313bb0f",
+            "bytes": 44166
+        },
+        {
+            "document_type": "journal",
+            "source_id": "259",
+            "official_number": "JV-2027-000094",
+            "sha256": "92b1a8327223c2dfaa65ab2b713c6bcff7064718d1e0a0759ed64d693d8a87e7",
+            "bytes": 44194
+        },
+        {
+            "document_type": "journal",
+            "source_id": "260",
+            "official_number": "JV-2027-000095",
+            "sha256": "2f2539d2a33544efbf7503fe830ebeae22a2a2797f979fdd575590e22e4877f7",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "261",
+            "official_number": "JV-2027-000096",
+            "sha256": "fc811243aeac3b2061e874225470a6c87649dce87a469f4f4fe12d503a2bf6ef",
+            "bytes": 43949
+        },
+        {
+            "document_type": "journal",
+            "source_id": "262",
+            "official_number": "JV-2027-000097",
+            "sha256": "c2c43689d5016dbab3b9b6ad2385097f19bbeaa1c4fb7f59979e4a95ffdbcf4f",
+            "bytes": 44505
+        },
+        {
+            "document_type": "journal",
+            "source_id": "263",
+            "official_number": "JV-2027-000098",
+            "sha256": "c3443d0f798d83da342989d5633093fd682db8444b7cc8f182e5bea64fbdcc35",
+            "bytes": 43831
+        },
+        {
+            "document_type": "journal",
+            "source_id": "264",
+            "official_number": "JV-2027-000099",
+            "sha256": "e40eff4101332dfad256a6eb89353777529adc39ac70933447cffb25a3fd1f0b",
+            "bytes": 43854
+        },
+        {
+            "document_type": "journal",
+            "source_id": "266",
+            "official_number": "JV-2027-000100",
+            "sha256": "21499067cafb4ebe5764bd5827ae969f1236481f3f18a755139dd7155ea5afb0",
+            "bytes": 44193
+        },
+        {
+            "document_type": "journal",
+            "source_id": "267",
+            "official_number": "JV-2027-000101",
+            "sha256": "49b17fa9ae74f6c048d839fe46f3288ec34fdc8108c77c6971b44c3bd358822e",
+            "bytes": 44193
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "76",
+            "official_number": "MSR-2027-000001",
+            "sha256": "c82cfc8cdc1772ec0221d63882444d07a88aa32bfc1c113bc81bb891ec4394b9",
+            "bytes": 45147
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "78",
+            "official_number": "MSR-2027-000002",
+            "sha256": "ed1074b3889ec5aff1ff6ef60ff91ac22bc8b7d0122d56a6197475a9b1de8e6e",
+            "bytes": 45293
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "80",
+            "official_number": "MSR-2027-000003",
+            "sha256": "1a0688ca427c76d754c445ab13fd7ddd10f8003518ca41554c81acca16dcc2e9",
+            "bytes": 45504
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "84",
+            "official_number": "MSR-2027-000004",
+            "sha256": "532b32c5bc6c63bfcbebbb24be4e11ea44850fe654100c9052d2ebc9b9da11cc",
+            "bytes": 44998
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "88",
+            "official_number": "MSR-2027-000005",
+            "sha256": "8af20ed0bebbdfbfd5d40df32940069b15b61bb2b3856fd5a6e150308b5ede6a",
+            "bytes": 45625
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "90",
+            "official_number": "MSR-2027-000006",
+            "sha256": "8aa537e334f61fefa6b755f1326b20c16cbe5a0dab908c01d59c474f88e933ca",
+            "bytes": 45158
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "92",
+            "official_number": "MSR-2027-000007",
+            "sha256": "534df7da8f102768d8605381ddfdaba39e24916a280f41db4748d158a1b372e2",
+            "bytes": 45041
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "94",
+            "official_number": "MSR-2027-000008",
+            "sha256": "6ffa097c3ac5a655e9d3e9e861657c69926585247c344aeb158a0b97aca92685",
+            "bytes": 45167
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "96",
+            "official_number": "MSR-2027-000009",
+            "sha256": "c57284c1f48796ec2e5b1cc57db92d4fe92945996ecb572e0025ccb0e0c0728b",
+            "bytes": 45171
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "98",
+            "official_number": "MSR-2027-000010",
+            "sha256": "502d93967b217cbb32bd108aff7e75518401f31e13dd955d54a33fa7a47f1381",
+            "bytes": 45053
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "103",
+            "official_number": "MSR-2027-000011",
+            "sha256": "aa97a05c89ca4b3c361a98a47f6c624451e3365110e52622706ad68583a3eb11",
+            "bytes": 45178
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "105",
+            "official_number": "MSR-2027-000012",
+            "sha256": "a3d698599d9a63bd6bd8906a4a15723ed017135013c527ac895c4dfa84130b75",
+            "bytes": 45133
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "107",
+            "official_number": "MSR-2027-000013",
+            "sha256": "06912b50642a5de10b738de08c17aada6716990761fa5000c2158717522b5418",
+            "bytes": 45565
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "109",
+            "official_number": "MSR-2027-000014",
+            "sha256": "338f6901a7fa7eacc6c5d3905aec235dfa081d006ec2b6d23702535d6df1f3b3",
+            "bytes": 45292
+        },
+        {
+            "document_type": "maintenance_report",
+            "source_id": "111",
+            "official_number": "MSR-2027-000015",
+            "sha256": "a68c74d2d7723478a84c3de8ab98f7cc6701f23c9c9e13a95b2d17de4d630683",
+            "bytes": 45291
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "1",
+            "official_number": "PO-2026-000001",
+            "sha256": "0826ce5d7d8ef024fb9e245428ebc4e8c29df30649aab808bcaf0f7ea4cbfe5c",
+            "bytes": 48271
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "2",
+            "official_number": "PO-2026-000002",
+            "sha256": "da5c55aab3d99ca31991a0ab267c2eb960b1da8ccaaa9c7f867ba172bc853de7",
+            "bytes": 48267
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "3",
+            "official_number": "PO-2026-000003",
+            "sha256": "e8a0d04c86fd6c1d1df611cc42c9e7ad4dac5dc9273a53cbc05f651dec5ec89e",
+            "bytes": 48266
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "4",
+            "official_number": "PO-2026-000004",
+            "sha256": "93eef6601f2e2cc4ccfd3eb7c174453bc15d76bce8fc473e2529254e2d85ce82",
+            "bytes": 48276
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "5",
+            "official_number": "PO-2026-000005",
+            "sha256": "ce920afa6fea86b00b34ada6044a68c1ec107ea71fbc08911e23c352deb0d4b5",
+            "bytes": 48279
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "6",
+            "official_number": "PO-2026-000006",
+            "sha256": "79fa8ed817a787725a21742f6a599ea4c4d19999332a79f6494847cf80b1c44b",
+            "bytes": 48282
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "7",
+            "official_number": "PO-2026-000007",
+            "sha256": "d00baf841a51d5ddcec59600ae5b6e1be0b7f48cd0064d2f1055ec141a4af2eb",
+            "bytes": 48293
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "8",
+            "official_number": "PO-2026-000008",
+            "sha256": "1d6def20e98262e3635e83e55a8a7d458f24200a758cc3bf1f8f4776152a6625",
+            "bytes": 48300
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "9",
+            "official_number": "PO-2026-000009",
+            "sha256": "5535a56973fd26cbff0a32c7724f5677ac19f8f7d9b324f3cfe2321135895c75",
+            "bytes": 48297
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "65",
+            "official_number": "PO-2027-000001",
+            "sha256": "6d2a605fa0506bff44b45308b0ea4a581722a8173563d1831de19afe12ecfa04",
+            "bytes": 47932
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "66",
+            "official_number": "PO-2027-000002",
+            "sha256": "e45233bb3b6b9896e56b3f952e30a16d63c043327225d94bceddc98e993d87fa",
+            "bytes": 47806
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "67",
+            "official_number": "PO-2027-000003",
+            "sha256": "decbc6c01020cf4e2d713cbbb5746701eae12e85e230001013dd51ae1efaa576",
+            "bytes": 48184
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "69",
+            "official_number": "PO-2027-000004",
+            "sha256": "5487d7377e82ecd750c387276e1fa1d22e06c3b57cb451f28cc1ee1a37db845f",
+            "bytes": 47977
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "71",
+            "official_number": "PO-2027-000005",
+            "sha256": "7ea4d8ddc94e2c25e46a1c4ce74364cc2d2601c0c3b834bb4bb0732dad60fc5d",
+            "bytes": 48049
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "72",
+            "official_number": "PO-2027-000006",
+            "sha256": "f5e0a20c8503329beb0bce6a19f93a5a0a7fdd2dc38739e24cade55e6ac0127f",
+            "bytes": 48111
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "73",
+            "official_number": "PO-2027-000007",
+            "sha256": "28eccdd183c0b723264c6dee67b4e4fb3b30f139fa6a5550af55e43ccaa22952",
+            "bytes": 47996
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "74",
+            "official_number": "PO-2027-000008",
+            "sha256": "46e95289e0a90e70aa1e41b2649580051d6e1e60eecc3792dd7f602c5902f161",
+            "bytes": 47907
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "75",
+            "official_number": "PO-2027-000009",
+            "sha256": "b28b8492c1c1a3cd8a0e50792fb83434a7c5fb889100e2987ac8cde5769e4560",
+            "bytes": 47932
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "76",
+            "official_number": "PO-2027-000010",
+            "sha256": "7c80375e4ff538d8d0ddc1c3c9ebd4c3f6f6f9fad999827e0c50afcc0685dd00",
+            "bytes": 48056
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "79",
+            "official_number": "PO-2027-000011",
+            "sha256": "89b159bff555d46906efbd86463582cd03bb6720778f4cd2ad9863d2f3f4e31d",
+            "bytes": 48633
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "80",
+            "official_number": "PO-2027-000012",
+            "sha256": "195e788f56cd703dc34a506c675da7357cd191b0cae664dfcfe953a530c21c32",
+            "bytes": 48243
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "81",
+            "official_number": "PO-2027-000013",
+            "sha256": "e7b731cc8e95745ec5e254caf51ff5e1893dd3d0876326e0c028a8f0fd86ba13",
+            "bytes": 48364
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "82",
+            "official_number": "PO-2027-000014",
+            "sha256": "f8363adfed46585a20af70d20d1d521f105f3241cc658ec5161b3cb04aa06762",
+            "bytes": 48640
+        },
+        {
+            "document_type": "purchase_order",
+            "source_id": "83",
+            "official_number": "PO-2027-000015",
+            "sha256": "6d0985e718158eb71d0412934024af39c554122d6b7835d6371cb1aac1ec12d8",
+            "bytes": 48486
+        },
+        {
+            "document_type": "sales_delivery",
+            "source_id": "1",
+            "official_number": "DN-2026-000001",
+            "sha256": "da454a18dcba8ddc76f5ee260116d56bf52e4d10c458426a0406916174e7de6d",
+            "bytes": 45663
+        },
+        {
+            "document_type": "sales_delivery",
+            "source_id": "2",
+            "official_number": "DN-2026-000002",
+            "sha256": "ed63d217f6a926c208b4b8de0b15f4d4d66d56adb1103596dc26afb83bb18f83",
+            "bytes": 45669
+        },
+        {
+            "document_type": "sales_order",
+            "source_id": "1",
+            "official_number": "SO-2026-000001",
+            "sha256": "4c9788e748f2c2a3845a5411bfcd4645ec9efef8d31ec669b7a732e8f4d38c06",
+            "bytes": 47421
+        },
+        {
+            "document_type": "sales_order",
+            "source_id": "2",
+            "official_number": "SO-2026-000002",
+            "sha256": "3307956a41f0d1e25d0ff01e7c15d062d211c7de6af94f710352bbad17dcee17",
+            "bytes": 47423
+        },
+        {
+            "document_type": "supplier_credit_note",
+            "source_id": "1",
+            "official_number": "SCN-2026-000001",
+            "sha256": "4050d9bd2e21d04da1a55129b9744bf660085deb9580fe6df01333accd72d1b5",
+            "bytes": 44336
+        },
+        {
+            "document_type": "supplier_credit_note",
+            "source_id": "3",
+            "official_number": "SCN-2026-000002",
+            "sha256": "6ab013a93315eb090c06cdaff6716a8167eee9f3513aa0acc8ba46ee977a9e6b",
+            "bytes": 44343
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "2",
+            "official_number": "SI-2026-000001",
+            "sha256": "a668f925e7928b23918ceccc4128c322b546c5f872c2ce155d95681e75c00ea4",
+            "bytes": 45601
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "3",
+            "official_number": "SI-2026-000002",
+            "sha256": "154e24f44007a34cde223dd5a83f914f40f25ded122edd3dd08219b49d79f961",
+            "bytes": 45602
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "4",
+            "official_number": "SI-2026-000003",
+            "sha256": "d938797824c4d75299b87be8ee46944158eb811b4cbfca831f6dbf6798e11f44",
+            "bytes": 45598
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "8",
+            "official_number": "SI-2026-000004",
+            "sha256": "92662f6221932669cf44c5c61c0d00c532936c4eb317b0e0cbe63eed7ceef484",
+            "bytes": 45599
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "10",
+            "official_number": "SI-2026-000005",
+            "sha256": "a40d6964b5041b598e38c108c00e14883253618810a2184896f798eec496bbc0",
+            "bytes": 45598
+        },
+        {
+            "document_type": "supplier_invoice",
+            "source_id": "9",
+            "official_number": "SI-2026-000006",
+            "sha256": "96a7eb1b013b4f70ebd9855f4e7ddcdf203ee78eac495a71ef09b627630581f1",
+            "bytes": 45597
+        },
+        {
+            "document_type": "supplier_payment",
+            "source_id": "1",
+            "official_number": "PV-2026-000001",
+            "sha256": "801b0360a6bfa252c812f052deb65e6e3cae0568e1d0245406a7a7bdecde7a0c",
+            "bytes": 42950
+        },
+        {
+            "document_type": "supplier_payment",
+            "source_id": "2",
+            "official_number": "PV-2026-000002",
+            "sha256": "3bc5845d9be3b2045268b5f90b1f917942bcc6c59a1006e6eaf0a8a1af401fe8",
+            "bytes": 42946
+        },
+        {
+            "document_type": "supplier_payment",
+            "source_id": "4",
+            "official_number": "PV-2026-000003",
+            "sha256": "c35268fd6a1b823c6154b1adbe5575cf5699b09218b1bd7d778d049c4620b1fc",
+            "bytes": 42951
+        },
+        {
+            "document_type": "supplier_payment",
+            "source_id": "5",
+            "official_number": "PV-2026-000004",
+            "sha256": "6d83be08318cb108cf28bcd2ff8deafa936fba77800a10587b06f2cabd560085",
+            "bytes": 42959
+        },
+        {
+            "document_type": "treasury_transfer",
+            "source_id": "e76c7665-362a-4505-be5a-734bc739c4e4",
+            "official_number": "TR-2026-000001",
+            "sha256": "9d307615fd265f0b99a7e9172eabd392957de01e568156b9e891e9f07fa6c8d7",
+            "bytes": 43495
+        }
+    ],
+    "read_only": true
+}

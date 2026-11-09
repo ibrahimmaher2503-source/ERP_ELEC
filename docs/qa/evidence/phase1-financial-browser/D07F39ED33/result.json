@@ -1,0 +1,21 @@
+{
+  "result": "FAIL",
+  "run_id": "D07F39ED33",
+  "failure": "/financial/supplier-invoices/10 did not render expected persisted value PH1-RACE-OVBVJVPE.",
+  "checks": [
+    {
+      "login": "authorized synthetic accountant",
+      "user_id": 1,
+      "result": "passed"
+    },
+    {
+      "page": "/financial/supplier-invoices",
+      "viewport": 1440,
+      "persisted_value": "PH1-RACE-OVBVJVPE",
+      "document": 1440,
+      "body": 1440
+    }
+  ],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

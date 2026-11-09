@@ -1,0 +1,27 @@
+PASS user admin cannot authorize another module permission
+PASS self-service gender update changes gender and version only
+PASS self-service gender rejects invalid value
+PASS unauthorized action rejected
+PASS profile settings displays and updates own gender
+PASS managed user created with normalized email, male gender, and hashed password
+PASS user creation does not grant permissions
+PASS managed user edit persisted female gender
+PASS case-insensitive duplicate email rejected
+PASS invalid gender rejected
+PASS stale user edit rejected
+PASS unauthorized action rejected
+PASS scoped user query hides records outside granted branch
+PASS unauthorized action rejected
+PASS deactivation revokes sessions and advances session version
+PASS unauthorized action rejected
+PASS unauthorized action rejected
+PASS unauthorized action rejected
+PASS managed password reset persists and revokes credentials
+PASS access audits contain no password secret
+PASS unauthorized action rejected
+PASS users list renders and creates a managed account
+PASS user details reset and list status actions render and persist
+PASS Fortify credential callback rejects inactive users
+PASS active-account middleware ends an inactive session
+Disposable test transaction rolled back.
+PASS user fixtures removed by rollback

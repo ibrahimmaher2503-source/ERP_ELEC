@@ -1,0 +1,103 @@
+{
+  "experiment": "Loopback PHP built-in single-process server; authenticated CSRF login; protected read-only GET routes; not production capacity.",
+  "completedAt": "2026-11-01T01:12:14.074Z",
+  "completedCohorts": [
+    {
+      "virtualUsers": 5,
+      "requestCount": 15,
+      "elapsedSeconds": 2.88,
+      "throughputPerSecond": 5.2,
+      "medianMs": 920.7,
+      "p95Ms": 1060.8,
+      "statusCounts": {
+        "200": 15
+      },
+      "errors": 0,
+      "timeouts": 0,
+      "phpProcess": {
+        "cpuSecondsBefore": 3.6875,
+        "cpuSecondsAfter": 5.78125,
+        "cpuSecondsDelta": 2.09,
+        "workingSetBytesBefore": 71729152,
+        "workingSetBytesAfter": 75415552
+      },
+      "postgresUngrantLocks": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    {
+      "virtualUsers": 20,
+      "requestCount": 60,
+      "elapsedSeconds": 12.34,
+      "throughputPerSecond": 4.86,
+      "medianMs": 4075.3,
+      "p95Ms": 4261,
+      "statusCounts": {
+        "200": 60
+      },
+      "errors": 0,
+      "timeouts": 0,
+      "phpProcess": {
+        "cpuSecondsBefore": 19.671875,
+        "cpuSecondsAfter": 28.6875,
+        "cpuSecondsDelta": 9.02,
+        "workingSetBytesBefore": 74825728,
+        "workingSetBytesAfter": 75456512
+      },
+      "postgresUngrantLocks": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    {
+      "virtualUsers": 50,
+      "requestCount": 150,
+      "elapsedSeconds": 29.13,
+      "throughputPerSecond": 5.15,
+      "medianMs": 9369.8,
+      "p95Ms": 10135.1,
+      "statusCounts": {
+        "200": 150
+      },
+      "errors": 0,
+      "timeouts": 0,
+      "phpProcess": {
+        "cpuSecondsBefore": 62.671875,
+        "cpuSecondsAfter": 83.890625,
+        "cpuSecondsDelta": 21.22,
+        "workingSetBytesBefore": 74878976,
+        "workingSetBytesAfter": 75599872
+      },
+      "postgresUngrantLocks": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    {
+      "virtualUsers": 100,
+      "requestCount": 300,
+      "elapsedSeconds": 58.23,
+      "throughputPerSecond": 5.15,
+      "medianMs": 18860.2,
+      "p95Ms": 19714.3,
+      "statusCounts": {
+        "200": 291,
+        "ERROR": 9
+      },
+      "errors": 9,
+      "timeouts": 9,
+      "phpProcess": {
+        "cpuSecondsBefore": 160.015625,
+        "cpuSecondsAfter": 202.359375,
+        "cpuSecondsDelta": 42.34,
+        "workingSetBytesBefore": 74850304,
+        "workingSetBytesAfter": 78786560
+      },
+      "postgresUngrantLocks": {
+        "before": 0,
+        "after": 0
+      }
+    }
+  ]
+}

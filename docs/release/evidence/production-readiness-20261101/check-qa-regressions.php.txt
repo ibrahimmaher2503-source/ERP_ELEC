@@ -1,0 +1,8 @@
+PASS QA regression check uses only the exact PostgreSQL .env.testing database
+PASS direct inactive Product create requires M02.product_status
+PASS ordinary Product create defaults to active without M02.product_status
+PASS inactive import preview requires M02.product_status
+PASS active import preview and execution need no M02.product_status
+PASS cleanup delete failure expires preview while retaining source_path and file
+PASS later cleanup retry deletes the retained source and clears source_path
+Disposable QA regression transaction rolled back; fake disk reset.

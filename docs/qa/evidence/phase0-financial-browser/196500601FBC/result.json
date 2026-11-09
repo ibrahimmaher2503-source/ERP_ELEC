@@ -1,0 +1,7 @@
+{
+  "result": "FAIL",
+  "run_id": "196500601FBC",
+  "database": "erp_elec_new_test on private port 55434",
+  "checks": [],
+  "failure": "[2026-10-27 19:48:50] testing.ERROR: Migrations are incomplete (warehouses). {\"exception\":\"[object] (RuntimeException(code: 0): Migrations are incomplete (warehouses). at C:/projects/ERP_ELEC_NEW/tests/E2E/support/prepare-phase0-financial-fixtures.php:26)\n[stacktrace]\n#0 {main}\n\"}"
+}

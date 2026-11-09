@@ -1,0 +1,10 @@
+FAIL RuntimeException: Existing Egyptian demo branch, customer and disabled fixture user required. at C:\projects\ERP_ELEC_NEW\database\factories\MaintenanceRequestFactory.php:20
+#0 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(567): Database\Factories\MaintenanceRequestFactory->definition()
+#1 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(546): Illuminate\Database\Eloquent\Factories\Factory->getRawAttributes(NULL)
+#2 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(530): Illuminate\Database\Eloquent\Factories\Factory->getExpandedAttributes(NULL)
+#3 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Concerns\GuardsAttributes.php(188): Illuminate\Database\Eloquent\Factories\Factory->{closure:Illuminate\Database\Eloquent\Factories\Factory::makeInstance():529}()
+#4 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(529): Illuminate\Database\Eloquent\Model::unguarded(Object(Closure))
+#5 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(442): Illuminate\Database\Eloquent\Factories\Factory->makeInstance(NULL)
+#6 C:\projects\ERP_ELEC_NEW\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Factories\Factory.php(331): Illuminate\Database\Eloquent\Factories\Factory->make(Array, NULL)
+#7 C:\projects\ERP_ELEC_NEW\.tmp\production-readiness-20261101\phase3-maintenance-adapted.php(77): Illuminate\Database\Eloquent\Factories\Factory->create()
+#8 {main}

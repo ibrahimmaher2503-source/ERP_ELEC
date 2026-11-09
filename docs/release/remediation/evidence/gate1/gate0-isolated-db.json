@@ -1,0 +1,10 @@
+{
+  "event": "gate1_private_database_created",
+  "database": "erp_elec_new_test",
+  "host": "127.0.0.1",
+  "port": 49685,
+  "pgdata": ".tmp/master-remediation-20261101/pgdata",
+  "pg_version": "postgres (PostgreSQL) 17.11",
+  "owner_marker": "master-remediation-20261101 Gate1 private PostgreSQL marker",
+  "data_directory_verified": true
+}

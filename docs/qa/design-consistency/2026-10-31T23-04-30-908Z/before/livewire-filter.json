@@ -1,0 +1,12 @@
+{
+  "route": "inventory.dashboard",
+  "viewport": "desktop-1440",
+  "checks": [
+    {
+      "name": "inventory-livewire-filter-journey",
+      "result": "fail",
+      "details": "page.waitForResponse: Timeout 15000ms exceeded while waiting for event \"response\""
+    }
+  ],
+  "livewire_transitions": []
+}

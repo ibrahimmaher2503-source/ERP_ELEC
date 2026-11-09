@@ -8,13 +8,23 @@
 
         <flux:sidebar sticky collapsible="mobile" class="erp-sidebar border-s"
             x-data="{
-                query: '', links: [],
+                query: '', links: [], usage: {},
                 get matches() {
                     const query = this.query.trim().toLocaleLowerCase('ar');
-                    return this.links.filter(link => (link.label + ' ' + link.section).toLocaleLowerCase('ar').includes(query));
+                    return this.links
+                        .filter(link => (link.label + ' ' + link.section).toLocaleLowerCase('ar').includes(query))
+                        .sort((a, b) => (this.usage[b.href] || 0) - (this.usage[a.href] || 0));
+                },
+                loadUsage() {
+                    try { this.usage = JSON.parse(localStorage.getItem('erp-nav-usage') || '{}') || {}; } catch (e) { this.usage = {}; }
+                },
+                hit(href) {
+                    this.usage[href] = (this.usage[href] || 0) + 1;
+                    try { localStorage.setItem('erp-nav-usage', JSON.stringify(this.usage)); } catch (e) {}
                 }
             }"
-            x-init="links = Array.from(new Map(Array.from($refs.navigation.querySelectorAll('a[data-flux-sidebar-item][href]')).map(link => [link.getAttribute('href'), {
+            x-init="loadUsage();
+            links = Array.from(new Map(Array.from($refs.navigation.querySelectorAll('a[data-flux-sidebar-item][href]')).map(link => [link.getAttribute('href'), {
                 href: link.getAttribute('href'),
                 label: link.textContent.trim(),
                 section: link.closest('.erp-nav-section')?.querySelector('h2')?.textContent.trim() ?? ''
@@ -41,7 +51,7 @@
             <nav id="erp-navigation-results" x-cloak x-show="query.trim().length" aria-label="نتائج البحث في الصفحات" class="erp-nav-results">
                 <p role="status" class="px-3 py-2 text-xs text-slate-500" x-text="matches.length ? 'الصفحات المطابقة: ' + matches.length : 'لا توجد صفحات مطابقة'"></p>
                 <template x-for="link in matches" :key="link.href">
-                    <a :href="link.href" class="erp-nav-result">
+                    <a :href="link.href" class="erp-nav-result" @click="hit(link.href)">
                         <span class="block" x-text="link.label"></span>
                         <small class="block text-slate-500" x-show="link.section" x-text="link.section"></small>
                     </a>
@@ -53,7 +63,7 @@
                 </flux:sidebar.item>
 
                 <div class="erp-nav-section grid gap-1">
-                    <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">العمليات التجارية</h2>
+                    <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المبيعات والمشتريات</h2>
                     @if (($quotationNavigation ?? false) || ($salesOrderNavigation ?? false) || ($organizationNavigation['security'] ?? false))
                         <flux:sidebar.group heading="المبيعات" icon="document-text" expandable :expanded="request()->routeIs('quotations.*','sales-orders.*','sales-returns.*')">
                             @if($quotationNavigation ?? false)<flux:sidebar.item icon="document-text" :href="route('quotations.index')" :current="request()->routeIs('quotations.*') && !request()->routeIs('quotations.policy')" wire:navigate>عروض الأسعار</flux:sidebar.item>@elseif($organizationNavigation['security'] ?? false)<flux:sidebar.item icon="shield-check" :href="route('organization.roles')" wire:navigate>تهيئة صلاحيات المبيعات</flux:sidebar.item>@endif
@@ -87,35 +97,16 @@
                         @if(app(\App\Modules\Projects\Application\TenderAccess::class)->branches(auth()->id(),'report'))<flux:sidebar.item :href="route('tenders.reports')" :current="request()->routeIs('tenders.reports')" wire:navigate>تقارير المناقصات</flux:sidebar.item>@endif
                     </flux:sidebar.group>
                     @endif
-                    @if (($customerNavigation ?? false) || ($supplierNavigation ?? false))
-                        <flux:sidebar.group class="erp-nav-parties" heading="العملاء والموردون" icon="users" expandable :expanded="request()->routeIs('customers.*','suppliers.*')">
-                            @if ($customerNavigation ?? false)<flux:sidebar.item icon="user-group" :href="route('customers.index')" :current="request()->routeIs('customers.*')" wire:navigate>العملاء</flux:sidebar.item>@endif
-                            @if ($supplierNavigation ?? false)
-                                <flux:sidebar.item icon="truck" :href="route('suppliers.index')" :current="request()->routeIs('suppliers.index','suppliers.show','suppliers.edit','suppliers.import')" wire:navigate>قائمة الموردين</flux:sidebar.item>
-                                @if (app(\App\Modules\Parties\Application\SupplierAccess::class)->allows(auth()->id(),'M03.supplier_create'))<flux:sidebar.item icon="plus" :href="route('suppliers.create')" :current="request()->routeIs('suppliers.create')" wire:navigate>إضافة مورد</flux:sidebar.item>@endif
-                                @if (app(\App\Modules\Parties\Application\SupplierAccess::class)->allows(auth()->id(),'M03.supplier_category_manage'))<flux:sidebar.item icon="squares-2x2" :href="route('suppliers.categories')" :current="request()->routeIs('suppliers.categories')" wire:navigate>تصنيفات الموردين</flux:sidebar.item>@endif
-                            @endif
-                        </flux:sidebar.group>
-                    @endif
                 </div>
 
                 <div class="erp-nav-section grid gap-1">
-                    <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المخزون والأصناف</h2>
+                    <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المخزون</h2>
                     @if($inventoryNavigation ?? [])
                     <flux:sidebar.group heading="المخزون" icon="archive-box" expandable :expanded="request()->routeIs('inventory.*')">
-                        @foreach(['dashboard'=>'لوحة المخزون','warehouses'=>'المستودعات','balances'=>'الأرصدة','movements'=>'الحركات','reservations'=>'الحجوزات','transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','receipts'=>'الأرصدة الافتتاحية','issues'=>'الصرف'] as $destination=>$label)
+                        @foreach(['dashboard'=>'لوحة المخزون','balances'=>'الأرصدة','receipts'=>'الاستلام والأرصدة الافتتاحية','issues'=>'الصرف','transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','reservations'=>'الحجوزات','movements'=>'سجل الحركات','warehouses'=>'المستودعات'] as $destination=>$label)
                         @if($inventoryNavigation[$destination] ?? false)<flux:sidebar.item :href="route('inventory.'.$destination)" :current="request()->routeIs('inventory.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endif
                         @endforeach
                     </flux:sidebar.group>
-                    @endif
-                    @if (array_filter($productNavigation ?? []))
-                        <flux:sidebar.group class="erp-nav-products" heading="المنتجات" icon="cube" expandable :expanded="request()->routeIs('products.*')">
-                    @foreach (['index'=>'الأصناف','categories'=>'التصنيفات','brands'=>'العلامات التجارية','units'=>'وحدات القياس'] as $destination=>$label)
-                                @if ($productNavigation[$destination] ?? false)
-                                    <flux:sidebar.item :icon="['index' => 'cube', 'categories' => 'rectangle-stack', 'brands' => 'tag', 'units' => 'scale'][$destination]" :href="route('products.'.$destination)" :current="request()->routeIs('products.'.$destination) || ($destination === 'index' && request()->routeIs('products.show','products.edit','products.create','products.import'))" wire:navigate>{{ $label }}</flux:sidebar.item>
-                                @endif
-                            @endforeach
-                        </flux:sidebar.group>
                     @endif
                 </div>
 
@@ -147,23 +138,47 @@
 
                 <div class="erp-nav-section grid gap-1">
                     <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المالية</h2>
+                    @php($orderNav = static function (array $items, array $order): array { uksort($items, static fn ($a, $b) => ((($i = array_search($a, $order, true)) === false ? 99 : $i) <=> (($j = array_search($b, $order, true)) === false ? 99 : $j))); return $items; })
                     @php($accountingNavigation = app(\App\Modules\Accounting\Application\AccountingAccess::class)->navigation(auth()->id()))
                     @if($accountingNavigation)
                     <flux:sidebar.group heading="المحاسبة والمالية" icon="calculator" expandable :expanded="request()->routeIs('accounting.*')">
-                    @foreach($accountingNavigation as $destination=>$label)<flux:sidebar.item :href="route('accounting.'.$destination)" :current="request()->routeIs('accounting.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endforeach
+                    @foreach($orderNav($accountingNavigation, ['dashboard','accounts','journals','ledger','trial-balance','income-statement','balance-sheet','reports','periods','grni','ppv','reconciliation','closing','setup']) as $destination=>$label)<flux:sidebar.item :href="route('accounting.'.$destination)" :current="request()->routeIs('accounting.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endforeach
                     </flux:sidebar.group>
                     @endif
                     @php($financialNavigation = app(\App\Modules\ReceivablesPayables\Application\ReceivablesPayablesAccess::class)->navigation(auth()->id()))
                     @if($financialNavigation)
-                    <flux:sidebar.group heading="الذمم المدينة والدائنة" icon="banknotes" expandable :expanded="request()->routeIs('financial.*')">
-                    @foreach($financialNavigation as $destination=>$item)<flux:sidebar.item :href="route('financial.'.$destination)" :current="request()->routeIs('financial.'.$destination)" wire:navigate>{{ $item[0] }}</flux:sidebar.item>@endforeach
+                    <flux:sidebar.group heading="الذمم المدينة والدائنة" icon="receipt-percent" expandable :expanded="request()->routeIs('financial.*')">
+                    @foreach($orderNav($financialNavigation, ['customer-invoices','ar','advances','supplier-invoices','ap','credit-notes','party-credits','aging']) as $destination=>$item)<flux:sidebar.item :href="route('financial.'.$destination)" :current="request()->routeIs('financial.'.$destination)" wire:navigate>{{ $item[0] }}</flux:sidebar.item>@endforeach
                     </flux:sidebar.group>
                     @endif
                     @php($treasuryNavigation = app(\App\Modules\Treasury\Application\TreasuryAccess::class)->navigation(auth()->id()))
                     @if($treasuryNavigation)
-                    <flux:sidebar.group heading="الخزينة" icon="banknotes" expandable :expanded="request()->routeIs('treasury.*')">
-                    @foreach($treasuryNavigation as $destination=>$item)<flux:sidebar.item :href="route('treasury.'.$destination)" :current="request()->routeIs('treasury.'.$destination)" wire:navigate>{{ $item[0] }}</flux:sidebar.item>@endforeach
+                    <flux:sidebar.group heading="الخزينة" icon="wallet" expandable :expanded="request()->routeIs('treasury.*')">
+                    @foreach($orderNav($treasuryNavigation, ['collections','payments','transfers','statements','accounts']) as $destination=>$item)<flux:sidebar.item :href="route('treasury.'.$destination)" :current="request()->routeIs('treasury.'.$destination)" wire:navigate>{{ $item[0] }}</flux:sidebar.item>@endforeach
                     </flux:sidebar.group>
+                    @endif
+                </div>
+
+                <div class="erp-nav-section grid gap-1">
+                    <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">البيانات الأساسية</h2>
+                    @if (($customerNavigation ?? false) || ($supplierNavigation ?? false))
+                        <flux:sidebar.group class="erp-nav-parties" heading="العملاء والموردون" icon="users" expandable :expanded="request()->routeIs('customers.*','suppliers.*')">
+                            @if ($customerNavigation ?? false)<flux:sidebar.item icon="user-group" :href="route('customers.index')" :current="request()->routeIs('customers.*')" wire:navigate>العملاء</flux:sidebar.item>@endif
+                            @if ($supplierNavigation ?? false)
+                                <flux:sidebar.item icon="truck" :href="route('suppliers.index')" :current="request()->routeIs('suppliers.index','suppliers.show','suppliers.edit','suppliers.import')" wire:navigate>الموردون</flux:sidebar.item>
+                                @if (app(\App\Modules\Parties\Application\SupplierAccess::class)->allows(auth()->id(),'M03.supplier_category_manage'))<flux:sidebar.item icon="squares-2x2" :href="route('suppliers.categories')" :current="request()->routeIs('suppliers.categories')" wire:navigate>تصنيفات الموردين</flux:sidebar.item>@endif
+                                @if (app(\App\Modules\Parties\Application\SupplierAccess::class)->allows(auth()->id(),'M03.supplier_create'))<flux:sidebar.item icon="plus" :href="route('suppliers.create')" :current="request()->routeIs('suppliers.create')" wire:navigate>إضافة مورد</flux:sidebar.item>@endif
+                            @endif
+                        </flux:sidebar.group>
+                    @endif
+                    @if (array_filter($productNavigation ?? []))
+                        <flux:sidebar.group class="erp-nav-products" heading="المنتجات" icon="cube" expandable :expanded="request()->routeIs('products.*')">
+                    @foreach (['index'=>'الأصناف','categories'=>'التصنيفات','brands'=>'العلامات التجارية','units'=>'وحدات القياس'] as $destination=>$label)
+                                @if ($productNavigation[$destination] ?? false)
+                                    <flux:sidebar.item :icon="['index' => 'cube', 'categories' => 'rectangle-stack', 'brands' => 'tag', 'units' => 'scale'][$destination]" :href="route('products.'.$destination)" :current="request()->routeIs('products.'.$destination) || ($destination === 'index' && request()->routeIs('products.show','products.edit','products.create','products.import'))" wire:navigate>{{ $label }}</flux:sidebar.item>
+                                @endif
+                            @endforeach
+                        </flux:sidebar.group>
                     @endif
                 </div>
 

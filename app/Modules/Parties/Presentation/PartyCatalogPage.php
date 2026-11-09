@@ -4,6 +4,7 @@ namespace App\Modules\Parties\Presentation;
 
 use App\Modules\Parties\Domain\SupplierCategory;
 use App\Modules\System\Application\DataOperations\OperationService;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,11 +24,14 @@ abstract class PartyCatalogPage extends Component
 
     public string $country = '';
 
+    #[Session]
     public string $sort = 'code';
 
+    #[Session]
     public string $direction = 'asc';
 
-    public int $perPage = 10;
+    #[Session]
+    public int $perPage = 25;
 
     public array $selected = [];
 
@@ -91,7 +95,7 @@ abstract class PartyCatalogPage extends Component
     public function selectVisible(): void
     {
         $query = $this->orderedQuery();
-        $ids = $query->forPage($this->getPage(), in_array($this->perPage, [5, 10, 25, 50], true) ? $this->perPage : 10)->pluck('id')->all();
+        $ids = $query->forPage($this->getPage(), in_array($this->perPage, [5, 10, 25, 50], true) ? $this->perPage : 25)->pluck('id')->all();
         if ($ids !== []) {
             $allSelected = count(array_intersect(array_map('intval', $this->selected), $ids)) === count($ids);
             $selection = $allSelected ? array_values(array_diff(array_map('intval', $this->selected), $ids)) : array_values(array_unique(array_merge($this->selected, $ids)));
@@ -143,7 +147,7 @@ abstract class PartyCatalogPage extends Component
         }
 
         return view('parties.catalog', [
-            'ui' => $ui, 'records' => $query->paginate(in_array($this->perPage, [5, 10, 25, 50], true) ? $this->perPage : 10),
+            'ui' => $ui, 'records' => $query->paginate(in_array($this->perPage, [5, 10, 25, 50], true) ? $this->perPage : 25),
             'stats' => ['total' => $model::count(), 'active' => $model::where('status', 'active')->count(), 'inactive' => $model::where('status', 'inactive')->count(), 'archived' => $model::where('status', 'archived')->count(), 'new' => $model::where('created_at', '>=', now('Africa/Cairo')->startOfMonth()->utc())->count()],
             'segments' => $ui->supplier ? collect() : $model::whereNotNull('segment')->distinct()->orderBy('segment')->pluck('segment'),
             'categories' => $ui->supplier ? SupplierCategory::withCount('suppliers')->orderBy('name')->get() : collect(),

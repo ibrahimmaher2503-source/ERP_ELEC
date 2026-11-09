@@ -7,6 +7,7 @@ use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Organization\Application\EmployeeActions;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +20,17 @@ final class EmployeesPage extends Component
     public string $branch = '';
 
     public string $statusFilter = '';
+
+    public string $jobFilter = '';
+
+    #[Session]
+    public string $sort = 'code';
+
+    #[Session]
+    public string $direction = 'asc';
+
+    #[Session]
+    public int $perPage = 25;
 
     public bool $editing = false;
 
@@ -43,6 +55,37 @@ final class EmployeesPage extends Component
     public function updatedStatusFilter(): void
     {
         $this->resetPage();
+    }
+
+    public function updatedJobFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage(): void
+    {
+        $this->perPage = in_array($this->perPage, [10, 25, 50, 100], true) ? $this->perPage : 25;
+        $this->resetPage();
+    }
+
+    public function sortBy(string $column): void
+    {
+        abort_unless(in_array($column, ['code', 'name', 'starts_on', 'job_title'], true), 422);
+        $this->direction = $this->sort === $column && $this->direction === 'asc' ? 'desc' : 'asc';
+        $this->sort = $column;
+        $this->resetPage();
+    }
+
+    /** Stops or resumes an employee from the list; the owning action keeps every rule and audit. */
+    public function toggleActive(int $id): void
+    {
+        $r = DB::table('organization_employees')->find($id);
+        abort_unless($r, 404);
+        app(OrganizationApi::class)->authorize(new AuthorizeRequest(auth()->id(), 'M01.employee_manage', (int) $r->branch_id));
+        $data = array_intersect_key((array) $r, ['branch_id' => 1, 'code' => 1, 'name' => 1, 'starts_on' => 1, 'ends_on' => 1, 'job_title' => 1, 'user_id' => 1]);
+        $data['active'] = ! $r->active;
+        app(EmployeeActions::class)->save(auth()->id(), $id, (int) $r->version, $data);
+        session()->flash('status', $r->active ? 'تم إيقاف الموظف.' : 'تم تفعيل الموظف.');
     }
 
     public function cancel(): void
@@ -95,12 +138,18 @@ final class EmployeesPage extends Component
         $branches = $this->branches('M01.employee_view');
         abort_unless($branches, 403);
         $directory = DB::table('organization_employees')->whereIn('branch_id', array_column($branches, 'id'));
-        $stats = (clone $directory)->selectRaw('count(*) as total, count(*) filter (where active) as active, count(*) filter (where not active) as inactive')->first();
+        $today = now('Africa/Cairo')->toDateString();
+        $stats = (clone $directory)->selectRaw('count(*) as total, count(*) filter (where active) as active, count(*) filter (where not active) as inactive, count(*) filter (where user_id is not null) as linked, count(*) filter (where ends_on is not null and ends_on >= ?::date and ends_on <= (?::date + 30)) as ending', [$today, $today])->first();
+        $jobTitles = (clone $directory)->whereNotNull('job_title')->where('job_title', '<>', '')->distinct()->orderBy('job_title')->pluck('job_title');
+        $term = '%'.mb_substr($this->search, 0, 200).'%';
         $rows = $directory
             ->when($this->branch !== '', fn ($q) => $q->where('branch_id', (int) $this->branch))
+            ->when($this->jobFilter !== '', fn ($q) => $q->where('job_title', $this->jobFilter))
             ->when(in_array($this->statusFilter, ['active', 'inactive'], true), fn ($q) => $q->where('active', $this->statusFilter === 'active'))
-            ->when($this->search !== '', fn ($q) => $q->where(fn ($q) => $q->where('name', 'ilike', '%'.mb_substr($this->search, 0, 200).'%')->orWhere('code', 'ilike', '%'.mb_substr($this->search, 0, 200).'%')))->orderBy('code')->paginate(25);
+            ->when($this->search !== '', fn ($q) => $q->where(fn ($q) => $q->where('name', 'ilike', $term)->orWhere('code', 'ilike', $term)->orWhere('job_title', 'ilike', $term)))
+            ->orderBy(in_array($this->sort, ['code', 'name', 'starts_on', 'job_title'], true) ? $this->sort : 'code', $this->direction === 'desc' ? 'desc' : 'asc')->orderBy('id')
+            ->paginate(in_array($this->perPage, [10, 25, 50, 100], true) ? $this->perPage : 25);
 
-        return view('organization.employees', ['rows' => $rows, 'branches' => $branches, 'stats' => $stats, 'manageBranches' => $this->branches('M01.employee_manage')]);
+        return view('organization.employees', ['rows' => $rows, 'branches' => $branches, 'stats' => $stats, 'jobTitles' => $jobTitles, 'today' => $today, 'manageBranches' => $this->branches('M01.employee_manage')]);
     }
 }

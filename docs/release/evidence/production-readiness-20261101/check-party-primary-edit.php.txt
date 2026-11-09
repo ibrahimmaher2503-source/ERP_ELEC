@@ -1,0 +1,9 @@
+PASS Customer action edit preserves the existing primary contact
+PASS Customer action edit preserves the existing primary address
+PASS Supplier action edit preserves the existing primary contact
+PASS Supplier action edit preserves the existing primary address
+PASS Customer form edit preserves its primary contact
+PASS Customer form edit preserves its primary billing and shipping addresses
+PASS Supplier form edit preserves its primary contact
+PASS Supplier form edit preserves its primary registered and office addresses
+Customer and Supplier primary-edit regression checks passed.

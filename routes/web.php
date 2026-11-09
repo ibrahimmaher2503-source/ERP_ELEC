@@ -23,6 +23,7 @@ use App\Modules\Organization\Presentation\BranchDetailsPage;
 use App\Modules\Organization\Presentation\BranchesPage;
 use App\Modules\Organization\Presentation\CompanyLogoController;
 use App\Modules\Organization\Presentation\CompanyPage;
+use App\Modules\Organization\Presentation\EmployeeProfilePage;
 use App\Modules\Organization\Presentation\EmployeesPage;
 use App\Modules\Organization\Presentation\RoleDetailsPage;
 use App\Modules\Organization\Presentation\RolesPage;
@@ -127,6 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('attendance', AttendancePage::class)->name('attendance.index');
     Route::get('attendance/{employee}/{month}/export', AttendanceExportController::class)->whereNumber('employee')->where('month', '[0-9]{4}-[0-9]{2}')->name('attendance.export');
     Route::get('organization/employees', EmployeesPage::class)->name('organization.employees');
+    Route::get('organization/employees/{employee}', EmployeeProfilePage::class)->whereNumber('employee')->name('organization.employees.show');
     Route::get('products/{product}/prices', ProductPricesPage::class)->whereNumber('product')->name('products.prices');
     Route::get('purchasing', PurchasingDashboard::class)->name('purchasing.dashboard');
     Route::get('purchasing/export/{entity}', PurchasingExportController::class)->name('purchasing.export');

@@ -1,0 +1,8 @@
+{
+  "result": "FAIL",
+  "run_id": "F4C71F910D",
+  "failure": "Source fixture returned no JSON evidence: [2026-10-28 20:54:23] testing.ERROR: Refusing to replace an existing activation state in the isolated test database. {\"exception\":\"[object] (RuntimeException(code: 0): Refusing to replace an existing activation state in the isolated test database. at C:/projects/ERP_ELEC_NEW/tests/Support/check-phase2-projects-financial.php:157)\n[stacktrace]\n#0 {main}\n\"} \n",
+  "checks": [],
+  "browser_errors": [],
+  "livewire_traffic": []
+}

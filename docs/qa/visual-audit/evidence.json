@@ -1,0 +1,3143 @@
+{
+  "generated_at": "2026-10-31T21:56:01.001Z",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "browser": "Microsoft Edge via Playwright",
+  "route_registry_source": "php artisan route:list --json",
+  "route_inventory_count": 140,
+  "route_registry_eligible_names": 145,
+  "selected_screen_count": 30,
+  "screenshots": [
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 1132,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-desktop-1440.png"
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 716,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-desktop-1440.png"
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 886,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-desktop-1440.png"
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 736,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-desktop-1440.png"
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 890,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-desktop-1440.png"
+    },
+    {
+      "route": "inventory.dashboard",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 976,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [
+          {
+            "tag": "input",
+            "type": "text",
+            "name": "search"
+          }
+        ],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.dashboard-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.dashboard",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 719,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.dashboard-desktop-1440.png"
+    },
+    {
+      "route": "products.create",
+      "module": "M02 Products",
+      "url": "/products/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 754,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/products.create-desktop-1440.png"
+    },
+    {
+      "route": "projects.create",
+      "module": "M07 Projects",
+      "url": "/projects/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 769,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 4,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/projects.create-desktop-1440.png"
+    },
+    {
+      "route": "purchasing.dashboard",
+      "module": "M05 Purchasing",
+      "url": "/purchasing",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 812,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/purchasing.dashboard-desktop-1440.png"
+    },
+    {
+      "route": "quotations.create",
+      "module": "M04 Sales",
+      "url": "/quotations/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 818,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 12,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/quotations.create-desktop-1440.png"
+    },
+    {
+      "route": "tenders.create",
+      "module": "M07 Projects (Tenders)",
+      "url": "/tenders/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 808,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 2,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/tenders.create-desktop-1440.png"
+    },
+    {
+      "route": "treasury.movements.show",
+      "module": "M13 Treasury",
+      "url": "/treasury/movements/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 805,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 1,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/treasury.movements.show-desktop-1440.png"
+    },
+    {
+      "route": "workshops.dashboard",
+      "module": "M09 WorkshopRepairs",
+      "url": "/workshops/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 724,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 8,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/workshops.dashboard-desktop-1440.png"
+    },
+    {
+      "route": "customers.edit",
+      "module": "M03 Parties",
+      "url": "/customers/1211/edit",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 765,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.edit-desktop-1440.png"
+    },
+    {
+      "route": "customers.index",
+      "module": "M03 Parties",
+      "url": "/customers",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 1075,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.index-desktop-1440.png"
+    },
+    {
+      "route": "customers.show",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 799,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 12,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.show-desktop-1440.png"
+    },
+    {
+      "route": "financial.ap",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/ap",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 703,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.ap-desktop-1440.png"
+    },
+    {
+      "route": "financial.ar",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/ar",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 780,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.ar-desktop-1440.png"
+    },
+    {
+      "route": "financial.credit-notes",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/credit-notes",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 627,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 10,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.credit-notes-desktop-1440.png"
+    },
+    {
+      "route": "financial.customer-invoices",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/customer-invoices",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 685,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 11,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.customer-invoices-desktop-1440.png"
+    },
+    {
+      "route": "financial.invoices.show",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/customer-invoices/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 652,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.invoices.show-desktop-1440.png"
+    },
+    {
+      "route": "financial.supplier-invoices",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/supplier-invoices",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 814,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 11,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.supplier-invoices-desktop-1440.png"
+    },
+    {
+      "route": "inventory.document.create",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/adjustment/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 853,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [
+          {
+            "tag": "input",
+            "type": "text",
+            "name": "productSearch"
+          }
+        ],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.document.create-desktop-1440.png"
+    },
+    {
+      "route": "inventory.document.show",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/adjustment/9",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 804,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 18,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.document.show-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.index",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 706,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.index-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.reports",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/reports",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 737,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.reports-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.requests.create",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/requests/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 718,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.requests.create-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.requests.show",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/requests/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 891,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 8,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.requests.show-desktop-1440.png"
+    },
+    {
+      "route": "maintenance.work-orders.create",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/work-orders/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 800,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.work-orders.create-desktop-1440.png"
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 741,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-desktop-1366.png"
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 656,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-desktop-1366.png"
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 822,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-desktop-1366.png"
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 627,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-desktop-1366.png"
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 758,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-desktop-1366.png"
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 679,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-tablet-768.png"
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 612,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-tablet-768.png"
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 725,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-tablet-768.png"
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 581,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-tablet-768.png"
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 654,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-tablet-768.png"
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 787,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-mobile-390.png"
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 617,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-mobile-390.png"
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 715,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-mobile-390.png"
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 544,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-mobile-390.png"
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 943,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-mobile-390.png"
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 639,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-mobile-360.png"
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 591,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-mobile-360.png"
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 838,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-mobile-360.png"
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 578,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-mobile-360.png"
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 616,
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-mobile-360.png"
+    }
+  ],
+  "checks": [
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 1132,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 716,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 886,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 736,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 890,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "inventory.dashboard",
+      "module": "M06 Inventory",
+      "url": "/inventory",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 976,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [
+          {
+            "tag": "input",
+            "type": "text",
+            "name": "search"
+          }
+        ],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.dashboard",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 719,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "products.create",
+      "module": "M02 Products",
+      "url": "/products/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 754,
+      "screenshot": ".tmp/visual-audit/screenshots/products.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "projects.create",
+      "module": "M07 Projects",
+      "url": "/projects/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 769,
+      "screenshot": ".tmp/visual-audit/screenshots/projects.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 4,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "purchasing.dashboard",
+      "module": "M05 Purchasing",
+      "url": "/purchasing",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 812,
+      "screenshot": ".tmp/visual-audit/screenshots/purchasing.dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "quotations.create",
+      "module": "M04 Sales",
+      "url": "/quotations/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 818,
+      "screenshot": ".tmp/visual-audit/screenshots/quotations.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 12,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "tenders.create",
+      "module": "M07 Projects (Tenders)",
+      "url": "/tenders/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 808,
+      "screenshot": ".tmp/visual-audit/screenshots/tenders.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 2,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "treasury.movements.show",
+      "module": "M13 Treasury",
+      "url": "/treasury/movements/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 805,
+      "screenshot": ".tmp/visual-audit/screenshots/treasury.movements.show-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 1,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "workshops.dashboard",
+      "module": "M09 WorkshopRepairs",
+      "url": "/workshops/dashboard",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 724,
+      "screenshot": ".tmp/visual-audit/screenshots/workshops.dashboard-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 8,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.edit",
+      "module": "M03 Parties",
+      "url": "/customers/1211/edit",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 765,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.edit-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.index",
+      "module": "M03 Parties",
+      "url": "/customers",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 1075,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.index-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.show",
+      "module": "M03 Parties",
+      "url": "/customers/1211",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 799,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.show-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 12,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.ap",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/ap",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 703,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.ap-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.ar",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/ar",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 780,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.ar-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.credit-notes",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/credit-notes",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 627,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.credit-notes-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 10,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.customer-invoices",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/customer-invoices",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 685,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.customer-invoices-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 11,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.invoices.show",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/customer-invoices/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 652,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.invoices.show-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.supplier-invoices",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/supplier-invoices",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 814,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.supplier-invoices-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 11,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "inventory.document.create",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/adjustment/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 853,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.document.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 20,
+        "unlabeled_fields": [
+          {
+            "tag": "input",
+            "type": "text",
+            "name": "productSearch"
+          }
+        ],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "inventory.document.show",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/adjustment/9",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 804,
+      "screenshot": ".tmp/visual-audit/screenshots/inventory.document.show-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 18,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.index",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 706,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.index-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.reports",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/reports",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 737,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.reports-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 13,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.requests.create",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/requests/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 718,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.requests.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.requests.show",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/requests/1",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 891,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.requests.show-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 8,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "maintenance.work-orders.create",
+      "module": "M08 FieldMaintenance",
+      "url": "/maintenance/work-orders/create",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 800,
+      "screenshot": ".tmp/visual-audit/screenshots/maintenance.work-orders.create-desktop-1440.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 5,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 741,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-desktop-1366.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 656,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-desktop-1366.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 822,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-desktop-1366.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 627,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-desktop-1366.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "desktop-1366",
+        "width": 1366,
+        "height": 768
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 758,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-desktop-1366.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 1366,
+        "viewport_width": 1366,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 679,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-tablet-768.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 612,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-tablet-768.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 725,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-tablet-768.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 581,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-tablet-768.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "tablet-768",
+        "width": 768,
+        "height": 1024
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 654,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-tablet-768.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 768,
+        "viewport_width": 768,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 787,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-mobile-390.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 617,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-mobile-390.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 715,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-mobile-390.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 544,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-mobile-390.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 943,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-mobile-390.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "accounting.dashboard",
+      "module": "M11 Accounting",
+      "url": "/accounting/dashboard",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 639,
+      "screenshot": ".tmp/visual-audit/screenshots/accounting.dashboard-mobile-360.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 16,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "appearance.edit",
+      "module": "M01 Organization",
+      "url": "/settings/appearance",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 591,
+      "screenshot": ".tmp/visual-audit/screenshots/appearance.edit-mobile-360.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 3,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "customers.create",
+      "module": "M03 Parties",
+      "url": "/customers/create",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 838,
+      "screenshot": ".tmp/visual-audit/screenshots/customers.create-mobile-360.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 6,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "dashboard",
+      "module": "M17 System",
+      "url": "/dashboard",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 578,
+      "screenshot": ".tmp/visual-audit/screenshots/dashboard-mobile-360.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 0,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    },
+    {
+      "route": "financial.aging",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging",
+      "viewport": {
+        "name": "mobile-360",
+        "width": 360,
+        "height": 800
+      },
+      "state": "normal",
+      "http_status": 200,
+      "duration_ms": 616,
+      "screenshot": ".tmp/visual-audit/screenshots/financial.aging-mobile-360.png",
+      "checks": {
+        "dir": "rtl",
+        "lang": "ar",
+        "overflow": false,
+        "scroll_width": 360,
+        "viewport_width": 360,
+        "broken_images": [],
+        "sidebar": true,
+        "main": true,
+        "primary_actions": 9,
+        "unlabeled_fields": [],
+        "heading": true
+      },
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "navigation_error": null
+    }
+  ],
+  "gaps": [
+    "permission-denied, empty, validation and destructive flows were not exercised; no safe existing fixture state was selected for them"
+  ]
+}

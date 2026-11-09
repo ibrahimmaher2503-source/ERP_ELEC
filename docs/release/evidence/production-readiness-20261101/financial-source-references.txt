@@ -1,0 +1,21 @@
+app/Modules/ReceivablesPayables/Application/Contracts/ReceivablesPayablesApi.php:59:    public function reconciliationValues(int $actor, array $branchIds): array;
+app/Modules/Purchasing/Application/Contracts/PurchasingApi.php:21:    public function grniValue(int $actor, array $branchIds): string;
+app/Modules/Accounting/Application/JournalPosting.php:25:        $protected = DB::table('accounting_account_mappings')->whereIn('purpose', ['inventory', 'inventory_transit', 'grni', 'ap', 'cash', 'bank', 'receivable'])->pluck('account_id')->all();
+app/Modules/Accounting/Application/JournalPosting.php:26:        if (DB::table('accounting_journal_lines')->where('journal_id', $journal->id)->whereIn('account_id', $protected)->exists()) {
+app/Modules/Accounting/Application/FinancialActivation.php:30:        'customer_advance' => ['دفعات مقدمة من العملاء', 'liability'],
+app/Modules/Inventory/Application/Contracts/InventoryApi.php:72:    public function financialValue(int $actor, array $branchIds): string;
+app/Modules/Accounting/Application/FinancialReports.php:16:        $branches = $this->branches($actor, $branch);
+app/Modules/Accounting/Application/FinancialReports.php:28:        $branches = $this->branches($actor, $branch);
+app/Modules/Accounting/Application/FinancialReports.php:56:        $branches = $this->branches($actor, $branch);
+app/Modules/Accounting/Application/FinancialReports.php:62:        $subledger = app(ReceivablesPayablesApi::class)->reconciliationValues($actor, $branches);
+app/Modules/Accounting/Application/FinancialReports.php:65:        $grni = app(PurchasingApi::class)->grniValue($actor, $branches);
+app/Modules/Accounting/Application/FinancialReports.php:67:        $fifo = app(InventoryApi::class)->financialValue($actor, $branches);
+app/Modules/Accounting/Application/FinancialReports.php:68:        $treasury = app(TreasuryApi::class)->reconciliationValues($actor, $branches, $to);
+app/Modules/Accounting/Application/FinancialReports.php:77:        if (isset($mapping['customer_advance'])) {
+app/Modules/Accounting/Application/FinancialReports.php:78:            $rows[] = ['key' => 'customer_advance', 'label' => 'دفعات العملاء المقدمة مقابل سجل الذمم',
+app/Modules/Accounting/Application/FinancialReports.php:79:                'gl' => bcsub('0', $gl('customer_advance'), 2), 'source' => $subledger['customer_advances']];
+app/Modules/Accounting/Application/FinancialReports.php:91:        $branches = $this->branches($actor, $branch);
+app/Modules/Accounting/Application/FinancialReports.php:96:    public function closePeriod(int $actor, int $period): void
+app/Modules/Accounting/Application/FinancialReports.php:105:            $branches = app(AccountingAccess::class)->branches($actor, 'report_view');
+app/Modules/Accounting/Application/FinancialReports.php:115:    private function branches(int $actor, ?int $branch): array
+app/Modules/Accounting/Application/FinancialReports.php:117:        $allowed = array_column(app(AccountingAccess::class)->branches($actor, 'report_view'), 'id');

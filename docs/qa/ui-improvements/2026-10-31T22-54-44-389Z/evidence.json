@@ -1,0 +1,670 @@
+{
+  "run_id": "2026-10-31T22-54-44-389Z",
+  "database": {
+    "name": "erp_elec_new_test",
+    "port": 55461
+  },
+  "route_cases": [
+    {
+      "name": "dashboard",
+      "variant": "default",
+      "module": "M17 System",
+      "url": "/dashboard"
+    },
+    {
+      "name": "customers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/customers/1211"
+    },
+    {
+      "name": "suppliers.show",
+      "variant": "default",
+      "module": "M03 Parties",
+      "url": "/suppliers/612"
+    },
+    {
+      "name": "inventory.dashboard",
+      "variant": "default",
+      "module": "M06 Inventory",
+      "url": "/inventory"
+    },
+    {
+      "name": "inventory.document.create",
+      "variant": "opening",
+      "module": "M06 Inventory",
+      "url": "/inventory/documents/opening/create"
+    },
+    {
+      "name": "financial.aging",
+      "variant": "default",
+      "module": "M12 ReceivablesPayables",
+      "url": "/financial/aging"
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "desktop-1366",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "name": "tablet-768",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "mobile-390",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "mobile-360",
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "read_only_interactions": true,
+  "pages": [],
+  "interactions": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "checks": [
+        {
+          "name": "workspace-five-filters-fit-viewport",
+          "result": "pass",
+          "details": [
+            {
+              "text": "الكل",
+              "left": 269.078125,
+              "right": 321.390625,
+              "visible": true
+            },
+            {
+              "text": "تجاري",
+              "left": 206.46875,
+              "right": 265.078125,
+              "visible": true
+            },
+            {
+              "text": "تشغيلي",
+              "left": 134.4375,
+              "right": 202.46875,
+              "visible": true
+            },
+            {
+              "text": "مالي",
+              "left": 78.875,
+              "right": 130.4375,
+              "visible": true
+            },
+            {
+              "text": "إدارة",
+              "left": 25,
+              "right": 74.875,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "name": "workspace-filter-تجاري",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "titles": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-تشغيلي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "titles": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-مالي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "titles": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-إدارة",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-management-routes-match-sidebar",
+          "result": "pass",
+          "details": {
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ]
+          }
+        },
+        {
+          "name": "workspace-filter-reset",
+          "result": "pass",
+          "details": {
+            "expected_count": 18,
+            "restored_count": 18,
+            "wait_error": null
+          }
+        },
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        },
+        {
+          "name": "no-dashboard-js-errors",
+          "result": "pass",
+          "details": []
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "checks": [
+        {
+          "name": "workspace-five-filters-fit-viewport",
+          "result": "pass",
+          "details": [
+            {
+              "text": "الكل",
+              "left": 324.6875,
+              "right": 369,
+              "visible": true
+            },
+            {
+              "text": "تجاري",
+              "left": 247.171875,
+              "right": 297.78125,
+              "visible": true
+            },
+            {
+              "text": "تشغيلي",
+              "left": 160.234375,
+              "right": 220.265625,
+              "visible": true
+            },
+            {
+              "text": "مالي",
+              "left": 89.78125,
+              "right": 133.34375,
+              "visible": true
+            },
+            {
+              "text": "إدارة",
+              "left": 21,
+              "right": 62.875,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "name": "workspace-filter-تجاري",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "titles": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-تشغيلي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "titles": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-مالي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "titles": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-إدارة",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-management-routes-match-sidebar",
+          "result": "pass",
+          "details": {
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ]
+          }
+        },
+        {
+          "name": "workspace-filter-reset",
+          "result": "pass",
+          "details": {
+            "expected_count": 18,
+            "restored_count": 18,
+            "wait_error": null
+          }
+        },
+        {
+          "name": "mobile-drawer-opens",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        },
+        {
+          "name": "mobile-drawer-closes",
+          "result": "pass",
+          "details": {
+            "collapsed_mobile": true,
+            "sidebar_bounds": {
+              "x": 140,
+              "y": 0,
+              "width": 250,
+              "height": 844
+            },
+            "backdrop_click_x": 5
+          }
+        },
+        {
+          "name": "no-dashboard-js-errors",
+          "result": "pass",
+          "details": []
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "checks": [
+        {
+          "name": "workspace-five-filters-fit-viewport",
+          "result": "pass",
+          "details": [
+            {
+              "text": "الكل",
+              "left": 294.6875,
+              "right": 339,
+              "visible": true
+            },
+            {
+              "text": "تجاري",
+              "left": 224.671875,
+              "right": 275.28125,
+              "visible": true
+            },
+            {
+              "text": "تشغيلي",
+              "left": 145.234375,
+              "right": 205.265625,
+              "visible": true
+            },
+            {
+              "text": "مالي",
+              "left": 82.28125,
+              "right": 125.84375,
+              "visible": true
+            },
+            {
+              "text": "إدارة",
+              "left": 21,
+              "right": 62.875,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "name": "workspace-filter-تجاري",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "titles": [
+              "العملاء",
+              "الموردون",
+              "عروض الأسعار",
+              "أوامر البيع"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-تشغيلي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "titles": [
+              "الأصناف والمنتجات",
+              "المشتريات",
+              "المخزون",
+              "المشروعات",
+              "المناقصات",
+              "الصيانة الميدانية",
+              "الورش والإصلاح"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-مالي",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "titles": [
+              "المحاسبة",
+              "الذمم والفواتير",
+              "الخزينة"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-filter-إدارة",
+          "result": "pass",
+          "details": {
+            "active": "true",
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "wait_error": null
+          }
+        },
+        {
+          "name": "workspace-management-routes-match-sidebar",
+          "result": "pass",
+          "details": {
+            "expected": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ],
+            "titles": [
+              "الشركة",
+              "الفروع",
+              "المستخدمون",
+              "الأدوار والصلاحيات"
+            ]
+          }
+        },
+        {
+          "name": "workspace-filter-reset",
+          "result": "pass",
+          "details": {
+            "expected_count": 18,
+            "restored_count": 18,
+            "wait_error": null
+          }
+        },
+        {
+          "name": "mobile-drawer-opens",
+          "result": "pass",
+          "details": null
+        },
+        {
+          "name": "nav-search-keyboard-filter",
+          "result": "pass",
+          "details": [
+            "لوحة المخزون"
+          ]
+        },
+        {
+          "name": "nav-search-escape-reset",
+          "result": "pass",
+          "details": {
+            "value": "",
+            "results_hidden": true
+          }
+        },
+        {
+          "name": "keyboard-focus-visible",
+          "result": "pass",
+          "details": {
+            "focused": true,
+            "outline": "solid",
+            "border": "rgb(37, 99, 235)"
+          }
+        },
+        {
+          "name": "mobile-drawer-closes",
+          "result": "pass",
+          "details": {
+            "collapsed_mobile": true,
+            "sidebar_bounds": {
+              "x": 110,
+              "y": 0,
+              "width": 250,
+              "height": 800
+            },
+            "backdrop_click_x": 5
+          }
+        },
+        {
+          "name": "no-dashboard-js-errors",
+          "result": "pass",
+          "details": []
+        }
+      ],
+      "console_errors": []
+    }
+  ],
+  "gaps": []
+}

@@ -1,0 +1,22 @@
+{
+    "captured_utc": "2026-11-01T01:26:07+00:00",
+    "database": "erp_elec_new",
+    "host": "127.0.0.1",
+    "port": 5443,
+    "transaction_read_only": true,
+    "migration_count": 92,
+    "latest_migration": "2026_10_31_198000_make_tender_guard_refresh_safe",
+    "activation": {
+        "go_live_date": null,
+        "activated": false,
+        "tax_validated": false
+    },
+    "selected_counts": {
+        "accounting_journals": 0,
+        "inventory_movements": 0,
+        "rp_customer_invoices": 0,
+        "rp_supplier_invoices": 0,
+        "treasury_movements": 0
+    },
+    "secrets_emitted": false
+}

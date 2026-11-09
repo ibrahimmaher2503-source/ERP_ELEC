@@ -1,0 +1,46 @@
+{
+    "result": "PASS",
+    "read_only": true,
+    "database": {
+        "name": "erp_elec_new",
+        "host": "127.0.0.1\/32",
+        "port": 5443
+    },
+    "projects_1_2_3": [
+        {
+            "id": 1,
+            "status": "draft",
+            "version": 1
+        },
+        {
+            "id": 2,
+            "status": "draft",
+            "version": 1
+        },
+        {
+            "id": 3,
+            "status": "draft",
+            "version": 1
+        }
+    ],
+    "accounting_activation": {
+        "go_live_date": null,
+        "activated_at": null
+    },
+    "m08_demo": {
+        "request_status": "draft",
+        "work_order_status": "draft",
+        "planned_unstarted_visits": 1
+    },
+    "preserved_counts": {
+        "stock_movements": 0,
+        "posted_journals": 0,
+        "customer_invoices": 0,
+        "supplier_invoices": 0,
+        "treasury_movements": 0,
+        "maintenance_labor_entries": 0,
+        "maintenance_part_issues": 0,
+        "maintenance_completions": 0,
+        "direct_m08_user_grants": 0
+    }
+}

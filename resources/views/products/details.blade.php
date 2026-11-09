@@ -39,7 +39,7 @@
                         <dl class="mt-5 grid gap-x-8 sm:grid-cols-2">
                             <x-erp.information-row label="اسم الصنف">{{ $product->name }}</x-erp.information-row>
                             @if ($product->name_en)<x-erp.information-row label="الاسم بالإنجليزية"><bdi>{{ $product->name_en }}</bdi></x-erp.information-row>@endif
-                            <x-erp.information-row label="رمز الصنف (SKU)"><bdi>{{ $product->sku }}</bdi></x-erp.information-row>
+                            <x-erp.information-row label="رمز الصنف"><bdi>{{ $product->sku }}</bdi></x-erp.information-row>
                             <x-erp.information-row label="الباركود"><bdi>{{ $product->barcode ?: 'غير مسجل' }}</bdi></x-erp.information-row>
                             <x-erp.information-row label="التصنيف">{{ $product->category?->name ?: 'بدون تصنيف' }}</x-erp.information-row>
                             <x-erp.information-row label="العلامة التجارية">{{ $product->brand?->name ?: 'غير محددة' }}</x-erp.information-row>
@@ -113,7 +113,7 @@
 
                     <section x-show="activeTab === 'prices'" x-cloak style="display: none" aria-label="الأسعار">
                         <flux:heading size="lg">الأسعار</flux:heading>
-                        <div class="mt-4"><x-ui.empty-state title="الأسعار تُدار في صفحة الأسعار" description="تظهر الأسعار المعتمدة وسجلها في صفحة أسعار الصنف." icon="banknotes">@if(\Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $product->id)" size="sm" wire:navigate>فتح صفحة الأسعار</flux:button>@endif</x-ui.empty-state></div>
+                        <div class="mt-4"><x-ui.empty-state title="الأسعار تُدار في صفحة الأسعار" description="تظهر الأسعار المعتمدة وسجلها في صفحة أسعار الصنف." icon="banknotes">@if(\Illuminate\Support\Facades\Route::has('products.prices') && app(\App\Modules\Products\Application\ProductAccess::class)->allows(auth()->id(), 'M02.price_view'))<flux:button :href="route('products.prices', $product->id)" size="sm" wire:navigate>فتح صفحة الأسعار</flux:button>@endif</x-ui.empty-state></div>
                     </section>
 
                     <section x-show="activeTab === 'inventory'" x-cloak style="display: none" aria-label="المخزون">
@@ -152,7 +152,7 @@
                 <div class="mt-5 border-t border-slate-100 pt-4">
                     <div class="flex items-start justify-between gap-3"><h2 class="font-semibold text-slate-900">{{ $product->name }}</h2><x-erp.status-badge :active="$product->active" /></div>
                     <dl class="mt-4 space-y-3 text-sm">
-                        <div class="flex justify-between gap-3"><dt class="text-slate-500">SKU</dt><dd class="font-medium"><bdi>{{ $product->sku }}</bdi></dd></div>
+                        <div class="flex justify-between gap-3"><dt class="text-slate-500">رمز الصنف</dt><dd class="font-medium"><bdi>{{ $product->sku }}</bdi></dd></div>
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">التصنيف</dt><dd class="text-end font-medium">{{ $product->category?->name ?: '—' }}</dd></div>
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">الوحدة الأساسية</dt><dd class="text-end font-medium">{{ $product->baseUnit?->name ?: '—' }}</dd></div>
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">النوع</dt><dd class="text-end font-medium">{{ $kindLabels[$product->kind] ?? '—' }}</dd></div>

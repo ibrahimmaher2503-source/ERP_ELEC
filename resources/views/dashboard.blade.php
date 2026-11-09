@@ -60,9 +60,9 @@
     $metricLabels = [
         'orders' => 'عدد الأوامر', 'draft' => 'مسودات', 'total' => 'الإجمالي',
         'active' => 'نشطة', 'submitted' => 'مقدمة', 'open' => 'مفتوحة',
-        'revenue' => 'الإيراد EGP', 'expenses' => 'المصروف EGP', 'net' => 'صافي النتيجة EGP',
-        'customer_invoiced' => 'فواتير العملاء EGP', 'supplier_invoiced' => 'فواتير الموردين EGP',
-        'bank' => 'البنك EGP', 'cash' => 'النقدية EGP',
+        'revenue' => 'الإيراد ج.م', 'expenses' => 'المصروف ج.م', 'net' => 'صافي النتيجة ج.م',
+        'customer_invoiced' => 'فواتير العملاء ج.م', 'supplier_invoiced' => 'فواتير الموردين ج.م',
+        'bank' => 'البنك ج.م', 'cash' => 'النقدية ج.م',
     ];
 @endphp
 

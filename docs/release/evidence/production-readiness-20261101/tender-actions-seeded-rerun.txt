@@ -1,0 +1,58 @@
+PASS Administrator role exists in the isolated fixture schema
+PASS Existing active customer and catalog product are available for the isolated handoff fixture
+PASS Tender creation saves an identified draft with an existing customer and no bid, submission, or award
+PASS Tender viewing is denied for a different active branch outside the actor scope (HTTP 403)
+PASS Exact creation-key replay returns the original tender without a duplicate row
+PASS Same creation key rejects a changed tender payload (HTTP 409)
+PASS Normalized issuer and external reference reject a second tender identity (HTTP 409)
+PASS Tender date validation rejects a technical deadline after the final submission deadline (HTTP 422)
+PASS Tender state transition increments its optimistic concurrency version
+PASS Stale tender version cannot overwrite a later state transition (HTTP 409)
+PASS Only the accepted tender creation and review transition produce lifecycle rows
+PASS A direct branch permission grant cannot bypass a missing user branch scope on a tender action (HTTP 403)
+PASS Tender and Workshop branch selectors and queries intersect direct grants with actual active branch scopes
+PASS A direct M09 branch view grant cannot bypass missing user branch scope on a workshop action (HTTP 403)
+PASS Granting real branch scope restores both modules’ direct-granted selectors, queries, and action visibility
+PASS Tender technical evidence is uploaded to isolated private storage and bound to its source
+PASS Technical BOQ is an immutable hashed external line without an invented catalog product
+PASS Tender technical tab renders the current immutable revision and its editable technical form
+PASS Tender technical factory persists a real tender relationship and hashed study without inventing approval, bid pricing, or submission
+PASS Real M02 actions persist a synthetic 1-box-to-10-pieces conversion without creating any sale-price approval
+PASS Catalog-mapped tender BOQ rejects an omitted M02 unit instead of assuming the base unit (HTTP 422)
+PASS Catalog-mapped tender BOQ rejects a unit that is not linked to the selected product (HTTP 422)
+PASS Rejected mapped-unit proposals leave no partial technical revision
+PASS Mapped tender BOQ freezes the actual M02 nonbase conversion and converted quantity
+PASS Financial pricing retains the selected nonbase M02 unit and frozen conversion, with no fabricated approved price
+PASS Database trigger rejects direct technical revision mutation inside a savepoint while preserving the outer transaction
+PASS Tender technical maker cannot approve their own revision (HTTP 403)
+PASS A scoped account without tender authority cannot approve the technical revision (HTTP 403)
+PASS Financial worksheet uses real dated M11 tax on the unmapped BOQ, exact decimal costs, and creates no journal
+PASS Tender financial tab renders the current immutable revision and its editable financial form
+PASS Database trigger rejects direct financial revision mutation inside a savepoint while preserving the outer transaction
+PASS Tender financial maker cannot approve their own revision (HTTP 403)
+PASS Issuing the approved bid creates a private official document but does not claim that the tender was submitted
+PASS Unprivileged scoped user cannot download private tender attachments (HTTP 403)
+PASS Document reader without financial-view authority cannot download a private submission receipt (HTTP 403)
+PASS Unprivileged scoped user cannot download the private issued tender PDF (HTTP 403)
+PASS Document reader without financial-view authority cannot download the private issued tender PDF (HTTP 403)
+PASS Tender submission is denied after its actual final submission deadline (HTTP 409)
+PASS Expired submission leaves no submission record or state transition
+PASS Submission requires the issued bid PDF and a separately classified real submission receipt
+PASS Tender submission creation key cannot be replayed with a different payload (HTTP 409)
+PASS Award outcome is supported by separate evidence and links to the actual submitted bid
+PASS Tender handoff rejects M10 contract conversion while its owner capability is unavailable (HTTP 422)
+PASS Tender guarantee is an operational record with private evidence and no fabricated payment or journal
+PASS Project handoff rejects a branch that differs from the awarded tender branch (HTTP 422)
+PASS Rejected branch mapping creates no project and no handoff record
+PASS Project handoff rejects a customer that differs from the awarded tender customer (HTTP 422)
+PASS Rejected customer mapping creates no project and no handoff record
+PASS Tender handoff plan proposer cannot approve their own conversion (HTTP 403)
+PASS Approved handoff creates a branch/customer-bound project and an unapproved ordinary M04 quotation draft
+PASS Tender to M04 source contract accepts only the exact quotation mapping in the independently approved handoff plan
+PASS M04 source contract rejects a changed customer mapping outside the approved handoff plan (HTTP 409)
+PASS M04 source contract rejects a changed branch mapping outside the approved handoff plan (HTTP 409)
+PASS M04 quotation authorization keeps the awarded customer immutable (HTTP 409)
+PASS M04 quotation authorization keeps the awarded branch immutable (HTTP 409)
+PASS A completed tender cannot be repriced after submission and handoff (HTTP 409)
+PASS Tender estimate rejection leaves the immutable approved financial history unchanged
+PASS Tender/M02/security fixtures and business records fully roll back on the disposable database

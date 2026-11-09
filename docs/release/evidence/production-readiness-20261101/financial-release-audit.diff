@@ -1,0 +1,185 @@
+diff --git a/tests/Support/check-phase1-financial-journeys.php b/.tmp/production-readiness-20261101/financial-release-audit.php
+index 62468f2..cb07cff 100644
+--- a/tests/Support/check-phase1-financial-journeys.php
++++ b/.tmp/production-readiness-20261101/financial-release-audit.php
+@@ -47,7 +47,7 @@
+ require $root.'/vendor/autoload.php';
+ $app = require $root.'/bootstrap/app.php';
+ $app->loadEnvironmentFrom('.env.testing');
+-$storage = $root.'/.tmp/phase1-supplier-invoice-storage';
++$storage = $root.'/.tmp/production-readiness-20261101/financial-storage';
+ foreach (['app/private', 'framework/cache', 'framework/sessions', 'framework/views', 'logs'] as $dir) {
+     if (! is_dir($storage.'/'.$dir) && ! mkdir($storage.'/'.$dir, 0700, true) && ! is_dir($storage.'/'.$dir)) {
+         throw new RuntimeException('Cannot create isolated Phase 1 storage path.');
+@@ -67,6 +67,15 @@
+     || $port !== (string) $connection->port || ! in_array(config('database.connections.pgsql.url'), [null, ''], true)) {
+     throw new RuntimeException('ABORT before writes: an isolated localhost PostgreSQL *_test database is required.');
+ }
++$targetPath = $root.'/.tmp/production-readiness-20261101/target.json';
++$target = is_file($targetPath) ? json_decode((string) file_get_contents($targetPath), true) : null;
++$serverIdentity = DB::selectOne("select current_database() db, host(inet_server_addr()) host, inet_server_port() port, current_setting('data_directory') data_directory");
++$ownedMarker = $root.'/.tmp/production-readiness-20261101/pgdata/.codex-audit-owned.txt';
++if (! is_array($target) || $database !== 'erp_elec_new_test' || (int) $port !== (int) ($target['port'] ?? 0)
++    || $serverIdentity->db !== 'erp_elec_new_test' || $serverIdentity->host !== '127.0.0.1' || (int) $serverIdentity->port !== (int) ($target['port'] ?? 0)
++    || realpath((string) $serverIdentity->data_directory) !== realpath((string) ($target['pgdata'] ?? '')) || ! is_file($ownedMarker)) {
++    throw new RuntimeException('ABORT before writes: private marker, exact audit port, database, and PostgreSQL data_directory must all match.');
++}
+ $date = now('Africa/Cairo')->toDateString();
+ 
+ $need = static function (bool $condition, string $message): void {
+@@ -102,9 +111,12 @@
+ $uuid = static fn (): string => (string) Str::uuid();
+ 
+ DB::beginTransaction();
+-$commitRaceFixture = getenv('PHASE1_COMMIT_RACE_FIXTURES') === '1';
++$commitRaceFixture = false;
+ $evidence = [];
++$releaseRiskFindings = [];
+ $factoryFailures = [];
++$fingerprintTables = ['companies', 'branches', 'users', 'access_grants', 'accounting_periods', 'accounting_journals', 'accounting_journal_lines', 'inventory_movements', 'inventory_fifo_layers', 'rp_supplier_invoices', 'system_official_documents', 'audit_entries'];
++$beforeFingerprints = array_combine($fingerprintTables, array_map(static fn (string $table): int => DB::table($table)->count(), $fingerprintTables));
+ try {
+     $maker = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+     $poster = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+@@ -217,8 +229,8 @@
+     $cashAccount = $treasury->saveOperationalAccount((int) $maker->id, ['code' => 'PH1-OP-CASH-'.strtoupper(Str::random(5)),
+         'name' => 'Synthetic Phase 1 operational cash', 'kind' => 'cash', 'gl_account_id' => $mappings['cash']]);
+ 
+-    foreach ([[$maker, ['M01.branch_view', 'M01.company_view', 'M03.supplier_view', 'M03.customer_view', 'M02.product_view', 'M02.price_view', 'M05.order_view', 'M05.order_create', 'M05.order_submit', 'M05.receipt_view', 'M05.receipt_create', 'M06.receipt_create', 'M06.reservation_view', 'M11.tax_calculate', 'M11.source_post', 'M11.report_view', 'M12.supplier_invoice_manage', 'M12.supplier_invoice_post', 'M12.supplier_invoice_view', 'M12.customer_invoice_manage', 'M12.customer_invoice_post', 'M12.customer_invoice_view', 'M12.ap_view', 'M12.ar_view', 'M12.allocation_manage', 'M12.credit_note_manage', 'M13.payment_prepare', 'M13.payment_execute', 'M13.collection_execute', 'M13.transfer_execute', 'M04.sales_order_view', 'M04.sales_order_create', 'M04.sales_order_edit', 'M04.sales_order_submit', 'M04.sales_order_delivery_create']],
+-        [$poster, ['M01.branch_view', 'M01.company_view', 'M03.supplier_view', 'M03.customer_view', 'M02.product_view', 'M02.price_view', 'M05.order_view', 'M05.order_approve', 'M05.order_issue', 'M05.receipt_view', 'M05.receipt_post', 'M06.receipt_post', 'M06.issue_create', 'M06.issue_post', 'M06.issue_approve', 'M06.reservation_manage', 'M06.reservation_view', 'M11.tax_calculate', 'M11.receipt_post', 'M11.source_post', 'M11.journal_post', 'M11.report_view', 'M12.supplier_invoice_post', 'M12.customer_invoice_post', 'M12.ap_view', 'M12.ar_view', 'M12.allocation_manage', 'M12.credit_note_approve', 'M13.payment_approve', 'M13.payment_execute', 'M13.collection_execute', 'M13.transfer_execute', 'M04.sales_order_view', 'M04.sales_order_approve', 'M04.sales_order_delivery_confirm']]] as [$user, $codes]) {
++    foreach ([[$maker, ['M01.branch_view', 'M01.company_view', 'M03.supplier_view', 'M03.customer_view', 'M02.product_view', 'M02.price_view', 'M05.order_view', 'M05.order_create', 'M05.order_submit', 'M05.receipt_view', 'M05.receipt_create', 'M06.receipt_create', 'M06.reservation_view', 'M11.tax_calculate', 'M11.source_post', 'M11.report_view', 'M11.journal_create', 'M11.journal_submit', 'M12.supplier_invoice_manage', 'M12.supplier_invoice_post', 'M12.supplier_invoice_view', 'M12.customer_invoice_manage', 'M12.customer_invoice_post', 'M12.customer_invoice_view', 'M12.ap_view', 'M12.ar_view', 'M12.allocation_manage', 'M12.credit_note_manage', 'M13.payment_prepare', 'M13.payment_execute', 'M13.collection_execute', 'M13.transfer_execute', 'M04.sales_order_view', 'M04.sales_order_create', 'M04.sales_order_edit', 'M04.sales_order_submit', 'M04.sales_order_delivery_create']],
++        [$poster, ['M01.branch_view', 'M01.company_view', 'M03.supplier_view', 'M03.customer_view', 'M02.product_view', 'M02.price_view', 'M05.order_view', 'M05.order_approve', 'M05.order_issue', 'M05.receipt_view', 'M05.receipt_post', 'M06.receipt_post', 'M06.issue_create', 'M06.issue_post', 'M06.issue_approve', 'M06.reservation_manage', 'M06.reservation_view', 'M11.tax_calculate', 'M11.receipt_post', 'M11.source_post', 'M11.journal_approve', 'M11.journal_post', 'M11.report_view', 'M12.supplier_invoice_post', 'M12.customer_invoice_post', 'M12.ap_view', 'M12.ar_view', 'M12.allocation_manage', 'M12.credit_note_approve', 'M13.payment_approve', 'M13.payment_execute', 'M13.collection_execute', 'M13.transfer_execute', 'M04.sales_order_view', 'M04.sales_order_approve', 'M04.sales_order_delivery_confirm']]] as [$user, $codes]) {
+         DB::table('user_branch_scopes')->insert(['user_id' => $user->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+         $grant($user, $codes, (int) $branch->id);
+     }
+@@ -526,6 +538,102 @@
+ 
+     $period = DB::table('accounting_periods')->where('status', 'open')->where('starts_on', '<=', $date)->where('ends_on', '>=', $date)->first();
+     $need($period !== null, 'Activated synthetic current period missing.');
++
++    // Reproduce the company-close, historical FIFO-cutoff, and optional customer-advance release risks.
++    $closeParentLevel = DB::transactionLevel();
++    DB::beginTransaction();
++    $closeSavepointLevel = DB::transactionLevel();
++    try {
++        $scopeBlindCloser = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
++        $grant($scopeBlindCloser, ['M11.period_open', 'M11.period_close']);
++        $blindPeriod = app(AccountingActions::class)->period((int) $scopeBlindCloser->id, [
++            'name' => 'AUDIT-SCOPE-CLOSE-'.strtoupper(Str::random(8)), 'starts_on' => '2091-01-01', 'ends_on' => '2091-12-31',
++        ]);
++        $hasReportAuthority = DB::table('access_grants')->where('user_id', $scopeBlindCloser->id)->where('permission_code', 'M11.report_view')->exists();
++        $closeStatus = 'OPEN';
++        $closeFailure = null;
++        try {
++            app(FinancialReports::class)->closePeriod((int) $scopeBlindCloser->id, $blindPeriod);
++            $closeStatus = (string) DB::table('accounting_periods')->where('id', $blindPeriod)->value('status');
++        } catch (HttpExceptionInterface $error) {
++            $closeFailure = $error->getStatusCode() === 403 ? 'EXPECTED_FORBIDDEN' : 'UNEXPECTED_HTTP_'.$error->getStatusCode();
++        } catch (Throwable $error) {
++            $closeFailure = 'UNEXPECTED_'.$error::class;
++        }
++        $releaseRiskFindings[] = ['id' => 'FIN-P0-01', 'expectation' => 'Period close must fail when the actor cannot reconcile any report branch.',
++            'test_result' => ! $hasReportAuthority && $closeFailure === null && $closeStatus === 'closed' ? 'FAIL'
++                : (! $hasReportAuthority && $closeFailure === 'EXPECTED_FORBIDDEN' ? 'PASS' : 'INCOMPLETE'),
++            'report_authority' => $hasReportAuthority, 'close_outcome' => $closeFailure ?? $closeStatus];
++    } catch (Throwable $error) {
++        $releaseRiskFindings[] = ['id' => 'FIN-P0-01', 'test_result' => 'INCOMPLETE', 'exception_class' => $error::class];
++    } finally {
++        if (DB::transactionLevel() >= $closeSavepointLevel) {
++            DB::rollBack();
++        }
++        if (DB::transactionLevel() !== $closeParentLevel) {
++            throw new RuntimeException('FIN-P0-01 savepoint rollback changed the enclosing acceptance transaction.');
++        }
++    }
++
++    try {
++        $cutoff = '2000-12-31';
++        $preCutoffJournals = DB::table('accounting_journals')->where('branch_id', $branch->id)->where('journal_date', '<=', $cutoff)->count();
++        $historicalRows = app(FinancialReports::class)->reconciliations((int) $maker->id, (int) $branch->id, $cutoff);
++        $inventoryHistorical = collect($historicalRows)->firstWhere('key', 'inventory');
++        if (! $inventoryHistorical || $preCutoffJournals !== 0) {
++            $releaseRiskFindings[] = ['id' => 'FIN-P0-02', 'test_result' => 'INCOMPLETE', 'reason' => 'Missing inventory row or pre-cutoff journal contaminated the historical fixture.'];
++        } else {
++            $historicalMismatch = bccomp((string) $inventoryHistorical['gl'], '0', 2) === 0 && bccomp((string) $inventoryHistorical['source'], '0', 2) !== 0;
++            $releaseRiskFindings[] = ['id' => 'FIN-P0-02', 'expectation' => 'Historical GL and FIFO source values must use the same cutoff.',
++                'test_result' => $historicalMismatch ? 'FAIL' : 'PASS', 'cutoff' => $cutoff, 'pre_cutoff_journals' => $preCutoffJournals,
++                'inventory_reconciliation' => $inventoryHistorical, 'reproduced' => $historicalMismatch];
++        }
++    } catch (Throwable $error) {
++        $releaseRiskFindings[] = ['id' => 'FIN-P0-02', 'test_result' => 'INCOMPLETE', 'exception_class' => $error::class];
++    }
++
++    $advanceParentLevel = DB::transactionLevel();
++    DB::beginTransaction();
++    $advanceSavepointLevel = DB::transactionLevel();
++    try {
++        $sourceAdvanceBefore = (int) DB::table('rp_customer_advances')->count();
++        $advanceLiability = (int) $advanceAccount;
++        app(FinancialActivation::class)->saveOptionalMapping((int) $maker->id, 'customer_advance', $advanceLiability);
++        $advanceExpense = app(AccountingActions::class)->account((int) $maker->id, null, 0, [
++            'code' => 'AUDIT-ADV-EXP-'.strtoupper(Str::random(6)), 'name' => 'Synthetic advance test expense', 'kind' => 'expense', 'parent_id' => null, 'postable' => true, 'active' => true,
++        ]);
++        $manualAdvanceJournal = app(AccountingActions::class)->journal((int) $maker->id, null, 0, $uuid(), [
++            'branch_id' => (int) $branch->id, 'journal_date' => $date, 'description' => 'Synthetic customer advance negative release check',
++            'lines' => [
++                ['account_id' => $advanceExpense, 'debit' => '125.00', 'credit' => '0.00', 'description' => 'Synthetic expense debit'],
++                ['account_id' => $advanceLiability, 'debit' => '0.00', 'credit' => '125.00', 'description' => 'Synthetic customer advance liability'],
++            ],
++        ]);
++        app(AccountingActions::class)->advance((int) $maker->id, $manualAdvanceJournal, 1, 'submit');
++        app(AccountingActions::class)->advance((int) $poster->id, $manualAdvanceJournal, 2, 'approve');
++        app(AccountingActions::class)->advance((int) $poster->id, $manualAdvanceJournal, 3, 'post');
++        $journal = DB::table('accounting_journals')->where('id', $manualAdvanceJournal)->first();
++        $advanceRows = app(FinancialReports::class)->reconciliations((int) $maker->id, (int) $branch->id, $date);
++        $advanceReconciliation = collect($advanceRows)->firstWhere('key', 'customer_advance');
++        $sourceAdvanceAfter = (int) DB::table('rp_customer_advances')->count();
++        $advanceMismatch = $advanceReconciliation && bccomp((string) $advanceReconciliation['difference'], '0', 2) !== 0;
++        $independent = $journal && $journal->approved_by !== null && (int) $journal->approved_by !== (int) $maker->id;
++        $releaseRiskFindings[] = ['id' => 'FIN-P0-03', 'expectation' => 'Manual posting must not change the customer-advance control account without a source advance record.',
++            'test_result' => $advanceMismatch && $journal->status === 'posted' && $independent && $sourceAdvanceAfter === $sourceAdvanceBefore ? 'FAIL'
++                : ($advanceReconciliation && $journal && $journal->status === 'posted' && $independent && $sourceAdvanceAfter === $sourceAdvanceBefore ? 'PASS' : 'INCOMPLETE'),
++            'journal_status' => $journal->status ?? null, 'source_advance_records_before' => $sourceAdvanceBefore, 'source_advance_records_after' => $sourceAdvanceAfter,
++            'source_advance_records_delta' => $sourceAdvanceAfter - $sourceAdvanceBefore, 'customer_advance_reconciliation' => $advanceReconciliation,
++            'posted_via_public_actions' => true, 'independent_approval' => $independent];
++    } catch (Throwable $error) {
++        $releaseRiskFindings[] = ['id' => 'FIN-P0-03', 'test_result' => 'INCOMPLETE', 'exception_class' => $error::class];
++    } finally {
++        if (DB::transactionLevel() >= $advanceSavepointLevel) {
++            DB::rollBack();
++        }
++        if (DB::transactionLevel() !== $advanceParentLevel) {
++            throw new RuntimeException('FIN-P0-03 savepoint rollback changed the enclosing acceptance transaction.');
++        }
++    }
+     // Isolated one-unit PO/receipt sources provide valid material for negative cases.
+     $negativeFixture = $makeOrderReceipts('1.00000000', 'NEG-A');
+     $negativeLine = $negativeFixture['receipts'][0]['line_id'];
+@@ -635,11 +743,22 @@
+             DB::rollBack();
+         }
+     }
++    $afterFingerprints = array_combine($fingerprintTables, array_map(static fn (string $table): int => DB::table($table)->count(), $fingerprintTables));
++    $findingStatuses = array_column($releaseRiskFindings, 'test_result');
++    $rollbackVerified = $beforeFingerprints === $afterFingerprints;
++    $riskResult = count($releaseRiskFindings) !== 3 || in_array('INCOMPLETE', $findingStatuses, true) ? 'INCOMPLETE'
++        : (! $rollbackVerified || in_array('FAIL', $findingStatuses, true) ? 'FAIL' : 'PASS');
++    $releaseRiskReceipt = ['captured_utc' => gmdate(DATE_ATOM), 'database' => $connection->db.'@127.0.0.1:'.(int) $connection->port,
++        'source' => 'app/Modules/Accounting/Application/FinancialReports.php + JournalPosting.php',
++        'source_hashes' => ['financial_reports' => hash_file('sha256', $root.'/app/Modules/Accounting/Application/FinancialReports.php'), 'journal_posting' => hash_file('sha256', $root.'/app/Modules/Accounting/Application/JournalPosting.php')],
++        'findings' => $releaseRiskFindings, 'rollback_verified' => $rollbackVerified,
++        'row_counts_before' => $beforeFingerprints, 'row_counts_after' => $afterFingerprints,
++        'result' => $riskResult];
++    file_put_contents($root.'/docs/release/evidence/production-readiness-20261101/financial-release-risks.json', json_encode($releaseRiskReceipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
++    $evidence['financial_release_risks'] = $releaseRiskReceipt;
+     $json = json_encode($evidence, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL;
+-    $evidencePath = $root.'/docs/qa/evidence/phase1-financial-journeys.json';
+-    if (! is_dir(dirname($evidencePath))) {
+-        mkdir(dirname($evidencePath), 0770, true);
+-    }
++    $evidencePath = $root.'/docs/release/evidence/production-readiness-20261101/phase1-financial-actions.json';
+     file_put_contents($evidencePath, $json, LOCK_EX);
+-    echo $json;
++    echo 'Source-driven finance action run complete; see phase1-financial-actions.json and financial-release-risks.json.'.PHP_EOL;
+ }
++exit(($releaseRiskReceipt['result'] ?? 'INCOMPLETE') === 'FAIL' ? 1 : (($releaseRiskReceipt['result'] ?? 'INCOMPLETE') === 'PASS' ? 0 : 2));

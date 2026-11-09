@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "database": "erp_elec_new_test",
+  "postgres_port": 55460,
+  "error": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"alert\"]').first() to be visible\u001b[22m\n\u001b[2m    40 × locator resolved to hidden <div role=\"alert\" aria-live=\"polite\" aria-atomic=\"true\" data-flux-error=\"\" class=\"mt-3 text-sm font-medium text-red-500 dark:text-red-400 hidden\">↵    </div>\u001b[22m\n",
+  "browser_errors": []
+}

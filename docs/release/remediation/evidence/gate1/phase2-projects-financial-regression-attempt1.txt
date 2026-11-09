@@ -1,0 +1,9 @@
+
+Fatal error: Uncaught RuntimeException: ABORT: PHASE2_STORAGE_ROOT must stay inside this workspace .tmp directory. in C:\projects\ERP_ELEC_NEW\.tmp\master-remediation-20261101\regression-copies\check-phase2-projects-financial.php:67
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\.tmp\master-remediation-20261101\regression-copies\check-phase2-projects-financial.php on line 67
+PHP Fatal error:  Uncaught RuntimeException: ABORT: PHASE2_STORAGE_ROOT must stay inside this workspace .tmp directory. in C:\projects\ERP_ELEC_NEW\.tmp\master-remediation-20261101\regression-copies\check-phase2-projects-financial.php:67
+Stack trace:
+#0 {main}
+  thrown in C:\projects\ERP_ELEC_NEW\.tmp\master-remediation-20261101\regression-copies\check-phase2-projects-financial.php on line 67

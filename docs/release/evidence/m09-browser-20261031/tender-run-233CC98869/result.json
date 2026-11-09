@@ -1,0 +1,86 @@
+{
+  "result": "PASS",
+  "database": "erp_elec_new_test@127.0.0.1:55475",
+  "browser": "Playwright Chromium/Edge",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "tender": {
+    "id": 6,
+    "number": "TN-2027-000006",
+    "final_status": "awarded",
+    "technical_revision": 1,
+    "financial_revision": 1,
+    "net": "200.00",
+    "tax": "28.00",
+    "total": "228.00",
+    "submitted_method": "portal",
+    "award": "228.00",
+    "handoff": {
+      "id": 2,
+      "destination": "project",
+      "target_id": 91,
+      "plan_id": 3
+    },
+    "project": {
+      "id": 91,
+      "code": "DEMO-233CC98869",
+      "name": "DEMO-EG Panel Upgrade 233CC98869",
+      "customer_id": 1,
+      "branch_id": 1
+    }
+  },
+  "checks": [
+    {
+      "m09_workshop_job_id": 45
+    },
+    {
+      "m09_posted_job_card_mobile": {
+        "viewport": 390,
+        "document": 390
+      },
+      "m09_exports": {
+        "xlsx_bytes": 6618,
+        "xlsx_contains_job_45": true,
+        "pdf_bytes": 87616,
+        "cache_control": "no-store, private"
+      }
+    },
+    {
+      "tender_create_edit_reopen": {
+        "id": 6,
+        "number": "TN-2027-000006",
+        "version": 2
+      }
+    },
+    {
+      "mobile": "tender-award",
+      "viewport": 390,
+      "document": 390
+    },
+    {
+      "out_of_scope_denials": {
+        "tender": 403,
+        "bid_pdf": 403,
+        "m09_xlsx": 403,
+        "m09_pdf": 403
+      }
+    },
+    {
+      "official_bid_pdf_bytes": 50503,
+      "official_bid_sha256": "796701e9ea041e2f4e67e8f2a6165da207faba81c520936106f7613abb15d974"
+    }
+  ],
+  "browser_errors": []
+}

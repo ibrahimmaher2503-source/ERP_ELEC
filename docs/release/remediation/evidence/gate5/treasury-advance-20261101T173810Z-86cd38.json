@@ -1,0 +1,189 @@
+{
+    "all_pass": false,
+    "mode": "treasury-advance-lifecycle",
+    "phase": "rollback-only source fixture and M11 setup",
+    "assertions": 3,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 49685,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": [],
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "products": 0,
+            "organization_employees": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Synthetic M11 uses real setup and independent no-opening approval inside rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic customer, M10, M11, M12 and Treasury records and private scratch roll back.",
+            "result": "PASS"
+        },
+        {
+            "name": "Synthetic M11 activation and version roll back to the owned database state.",
+            "result": "PASS"
+        }
+    ],
+    "evidence": {
+        "synthetic_sources": "real M11 setup and no-opening approval, M10 contract/invoice, M13 collection/refund, and M12 advance application inside outer rollback",
+        "synthetic_m11_activation": {
+            "performed": true,
+            "rolled_back": true,
+            "go_live_date": "2026-11-01",
+            "zero_opening": true
+        },
+        "failure_trace": [
+            {
+                "file": "app/Modules/System/Application/IssueOfficialDocument.php",
+                "line": 63,
+                "class": "Illuminate\\Validation\\ValidationException",
+                "function": "withMessages"
+            },
+            {
+                "file": "app/Modules/Accounting/Application/JournalPosting.php",
+                "line": 180,
+                "class": "App\\Modules\\System\\Application\\IssueOfficialDocument",
+                "function": "issue"
+            },
+            {
+                "file": "app/Modules/Accounting/Application/JournalPosting.php",
+                "line": 151,
+                "class": "App\\Modules\\Accounting\\Application\\JournalPosting",
+                "function": "finish"
+            },
+            {
+                "file": "app/Modules/Accounting/Application/JournalPosting.php",
+                "line": 85,
+                "class": "App\\Modules\\Accounting\\Application\\JournalPosting",
+                "function": "source"
+            },
+            {
+                "file": "app/Modules/Accounting/Application/AccountingService.php",
+                "line": 99,
+                "class": "App\\Modules\\Accounting\\Application\\JournalPosting",
+                "function": "sourceDocument"
+            },
+            {
+                "file": "app/Modules/ReceivablesPayables/Application/CustomerInvoices.php",
+                "line": 147,
+                "class": "App\\Modules\\Accounting\\Application\\AccountingService",
+                "function": "postSourceDocument"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php",
+                "line": 35,
+                "class": "App\\Modules\\ReceivablesPayables\\Application\\CustomerInvoices",
+                "function": "{closure:App\\Modules\\ReceivablesPayables\\Application\\CustomerInvoices::post():121}"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php",
+                "line": 502,
+                "class": "Illuminate\\Database\\Connection",
+                "function": "transaction"
+            },
+            {
+                "file": "vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php",
+                "line": 364,
+                "class": "Illuminate\\Database\\DatabaseManager",
+                "function": "__call"
+            },
+            {
+                "file": "app/Modules/ReceivablesPayables/Application/CustomerInvoices.php",
+                "line": 121,
+                "class": "Illuminate\\Support\\Facades\\Facade",
+                "function": "__callStatic"
+            },
+            {
+                "file": "app/Modules/ReceivablesPayables/Application/ReceivablesPayablesService.php",
+                "line": 177,
+                "class": "App\\Modules\\ReceivablesPayables\\Application\\CustomerInvoices",
+                "function": "post"
+            },
+            {
+                "file": "tests/Support/check-treasury-advance-lifecycle.php",
+                "line": 124,
+                "class": "App\\Modules\\ReceivablesPayables\\Application\\ReceivablesPayablesService",
+                "function": "postCustomerInvoice"
+            }
+        ]
+    },
+    "failure": {
+        "class": "Illuminate\\Validation\\ValidationException",
+        "message": "Complete the actual company legal name and address before official issue."
+    }
+}

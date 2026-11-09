@@ -1,0 +1,74 @@
+[Sat Oct 31 17:12:44 2026] PHP 8.4.21 Development Server (http://127.0.0.1:9269) started
+[Sat Oct 31 17:12:45 2026] 127.0.0.1:53371 Accepted
+[Sat Oct 31 17:12:46 2026] 127.0.0.1:53371 Closing
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:64062 Accepted
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:64062 Closing
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:53680 Accepted
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:53680 [200]: GET /build/assets/app-DfDwTsSX.css
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:63200 Accepted
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:57908 Accepted
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:51191 Accepted
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:63200 [200]: GET /build/assets/app-BvRk9kiK.js
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:57908 Closing
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:51191 Closing
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:63200 Closing
+[Sat Oct 31 17:12:47 2026] 127.0.0.1:53680 Closing
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:57381 Accepted
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:57381 [200]: GET /favicon.svg
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:57381 Closing
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:50742 Accepted
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:50742 [200]: GET /favicon.ico
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:50742 Closing
+[Sat Oct 31 17:12:48 2026] 127.0.0.1:59254 Accepted
+[Sat Oct 31 17:12:50 2026] 127.0.0.1:59254 Closing
+[Sat Oct 31 17:12:50 2026] 127.0.0.1:62366 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:62366 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:58484 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:58484 [200]: GET /build/assets/app-DfDwTsSX.css
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59553 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:54075 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59553 [200]: GET /build/assets/app-BvRk9kiK.js
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:54075 [200]: GET /images/avatars/neutral.svg
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59553 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:54075 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:58484 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59842 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59842 [200]: GET /fonts/noto-sans-arabic.woff2
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:63836 Accepted
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:59842 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:63836 [200]: GET /fonts/noto-sans-latin.woff2
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:63836 Closing
+[Sat Oct 31 17:12:54 2026] 127.0.0.1:56326 Accepted
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:56326 Closing
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:52164 Accepted
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:52164 [200]: GET /favicon.svg
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:52164 Closing
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:61730 Accepted
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:61730 [200]: GET /build/assets/app-DfDwTsSX.css
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:61730 Closing
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:51065 Accepted
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:51065 [200]: GET /build/assets/app-BvRk9kiK.js
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:51065 Closing
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:56543 Accepted
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:56543 [200]: GET /images/avatars/neutral.svg
+[Sat Oct 31 17:12:57 2026] 127.0.0.1:56543 Closing
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65108 Accepted
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65108 [200]: GET /fonts/noto-sans-latin.woff2
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:60852 Accepted
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65108 Closing
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:60852 [200]: GET /fonts/noto-sans-arabic.woff2
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:60852 Closing
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:57439 Accepted
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:57439 [200]: GET /favicon.svg
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:57439 Closing
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65289 Accepted
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65289 [200]: GET /favicon.ico
+[Sat Oct 31 17:12:58 2026] 127.0.0.1:65289 Closing
+[Sat Oct 31 17:12:59 2026] 127.0.0.1:52877 Accepted
+[Sat Oct 31 17:13:00 2026] 127.0.0.1:52877 Closing
+[Sat Oct 31 17:13:01 2026] 127.0.0.1:61035 Accepted
+[Sat Oct 31 17:13:01 2026] 127.0.0.1:61035 Closing
+[Sat Oct 31 17:13:02 2026] 127.0.0.1:49678 Accepted
+[Sat Oct 31 17:13:03 2026] 127.0.0.1:49678 Closing
+[Sat Oct 31 17:13:03 2026] 127.0.0.1:60989 Accepted
+[Sat Oct 31 17:13:04 2026] 127.0.0.1:60989 Closing

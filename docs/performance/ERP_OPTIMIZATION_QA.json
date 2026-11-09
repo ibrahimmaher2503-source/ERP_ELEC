@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-31",
+  "timezone": "Africa/Cairo",
+  "scope": "local acceptance only; no application source edits",
+  "frozen_application_source": {
+    "sha256": "fddffec637f3654b8a72e996bffe640a54f977dd7b715973c07c9a3d565fe493",
+    "recorded_start_end_equal": true,
+    "evidence": ".tmp/page-speed-audit/after/preflight-20261031190120/preflight.json",
+    "hash_scope": "frozen application source supplied for this acceptance"
+  },
+  "existing_results": {
+    "full_laravel_suite": { "status": "passed", "tests": 55, "assertions": 275, "evidence": ".tmp/optimization-regression/final-laravel-suite.txt" },
+    "optimization_regression_before_tender_check": { "status": "passed", "tests": 14, "assertions": 168 },
+    "safe_qa_aggregate": { "status": "passed", "checks_passed": 21, "checks_failed": 0, "assertions_passed": 875, "evidence": ".tmp/optimization-regression/final-safe-qa-aggregate.txt" }
+  },
+  "user_details_lazy_tabs": {
+    "status": "passed",
+    "database": "erp_elec_new_test@55461",
+    "viewport": "1440x900",
+    "business_mutations": 0,
+    "lazy_component_requests": 2,
+    "checks": [
+      "basic tab leaves access and history children unmounted",
+      "access tab hash navigation lazy-mounts its component and shows controls",
+      "history tab hash navigation lazy-mounts the section and shows the truthful empty state"
+    ],
+    "history_actor_rows_available": 0,
+    "actor_rendering_evidence": ".tools/check-m01-rbac.php historyOnlyHtml assertion in safe QA aggregate",
+    "evidence": ".tmp/optimization-regression/user-details-lazy-tabs.json"
+  },
+  "critical_browser": {
+    "database": "erp_elec_new_test@55460",
+    "combined_run": {
+      "status": "failed_then_targeted_repair_passed",
+      "tests": 3,
+      "passed_before_repair": 2,
+      "failed_before_repair": 1,
+      "passed_journeys": ["M05 financial and inventory", "M09 workshop repair", "M08 maintenance after corrected targeted rerun"],
+      "initial_m08_failure": "The outsider report probe ran before a completion existed and used an undefined completion ID; the numeric route constraint returned 404 before authorization.",
+      "corrected_m08_rerun": { "status": "passed", "tests": 1, "duration_ms": 18323, "runner_gaps": [], "evidence": ".tmp/e2e-automation/latest-critical.json" },
+      "combined_run_harness_warning": "Harness-wide source fingerprint changed during execution due to concurrent unrelated E2E page-speed tooling edits listed below; application source and critical spec/fixture were not changed during that run."
+    },
+    "financial_inventory_assertions": [
+      "supplier and customer invoices validated; supplier independently approved and posted",
+      "AP 45.60 and AR 54.72 persisted; journals balanced",
+      "FIFO receipt layer fully consumed by sale; on-hand and remaining FIFO value zero",
+      "private customer invoice PDF downloaded and matched stored SHA-256",
+      "purchase-order draft saved in UI and independently rejected with visible rejected state"
+    ],
+    "fingerprint_changes_during_combined_run": [
+      { "file": "tests/E2E/support/explain-captured-queries.php", "modified_cairo": "2026-10-31 22:03:02" },
+      { "file": "tests/E2E/native-performance-profile.cjs", "modified_cairo": "2026-10-31 22:03:13" },
+      { "file": "tests/E2E/support/page-speed-after.cjs", "modified_cairo": "2026-10-31 22:03:36" }
+    ]
+  },
+  "operation_timings": {
+    "run_id": "283b3b1f9ef8d22b",
+    "database": "erp_elec_new_test@55460",
+    "one_run_samples": true,
+    "timings_include_ui_assertion": true,
+    "operations": [
+      { "operation": "save-draft", "started_at": "2026-10-31T20:03:37.087Z", "ended_at": "2026-10-31T20:03:37.703Z", "elapsed_ms": 616.37, "http_status": 200, "assertion": "saved PO route and visible draft status" },
+      { "operation": "denial", "started_at": "2026-10-31T20:03:39.299Z", "ended_at": "2026-10-31T20:03:39.753Z", "elapsed_ms": 453.39, "http_status": 200, "assertion": "independent reviewer rejection and visible rejected status" },
+      { "operation": "validation", "started_at": "2026-10-31T20:03:40.663Z", "ended_at": "2026-10-31T20:03:41.060Z", "elapsed_ms": 397.62, "http_status": 200, "assertion": "validated supplier invoice exposes the next matching action" },
+      { "operation": "approval", "started_at": "2026-10-31T20:03:43.253Z", "ended_at": "2026-10-31T20:03:43.567Z", "elapsed_ms": 313.42, "http_status": 200, "assertion": "approved supplier invoice exposes the posting action" },
+      { "operation": "export", "started_at": "2026-10-31T20:03:50.424Z", "ended_at": "2026-10-31T20:03:50.900Z", "elapsed_ms": 476.18, "download": "passed", "assertion": "PDF link yielded the matching saved private PDF" }
+    ],
+    "raw_evidence": ".tmp/optimization-regression/livewire-operation-latencies-55460.json"
+  },
+  "inventory_concurrency": {
+    "status": "passed",
+    "database": "erp_elec_new_test@55460",
+    "workers": 2,
+    "starting_stock": "10.00000000",
+    "reservations": ["8.00000000", "2.00000000"],
+    "available_stock": "0.00000000",
+    "public_row_counts_unchanged": true,
+    "evidence": ".tools/check-m06-inventory-concurrency.php output"
+  },
+  "tender_scope_and_classification": {
+    "status": "passed",
+    "database": "erp_elec_new_test@55460",
+    "tests": 1,
+    "assertions": 9,
+    "verified": ["scoped tender read", "technical document visible", "financial document excluded", "financial tab and financial download denied without scope", "technical download allowed"],
+    "full_award_lifecycle_tested": false,
+    "test": "tests/Feature/OptimizationRegressionTest.php::test_tender_documents_hide_financial_classifications_without_financial_scope"
+  }
+}

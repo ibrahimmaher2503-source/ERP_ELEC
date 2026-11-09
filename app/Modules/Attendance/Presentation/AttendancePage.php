@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -18,12 +19,15 @@ final class AttendancePage extends Component
 {
     use WithFileUploads;
 
+    #[Url]
     public string $branch = '';
 
+    #[Url]
     public string $employee = '';
 
     public string $employeeSearch = '';
 
+    #[Url]
     public string $month = '';
 
     public array $shift = ['branch_id' => '', 'code' => '', 'name' => '', 'start_time' => '', 'end_time' => '', 'break_minutes' => '', 'grace_minutes' => ''];
@@ -66,7 +70,9 @@ final class AttendancePage extends Component
 
     public function mount(): void
     {
-        $this->month = now('Africa/Cairo')->format('Y-m');
+        if (Validator::make(['month' => $this->month], ['month' => 'required|date_format:Y-m'])->fails()) {
+            $this->month = now('Africa/Cairo')->format('Y-m');
+        }
     }
 
     private function localTime(string $time): string

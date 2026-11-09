@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "database": "erp_elec_new_test",
+  "postgres_port": 55460,
+  "actor_id": 1,
+  "branch_id": 1,
+  "desktop": "1440x900",
+  "mobile": "390x844",
+  "checks": [
+    {
+      "page": "/customers/1?tab=financial",
+      "viewport": 1440,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "customer period filter",
+      "result": "inverted dates rejected without changing balance; valid period applied",
+      "pagination": "visible; previous disabled on page 1"
+    },
+    {
+      "movement_route": "authorized HTTP 200"
+    },
+    {
+      "export": "customer full filtered period statement",
+      "format": "xlsx",
+      "signature": "valid"
+    },
+    {
+      "page": "/customers/1?tab=financial",
+      "viewport": 390,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "page": "/suppliers/1?tab=financial",
+      "viewport": 1440,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "page": "supplier period filter",
+      "result": "inverted dates rejected without changing balance; valid period applied",
+      "pagination": "visible; previous disabled on page 1"
+    },
+    {
+      "page": "/suppliers/1?tab=financial",
+      "viewport": 390,
+      "summary": "loaded",
+      "statement": "loaded",
+      "treasury_projection": "authorized",
+      "document": 390,
+      "body": 390
+    },
+    {
+      "authorization": "in-scope empty AR branch authorized with zero rows; M13 Treasury detail withheld"
+    },
+    {
+      "authorization": "M03-only denied; treasury route 403 without M13; Livewire reauthorized after M12 branch grant removal"
+    }
+  ],
+  "browser_errors": []
+}
