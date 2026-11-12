@@ -1,9 +1,14 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 $root = dirname(__DIR__, 3);
 $public = $root.'/public';
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
-if ($path !== '/' && is_file($public.$path)) return false;
+if ($path !== '/' && is_file($public.$path)) {
+    return false;
+}
 
 require $root.'/vendor/autoload.php';
 // PHP's built-in server exposes inherited variables through getenv(), but may
@@ -17,14 +22,16 @@ $started = microtime(true);
 $queries = [];
 $requestId = preg_replace('/[^a-zA-Z0-9._-]/', '', $_SERVER['HTTP_X_AUDIT_REQUEST_ID'] ?? '');
 $app->booted(function () use (&$queries, $requestId): void {
-    if ($requestId === '') return;
-    \Illuminate\Support\Facades\DB::listen(function ($query) use (&$queries): void {
+    if ($requestId === '') {
+        return;
+    }
+    DB::listen(function ($query) use (&$queries): void {
         $sql = preg_replace('/\s+/', ' ', trim($query->sql));
         $fingerprint = hash('sha256', strtolower($sql));
         $queries[] = ['fingerprint' => $fingerprint, 'sql' => mb_substr($sql, 0, 500), 'duration_ms' => round($query->time, 2)];
     });
 });
-$app->handleRequest(\Illuminate\Http\Request::capture());
+$app->handleRequest(Request::capture());
 if ($requestId !== '' && ($log = getenv('AUDIT_QUERY_LOG'))) {
     $byFingerprint = [];
     foreach ($queries as $query) {

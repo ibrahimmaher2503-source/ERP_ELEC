@@ -3,13 +3,15 @@
 declare(strict_types=1);
 
 use App\Application\PostPurchaseReceipt;
+use App\Models\User;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Inventory\Application\InventoryActions;
 use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Products\Domain\Product;
-use App\Models\User;
+use App\Modules\Purchasing\Application\PurchaseOrders;
+use App\Modules\Purchasing\Application\PurchaseReceiving;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -103,7 +105,7 @@ function gate2WorkshopPartsFixture(int $setupActorId, int $setupApproverId, int 
     $supplier = Supplier::factory()->create(['status' => 'active']);
     $product = Product::factory()->create(['kind' => 'bulk', 'tracking' => 'quantity', 'active' => true]);
     $today = now('Africa/Cairo')->toDateString();
-    $orders = app(\App\Modules\Purchasing\Application\PurchaseOrders::class);
+    $orders = app(PurchaseOrders::class);
     $orderId = $orders->save((int) $buyer->id, ['creation_key' => (string) Str::uuid(), 'branch_id' => $branchId,
         'supplier_id' => (int) $supplier->id, 'order_date' => $today, 'expected_date' => null, 'currency' => 'EGP',
         'payment_terms' => 'Synthetic guarded M09 acceptance source.', 'notes' => 'Two actual quantity units for M09 parts UI acceptance.',
@@ -114,8 +116,10 @@ function gate2WorkshopPartsFixture(int $setupActorId, int $setupApproverId, int 
     $orders->issue((int) $storekeeper->id, $orderId);
 
     $line = DB::table('purchasing_order_lines')->where('order_id', $orderId)->first();
-    if (! $line) throw new RuntimeException('M09 actual purchase order has no persisted source line.');
-    $receiving = app(\App\Modules\Purchasing\Application\PurchaseReceiving::class);
+    if (! $line) {
+        throw new RuntimeException('M09 actual purchase order has no persisted source line.');
+    }
+    $receiving = app(PurchaseReceiving::class);
     $receiptId = $receiving->save((int) $buyer->id, ['creation_key' => (string) Str::uuid(), 'order_id' => $orderId,
         'warehouse_id' => $warehouseId, 'receipt_date' => $today, 'delivery_reference' => 'G2M09-'.$tag,
         'notes' => 'Real posted quantity stock for the guarded workshop parts journey.',

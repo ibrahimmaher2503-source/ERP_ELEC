@@ -12,11 +12,12 @@ use App\Modules\Products\Domain\Product;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
 use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $stage = 'source preflight';
@@ -64,7 +65,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $privateRoot = $taskRoot.'/m10-doc-private-'.bin2hex(random_bytes(8));
 $runtimeTag = bin2hex(random_bytes(6));
@@ -103,12 +104,12 @@ DB::purge('pgsql');
 register_shutdown_function(static function () use ($privateRoot, $taskRoot, $appStorage, $runtimeTag): void {
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-doc-private-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
     foreach ([$appStorage => 'm10-doc-storage-'.$runtimeTag, $taskRoot.'/m10-doc-cache-'.$runtimeTag => 'm10-doc-cache-'.$runtimeTag,
         $taskRoot.'/m10-doc-views-'.$runtimeTag => 'm10-doc-views-'.$runtimeTag] as $path => $prefix) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot) && str_starts_with(basename($path), $prefix)) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
 });
@@ -116,7 +117,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000
     || ! DB::getSchemaBuilder()->hasTable('service_contract_official_documents')
     || ! DB::table('migrations')->where('migration', '2026_11_01_206000_link_tender_service_contracts')->exists()) {
@@ -283,7 +284,7 @@ try {
     foreach ([$privateRoot, $appStorage, $taskRoot.'/m10-doc-cache-'.$runtimeTag, $taskRoot.'/m10-doc-views-'.$runtimeTag] as $path) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot)
             && str_starts_with(basename($path), $path === $privateRoot ? 'm10-doc-private-' : 'm10-doc-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
     $rollbackVerified = $before === $after;

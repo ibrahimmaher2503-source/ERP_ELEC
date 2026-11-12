@@ -5,27 +5,37 @@ declare(strict_types=1);
 // M12 advance application and M13 refund contend for the same last 30.00 in an owned disposable PostgreSQL database.
 use App\Application\ActivateFinancialPosting;
 use App\Models\User;
-use App\Modules\Accounting\Application\{AccountingActions, FinancialActivation, OpeningBalances};
-use App\Modules\Organization\Domain\{Branch, Company, Employee};
+use App\Modules\Accounting\Application\AccountingActions;
+use App\Modules\Accounting\Application\FinancialActivation;
+use App\Modules\Accounting\Application\OpeningBalances;
+use App\Modules\Organization\Domain\Branch;
+use App\Modules\Organization\Domain\Company;
+use App\Modules\Organization\Domain\Employee;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
-use App\Modules\ServiceContracts\Application\{ServiceContractActions, ServiceContractBilling, ServiceContractDocuments};
+use App\Modules\ServiceContracts\Application\ServiceContractActions;
+use App\Modules\ServiceContracts\Application\ServiceContractBilling;
+use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
-putenv('APP_ENV=testing'); $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
+putenv('APP_ENV=testing');
+$_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
 require $root.'/vendor/autoload.php';
 $primaryEnv = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GITHUB_ACTIONS') ?: ''),
     'DB_HOST' => (string) (getenv('DB_HOST') ?: '127.0.0.1'), 'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '49685')),
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'), 'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$primary = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
+$primary = OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
 if ($primary['port'] !== 49685 || $primary['database'] !== 'erp_elec_new_test' || $primary['username'] !== 'postgres') {
     throw new RuntimeException('Advance race requires the exact marker-owned PostgreSQL 17 test target.');
 }
@@ -84,6 +94,7 @@ $readPrimaryCounts = static function (PDO $connection): array {
             $counts[$table] = (int) $connection->query('select count(*) from public."'.$table.'"')->fetchColumn();
         }
     }
+
     return $counts;
 };
 $primaryCounts = $readPrimaryCounts($primaryConnection);
@@ -105,7 +116,7 @@ $safeDrop = static function () use (&$dropped, &$primaryCountsUnchanged, $root, 
     if ($dropped || ! preg_match('/^erp_elec_new_m10_advance_[a-f0-9]{16}$/', $database)) {
         return;
     }
-    $owned = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
+    $owned = OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
     if ($owned['data_directory'] !== $primary['data_directory'] || $owned['port'] !== $primary['port']) {
         throw new RuntimeException('Refusing disposable advance database cleanup after primary target changed.');
     }
@@ -137,6 +148,7 @@ $writeFailure = static function (Throwable $error) use (&$failed, &$stage, &$dro
         file_put_contents($failurePath, json_encode($failure, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
         chmod($failurePath, 0600);
     }
+
     return $failure;
 };
 $writeCleanup = static function (?Throwable $error = null) use (&$dropped, &$primaryCountsUnchanged, $database, $primary, $cleanupPath): array {
@@ -148,6 +160,7 @@ $writeCleanup = static function (?Throwable $error = null) use (&$dropped, &$pri
         'recorded_at_utc' => gmdate(DATE_ATOM)];
     file_put_contents($cleanupPath, json_encode($cleanup, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     chmod($cleanupPath, 0600);
+
     return $cleanup;
 };
 set_exception_handler(static function (Throwable $error) use ($writeFailure): void {
@@ -163,7 +176,11 @@ register_shutdown_function(static function () use (&$dropped, &$cleanupRecorded,
     }
     $error = null;
     if (! $dropped) {
-        try { $safeDrop(); } catch (Throwable $failure) { $error = $failure; }
+        try {
+            $safeDrop();
+        } catch (Throwable $failure) {
+            $error = $failure;
+        }
     }
     $cleanup = $writeCleanup($error);
     $cleanupRecorded = true;
@@ -190,9 +207,14 @@ chmod($private.'/migration-output.log', 0600);
 if (! $migrate->isSuccessful() || ! preg_match('/^.*\bDONE\r?$/m', $migrate->getOutput())) {
     throw new RuntimeException('Disposable advance migrations failed or omitted the completion marker.');
 }
-foreach ($baseEnv as $key => $value) { putenv($key.'='.$value); $_ENV[$key] = $_SERVER[$key] = $value; }
+foreach ($baseEnv as $key => $value) {
+    putenv($key.'='.$value);
+    $_ENV[$key] = $_SERVER[$key] = $value;
+}
 $app = require $root.'/bootstrap/app.php';
-$app->loadEnvironmentFrom('.env.testing'); $app->useStoragePath($runtime.'/storage'); $app->make(Kernel::class)->bootstrap();
+$app->loadEnvironmentFrom('.env.testing');
+$app->useStoragePath($runtime.'/storage');
+$app->make(Kernel::class)->bootstrap();
 config(['database.default' => 'pgsql', 'database.connections.pgsql.host' => $primary['connection_host'], 'database.connections.pgsql.port' => $primary['port'],
     'database.connections.pgsql.database' => $database, 'database.connections.pgsql.username' => $primary['username'], 'database.connections.pgsql.password' => $password,
     'database.connections.pgsql.url' => null, 'filesystems.disks.local.root' => $runtime.'/private', 'filesystems.disks.local.visibility' => 'private',
@@ -238,8 +260,10 @@ try {
         DB::table('user_branch_scopes')->insert(['user_id' => $user->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
     }
     $grant = static function (User $user, array $permissions, ?int $branchId): void {
-        foreach ($permissions as $permission) { DB::table('access_grants')->insertOrIgnore(['user_id' => $user->id, 'permission_code' => $permission,
-            'branch_id' => $branchId, 'created_at' => now(), 'updated_at' => now()]); }
+        foreach ($permissions as $permission) {
+            DB::table('access_grants')->insertOrIgnore(['user_id' => $user->id, 'permission_code' => $permission,
+                'branch_id' => $branchId, 'created_at' => now(), 'updated_at' => now()]);
+        }
     };
     $makerPermissions = ['M01.employee_manage', 'M01.employee_view', 'M02.product_view', 'M03.customer_view', 'M10.contract_create', 'M10.contract_edit',
         'M10.contract_sign', 'M10.contract_activate', 'M10.contract_view', 'M10.document_manage', 'M10.billing_manage', 'M12.customer_invoice_manage',
@@ -250,38 +274,54 @@ try {
         'M11.source_post', 'M11.opening_approve', 'M11.financial_activate', 'M11.journal_approve', 'M11.journal_post', 'M11.journal_view', 'M13.collection_execute'];
     $racePermissions = ['M03.customer_view', 'M12.ar_view', 'M12.advance_apply', 'M13.collection_execute', 'M13.advance_refund', 'M11.report_view',
         'M11.source_post', 'M11.journal_post'];
-    $grant($maker, $makerPermissions, (int) $branch->id); $grant($approver, $reviewerPermissions, (int) $branch->id);
-    $grant($actorA, $racePermissions, (int) $branch->id); $grant($actorB, $racePermissions, (int) $branch->id);
-    foreach ([$maker, $approver] as $reader) { $grant($reader, ['M02.product_view', 'M03.customer_view'], null); }
+    $grant($maker, $makerPermissions, (int) $branch->id);
+    $grant($approver, $reviewerPermissions, (int) $branch->id);
+    $grant($actorA, $racePermissions, (int) $branch->id);
+    $grant($actorB, $racePermissions, (int) $branch->id);
+    foreach ([$maker, $approver] as $reader) {
+        $grant($reader, ['M02.product_view', 'M03.customer_view'], null);
+    }
     foreach (['M11.account_manage', 'M11.setup_manage', 'M11.tax_manage', 'M11.period_open', 'M11.opening_manage', 'M11.tax_calculate', 'M11.source_post',
-        'M11.journal_create', 'M11.journal_submit', 'M11.journal_approve', 'M11.journal_post', 'M13.account_manage'] as $permission) { $grant($maker, [$permission], null); }
+        'M11.journal_create', 'M11.journal_submit', 'M11.journal_approve', 'M11.journal_post', 'M13.account_manage'] as $permission) {
+        $grant($maker, [$permission], null);
+    }
     foreach (['M11.report_view', 'M11.tax_calculate', 'M11.source_post', 'M11.opening_approve', 'M11.financial_activate', 'M11.journal_approve',
-        'M11.journal_post', 'M13.collection_execute'] as $permission) { $grant($approver, [$permission], null); }
+        'M11.journal_post', 'M13.collection_execute'] as $permission) {
+        $grant($approver, [$permission], null);
+    }
     foreach (['M03.customer_view', 'M11.report_view', 'M11.source_post', 'M11.journal_post', 'M13.collection_execute'] as $permission) {
-        $grant($actorA, [$permission], null); $grant($actorB, [$permission], null);
+        $grant($actorA, [$permission], null);
+        $grant($actorB, [$permission], null);
     }
     $today = now('Africa/Cairo')->toDateString();
-    \Carbon\Carbon::setTestNow(\Carbon\CarbonImmutable::parse($today, 'Africa/Cairo')->startOfDay()->addHours(12));
+    Carbon::setTestNow(CarbonImmutable::parse($today, 'Africa/Cairo')->startOfDay()->addHours(12));
     $employee = Employee::factory()->create(['branch_id' => $branch->id, 'active' => true, 'starts_on' => $today]);
     $uuid = static fn (): string => (string) Str::uuid();
     $accountCode = static fn (string $purpose): string => 'ADV-'.substr(hash('sha256', $tag.':'.$purpose), 0, 24);
-    $setup = app(FinancialActivation::class); $accounts = app(AccountingActions::class); $mappings = [];
+    $setup = app(FinancialActivation::class);
+    $accounts = app(AccountingActions::class);
+    $mappings = [];
     foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) {
         $mappings[$purpose] = $accounts->account((int) $maker->id, null, 0, ['code' => $accountCode($purpose), 'name' => 'Advance race '.$label,
             'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
     }
     $version = (int) DB::table('accounting_activation')->where('id', 1)->value('version');
-    $setup->save((int) $maker->id, $version, ['go_live_date' => $today, 'mappings' => $mappings]); $version++;
+    $setup->save((int) $maker->id, $version, ['go_live_date' => $today, 'mappings' => $mappings]);
+    $version++;
     foreach ([['sale', null, 'SALE', 'percentage'], ['purchase', null, 'PURCHASE', 'percentage'], ['sale', $service->id, 'SERVICE', 'exempt']] as [$type, $productId, $suffix, $treatment]) {
         $setup->addTaxRule((int) $maker->id, $version, ['code' => $tag.'-'.$suffix, 'name' => 'Synthetic race '.$suffix.' rule', 'transaction_type' => $type,
             'product_id' => $productId, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null, 'treatment' => $treatment, 'tax_scale' => 2,
-            'legal_reference' => 'Rollback-only synthetic concurrency fixture', 'purchase_recoverable' => $type === 'purchase']); $version++;
+            'legal_reference' => 'Rollback-only synthetic concurrency fixture', 'purchase_recoverable' => $type === 'purchase']);
+        $version++;
     }
-    $setup->validateTaxTreatment((int) $maker->id, $version, 'Synthetic advance race has explicit zero-rate/exempt tax coverage.'); $version++;
+    $setup->validateTaxTreatment((int) $maker->id, $version, 'Synthetic advance race has explicit zero-rate/exempt tax coverage.');
+    $version++;
     $accounts->period((int) $maker->id, ['name' => 'Advance race '.$tag, 'starts_on' => substr($today, 0, 4).'-01-01', 'ends_on' => substr($today, 0, 4).'-12-31']);
-    $opening = app(OpeningBalances::class); $batch = $opening->save((int) $maker->id, $version, $uuid(), [], true,
+    $opening = app(OpeningBalances::class);
+    $batch = $opening->save((int) $maker->id, $version, $uuid(), [], true,
         'Explicit rollback-only synthetic no-opening declaration for advance concurrency.');
-    $opening->advance((int) $maker->id, $batch, 1, 'submit'); $opening->advance((int) $approver->id, $batch, 2, 'approve');
+    $opening->advance((int) $maker->id, $batch, 1, 'submit');
+    $opening->advance((int) $approver->id, $batch, 2, 'approve');
     app(ActivateFinancialPosting::class)->execute((int) $approver->id, $batch, 3);
     foreach (['customer_advance' => 'Advance race customer-advance control', 'service_contract_deferred' => 'Advance race deferred-revenue control'] as $purpose => $name) {
         $id = $accounts->account((int) $maker->id, null, 0, ['code' => $accountCode($purpose), 'name' => $name, 'kind' => 'liability',
@@ -297,24 +337,34 @@ try {
         'sla_response_minutes' => 60, 'sla_resolution_minutes' => 120, 'covered_labor_minutes' => 0,
         'coverage' => [['equipment_ref' => $tag.'-EQ', 'site_id' => null, 'preventive_visits' => 0, 'corrective_visits' => 1]],
         'parts' => [], 'excluded_parts' => [], 'boq' => [], 'schedule' => [['code' => 'ADV-RACE-01', 'due_date' => $today, 'amount' => '100.00', 'description' => 'فاتورة اختبار']]];
-    $contracts = app(ServiceContractActions::class); $contract = $contracts->save((int) $maker->id, null, 0, $uuid(), $terms);
+    $contracts = app(ServiceContractActions::class);
+    $contract = $contracts->save((int) $maker->id, null, 0, $uuid(), $terms);
     $signature = app(ServiceContractDocuments::class)->store((int) $maker->id, $contract,
         UploadedFile::fake()->createWithContent('advance-race-signature.pdf', "%PDF-1.4\nSynthetic race signature\n%%EOF"), 'signature', 'Disposable advance race');
-    $row = DB::table('service_contracts')->find($contract); $contracts->submit((int) $maker->id, $contract, (int) $row->version);
-    $row = DB::table('service_contracts')->find($contract); $contracts->approve((int) $approver->id, $contract, (int) $row->version);
-    $row = DB::table('service_contracts')->find($contract); $contracts->sign((int) $maker->id, $contract, (int) $row->version, $signature, $today);
-    $row = DB::table('service_contracts')->find($contract); $contracts->activate((int) $approver->id, $contract, (int) $row->version);
-    $billing = app(ServiceContractBilling::class); $source = $billing->proposeInstallment((int) $maker->id, $contract, 'ADV-RACE-01', $uuid(),
+    $row = DB::table('service_contracts')->find($contract);
+    $contracts->submit((int) $maker->id, $contract, (int) $row->version);
+    $row = DB::table('service_contracts')->find($contract);
+    $contracts->approve((int) $approver->id, $contract, (int) $row->version);
+    $row = DB::table('service_contracts')->find($contract);
+    $contracts->sign((int) $maker->id, $contract, (int) $row->version, $signature, $today);
+    $row = DB::table('service_contracts')->find($contract);
+    $contracts->activate((int) $approver->id, $contract, (int) $row->version);
+    $billing = app(ServiceContractBilling::class);
+    $source = $billing->proposeInstallment((int) $maker->id, $contract, 'ADV-RACE-01', $uuid(),
         ['invoice_date' => $today, 'due_date' => $today, 'tax_mode' => 'exclusive', 'reference' => 'Synthetic race AR source', 'amount' => '100.00']);
-    $billing->approveSource((int) $approver->id, $source, 1); $invoiceId = $billing->invoice((int) $maker->id, $source, $uuid());
-    $rp = app(ReceivablesPayablesApi::class); $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
-    $rp->validateCustomerInvoice((int) $approver->id, $invoiceId, (int) $invoice->version); $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
+    $billing->approveSource((int) $approver->id, $source, 1);
+    $invoiceId = $billing->invoice((int) $maker->id, $source, $uuid());
+    $rp = app(ReceivablesPayablesApi::class);
+    $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
+    $rp->validateCustomerInvoice((int) $approver->id, $invoiceId, (int) $invoice->version);
+    $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
     $invoicePost = $rp->postCustomerInvoice((int) $approver->id, $invoiceId, (int) $invoice->version);
     $openId = (int) DB::table('rp_open_items')->where('source_type', 'customer_invoice')->where('source_id', $invoiceId)->value('id');
     if (! $invoicePost['journal_id'] || ! DB::table('rp_open_items')->where('id', $openId)->where('remaining_amount', '100.00')->exists()) {
         throw new RuntimeException('A genuine posted M10/M12 100.00 invoice did not produce its AR open item.');
     }
-    $collectionKey = $uuid(); $collection = app(TreasuryApi::class)->executeCustomerCollection((int) $actorA->id,
+    $collectionKey = $uuid();
+    $collection = app(TreasuryApi::class)->executeCustomerCollection((int) $actorA->id,
         ['idempotency_key' => $collectionKey, 'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id, 'account_id' => $cashAccount,
             'date' => $today, 'amount' => '50.00', 'reference' => 'Synthetic advance concurrency source', 'allow_advance' => true], []);
     $advanceId = (int) DB::table('rp_customer_advances')->where('movement_id', $collection['movement_id'])->value('id');
@@ -322,11 +372,15 @@ try {
         throw new RuntimeException('A real Treasury collection did not create a 50.00 customer advance.');
     }
     DB::commit();
-    \Carbon\Carbon::setTestNow();
+    Carbon::setTestNow();
 
-    $receipt['actor_ids'] = $actors; $receipt['branch_id'] = (int) $branch->id; $receipt['advance_id'] = $advanceId;
-    file_put_contents($receiptPath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR), LOCK_EX); chmod($receiptPath, 0600);
-    $gate = $private.'/barrier/go'; $tasks = [
+    $receipt['actor_ids'] = $actors;
+    $receipt['branch_id'] = (int) $branch->id;
+    $receipt['advance_id'] = $advanceId;
+    file_put_contents($receiptPath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR), LOCK_EX);
+    chmod($receiptPath, 0600);
+    $gate = $private.'/barrier/go';
+    $tasks = [
         ['application', (int) $actorA->id, $uuid(), $cashAccount, 'Advance application race worker'],
         ['refund', (int) $actorB->id, $uuid(), $cashAccount, 'Advance refund race worker']];
     foreach ($tasks as $i => [$mode, $actorId, $key, $accountId, $reference]) {
@@ -334,12 +388,17 @@ try {
         $process = new Process([PHP_BINARY, $root.'/tests/Support/m10-advance-concurrency-worker.php', $database, $receiptPath,
             (string) $actorId, (string) $advanceId, (string) $openId, '30.00', $today, $mode, $key, (string) $accountId, $reference, $gate, $ready],
             $root, $baseEnv, null, 90);
-        $process->start(); $workers[] = [$process, $ready];
+        $process->start();
+        $workers[] = [$process, $ready];
     }
     $deadline = microtime(true) + 45;
     foreach ($workers as [, $ready]) {
-        while (! is_file($ready) && microtime(true) < $deadline) { usleep(10000); }
-        if (! is_file($ready)) { throw new RuntimeException('Both advance workers did not reach the PostgreSQL race barrier.'); }
+        while (! is_file($ready) && microtime(true) < $deadline) {
+            usleep(10000);
+        }
+        if (! is_file($ready)) {
+            throw new RuntimeException('Both advance workers did not reach the PostgreSQL race barrier.');
+        }
     }
     $readyRows = array_map(fn ($path) => json_decode((string) file_get_contents($path), true, 512, JSON_THROW_ON_ERROR), array_column($workers, 1));
     if (count(array_unique(array_column($readyRows, 'pg_backend_pid'))) !== 2) {
@@ -348,7 +407,8 @@ try {
     file_put_contents($gate, 'go', LOCK_EX);
     $outcomes = [];
     foreach ($workers as [$process]) {
-        $process->wait(); $outcomes[] = ['exit_code' => $process->getExitCode(), 'result' => json_decode(trim($process->getOutput()), true)];
+        $process->wait();
+        $outcomes[] = ['exit_code' => $process->getExitCode(), 'result' => json_decode(trim($process->getOutput()), true)];
     }
     file_put_contents($private.'/workers.json', json_encode(['ready' => $readyRows, 'outcomes' => $outcomes], JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR), LOCK_EX);
     chmod($private.'/workers.json', 0600);
@@ -387,21 +447,33 @@ try {
 } finally {
     $workerLogs = [];
     foreach ($workers as [$process]) {
-        if ($process->isRunning()) { $process->stop(1); }
+        if ($process->isRunning()) {
+            $process->stop(1);
+        }
         $workerLogs[] = ['exit_code' => $process->getExitCode(), 'stdout' => $process->getOutput(), 'stderr' => $process->getErrorOutput()];
     }
     if ($workerLogs !== []) {
         file_put_contents($private.'/worker-processes.json', json_encode($workerLogs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR), LOCK_EX);
         chmod($private.'/worker-processes.json', 0600);
     }
-    if (DB::transactionLevel() > 0) { DB::rollBack(); }
-    \Carbon\Carbon::setTestNow();
+    if (DB::transactionLevel() > 0) {
+        DB::rollBack();
+    }
+    Carbon::setTestNow();
     DB::disconnect('pgsql');
     $stage = 'drop verified disposable advance database';
     $cleanupError = null;
-    try { $safeDrop(); } catch (Throwable $exception) { $cleanupError = $exception; $error ??= $exception; }
-    $cleanup = $writeCleanup($cleanupError); $cleanupRecorded = true;
-    if ($cleanupError) { $writeFailure($cleanupError); }
+    try {
+        $safeDrop();
+    } catch (Throwable $exception) {
+        $cleanupError = $exception;
+        $error ??= $exception;
+    }
+    $cleanup = $writeCleanup($cleanupError);
+    $cleanupRecorded = true;
+    if ($cleanupError) {
+        $writeFailure($cleanupError);
+    }
 }
 if ($error) {
     $failure = $writeFailure($error);
@@ -411,7 +483,8 @@ if ($error) {
 }
 if (! $dropped || $primaryCountsUnchanged !== true) {
     $error = new RuntimeException('Disposable advance database drop and unchanged-primary checks did not both pass.');
-    $failure = $writeFailure($error); $writeCleanup($error);
+    $failure = $writeFailure($error);
+    $writeCleanup($error);
     fwrite(STDERR, json_encode($failure, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
     fwrite(STDERR, 'Private race artifacts preserved at '.$private.PHP_EOL);
     exit(1);
@@ -420,7 +493,8 @@ $result['checks'] = [
     ['name' => 'Independent application and refund workers yield one success and one 422 cap rejection', 'result' => 'PASS'],
     ['name' => 'Advance remaining equals 20.00 in M12 history and posted M11 customer-advance control', 'result' => 'PASS'],
     ['name' => 'Disposable database dropped after exact marker/nonce/PGDATA checks; primary counts unchanged', 'result' => 'PASS']];
-$result['disposable_database_dropped'] = true; $result['primary_counts_unchanged'] = true;
+$result['disposable_database_dropped'] = true;
+$result['primary_counts_unchanged'] = true;
 $evidence = $private.'/result.json';
 file_put_contents($evidence, json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
 chmod($evidence, 0600);

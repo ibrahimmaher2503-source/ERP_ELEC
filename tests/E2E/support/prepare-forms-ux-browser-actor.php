@@ -65,7 +65,9 @@ $actor = DB::transaction(function () use ($tag, $password): array {
         'password' => Hash::make($password), 'active' => true, 'email_verified_at' => now(),
     ]);
     $role = DB::table('roles')->where('code', 'Administrator')->first();
-    if (! $role) throw new RuntimeException('The migrated Administrator role is missing.');
+    if (! $role) {
+        throw new RuntimeException('The migrated Administrator role is missing.');
+    }
     DB::table('user_roles')->insert(['user_id' => $user->id, 'role_id' => $role->id, 'created_at' => now(), 'updated_at' => now()]);
     DB::table('user_branch_scopes')->insert(['user_id' => $user->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
     app(SyncAdministratorPermissions::class)->execute();

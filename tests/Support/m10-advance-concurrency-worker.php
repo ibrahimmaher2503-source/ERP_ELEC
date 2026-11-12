@@ -30,7 +30,8 @@ if (! preg_match('/^erp_elec_new_m10_advance_[a-f0-9]{16}$/', $database) || ! is
     || ! in_array($mode, ['application', 'refund'], true) || $actor < 1 || $advance < 1 || $openItem < 1 || $account < 1 || $gate === '' || $ready === '') {
     throw new RuntimeException('M10 advance worker private disposable database receipt or inputs are invalid.');
 }
-putenv('APP_ENV=testing'); $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
+putenv('APP_ENV=testing');
+$_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
 $app->loadEnvironmentFrom('.env.testing');

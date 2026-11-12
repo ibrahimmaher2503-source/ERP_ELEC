@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Accounting\Application\OpeningBalances;
-use App\Modules\Inventory\Application\InventoryActions;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Products\Domain\Product;
@@ -20,7 +19,6 @@ use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 $root = dirname(__DIR__, 3);
@@ -33,7 +31,9 @@ if ((int) (getenv('E2E_DB_PORT') ?: 0) !== 55461 || getenv('E2E_DB_DATABASE') !=
     || ! str_contains(str_replace('\\', '/', $storage), '/.tmp/page-speed-audit/')) {
     throw new RuntimeException('ABORT: only the owned page-speed PostgreSQL database and private storage are accepted.');
 }
-if (! is_file($markerPath)) throw new RuntimeException('ABORT: isolated PostgreSQL ownership marker is missing.');
+if (! is_file($markerPath)) {
+    throw new RuntimeException('ABORT: isolated PostgreSQL ownership marker is missing.');
+}
 $marker = json_decode((string) file_get_contents($markerPath), true, 512, JSON_THROW_ON_ERROR);
 if (($marker['kind'] ?? null) !== 'codex-e2e-postgres' || ($marker['repo'] ?? null) !== realpath($root)
     || (int) ($marker['port'] ?? 0) !== 55461 || (int) ($marker['version'] ?? 0) !== 1
@@ -41,12 +41,18 @@ if (($marker['kind'] ?? null) !== 'codex-e2e-postgres' || ($marker['repo'] ?? nu
     || strlen($expectedToken) < 32 || ! hash_equals((string) ($marker['token'] ?? ''), $expectedToken)) {
     throw new RuntimeException('ABORT: isolated PostgreSQL ownership marker does not match this workspace.');
 }
-putenv('APP_ENV=testing'); $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
-putenv('DB_CONNECTION=pgsql'); $_ENV['DB_CONNECTION'] = $_SERVER['DB_CONNECTION'] = 'pgsql';
-putenv('DB_URL='); $_ENV['DB_URL'] = $_SERVER['DB_URL'] = '';
-putenv('DB_HOST=127.0.0.1'); $_ENV['DB_HOST'] = $_SERVER['DB_HOST'] = '127.0.0.1';
-putenv('DB_PORT=55461'); $_ENV['DB_PORT'] = $_SERVER['DB_PORT'] = '55461';
-putenv('DB_DATABASE=erp_elec_new_test'); $_ENV['DB_DATABASE'] = $_SERVER['DB_DATABASE'] = 'erp_elec_new_test';
+putenv('APP_ENV=testing');
+$_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
+putenv('DB_CONNECTION=pgsql');
+$_ENV['DB_CONNECTION'] = $_SERVER['DB_CONNECTION'] = 'pgsql';
+putenv('DB_URL=');
+$_ENV['DB_URL'] = $_SERVER['DB_URL'] = '';
+putenv('DB_HOST=127.0.0.1');
+$_ENV['DB_HOST'] = $_SERVER['DB_HOST'] = '127.0.0.1';
+putenv('DB_PORT=55461');
+$_ENV['DB_PORT'] = $_SERVER['DB_PORT'] = '55461';
+putenv('DB_DATABASE=erp_elec_new_test');
+$_ENV['DB_DATABASE'] = $_SERVER['DB_DATABASE'] = 'erp_elec_new_test';
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
 $app->loadEnvironmentFrom('.env.testing');
@@ -83,7 +89,9 @@ $scope = DB::table('user_warehouse_scopes as a')->join('user_warehouse_scopes as
     $join->on('b.warehouse_id', '=', 'a.warehouse_id')->on('b.branch_id', '=', 'a.branch_id');
 })->join('inventory_warehouses as w', 'w.id', '=', 'a.warehouse_id')->where('a.user_id', $makerId)->where('b.user_id', $reviewerId)
     ->where('a.branch_id', $branchId)->where('w.active', true)->orderBy('w.id')->first(['w.id as warehouse_id', 'a.branch_id']);
-if ($branchId < 1 || ! $scope) throw new RuntimeException('ABORT: actors lack a shared active branch and warehouse scope.');
+if ($branchId < 1 || ! $scope) {
+    throw new RuntimeException('ABORT: actors lack a shared active branch and warehouse scope.');
+}
 $branch = (int) $scope->branch_id;
 $warehouseId = (int) $scope->warehouse_id;
 $tag = 'PERF-FIN-20261031';
@@ -119,20 +127,32 @@ $created = DB::transaction(function () use ($makerId, $reviewerId, $branch, $war
 
     $stage = 'M11 owner accounting activation';
     $activation = DB::table('accounting_activation')->where('id', 1)->lockForUpdate()->first();
-    if (! $activation) throw new RuntimeException('M11 activation row missing.');
+    if (! $activation) {
+        throw new RuntimeException('M11 activation row missing.');
+    }
     $mappings = [];
     foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) {
         $configured = DB::table('accounting_account_mappings')->where('purpose', $purpose)->value('account_id');
-        if ($configured) { $mappings[$purpose] = (int) $configured; continue; }
-        if ($activation->activated_at !== null) throw new RuntimeException('Activated M11 has no required '.$purpose.' mapping; refusing mutation.');
+        if ($configured) {
+            $mappings[$purpose] = (int) $configured;
+
+            continue;
+        }
+        if ($activation->activated_at !== null) {
+            throw new RuntimeException('Activated M11 has no required '.$purpose.' mapping; refusing mutation.');
+        }
         $usedAccountIds = array_values(array_map('intval', array_values($mappings)));
         $accountQuery = DB::table('accounting_accounts')->where('active', true)->where('postable', true)->where('kind', $kind);
-        if ($usedAccountIds !== []) $accountQuery->whereNotIn('id', $usedAccountIds);
+        if ($usedAccountIds !== []) {
+            $accountQuery->whereNotIn('id', $usedAccountIds);
+        }
         $account = $accountQuery->orderBy('id')->value('id');
-        if (! $account) $account = app(AccountingActions::class)->account($makerId, null, 0, [
-            'code' => $tag.'-'.strtoupper($purpose), 'name' => 'اختبار أداء '.$label, 'kind' => $kind,
-            'parent_id' => null, 'postable' => true, 'active' => true,
-        ]);
+        if (! $account) {
+            $account = app(AccountingActions::class)->account($makerId, null, 0, [
+                'code' => $tag.'-'.strtoupper($purpose), 'name' => 'اختبار أداء '.$label, 'kind' => $kind,
+                'parent_id' => null, 'postable' => true, 'active' => true,
+            ]);
+        }
         $mappings[$purpose] = (int) $account;
     }
     $version = (int) $activation->version;
@@ -147,7 +167,9 @@ $created = DB::transaction(function () use ($makerId, $reviewerId, $branch, $war
         $setup->save($makerId, $version++, ['go_live_date' => $today, 'mappings' => $mappings]);
         foreach ([['sale', null], ['purchase', (int) $product->id]] as [$type, $productId]) {
             $hasRule = DB::table('accounting_tax_rules as r')->leftJoin('accounting_tax_rule_endings as e', 'e.rule_id', '=', 'r.id')
-                ->where('r.transaction_type', $type)->where(function ($q) use ($productId) { $q->whereNull('r.product_id')->orWhere('r.product_id', $productId); })
+                ->where('r.transaction_type', $type)->where(function ($q) use ($productId) {
+                    $q->whereNull('r.product_id')->orWhere('r.product_id', $productId);
+                })
                 ->where('r.starts_on', '<=', $today)->whereRaw('(coalesce(e.ends_on,r.ends_on) is null or coalesce(e.ends_on,r.ends_on)>=?::date)', [$today])
                 ->whereRaw('coalesce(e.withdrawn,false)=false')->exists();
             if (! $hasRule) {
@@ -155,7 +177,9 @@ $created = DB::transaction(function () use ($makerId, $reviewerId, $branch, $war
                     'transaction_type' => $type, 'product_id' => $productId, 'rate' => '14', 'starts_on' => $today,
                     'ends_on' => null, 'treatment' => 'percentage', 'tax_scale' => 2,
                     'legal_reference' => 'Synthetic isolated performance fixture only; not a statutory treatment.'];
-                if ($type === 'purchase') $tax['purchase_recoverable'] = true;
+                if ($type === 'purchase') {
+                    $tax['purchase_recoverable'] = true;
+                }
                 $setup->addTaxRule($makerId, $version++, $tax);
             }
         }
@@ -204,7 +228,9 @@ $created = DB::transaction(function () use ($makerId, $reviewerId, $branch, $war
     $rp->approveSupplierInvoice($makerId, $supplierInvoiceId, 3);
     $rp->postSupplierInvoice($makerId, $supplierInvoiceId, 4);
     $ap = DB::table('rp_open_items')->where('source_type', 'supplier_invoice')->where('source_id', $supplierInvoiceId)->first();
-    if (! $ap) throw new RuntimeException('Posted supplier invoice did not create its AP open item.');
+    if (! $ap) {
+        throw new RuntimeException('Posted supplier invoice did not create its AP open item.');
+    }
 
     $stage = 'M13 customer advance owner action';
     $advanceAccount = (int) DB::table('accounting_account_mappings')->where('purpose', 'customer_advance')->value('account_id');
@@ -225,6 +251,7 @@ $created = DB::transaction(function () use ($makerId, $reviewerId, $branch, $war
         || DB::table('treasury_movements')->where('id', $collection['movement_id'])->where('reference', $tag.' customer advance')->value('amount') !== '10.00') {
         throw new RuntimeException('Readback did not find the actual posted receipt, AP invoice, and Treasury collection movement.');
     }
+
     return ['supplier_id' => (int) $supplier->id, 'customer_id' => (int) $customer->id,
         'product_id' => (int) $product->id, 'branch_id' => $branch, 'warehouse_id' => $warehouseId,
         'order_id' => $orderId, 'receipt_id' => $receiptId, 'supplier_invoice_id' => $supplierInvoiceId,

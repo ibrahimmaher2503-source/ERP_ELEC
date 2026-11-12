@@ -34,7 +34,7 @@ fclose($pipes[2]);
 $exitCode = proc_close($process);
 
 if ($exitCode !== 0) {
-    fwrite(STDERR, "route:list failed: ".trim($routeError)."\n");
+    fwrite(STDERR, 'route:list failed: '.trim($routeError)."\n");
     exit(2);
 }
 

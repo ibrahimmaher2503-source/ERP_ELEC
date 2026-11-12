@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Accounting\Application\OpeningBalances;
-use App\Modules\Accounting\Domain\AccountingAccount;
+use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Application\SaveCompany;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Parties\Domain\Supplier;
+use App\Modules\ReceivablesPayables\Application\PostOpeningPayables;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -126,7 +127,7 @@ if (is_file($historicalSourcePath)) {
 } elseif (file_put_contents($historicalSourcePath, $source, LOCK_EX) !== $expectedSourceBytes) {
     throw new RuntimeException('Could not extract the verified historical producer into its private test-only path.');
 }
-$class = App\Modules\ReceivablesPayables\Application\PostOpeningPayables::class;
+$class = PostOpeningPayables::class;
 if (class_exists($class, false)) {
     throw new RuntimeException('ABORT: current producer was loaded before the verified historical source could be installed.');
 }
@@ -252,7 +253,7 @@ foreach ([$maker, $reviewer] as $actor) {
     DB::table('user_branch_scopes')->insert(['user_id' => $actor->id, 'branch_id' => $branch->id,
         'created_at' => now(), 'updated_at' => now()]);
 }
-$openingEntryDefinition = App\Modules\Organization\Application\PermissionCatalog::DEFINITIONS['M11.opening_entry'] ?? null;
+$openingEntryDefinition = PermissionCatalog::DEFINITIONS['M11.opening_entry'] ?? null;
 $assert(is_array($openingEntryDefinition) && ($openingEntryDefinition[1] ?? null) === 'branch',
     'Permission catalog no longer identifies M11.opening_entry as branch-scoped.');
 $grant($reviewer, ['M01.branch_view', 'M11.opening_review', 'M11.opening_approve']);

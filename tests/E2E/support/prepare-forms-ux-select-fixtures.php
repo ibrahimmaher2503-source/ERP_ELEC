@@ -1,8 +1,8 @@
 <?php
 
 use App\Modules\Products\Domain\Unit;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 $root = dirname(__DIR__, 3);
 $private = $root.'/.tmp/forms-ux-20261102/private';
@@ -14,7 +14,7 @@ if (($bootstrap['status'] ?? null) !== 'READY' || ($bootstrap['database'] ?? nul
 
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
-$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$app->make(Kernel::class)->bootstrap();
 $identity = DB::selectOne("SELECT current_database() AS database, current_setting('port') AS port, current_setting('data_directory') AS data_directory, (SELECT nonce FROM codex_test_guard.ownership_receipts WHERE database = current_database()) AS nonce");
 if ($identity->database !== 'erp_elec_new_test' || $identity->port !== '55467' || realpath($identity->data_directory) !== realpath($root.'/'.$bootstrap['postgres_data_directory']) || ! hash_equals(trim($identity->nonce), $marker['nonce'])) {
     throw new RuntimeException('Private PostgreSQL identity or ownership receipt mismatch.');

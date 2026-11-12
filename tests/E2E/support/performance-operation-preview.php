@@ -14,7 +14,7 @@ $cluster = $root.'/.tmp/page-speed-audit/postgres-55461';
 $markerPath = $cluster.'/codex-owned.json';
 $marker = is_file($markerPath) ? json_decode((string) file_get_contents($markerPath), true) : null;
 if ($actorId < 1 || (int) getenv('E2E_DB_PORT') !== 55461 || getenv('E2E_DB_DATABASE') !== 'erp_elec_new_test'
-    || !str_contains(str_replace('\\', '/', $storage), '/.tmp/page-speed-audit/') || !is_array($marker)
+    || ! str_contains(str_replace('\\', '/', $storage), '/.tmp/page-speed-audit/') || ! is_array($marker)
     || ($marker['kind'] ?? null) !== 'codex-e2e-postgres' || ($marker['repo'] ?? null) !== $root || ($marker['port'] ?? null) !== 55461
     || ($marker['token'] ?? null) !== getenv('E2E_CLUSTER_TOKEN') || strlen((string) getenv('E2E_CLUSTER_TOKEN')) < 32) {
     fwrite(STDERR, "Refusing preview fixture outside the marker-owned performance database.\n");
@@ -36,7 +36,7 @@ if (($identity->database ?? null) !== 'erp_elec_new_test' || (string) ($identity
 $actor = DB::table('users')->where('id', $actorId)->where('name', 'like', 'DEMO-EG E2E performance refresh %')->first();
 $isAdministrator = DB::table('user_roles')->join('roles', 'roles.id', '=', 'user_roles.role_id')
     ->where('user_roles.user_id', $actorId)->where('roles.code', 'Administrator')->exists();
-if (!$actor || !$isAdministrator) {
+if (! $actor || ! $isAdministrator) {
     fwrite(STDERR, "Refusing preview fixture for an unexpected actor.\n");
     exit(4);
 }

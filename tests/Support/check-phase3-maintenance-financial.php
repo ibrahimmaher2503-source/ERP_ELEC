@@ -1,8 +1,8 @@
 <?php
 
 // Source-driven M08 parts, labor and service-invoice checks. All writes roll back.
-use App\Application\PostPurchaseReceipt;
 use App\Application\ActivateFinancialPosting;
+use App\Application\PostPurchaseReceipt;
 use App\Models\User;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
@@ -12,9 +12,10 @@ use App\Modules\FieldMaintenance\Application\MaintenanceBilling;
 use App\Modules\FieldMaintenance\Application\MaintenanceCostProposals;
 use App\Modules\FieldMaintenance\Application\MaintenanceExecution;
 use App\Modules\FieldMaintenance\Application\MaintenanceParts;
+use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Inventory\Application\InventoryActions;
-use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Application\SaveCompany;
+use App\Modules\Organization\Domain\Branch;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Products\Domain\Product;
@@ -410,7 +411,7 @@ try {
     $reject(fn () => $parts->returnUnused((int) $maker->id, $serialWork, (int) DB::table('maintenance_part_issues')->where('issue_key', $serialIssueKey)->value('id'),
         '1.00000000', $uuid(), 'Reject returning a serial already consumed by the technician.', [$usedSerial]),
         'M08 cannot return a serial already linked to recorded part usage', 422);
-    $reject(fn () => app(\App\Modules\Inventory\Application\Contracts\InventoryApi::class)->returnMaintenanceIssue((int) $maker->id,
+    $reject(fn () => app(InventoryApi::class)->returnMaintenanceIssue((int) $maker->id,
         (int) $serialIssue['movement_id'], '1.00000000', $uuid(), 'Reject direct M06 return without unused owner proof.', [$usedSerial]),
         'Direct M06 serialized return still requires an M08 unused-owner proof', 422);
     $pass($denialSnapshot === [DB::table('inventory_movements')->count(), DB::table('inventory_serial_events')->count(),

@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
-use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\Organization\Domain\Branch;
+use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 

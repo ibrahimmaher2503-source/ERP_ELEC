@@ -11,7 +11,6 @@ use App\Modules\Organization\Application\EmployeeActions;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Employee;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;

@@ -132,5 +132,5 @@ $successes = count(array_filter($assignment['workers'], fn ($w) => $w['exit_code
 $conflicts = count(array_filter($assignment['workers'], fn ($w) => $w['exit_code'] === 2 && str_contains($w['stdout'], '"status":"REJECTED","code":422')));
 $overlaps = DB::table('maintenance_assignments')->where('technician_id', $technician->id)->where('active', true)
     ->where('starts_at', '<', $interval['ends_at'])->where('ends_at', '>', $interval['starts_at'])->count();
-$need($successes === 1 && $conflicts === 1 && $overlaps === 1,'two-process overlapping assignments for one technician admit exactly one active assignment');
+$need($successes === 1 && $conflicts === 1 && $overlaps === 1, 'two-process overlapping assignments for one technician admit exactly one active assignment');
 echo 'RESULT all_pass=true assertions=2 database='.$db->db.' port='.$db->port.PHP_EOL;

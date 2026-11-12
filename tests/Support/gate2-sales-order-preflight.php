@@ -5,6 +5,7 @@ declare(strict_types=1);
 // Read-only preflight for an independent Sales Order browser acceptance run.
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = realpath(dirname(__DIR__, 2));
 $private = $root.'/.tmp/master-remediation-20261101/ui-private';
@@ -50,11 +51,11 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select r.rolname from pg_database d join pg_roles r on r.oid=d.datdba where d.datname=current_database()) as database_owner");
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
+$target = OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
     'DB_PORT' => '49686', 'E2E_DB_PORT' => '49686', 'DB_DATABASE' => $database,
     'DB_USERNAME' => 'postgres', 'E2E_FINANCE_DB_NONCE' => $nonce]);
 $nonceRow = DB::selectOne('select nonce from codex_test_guard.ownership_receipts where database = ?', [$database]);
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
 
 $required = [
     'maker' => ['M04.sales_order_view', 'M04.sales_order_create', 'M04.sales_order_submit'],

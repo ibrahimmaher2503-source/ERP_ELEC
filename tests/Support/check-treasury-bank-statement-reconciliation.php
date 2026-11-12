@@ -5,23 +5,32 @@ declare(strict_types=1);
 // Gate5 bank statement matching uses genuine M11/M12/M13 source flows and rolls the synthetic fixture back.
 use App\Application\ActivateFinancialPosting;
 use App\Models\User;
-use App\Modules\Accounting\Application\{AccountingActions, FinancialActivation, OpeningBalances};
-use App\Modules\Organization\Domain\{Branch, Company, Employee};
+use App\Modules\Accounting\Application\AccountingActions;
+use App\Modules\Accounting\Application\FinancialActivation;
+use App\Modules\Accounting\Application\OpeningBalances;
+use App\Modules\Organization\Domain\Branch;
+use App\Modules\Organization\Domain\Company;
+use App\Modules\Organization\Domain\Employee;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
-use App\Modules\ServiceContracts\Application\{ServiceContractActions, ServiceContractBilling, ServiceContractDocuments};
+use App\Modules\ServiceContracts\Application\ServiceContractActions;
+use App\Modules\ServiceContracts\Application\ServiceContractBilling;
+use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\Treasury\Application\TreasuryStatementActions;
-use Carbon\{Carbon, CarbonImmutable};
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Database\QueryException;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $evidence = $root.'/docs/release/remediation/evidence/gate5';
@@ -35,35 +44,49 @@ $stage = 'source preflight';
 $checks = [];
 $assertions = 0;
 $emit = static function (array $receipt) use ($evidence): string {
-    if (! is_dir($evidence) && ! mkdir($evidence, 0770, true) && ! is_dir($evidence)) { throw new RuntimeException('Unable to create Gate5 evidence directory.'); }
+    if (! is_dir($evidence) && ! mkdir($evidence, 0770, true) && ! is_dir($evidence)) {
+        throw new RuntimeException('Unable to create Gate5 evidence directory.');
+    }
     $path = $evidence.'/treasury-statement-'.gmdate('Ymd\THis\Z').'-'.bin2hex(random_bytes(3)).'.json';
     file_put_contents($path, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
+
     return $path;
 };
 set_exception_handler(static function (Throwable $error) use (&$stage, &$checks, &$assertions, $emit): void {
     $safe = preg_replace('/(password|secret|token)=\S+/i', '$1=[redacted]', $error->getMessage());
     $receipt = ['all_pass' => false, 'mode' => 'treasury-bank-statement-reconciliation', 'phase' => $stage, 'assertions' => $assertions,
         'rollback_verified' => false, 'checks' => $checks, 'failure' => ['class' => $error::class, 'message' => mb_substr((string) $safe, 0, 500)]];
-    try { $path = $emit($receipt); fwrite(STDERR, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
+    try {
+        $path = $emit($receipt);
+        fwrite(STDERR, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
         fwrite(STDERR, 'RESULT all_pass=0 assertions='.$assertions.' rollback_verified=0 receipt='.$path.PHP_EOL);
-    } catch (Throwable) { fwrite(STDERR, "RESULT all_pass=0 assertions={$assertions} rollback_verified=0 receipt_write_failed=1\n"); }
+    } catch (Throwable) {
+        fwrite(STDERR, "RESULT all_pass=0 assertions={$assertions} rollback_verified=0 receipt_write_failed=1\n");
+    }
     exit(1);
 });
-putenv('APP_ENV=testing'); $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
+putenv('APP_ENV=testing');
+$_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
 require $root.'/vendor/autoload.php';
-if (! class_exists(TreasuryStatementActions::class)) { throw new RuntimeException('TreasuryStatementActions is not implemented yet.'); }
+if (! class_exists(TreasuryStatementActions::class)) {
+    throw new RuntimeException('TreasuryStatementActions is not implemented yet.');
+}
 foreach (['import', 'match', 'unmatch', 'review', 'reopen', 'view', 'download'] as $method) {
-    if (! method_exists(TreasuryStatementActions::class, $method)) { throw new RuntimeException('Treasury statement action is missing: '.$method); }
+    if (! method_exists(TreasuryStatementActions::class, $method)) {
+        throw new RuntimeException('Treasury statement action is missing: '.$method);
+    }
 }
 $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GITHUB_ACTIONS') ?: ''),
     'DB_HOST' => (string) (getenv('DB_HOST') ?: '127.0.0.1'), 'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '49685')),
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'), 'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres'),
     'E2E_CLUSTER_MARKER' => (string) (getenv('E2E_CLUSTER_MARKER') ?: ''), 'E2E_CLUSTER_TOKEN' => (string) (getenv('E2E_CLUSTER_TOKEN') ?: '')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $runtime = $storage;
 foreach ([$privateRoot, $storage, $taskRoot.'/treasury-statement-cache-'.$tagRuntime, $taskRoot.'/treasury-statement-views-'.$tagRuntime] as $dir) {
-    if (! is_dir($dir) && ! mkdir($dir, 0700, true) && ! is_dir($dir)) { throw new RuntimeException('Could not create private statement runtime directory.'); }
+    if (! is_dir($dir) && ! mkdir($dir, 0700, true) && ! is_dir($dir)) {
+        throw new RuntimeException('Could not create private statement runtime directory.');
+    }
 }
 $base = ['DB_CONNECTION' => 'pgsql', 'DB_HOST' => $target['connection_host'], 'DB_PORT' => (string) $target['port'], 'DB_DATABASE' => $target['database'],
     'DB_USERNAME' => $target['username'], 'DB_PASSWORD' => (string) (getenv('DB_PASSWORD') ?: ''), 'DB_URL' => '', 'APP_DEBUG' => 'false',
@@ -72,8 +95,14 @@ $base = ['DB_CONNECTION' => 'pgsql', 'DB_HOST' => $target['connection_host'], 'D
     'APP_SERVICES_CACHE' => $cachePrefix.'/services.php', 'APP_PACKAGES_CACHE' => $cachePrefix.'/packages.php',
     'APP_VIEW_COMPILED_PATH' => $viewsRelative, 'VIEW_COMPILED_PATH' => $viewsRelative, 'CACHE_STORE' => 'array', 'SESSION_DRIVER' => 'array',
     'QUEUE_CONNECTION' => 'sync', 'MAIL_MAILER' => 'array', 'BROADCAST_CONNECTION' => 'null', 'DEBUGBAR_ENABLED' => 'false', 'PULSE_ENABLED' => 'false'];
-foreach ($base as $key => $value) { putenv($key.'='.$value); $_ENV[$key] = $_SERVER[$key] = $value; }
-$app = require $root.'/bootstrap/app.php'; $app->loadEnvironmentFrom('.env.testing'); $app->useStoragePath($storage); $app->make(Kernel::class)->bootstrap();
+foreach ($base as $key => $value) {
+    putenv($key.'='.$value);
+    $_ENV[$key] = $_SERVER[$key] = $value;
+}
+$app = require $root.'/bootstrap/app.php';
+$app->loadEnvironmentFrom('.env.testing');
+$app->useStoragePath($storage);
+$app->make(Kernel::class)->bootstrap();
 config(['database.default' => 'pgsql', 'database.connections.pgsql.host' => $target['connection_host'], 'database.connections.pgsql.port' => $target['port'],
     'database.connections.pgsql.database' => $target['database'], 'database.connections.pgsql.username' => $target['username'],
     'database.connections.pgsql.password' => (string) (getenv('DB_PASSWORD') ?: ''), 'database.connections.pgsql.url' => null,
@@ -86,20 +115,37 @@ $identity = DB::selectOne("select current_database() as database,host(inet_serve
 $receipt = $target['ci_receipt'] !== null
     ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts')
     : ($target['nonce'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts where database = current_database()') : null);
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receipt);
-if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) { throw new RuntimeException('Gate5 requires the owned PostgreSQL 17 target.'); }
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receipt);
+if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
+    throw new RuntimeException('Gate5 requires the owned PostgreSQL 17 target.');
+}
 $pass = static function (bool $condition, string $name) use (&$assertions, &$checks): void {
-    $assertions++; $checks[] = ['name' => $name, 'result' => $condition ? 'PASS' : 'FAIL']; if (! $condition) { throw new RuntimeException($name); }
+    $assertions++;
+    $checks[] = ['name' => $name, 'result' => $condition ? 'PASS' : 'FAIL'];
+    if (! $condition) {
+        throw new RuntimeException($name);
+    }
 };
 $expect = static function (callable $action, int $expected, string $name) use ($pass): void {
-    try { $action(); } catch (ValidationException $e) { $pass($expected === 422, $name); return; }
-    catch (HttpExceptionInterface $e) { $pass($e->getStatusCode() === $expected, $name); return; }
+    try {
+        $action();
+    } catch (ValidationException $e) {
+        $pass($expected === 422, $name);
+
+        return;
+    } catch (HttpExceptionInterface $e) {
+        $pass($e->getStatusCode() === $expected, $name);
+
+        return;
+    }
     $pass(false, $name);
 };
 $uuid = static fn (): string => (string) Str::uuid();
 $grant = static function (User $actor, array $permissions, int $branch): void {
-    foreach ($permissions as $permission) { DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id, 'permission_code' => $permission,
-        'branch_id' => $branch, 'created_at' => now(), 'updated_at' => now()]); }
+    foreach ($permissions as $permission) {
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id, 'permission_code' => $permission,
+            'branch_id' => $branch, 'created_at' => now(), 'updated_at' => now()]);
+    }
 };
 $scope = static function (User $actor, int $branch): void {
     DB::table('user_branch_scopes')->insertOrIgnore(['user_id' => $actor->id, 'branch_id' => $branch, 'created_at' => now(), 'updated_at' => now()]);
@@ -112,33 +158,69 @@ $tables = ['companies', 'branches', 'users', 'customers', 'products', 'organizat
     'audit_entries', 'treasury_bank_statements', 'treasury_bank_statement_lines', 'treasury_bank_statement_matches', 'treasury_bank_statement_reviews',
     'treasury_statements', 'treasury_statement_lines', 'treasury_statement_matches', 'treasury_statement_reviews'];
 $counts = static function () use ($tables): array {
-    $out = []; foreach ($tables as $table) { if (DB::getSchemaBuilder()->hasTable($table)) { $out[$table] = (int) DB::table($table)->count(); } } return $out;
+    $out = [];
+    foreach ($tables as $table) {
+        if (DB::getSchemaBuilder()->hasTable($table)) {
+            $out[$table] = (int) DB::table($table)->count();
+        }
+    }
+
+return $out;
 };
 $guardSqlReject = static function (callable $action, string $expectedMessage, string $name, callable $state) use ($pass): void {
-    $beforeState = $state(); $failure = null; DB::beginTransaction();
-    try { $action(); } catch (QueryException $error) { $failure = $error; }
-    finally { if (DB::transactionLevel() > 1) { DB::rollBack(); } }
+    $beforeState = $state();
+    $failure = null;
+    DB::beginTransaction();
+    try {
+        $action();
+    } catch (QueryException $error) {
+        $failure = $error;
+    } finally {
+        if (DB::transactionLevel() > 1) {
+            DB::rollBack();
+        }
+    }
     $afterState = $state();
     $pass($failure !== null && str_contains($failure->getMessage(), $expectedMessage) && $beforeState === $afterState, $name);
 };
-$before = $counts(); $companyBefore = DB::table('companies')->where('id', 1)->first(); $activationBefore = DB::table('accounting_activation')->where('id', 1)->first();
-if (! $activationBefore) { throw new RuntimeException('M11 activation row is missing.'); }
-$failure = null; $failureTrace = []; $activationDuring = null; $during = []; $stage = 'rollback-only real M11/M10/M12/M13 statement sources';
+$before = $counts();
+$companyBefore = DB::table('companies')->where('id', 1)->first();
+$activationBefore = DB::table('accounting_activation')->where('id', 1)->first();
+if (! $activationBefore) {
+    throw new RuntimeException('M11 activation row is missing.');
+}
+$failure = null;
+$failureTrace = [];
+$activationDuring = null;
+$during = [];
+$stage = 'rollback-only real M11/M10/M12/M13 statement sources';
 DB::beginTransaction();
 try {
-    if (! $companyBefore) { Company::factory()->create(['id' => 1, 'name' => 'Synthetic statement acceptance entity', 'legal_name' => 'Synthetic statement acceptance entity Ltd.',
-        'address' => 'Rollback-only bank statement fixture', 'setup_complete' => true]); }
-    else { DB::table('companies')->where('id', 1)->update(['legal_name' => 'Synthetic statement acceptance entity Ltd.', 'address' => 'Rollback-only bank statement fixture',
-        'setup_complete' => true, 'updated_at' => now()]); }
-    $tag = 'DEMO-EG-STMT-'.Str::upper(Str::random(6)); $branch = Branch::factory()->create(['company_id' => 1, 'code' => $tag]);
+    if (! $companyBefore) {
+        Company::factory()->create(['id' => 1, 'name' => 'Synthetic statement acceptance entity', 'legal_name' => 'Synthetic statement acceptance entity Ltd.',
+            'address' => 'Rollback-only bank statement fixture', 'setup_complete' => true]);
+    } else {
+        DB::table('companies')->where('id', 1)->update(['legal_name' => 'Synthetic statement acceptance entity Ltd.', 'address' => 'Rollback-only bank statement fixture',
+            'setup_complete' => true, 'updated_at' => now()]);
+    }
+    $tag = 'DEMO-EG-STMT-'.Str::upper(Str::random(6));
+    $branch = Branch::factory()->create(['company_id' => 1, 'code' => $tag]);
     $otherBranch = Branch::factory()->create(['company_id' => 1, 'code' => $tag.'-OTHER']);
-    $customer = Customer::factory()->create(['status' => 'active']); $service = Product::factory()->create(['kind' => 'service', 'tracking' => 'none', 'active' => true]);
-    $maker = User::factory()->create(['active' => true, 'email_verified_at' => now()]); $reviewer = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
-    $manager = User::factory()->create(['active' => true, 'email_verified_at' => now()]); $managerOther = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    $customer = Customer::factory()->create(['status' => 'active']);
+    $service = Product::factory()->create(['kind' => 'service', 'tracking' => 'none', 'active' => true]);
+    $maker = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    $reviewer = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    $manager = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    $managerOther = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
     $reviewerOther = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
-    $viewer = User::factory()->create(['active' => true, 'email_verified_at' => now()]); $denied = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
-    foreach ([$maker, $reviewer, $manager, $viewer, $denied] as $actor) { $scope($actor, (int) $branch->id); }
-    foreach ([$managerOther, $reviewerOther] as $actor) { $scope($actor, (int) $otherBranch->id); }
+    $viewer = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    $denied = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+    foreach ([$maker, $reviewer, $manager, $viewer, $denied] as $actor) {
+        $scope($actor, (int) $branch->id);
+    }
+    foreach ([$managerOther, $reviewerOther] as $actor) {
+        $scope($actor, (int) $otherBranch->id);
+    }
     $grant($maker, ['M01.employee_manage', 'M01.employee_view', 'M03.customer_view', 'M02.product_view', 'M10.contract_create', 'M10.contract_edit',
         'M10.contract_sign', 'M10.contract_activate', 'M10.contract_view', 'M10.document_manage', 'M10.billing_manage', 'M12.customer_invoice_manage',
         'M11.account_manage', 'M11.setup_manage', 'M11.tax_manage', 'M11.period_open', 'M11.opening_manage', 'M11.tax_calculate', 'M11.source_post',
@@ -153,37 +235,58 @@ try {
     $grant($reviewerOther, ['M13.statement_review', 'M13.statement_view'], (int) $otherBranch->id);
     $grant($viewer, ['M13.statement_view'], (int) $branch->id);
     $grant($denied, ['M10.reports_view'], (int) $branch->id);
-    foreach ([$maker, $reviewer] as $reader) { foreach (['M03.customer_view', 'M02.product_view'] as $permission) {
-        DB::table('access_grants')->insertOrIgnore(['user_id' => $reader->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]); } }
+    foreach ([$maker, $reviewer] as $reader) {
+        foreach (['M03.customer_view', 'M02.product_view'] as $permission) {
+            DB::table('access_grants')->insertOrIgnore(['user_id' => $reader->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+        }
+    }
     foreach (['M11.account_manage', 'M11.setup_manage', 'M11.tax_manage', 'M11.period_open', 'M11.opening_manage', 'M11.tax_calculate', 'M11.source_post',
         'M11.journal_create', 'M11.journal_submit', 'M11.journal_approve', 'M11.journal_post', 'M13.account_manage'] as $permission) {
-        DB::table('access_grants')->insertOrIgnore(['user_id' => $maker->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]); }
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $maker->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+    }
     foreach (['M11.report_view', 'M11.tax_calculate', 'M11.source_post', 'M11.opening_approve', 'M11.financial_activate', 'M11.journal_approve', 'M11.journal_post'] as $permission) {
-        DB::table('access_grants')->insertOrIgnore(['user_id' => $reviewer->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]); }
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $reviewer->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+    }
     foreach (['M03.customer_view', 'M11.report_view', 'M11.source_post', 'M11.journal_post', 'M13.collection_execute'] as $permission) {
-        DB::table('access_grants')->insertOrIgnore(['user_id' => $managerOther->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]); }
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $managerOther->id, 'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+    }
     DB::table('access_grants')->insertOrIgnore(['user_id' => $manager->id, 'permission_code' => 'M03.customer_view', 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
-    $today = now('Africa/Cairo')->toDateString(); $tomorrow = CarbonImmutable::parse($today, 'Africa/Cairo')->addDay()->toDateString();
+    $today = now('Africa/Cairo')->toDateString();
+    $tomorrow = CarbonImmutable::parse($today, 'Africa/Cairo')->addDay()->toDateString();
     Carbon::setTestNow(CarbonImmutable::parse($today, 'Africa/Cairo')->startOfDay()->addHours(12));
-    $employee = Employee::factory()->create(['branch_id' => $branch->id, 'active' => true, 'starts_on' => $today]); $uuidFn = static fn (): string => (string) Str::uuid();
+    $employee = Employee::factory()->create(['branch_id' => $branch->id, 'active' => true, 'starts_on' => $today]);
+    $uuidFn = static fn (): string => (string) Str::uuid();
     $code = static fn (string $purpose): string => 'ST-'.substr(hash('sha256', $tag.':'.$purpose), 0, 24);
-    $setup = app(FinancialActivation::class); $accounts = app(AccountingActions::class); $mappings = [];
-    foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) { $mappings[$purpose] = $accounts->account((int) $maker->id, null, 0,
-        ['code' => $code($purpose), 'name' => 'Statement fixture '.$label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]); }
-    $version = (int) $activationBefore->version; $setup->save((int) $maker->id, $version, ['go_live_date' => $today, 'mappings' => $mappings]); $version++;
+    $setup = app(FinancialActivation::class);
+    $accounts = app(AccountingActions::class);
+    $mappings = [];
+    foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) {
+        $mappings[$purpose] = $accounts->account((int) $maker->id, null, 0,
+            ['code' => $code($purpose), 'name' => 'Statement fixture '.$label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
+    }
+    $version = (int) $activationBefore->version;
+    $setup->save((int) $maker->id, $version, ['go_live_date' => $today, 'mappings' => $mappings]);
+    $version++;
     foreach ([['sale', null, 'SALE', 'percentage'], ['purchase', null, 'PURCHASE', 'percentage'], ['sale', $service->id, 'SERVICE', 'exempt']] as [$type, $productId, $suffix, $treatment]) {
         $setup->addTaxRule((int) $maker->id, $version, ['code' => $tag.'-'.$suffix, 'name' => 'Synthetic statement '.$suffix, 'transaction_type' => $type,
             'product_id' => $productId, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null, 'treatment' => $treatment, 'tax_scale' => 2,
-            'legal_reference' => 'Rollback-only bank statement fixture', 'purchase_recoverable' => $type === 'purchase']); $version++; }
-    $setup->validateTaxTreatment((int) $maker->id, $version, 'Synthetic source fixture uses explicit zero-rate/exempt rules.'); $version++;
+            'legal_reference' => 'Rollback-only bank statement fixture', 'purchase_recoverable' => $type === 'purchase']);
+        $version++;
+    }
+    $setup->validateTaxTreatment((int) $maker->id, $version, 'Synthetic source fixture uses explicit zero-rate/exempt rules.');
+    $version++;
     $accounts->period((int) $maker->id, ['name' => 'Synthetic statement '.$tag, 'starts_on' => substr($today, 0, 4).'-01-01', 'ends_on' => substr($today, 0, 4).'-12-31']);
-    $opening = app(OpeningBalances::class); $batch = $opening->save((int) $maker->id, $version, $uuidFn(), [], true,
+    $opening = app(OpeningBalances::class);
+    $batch = $opening->save((int) $maker->id, $version, $uuidFn(), [], true,
         'Explicit rollback-only synthetic no-opening declaration for bank statement acceptance.');
-    $opening->advance((int) $maker->id, $batch, 1, 'submit'); $opening->advance((int) $reviewer->id, $batch, 2, 'approve');
-    app(ActivateFinancialPosting::class)->execute((int) $reviewer->id, $batch, 3); $activationDuring = DB::table('accounting_activation')->where('id', 1)->first();
+    $opening->advance((int) $maker->id, $batch, 1, 'submit');
+    $opening->advance((int) $reviewer->id, $batch, 2, 'approve');
+    app(ActivateFinancialPosting::class)->execute((int) $reviewer->id, $batch, 3);
+    $activationDuring = DB::table('accounting_activation')->where('id', 1)->first();
     foreach (['customer_advance' => 'Synthetic customer-advance control', 'service_contract_deferred' => 'Synthetic deferred revenue'] as $purpose => $name) {
         $id = $accounts->account((int) $maker->id, null, 0, ['code' => $code($purpose), 'name' => $name, 'kind' => 'liability', 'parent_id' => null, 'postable' => true, 'active' => true]);
-        $setup->saveOptionalMapping((int) $maker->id, $purpose, $id); }
+        $setup->saveOptionalMapping((int) $maker->id, $purpose, $id);
+    }
     $bankGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'bank')->value('account_id');
     $bankAccount = app(TreasuryApi::class)->saveOperationalAccount((int) $maker->id, ['code' => 'STMT-'.substr(hash('sha256', $tag), 0, 20),
         'name' => 'Synthetic statement bank account', 'kind' => 'bank', 'gl_account_id' => $bankGl]);
@@ -192,28 +295,40 @@ try {
         'pricing_tax_mode' => 'exclusive', 'terms' => 'عقد اصطناعي لاختبار مطابقة كشف البنك.', 'sla_response_minutes' => 60, 'sla_resolution_minutes' => 120,
         'covered_labor_minutes' => 0, 'coverage' => [['equipment_ref' => $tag.'-EQ', 'site_id' => null, 'preventive_visits' => 0, 'corrective_visits' => 1]],
         'parts' => [], 'excluded_parts' => [], 'boq' => [], 'schedule' => [['code' => 'STMT-INV-01', 'due_date' => $today, 'amount' => '80.00', 'description' => 'فاتورة اختبار']]];
-    $contracts = app(ServiceContractActions::class); $contract = $contracts->save((int) $maker->id, null, 0, $uuidFn(), $terms);
+    $contracts = app(ServiceContractActions::class);
+    $contract = $contracts->save((int) $maker->id, null, 0, $uuidFn(), $terms);
     $signature = app(ServiceContractDocuments::class)->store((int) $maker->id, $contract,
         UploadedFile::fake()->createWithContent('statement-signature.pdf', "%PDF-1.4\nSynthetic statement contract\n%%EOF"), 'signature', 'Rollback-only statement test');
-    $contractRow = DB::table('service_contracts')->find($contract); $contracts->submit((int) $maker->id, $contract, (int) $contractRow->version);
-    $contractRow = DB::table('service_contracts')->find($contract); $contracts->approve((int) $reviewer->id, $contract, (int) $contractRow->version);
-    $contractRow = DB::table('service_contracts')->find($contract); $contracts->sign((int) $maker->id, $contract, (int) $contractRow->version, $signature, $today);
-    $contractRow = DB::table('service_contracts')->find($contract); $contracts->activate((int) $reviewer->id, $contract, (int) $contractRow->version);
-    $billing = app(ServiceContractBilling::class); $source = $billing->proposeInstallment((int) $maker->id, $contract, 'STMT-INV-01', $uuidFn(),
+    $contractRow = DB::table('service_contracts')->find($contract);
+    $contracts->submit((int) $maker->id, $contract, (int) $contractRow->version);
+    $contractRow = DB::table('service_contracts')->find($contract);
+    $contracts->approve((int) $reviewer->id, $contract, (int) $contractRow->version);
+    $contractRow = DB::table('service_contracts')->find($contract);
+    $contracts->sign((int) $maker->id, $contract, (int) $contractRow->version, $signature, $today);
+    $contractRow = DB::table('service_contracts')->find($contract);
+    $contracts->activate((int) $reviewer->id, $contract, (int) $contractRow->version);
+    $billing = app(ServiceContractBilling::class);
+    $source = $billing->proposeInstallment((int) $maker->id, $contract, 'STMT-INV-01', $uuidFn(),
         ['invoice_date' => $today, 'due_date' => $today, 'tax_mode' => 'exclusive', 'reference' => 'Synthetic real M12 invoice for bank statement', 'amount' => '80.00']);
-    $billing->approveSource((int) $reviewer->id, $source, 1); $invoiceId = $billing->invoice((int) $maker->id, $source, $uuidFn());
-    $rp = app(ReceivablesPayablesApi::class); $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
-    $rp->validateCustomerInvoice((int) $reviewer->id, $invoiceId, (int) $invoice->version); $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
+    $billing->approveSource((int) $reviewer->id, $source, 1);
+    $invoiceId = $billing->invoice((int) $maker->id, $source, $uuidFn());
+    $rp = app(ReceivablesPayablesApi::class);
+    $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
+    $rp->validateCustomerInvoice((int) $reviewer->id, $invoiceId, (int) $invoice->version);
+    $invoice = DB::table('rp_customer_invoices')->find($invoiceId);
     $invoicePost = $rp->postCustomerInvoice((int) $reviewer->id, $invoiceId, (int) $invoice->version);
     $openId = (int) DB::table('rp_open_items')->where('source_type', 'customer_invoice')->where('source_id', $invoiceId)->value('id');
     if (! $invoicePost['journal_id'] || ! DB::table('rp_open_items')->where('id', $openId)->where('remaining_amount', '80.00')->exists()) {
-        throw new RuntimeException('Real M10/M12 invoice did not create the synthetic bank-reconciliation receivable.'); }
-    $treasury = app(TreasuryApi::class); $rpCollection = $treasury->executeCustomerCollection((int) $manager->id,
+        throw new RuntimeException('Real M10/M12 invoice did not create the synthetic bank-reconciliation receivable.');
+    }
+    $treasury = app(TreasuryApi::class);
+    $rpCollection = $treasury->executeCustomerCollection((int) $manager->id,
         ['idempotency_key' => $uuidFn(), 'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id, 'account_id' => $bankAccount,
             'date' => $today, 'amount' => '100.00', 'reference' => 'Synthetic bank collection 100', 'allow_advance' => true], [['open_item_id' => $openId, 'amount' => '80.00']]);
     $mainAdvance = (int) DB::table('rp_customer_advances')->where('movement_id', $rpCollection['movement_id'])->value('id');
     if ($mainAdvance < 1 || ! DB::table('rp_customer_advances')->where('id', $mainAdvance)->where('original_amount', '20.00')->exists()) {
-        throw new RuntimeException('Real M13 collection did not record its 20.00 advance excess.'); }
+        throw new RuntimeException('Real M13 collection did not record its 20.00 advance excess.');
+    }
     $fortyCollection = $treasury->executeCustomerCollection((int) $manager->id,
         ['idempotency_key' => $uuidFn(), 'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id, 'account_id' => $bankAccount,
             'date' => $today, 'amount' => '40.00', 'reference' => 'Synthetic additional bank source 40', 'allow_advance' => true], []);
@@ -223,14 +338,17 @@ try {
     Carbon::setTestNow(CarbonImmutable::parse($tomorrow, 'Africa/Cairo')->startOfDay()->addHours(12));
     $mainRefund = $treasury->refundCustomerAdvance((int) $manager->id, $mainAdvance, $bankAccount, '20.00', $today, $uuidFn(), 'Synthetic bank advance refund 20');
     if (! DB::table('treasury_movements')->where('id', $mainRefund['movement_id'])->where('kind', 'customer_advance_refund')
-        ->where('amount', '20.00')->where('account_id', $bankAccount)->exists()) { throw new RuntimeException('Real M13 refund source movement is missing.'); }
+        ->where('amount', '20.00')->where('account_id', $bankAccount)->exists()) {
+        throw new RuntimeException('Real M13 refund source movement is missing.');
+    }
     $pass(DB::table('treasury_movements')->whereIn('id', [$rpCollection['movement_id'], $fortyCollection['movement_id'], $sixtyCollection['movement_id'], $mainRefund['movement_id']])
         ->where('branch_id', $branch->id)->where('account_id', $bankAccount)->where('movement_date', $today)->count() === 4,
         'All four collection/refund sources are actual movements dated to the statement bank account and branch.');
     $mainCsv = "external_id,date,amount,reference\r\nBANK-PART-40,{$today},40.00,Synthetic bank line for a partial movement\r\nBANK-PART-60,{$today},60.00,Synthetic bank line for remaining movement\r\nBANK-COMBINED-100,{$today},100.00,Synthetic bank line for two real collections\r\nBANK-REFUND-20,{$today},-20.00,Synthetic advance refund\r\n";
     $mainData = ['branch_id' => (int) $branch->id, 'account_id' => $bankAccount, 'external_reference' => 'SYNTH-STMT-MAIN-'.$tag,
         'starts_on' => $today, 'ends_on' => $today, 'opening_balance' => '0.00', 'closing_balance' => '180.00'];
-    $statementActions = app(TreasuryStatementActions::class); $statementKey = $uuidFn();
+    $statementActions = app(TreasuryStatementActions::class);
+    $statementKey = $uuidFn();
     $mainStatement = $statementActions->import((int) $manager->id, $statementKey, UploadedFile::fake()->createWithContent('bank-main.csv', $mainCsv), $mainData);
     $mainReplay = $statementActions->import((int) $manager->id, $statementKey, UploadedFile::fake()->createWithContent('bank-main.csv', $mainCsv), $mainData);
     $pass($mainStatement === $mainReplay, 'Exact statement import replay returns the original immutable statement.');
@@ -246,7 +364,8 @@ try {
     $badAmountCsv = "external_id,date,amount,reference\r\nBAD-AMOUNT,{$today},10.005,Malformed amount\r\n";
     $expect(fn () => $statementActions->import((int) $manager->id, $uuidFn(), UploadedFile::fake()->createWithContent('bad-amount.csv', $badAmountCsv),
         $mainData + ['external_reference' => 'SYNTH-STMT-AMOUNT-'.$tag]), 422, 'CSV money amount with more than two decimal places is rejected.');
-    $foreignData = $mainData; $foreignData['external_reference'] = 'SYNTH-STMT-CROSS-'.$tag;
+    $foreignData = $mainData;
+    $foreignData['external_reference'] = 'SYNTH-STMT-CROSS-'.$tag;
     $expect(fn () => $statementActions->import((int) $managerOther->id, $uuidFn(), UploadedFile::fake()->createWithContent('cross-branch.csv', $mainCsv), $foreignData), 403,
         'Statement import cannot cross the manager branch scope.');
     $expect(fn () => $statementActions->import((int) $denied->id, $uuidFn(), UploadedFile::fake()->createWithContent('denied.csv', $mainCsv),
@@ -254,9 +373,12 @@ try {
     $pass($countsAfterImport === $counts(), 'Changed-key duplicates, malformed CSV, and authorization denials create no extra statement, file source, or journal.');
 
     $mainView = $statementActions->view((int) $viewer->id, $mainStatement);
-    $mainMeta = $mainView['statement']; $lineByExternal = collect($mainView['lines'])->keyBy('external_id');
-    $collectionLine = $lineByExternal['BANK-PART-40']; $remainingMovementLine = $lineByExternal['BANK-PART-60'];
-    $combinedCollectionLine = $lineByExternal['BANK-COMBINED-100']; $refundLine = $lineByExternal['BANK-REFUND-20'];
+    $mainMeta = $mainView['statement'];
+    $lineByExternal = collect($mainView['lines'])->keyBy('external_id');
+    $collectionLine = $lineByExternal['BANK-PART-40'];
+    $remainingMovementLine = $lineByExternal['BANK-PART-60'];
+    $combinedCollectionLine = $lineByExternal['BANK-COMBINED-100'];
+    $refundLine = $lineByExternal['BANK-REFUND-20'];
     $cashGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'cash')->value('account_id');
     $cashAccount = $treasury->saveOperationalAccount((int) $maker->id, ['code' => 'STMT-CASH-'.substr(hash('sha256', $tag), 0, 18),
         'name' => 'Synthetic other account for SQL source guard', 'kind' => 'cash', 'gl_account_id' => $cashGl]);
@@ -272,8 +394,11 @@ try {
         'movement_id' => $wrongAccountCollection['movement_id'], 'amount' => '40.00', 'reason' => 'Wrong treasury account source', 'created_by' => $manager->id, 'created_at' => now()]),
         'Statement match must preserve actual line, account, branch, period and signed amount', 'Direct SQL cannot match a movement from the wrong account.', $statementMatchState);
     $download = $statementActions->download((int) $viewer->id, $mainStatement);
-    if (! $download instanceof BinaryFileResponse) { throw new RuntimeException('Statement download did not return a private binary response.'); }
-    $downloadPath = realpath($download->getFile()->getPathname()); $privatePath = realpath($privateRoot).DIRECTORY_SEPARATOR;
+    if (! $download instanceof BinaryFileResponse) {
+        throw new RuntimeException('Statement download did not return a private binary response.');
+    }
+    $downloadPath = realpath($download->getFile()->getPathname());
+    $privatePath = realpath($privateRoot).DIRECTORY_SEPARATOR;
     $downloadBytes = $downloadPath ? file_get_contents($downloadPath) : false;
     $pass(is_string($downloadBytes) && $downloadPath !== false && str_starts_with($downloadPath, $privatePath)
         && ! str_starts_with(strtolower($downloadPath), strtolower(public_path().DIRECTORY_SEPARATOR))
@@ -286,7 +411,8 @@ try {
     $expect(fn () => $statementActions->view((int) $managerOther->id, $mainStatement), 403, 'Statement line view cannot cross branch scope.');
     $expect(fn () => $statementActions->download((int) $managerOther->id, $mainStatement), 403, 'Private statement download cannot cross branch scope.');
 
-    $beforeMatchCounts = $counts(); $journalCount = (int) DB::table('accounting_journals')->count();
+    $beforeMatchCounts = $counts();
+    $journalCount = (int) DB::table('accounting_journals')->count();
     $expect(fn () => $statementActions->match((int) $manager->id, $mainStatement, (int) $collectionLine['id'], (int) $mainRefund['movement_id'],
         (int) $mainMeta['version'], 'Wrong directional source', '40.00'), 422, 'Signed amount/direction mismatch cannot match a bank line to the refund movement.');
     $pass($beforeMatchCounts === $counts(), 'Rejected cross-direction match creates no reconciliation row.');
@@ -383,7 +509,8 @@ try {
     $currentView = $statementActions->view((int) $viewer->id, $mainStatement);
     $statementActions->review((int) $reviewer->id, $mainStatement, (int) $currentView['statement']['version'], 'Review fully matched bank statement');
     $mainFinal = $statementActions->view((int) $viewer->id, $mainStatement);
-    $finalLines = collect($mainFinal['lines'])->keyBy('external_id'); $finalMovements = collect($mainFinal['movements'])->keyBy('id');
+    $finalLines = collect($mainFinal['lines'])->keyBy('external_id');
+    $finalMovements = collect($mainFinal['movements'])->keyBy('id');
     $matchTotal = array_reduce($mainFinal['matches'], static fn (string $sum, array $row): string => bcadd($sum, $row['amount'], 2), '0.00');
     $pass($fortyPartMatch > 0 && $sixtyPartMatch > 0 && $fortyCollectionMatch > 0 && $sixtyCollectionMatch > 0 && $refundMatch > 0
         && $mainFinal['statement']['status'] === 'reconciled'
@@ -473,26 +600,36 @@ try {
     $failure = $error;
     foreach (array_slice($error->getTrace(), 0, 18) as $frame) {
         $file = isset($frame['file']) ? str_replace('\\', '/', $frame['file']) : null;
-        if ($file !== null && str_starts_with(strtolower($file), strtolower(str_replace('\\', '/', $root).'/'))) { $file = substr($file, strlen(str_replace('\\', '/', $root)) + 1); }
-        elseif ($file !== null) { $file = basename($file); }
+        if ($file !== null && str_starts_with(strtolower($file), strtolower(str_replace('\\', '/', $root).'/'))) {
+            $file = substr($file, strlen(str_replace('\\', '/', $root)) + 1);
+        } elseif ($file !== null) {
+            $file = basename($file);
+        }
         $failureTrace[] = ['file' => $file, 'line' => $frame['line'] ?? null, 'class' => $frame['class'] ?? null, 'function' => $frame['function'] ?? null];
     }
 } finally {
-    if (DB::transactionLevel() > 0) { DB::rollBack(); }
+    if (DB::transactionLevel() > 0) {
+        DB::rollBack();
+    }
     Carbon::setTestNow();
     foreach ([$privateRoot, $storage, $taskRoot.'/treasury-statement-cache-'.$tagRuntime, $taskRoot.'/treasury-statement-views-'.$tagRuntime] as $dir) {
         if (is_dir($dir) && realpath(dirname($dir)) === realpath($taskRoot) && str_starts_with(basename($dir), 'treasury-statement-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($dir);
+            (new Filesystem)->deleteDirectory($dir);
         }
     }
 }
-$after = $counts(); $activationAfter = DB::table('accounting_activation')->where('id', 1)->first(); $companyAfter = DB::table('companies')->where('id', 1)->first();
+$after = $counts();
+$activationAfter = DB::table('accounting_activation')->where('id', 1)->first();
+$companyAfter = DB::table('companies')->where('id', 1)->first();
 $companyRestored = ($companyBefore === null && $companyAfter === null) || (is_object($companyBefore) && is_object($companyAfter) && (array) $companyBefore === (array) $companyAfter);
 $scratchRemoved = ! is_dir($privateRoot) && ! is_dir($storage) && ! is_dir($taskRoot.'/treasury-statement-cache-'.$tagRuntime) && ! is_dir($taskRoot.'/treasury-statement-views-'.$tagRuntime);
 $rollbackVerified = $before === $after && $activationBefore == $activationAfter && $companyRestored && $scratchRemoved;
-$assertions++; $checks[] = ['name' => 'M11 activation, synthetic M10/M12/M13 sources, statement rows, company snapshot, and private upload all roll back.',
+$assertions++;
+$checks[] = ['name' => 'M11 activation, synthetic M10/M12/M13 sources, statement rows, company snapshot, and private upload all roll back.',
     'result' => $rollbackVerified ? 'PASS' : 'FAIL'];
-if (! $rollbackVerified && $failure === null) { $failure = new RuntimeException('Bank statement acceptance did not restore every source, company, activation, and private file.'); }
+if (! $rollbackVerified && $failure === null) {
+    $failure = new RuntimeException('Bank statement acceptance did not restore every source, company, activation, and private file.');
+}
 $receipt = ['all_pass' => $failure === null && $rollbackVerified, 'mode' => 'treasury-bank-statement-reconciliation', 'phase' => $stage,
     'assertions' => $assertions, 'rollback_verified' => $rollbackVerified, 'database' => ['name' => $identity->database, 'server_address' => $identity->server_address,
         'port' => (int) $identity->port, 'postgres_major' => intdiv((int) $identity->server_version_num, 10000)],
@@ -500,6 +637,9 @@ $receipt = ['all_pass' => $failure === null && $rollbackVerified, 'mode' => 'tre
     'failure' => $failure === null ? null : ['class' => $failure::class, 'message' => mb_substr((string) preg_replace('/(password|secret|token)=\S+/i', '$1=[redacted]', $failure->getMessage()), 0, 500),
         'trace_without_arguments' => $failureTrace], 'company_profile' => ['exact_baseline_restored' => $companyRestored],
     'm11_activation' => ['performed' => $activationDuring !== null, 'rolled_back' => $activationBefore == $activationAfter, 'go_live_date' => $activationDuring?->go_live_date]];
-$path = $emit($receipt); fwrite($receipt['all_pass'] ? STDOUT : STDERR, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
+$path = $emit($receipt);
+fwrite($receipt['all_pass'] ? STDOUT : STDERR, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
 fwrite($receipt['all_pass'] ? STDOUT : STDERR, 'RESULT all_pass='.($receipt['all_pass'] ? '1' : '0').' assertions='.$assertions.' rollback_verified='.($rollbackVerified ? '1' : '0').' receipt='.$path.PHP_EOL);
-if (! $receipt['all_pass']) { exit(1); }
+if (! $receipt['all_pass']) {
+    exit(1);
+}

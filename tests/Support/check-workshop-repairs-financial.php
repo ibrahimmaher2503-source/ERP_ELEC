@@ -3,26 +3,27 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use App\Modules\Accounting\Application\AccountingAccess;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
 use App\Modules\Parties\Domain\Customer;
+use App\Modules\Products\Application\ProductAccess;
+use App\Modules\Products\Domain\Product;
+use App\Modules\ReceivablesPayables\Application\ReceivablesPayablesService;
+use App\Modules\WorkshopRepairs\Application\WorkshopAccess;
 use App\Modules\WorkshopRepairs\Application\WorkshopActions;
 use App\Modules\WorkshopRepairs\Application\WorkshopEstimates;
 use App\Modules\WorkshopRepairs\Application\WorkshopExecution;
 use App\Modules\WorkshopRepairs\Application\WorkshopFinance;
-use App\Modules\ReceivablesPayables\Application\ReceivablesPayablesService;
-use App\Modules\Products\Domain\Product;
-use App\Modules\Accounting\Application\FinancialActivation;
-use Carbon\Carbon;
 use App\Modules\WorkshopRepairs\Domain\Workshop;
 use App\Modules\WorkshopRepairs\Domain\WorkshopIntake;
 use App\Modules\WorkshopRepairs\Domain\WorkshopJob;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Database\Seeders\WorkshopDemoSeeder;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 putenv('APP_ENV=testing');
@@ -346,11 +347,11 @@ try {
     $service = Product::factory()->create(['kind' => 'service', 'tracking' => 'none', 'active' => true]);
     $taxDate = CarbonImmutable::now('Africa/Cairo')->toDateString();
     $estimates = app(WorkshopEstimates::class);
-    app(App\Modules\WorkshopRepairs\Application\WorkshopAccess::class)->authorize($dispatcher->id, $branch->id, 'estimate_manage');
+    app(WorkshopAccess::class)->authorize($dispatcher->id, $branch->id, 'estimate_manage');
     fwrite(STDOUT, "STEP permission-estimate\n");
-    app(App\Modules\Products\Application\ProductAccess::class)->authorize($dispatcher->id, 'M02.product_view');
+    app(ProductAccess::class)->authorize($dispatcher->id, 'M02.product_view');
     fwrite(STDOUT, "STEP permission-product\n");
-    app(App\Modules\Accounting\Application\AccountingAccess::class)->authorize($dispatcher->id, 'tax_calculate');
+    app(AccountingAccess::class)->authorize($dispatcher->id, 'tax_calculate');
     fwrite(STDOUT, "STEP permission-tax\n");
     $estimateId = $estimates->propose($dispatcher->id, $billableJob, 3, [
         'product_id' => $service->id, 'date' => $taxDate, 'pricing_reference' => 'Synthetic customer-approved repair pricing basis.',

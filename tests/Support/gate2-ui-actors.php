@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 // Private, committed actors for the isolated Gate 2 UI acceptance database.
 use App\Models\User;
+use App\Modules\Organization\Application\SaveCompany;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
@@ -52,9 +54,9 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('server_version_num') as server_version_num,
     (select r.rolname from pg_database d join pg_roles r on r.oid=d.datdba where d.datname=current_database()) as database_owner");
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
+$target = OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
     'DB_PORT' => '49686', 'E2E_DB_PORT' => '49686', 'DB_DATABASE' => 'erp_elec_new_test', 'DB_USERNAME' => 'postgres']);
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity);
+OptimizationRegressionDatabaseGuard::verify($target, $identity);
 if ($identity->database_owner !== 'postgres' || (int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Gate 2 UI fixtures require the exact PostgreSQL 17 private database owned by postgres.');
 }
@@ -76,7 +78,7 @@ if (in_array('--prepare-seeder-actor', $argv, true)) {
                 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
         }
         if (! DB::table('companies')->where('id', 1)->exists()) {
-            app(\App\Modules\Organization\Application\SaveCompany::class)->execute($actor, [
+            app(SaveCompany::class)->execute($actor, [
                 'code' => 'DEMO-EG-G2UI', 'name' => 'شركة تجريبية لقبول Gate 2', 'legal_name' => null,
                 'tax_registration' => null, 'commercial_registration' => null,
                 'address' => 'بيانات تجريبية خاصة بالقبول المحلي، لا تمثل عنواناً حقيقياً.', 'phone' => null, 'email' => null,
@@ -89,7 +91,9 @@ if (in_array('--prepare-seeder-actor', $argv, true)) {
         throw new RuntimeException('Unreceipted Gate 2 seeder actor exists; refusing to adopt or duplicate it.');
     }
     foreach (['users', 'access_grants', 'companies'] as $table) {
-        if (! DB::getSchemaBuilder()->hasTable($table)) throw new RuntimeException("Missing migrated seeder actor table {$table}.");
+        if (! DB::getSchemaBuilder()->hasTable($table)) {
+            throw new RuntimeException("Missing migrated seeder actor table {$table}.");
+        }
     }
     $suffix = Str::upper(Str::random(10));
     $password = Str::random(48);
@@ -110,7 +114,7 @@ if (in_array('--prepare-seeder-actor', $argv, true)) {
         throw new RuntimeException('Could not persist the private seeder actor credential receipt.');
     }
     if (! DB::table('companies')->where('id', 1)->exists()) {
-        app(\App\Modules\Organization\Application\SaveCompany::class)->execute($user, [
+        app(SaveCompany::class)->execute($user, [
             'code' => 'DEMO-EG-G2UI', 'name' => 'شركة تجريبية لقبول Gate 2', 'legal_name' => null,
             'tax_registration' => null, 'commercial_registration' => null,
             'address' => 'بيانات تجريبية خاصة بالقبول المحلي، لا تمثل عنواناً حقيقياً.', 'phone' => null, 'email' => null,
@@ -131,9 +135,13 @@ if (in_array('--ensure-dashboard-actor', $argv, true)) {
         throw new RuntimeException('Dashboard role fixture requires the migrated ordinary-role tables.');
     }
     $branch = Branch::query()->whereKey((int) ($fixture['branch_id'] ?? 0))->where('active', true)->first();
-    if (! $branch) throw new RuntimeException('Dashboard actor fixture branch is unavailable; refusing to choose another branch.');
+    if (! $branch) {
+        throw new RuntimeException('Dashboard actor fixture branch is unavailable; refusing to choose another branch.');
+    }
     $role = DB::table('roles')->where('code', 'SalesClerk')->first(['id']);
-    if (! $role) throw new RuntimeException('Dashboard acceptance requires the seeded ordinary SalesClerk role.');
+    if (! $role) {
+        throw new RuntimeException('Dashboard acceptance requires the seeded ordinary SalesClerk role.');
+    }
     if (is_file($dashboardFixturePath)) {
         $dashboard = json_decode((string) file_get_contents($dashboardFixturePath), true, 512, JSON_THROW_ON_ERROR);
         $actorInfo = is_array($dashboard['actor'] ?? null) ? $dashboard['actor'] : [];
@@ -191,7 +199,9 @@ if (in_array('--prepare-denial-actors', $argv, true)) {
     }
     $branchId = (int) ($fixture['branch_id'] ?? 0);
     $branch = Branch::query()->whereKey($branchId)->where('active', true)->first();
-    if (! $branch) throw new RuntimeException('Denial-actor fixture branch is unavailable; refusing to select another branch.');
+    if (! $branch) {
+        throw new RuntimeException('Denial-actor fixture branch is unavailable; refusing to select another branch.');
+    }
 
     foreach (['revoked', 'disabled'] as $key) {
         $actorInfo = is_array($fixture['actors'][$key] ?? null) ? $fixture['actors'][$key] : [];
@@ -226,9 +236,11 @@ if (in_array('--prepare-denial-actors', $argv, true)) {
         usort($expectedGrants, static fn (array $a, array $b): int => strcmp($a[0], $b[0]));
         $ready = $actualGrants === $expectedGrants
             && User::query()->whereKey($actorId)->where('email', $email)->where('name', 'like', $tag.'%')
-            ->where('active', true)->whereNotNull('email_verified_at')->exists()
+                ->where('active', true)->whereNotNull('email_verified_at')->exists()
             && $scopes === [$branchId];
-        if (! $ready) throw new RuntimeException("Could not restore the exact ready state for the synthetic {$key} denial actor.");
+        if (! $ready) {
+            throw new RuntimeException("Could not restore the exact ready state for the synthetic {$key} denial actor.");
+        }
     }
     echo 'READY nonce-bound synthetic denial actors'.PHP_EOL;
     exit(0);
@@ -242,18 +254,24 @@ if (in_array('--revoke', $argv, true) || in_array('--disable', $argv, true)) {
     if (in_array('--revoke', $argv, true)) {
         $actor = User::findOrFail((int) $fixture['actors']['revoked']['id']);
         $deleted = DB::table('access_grants')->where('user_id', $actor->id)->where('permission_code', 'M01.employee_view')->where('branch_id', $fixture['branch_id'])->delete();
-        if ($deleted !== 1) throw new RuntimeException('Expected exactly one owned employee-view grant to revoke.');
+        if ($deleted !== 1) {
+            throw new RuntimeException('Expected exactly one owned employee-view grant to revoke.');
+        }
         echo 'REVOKED M01.employee_view'.PHP_EOL;
     } else {
         $actor = User::findOrFail((int) $fixture['actors']['disabled']['id']);
-        if (! $actor->active) throw new RuntimeException('Disabled actor was already inactive; refusing ambiguous fixture transition.');
+        if (! $actor->active) {
+            throw new RuntimeException('Disabled actor was already inactive; refusing ambiguous fixture transition.');
+        }
         $actor->forceFill(['active' => false])->save();
         echo 'DISABLED synthetic actor'.PHP_EOL;
     }
     exit(0);
 }
 
-if (is_file($fixturePath)) throw new RuntimeException('Private Gate 2 UI actors already exist. Reuse the existing fixture receipt; never overwrite it.');
+if (is_file($fixturePath)) {
+    throw new RuntimeException('Private Gate 2 UI actors already exist. Reuse the existing fixture receipt; never overwrite it.');
+}
 $seederFixture = is_file($seederFixturePath) ? json_decode((string) file_get_contents($seederFixturePath), true, 512, JSON_THROW_ON_ERROR) : null;
 if (! is_array($seederFixture) || ! hash_equals((string) ($seederFixture['ownership_nonce'] ?? ''), $nonce)
     || ! is_array($seederFixture['actor'] ?? null)) {
@@ -262,7 +280,11 @@ if (! is_array($seederFixture) || ! hash_equals((string) ($seederFixture['owners
 $seederActor = User::query()->whereKey((int) $seederFixture['actor']['id'])->where('email', $seederFixture['actor']['email'])
     ->where('active', true)->whereNotNull('email_verified_at')->firstOrFail();
 $requiredTables = ['branches', 'customers', 'products', 'organization_employees', 'attendance_shifts', 'attendance_schedules', 'attendance_punches', 'service_contracts', 'access_grants', 'user_branch_scopes', 'user_roles', 'roles', 'users'];
-foreach ($requiredTables as $table) if (! DB::getSchemaBuilder()->hasTable($table)) throw new RuntimeException("Missing migrated UI acceptance table {$table}.");
+foreach ($requiredTables as $table) {
+    if (! DB::getSchemaBuilder()->hasTable($table)) {
+        throw new RuntimeException("Missing migrated UI acceptance table {$table}.");
+    }
+}
 if (Branch::query()->where('code', 'like', 'DEMO-EG-G2UI-%')->exists()
     || User::query()->where('name', 'like', 'DEMO-EG Gate 2 %')->where('id', '<>', $seederActor->id)->exists()) {
     throw new RuntimeException('Unreceipted Gate 2 UI fixture rows exist; refusing to duplicate or adopt them.');
@@ -270,8 +292,12 @@ if (Branch::query()->where('code', 'like', 'DEMO-EG-G2UI-%')->exists()
 $branch = Branch::factory()->create(['code' => 'DEMO-EG-G2UI-'.Str::upper(Str::random(8)), 'name' => 'فرع اختبار واجهات Gate 2']);
 $customer = Customer::query()->where('code', 'like', 'DEMO-EG-CUS-%')->where('status', 'active')->orderBy('id')->first();
 $service = Product::query()->where('sku', 'like', 'DEMO-EG-%')->where('kind', 'service')->where('active', true)->orderBy('id')->first();
-if (! $customer) throw new RuntimeException('Seed the explicit synthetic Egypt market demo data before preparing M10 UI fixtures.');
-if (! $service) $service = Product::factory()->create(['sku' => 'DEMO-EG-G2UI-SRV-'.Str::upper(Str::random(8)), 'kind' => 'service', 'tracking' => 'none']);
+if (! $customer) {
+    throw new RuntimeException('Seed the explicit synthetic Egypt market demo data before preparing M10 UI fixtures.');
+}
+if (! $service) {
+    $service = Product::factory()->create(['sku' => 'DEMO-EG-G2UI-SRV-'.Str::upper(Str::random(8)), 'kind' => 'service', 'tracking' => 'none']);
+}
 
 $managerPermissions = ['M01.branch_view', 'M01.employee_view', 'M01.employee_manage', 'M10.contract_view', 'M10.contract_create',
     'M10.contract_edit', 'M10.billing_manage', 'M15.view', 'M15.shift_manage', 'M15.schedule_manage', 'M15.punch_manage'];
@@ -283,25 +309,36 @@ $createActor = static function (string $key, array $permissions, array $globalPe
     $user = User::factory()->create(['name' => 'DEMO-EG Gate 2 '.$key.' '.$suffix,
         'email' => strtolower('g2ui-'.$key.'-'.$suffix).'@example.test', 'password' => $password,
         'active' => true, 'email_verified_at' => now()]);
-    foreach ($permissions as $permission) DB::table('access_grants')->insert(['user_id' => $user->id,
-        'permission_code' => $permission, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
-    foreach ($globalPermissions as $permission) DB::table('access_grants')->insert(['user_id' => $user->id,
-        'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+    foreach ($permissions as $permission) {
+        DB::table('access_grants')->insert(['user_id' => $user->id,
+            'permission_code' => $permission, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+    }
+    foreach ($globalPermissions as $permission) {
+        DB::table('access_grants')->insert(['user_id' => $user->id,
+            'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+    }
     DB::table('user_branch_scopes')->insert(['user_id' => $user->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+
     return ['id' => (int) $user->id, 'email' => $user->email, 'password' => $password];
 };
 $actors = ['manager' => ['id' => (int) $seederActor->id, 'email' => $seederActor->email, 'password' => $seederFixture['actor']['password']],
     'reader' => $createActor('reader', $viewPermissions),
     'revoked' => $createActor('revoked', ['M01.branch_view', 'M01.employee_view']),
     'disabled' => $createActor('disabled', ['M01.branch_view', 'M01.employee_view'])];
-foreach ($managerPermissions as $permission) DB::table('access_grants')->insert(['user_id' => $seederActor->id,
-    'permission_code' => $permission, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
-foreach ($globalManagerPermissions as $permission) DB::table('access_grants')->insert(['user_id' => $seederActor->id,
-    'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+foreach ($managerPermissions as $permission) {
+    DB::table('access_grants')->insert(['user_id' => $seederActor->id,
+        'permission_code' => $permission, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+}
+foreach ($globalManagerPermissions as $permission) {
+    DB::table('access_grants')->insert(['user_id' => $seederActor->id,
+        'permission_code' => $permission, 'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
+}
 DB::table('user_branch_scopes')->insert(['user_id' => $seederActor->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
 $setupGrants = DB::table('access_grants')->where('user_id', $seederActor->id)
     ->whereIn('permission_code', ['M01.security_admin', 'M01.company_update'])->whereNull('branch_id')->delete();
-if (! in_array($setupGrants, [0, 2], true)) throw new RuntimeException('Unexpected Gate 2 seeder setup grant state; refusing to continue.');
+if (! in_array($setupGrants, [0, 2], true)) {
+    throw new RuntimeException('Unexpected Gate 2 seeder setup grant state; refusing to continue.');
+}
 $receipt = ['database' => 'erp_elec_new_test', 'port' => 49686, 'data_directory' => realpath($target['data_directory']),
     'ownership_nonce' => $nonce, 'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id,
     'customer_code' => $customer->code, 'service_product_id' => (int) $service->id,
@@ -309,5 +346,7 @@ $receipt = ['database' => 'erp_elec_new_test', 'port' => 49686, 'data_directory'
 if (file_put_contents($fixturePath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), LOCK_EX) === false) {
     throw new RuntimeException('Could not persist the private Gate 2 UI fixture receipt.');
 }
-if (is_file($seederFixturePath) && ! unlink($seederFixturePath)) throw new RuntimeException('Could not remove the superseded private seeder credential receipt.');
+if (is_file($seederFixturePath) && ! unlink($seederFixturePath)) {
+    throw new RuntimeException('Could not remove the superseded private seeder credential receipt.');
+}
 echo 'PREPARED private fixture receipt '.$fixturePath.PHP_EOL;

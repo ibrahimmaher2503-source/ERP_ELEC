@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
@@ -31,7 +32,7 @@ $environment = ['APP_ENV' => (string) (getenv('APP_ENV') ?: ''),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: ''),
     'E2E_CLUSTER_MARKER' => (string) (getenv('E2E_CLUSTER_MARKER') ?: ''),
     'E2E_CLUSTER_TOKEN' => (string) (getenv('E2E_CLUSTER_TOKEN') ?: '')];
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 if ((int) $target['port'] !== 55460 || ! is_string($target['nonce']) || $target['nonce'] === '') {
     throw new RuntimeException('ABORT before writes: the fresh owned 55460 PostgreSQL target and token are required.');
 }
@@ -49,7 +50,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = DB::table('codex_test_guard.ownership_receipts')->where('database', $identity->database)->first(['nonce']);
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 
 $assertionCount = 0;
 $pass = static function (bool $ok, string $message) use (&$assertionCount): void {

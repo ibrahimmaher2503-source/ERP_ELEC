@@ -10,8 +10,6 @@ use App\Modules\Accounting\Application\AccountingService;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Accounting\Application\FinancialReports;
 use App\Modules\Accounting\Application\OpeningBalances;
-use App\Modules\Accounting\Application\FinancialControlAccounts;
-use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\ErrorCode;
@@ -22,11 +20,12 @@ use App\Modules\Purchasing\Application\Contracts\PurchasingApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 putenv('APP_ENV=testing');
 $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
@@ -41,7 +40,7 @@ if ($ciTarget && ! preg_match('/^[a-f0-9]{32}$/', $ciRunId)) {
 }
 if ($ciTarget) {
     require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-    $target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+    $target = OptimizationRegressionDatabaseGuard::target($root, $environment);
     $database = $target['database'];
     $dbUsername = $target['username'];
     $dbPassword = (string) (getenv('DB_PASSWORD') ?: '');
@@ -69,7 +68,9 @@ foreach (['DB_CONNECTION' => 'pgsql', 'DB_HOST' => '127.0.0.1', 'DB_PORT' => (st
     $_ENV[$key] = $_SERVER[$key] = $value;
 }
 foreach ([$root.'/'.$cachePath, $storagePath, $viewPath] as $directory) {
-    if (! is_dir($directory)) mkdir($directory, 0770, true);
+    if (! is_dir($directory)) {
+        mkdir($directory, 0770, true);
+    }
 }
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
@@ -82,7 +83,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $ciTarget ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
 if ($ciTarget) {
-    Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+    OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 } else {
     $expectedData = realpath($taskRoot.'/pgdata');
     $markerPath = $taskRoot.'/pgdata/.codex-audit-owned.txt';
@@ -111,6 +112,7 @@ $denied = static function (callable $action, string $name) use ($check): void {
         if ($error instanceof ValidationException || ($error instanceof ContractException && $error->errorCode === ErrorCode::Forbidden)
             || ($error instanceof HttpExceptionInterface && in_array($error->getStatusCode(), [403, 409, 422], true))) {
             $check(true, $name);
+
             return;
         }
         throw $error;
@@ -138,6 +140,7 @@ $attempt = static function (callable $operation): array {
     DB::beginTransaction();
     try {
         $operation();
+
         return ['denied' => false];
     } catch (Throwable $error) {
         return ['denied' => $error instanceof ValidationException || ($error instanceof ContractException && $error->errorCode === ErrorCode::Forbidden)
@@ -206,7 +209,9 @@ try {
         $tax = ['code' => 'G1-TAX-'.strtoupper($type).'-'.strtoupper(Str::random(4)), 'name' => 'Gate 1 '.$type.' tax',
             'transaction_type' => $type, 'product_id' => null, 'rate' => '14', 'starts_on' => '2024-01-01', 'ends_on' => null,
             'treatment' => 'percentage', 'tax_scale' => 2, 'legal_reference' => 'Synthetic test fixture only'];
-        if ($type === 'purchase') $tax['purchase_recoverable'] = true;
+        if ($type === 'purchase') {
+            $tax['purchase_recoverable'] = true;
+        }
         $setup->addTaxRule((int) $maker->id, $version++, $tax);
     }
     $setup->validateTaxTreatment((int) $maker->id, $version++, 'Gate 1 test-only tax validation');
@@ -257,7 +262,9 @@ try {
     $check($mismatchAttempt['denied'] && DB::table('accounting_periods')->where('id', $periods['mismatch'])->where('status', 'open')->exists()
         && ! DB::table('accounting_period_closures')->where('period_id', $periods['mismatch'])->exists() && $mismatchCountsBefore === $mismatchCountsAfter,
         'A second-branch reconciliation mismatch denies close without closure/audit effects (owner-contract test double)');
-    foreach ([InventoryApi::class, PurchasingApi::class, ReceivablesPayablesApi::class, TreasuryApi::class] as $contract) app()->forgetInstance($contract);
+    foreach ([InventoryApi::class, PurchasingApi::class, ReceivablesPayablesApi::class, TreasuryApi::class] as $contract) {
+        app()->forgetInstance($contract);
+    }
 
     $reports->closePeriod((int) $full->id, (int) $periods['full']);
     $closure = DB::table('accounting_period_closures')->where('period_id', $periods['full'])->sole();
@@ -281,8 +288,11 @@ try {
         } catch (QueryException) {
             $blocked = true;
         } finally {
-            if (DB::transactionLevel() > $outerLevel) DB::rollBack();
+            if (DB::transactionLevel() > $outerLevel) {
+                DB::rollBack();
+            }
         }
+
         return $blocked;
     };
     $updateBlocked = $immutableAttempt(fn () => DB::table('accounting_period_closures')->where('id', $closure->id)->update(['evidence' => $originalEvidence]));
@@ -405,7 +415,9 @@ try {
     $companyAfterRollback = DB::table('companies')->where('id', 1)->first();
     $companyRestored = ($companyBefore === null && $companyAfterRollback === null)
         || (is_object($companyBefore) && is_object($companyAfterRollback) && (array) $companyBefore === (array) $companyAfterRollback);
-    if (! $companyRestored) throw new RuntimeException('Gate1 close-controls changed the exact company-row baseline after rollback.');
+    if (! $companyRestored) {
+        throw new RuntimeException('Gate1 close-controls changed the exact company-row baseline after rollback.');
+    }
     $receipt = ['ci_run_id' => getenv('GATE1_CI_RUN_ID') ?: null, 'database' => $database.'@'.$identity->server_address.':'.(int) $identity->port,
         'assertions' => $passes, 'results' => $results,
         'rolled_back' => true, 'before_counts' => $before, 'after_counts' => $afterRollback,
@@ -415,10 +427,14 @@ try {
     echo 'RESULT all_pass=true assertions='.$passes.PHP_EOL;
     $passPath = $ciTarget ? $root.'/.tmp/ci-postgres/gate1-close-controls-'.$ciRunId.'.json'
         : $root.'/docs/release/remediation/evidence/gate1/'.($database === 'erp_elec_new_test' ? 'gate1-close-controls-pass.json' : 'gate1-close-controls-race-clone-pass.json');
-    if (! is_dir(dirname($passPath))) mkdir(dirname($passPath), 0770, true);
+    if (! is_dir(dirname($passPath))) {
+        mkdir(dirname($passPath), 0770, true);
+    }
     file_put_contents($passPath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
 } catch (Throwable $error) {
-    if (DB::transactionLevel() > 0) DB::rollBack();
+    if (DB::transactionLevel() > 0) {
+        DB::rollBack();
+    }
     $receipt = ['ci_run_id' => getenv('GATE1_CI_RUN_ID') ?: null, 'database' => $database.'@'.$identity->server_address.':'.(int) $identity->port,
         'result' => 'FAIL', 'assertions' => $passes, 'results' => $results,
         'error_class' => $error::class, 'error' => mb_substr($error->getMessage(), 0, 1200),
@@ -426,7 +442,9 @@ try {
             'exact_baseline_restored' => isset($companyRestored) ? $companyRestored : null]];
     $failPath = $ciTarget ? $root.'/.tmp/ci-postgres/gate1-close-controls-'.$ciRunId.'-fail.json'
         : $root.'/docs/release/remediation/evidence/gate1/'.($database === 'erp_elec_new_test' ? 'gate1-close-controls-fail.json' : 'gate1-close-controls-race-clone-fail.json');
-    if (! is_dir(dirname($failPath))) mkdir(dirname($failPath), 0770, true);
+    if (! is_dir(dirname($failPath))) {
+        mkdir(dirname($failPath), 0770, true);
+    }
     file_put_contents($failPath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     fwrite(STDERR, 'FAIL '.$error::class.': '.$error->getMessage().PHP_EOL);
     exit(1);

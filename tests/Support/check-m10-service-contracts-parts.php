@@ -12,14 +12,17 @@ use App\Modules\Accounting\Application\OpeningBalances;
 use App\Modules\FieldMaintenance\Application\MaintenanceActions;
 use App\Modules\FieldMaintenance\Application\MaintenanceExecution;
 use App\Modules\FieldMaintenance\Application\MaintenanceParts;
-use App\Modules\Inventory\Application\InventoryActions;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\Inventory\Application\InventoryAccess;
+use App\Modules\Inventory\Application\InventoryActions;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
 use App\Modules\Organization\Domain\Employee;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Products\Domain\Product;
+use App\Modules\Purchasing\Application\PurchaseOrders;
+use App\Modules\Purchasing\Application\PurchaseReceiving;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
 use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
@@ -30,11 +33,13 @@ use App\Modules\WorkshopRepairs\Application\WorkshopParts;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $stage = 'source preflight';
@@ -110,7 +115,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $privateRoot = $taskRoot.'/m10-parts-private-'.$runtimeTag;
 $appStorage = $taskRoot.'/m10-parts-storage-'.$runtimeTag;
 $cacheRelative = '.tmp/master-remediation-20261101/m10-parts-cache-'.$runtimeTag;
@@ -147,7 +152,7 @@ DB::purge('pgsql');
 register_shutdown_function(static function () use ($taskRoot, $privateRoot, $appStorage, $runtimeTag): void {
     foreach ([$privateRoot, $appStorage, $taskRoot.'/m10-parts-cache-'.$runtimeTag, $taskRoot.'/m10-parts-views-'.$runtimeTag] as $path) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot) && str_starts_with(basename($path), 'm10-parts-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
 });
@@ -155,7 +160,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 $requiredMigrations = ['2026_10_22_130000_create_inventory_foundation', '2026_10_22_144000_create_purchasing_orders',
     '2026_10_22_145000_create_purchase_receiving_coordination', '2026_10_27_155000_create_financial_activation',
     '2026_10_27_157000_create_opening_contributors_and_fifo', '2026_10_27_158000_harden_financial_activation',
@@ -337,13 +342,13 @@ try {
             'created_at' => now(), 'updated_at' => now()]);
     }
     $stage = 'M06 scoped fixture authorization for receipt, balance, reservation, and issue actors';
-    $inventoryAccess = app(\App\Modules\Inventory\Application\InventoryAccess::class);
+    $inventoryAccess = app(InventoryAccess::class);
     $pass($inventoryAccess->allows((int) $maker->id, 'balance_view', (int) $warehouse['id'])
         && $inventoryAccess->allows((int) $maker->id, 'reservation_manage', (int) $warehouse['id'])
         && $inventoryAccess->allows((int) $approver->id, 'receipt_post', (int) $warehouse['id'])
         && $inventoryAccess->allows((int) $tech->id, 'issue_post', (int) $warehouse['id']),
         'Each synthetic inventory actor has its explicit permission and branch/warehouse scope');
-    $order = app(\App\Modules\Purchasing\Application\PurchaseOrders::class)->save((int) $maker->id, [
+    $order = app(PurchaseOrders::class)->save((int) $maker->id, [
         'creation_key' => $uuid(), 'branch_id' => $branch->id, 'supplier_id' => $supplier->id, 'order_date' => $today,
         'expected_date' => null, 'currency' => 'EGP', 'payment_terms' => 'Rollback-only synthetic test', 'notes' => 'M10 actual part source fixture',
         'tax_mode' => 'exclusive', 'reported_tax' => null,
@@ -352,20 +357,22 @@ try {
             ['product_id' => $serialPart->id, 'quantity' => '2.00000000', 'unit_price' => '10.00000000', 'discount_amount' => '0.00'],
             ['product_id' => $companyEquipment->id, 'quantity' => '1.00000000', 'unit_price' => '30.00000000', 'discount_amount' => '0.00'],
             ['product_id' => $workshopSerialPart->id, 'quantity' => '2.00000000', 'unit_price' => '15.00000000', 'discount_amount' => '0.00']]], null, 0);
-    app(\App\Modules\Purchasing\Application\PurchaseOrders::class)->transition((int) $maker->id, $order, 1, 'submit');
-    app(\App\Modules\Purchasing\Application\PurchaseOrders::class)->transition((int) $approver->id, $order, 2, 'approve');
-    app(\App\Modules\Purchasing\Application\PurchaseOrders::class)->issue((int) $approver->id, $order);
+    app(PurchaseOrders::class)->transition((int) $maker->id, $order, 1, 'submit');
+    app(PurchaseOrders::class)->transition((int) $approver->id, $order, 2, 'approve');
+    app(PurchaseOrders::class)->issue((int) $approver->id, $order);
     $lines = DB::table('purchasing_order_lines')->where('order_id', $order)->orderBy('id')->get();
-    $receipt = app(\App\Modules\Purchasing\Application\PurchaseReceiving::class)->save((int) $maker->id, [
+    $receipt = app(PurchaseReceiving::class)->save((int) $maker->id, [
         'creation_key' => $uuid(), 'order_id' => $order, 'warehouse_id' => $warehouse['id'], 'receipt_date' => $today,
         'delivery_reference' => $tag.'-RECEIPT', 'notes' => 'Rollback-only received stock for M08 owner actions',
         'lines' => $lines->map(fn ($line) => ['order_line_id' => $line->id, 'quantity' => match ((int) $line->product_id) {
-            (int) $serialPart->id, (int) $workshopSerialPart->id => '2.00000000', (int) $companyEquipment->id => '1.00000000', default => '8.00000000'},
+            (int) $serialPart->id, (int) $workshopSerialPart->id => '2.00000000', (int) $companyEquipment->id => '1.00000000', default => '8.00000000'
+        },
             'serials' => match ((int) $line->product_id) {
                 (int) $serialPart->id => [$tag.'-M08-USED-A', $tag.'-M08-UNUSED-B'],
                 (int) $companyEquipment->id => [$tag.'-M09-COMPANY-EQUIP'],
-                (int) $workshopSerialPart->id => [$tag.'-M09-PART-A', $tag.'-M09-PART-B'], default => []}])->all()], null, 0);
-    app(\App\Modules\Purchasing\Application\PurchaseReceiving::class)->submit((int) $maker->id, $receipt, 1);
+                (int) $workshopSerialPart->id => [$tag.'-M09-PART-A', $tag.'-M09-PART-B'], default => []
+            }])->all()], null, 0);
+    app(PurchaseReceiving::class)->submit((int) $maker->id, $receipt, 1);
     app(PostPurchaseReceipt::class)->execute((int) $approver->id, $receipt, 2);
     $pass(DB::table('inventory_balances')->where('warehouse_id', $warehouse['id'])->where('product_id', $coveredPart->id)->where('on_hand', '8.00000000')->exists()
         && DB::table('inventory_balances')->where('warehouse_id', $warehouse['id'])->where('product_id', $excludedPart->id)->where('on_hand', '8.00000000')->exists()
@@ -693,13 +700,13 @@ try {
     $companyRollbackVerified = $companyBaseline === $companyAfter;
     foreach ([$privateRoot, $appStorage, $taskRoot.'/m10-parts-cache-'.$runtimeTag, $taskRoot.'/m10-parts-views-'.$runtimeTag] as $path) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot) && str_starts_with(basename($path), 'm10-parts-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
     Carbon::setTestNow();
     $scratchClean = ! is_dir($privateRoot) && ! is_dir($appStorage)
         && ! is_dir($taskRoot.'/m10-parts-cache-'.$runtimeTag) && ! is_dir($taskRoot.'/m10-parts-views-'.$runtimeTag);
-$rollbackVerified = $before === $after && $scratchClean && $companyRollbackVerified;
+    $rollbackVerified = $before === $after && $scratchClean && $companyRollbackVerified;
 }
 $checks[] = ['name' => 'All source fixtures, accounting/inventory evidence, and M10 ledger rows roll back.', 'result' => $rollbackVerified ? 'PASS' : 'FAIL'];
 $checks[] = ['name' => 'Synthetic company legal profile restores the exact pre-check row.', 'result' => $companyRollbackVerified ? 'PASS' : 'FAIL'];

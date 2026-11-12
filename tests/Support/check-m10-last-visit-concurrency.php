@@ -17,6 +17,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 require_once $root.'/vendor/autoload.php';
@@ -27,7 +28,7 @@ $primaryEnv = ['APP_ENV' => 'testing', 'DB_HOST' => (string) (getenv('DB_HOST') 
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$primary = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
+$primary = OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
 if ($primary['port'] !== 49685 || $primary['database'] !== 'erp_elec_new_test' || $primary['username'] !== 'postgres') {
     throw new RuntimeException('M10 race requires the exact Gate1-owned PostgreSQL 17 primary target.');
 }
@@ -57,6 +58,7 @@ $writeFailure = static function (Throwable $error) use (&$stage, &$dropped, &$fa
         file_put_contents($failurePath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
         @chmod($failurePath, 0600);
     }
+
     return $receipt;
 };
 $writeCleanup = static function (?Throwable $error = null) use (&$dropped, &$primaryCountsUnchanged, $database, $primary, $cleanupPath): array {
@@ -69,6 +71,7 @@ $writeCleanup = static function (?Throwable $error = null) use (&$dropped, &$pri
         'recorded_at_utc' => gmdate(DATE_ATOM)];
     file_put_contents($cleanupPath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     @chmod($cleanupPath, 0600);
+
     return $receipt;
 };
 set_exception_handler(static function (Throwable $error) use ($writeFailure): void {
@@ -121,6 +124,7 @@ $readPrimaryCounts = static function (PDO $connection): array {
             $counts[$table] = (int) $connection->query('select count(*) from public."'.$table.'"')->fetchColumn();
         }
     }
+
     return $counts;
 };
 $primaryCounts = $readPrimaryCounts($primaryCheck);
@@ -142,7 +146,7 @@ $safeDrop = static function () use (&$dropped, &$primaryCountsUnchanged, $root, 
     if ($dropped || ! preg_match('/^erp_elec_new_m10_race_[a-f0-9]{16}$/', $database)) {
         return;
     }
-    $owned = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
+    $owned = OptimizationRegressionDatabaseGuard::target($root, $primaryEnv);
     if ($owned['data_directory'] !== $primary['data_directory'] || $owned['port'] !== $primary['port']) {
         throw new RuntimeException('Refusing disposable M10 database cleanup after the primary target changed.');
     }
@@ -251,6 +255,7 @@ $verify = static function (string $expectedDb) use ($primary, $nonce, $dsn, $pas
         || (int) $row->server_version_num < 170000 || (int) $row->server_version_num >= 180000) {
         throw new RuntimeException('Disposable M10 database live identity or nonce receipt mismatch.');
     }
+
     return $row;
 };
 $identity = $verify($database);

@@ -167,11 +167,11 @@ try {
         DB::rollBack();
     }$path = $root.'/docs/qa/evidence/phase3-maintenance-edge-cases.json';
     if (! is_dir(dirname($path))) {
-        mkdir(dirname($path),0770,true);
-    }file_put_contents($path,json_encode($evidence,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL,LOCK_EX);
+        mkdir(dirname($path), 0770, true);
+    }file_put_contents($path, json_encode($evidence, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
 }
 if ($failure) {
-    fwrite(STDERR,'FAIL '.$failure::class.': '.$failure->getMessage().' at '.$failure->getFile().':'.$failure->getLine()."\n".$failure->getTraceAsString()."\n");
+    fwrite(STDERR, 'FAIL '.$failure::class.': '.$failure->getMessage().' at '.$failure->getFile().':'.$failure->getLine()."\n".$failure->getTraceAsString()."\n");
     exit(1);
 }
-fwrite(STDOUT,'RESULT all_pass=true assertions='.count($passed).' database='.$conn->db.' port='.$conn->port.' fixture_rolled_back=true'."\n");
+fwrite(STDOUT, 'RESULT all_pass=true assertions='.count($passed).' database='.$conn->db.' port='.$conn->port.' fixture_rolled_back=true'."\n");

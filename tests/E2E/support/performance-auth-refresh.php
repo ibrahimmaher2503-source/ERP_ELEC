@@ -19,7 +19,9 @@ if ($port !== 55461 || getenv('E2E_DB_DATABASE') !== 'erp_elec_new_test'
     || ! str_contains(str_replace('\\', '/', $storage), '/.tmp/page-speed-audit/')) {
     throw new RuntimeException('ABORT: performance actor refresh requires isolated PostgreSQL 55461 and private storage.');
 }
-if (! is_file($markerPath)) throw new RuntimeException('ABORT: isolated PostgreSQL ownership marker is missing.');
+if (! is_file($markerPath)) {
+    throw new RuntimeException('ABORT: isolated PostgreSQL ownership marker is missing.');
+}
 $marker = json_decode((string) file_get_contents($markerPath), true, 512, JSON_THROW_ON_ERROR);
 if (($marker['kind'] ?? null) !== 'codex-e2e-postgres' || ($marker['repo'] ?? null) !== realpath($root)
     || (int) ($marker['port'] ?? 0) !== 55461 || (int) ($marker['version'] ?? 0) !== 1
@@ -30,7 +32,8 @@ if (($marker['kind'] ?? null) !== 'codex-e2e-postgres' || ($marker['repo'] ?? nu
 }
 foreach (['APP_ENV' => 'testing', 'DB_CONNECTION' => 'pgsql', 'DB_URL' => '', 'DB_HOST' => '127.0.0.1',
     'DB_PORT' => '55461', 'DB_DATABASE' => 'erp_elec_new_test'] as $key => $value) {
-    putenv($key.'='.$value); $_ENV[$key] = $_SERVER[$key] = $value;
+    putenv($key.'='.$value);
+    $_ENV[$key] = $_SERVER[$key] = $value;
 }
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
@@ -42,7 +45,9 @@ if (DB::connection()->getDatabaseName() !== 'erp_elec_new_test'
     throw new RuntimeException('ABORT: connected database identity does not match isolated performance cluster.');
 }
 $role = DB::table('roles')->where('code', 'Administrator')->first();
-if (! $role) throw new RuntimeException('Administrator role is missing from the isolated fixture database.');
+if (! $role) {
+    throw new RuntimeException('Administrator role is missing from the isolated fixture database.');
+}
 $password = Str::random(48);
 $suffix = strtoupper(Str::random(8));
 $user = User::factory()->create(['name' => 'DEMO-EG E2E performance refresh '.$suffix,

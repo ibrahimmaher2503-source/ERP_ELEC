@@ -15,14 +15,14 @@ use App\Modules\Projects\Application\TenderAwards;
 use App\Modules\Projects\Application\TenderBids;
 use App\Modules\Projects\Application\TenderDocuments;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
-use App\Modules\ServiceContracts\Application\ServiceContractActions;
-use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $stage = 'source preflight';
@@ -71,7 +71,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $runtimeTag = bin2hex(random_bytes(6));
 $privateRoot = $taskRoot.'/m10-tender-private-'.$runtimeTag;
@@ -111,7 +111,7 @@ DB::purge('pgsql');
 register_shutdown_function(static function () use ($taskRoot, $privateRoot, $appStorage, $runtimeTag): void {
     foreach ([$privateRoot, $appStorage, $taskRoot.'/m10-tender-cache-'.$runtimeTag, $taskRoot.'/m10-tender-views-'.$runtimeTag] as $path) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot) && str_starts_with(basename($path), 'm10-tender-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
 });
@@ -119,7 +119,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 $requiredMigrations = ['2026_10_31_196000_create_projects_tender_capability', '2026_10_31_197000_link_sales_tender_drafts',
     '2026_10_31_198000_make_tender_guard_refresh_safe', '2026_11_01_202000_create_service_contracts',
     '2026_11_01_206000_link_tender_service_contracts'];
@@ -251,7 +251,7 @@ try {
             UploadedFile::fake()->createWithContent('m10-tender-evidence.pdf', "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer <<>>\n%%EOF\n"));
     };
     $technicalDocument = $upload((int) $maker->id, 3, 'technical', 'مواصفات خدمة الاختبار');
-    $technicalId = app(TenderBids::class)->technical((int) $maker->id, $tenderId, 4, ['requirements' => 'صيانة لوحات توزيع ضمن حدود الخدمة.','documents' => [$technicalDocument],
+    $technicalId = app(TenderBids::class)->technical((int) $maker->id, $tenderId, 4, ['requirements' => 'صيانة لوحات توزيع ضمن حدود الخدمة.', 'documents' => [$technicalDocument],
         'lines' => [['description' => 'خدمة فحص كهربائي', 'quantity' => '1.00000000', 'unit' => 'خدمة',
             'specification' => 'تنفيذ فحص موثق للوحة.', 'compliance' => 'compliant', 'deviation' => '', 'alternative' => '',
             'product_id' => null, 'catalog_reference' => 'EXT-SERVICE-01']]]);
@@ -345,7 +345,7 @@ try {
     $after = $counts();
     foreach ([$privateRoot, $appStorage, $taskRoot.'/m10-tender-cache-'.$runtimeTag, $taskRoot.'/m10-tender-views-'.$runtimeTag] as $path) {
         if (is_dir($path) && realpath(dirname($path)) === realpath($taskRoot) && str_starts_with(basename($path), 'm10-tender-')) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($path);
+            (new Filesystem)->deleteDirectory($path);
         }
     }
     $scratchClean = ! is_dir($privateRoot) && ! is_dir($appStorage)

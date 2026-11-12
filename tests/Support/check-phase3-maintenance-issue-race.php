@@ -159,7 +159,7 @@ try {
     $evidence['concurrent_assignment_race'] = ['accepted_count' => 1, 'stale_version_conflicts' => 1, 'work_order_id' => $f['work_order_id'], 'base_version' => $assignmentVersion];
     $evidence['concurrent_service_invoice_races'] = ['same_key_invoice_id' => (int) $f['invoice_id'], 'same_key_accepted' => 2, 'distinct_key_rejections' => 2, 'invoice_count_for_work_order' => 1];
     $evidence['concurrent_close_reopen_races'] = ['close_success' => 1, 'close_conflict' => 1, 'reopen_success' => 1, 'reopen_conflict' => 1, 'final_status' => 'in_progress'];
-    file_put_contents($evidencePath,json_encode($evidence,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL,LOCK_EX);
+    file_put_contents($evidencePath, json_encode($evidence, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     echo "PASS distinct-key issue cap, competing reservations, assignment version, service-invoice dedupe, and close/reopen races\n";
 } finally {
     foreach (glob($rootTmp.'/*') ?: [] as $file) {

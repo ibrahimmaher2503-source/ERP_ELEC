@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 // Guarded Gate2 M10 billing acceptance. Synthetic rows roll back; real owner APIs create every business effect.
-use App\Models\User;
 use App\Application\ActivateFinancialPosting;
+use App\Application\ExecutiveDashboard;
+use App\Models\User;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Accounting\Application\OpeningBalances;
@@ -17,20 +18,23 @@ use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
+use App\Modules\ServiceContracts\Application\ServiceContractAccess;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
 use App\Modules\ServiceContracts\Application\ServiceContractBilling;
 use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\ServiceContracts\Application\ServiceContractReport;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
-use Carbon\CarbonImmutable;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $evidence = $root.'/docs/release/remediation/evidence/gate2';
@@ -83,7 +87,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_HOST' => (string) (getenv('DB_HOST') ?: '127.0.0.1'), 'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '49685')),
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'), 'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $privateRoot = $root.'/.tmp/master-remediation-20261101/m10-billing-private-'.bin2hex(random_bytes(8));
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $cacheRelative = '.tmp/master-remediation-20261101/m10-billing-cache';
@@ -106,7 +110,7 @@ foreach ([$privateRoot, $taskRoot.'/m10-billing-cache', $taskRoot.'/m10-billing-
 register_shutdown_function(static function () use ($privateRoot, $taskRoot): void {
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-billing-private-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 });
 $stage = 'Laravel bootstrap and exact PostgreSQL guard';
@@ -124,7 +128,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
  current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
  (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('M10 billing acceptance requires the explicitly owned PostgreSQL 17 target.');
 }
@@ -309,7 +313,7 @@ try {
     $officialSnapshot = $officialRow ? json_decode($officialRow->snapshot, true, 512, JSON_THROW_ON_ERROR) : [];
     $officialContent = $officialSnapshot['content'] ?? [];
     $officialFields = $officialContent['fields'] ?? [];
-    app(\App\Modules\ServiceContracts\Application\ServiceContractAccess::class)->authorize((int) $writer->id, (int) $branch->id, 'document_view');
+    app(ServiceContractAccess::class)->authorize((int) $writer->id, (int) $branch->id, 'document_view');
     $officialPdf = app(OfficialDocuments::class)->retrieve($officialContract['id']);
     $activeContract = DB::table('service_contracts')->find($installmentContract);
     $activeRevision = DB::table('service_contract_revisions')->find($activeContract->current_revision_id);
@@ -490,7 +494,7 @@ try {
         'M12 summary reads its own posted invoice and M13 settlement without double-counting collection or deferred revenue.');
 
     $stage = 'executive dashboard reads actual M10 revenue, invoice, and collection separately';
-    $dashboard = app(\App\Application\ExecutiveDashboard::class)->read((int) $reviewer->id, (int) $branch->id, $invoiceDate, $invoiceDate);
+    $dashboard = app(ExecutiveDashboard::class)->read((int) $reviewer->id, (int) $branch->id, $invoiceDate, $invoiceDate);
     $dashboardAccounting = $dashboard['sections']['accounting']['metrics'] ?? [];
     $dashboardReceivables = $dashboard['sections']['receivables']['metrics'] ?? [];
     $dashboardTreasury = $dashboard['sections']['treasury']['metrics'] ?? [];
@@ -501,7 +505,7 @@ try {
         && ! array_key_exists('total', $dashboard['sections']['receivables']['metrics'] ?? [])
         && ! array_key_exists('total', $dashboard['sections']['treasury']['metrics'] ?? []),
         'Executive Dashboard reads the real posted revenue, receivable invoice, and cash collection as separate 100.00 measures, with no combined 300.00 total.');
-    $reportDashboard = app(\App\Application\ExecutiveDashboard::class)->read((int) $reportOnly->id, (int) $branch->id, $invoiceDate, $invoiceDate);
+    $reportDashboard = app(ExecutiveDashboard::class)->read((int) $reportOnly->id, (int) $branch->id, $invoiceDate, $invoiceDate);
     $financialSections = array_intersect_key($reportDashboard['sections'], array_flip(['accounting', 'receivables', 'treasury']));
     $pass(count($financialSections) === 3 && collect($financialSections)->every(fn ($section) => ($section['status'] ?? null) === 'unavailable'
         && ! array_key_exists('metrics', $section) && ! array_intersect(['revenue', 'expenses', 'net', 'customer_invoiced', 'supplier_invoiced', 'bank', 'cash'], array_keys($section))),
@@ -616,7 +620,7 @@ try {
     DB::rollBack();
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-billing-private-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 }
 $after = $counts();

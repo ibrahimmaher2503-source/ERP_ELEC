@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 // Gate 6 durable RBAC state matrix. Mutations are limited to a guarded transaction.
 use App\Models\User;
-use App\Modules\Organization\Domain\Company;
-use App\Modules\Parties\Domain\Customer;
-use App\Modules\Inventory\Domain\Warehouse;
-use App\Modules\Organization\Application\PermissionAccess;
-use App\Modules\Organization\Domain\Employee;
 use App\Modules\Attendance\Application\AttendanceReports;
+use App\Modules\Inventory\Domain\Warehouse;
+use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\EmployeeActions;
+use App\Modules\Organization\Application\PermissionAccess;
+use App\Modules\Organization\Domain\Branch;
+use App\Modules\Organization\Domain\Company;
+use App\Modules\Organization\Domain\Employee;
+use App\Modules\Parties\Domain\Customer;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
+use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\ServiceContracts\Application\ServiceContractReport;
+use App\Modules\Treasury\Application\TreasuryAccess;
 use App\Modules\Treasury\Application\TreasuryService;
 use App\Modules\Treasury\Application\TreasuryStatementActions;
-use App\Modules\Organization\Domain\Branch;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 putenv('APP_ENV=testing');
@@ -31,7 +37,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '49685')),
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 foreach (['DB_CONNECTION' => 'pgsql', 'DB_HOST' => $target['connection_host'], 'DB_PORT' => (string) $target['port'],
     'DB_DATABASE' => $target['database'], 'DB_USERNAME' => $target['username'],
     'DB_PASSWORD' => (string) (getenv('DB_PASSWORD') ?: ''), 'DB_URL' => '', 'APP_DEBUG' => 'false'] as $key => $value) {
@@ -51,7 +57,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Gate 6 state matrix requires the owned PostgreSQL 17 target.');
 }
@@ -65,7 +71,9 @@ $requiredTables = ['users', 'companies', 'branches', 'roles', 'role_permissions'
     'accounting_journals', 'rp_customer_advances', 'rp_customer_advance_applications', 'rp_customer_advance_application_lines',
     'rp_customer_advance_refunds', 'access_audits'];
 foreach ($requiredTables as $table) {
-    if (! DB::getSchemaBuilder()->hasTable($table)) throw new RuntimeException("Gate 6 requires migrated {$table}.");
+    if (! DB::getSchemaBuilder()->hasTable($table)) {
+        throw new RuntimeException("Gate 6 requires migrated {$table}.");
+    }
 }
 if (! DB::table('roles')->where('code', 'Administrator')->exists()) {
     throw new RuntimeException('Gate 6 requires the explicitly named Administrator role.');
@@ -74,23 +82,28 @@ if (! DB::table('roles')->where('code', 'Administrator')->exists()) {
 $tables = array_merge($requiredTables, ['audit_entries']);
 $counts = static function () use ($tables): array {
     $result = [];
-    foreach ($tables as $table) $result[$table] = (int) DB::table($table)->count();
+    foreach ($tables as $table) {
+        $result[$table] = (int) DB::table($table)->count();
+    }
+
     return $result;
 };
 $checks = [];
 $assertions = 0;
 $check = static function (bool $ok, string $name) use (&$checks, &$assertions): void {
     $checks[] = ['name' => $name, 'result' => $ok ? 'PASS' : 'FAIL'];
-    if (! $ok) throw new RuntimeException('FAIL '.$name);
+    if (! $ok) {
+        throw new RuntimeException('FAIL '.$name);
+    }
     $assertions++;
     fwrite(STDOUT, 'PASS '.$name.PHP_EOL);
 };
 $denied = static function (callable $action): bool {
     try {
         $action();
-    } catch (\Symfony\Component\HttpKernel\Exception\HttpException $error) {
+    } catch (HttpException $error) {
         return $error->getStatusCode() === 403;
-    } catch (\App\Modules\Organization\Application\Contracts\ContractException $error) {
+    } catch (ContractException $error) {
         return $error->getCode() === 403;
     }
 
@@ -107,7 +120,9 @@ $privateFixturesCleaned = false;
 DB::beginTransaction();
 try {
     $tag = strtoupper(bin2hex(random_bytes(5)));
-    if (! DB::table('companies')->where('id', 1)->exists()) Company::factory()->create();
+    if (! DB::table('companies')->where('id', 1)->exists()) {
+        Company::factory()->create();
+    }
     $branchA = Branch::factory()->create(['company_id' => 1, 'code' => 'G6-A-'.$tag]);
     $branchB = Branch::factory()->create(['company_id' => 1, 'code' => 'G6-B-'.$tag]);
     $warehouseA = Warehouse::factory()->create(['branch_id' => $branchA->id, 'code' => 'G6-WA-'.$tag]);
@@ -171,15 +186,15 @@ try {
 
     $actions = app(ServiceContractActions::class);
     $contractsBeforeDeniedActions = (int) DB::table('service_contracts')->count();
-    $key = (string) \Illuminate\Support\Str::uuid();
+    $key = (string) Str::uuid();
     $check($denied(fn () => $actions->save((int) $ordinary->id, null, 1, $key, ['branch_id' => (int) $branchB->id])), 'Real contract-create Action denies an out-of-scope branch.');
-    $check($denied(fn () => $actions->save((int) $disabledAdministrator->id, null, 1, (string) \Illuminate\Support\Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies a disabled Administrator account.');
-    $check($denied(fn () => $actions->save((int) $disabledOrdinary->id, null, 1, (string) \Illuminate\Support\Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies a disabled ordinary account despite a direct grant.');
+    $check($denied(fn () => $actions->save((int) $disabledAdministrator->id, null, 1, (string) Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies a disabled Administrator account.');
+    $check($denied(fn () => $actions->save((int) $disabledOrdinary->id, null, 1, (string) Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies a disabled ordinary account despite a direct grant.');
     $check((int) DB::table('service_contracts')->count() === $contractsBeforeDeniedActions, 'Denied contract Actions create no business records.');
 
     $customer = Customer::factory()->create();
     $employee = Employee::factory()->create(['branch_id' => $branchB->id]);
-    $objectKey = (string) \Illuminate\Support\Str::uuid();
+    $objectKey = (string) Str::uuid();
     $contractId = DB::table('service_contracts')->insertGetId(['creation_key' => $objectKey, 'branch_id' => $branchB->id,
         'customer_id' => $customer->id, 'responsible_employee_id' => $employee->id, 'created_by' => $ordinary->id]);
     $revisionId = DB::table('service_contract_revisions')->insertGetId(['contract_id' => $contractId, 'revision' => 1,
@@ -204,7 +219,7 @@ try {
     $privateFixturePaths[] = $privateFixturePath;
     Storage::disk('local')->put($privateFixturePath, "synthetic rollback-only bank statement fixture\n");
     $statementHash = hash_file('sha256', Storage::disk('local')->path($privateFixturePath));
-    $statementId = DB::table('treasury_statements')->insertGetId(['creation_key' => (string) \Illuminate\Support\Str::uuid(), 'branch_id' => $branchA->id,
+    $statementId = DB::table('treasury_statements')->insertGetId(['creation_key' => (string) Str::uuid(), 'branch_id' => $branchA->id,
         'account_id' => $accountId, 'external_reference' => 'G6-'.$tag, 'starts_on' => $month.'-01', 'ends_on' => now('Africa/Cairo')->toDateString(),
         'opening_balance' => '0.00', 'closing_balance' => '0.00', 'file_path' => $privateFixturePath, 'file_sha256' => $statementHash,
         'original_name' => 'gate6.csv', 'payload_hash' => hash('sha256', $tag), 'created_by' => $ordinary->id]);
@@ -221,22 +236,22 @@ try {
     $documentId = DB::table('service_contract_documents')->insertGetId(['contract_id' => $contractId, 'revision_id' => $revisionId,
         'classification' => 'supporting', 'reference' => 'G6-'.$tag, 'path' => $documentPath, 'original_name' => 'gate6.txt', 'mime' => 'text/plain',
         'sha256' => hash_file('sha256', Storage::disk('local')->path($documentPath)), 'terms_sha256' => hash('sha256', '{}'), 'uploaded_by' => $ordinary->id]);
-    $check($denied(fn () => app(\App\Modules\ServiceContracts\Application\ServiceContractDocuments::class)->download((int) $ordinary->id, $documentId)), 'M10 private document download denies an existing contract object outside branch scope.');
+    $check($denied(fn () => app(ServiceContractDocuments::class)->download((int) $ordinary->id, $documentId)), 'M10 private document download denies an existing contract object outside branch scope.');
     $check($denied(fn () => $statementActions->download((int) $disabledAdministrator->id, $statementId)), 'Treasury statement download denies a disabled Administrator account.');
     $check($access->allows($ordinary, 'M12.advance_apply', (int) $branchA->id), 'M12 customer-advance application uses its explicit branch grant.');
-    $check(! app(\App\Modules\Treasury\Application\TreasuryAccess::class)->allows((int) $ordinary->id, 'advance_refund', (int) $branchA->id), 'Statement and M12 advance-apply grants do not imply Treasury advance-refund permission.');
+    $check(! app(TreasuryAccess::class)->allows((int) $ordinary->id, 'advance_refund', (int) $branchA->id), 'Statement and M12 advance-apply grants do not imply Treasury advance-refund permission.');
     $check($denied(fn () => $dashboard->advanceRefundAccounts((int) $ordinary->id, (int) $branchA->id)), 'Treasury customer-advance refund lookup denies before exposing account choices without its permission.');
 
     DB::table('user_branch_scopes')->where('user_id', $ordinary->id)->where('branch_id', $branchA->id)->delete();
     $refresh();
     $check(! isset($access->scopedBranches((int) $ordinary->id)[$branchA->id]), 'Revoked branch scope disappears from the next authorization snapshot.');
-    $check($denied(fn () => $actions->save((int) $ordinary->id, null, 1, (string) \Illuminate\Support\Str::uuid(), ['branch_id' => (int) $branchA->id])), 'M10 Action enforces branch membership after scope revocation despite a direct grant.');
+    $check($denied(fn () => $actions->save((int) $ordinary->id, null, 1, (string) Str::uuid(), ['branch_id' => (int) $branchA->id])), 'M10 Action enforces branch membership after scope revocation despite a direct grant.');
     $check($denied(fn () => $attendance->timesheet((int) $ordinary->id, (int) $employeeA->id, $month)), 'M15 report enforces branch membership after scope revocation despite a direct grant.');
 
     DB::table('access_grants')->where('user_id', $ordinary->id)->where('permission_code', 'M10.contract_create')->delete();
     $refresh();
     $check(! $access->allows($ordinary, 'M10.contract_create', (int) $branchA->id), 'Revoking the manual grant removes its permission on the next authorization snapshot.');
-    $check($denied(fn () => $actions->save((int) $ordinary->id, null, 1, (string) \Illuminate\Support\Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies after its manual grant is revoked.');
+    $check($denied(fn () => $actions->save((int) $ordinary->id, null, 1, (string) Str::uuid(), ['branch_id' => (int) $branchA->id])), 'Real contract-create Action denies after its manual grant is revoked.');
     DB::table('access_grants')->where('user_id', $ordinary->id)->where('permission_code', 'M13.statement_view')->delete();
     $refresh();
     $check($denied(fn () => $statementActions->download((int) $ordinary->id, $statementId)), 'Treasury private download denies after its manual grant is revoked.');
@@ -248,13 +263,17 @@ try {
     DB::rollBack();
     $after = $counts();
     $companiesAfter = DB::table('companies')->orderBy('id')->get()->map(fn ($row) => (array) $row)->all();
-    foreach ($privateFixturePaths as $path) Storage::disk('local')->delete($path);
+    foreach ($privateFixturePaths as $path) {
+        Storage::disk('local')->delete($path);
+    }
     $privateFixturesCleaned = collect($privateFixturePaths)->every(fn ($path) => ! Storage::disk('local')->exists($path));
 }
 $rollbackOk = $before === $after && $companiesBefore === $companiesAfter && $privateFixturesCleaned;
 $checks[] = ['name' => 'All synthetic company, RBAC and workflow rows roll back; company data and private fixtures are restored.', 'result' => $rollbackOk ? 'PASS' : 'FAIL'];
 $assertions++;
-if (! $rollbackOk && $failure === null) $failure = new RuntimeException('Gate 6 fixtures remained after rollback.');
+if (! $rollbackOk && $failure === null) {
+    $failure = new RuntimeException('Gate 6 fixtures remained after rollback.');
+}
 $receipt = ['all_pass' => $failure === null, 'phase' => 'Gate 6 guarded stateful RBAC behavior', 'assertions' => $assertions,
     'database' => ['name' => $identity->database, 'server_address' => $identity->server_address, 'port' => (int) $identity->port,
         'postgres_major' => intdiv((int) $identity->server_version_num, 10000)],
@@ -269,4 +288,6 @@ file_put_contents($evidencePath, json_encode($receipt, JSON_PRETTY_PRINT | JSON_
 fwrite(($failure === null ? STDOUT : STDERR), 'RESULT gate=6 scope=stateful-rbac result='.($failure === null ? 'PASS' : 'FAIL')
     .' assertions='.$assertions.' rollback_verified='.($rollbackOk ? 'yes' : 'no').' evidence='.$evidencePath.PHP_EOL);
 fwrite(($failure === null ? STDOUT : STDERR), json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
-if ($failure !== null) exit(1);
+if ($failure !== null) {
+    exit(1);
+}

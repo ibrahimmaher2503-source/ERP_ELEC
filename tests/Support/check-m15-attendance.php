@@ -14,19 +14,23 @@ use App\Modules\Attendance\Domain\AttendancePunch;
 use App\Modules\Attendance\Domain\AttendanceSchedule;
 use App\Modules\Attendance\Domain\AttendanceShift;
 use App\Modules\Attendance\Domain\AttendanceTimesheet;
+use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Organization\Application\EmployeeActions;
-use App\Modules\Organization\Application\Contracts\ContractException;
+use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Application\SaveCompany;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Employee;
 use Database\Seeders\AttendanceDemoSeeder;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $writeReceipt = static function (string $preferredPath, array $receipt): string {
@@ -92,16 +96,21 @@ $requiredClasses = [
     'M15 demo seeder' => AttendanceDemoSeeder::class,
 ];
 $missingFiles = array_keys(array_filter($requiredFiles, static fn (string $path): bool => ! is_file($path)));
-$attendanceMigrations = array_values(array_filter(glob($root.'/database/migrations/*.php') ?: [], static fn (string $path): bool =>
-    str_contains(strtolower(basename($path)), 'attendance') || str_contains(strtolower(basename($path)), 'm15')));
-if ($attendanceMigrations === []) $missingFiles[] = 'M15 forward migration';
+$attendanceMigrations = array_values(array_filter(glob($root.'/database/migrations/*.php') ?: [], static fn (string $path): bool => str_contains(strtolower(basename($path)), 'attendance') || str_contains(strtolower(basename($path)), 'm15')));
+if ($attendanceMigrations === []) {
+    $missingFiles[] = 'M15 forward migration';
+}
 $missingClasses = array_keys(array_filter($requiredClasses, static fn (string $class): bool => ! class_exists($class) && ! interface_exists($class)));
 $missingMethods = [];
 foreach ([AttendanceActions::class => ['saveShift', 'schedule', 'punch', 'requestAdjustment', 'approveAdjustment', 'timesheet', 'lockTimesheet', 'export'],
     AttendanceImport::class => ['import'],
     AttendanceApi::class => ['timesheet', 'export', 'workedIntervals'], OrganizationApi::class => ['employeeIdentity', 'employee']] as $class => $methods) {
     if (class_exists($class) || interface_exists($class)) {
-        foreach ($methods as $method) if (! method_exists($class, $method)) $missingMethods[] = $class.'::'.$method;
+        foreach ($methods as $method) {
+            if (! method_exists($class, $method)) {
+                $missingMethods[] = $class.'::'.$method;
+            }
+        }
     }
 }
 $moduleRegistry = require $root.'/config/modules.php';
@@ -109,10 +118,10 @@ $module = $moduleRegistry['Attendance'] ?? null;
 $registryReady = is_array($module) && ($module['id'] ?? null) === 'M15'
     && ($module['permission_prefix'] ?? null) === 'M15' && ($module['implemented'] ?? false) === true;
 $missingPermissions = [];
-if (class_exists(App\Modules\Organization\Application\PermissionCatalog::class)) {
+if (class_exists(PermissionCatalog::class)) {
     foreach (['M15.shift_manage', 'M15.schedule_manage', 'M15.punch_manage', 'M15.adjustment_request',
         'M15.adjustment_approve', 'M15.view', 'M15.timesheet_lock', 'M15.export'] as $permission) {
-        if ((App\Modules\Organization\Application\PermissionCatalog::DEFINITIONS[$permission][1] ?? null) !== 'branch') {
+        if ((PermissionCatalog::DEFINITIONS[$permission][1] ?? null) !== 'branch') {
             $missingPermissions[] = $permission;
         }
     }
@@ -145,7 +154,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'E2E_CLUSTER_TOKEN' => (string) (getenv('E2E_CLUSTER_TOKEN') ?: ''),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $privateStorage = $taskRoot.'/m15-private-storage-'.bin2hex(random_bytes(8));
 $privateCache = '.tmp/master-remediation-20261101/m15-check-cache';
@@ -189,7 +198,7 @@ try {
         : (is_string($target['nonce'] ?? null)
             ? DB::table('codex_test_guard.ownership_receipts')->where('database', $identity->database)->first(['nonce'])
             : null);
-    Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+    OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
     $targetVerified = true;
     if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
         throw new RuntimeException('M15 acceptance requires the explicitly owned PostgreSQL 17 test target.');
@@ -212,7 +221,7 @@ try {
     $evidencePath = $writeReceipt($evidencePath, $receipt);
     if (is_dir($privateStorage) && realpath(dirname($privateStorage)) === realpath($taskRoot)
         && str_starts_with(basename($privateStorage), 'm15-private-storage-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateStorage);
+        (new Filesystem)->deleteDirectory($privateStorage);
     }
     fwrite(STDERR, 'RESULT gate=3 scope=m15-attendance result=BLOCKED_OR_FAIL phase=bootstrap evidence='.$evidencePath.PHP_EOL);
     fwrite(STDERR, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
@@ -236,6 +245,7 @@ $reject = static function (callable $operation, string $name) use ($check): void
         if ($error instanceof ValidationException || $error instanceof ContractException
             || ($error instanceof HttpExceptionInterface && in_array($error->getStatusCode(), [403, 404, 409, 422], true))) {
             $check(true, $name);
+
             return;
         }
         throw $error;
@@ -260,15 +270,20 @@ $countTables = static function () use ($tables): array {
             $counts[$table] = (int) DB::table($table)->count();
         }
     }
+
     return $counts;
 };
-$cairoIso = static fn (string $date, string $time): string => Illuminate\Support\Carbon::parse($date.' '.$time, 'Africa/Cairo')->toIso8601String();
+$cairoIso = static fn (string $date, string $time): string => Carbon::parse($date.' '.$time, 'Africa/Cairo')->toIso8601String();
 $sameInstant = static fn (mixed $actual, string $expected): bool => is_string($actual)
-    && Illuminate\Support\Carbon::parse($actual)->utc()->equalTo(Illuminate\Support\Carbon::parse($expected)->utc());
-$monthRows = static function (array $sheet): array { return $sheet['days'] ?? []; };
+    && Carbon::parse($actual)->utc()->equalTo(Carbon::parse($expected)->utc());
+$monthRows = static function (array $sheet): array {
+    return $sheet['days'] ?? [];
+};
 $rowOn = static function (array $sheet, string $date) use ($monthRows): array {
     foreach ($monthRows($sheet) as $row) {
-        if (($row['work_date'] ?? null) === $date) return $row;
+        if (($row['work_date'] ?? null) === $date) {
+            return $row;
+        }
     }
     throw new RuntimeException('Expected M15 work date missing from timesheet: '.$date);
 };
@@ -292,7 +307,9 @@ try {
     }
     $branch = Branch::factory()->create(['company_id' => 1, 'active' => true]);
     $otherBranch = Branch::factory()->create(['company_id' => 1, 'active' => true]);
-    foreach ([$writer, $reviewer] as $actor) $scope($actor, $branch);
+    foreach ([$writer, $reviewer] as $actor) {
+        $scope($actor, $branch);
+    }
     $scope($outsider, $otherBranch);
     $grant($writer, $branchPermissions, (int) $branch->id);
     $grant($reviewer, ['M15.adjustment_approve', 'M15.view', 'M15.timesheet_lock', 'M15.export', 'M01.employee_view'], (int) $branch->id);
@@ -547,13 +564,15 @@ try {
     DB::rollBack();
     $afterRollbackCounts = $countTables();
     if (realpath(dirname($privateStorage)) === realpath($taskRoot) && str_starts_with(basename($privateStorage), 'm15-private-storage-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateStorage);
+        (new Filesystem)->deleteDirectory($privateStorage);
     }
 }
 $rollbackClean = $beforeCounts === $afterRollbackCounts;
 $checks[] = ['name' => 'All fixture rows roll back and original data counts remain unchanged.', 'result' => $rollbackClean ? 'PASS' : 'FAIL'];
 $assertions++;
-if (! $rollbackClean && $failure === null) $failure = new RuntimeException('M15 acceptance left fixture rows after rollback.');
+if (! $rollbackClean && $failure === null) {
+    $failure = new RuntimeException('M15 acceptance left fixture rows after rollback.');
+}
 $receipt = ['all_pass' => $failure === null, 'phase' => 'Gate3 M15 guarded behavior acceptance', 'assertions' => $assertions,
     'database' => ['name' => $identity->database, 'server_address' => $identity->server_address, 'port' => (int) $identity->port,
         'postgres_major' => intdiv((int) $identity->server_version_num, 10000)],
@@ -567,4 +586,6 @@ $evidencePath = $writeReceipt($evidenceDirectory.'/m15-attendance-acceptance.jso
 fwrite(($failure === null ? STDOUT : STDERR), 'RESULT gate=3 scope=m15-attendance result='.($failure === null ? 'PASS' : 'FAIL')
     .' assertions='.$assertions.' evidence='.$evidencePath.PHP_EOL);
 fwrite(($failure === null ? STDOUT : STDERR), json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
-if ($failure !== null) exit(1);
+if ($failure !== null) {
+    exit(1);
+}

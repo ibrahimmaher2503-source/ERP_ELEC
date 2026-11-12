@@ -50,7 +50,7 @@ final class IssueOfficialDocument implements OfficialDocuments
         $existing = DB::table('system_official_documents')->where('company_id', 1)->where('document_type', $type)->where('source_id', $source)->where('revision', $revision)->first();
         if ($existing) {
             $saved = json_decode($existing->snapshot, true, 512, JSON_THROW_ON_ERROR);
-        abort_unless($this->canonical($saved['content']) === $this->canonical($content) && $existing->document_date === $date, 409, 'إصدار المصدر الرسمي محفوظ بمحتوى مختلف بالفعل.');
+            abort_unless($this->canonical($saved['content']) === $this->canonical($content) && $existing->document_date === $date, 409, 'إصدار المصدر الرسمي محفوظ بمحتوى مختلف بالفعل.');
 
             return ['id' => $existing->id, 'number' => $existing->official_number, 'sha256' => $existing->sha256];
         }

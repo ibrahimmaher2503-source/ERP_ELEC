@@ -6,8 +6,8 @@ use App\Application\PostPurchaseReceipt;
 use App\Models\User;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
-use App\Modules\Accounting\Application\FinancialReports;
 use App\Modules\Accounting\Application\OpeningBalances;
+use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\Inventory\Application\InventoryActions;
 use App\Modules\Organization\Application\SaveCompany;
 use App\Modules\Organization\Domain\Branch;
@@ -16,7 +16,6 @@ use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Products\Application\SalePrices;
 use App\Modules\Products\Domain\Product;
 use App\Modules\Purchasing\Application\PurchaseOrders;
-use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\Purchasing\Application\PurchaseReceiving;
 use App\Modules\Purchasing\Application\PurchaseReturns;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
@@ -27,15 +26,14 @@ use App\Modules\Sales\Application\QuotationCommercialPolicy;
 use App\Modules\Sales\Application\SalesDeliveries;
 use App\Modules\Sales\Application\SalesOrderActions;
 use App\Modules\Sales\Application\SalesReturns;
-use App\Modules\System\Application\DocumentNumbering;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
+use App\Modules\System\Application\DocumentNumbering;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\Treasury\Domain\TreasuryAccount;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -586,8 +584,6 @@ try {
     $expect(fn () => app(DocumentNumbering::class)->setStart((int) $maker->id, 'purchase_return', (int) substr($date, 0, 4), 900), 'numbering locked after first document');
     $checks['numbering_start_and_lock'] = $supplierResult['number'];
     $checks['supplier_return_posted'] = ['number' => $supplierResult['number'], 'credit' => $supplierNote->amount];
-
-
 
     // Serialized goods: identity and cost follow the unit through both return directions.
     $orders = app(PurchaseOrders::class);

@@ -3,22 +3,29 @@
 declare(strict_types=1);
 
 // Private Gate 2 financial browser fixtures. Only owner APIs/actions create business or ledger rows.
-use App\Models\User;
-use App\Modules\Accounting\Application\{AccountingActions, FinancialActivation, OpeningBalances};
 use App\Application\ActivateFinancialPosting;
-use App\Modules\Organization\Application\{SaveBranch, SaveCompany};
+use App\Models\User;
+use App\Modules\Accounting\Application\AccountingActions;
+use App\Modules\Accounting\Application\FinancialActivation;
+use App\Modules\Accounting\Application\OpeningBalances;
 use App\Modules\Organization\Application\PermissionCatalog;
-use App\Modules\Organization\Domain\{Branch, Employee};
+use App\Modules\Organization\Application\SaveBranch;
+use App\Modules\Organization\Application\SaveCompany;
+use App\Modules\Organization\Domain\Branch;
+use App\Modules\Organization\Domain\Employee;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
-use App\Modules\ServiceContracts\Application\{ServiceContractActions, ServiceContractBilling, ServiceContractDocuments};
+use App\Modules\ServiceContracts\Application\ServiceContractActions;
+use App\Modules\ServiceContracts\Application\ServiceContractBilling;
+use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = realpath(dirname(__DIR__, 2));
 $privateRoot = $root.'/.tmp/master-remediation-20261101/ui-private';
@@ -77,10 +84,10 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select r.rolname from pg_database d join pg_roles r on r.oid=d.datdba where d.datname=current_database()) as database_owner");
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
+$target = OptimizationRegressionDatabaseGuard::target($root, ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1',
     'DB_PORT' => '49686', 'E2E_DB_PORT' => '49686', 'DB_DATABASE' => $database, 'DB_USERNAME' => 'postgres', 'E2E_FINANCE_DB_NONCE' => $nonce]);
 $nonceRow = DB::selectOne('select nonce from codex_test_guard.ownership_receipts where database = ?', [$database]);
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
 if (($identity->database_owner ?? null) !== 'postgres' || (int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Finance fixture writes require PostgreSQL 17 and the exact private target.');
 }
@@ -149,85 +156,87 @@ if ($mode === '--setup') {
     }
     DB::beginTransaction();
     try {
-    $suffix = strtoupper(substr($nonce, 0, 12));
-    $password = Str::random(48);
-    $actor = User::factory()->create(['name' => 'DEMO-EG Finance UI setup '.$suffix,
-        'email' => 'g2ui-finance-setup-'.strtolower($suffix).'@example.test', 'password' => $password, 'active' => true, 'email_verified_at' => now()]);
-    $approverPassword = Str::random(48);
-    $setupApprover = User::factory()->create(['name' => 'DEMO-EG Finance UI setup approver '.$suffix,
-        'email' => 'g2ui-finance-setup-approver-'.strtolower($suffix).'@example.test', 'password' => $approverPassword,
-        'active' => true, 'email_verified_at' => now()]);
-    $setupPermissions = ['M01.company_update', 'M01.branch_create', 'M01.branch_view', 'M01.employee_view', 'M03.customer_view',
-        'M02.product_view', 'M10.contract_create', 'M10.contract_edit', 'M10.contract_sign', 'M10.contract_activate',
-        'M10.contract_approve', 'M10.contract_view', 'M10.document_manage', 'M10.billing_manage', 'M10.billing_approve',
-        'M11.account_manage', 'M11.setup_manage', 'M11.tax_manage', 'M11.period_open', 'M11.opening_manage',
-        'M11.opening_approve', 'M11.financial_activate', 'M11.source_post', 'M11.journal_create', 'M11.journal_submit',
-        'M11.journal_approve', 'M11.journal_post', 'M12.customer_invoice_manage', 'M12.customer_invoice_post',
-        'M12.credit_note_manage', 'M12.credit_note_approve', 'M12.ar_view', 'M12.advance_apply', 'M12.allocation_manage',
-        'M13.account_manage', 'M13.account_view', 'M13.collection_execute', 'M13.advance_refund', 'M13.credit_refund',
-        'M13.cash_correct', 'M13.statement_view', 'M13.statement_manage', 'M13.statement_review'];
-    $grant($actor, $setupPermissions);
-    $grant($setupApprover, ['M11.opening_approve', 'M11.financial_activate']);
-    $companyCode = strtoupper('G2FIN-'.substr($nonce, 0, 12));
-    app(SaveCompany::class)->execute($actor, ['code' => $companyCode, 'name' => 'شركة قبول مالية اصطناعية معزولة',
-        'legal_name' => 'Gate 2 Finance UI Synthetic Entity', 'tax_registration' => null, 'commercial_registration' => null,
-        'address' => 'شركة اصطناعية داخل قاعدة قبول خاصة؛ لا تمثل كياناً أو عنواناً حقيقياً.', 'phone' => null, 'email' => null], null);
-    $branch = app(SaveBranch::class)->execute($actor, ['code' => 'G2FIN-BR-'.$suffix, 'name' => 'فرع قبول مالي اصطناعي',
-        'address' => 'فرع قبول محلي معزول.'], null, null);
-    $scope($actor, (int) $branch->id);
-    $today = now('Africa/Cairo')->toDateString();
-    $customer = Customer::factory()->create(['status' => 'active']);
-    $service = Product::factory()->create(['kind' => 'service', 'tracking' => 'none', 'active' => true]);
-    $employee = Employee::factory()->create(['branch_id' => $branch->id, 'active' => true, 'starts_on' => $today]);
+        $suffix = strtoupper(substr($nonce, 0, 12));
+        $password = Str::random(48);
+        $actor = User::factory()->create(['name' => 'DEMO-EG Finance UI setup '.$suffix,
+            'email' => 'g2ui-finance-setup-'.strtolower($suffix).'@example.test', 'password' => $password, 'active' => true, 'email_verified_at' => now()]);
+        $approverPassword = Str::random(48);
+        $setupApprover = User::factory()->create(['name' => 'DEMO-EG Finance UI setup approver '.$suffix,
+            'email' => 'g2ui-finance-setup-approver-'.strtolower($suffix).'@example.test', 'password' => $approverPassword,
+            'active' => true, 'email_verified_at' => now()]);
+        $setupPermissions = ['M01.company_update', 'M01.branch_create', 'M01.branch_view', 'M01.employee_view', 'M03.customer_view',
+            'M02.product_view', 'M10.contract_create', 'M10.contract_edit', 'M10.contract_sign', 'M10.contract_activate',
+            'M10.contract_approve', 'M10.contract_view', 'M10.document_manage', 'M10.billing_manage', 'M10.billing_approve',
+            'M11.account_manage', 'M11.setup_manage', 'M11.tax_manage', 'M11.period_open', 'M11.opening_manage',
+            'M11.opening_approve', 'M11.financial_activate', 'M11.source_post', 'M11.journal_create', 'M11.journal_submit',
+            'M11.journal_approve', 'M11.journal_post', 'M12.customer_invoice_manage', 'M12.customer_invoice_post',
+            'M12.credit_note_manage', 'M12.credit_note_approve', 'M12.ar_view', 'M12.advance_apply', 'M12.allocation_manage',
+            'M13.account_manage', 'M13.account_view', 'M13.collection_execute', 'M13.advance_refund', 'M13.credit_refund',
+            'M13.cash_correct', 'M13.statement_view', 'M13.statement_manage', 'M13.statement_review'];
+        $grant($actor, $setupPermissions);
+        $grant($setupApprover, ['M11.opening_approve', 'M11.financial_activate']);
+        $companyCode = strtoupper('G2FIN-'.substr($nonce, 0, 12));
+        app(SaveCompany::class)->execute($actor, ['code' => $companyCode, 'name' => 'شركة قبول مالية اصطناعية معزولة',
+            'legal_name' => 'Gate 2 Finance UI Synthetic Entity', 'tax_registration' => null, 'commercial_registration' => null,
+            'address' => 'شركة اصطناعية داخل قاعدة قبول خاصة؛ لا تمثل كياناً أو عنواناً حقيقياً.', 'phone' => null, 'email' => null], null);
+        $branch = app(SaveBranch::class)->execute($actor, ['code' => 'G2FIN-BR-'.$suffix, 'name' => 'فرع قبول مالي اصطناعي',
+            'address' => 'فرع قبول محلي معزول.'], null, null);
+        $scope($actor, (int) $branch->id);
+        $today = now('Africa/Cairo')->toDateString();
+        $customer = Customer::factory()->create(['status' => 'active']);
+        $service = Product::factory()->create(['kind' => 'service', 'tracking' => 'none', 'active' => true]);
+        $employee = Employee::factory()->create(['branch_id' => $branch->id, 'active' => true, 'starts_on' => $today]);
 
-    $accounts = app(AccountingActions::class);
-    $activation = app(FinancialActivation::class);
-    $mappings = [];
-    foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) {
-        $mappings[$purpose] = $accounts->account((int) $actor->id, null, 0, ['code' => 'G2F-'.substr(hash('sha256', $nonce.':'.$purpose), 0, 24),
-            'name' => 'حساب قبول اصطناعي '.$label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
-    }
-    $activationRow = DB::table('accounting_activation')->where('id', 1)->first();
-    $activation->save((int) $actor->id, (int) $activationRow->version, ['go_live_date' => $today, 'mappings' => $mappings]);
-    $version = (int) $activationRow->version + 1;
-    $activation->addTaxRule((int) $actor->id, $version, ['code' => 'G2F-SALE-'.$suffix, 'name' => 'ضريبة خدمة اصطناعية معفاة للاختبار',
-        'transaction_type' => 'sale', 'product_id' => $service->id, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null,
-        'treatment' => 'exempt', 'tax_scale' => 2, 'legal_reference' => 'إعداد اصطناعي داخل شركة قبول غير حقيقية.', 'purchase_recoverable' => false]);
-    $version++;
-    $activation->addTaxRule((int) $actor->id, $version, ['code' => 'G2F-PURCHASE-'.$suffix, 'name' => 'ضريبة مشتريات صفرية للاختبار',
-        'transaction_type' => 'purchase', 'product_id' => null, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null,
-        'treatment' => 'percentage', 'tax_scale' => 2, 'legal_reference' => 'إعداد اصطناعي داخل شركة قبول غير حقيقية.', 'purchase_recoverable' => true]);
-    $version++;
-    $activation->validateTaxTreatment((int) $actor->id, $version, 'فحص ضريبي اصطناعي في شركة قبول جديدة بلا بيانات سابقة.');
-    $version++;
-    $period = $accounts->period((int) $actor->id, ['name' => 'فترة قبول مالية '.$suffix,
-        'starts_on' => substr($today, 0, 4).'-01-01', 'ends_on' => substr($today, 0, 4).'-12-31']);
-    $opening = app(OpeningBalances::class);
-    $batch = $opening->save((int) $actor->id, $version, (string) Str::uuid(), [], true,
-        'إقرار عدم وجود أرصدة افتتاحية في كيان القبول المنشأ حديثاً والمعزول.');
-    $opening->advance((int) $actor->id, $batch, 1, 'submit');
-    $opening->advance((int) $setupApprover->id, $batch, 2, 'approve');
-    app(ActivateFinancialPosting::class)->execute((int) $setupApprover->id, $batch, 3);
-    foreach (['customer_advance' => ['التزامات مقدمات العملاء', 'liability'], 'service_contract_deferred' => ['إيراد العقود المؤجل', 'liability']] as $purpose => [$label, $kind]) {
-        $account = $accounts->account((int) $actor->id, null, 0, ['code' => 'G2F-'.substr(hash('sha256', $nonce.':'.$purpose), 0, 24),
-            'name' => $label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
-        $activation->saveOptionalMapping((int) $actor->id, $purpose, $account);
-    }
-    $cashGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'cash')->value('account_id');
-    $bankGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'bank')->value('account_id');
-    $cash = app(TreasuryApi::class)->saveOperationalAccount((int) $actor->id, ['code' => 'G2F-CASH-'.$suffix,
-        'name' => 'نقدية قبول اصطناعية', 'kind' => 'cash', 'gl_account_id' => $cashGl]);
-    $bank = app(TreasuryApi::class)->saveOperationalAccount((int) $actor->id, ['code' => 'G2F-BANK-'.$suffix,
-        'name' => 'بنك قبول اصطناعي', 'kind' => 'bank', 'gl_account_id' => $bankGl]);
-    $fixture = ['database' => $database, 'port' => 49686, 'ownership_nonce' => $nonce, 'company_code' => $companyCode,
-        'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id, 'service_product_id' => (int) $service->id,
-        'employee_id' => (int) $employee->id, 'financial_period_id' => $period, 'opening_batch_id' => $batch,
-        'cash_account_id' => (int) $cash, 'bank_account_id' => (int) $bank,
-        'setup_actor' => ['id' => (int) $actor->id, 'email' => $actor->email, 'password' => $password],
-        'setup_approver' => ['id' => (int) $setupApprover->id, 'email' => $setupApprover->email, 'password' => $approverPassword], 'created_at' => gmdate(DATE_ATOM)];
-    DB::commit();
+        $accounts = app(AccountingActions::class);
+        $activation = app(FinancialActivation::class);
+        $mappings = [];
+        foreach (FinancialActivation::MAPPINGS as $purpose => [$label, $kind]) {
+            $mappings[$purpose] = $accounts->account((int) $actor->id, null, 0, ['code' => 'G2F-'.substr(hash('sha256', $nonce.':'.$purpose), 0, 24),
+                'name' => 'حساب قبول اصطناعي '.$label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
+        }
+        $activationRow = DB::table('accounting_activation')->where('id', 1)->first();
+        $activation->save((int) $actor->id, (int) $activationRow->version, ['go_live_date' => $today, 'mappings' => $mappings]);
+        $version = (int) $activationRow->version + 1;
+        $activation->addTaxRule((int) $actor->id, $version, ['code' => 'G2F-SALE-'.$suffix, 'name' => 'ضريبة خدمة اصطناعية معفاة للاختبار',
+            'transaction_type' => 'sale', 'product_id' => $service->id, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null,
+            'treatment' => 'exempt', 'tax_scale' => 2, 'legal_reference' => 'إعداد اصطناعي داخل شركة قبول غير حقيقية.', 'purchase_recoverable' => false]);
+        $version++;
+        $activation->addTaxRule((int) $actor->id, $version, ['code' => 'G2F-PURCHASE-'.$suffix, 'name' => 'ضريبة مشتريات صفرية للاختبار',
+            'transaction_type' => 'purchase', 'product_id' => null, 'rate' => '0', 'starts_on' => $today, 'ends_on' => null,
+            'treatment' => 'percentage', 'tax_scale' => 2, 'legal_reference' => 'إعداد اصطناعي داخل شركة قبول غير حقيقية.', 'purchase_recoverable' => true]);
+        $version++;
+        $activation->validateTaxTreatment((int) $actor->id, $version, 'فحص ضريبي اصطناعي في شركة قبول جديدة بلا بيانات سابقة.');
+        $version++;
+        $period = $accounts->period((int) $actor->id, ['name' => 'فترة قبول مالية '.$suffix,
+            'starts_on' => substr($today, 0, 4).'-01-01', 'ends_on' => substr($today, 0, 4).'-12-31']);
+        $opening = app(OpeningBalances::class);
+        $batch = $opening->save((int) $actor->id, $version, (string) Str::uuid(), [], true,
+            'إقرار عدم وجود أرصدة افتتاحية في كيان القبول المنشأ حديثاً والمعزول.');
+        $opening->advance((int) $actor->id, $batch, 1, 'submit');
+        $opening->advance((int) $setupApprover->id, $batch, 2, 'approve');
+        app(ActivateFinancialPosting::class)->execute((int) $setupApprover->id, $batch, 3);
+        foreach (['customer_advance' => ['التزامات مقدمات العملاء', 'liability'], 'service_contract_deferred' => ['إيراد العقود المؤجل', 'liability']] as $purpose => [$label, $kind]) {
+            $account = $accounts->account((int) $actor->id, null, 0, ['code' => 'G2F-'.substr(hash('sha256', $nonce.':'.$purpose), 0, 24),
+                'name' => $label, 'kind' => $kind, 'parent_id' => null, 'postable' => true, 'active' => true]);
+            $activation->saveOptionalMapping((int) $actor->id, $purpose, $account);
+        }
+        $cashGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'cash')->value('account_id');
+        $bankGl = (int) DB::table('accounting_account_mappings')->where('purpose', 'bank')->value('account_id');
+        $cash = app(TreasuryApi::class)->saveOperationalAccount((int) $actor->id, ['code' => 'G2F-CASH-'.$suffix,
+            'name' => 'نقدية قبول اصطناعية', 'kind' => 'cash', 'gl_account_id' => $cashGl]);
+        $bank = app(TreasuryApi::class)->saveOperationalAccount((int) $actor->id, ['code' => 'G2F-BANK-'.$suffix,
+            'name' => 'بنك قبول اصطناعي', 'kind' => 'bank', 'gl_account_id' => $bankGl]);
+        $fixture = ['database' => $database, 'port' => 49686, 'ownership_nonce' => $nonce, 'company_code' => $companyCode,
+            'branch_id' => (int) $branch->id, 'customer_id' => (int) $customer->id, 'service_product_id' => (int) $service->id,
+            'employee_id' => (int) $employee->id, 'financial_period_id' => $period, 'opening_batch_id' => $batch,
+            'cash_account_id' => (int) $cash, 'bank_account_id' => (int) $bank,
+            'setup_actor' => ['id' => (int) $actor->id, 'email' => $actor->email, 'password' => $password],
+            'setup_approver' => ['id' => (int) $setupApprover->id, 'email' => $setupApprover->email, 'password' => $approverPassword], 'created_at' => gmdate(DATE_ATOM)];
+        DB::commit();
     } catch (Throwable $error) {
-        if (DB::transactionLevel() > 0) DB::rollBack();
+        if (DB::transactionLevel() > 0) {
+            DB::rollBack();
+        }
         throw $error;
     }
     $writeJson($setupPath, $fixture);
@@ -241,7 +250,9 @@ if (! preg_match('/^--prepare-run=([a-f0-9]{32})$/D', $mode, $runMatch)) {
 $runNonce = $runMatch[1];
 $runTag = strtoupper(substr($runNonce, 0, 12));
 $base = $readJson($setupPath);
-if (! is_array($base)) throw new RuntimeException('Run finance setup first; no private base fixture receipt exists.');
+if (! is_array($base)) {
+    throw new RuntimeException('Run finance setup first; no private base fixture receipt exists.');
+}
 $verifyReceipt($base);
 $permissions = [
     'maker' => ['M03.customer_view', 'M02.product_view', 'M01.employee_view', 'M10.contract_create', 'M10.contract_edit', 'M10.contract_sign', 'M10.contract_view',
@@ -409,7 +420,9 @@ $advanceCollection = $treasury->executeCustomerCollection($cashier, ['idempotenc
     'customer_id' => (int) $customer->id, 'account_id' => (int) $base['cash_account_id'], 'date' => $today,
     'amount' => '60.00', 'reference' => 'تحصيل اصطناعي لإنشاء مقدم فعلي '.$runTag, 'allow_advance' => true], []);
 $advanceId = (int) DB::table('rp_customer_advances')->where('movement_id', $advanceCollection['movement_id'])->value('id');
-if ($advanceId < 1) throw new RuntimeException('Real collection action did not create its permitted customer advance.');
+if ($advanceId < 1) {
+    throw new RuntimeException('Real collection action did not create its permitted customer advance.');
+}
 $statementCollection = $treasury->executeCustomerCollection($cashier, ['idempotency_key' => $uuid(), 'branch_id' => (int) $run['branch_id'],
     'customer_id' => (int) $customer->id, 'account_id' => (int) $base['bank_account_id'], 'date' => $today,
     'amount' => '5.00', 'reference' => 'تحصيل بنك اصطناعي للمطابقة '.$runTag, 'allow_advance' => false], [['open_item_id' => (int) $openItem->id, 'amount' => '5.00']]);

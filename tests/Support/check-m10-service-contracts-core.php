@@ -7,18 +7,21 @@ use App\Models\User;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Organization\Application\EmployeeActions;
+use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
 use App\Modules\Organization\Domain\Employee;
-use App\Modules\Parties\Domain\Customer;
 use App\Modules\Parties\Application\Contracts\CustomerContractException;
+use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
 use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\ServiceContracts\Domain\ServiceContract;
+use Carbon\CarbonImmutable;
 use Database\Seeders\ServiceContractsDemoSeeder;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +29,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $employeeOnly = in_array('--employee-only', $argv, true);
@@ -97,8 +101,8 @@ if (! $employeeOnly) {
     $registryReady = is_array($m10) && ($m10['id'] ?? null) === 'M10'
         && ($m10['permission_prefix'] ?? null) === 'M10' && ($m10['implemented'] ?? false) === true;
 }
-if (class_exists(App\Modules\Organization\Application\PermissionCatalog::class)) {
-    $definitions = App\Modules\Organization\Application\PermissionCatalog::DEFINITIONS;
+if (class_exists(PermissionCatalog::class)) {
+    $definitions = PermissionCatalog::DEFINITIONS;
     $permissions = ['M01.employee_view', 'M01.employee_manage'];
     if (! $employeeOnly) {
         $permissions = array_merge($permissions, ['M10.contract_view', 'M10.contract_create', 'M10.contract_edit', 'M10.contract_approve',
@@ -141,7 +145,7 @@ $environment = [
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres'),
 ];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $privateRoot = $taskRoot.'/m10-private-storage-'.bin2hex(random_bytes(8));
 $cacheRoot = $taskRoot.'/m10-check-cache';
@@ -151,7 +155,7 @@ if (! is_dir($privateRoot) && ! mkdir($privateRoot, 0770, true) && ! is_dir($pri
 register_shutdown_function(static function () use ($privateRoot, $taskRoot): void {
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-private-storage-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 });
 $cacheRelative = '.tmp/master-remediation-20261101/m10-check-cache';
@@ -189,7 +193,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('M10 acceptance requires the explicitly owned PostgreSQL 17 test target.');
 }
@@ -334,7 +338,7 @@ try {
         $afterRollbackCounts = m10AcceptanceCounts();
     }
     if (realpath(dirname($privateRoot)) === realpath($taskRoot) && str_starts_with(basename($privateRoot), 'm10-private-storage-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 }
 $storageClean = ! is_dir($privateRoot);
@@ -432,7 +436,7 @@ function runM10Acceptance(Branch $branch, Branch $otherBranch, User $writer, Use
     foreach (($factoryData['schedule'] ?? []) as $entry) {
         $factorySchedule = bcadd($factorySchedule, (string) $entry['amount'], 2);
     }
-    $factoryStart = Carbon\CarbonImmutable::parse($factoryData['starts_on'], 'Africa/Cairo');
+    $factoryStart = CarbonImmutable::parse($factoryData['starts_on'], 'Africa/Cairo');
     $quarterlyFacts = array_map(static fn (array $entry): array => [
         (string) ($entry['code'] ?? ''), (string) ($entry['due_date'] ?? ''),
         (string) ($entry['amount'] ?? ''), (string) ($entry['description'] ?? ''),
@@ -467,8 +471,7 @@ function runM10Acceptance(Branch $branch, Branch $otherBranch, User $writer, Use
         && ! DB::table('service_contract_documents')->whereIn('contract_id', $demoIds)->exists(),
         'M10 explicit demo seeder creates only identifiable draft contracts without approval, signature, activation, or evidence');
     $demoIdentities = DB::table('audit_entries')->where('source_module', 'ServiceContracts')->where('source_type', 'service_contract')
-        ->whereIn('source_id', $demoIds)->where('action', 'demo.created')->get()->map(fn ($row): string =>
-            (string) (json_decode($row->safe_after, true, 512, JSON_THROW_ON_ERROR)['identity'] ?? ''))->sort()->values()->all();
+        ->whereIn('source_id', $demoIds)->where('action', 'demo.created')->get()->map(fn ($row): string => (string) (json_decode($row->safe_after, true, 512, JSON_THROW_ON_ERROR)['identity'] ?? ''))->sort()->values()->all();
     $pass($demoIdentities === ['DEMO-EG-SC-001', 'DEMO-EG-SC-002', 'DEMO-EG-SC-003'],
         'M10 seeded draft identities are stable DEMO-EG records with safe synthetic audit attribution');
     $pass($firstSeedCounts === $secondSeedCounts && $demoRows->count() === 3,

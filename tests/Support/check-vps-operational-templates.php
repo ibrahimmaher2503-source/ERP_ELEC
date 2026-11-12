@@ -63,7 +63,7 @@ $check(
     'Restore backup-set directory is a non-symlink directory'
 );
 $check(
-    str_contains($restore, "tar -tzf \"\$scratch/private-files.tar.gz\" | awk")
+    str_contains($restore, 'tar -tzf "$scratch/private-files.tar.gz" | awk')
         && str_contains($restore, 'substr($0,1,1)!~/^[-d]$/')
         && str_contains($restore, '--no-same-owner --no-same-permissions'),
     'Restore rejects traversal, links and special archive entries before extraction'
@@ -87,8 +87,8 @@ $check(
     'Restore verifies every fixed manifest entry and its SHA256 before use'
 );
 $check(
-    str_contains($restore, "[[ \"\$tables\" == 0 ]]")
-        && str_contains($restore, "[[ ! -e \"\$ERP_RECOVERY_ROOT/private\" ]]")
+    str_contains($restore, '[[ "$tables" == 0 ]]')
+        && str_contains($restore, '[[ ! -e "$ERP_RECOVERY_ROOT/private" ]]')
         && str_contains($restore, 'pg_restore --exit-on-error --single-transaction'),
     'Restore refuses existing public tables/files and applies the database dump atomically'
 );

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 // Private router for the nonce-owned finance browser fixture. Never route requests to another database or storage path.
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
 
 $root = realpath(dirname(__DIR__, 2));
 $public = realpath(($root ?: '').'/public');

@@ -6,6 +6,7 @@ declare(strict_types=1);
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = realpath(dirname(__DIR__, 2));
 $privateRoot = $root.'/.tmp/master-remediation-20261101/ui-private';
@@ -74,7 +75,9 @@ if (! is_array($receipt)) {
         'data_directory' => $resolvedCluster, 'ownership_nonce' => $nonce,
         'app_key' => 'base64:'.base64_encode(random_bytes(32)), 'created_at' => gmdate(DATE_ATOM)];
     $handle = fopen($receiptPath, 'x');
-    if (! $handle) throw new RuntimeException('Finance bootstrap receipt already exists; preserve it and inspect before retrying.');
+    if (! $handle) {
+        throw new RuntimeException('Finance bootstrap receipt already exists; preserve it and inspect before retrying.');
+    }
     try {
         if (fwrite($handle, json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL) === false) {
             throw new RuntimeException('Could not write the private finance database receipt.');
@@ -133,8 +136,8 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
 $environment = ['APP_ENV' => 'testing', 'DB_HOST' => '127.0.0.1', 'DB_PORT' => '49686', 'E2E_DB_PORT' => '49686',
     'DB_DATABASE' => $database, 'DB_USERNAME' => 'postgres', 'E2E_FINANCE_DB_NONCE' => $nonce];
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
-Tests\Support\OptimizationRegressionDatabaseGuard::verifyIdentity($target, $identity);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
+OptimizationRegressionDatabaseGuard::verifyIdentity($target, $identity);
 if (($identity->database_owner ?? null) !== 'postgres' || (int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Finance UI database must use PostgreSQL 17 and the exact owned target before guard changes.');
 }
@@ -145,20 +148,26 @@ if ($databaseWasExisting && ! $guardTableExists) {
     throw new RuntimeException('Refusing to adopt an existing finance database without its in-database ownership receipt.');
 }
 if (! $guardTableExists) {
-    if ($tableRows !== []) throw new RuntimeException('Refusing a finance database with preexisting application tables and no nonce receipt.');
+    if ($tableRows !== []) {
+        throw new RuntimeException('Refusing a finance database with preexisting application tables and no nonce receipt.');
+    }
     DB::statement('create schema codex_test_guard');
     DB::statement('create table codex_test_guard.ownership_receipts (database text primary key, nonce char(64) not null)');
 }
 $nonceRow = DB::table('codex_test_guard.ownership_receipts')->where('database', $database)->first(['nonce']);
 if ($nonceRow === null) {
-    if ($databaseWasExisting || $tableRows !== []) throw new RuntimeException('Refusing to adopt existing finance database tables without the matching ownership nonce.');
+    if ($databaseWasExisting || $tableRows !== []) {
+        throw new RuntimeException('Refusing to adopt existing finance database tables without the matching ownership nonce.');
+    }
     DB::table('codex_test_guard.ownership_receipts')->insert(['database' => $database, 'nonce' => $nonce]);
     $nonceRow = (object) ['nonce' => $nonce];
 }
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $nonceRow);
 if (($identity->database_owner ?? null) !== 'postgres' || (int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Finance UI database must use PostgreSQL 17 and the exact owned target.');
 }
 $migrationExit = Artisan::call('migrate', ['--force' => true]);
-if ($migrationExit !== 0) throw new RuntimeException('Finance UI migrations failed; preserve the receipt and database for diagnosis.');
+if ($migrationExit !== 0) {
+    throw new RuntimeException('Finance UI migrations failed; preserve the receipt and database for diagnosis.');
+}
 echo 'READY nonce-owned isolated finance UI database; existing owner records were not targeted.'.PHP_EOL;

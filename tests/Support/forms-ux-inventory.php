@@ -75,20 +75,31 @@ $modelNames = [];
 $ruleTokens = [];
 
 $containsSummary = static function (string $source, array $seen = []) use (&$containsSummary, $views): bool {
-    if (preg_match('/<x-ui\.validation-summary\b/', $source)) return true;
+    if (preg_match('/<x-ui\.validation-summary\b/', $source)) {
+        return true;
+    }
     $referenced = [];
     if (preg_match_all('/@include(?:If|When|Unless)?\s*\(\s*["\']([^"\']+)["\']/', $source, $includes)) {
-        foreach ($includes[1] as $viewName) $referenced[] = [$views.DIRECTORY_SEPARATOR.str_replace('.', DIRECTORY_SEPARATOR, $viewName).'.blade.php'];
+        foreach ($includes[1] as $viewName) {
+            $referenced[] = [$views.DIRECTORY_SEPARATOR.str_replace('.', DIRECTORY_SEPARATOR, $viewName).'.blade.php'];
+        }
     }
     if (preg_match_all('/<x-([a-z][a-z0-9_.-]*)\b/i', $source, $components)) {
-        foreach ($components[1] as $componentName) $referenced[] = [$views.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.str_replace('.', DIRECTORY_SEPARATOR, $componentName).'.blade.php'];
+        foreach ($components[1] as $componentName) {
+            $referenced[] = [$views.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.str_replace('.', DIRECTORY_SEPARATOR, $componentName).'.blade.php'];
+        }
     }
     foreach ($referenced as [$candidate]) {
-        if (isset($seen[$candidate]) || ! is_file($candidate)) continue;
+        if (isset($seen[$candidate]) || ! is_file($candidate)) {
+            continue;
+        }
         $seen[$candidate] = true;
         $included = file_get_contents($candidate);
-        if (is_string($included) && $containsSummary($included, $seen)) return true;
+        if (is_string($included) && $containsSummary($included, $seen)) {
+            return true;
+        }
     }
+
     return false;
 };
 $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($views, FilesystemIterator::SKIP_DOTS));
@@ -116,8 +127,12 @@ foreach ($iterator as $file) {
     $formIndex = 0;
     $hasSummary = $containsSummary($source);
     $hasErrorRendering = (bool) preg_match('/@error\b|<flux:error\b|\$errors->(?:any|all|first|has|hasAny)\s*\(/i', $source);
-    if ($hasSummary) $summaryViews[] = $relative;
-    if ($hasErrorRendering && ! $hasSummary && $relative !== 'resources/views/components/ui/validation-summary.blade.php') $orphanErrorViews[] = ['view' => $relative, 'owner' => $owner];
+    if ($hasSummary) {
+        $summaryViews[] = $relative;
+    }
+    if ($hasErrorRendering && ! $hasSummary && $relative !== 'resources/views/components/ui/validation-summary.blade.php') {
+        $orphanErrorViews[] = ['view' => $relative, 'owner' => $owner];
+    }
     $moduleCounts[$owner] ??= ['views' => 0, 'forms' => 0, 'selects' => 0, 'validation_summary_views' => 0];
     $moduleCounts[$owner]['views']++;
     $moduleCounts[$owner]['forms'] += $counts['forms'];
@@ -126,7 +141,9 @@ foreach ($iterator as $file) {
 
     if (preg_match_all('/<flux:(input|select|textarea|checkbox|switch)\b((?:"[^"]*"|\'[^\']*\'|[^\'">])*)>/is', $source, $controlTags, PREG_SET_ORDER)) {
         foreach ($controlTags as $controlTag) {
-            if (! preg_match('/\bwire:model(?:\.[\w-]+)*\s*=\s*["\']([^"\']+)["\']/i', $controlTag[2], $binding)) continue;
+            if (! preg_match('/\bwire:model(?:\.[\w-]+)*\s*=\s*["\']([^"\']+)["\']/i', $controlTag[2], $binding)) {
+                continue;
+            }
             $modelNames[$binding[1]] = true;
             if (! preg_match('/(?:^|\s):?(?:label|aria-label)\s*=/i', $controlTag[2])) {
                 $unlabelledControls[] = ['view' => $relative, 'owner' => $owner, 'control' => $controlTag[1], 'binding' => $binding[1]];
@@ -171,14 +188,20 @@ foreach ($iterator as $file) {
 if (is_dir($root.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'Modules')) {
     $presentations = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'Modules', FilesystemIterator::SKIP_DOTS));
     foreach ($presentations as $sourceFile) {
-        if (! $sourceFile->isFile() || $sourceFile->getExtension() !== 'php' || ! str_contains($sourceFile->getPathname(), DIRECTORY_SEPARATOR.'Presentation'.DIRECTORY_SEPARATOR)) continue;
+        if (! $sourceFile->isFile() || $sourceFile->getExtension() !== 'php' || ! str_contains($sourceFile->getPathname(), DIRECTORY_SEPARATOR.'Presentation'.DIRECTORY_SEPARATOR)) {
+            continue;
+        }
         $source = file_get_contents($sourceFile->getPathname());
-        if (! is_string($source)) continue;
+        if (! is_string($source)) {
+            continue;
+        }
         if (preg_match_all("/'([^']+)'/", $source, $quoted)) {
             foreach ($quoted[1] as $candidate) {
                 foreach (preg_split('/\|/', $candidate) ?: [] as $rule) {
                     $rule = strtolower((string) preg_replace('/:.*/', '', trim($rule)));
-                    if (preg_match('/^[a-z_]+$/', $rule)) $ruleTokens[$rule] = true;
+                    if (preg_match('/^[a-z_]+$/', $rule)) {
+                        $ruleTokens[$rule] = true;
+                    }
                 }
             }
         }
@@ -199,7 +222,9 @@ $missingArabicRules = array_values(array_diff($presentationRules, array_keys($ar
 sort($missingArabicRules);
 $missingNumericSizeMessages = [];
 foreach (['max', 'min', 'size', 'between', 'gt', 'gte', 'lt', 'lte'] as $rule) {
-    if (in_array($rule, $presentationRules, true) && is_array($arabicValidation[$rule] ?? null) && ! array_key_exists('numeric', $arabicValidation[$rule])) $missingNumericSizeMessages[] = $rule.'.numeric';
+    if (in_array($rule, $presentationRules, true) && is_array($arabicValidation[$rule] ?? null) && ! array_key_exists('numeric', $arabicValidation[$rule])) {
+        $missingNumericSizeMessages[] = $rule.'.numeric';
+    }
 }
 
 if (is_file($routesPath)) {

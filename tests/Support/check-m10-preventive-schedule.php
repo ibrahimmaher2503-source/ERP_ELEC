@@ -5,23 +5,26 @@ declare(strict_types=1);
 // Gate 2 M10 preventive dispatch behavior on the explicitly owned PostgreSQL target.
 use App\Models\User;
 use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
+use App\Modules\FieldMaintenance\Application\MaintenanceService;
 use App\Modules\Organization\Application\EmployeeActions;
 use App\Modules\Organization\Application\PermissionCatalog;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
 use App\Modules\Parties\Domain\Customer;
 use App\Modules\Products\Domain\Product;
-use App\Modules\ServiceContracts\Application\ServiceContractActions;
-use App\Modules\ServiceContracts\Application\ServiceContractPreventive;
-use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
+use App\Modules\ServiceContracts\Application\ServiceContractActions;
+use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
+use App\Modules\ServiceContracts\Application\ServiceContractPreventive;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $evidenceDirectory = $root.'/docs/release/remediation/evidence/gate2';
@@ -68,7 +71,7 @@ $requiredClasses = [
     'M10 documents' => ServiceContractDocuments::class,
     'M10 API' => ServiceContractsApi::class,
     'M08 API' => FieldMaintenanceApi::class,
-    'M08 maintenance service' => App\Modules\FieldMaintenance\Application\MaintenanceService::class,
+    'M08 maintenance service' => MaintenanceService::class,
     'M01 employee actions' => EmployeeActions::class,
 ];
 $missingFiles = array_keys(array_filter($requiredFiles, static fn (string $path): bool => ! is_file($path)));
@@ -77,7 +80,9 @@ $missingMethods = [];
 foreach ([ServiceContractPreventive::class => ['dispatch'], FieldMaintenanceApi::class => ['createContractPreventiveDraft']] as $class => $methods) {
     if (class_exists($class) || interface_exists($class)) {
         foreach ($methods as $method) {
-            if (! method_exists($class, $method)) $missingMethods[] = $class.'::'.$method;
+            if (! method_exists($class, $method)) {
+                $missingMethods[] = $class.'::'.$method;
+            }
         }
     }
 }
@@ -85,7 +90,9 @@ $missingPermissions = [];
 if (class_exists(PermissionCatalog::class)) {
     foreach (['M10.contract_create', 'M10.contract_edit', 'M10.contract_approve', 'M10.contract_sign', 'M10.contract_activate',
         'M10.coverage_use', 'M10.document_manage', 'M08.view', 'M08.workorder_manage', 'M08.standalone_create'] as $permission) {
-        if ((PermissionCatalog::DEFINITIONS[$permission][1] ?? null) !== 'branch') $missingPermissions[] = $permission;
+        if ((PermissionCatalog::DEFINITIONS[$permission][1] ?? null) !== 'branch') {
+            $missingPermissions[] = $permission;
+        }
     }
 } else {
     $missingPermissions[] = 'PermissionCatalog';
@@ -105,7 +112,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $privateRoot = $taskRoot.'/m10-preventive-private-'.bin2hex(random_bytes(8));
 $cacheRoot = $taskRoot.'/m10-preventive-cache';
@@ -149,7 +156,7 @@ try {
         current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
         (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
     $ciReceipt = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-    Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $ciReceipt);
+    OptimizationRegressionDatabaseGuard::verify($target, $identity, $ciReceipt);
     if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
         throw new RuntimeException('Preventive acceptance requires the explicitly owned PostgreSQL 17 test target.');
     }
@@ -158,10 +165,12 @@ try {
         'service_contract_preventive_dispatches', 'maintenance_work_orders', 'maintenance_activities', 'maintenance_assignments', 'maintenance_visits', 'access_grants',
         'user_branch_scopes', 'user_roles', 'audit_entries'];
     foreach ($tables as $table) {
-        if (! DB::getSchemaBuilder()->hasTable($table)) throw new RuntimeException("Preventive acceptance requires migrated {$table}.");
+        if (! DB::getSchemaBuilder()->hasTable($table)) {
+            throw new RuntimeException("Preventive acceptance requires migrated {$table}.");
+        }
     }
 } catch (Throwable $error) {
-    (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+    (new Filesystem)->deleteDirectory($privateRoot);
     $receipt = ['all_pass' => false, 'phase' => 'Gate2 guarded preventive bootstrap/schema preflight',
         'failure' => ['class' => $error::class, 'message' => $error->getMessage()]];
     $path = $writeReceipt($receipt);
@@ -172,7 +181,9 @@ try {
 
 $countTables = static function () use ($tables): array {
     $counts = [];
-    foreach ($tables as $table) $counts[$table] = (int) DB::table($table)->count();
+    foreach ($tables as $table) {
+        $counts[$table] = (int) DB::table($table)->count();
+    }
 
     return $counts;
 };
@@ -180,7 +191,9 @@ $checks = [];
 $assertions = 0;
 $check = static function (bool $condition, string $message) use (&$checks, &$assertions): void {
     $checks[] = ['name' => $message, 'result' => $condition ? 'PASS' : 'FAIL'];
-    if (! $condition) throw new RuntimeException('FAIL '.$message);
+    if (! $condition) {
+        throw new RuntimeException('FAIL '.$message);
+    }
     $assertions++;
     fwrite(STDOUT, 'PASS '.$message.PHP_EOL);
 };
@@ -190,6 +203,7 @@ $reject = static function (callable $operation, string $message) use ($check): v
     } catch (Throwable $error) {
         if ($error instanceof ValidationException || ($error instanceof HttpExceptionInterface && in_array($error->getStatusCode(), [403, 404, 409, 422], true))) {
             $check(true, $message);
+
             return;
         }
         throw $error;
@@ -197,8 +211,10 @@ $reject = static function (callable $operation, string $message) use ($check): v
     $check(false, $message.' unexpectedly succeeded.');
 };
 $grant = static function (User $actor, array $permissions, ?int $branchId): void {
-    foreach ($permissions as $permission) DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id,
-        'permission_code' => $permission, 'branch_id' => $branchId, 'created_at' => now(), 'updated_at' => now()]);
+    foreach ($permissions as $permission) {
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id,
+            'permission_code' => $permission, 'branch_id' => $branchId, 'created_at' => now(), 'updated_at' => now()]);
+    }
 };
 $scope = static function (User $actor, Branch $branch): void {
     DB::table('user_branch_scopes')->insertOrIgnore(['user_id' => $actor->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
@@ -212,14 +228,18 @@ $stage = 'fixture setup';
 $today = now('Africa/Cairo')->toDateString();
 DB::beginTransaction();
 try {
-    if (! DB::table('companies')->where('id', 1)->exists()) Company::factory()->create();
+    if (! DB::table('companies')->where('id', 1)->exists()) {
+        Company::factory()->create();
+    }
     $branch = Branch::factory()->create(['company_id' => 1, 'active' => true]);
     $otherBranch = Branch::factory()->create(['company_id' => 1, 'active' => true]);
     $dispatcher = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
     $reviewer = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
     $contractOnly = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
     $outsider = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
-    foreach ([$dispatcher, $reviewer, $contractOnly] as $actor) $scope($actor, $branch);
+    foreach ([$dispatcher, $reviewer, $contractOnly] as $actor) {
+        $scope($actor, $branch);
+    }
     $scope($outsider, $otherBranch);
     $contractPermissions = ['M10.contract_view', 'M10.contract_create', 'M10.contract_edit', 'M10.contract_approve',
         'M10.contract_sign', 'M10.contract_activate', 'M10.coverage_use', 'M10.document_manage', 'M10.document_view'];
@@ -240,6 +260,7 @@ try {
     $dataFor = static function (string $endsOn, string $title) use ($branch, $customer, $employeeId, $serviceProduct, $today): array {
         $firstDue = now('Africa/Cairo')->addDay()->toDateString();
         $secondDue = now('Africa/Cairo')->addDays(2)->toDateString();
+
         return ['branch_id' => $branch->id, 'customer_id' => $customer->id, 'responsible_employee_id' => $employeeId,
             'title' => $title, 'starts_on' => $today, 'ends_on' => $endsOn, 'value' => '100.00',
             'service_product_id' => $serviceProduct->id, 'billing_mode' => 'installments', 'terms' => 'خطة صيانة وقائية محددة للاختبار.',
@@ -367,12 +388,12 @@ try {
     [$expiredId, $expiredHeader] = $activate($expiredTerms);
     $beforeExpired = ['orders' => DB::table('maintenance_work_orders')->count(), 'maps' => DB::table('service_contract_preventive_dispatches')->count(),
         'reservations' => DB::table('service_contract_work')->count()];
-    Illuminate\Support\Carbon::setTestNow(now('Africa/Cairo')->addDays(4));
+    Carbon::setTestNow(now('Africa/Cairo')->addDays(4));
     try {
         $reject(fn () => $preventive->dispatch((int) $dispatcher->id, $expiredId, 'EXP-01', (int) $dispatcher->id, $uuid()),
             'Expired active coverage rejects preventive dispatch');
     } finally {
-        Illuminate\Support\Carbon::setTestNow();
+        Carbon::setTestNow();
     }
     $check($beforeExpired === ['orders' => DB::table('maintenance_work_orders')->count(), 'maps' => DB::table('service_contract_preventive_dispatches')->count(),
         'reservations' => DB::table('service_contract_work')->count()],
@@ -383,14 +404,16 @@ try {
     $during = $countTables();
     DB::rollBack();
     $after = $countTables();
-    Illuminate\Support\Carbon::setTestNow();
-    (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+    Carbon::setTestNow();
+    (new Filesystem)->deleteDirectory($privateRoot);
     $privateStorageClean = ! is_dir($privateRoot);
 }
 $rollbackClean = $before === $after && $privateStorageClean;
 $checks[] = ['name' => 'All preventive fixture rows and private signature files roll back.', 'result' => $rollbackClean ? 'PASS' : 'FAIL'];
 $assertions++;
-if (! $rollbackClean && $failure === null) $failure = new RuntimeException('Preventive acceptance left fixture data or private files after rollback.');
+if (! $rollbackClean && $failure === null) {
+    $failure = new RuntimeException('Preventive acceptance left fixture data or private files after rollback.');
+}
 $receipt = ['all_pass' => $failure === null, 'phase' => 'Gate2 M10 preventive-schedule guarded acceptance', 'assertions' => $assertions,
     'stage' => $stage,
     'database' => ['name' => $identity->database, 'server_address' => $identity->server_address, 'port' => (int) $identity->port,
@@ -401,4 +424,6 @@ $path = $writeReceipt($receipt);
 fwrite(($failure === null ? STDOUT : STDERR), 'RESULT gate=2 scope=m10-preventive result='.($failure === null ? 'PASS' : 'FAIL')
     .' stage='.$stage.' assertions='.$assertions.' receipt='.$path.PHP_EOL);
 fwrite(($failure === null ? STDOUT : STDERR), json_encode($receipt, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL);
-if ($failure !== null) exit(1);
+if ($failure !== null) {
+    exit(1);
+}

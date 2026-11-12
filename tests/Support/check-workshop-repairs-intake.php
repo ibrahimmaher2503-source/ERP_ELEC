@@ -12,11 +12,11 @@ use App\Modules\WorkshopRepairs\Domain\Workshop;
 use App\Modules\WorkshopRepairs\Domain\WorkshopIntake;
 use App\Modules\WorkshopRepairs\Domain\WorkshopJob;
 use Carbon\CarbonImmutable;
+use Database\Seeders\WorkshopDemoSeeder;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Database\Seeders\WorkshopDemoSeeder;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 putenv('APP_ENV=testing');

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 // Guarded source-driven M08/M09 to M10 entitlement acceptance. All fixture writes roll back.
 use App\Models\User;
+use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
 use App\Modules\FieldMaintenance\Application\MaintenanceActions;
 use App\Modules\FieldMaintenance\Application\MaintenanceExecution;
-use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
 use App\Modules\Organization\Domain\Employee;
@@ -15,17 +15,19 @@ use App\Modules\Products\Domain\Product;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\ServiceContracts\Application\ServiceContractActions;
 use App\Modules\ServiceContracts\Application\ServiceContractDocuments;
+use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use App\Modules\WorkshopRepairs\Application\RepairOffers;
 use App\Modules\WorkshopRepairs\Application\WorkshopActions;
 use App\Modules\WorkshopRepairs\Application\WorkshopExecution;
-use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $evidenceDirectory = $root.'/docs/release/remediation/evidence/gate2';
@@ -77,7 +79,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $privateRoot = $taskRoot.'/m10-integration-private-'.bin2hex(random_bytes(8));
 $cacheRelative = '.tmp/master-remediation-20261101/m10-integration-cache';
@@ -114,14 +116,14 @@ DB::purge('pgsql');
 register_shutdown_function(static function () use ($privateRoot, $taskRoot): void {
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-integration-private-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 });
 $identity = DB::selectOne("select current_database() as database, host(inet_server_addr()) as server_address, inet_server_port() as port,
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if (DB::connection()->getDriverName() !== 'pgsql' || (int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000
     || DB::table('migrations')->whereIn('migration', ['2026_11_01_203000_link_service_contract_work', '2026_11_01_205000_track_contract_work_usage',
         '2026_11_01_207000_separate_contract_source_identity_guards'])->count() !== 3) {
@@ -385,7 +387,7 @@ try {
         'specialty' => 'إصلاح قواطع كهربائية', 'branch_id' => $branch->id, 'supervisor_id' => $writer->id, 'warehouse_id' => null,
         'capacity' => 2, 'schedule' => [['day' => 0, 'start' => '08:00', 'end' => '16:00']], 'active' => true]);
     $workshop->member((int) $writer->id, $workshopId, 1, (int) $workshopTechnician->id, true);
-    $receivedIntake = static function (string $serial, string $description) use ($workshop, $writer, $branch, $customer, $tag): int {
+    $receivedIntake = static function (string $serial, string $description) use ($workshop, $writer, $branch, $customer): int {
         $intakeId = $workshop->saveIntake((int) $writer->id, null, 0, (string) Str::uuid(), ['branch_id' => $branch->id,
             'customer_id' => $customer->id, 'equipment_description' => $description, 'model' => 'M10-I-NEG', 'serial_number' => $serial,
             'accessories' => 'غطاء', 'reported_fault' => 'فصل تجريبي.', 'arrival_condition' => 'الجسم سليم ظاهرياً.',
@@ -496,7 +498,7 @@ try {
     $after = $counts();
     if (is_dir($privateRoot) && realpath(dirname($privateRoot)) === realpath($taskRoot)
         && str_starts_with(basename($privateRoot), 'm10-integration-private-')) {
-        (new Illuminate\Filesystem\Filesystem)->deleteDirectory($privateRoot);
+        (new Filesystem)->deleteDirectory($privateRoot);
     }
 }
 

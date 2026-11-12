@@ -9,6 +9,7 @@ use App\Modules\Parties\Domain\Supplier;
 use App\Modules\Purchasing\Application\PurchaseOrders;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 putenv('APP_ENV=testing');
 $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
@@ -33,7 +34,9 @@ if (! preg_match('/^[a-f0-9]{64}$/D', $nonce) || ! hash_equals((string) ($bootst
 
 $input = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
 $tag = (string) ($input['tag'] ?? '');
-if (! preg_match('/^[A-F0-9]{12}$/D', $tag)) throw new RuntimeException('Invalid run tag.');
+if (! preg_match('/^[A-F0-9]{12}$/D', $tag)) {
+    throw new RuntimeException('Invalid run tag.');
+}
 $actor = User::where('email', 'round2-master-'.$tag.'@example.test')->firstOrFail();
 $reviewerEmail = 'receipt-review-'.$tag.'@example.test';
 
@@ -41,7 +44,9 @@ if (($input['mode'] ?? '') === 'setup') {
     $branch = DB::table('branches')->where('id', (int) ($input['branch_id'] ?? 0))->where('code', 'R2-'.$tag.'-BR')->first();
     $product = DB::table('products')->where('id', (int) ($input['product_id'] ?? 0))->where('sku', 'R2-'.$tag.'-P')->first();
     $bootstrapActor = User::where('email', 'round2-bootstrap-'.$tag.'@example.test')->firstOrFail();
-    if (! $branch || ! $product || User::where('email', $reviewerEmail)->exists()) throw new RuntimeException('Run fixtures are absent or tag was reused.');
+    if (! $branch || ! $product || User::where('email', $reviewerEmail)->exists()) {
+        throw new RuntimeException('Run fixtures are absent or tag was reused.');
+    }
     $reviewer = User::factory()->create(['email' => $reviewerEmail, 'active' => true, 'email_verified_at' => now()]);
     $role = DB::table('roles')->where('code', 'Administrator')->first(['id', 'version']);
     app(AssignUserRole::class)->execute($bootstrapActor, $role->id, $reviewer->id, true, $role->version);
@@ -50,7 +55,7 @@ if (($input['mode'] ?? '') === 'setup') {
     DB::table('user_warehouse_scopes')->insert(['user_id' => $actor->id, 'warehouse_id' => $warehouse->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
     $supplier = Supplier::factory()->create(['code' => 'R2-'.$tag.'-SUP', 'status' => 'active']);
     $orders = app(PurchaseOrders::class);
-    $order = $orders->save($actor->id, ['creation_key' => (string) \Illuminate\Support\Str::uuid(), 'branch_id' => $branch->id,
+    $order = $orders->save($actor->id, ['creation_key' => (string) Str::uuid(), 'branch_id' => $branch->id,
         'supplier_id' => $supplier->id, 'order_date' => now('Africa/Cairo')->toDateString(), 'currency' => 'EGP',
         'lines' => [['product_id' => $product->id, 'quantity' => '2.00000000', 'unit_price' => '10.00000000', 'discount_amount' => '0.00000000']]], null, 0);
     $orders->transition($actor->id, $order, 1, 'submit');
@@ -63,7 +68,9 @@ if (($input['mode'] ?? '') === 'verify') {
     $receipt = DB::table('purchasing_receipts')->where('id', (int) ($input['receipt'] ?? 0))->where('order_id', $order?->id)->where('created_by', $actor->id)->first();
     if (! $order || $order->status !== 'approved' || ! $receipt || $receipt->status !== 'integration_pending'
         || DB::table('purchasing_receipt_lines')->where('receipt_id', $receipt->id)->count() !== 1
-        || $receipt->journal_id !== null) throw new RuntimeException('Receipt persistence or draft-only boundary failed.');
+        || $receipt->journal_id !== null) {
+        throw new RuntimeException('Receipt persistence or draft-only boundary failed.');
+    }
     echo json_encode(['approved_order' => true, 'receipt_pending' => true, 'journal_absent' => true], JSON_THROW_ON_ERROR);
     exit;
 }

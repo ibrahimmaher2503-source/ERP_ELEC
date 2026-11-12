@@ -12,7 +12,6 @@ use App\Modules\WorkshopRepairs\Application\WorkshopActions;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 putenv('APP_ENV=testing');
 $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';

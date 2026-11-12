@@ -13,11 +13,14 @@ use App\Modules\Organization\Domain\Company;
 use App\Modules\Projects\Application\Contracts\ProjectsApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\Sales\Application\Contracts\SalesOrdersApi;
+use App\Modules\Sales\Domain\SalesOrder;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $stage = 'source preflight';
@@ -97,7 +100,7 @@ $environment = [
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres'),
 ];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 $taskRoot = $root.'/.tmp/master-remediation-20261101';
 $runtimeId = bin2hex(random_bytes(6));
 $storagePath = $taskRoot.'/executive-dashboard-storage-'.$runtimeId;
@@ -129,7 +132,7 @@ register_shutdown_function(static function () use ($runtimeDirectories, $root, $
         $resolvedTaskRoot = realpath($taskRoot);
         if ($allowed && $resolved !== false && $resolvedTaskRoot !== false
             && str_starts_with($resolved, $resolvedTaskRoot.DIRECTORY_SEPARATOR)) {
-            (new Illuminate\Filesystem\Filesystem)->deleteDirectory($resolved);
+            (new Filesystem)->deleteDirectory($resolved);
         }
     }
 });
@@ -147,7 +150,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {
     throw new RuntimeException('Executive Dashboard acceptance requires the explicitly owned PostgreSQL 17 test target.');
 }
@@ -288,7 +291,7 @@ try {
         && ($dashboard['sections']['treasury']['metrics']['cash'] ?? null) === '0.00',
         'A new branch reports measured zero financial values without fabricated GL, invoice, opening-balance, or cash rows');
 
-    $order = \App\Modules\Sales\Domain\SalesOrder::factory()->create([
+    $order = SalesOrder::factory()->create([
         'branch_id' => $branch->id,
         'branch_snapshot' => ['id' => $branch->id, 'code' => $branch->code, 'name' => $branch->name, 'address' => $branch->address],
         'created_by' => $writer->id,

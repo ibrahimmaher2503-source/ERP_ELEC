@@ -14,10 +14,12 @@ use App\Modules\Organization\Domain\Branch;
 use App\Modules\Products\Domain\Product;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 putenv('APP_ENV=testing');
@@ -30,7 +32,7 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 if ($target['port'] !== 49685 || $target['database'] !== 'erp_elec_new_test' || $target['username'] !== 'postgres') {
     throw new RuntimeException('Serial financial opening requires the exact owned PostgreSQL target on port 49685.');
 }
@@ -71,7 +73,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000 || $identity->database_owner !== 'postgres') {
     throw new RuntimeException('Serial financial opening requires the marker-owned PostgreSQL 17 test database.');
 }
@@ -81,7 +83,9 @@ $requiredTables = ['companies', 'branches', 'users', 'access_grants', 'user_bran
     'inventory_balances', 'inventory_fifo_layers', 'inventory_fifo_allocations', 'inventory_serials', 'inventory_serial_events',
     'inventory_fifo_serial_allocations', 'inventory_movement_journals', 'audit_entries'];
 foreach ($requiredTables as $table) {
-    if (! Schema::hasTable($table)) throw new RuntimeException("Serial financial opening requires migrated table {$table}.");
+    if (! Schema::hasTable($table)) {
+        throw new RuntimeException("Serial financial opening requires migrated table {$table}.");
+    }
 }
 if (! DB::selectOne("select 1 from information_schema.columns where table_schema='public' and table_name='accounting_opening_lines' and column_name='serials'")) {
     throw new RuntimeException('Serial financial opening requires the forward serials column on accounting_opening_lines.');
@@ -89,12 +93,16 @@ if (! DB::selectOne("select 1 from information_schema.columns where table_schema
 
 $runId = gmdate('Ymd\THis\Z').'-'.bin2hex(random_bytes(5));
 $evidenceDirectory = $taskRoot.'/serial-opening-evidence-'.$runId;
-if (! mkdir($evidenceDirectory, 0700, true)) throw new RuntimeException('Cannot create private serial-opening evidence directory.');
+if (! mkdir($evidenceDirectory, 0700, true)) {
+    throw new RuntimeException('Cannot create private serial-opening evidence directory.');
+}
 $receiptPath = $evidenceDirectory.'/receipt.json';
 $tableNames = $requiredTables;
 $counts = static function () use ($tableNames): array {
     $result = [];
-    foreach ($tableNames as $table) $result[$table] = (int) DB::table($table)->count();
+    foreach ($tableNames as $table) {
+        $result[$table] = (int) DB::table($table)->count();
+    }
 
     return $result;
 };
@@ -104,7 +112,9 @@ $diagnostics = [];
 $stage = 'baseline and transactional synthetic company';
 $assert = static function (bool $condition, string $message) use (&$assertions, &$passed): void {
     $assertions++;
-    if (! $condition) throw new RuntimeException($message);
+    if (! $condition) {
+        throw new RuntimeException($message);
+    }
     $passed[] = $message;
     fwrite(STDOUT, 'PASS '.$message.PHP_EOL);
 };
@@ -126,9 +136,11 @@ $reject = static function (callable $operation, string $message, string $class =
     throw new RuntimeException($message.' (expected exception was not thrown)');
 };
 $grant = static function (User $actor, array $permissions, ?int $branch = null): void {
-    foreach ($permissions as $permission) DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id,
-        'permission_code' => $permission, 'branch_id' => $branch,
-        'created_at' => now(), 'updated_at' => now()]);
+    foreach ($permissions as $permission) {
+        DB::table('access_grants')->insertOrIgnore(['user_id' => $actor->id,
+            'permission_code' => $permission, 'branch_id' => $branch,
+            'created_at' => now(), 'updated_at' => now()]);
+    }
 };
 $uuid = static fn (): string => (string) Str::uuid();
 $beforeCounts = $counts();
@@ -157,8 +169,10 @@ try {
         'tax_registration' => 'G5-SERIAL-OPEN-'.Str::upper(Str::random(6)), 'address' => 'Rollback-only synthetic address, Cairo, Egypt'],
         $companyBefore ? (int) $companyBefore->version : null);
     $branch = Branch::factory()->create(['code' => 'G5SOP-'.Str::upper(Str::random(7)), 'company_id' => 1, 'active' => true]);
-    foreach ([$creator, $reviewer] as $actor) DB::table('user_branch_scopes')->insert(['user_id' => $actor->id,
-        'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+    foreach ([$creator, $reviewer] as $actor) {
+        DB::table('user_branch_scopes')->insert(['user_id' => $actor->id,
+            'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
+    }
     $grant($creator, ['M01.branch_view', 'M11.opening_entry', 'M11.receipt_post', 'M11.journal_post'], (int) $branch->id);
     $grant($reviewer, ['M01.branch_view', 'M11.opening_review', 'M11.receipt_post', 'M11.journal_post'], (int) $branch->id);
     $grant($scopeDenied, ['M11.opening_manage', 'M11.opening_entry'], (int) $branch->id);
@@ -195,7 +209,9 @@ try {
         $tax = ['code' => 'G5SOP-TAX-'.Str::upper($type).'-'.Str::upper(Str::random(5)), 'name' => 'Synthetic serial opening '.$type.' tax',
             'transaction_type' => $type, 'product_id' => null, 'rate' => '14', 'starts_on' => $goLiveDate, 'ends_on' => null,
             'treatment' => 'percentage', 'tax_scale' => 2, 'legal_reference' => 'Synthetic isolated serial-opening check only'];
-        if ($type === 'purchase') $tax['purchase_recoverable'] = true;
+        if ($type === 'purchase') {
+            $tax['purchase_recoverable'] = true;
+        }
         $setup->addTaxRule((int) $creator->id, $version++, $tax);
     }
     $setup->validateTaxTreatment((int) $creator->id, $version++, 'Synthetic serialized opening tax treatment verification');
@@ -292,7 +308,7 @@ try {
             'activation_recorded' => DB::table('accounting_activation')->where('id', 1)->whereNotNull('activated_at')->exists(),
             'inventory_debit' => $inventoryDebit, 'equity_credit' => $equityCredit]);
 
-    $snapshotForReplay = static function () use ($tableNames): string {
+    $snapshotForReplay = static function (): string {
         $rows = [];
         foreach (['accounting_opening_batches', 'accounting_opening_lines', 'accounting_activation', 'accounting_account_mappings',
             'inventory_movements', 'inventory_balances', 'inventory_fifo_layers', 'inventory_fifo_allocations', 'inventory_serials',
@@ -314,7 +330,9 @@ try {
 } catch (Throwable $caught) {
     $error = $caught;
 } finally {
-    if (DB::transactionLevel() > 0) DB::rollBack();
+    if (DB::transactionLevel() > 0) {
+        DB::rollBack();
+    }
     $afterCounts = $counts();
     $companyAfter = DB::table('companies')->where('id', 1)->first();
     $activationAfter = DB::table('accounting_activation')->where('id', 1)->first();
@@ -322,7 +340,7 @@ try {
         || (is_object($companyBefore) && is_object($companyAfter) && (array) $companyBefore === (array) $companyAfter);
     $activationRestored = is_object($activationAfter) && (array) $activationAfter === (array) $activationBefore;
     $rollbackVerified = $beforeCounts === $afterCounts && $companyRestored && $activationRestored;
-    Illuminate\Support\Facades\File::deleteDirectory($privateStorage);
+    File::deleteDirectory($privateStorage);
 }
 $result = ['all_pass' => $error === null && $rollbackVerified, 'mode' => 'gate5-serial-financial-opening', 'phase' => $stage,
     'phase_arguments' => $stageArguments, 'database' => $target['database'], 'port' => $target['port'],
@@ -337,4 +355,6 @@ $result = ['all_pass' => $error === null && $rollbackVerified, 'mode' => 'gate5-
 file_put_contents($receiptPath, json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
 @chmod($receiptPath, 0600);
 echo 'RESULT all_pass='.(int) $result['all_pass'].' assertions='.$assertions.' rollback_verified='.(int) $rollbackVerified.' phase='.$stage.' receipt='.$receiptPath.PHP_EOL;
-if (! $result['all_pass']) exit(1);
+if (! $result['all_pass']) {
+    exit(1);
+}

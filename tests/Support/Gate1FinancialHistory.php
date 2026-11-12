@@ -1,5 +1,12 @@
 <?php
 
+use App\Modules\Accounting\Application\FinancialReports;
+use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\Purchasing\Application\Contracts\PurchasingApi;
+use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
+use App\Modules\Treasury\Application\Contracts\TreasuryApi;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
+
 /**
  * Shared assertions for the opt-in Gate 1 historical-financial chronology probes.
  * Call only after normal owner fixtures and permissions have been established.
@@ -25,13 +32,13 @@ final class Gate1FinancialHistory
 
         if ((int) config('database.connections.pgsql.port') === 5432) {
             require_once dirname(__DIR__).'/Support/OptimizationRegressionDatabaseGuard.php';
-            $target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+            $target = OptimizationRegressionDatabaseGuard::target($root, $environment);
             $identity = DB::selectOne("select current_database() as database, host(inet_server_addr()) as server_address,
                 inet_server_port() as port, current_setting('data_directory') as data_directory,
                 current_user as current_user, current_setting('server_version_num') as server_version_num,
                 (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
             $receipt = DB::selectOne('select nonce from codex_test_guard.ownership_receipts');
-            Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, (object) [
+            OptimizationRegressionDatabaseGuard::verify($target, (object) [
                 'database' => $identity->database, 'server_address' => $identity->server_address, 'port' => $identity->port,
                 'current_user' => $identity->current_user, 'database_owner' => $identity->database_owner,
                 'server_version_num' => $identity->server_version_num, 'data_directory' => $identity->data_directory,
@@ -67,12 +74,12 @@ final class Gate1FinancialHistory
     public static function snapshot(int $actor, int $branch, string $to, bool $withReports = true): array
     {
         $branches = [$branch];
-        $rows = $withReports ? app(App\Modules\Accounting\Application\FinancialReports::class)->reconciliations($actor, $branch, $to) : [];
-        $inventory = app(App\Modules\Inventory\Application\Contracts\InventoryApi::class)->financialValue($actor, $branches, $to);
-        $transit = app(App\Modules\Inventory\Application\Contracts\InventoryApi::class)->transitValue($actor, $branches, $to);
-        $grni = app(App\Modules\Purchasing\Application\Contracts\PurchasingApi::class)->grniValue($actor, $branches, $to);
-        $subledger = app(App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi::class)->reconciliationValues($actor, $branches, $to);
-        $treasury = app(App\Modules\Treasury\Application\Contracts\TreasuryApi::class)->reconciliationValues($actor, $branches, $to);
+        $rows = $withReports ? app(FinancialReports::class)->reconciliations($actor, $branch, $to) : [];
+        $inventory = app(InventoryApi::class)->financialValue($actor, $branches, $to);
+        $transit = app(InventoryApi::class)->transitValue($actor, $branches, $to);
+        $grni = app(PurchasingApi::class)->grniValue($actor, $branches, $to);
+        $subledger = app(ReceivablesPayablesApi::class)->reconciliationValues($actor, $branches, $to);
+        $treasury = app(TreasuryApi::class)->reconciliationValues($actor, $branches, $to);
         if ($withReports) {
             $keys = array_column($rows, 'key');
             $required = ['ap', 'ar', 'grni', 'inventory', 'inventory_transit', 'bank', 'cash'];
@@ -93,7 +100,7 @@ final class Gate1FinancialHistory
             'grni' => bcadd((string) $grni, '0', 2),
             'receivables_payables' => array_map(static fn ($value): string => bcadd((string) $value, '0', 2), $subledger),
             'treasury' => array_map(static fn ($value): string => bcadd((string) $value, '0', 2), $treasury),
-            'treasury_movements' => app(App\Modules\Treasury\Application\Contracts\TreasuryApi::class)->reconciliationMovements($actor, $branches, $to),
+            'treasury_movements' => app(TreasuryApi::class)->reconciliationMovements($actor, $branches, $to),
             'reconciliations' => array_map(static fn (array $row): array => [
                 'key' => $row['key'], 'gl' => (string) $row['gl'], 'source' => (string) $row['source'],
                 'difference' => (string) $row['difference'], 'ok' => (bool) $row['ok'],

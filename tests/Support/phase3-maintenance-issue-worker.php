@@ -65,6 +65,6 @@ try {
         echo json_encode(['status' => 'rejected', 'http_status' => $status, 'error_class' => $e::class, 'message' => $e->getMessage()], JSON_THROW_ON_ERROR).PHP_EOL;
         exit(0);
     }
-    fwrite(STDERR,$e::class.': '.$e->getMessage()."\n");
+    fwrite(STDERR, $e::class.': '.$e->getMessage()."\n");
     exit(1);
 }

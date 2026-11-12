@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Models\User;
+use App\Modules\Organization\Application\AssignUserRole;
 use App\Modules\Organization\Domain\Branch;
 use App\Modules\Organization\Domain\Company;
-use App\Modules\Organization\Application\AssignUserRole;
 use App\Modules\Products\Domain\Product;
-use App\Models\User;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -51,8 +51,12 @@ $tag = (string) ($input['tag'] ?? '');
 $actor = (int) ($input['actor_id'] ?? 0);
 if (($input['prepare'] ?? false) === true) {
     $password = (string) ($input['password'] ?? '');
-    if (! preg_match('/^[A-F0-9]{12}$/', $tag) || strlen($password) < 32) throw new RuntimeException('Invalid synthetic actor input.');
-    if (! DB::table('companies')->where('id', 1)->exists()) Company::factory()->create();
+    if (! preg_match('/^[A-F0-9]{12}$/', $tag) || strlen($password) < 32) {
+        throw new RuntimeException('Invalid synthetic actor input.');
+    }
+    if (! DB::table('companies')->where('id', 1)->exists()) {
+        Company::factory()->create();
+    }
     $user = User::factory()->create(['email' => 'round2-master-'.$tag.'@example.test', 'password' => Hash::make($password),
         'active' => true, 'email_verified_at' => now(), 'session_version' => 1]);
     $bootstrap = User::factory()->create(['email' => 'round2-bootstrap-'.$tag.'@example.test',
@@ -60,7 +64,9 @@ if (($input['prepare'] ?? false) === true) {
     DB::table('access_grants')->insert(['user_id' => $bootstrap->id, 'permission_code' => 'M01.security_admin',
         'branch_id' => null, 'created_at' => now(), 'updated_at' => now()]);
     $role = DB::table('roles')->where('code', 'Administrator')->first(['id', 'version']);
-    if (! $role) throw new RuntimeException('Administrator role is not registered in the isolated database.');
+    if (! $role) {
+        throw new RuntimeException('Administrator role is not registered in the isolated database.');
+    }
     app(AssignUserRole::class)->execute($bootstrap, (int) $role->id, $user->id, true, (int) $role->version);
     $branch = Branch::factory()->create(['code' => 'R2-'.$tag.'-BR']);
     DB::table('user_branch_scopes')->insert(['user_id' => $user->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
@@ -70,7 +76,9 @@ if (($input['prepare'] ?? false) === true) {
     exit(0);
 }
 if (($input['verify_actor'] ?? false) === true) {
-    if (! preg_match('/^[A-F0-9]{12}$/', $tag)) throw new RuntimeException('Invalid actor tag.');
+    if (! preg_match('/^[A-F0-9]{12}$/', $tag)) {
+        throw new RuntimeException('Invalid actor tag.');
+    }
     $user = DB::table('users')->where('id', $actor)->where('email', 'round2-master-'.$tag.'@example.test')->first();
     $role = $user && DB::table('user_roles')->join('roles', 'roles.id', '=', 'user_roles.role_id')
         ->where('user_roles.user_id', $actor)->where('roles.code', 'Administrator')->exists();
@@ -78,11 +86,15 @@ if (($input['verify_actor'] ?? false) === true) {
     exit(0);
 }
 if (($input['cleanup'] ?? false) === true) {
-    if (! preg_match('/^[A-F0-9]{12}$/', $tag)) throw new RuntimeException('Invalid cleanup tag.');
+    if (! preg_match('/^[A-F0-9]{12}$/', $tag)) {
+        throw new RuntimeException('Invalid cleanup tag.');
+    }
     DB::transaction(function () use ($tag): void {
         foreach (['round2-master-', 'round2-bootstrap-'] as $prefix) {
             $user = DB::table('users')->where('email', $prefix.$tag.'@example.test')->lockForUpdate()->first();
-            if (! $user) continue;
+            if (! $user) {
+                continue;
+            }
             DB::table('sessions')->where('user_id', $user->id)->delete();
             DB::table('users')->where('id', $user->id)->update(['active' => false, 'email_verified_at' => null,
                 'session_version' => $user->session_version + 1, 'updated_at' => now()]);

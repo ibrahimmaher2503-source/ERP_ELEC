@@ -9,16 +9,18 @@ use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\FinancialActivation;
 use App\Modules\Accounting\Application\FinancialReports;
 use App\Modules\Accounting\Application\OpeningBalances;
-use App\Modules\Parties\Domain\Customer;
-use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\ErrorCode;
 use App\Modules\Organization\Application\SaveCompany;
 use App\Modules\Organization\Domain\Branch;
+use App\Modules\Parties\Domain\Customer;
+use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 $task = $root.'/.tmp/master-remediation-20261101';
@@ -36,7 +38,7 @@ if ($ciTarget && ! preg_match('/^[a-f0-9]{32}$/', $ciRunId)) {
 }
 if ($ciTarget) {
     require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-    $target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+    $target = OptimizationRegressionDatabaseGuard::target($root, $environment);
     $database = $target['database'];
     $dbUsername = $target['username'];
     $dbPassword = (string) (getenv('DB_PASSWORD') ?: '');
@@ -68,9 +70,15 @@ foreach (['APP_ENV' => 'testing', 'APP_DEBUG' => 'false', 'APP_KEY' => 'base64:'
     'BROADCAST_CONNECTION' => 'null', 'APP_DEBUGBAR_ENABLED' => 'false', 'PULSE_ENABLED' => 'false'] as $key => $value) {
     $setEnv($key, $value);
 }
-if (! is_dir($privateCache)) mkdir($privateCache, 0770, true);
-if (! is_dir($privateStorage)) mkdir($privateStorage, 0770, true);
-if (! is_dir($privateViews)) mkdir($privateViews, 0770, true);
+if (! is_dir($privateCache)) {
+    mkdir($privateCache, 0770, true);
+}
+if (! is_dir($privateStorage)) {
+    mkdir($privateStorage, 0770, true);
+}
+if (! is_dir($privateViews)) {
+    mkdir($privateViews, 0770, true);
+}
 
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
@@ -83,7 +91,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
 $receiptRow = $ciTarget ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
 if ($ciTarget) {
-    Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
+    OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 } else {
     $expectedData = realpath($task.'/pgdata');
     $marker = $task.'/pgdata/.codex-audit-owned.txt';
@@ -124,8 +132,12 @@ if ($worker === '--worker') {
     }
     DB::select("select set_config('application_name', ?, false)", ['g1_'.$mode.'_'.$run]);
     $deadline = microtime(true) + 30;
-    while (! is_file($startPath) && microtime(true) < $deadline) usleep(20000);
-    if (! is_file($startPath)) throw new RuntimeException('Race start barrier timeout.');
+    while (! is_file($startPath) && microtime(true) < $deadline) {
+        usleep(20000);
+    }
+    if (! is_file($startPath)) {
+        throw new RuntimeException('Race start barrier timeout.');
+    }
     try {
         if ($mode === 'close') {
             app(FinancialReports::class)->closePeriod($actorId, $periodId);
@@ -138,7 +150,7 @@ if ($worker === '--worker') {
     } catch (Throwable $error) {
         $expectedRejection = $error instanceof ValidationException
             || ($error instanceof ContractException && $error->errorCode === ErrorCode::Forbidden)
-            || ($error instanceof Symfony\Component\HttpKernel\Exception\HttpExceptionInterface && in_array($error->getStatusCode(), [403, 409, 422], true));
+            || ($error instanceof HttpExceptionInterface && in_array($error->getStatusCode(), [403, 409, 422], true));
         $result = ['ci_run_id' => getenv('GATE1_CI_RUN_ID') ?: null, 'mode' => $mode, 'outcome' => $expectedRejection ? 'rejected' : 'error', 'exception' => $error::class,
             'message' => mb_substr($error->getMessage(), 0, 500)];
     }
@@ -185,7 +197,9 @@ try {
     $end = now('Africa/Cairo')->endOfYear()->toDateString();
     $period = $actions->period((int) $maker->id, ['name' => 'Gate 1 race period', 'starts_on' => $start, 'ends_on' => $end]);
     $activation = DB::table('accounting_activation')->where('id', 1)->first();
-    if (! $activation || $activation->activated_at !== null) throw new RuntimeException('Race fixture requires an unused activation row.');
+    if (! $activation || $activation->activated_at !== null) {
+        throw new RuntimeException('Race fixture requires an unused activation row.');
+    }
     $setup = app(FinancialActivation::class);
     $version = (int) $activation->version;
     $setup->save((int) $maker->id, $version, ['go_live_date' => $date, 'mappings' => $mappings]);
@@ -194,7 +208,9 @@ try {
         $tax = ['code' => 'G1R-TAX-'.strtoupper($type), 'name' => 'Gate 1 race '.$type.' tax', 'transaction_type' => $type,
             'product_id' => null, 'rate' => '14', 'starts_on' => $date, 'ends_on' => null, 'treatment' => 'percentage', 'tax_scale' => 2,
             'legal_reference' => 'Synthetic isolated race test only'];
-        if ($type === 'purchase') $tax['purchase_recoverable'] = true;
+        if ($type === 'purchase') {
+            $tax['purchase_recoverable'] = true;
+        }
         $setup->addTaxRule((int) $maker->id, $version++, $tax);
     }
     $setup->validateTaxTreatment((int) $maker->id, $version++, 'Gate 1 race synthetic tax validation');
@@ -214,7 +230,9 @@ try {
 
     $run = bin2hex(random_bytes(8));
     $control = $task.'/race-control/'.$run;
-    if (! mkdir($control, 0770, true)) throw new RuntimeException('Unable to prepare the private worker barrier.');
+    if (! mkdir($control, 0770, true)) {
+        throw new RuntimeException('Unable to prepare the private worker barrier.');
+    }
     $workerScript = escapeshellarg(__FILE__);
     $key = $uuid();
     $workerArgs = ['--worker', '', '', (string) $period, (string) $customer->id, (string) $treasuryAccount,
@@ -228,13 +246,18 @@ try {
         $nullDevice = PHP_OS_FAMILY === 'Windows' ? 'NUL' : '/dev/null';
         $process = proc_open($command, [0 => ['file', $nullDevice, 'r'], 1 => ['file', $control.'/'.$mode.'.stdout', 'a'],
             2 => ['file', $control.'/'.$mode.'.stderr', 'a']], $pipes, null, null, ['bypass_shell' => true]);
-        if (! is_resource($process)) throw new RuntimeException('Failed to launch '.$mode.' worker.');
+        if (! is_resource($process)) {
+            throw new RuntimeException('Failed to launch '.$mode.' worker.');
+        }
+
         return [$process, $command];
     };
     [$closeProcess] = $launch('close');
     [$collectProcess] = $launch('collect');
     $deadline = microtime(true) + 30;
-    while ((! is_file($control.'/close.ready') || ! is_file($control.'/collect.ready')) && microtime(true) < $deadline) usleep(20000);
+    while ((! is_file($control.'/close.ready') || ! is_file($control.'/collect.ready')) && microtime(true) < $deadline) {
+        usleep(20000);
+    }
     if (! is_file($control.'/close.ready') || ! is_file($control.'/collect.ready')) {
         throw new RuntimeException('One or both workers did not reach the synchronized start barrier.');
     }
@@ -249,9 +272,13 @@ try {
         $queued = false;
         while (! $queued && microtime(true) < $lockDeadline) {
             $queued = (bool) DB::selectOne("select pid from pg_stat_activity where application_name = ? and wait_event_type = 'Lock'", ['g1_'.$mode.'_'.$run]);
-            if (! $queued) usleep(20000);
+            if (! $queued) {
+                usleep(20000);
+            }
         }
-        if (! $queued) throw new RuntimeException(ucfirst($mode).' worker did not queue on the held accounting lock.');
+        if (! $queued) {
+            throw new RuntimeException(ucfirst($mode).' worker did not queue on the held accounting lock.');
+        }
     };
     try {
         foreach ($raceOrder === 'close-first' ? ['close', 'collect'] : ['collect', 'close'] as $mode) {
@@ -294,15 +321,21 @@ try {
             ? 'close commits under advisory lock before collection; later source posting is denied atomically'
             : 'source collection commits under advisory lock before close; close reconciles it and records one closure',
         'result' => $pass ? 'PASS' : 'FAIL'];
-    if (! is_dir(dirname($receiptPath))) mkdir(dirname($receiptPath), 0770, true);
+    if (! is_dir(dirname($receiptPath))) {
+        mkdir(dirname($receiptPath), 0770, true);
+    }
     file_put_contents($receiptPath, json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL;
     echo 'RESULT '.$result['result'].PHP_EOL;
     exit($pass ? 0 : 1);
 } catch (Throwable $error) {
-    if (DB::transactionLevel() > 0) DB::rollBack();
+    if (DB::transactionLevel() > 0) {
+        DB::rollBack();
+    }
     $result += ['error_class' => $error::class, 'error' => mb_substr($error->getMessage(), 0, 1000), 'result' => 'FAIL'];
-    if (! is_dir(dirname($receiptPath))) mkdir(dirname($receiptPath), 0770, true);
+    if (! is_dir(dirname($receiptPath))) {
+        mkdir(dirname($receiptPath), 0770, true);
+    }
     file_put_contents($receiptPath, json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL, LOCK_EX);
     fwrite(STDERR, 'FAIL '.$error::class.': '.$error->getMessage().PHP_EOL);
     exit(1);

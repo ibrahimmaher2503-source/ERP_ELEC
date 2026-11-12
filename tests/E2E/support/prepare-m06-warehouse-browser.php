@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Models\User;
-use App\Modules\Organization\Domain\Company;
 use App\Modules\Organization\Domain\Branch;
+use App\Modules\Organization\Domain\Company;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

@@ -138,6 +138,10 @@ async function main() {
     fs.writeFileSync(templateMetaPath, JSON.stringify({ migrationHash, migratedAt: new Date().toISOString() }) + '\n');
     pg('createdb.exe', ['-h', '127.0.0.1', '-p', String(port), '-U', username, '-T', templateDb, db]);
   }
+  const receiptToken = String(env.E2E_CLUSTER_TOKEN || '');
+  if (!/^[a-f0-9]{48}$/.test(receiptToken)) throw new Error('Owned PostgreSQL marker token is invalid; refusing database receipt setup.');
+  const receiptSql = `BEGIN; DO $$ BEGIN IF current_database() <> '${db}' OR current_user <> '${username}' OR inet_server_port() <> ${port} OR replace(current_setting('data_directory'), E'\\\\', '/') <> '${path.resolve(cluster).replaceAll('\\', '/')}' THEN RAISE EXCEPTION 'Owned receipt target identity mismatch'; END IF; END $$; CREATE SCHEMA codex_test_guard; CREATE TABLE codex_test_guard.ownership_receipts (database text PRIMARY KEY, nonce text NOT NULL); INSERT INTO codex_test_guard.ownership_receipts (database, nonce) VALUES ('${db}', '${receiptToken}'); COMMIT;`;
+  run(path.join(pgBin, 'psql.exe'), ['-h', '127.0.0.1', '-p', String(port), '-U', username, '-d', db, '-v', 'ON_ERROR_STOP=1', '-f', '-'], { input: receiptSql });
   const result = { runId, baseUrl: '', dbPort: port, dbName: db, templateDb, clusterMarker: marker, clusterToken: env.E2E_CLUSTER_TOKEN,
     runtime, storage, logs, env, fixtures: null, databaseCreated: true, mpdfCacheLinked };
   const output = path.join(work, 'bootstrap.json');

@@ -102,6 +102,7 @@ $runProcess = static function (array $command, array $overrides, string $label, 
     $bounded = static function (string $text) use ($redact): string {
         $text = $redact($text);
         $excerpt = strlen($text) > 8192 ? '[earlier output omitted]\n'.substr($text, -8192) : $text;
+
         return mb_scrub($excerpt, 'UTF-8');
     };
     $finishEvidence = static function (?int $exitCode, bool $timedOut, string $stdout, string $stderr, ?string $launchError = null, bool $includeExcerpt = false) use (&$childProcesses, $label, $stdoutPath, $stderrPath, $startedAt, $bounded, $writeSummary, $root): void {
@@ -139,7 +140,9 @@ $runProcess = static function (array $command, array $overrides, string $label, 
     } catch (Throwable $error) {
         proc_terminate($process, 9);
         foreach ($pipes as $pipe) {
-            if (is_resource($pipe)) fclose($pipe);
+            if (is_resource($pipe)) {
+                fclose($pipe);
+            }
         }
         proc_close($process);
         $finishEvidence(null, false, '', '', $error::class);
@@ -156,8 +159,14 @@ $runProcess = static function (array $command, array $overrides, string $label, 
     do {
         $outChunk = (string) stream_get_contents($pipes[1]);
         $errChunk = (string) stream_get_contents($pipes[2]);
-        if ($outChunk !== '') { fwrite($stdoutFile, $outChunk); $stdout .= $outChunk; }
-        if ($errChunk !== '') { fwrite($stderrFile, $errChunk); $stderr .= $errChunk; }
+        if ($outChunk !== '') {
+            fwrite($stdoutFile, $outChunk);
+            $stdout .= $outChunk;
+        }
+        if ($errChunk !== '') {
+            fwrite($stderrFile, $errChunk);
+            $stderr .= $errChunk;
+        }
         $status = proc_get_status($process);
         if (! $status['running']) {
             $exitCode = (int) $status['exitcode'];
@@ -166,7 +175,9 @@ $runProcess = static function (array $command, array $overrides, string $label, 
             proc_terminate($process, 15);
             usleep(200_000);
             $status = proc_get_status($process);
-            if ($status['running']) proc_terminate($process, 9);
+            if ($status['running']) {
+                proc_terminate($process, 9);
+            }
             $exitCode = 124;
         } else {
             usleep(20_000);
@@ -174,8 +185,14 @@ $runProcess = static function (array $command, array $overrides, string $label, 
     } while ($status['running']);
     $outChunk = (string) stream_get_contents($pipes[1]);
     $errChunk = (string) stream_get_contents($pipes[2]);
-    if ($outChunk !== '') { fwrite($stdoutFile, $outChunk); $stdout .= $outChunk; }
-    if ($errChunk !== '') { fwrite($stderrFile, $errChunk); $stderr .= $errChunk; }
+    if ($outChunk !== '') {
+        fwrite($stdoutFile, $outChunk);
+        $stdout .= $outChunk;
+    }
+    if ($errChunk !== '') {
+        fwrite($stderrFile, $errChunk);
+        $stderr .= $errChunk;
+    }
     fclose($pipes[1]);
     fclose($pipes[2]);
     fclose($stdoutFile);

@@ -20,11 +20,12 @@ use App\Modules\Products\Domain\Product;
 use App\Modules\Purchasing\Application\PurchaseOrders;
 use App\Modules\Purchasing\Application\PurchaseReceiving;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
+use Tests\Support\OptimizationRegressionDatabaseGuard;
 
 $root = dirname(__DIR__, 2);
 require_once $root.'/vendor/autoload.php';
@@ -38,7 +39,7 @@ $environment = [
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres'),
 ];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
-$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+$target = OptimizationRegressionDatabaseGuard::target($root, $environment);
 if ($target['port'] !== 49685 || $target['database'] !== 'erp_elec_new_test' || $target['username'] !== 'postgres') {
     throw new RuntimeException('Gate 5 serial-valued check requires the exact owned PostgreSQL test target on port 49685.');
 }
@@ -50,7 +51,7 @@ $identity = DB::selectOne("select current_database() as database, host(inet_serv
     inet_server_port() as port, current_setting('data_directory') as data_directory, current_user as current_user,
     current_setting('server_version_num') as server_version_num,
     (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
-Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity);
+OptimizationRegressionDatabaseGuard::verify($target, $identity);
 if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000
     || $identity->database_owner !== 'postgres') {
     throw new RuntimeException('Gate 5 serial-valued check requires the marker-owned PostgreSQL 17 cluster and database owner.');
