@@ -1,0 +1,12 @@
+{
+    "all_pass": false,
+    "mode": "treasury-advance-lifecycle",
+    "phase": "source preflight",
+    "assertions": 0,
+    "rollback_verified": false,
+    "checks": [],
+    "failure": {
+        "class": "RuntimeException",
+        "message": "Refusing form UX checks without the matching private PostgreSQL cluster marker and nonce."
+    }
+}

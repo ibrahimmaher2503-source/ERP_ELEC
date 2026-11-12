@@ -1,0 +1,410 @@
+{
+    "all_pass": true,
+    "mode": "treasury-credit-refunds-and-cash-corrections",
+    "phase": "closed-period refusal",
+    "assertions": 55,
+    "rollback_verified": true,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 55467,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "user_warehouse_scopes": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_supplier_invoices": 0,
+            "rp_supplier_invoice_lines": 0,
+            "rp_supplier_invoice_matches": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_credit_notes": 0,
+            "rp_party_credits": 0,
+            "rp_party_credit_refunds": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "rp_cash_reversals": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_period_closures": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "treasury_payment_requests": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        },
+        "during_fixture": {
+            "companies": 1,
+            "branches": 2,
+            "users": 9,
+            "customers": 1,
+            "suppliers": 1,
+            "products": 2,
+            "user_warehouse_scopes": 2,
+            "purchasing_orders": 1,
+            "purchasing_order_lines": 1,
+            "purchasing_receipts": 1,
+            "purchasing_receipt_lines": 1,
+            "inventory_movements": 1,
+            "inventory_fifo_layers": 1,
+            "inventory_balances": 1,
+            "rp_supplier_invoices": 1,
+            "rp_supplier_invoice_lines": 1,
+            "rp_supplier_invoice_matches": 1,
+            "service_contracts": 1,
+            "service_contract_revisions": 1,
+            "service_contract_documents": 1,
+            "service_contract_billing_sources": 1,
+            "service_contract_billing_allocations": 1,
+            "rp_customer_invoices": 1,
+            "rp_customer_invoice_lines": 1,
+            "rp_credit_notes": 2,
+            "rp_party_credits": 2,
+            "rp_party_credit_refunds": 2,
+            "rp_open_items": 2,
+            "rp_customer_advances": 3,
+            "rp_customer_advance_applications": 1,
+            "rp_customer_advance_application_lines": 1,
+            "rp_customer_advance_refunds": 1,
+            "rp_cash_reversals": 6,
+            "treasury_accounts": 2,
+            "treasury_movements": 18,
+            "rp_settlement_allocations": 2,
+            "accounting_accounts": 17,
+            "accounting_account_mappings": 17,
+            "accounting_tax_rules": 3,
+            "accounting_periods": 1,
+            "accounting_period_closures": 1,
+            "accounting_opening_batches": 1,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 22,
+            "accounting_journal_lines": 44,
+            "treasury_payment_requests": 1,
+            "system_official_sequences": 13,
+            "system_official_documents": 43,
+            "access_grants": 136,
+            "user_branch_scopes": 8,
+            "audit_entries": 103
+        },
+        "after_rollback": {
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "customers": 0,
+            "suppliers": 0,
+            "products": 0,
+            "user_warehouse_scopes": 0,
+            "purchasing_orders": 0,
+            "purchasing_order_lines": 0,
+            "purchasing_receipts": 0,
+            "purchasing_receipt_lines": 0,
+            "inventory_movements": 0,
+            "inventory_fifo_layers": 0,
+            "inventory_balances": 0,
+            "rp_supplier_invoices": 0,
+            "rp_supplier_invoice_lines": 0,
+            "rp_supplier_invoice_matches": 0,
+            "service_contracts": 0,
+            "service_contract_revisions": 0,
+            "service_contract_documents": 0,
+            "service_contract_billing_sources": 0,
+            "service_contract_billing_allocations": 0,
+            "rp_customer_invoices": 0,
+            "rp_customer_invoice_lines": 0,
+            "rp_credit_notes": 0,
+            "rp_party_credits": 0,
+            "rp_party_credit_refunds": 0,
+            "rp_open_items": 0,
+            "rp_customer_advances": 0,
+            "rp_customer_advance_applications": 0,
+            "rp_customer_advance_application_lines": 0,
+            "rp_customer_advance_refunds": 0,
+            "rp_cash_reversals": 0,
+            "treasury_accounts": 0,
+            "treasury_movements": 0,
+            "rp_settlement_allocations": 0,
+            "accounting_accounts": 0,
+            "accounting_account_mappings": 0,
+            "accounting_tax_rules": 0,
+            "accounting_periods": 0,
+            "accounting_period_closures": 0,
+            "accounting_opening_batches": 0,
+            "accounting_opening_lines": 0,
+            "accounting_journals": 0,
+            "accounting_journal_lines": 0,
+            "treasury_payment_requests": 0,
+            "system_official_sequences": 0,
+            "system_official_documents": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "audit_entries": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "Synthetic M11 uses real setup and independent no-opening approval inside rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "Later M12 invoice posts through a real M10 contract source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier payable originates from an independently approved real PO/receipt/invoice chain.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer collection and supplier payment settle the real source invoices before credit notes are issued.",
+            "result": "PASS"
+        },
+        {
+            "name": "Independent approval/posting creates customer and supplier party credits from their paid original invoices.",
+            "result": "PASS"
+        },
+        {
+            "name": "As-of the credit-note date, paid customer/supplier invoices reconcile to 20.00 source credits and zero cash.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier refund inflow posts before and funds the subsequent customer refund outflow.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same-key replay returns the unique source-linked Treasury movement and journal for each credit refund.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed payload under a refund idempotency key conflicts.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refund above remaining source credit is rejected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Actor without M13 credit-refund authority is denied.",
+            "result": "PASS"
+        },
+        {
+            "name": "M13 credit refund cannot cross branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Conflict, cap and authority denials leave no partial refund, movement or journal state.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer credit refund posts Dr receivable / Cr cash from its credit source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier credit refund posts Dr cash / Cr AP from its credit source.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated AR/AP control and remaining party-credit balances reconcile after partial refunds.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated Treasury cash reconciles collection, supplier payment, customer refund and supplier refund to zero.",
+            "result": "PASS"
+        },
+        {
+            "name": "Dated posted GL receivable, AP and cash control balances reconcile to the source-linked refund subledger and Treasury totals.",
+            "result": "PASS"
+        },
+        {
+            "name": "Refunds dated after the credit notes do not rewrite earlier AR/AP or Treasury cutoffs.",
+            "result": "PASS"
+        },
+        {
+            "name": "Immutable refund rows atomically consume exactly the partial customer and supplier credits.",
+            "result": "PASS"
+        },
+        {
+            "name": "Posted source credit notes and Treasury refund movements reject direct edits and retain their recorded amounts.",
+            "result": "PASS"
+        },
+        {
+            "name": "The original cashier cannot correct their own customer collection.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction requires explicit M13.cash_correct permission.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction cannot cross the original movement branch scope.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier payment correction also requires M12.ap_view.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash correction requires M11.source_post authority.",
+            "result": "PASS"
+        },
+        {
+            "name": "A cash correction cannot precede its original movement date.",
+            "result": "PASS"
+        },
+        {
+            "name": "A cash correction cannot post outside an open accounting period.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer collection correction outflow requires actual cash funds.",
+            "result": "PASS"
+        },
+        {
+            "name": "Self, permission, branch, party-scope, date, closed-period and insufficient-funds denials leave no movement, journal or subledger reversal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier payment correction preserves the original and reverses its exact GL journal and M12 settlement.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer collection correction reopens the 100.00 invoice while retaining the separate 20.00 unapplied party credit.",
+            "result": "PASS"
+        },
+        {
+            "name": "Same-key customer correction replay returns the existing source correction.",
+            "result": "PASS"
+        },
+        {
+            "name": "Changing a correction payload under the same idempotency key conflicts.",
+            "result": "PASS"
+        },
+        {
+            "name": "A source movement cannot receive a second correction under another key.",
+            "result": "PASS"
+        },
+        {
+            "name": "Correction replay conflict and duplicate-source denial do not create a second correction or journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Customer credit-refund correction restores the credit balance and exactly reverses its original journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "Supplier credit-refund correction restores payable credit and exactly reverses its original journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "After all four corrections, the 100.00 open invoice and restored 20.00 unapplied credit reconcile to net AR 80.00 and matching GL controls.",
+            "result": "PASS"
+        },
+        {
+            "name": "Cash corrections effective after the refund date preserve earlier AR/AP and Treasury history cutoffs.",
+            "result": "PASS"
+        },
+        {
+            "name": "A source collection whose customer advance has been applied cannot be corrected.",
+            "result": "PASS"
+        },
+        {
+            "name": "Consumed-advance collection denial leaves all Treasury, journal, reversal and application rows unchanged.",
+            "result": "PASS"
+        },
+        {
+            "name": "Advance refund correction restores the dated customer advance while preserving the earlier refund cutoff.",
+            "result": "PASS"
+        },
+        {
+            "name": "Transfer correction from either source leg returns one atomic paired correction and exactly reverses its shared journal.",
+            "result": "PASS"
+        },
+        {
+            "name": "A transfer cannot be corrected a second time from its other source leg.",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate transfer correction leaves pair, journal and source history unchanged.",
+            "result": "PASS"
+        },
+        {
+            "name": "Historical AR/AP, customer advance, credit, cash/bank and GL controls reconcile after advance and transfer corrections.",
+            "result": "PASS"
+        },
+        {
+            "name": "A wholly unconsumed advance is removed with its source collection correction and exact GL reversal.",
+            "result": "PASS"
+        },
+        {
+            "name": "A source correction cannot post into a closed accounting period.",
+            "result": "PASS"
+        },
+        {
+            "name": "Closed-period correction denial leaves the source correction graph and journal counts unchanged.",
+            "result": "PASS"
+        },
+        {
+            "name": "A new credit refund cannot post into a closed accounting period.",
+            "result": "PASS"
+        },
+        {
+            "name": "Closed-period refund denial leaves party-credit, Treasury movement and journal state unchanged.",
+            "result": "PASS"
+        },
+        {
+            "name": "All deferred source, exact-cents, pair and M12 reversal constraints validate before rollback.",
+            "result": "PASS"
+        },
+        {
+            "name": "All synthetic customer, supplier, M05/M06, M10, M11, M12 and Treasury records, company profile and private scratch roll back.",
+            "result": "PASS"
+        },
+        {
+            "name": "Synthetic M11 activation and version roll back to the owned database state.",
+            "result": "PASS"
+        }
+    ],
+    "evidence": {
+        "synthetic_sources": "real M11 setup and no-opening approval, M10 customer contract/invoice/correction, real M05/M06 supplier order/receipt, M12 invoices/credits and M13 settlement/refunds/source-linked cash corrections inside outer rollback",
+        "synthetic_m11_activation": {
+            "performed": true,
+            "rolled_back": true,
+            "go_live_date": "2026-11-10",
+            "zero_opening": true
+        },
+        "company_profile": {
+            "synthetic_fields_set_inside_transaction": true,
+            "exact_baseline_restored": true
+        },
+        "failure_trace": []
+    }
+}

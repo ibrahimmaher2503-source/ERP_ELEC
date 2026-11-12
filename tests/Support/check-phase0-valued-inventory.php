@@ -1133,7 +1133,20 @@ if (is_string($ciRunId) && preg_match('/^[a-f0-9]{32}$/i', $ciRunId) === 1) {
 $json = json_encode($terminal, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 $baseEvidence = dirname(__DIR__, 2).'/docs/qa/evidence/phase0-valued-paths.json';
 if (! $gate1History) {
-    file_put_contents($baseEvidence, $json.PHP_EOL, LOCK_EX);
+    $privateEvidencePath = getenv('E2E_PHASE0_VALUED_EVIDENCE_PATH');
+    if (is_string($privateEvidencePath) && $privateEvidencePath !== '') {
+        $runsRoot = realpath(dirname(__DIR__, 2).'/.tmp/e2e-automation/runs');
+        $evidenceDirectory = realpath(dirname($privateEvidencePath));
+        if ($runsRoot === false || $evidenceDirectory === false
+            || ! str_starts_with($evidenceDirectory, rtrim($runsRoot, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR)
+            || basename($privateEvidencePath) !== 'phase0-valued-paths.json' || is_link($privateEvidencePath)) {
+            throw new RuntimeException('Private valued-inventory evidence must stay inside an owned E2E run directory.');
+        }
+        $baseEvidence = $evidenceDirectory.DIRECTORY_SEPARATOR.basename($privateEvidencePath);
+    }
+    if (file_put_contents($baseEvidence, $json.PHP_EOL, LOCK_EX) === false) {
+        throw new RuntimeException('Could not write valued-inventory evidence.');
+    }
 }
 if ($gate1History) {
     $required = ['before_first_activity', 'max_length_opening_reference', 'after_opening', 'opening_payable_settlement', 'after_fifo_issue', 'after_partial_reversal', 'after_posted_reversal',

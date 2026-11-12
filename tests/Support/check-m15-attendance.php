@@ -141,6 +141,8 @@ $environment = ['APP_ENV' => 'testing', 'GITHUB_ACTIONS' => (string) (getenv('GI
     'DB_HOST' => (string) (getenv('DB_HOST') ?: '127.0.0.1'),
     'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '49685')),
     'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: 'erp_elec_new_test'),
+    'E2E_CLUSTER_MARKER' => (string) (getenv('E2E_CLUSTER_MARKER') ?: ''),
+    'E2E_CLUSTER_TOKEN' => (string) (getenv('E2E_CLUSTER_TOKEN') ?: ''),
     'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: 'postgres')];
 require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
 $target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
@@ -182,7 +184,11 @@ try {
     $identity = DB::selectOne("select current_database() as database, host(inet_server_addr()) as server_address, inet_server_port() as port,
         current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
         (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
-    $receiptRow = $target['ci_receipt'] !== null ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts') : null;
+    $receiptRow = $target['ci_receipt'] !== null
+        ? DB::selectOne('select nonce from codex_test_guard.ownership_receipts')
+        : (is_string($target['nonce'] ?? null)
+            ? DB::table('codex_test_guard.ownership_receipts')->where('database', $identity->database)->first(['nonce'])
+            : null);
     Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
     $targetVerified = true;
     if ((int) $identity->server_version_num < 170000 || (int) $identity->server_version_num >= 180000) {

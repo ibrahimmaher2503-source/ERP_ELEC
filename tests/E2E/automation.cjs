@@ -6,6 +6,7 @@ const net = require('node:net');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
 const { chromium } = require('playwright');
+const { closeOwnedBrowserServer } = require('./support/owned-browser-cleanup.cjs');
 
 const root = path.resolve(__dirname, '../..');
 const privateRoot = path.join(root, '.tmp/e2e-automation');
@@ -97,31 +98,70 @@ function prepareFixtures(env, runId, fixtureMode, selectionContext = {}) {
   }
 }
 
-async function createAuthStates(env, fixture, runtime) {
+async function createAuthStates(env, fixture, runtime, timings = []) {
   if (!Array.isArray(fixture?.actors) || fixture.actors.length === 0) throw new Error('Fixture helper returned no authenticated actors.');
   const actorRoot = path.join(runtime, 'actors');
   fs.mkdirSync(actorRoot, { recursive: true });
-  const browser = await chromium.launch({ headless: true, executablePath: browserExecutable() });
+  const server = await chromium.launchServer({ headless: true, executablePath: browserExecutable(), timeout: 15_000 });
+  const browser = await chromium.connect(server.wsEndpoint(), { timeout: 15_000 });
   try {
     const states = {};
     for (const actor of fixture.actors) {
+      const actorStarted = Date.now();
+      const stages = {};
+      const mark = (name, start) => { stages[name] = Date.now() - start; };
       const context = await browser.newContext({ locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
       const page = await context.newPage();
+      page.setDefaultTimeout(15_000);
+      page.setDefaultNavigationTimeout(15_000);
+      let stageStarted = Date.now();
       await page.goto(`${env.APP_URL}/login`, { waitUntil: 'domcontentloaded' });
+      mark('login_page_ms', stageStarted);
+      stageStarted = Date.now();
       await page.locator('input[name="email"]').waitFor({ state: 'visible' });
       await page.locator('input[name="email"]').fill(actor.email);
       await page.locator('input[name="password"]').fill(actor.password);
+      mark('form_ms', stageStarted);
+      stageStarted = Date.now();
       const dashboard = page.waitForURL(url => url.pathname === '/dashboard', { timeout: 15_000, waitUntil: 'domcontentloaded' });
       await page.locator('[data-test="login-button"]').click({ noWaitAfter: true });
       await dashboard;
       await page.locator('#main-content').waitFor({ state: 'visible' });
+      mark('submit_ms', stageStarted);
       const state = path.join(actorRoot, `${actor.key}.json`);
+      stageStarted = Date.now();
       await context.storageState({ path: state });
+      mark('storage_state_ms', stageStarted);
       states[actor.key] = state;
-      await context.close();
+      stageStarted = Date.now();
+      await bounded(context.close(), 10_000, () => server.process().kill('SIGKILL'));
+      mark('context_close_ms', stageStarted);
+      timings.push({ actor: actor.key, ...stages, total_ms: Date.now() - actorStarted, status: 'saved' });
     }
-    return states;
-  } finally { await browser.close(); }
+    const closeStarted = Date.now();
+    try { await bounded(browser.close(), 10_000, () => server.process().kill('SIGKILL')); }
+    catch (error) {
+      timings.push({ stage: 'browser_close', elapsed_ms: Date.now() - closeStarted, status: 'timed_out' });
+      throw error;
+    }
+    timings.push({ stage: 'browser_close', elapsed_ms: Date.now() - closeStarted, status: 'closed' });
+    return { states, timings };
+  } finally {
+    const closeStarted = Date.now();
+    try {
+      await closeOwnedBrowserServer(server, 10_000);
+      timings.push({ stage: 'browser_server_close', elapsed_ms: Date.now() - closeStarted, status: 'closed' });
+    } catch { timings.push({ stage: 'browser_server_close', elapsed_ms: Date.now() - closeStarted, status: 'timed_out' }); }
+  }
+}
+
+async function bounded(promise, milliseconds, onTimeout) {
+  let timer;
+  try {
+    return await Promise.race([promise, new Promise((_, reject) => {
+      timer = setTimeout(() => { onTimeout(); reject(new Error(`Owned browser cleanup exceeded ${milliseconds}ms.`)); }, milliseconds);
+    })]);
+  } finally { clearTimeout(timer); }
 }
 
 function browserExecutable() {
@@ -146,6 +186,8 @@ async function runAutomation() {
   let workers = [];
   let browserStarted = 0;
   const phaseTimes = {};
+  let authTimings = [];
+  let actorCredentials = {};
   const selection = mode === 'changed' ? discoverChangedModules() : { modules: [], cold: false, global: false };
   let runSmoke = mode === 'smoke' || mode === 'full';
   let runCritical = mode === 'critical' || mode === 'full';
@@ -214,8 +256,10 @@ async function runAutomation() {
     if (runCritical && fixtureGroups.includes('workshop')) ['dispatcher', 'technician', 'reviewer'].forEach(key => neededActors.add(key));
     if (runCritical && fixtureGroups.includes('financial')) ['dispatcher', 'reviewer', 'outsider'].forEach(key => neededActors.add(key));
     const authFixture = { ...fixtureResult.value, actors: fixtureResult.value.actors.filter(actor => neededActors.has(actor.key)) };
+    actorCredentials = Object.fromEntries(authFixture.actors.map(actor => [actor.key, { email: actor.email, password: actor.password }]));
     try {
-      bootstrap.actor_states = await createAuthStates(env, authFixture, bootstrap.runtime);
+      const auth = await createAuthStates(env, authFixture, bootstrap.runtime, authTimings);
+      bootstrap.actor_states = auth.states;
       bootstrap.authenticated = true;
     }
       finally {
@@ -242,6 +286,7 @@ async function runAutomation() {
       E2E_DB_DATABASE: bootstrap.dbName,
       E2E_RUN_TOKEN: runToken,
       E2E_BOOTSTRAP_FILE: bootstrapPath,
+      E2E_ACTOR_CREDENTIALS: JSON.stringify(actorCredentials),
       E2E_STORAGE_STATE: runSmoke
         ? (bootstrap.actor_states?.smoke || '')
         : (bootstrap.actor_states?.dispatcher || ''),
@@ -251,6 +296,8 @@ async function runAutomation() {
     };
     browserStarted = Date.now();
     const testRun = run(process.execPath, args, { env: envTest, maxBuffer: 8 * 1024 * 1024 });
+    envTest.E2E_ACTOR_CREDENTIALS = '';
+    actorCredentials = {};
     const playwrightReportPath = path.join(privateRoot, `playwright-result-${runToken}.json`);
     const raw = fs.existsSync(playwrightReportPath) ? JSON.parse(fs.readFileSync(playwrightReportPath, 'utf8')) : {};
     const gaps = [];
@@ -265,6 +312,7 @@ async function runAutomation() {
       flaky: raw.flaky || 0, duration_ms: Date.now() - started,
       setup_duration_ms: browserStarted - started, browser_duration_ms: Date.now() - browserStarted,
       phase_duration_ms: { ...phaseTimes },
+      auth_timing: authTimings,
       gaps, changed_modules: selection.modules, fixture_groups: fixtureGroups,
       database: { host: '127.0.0.1', port: bootstrap.dbPort, name: bootstrap.dbName },
       reusable_caches: { blade_compiled_path: true, mpdf_font_temp_path: bootstrap.mpdfCacheLinked === true },
@@ -293,7 +341,7 @@ async function runAutomation() {
   } catch (error) {
     writeReport({ status: 'blocked', mode, total: 0, passed: 0, failed: 0, skipped: 0, setup_failures: 1, duration_ms: Date.now() - started,
       setup_duration_ms: browserStarted ? browserStarted - started : Date.now() - started, browser_duration_ms: browserStarted ? Date.now() - browserStarted : 0,
-      phase_duration_ms: { ...phaseTimes },
+      phase_duration_ms: { ...phaseTimes }, auth_timing: authTimings,
       gaps: [], error: String(error.message || error).replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '<email>').slice(0, 500) });
     return 1;
   } finally {

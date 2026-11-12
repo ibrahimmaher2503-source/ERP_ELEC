@@ -448,7 +448,7 @@ try {
     $returnsResponse = $httpKernel->handle($returnsRequest);
     $returnsStatus = $returnsResponse->getStatusCode();
     $httpKernel->terminate($returnsRequest, $returnsResponse);
-    $verify($returnsStatus === 404, 'Sales Returns remains unavailable behind its current route gate');
+    $verify($returnsStatus === 200, 'Authorized Sales Order actor can render the Sales Returns page');
     Auth::guard()->setUser($administrator);
     $policyRequest = Request::create('/sales-orders/policy', 'GET');
     $policyResponse = $httpKernel->handle($policyRequest);

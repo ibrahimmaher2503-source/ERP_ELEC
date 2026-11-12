@@ -1,0 +1,261 @@
+{
+    "all_pass": true,
+    "phase": "Gate3 M15 guarded behavior acceptance",
+    "assertions": 47,
+    "database": {
+        "name": "erp_elec_new_test",
+        "server_address": "127.0.0.1",
+        "port": 55467,
+        "postgres_major": 17
+    },
+    "counts": {
+        "before": {
+            "attendance_shifts": 0,
+            "attendance_schedules": 0,
+            "attendance_punches": 0,
+            "attendance_adjustments": 0,
+            "attendance_timesheets": 0,
+            "attendance_requests": 0,
+            "organization_employees": 0,
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0,
+            "accounting_journals": 0,
+            "treasury_movements": 0,
+            "rp_customer_advances": 0
+        },
+        "during_fixture": {
+            "attendance_shifts": 4,
+            "attendance_schedules": 10,
+            "attendance_punches": 17,
+            "attendance_adjustments": 6,
+            "attendance_timesheets": 1,
+            "attendance_requests": 27,
+            "organization_employees": 3,
+            "companies": 1,
+            "branches": 3,
+            "users": 4,
+            "access_grants": 20,
+            "user_branch_scopes": 3,
+            "user_roles": 0,
+            "audit_entries": 35,
+            "accounting_journals": 0,
+            "treasury_movements": 0,
+            "rp_customer_advances": 0
+        },
+        "after_rollback": {
+            "attendance_shifts": 0,
+            "attendance_schedules": 0,
+            "attendance_punches": 0,
+            "attendance_adjustments": 0,
+            "attendance_timesheets": 0,
+            "attendance_requests": 0,
+            "organization_employees": 0,
+            "companies": 1,
+            "branches": 0,
+            "users": 0,
+            "access_grants": 0,
+            "user_branch_scopes": 0,
+            "user_roles": 0,
+            "audit_entries": 0,
+            "accounting_journals": 0,
+            "treasury_movements": 0,
+            "rp_customer_advances": 0
+        }
+    },
+    "checks": [
+        {
+            "name": "M15 shift factory persists a branch-owned, versioned shift",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 factories create no login, privilege, role, or branch-scope history",
+            "result": "PASS"
+        },
+        {
+            "name": "Historical employee identity remains safely readable after employment ends",
+            "result": "PASS"
+        },
+        {
+            "name": "Historical employee identity remains branch-scoped",
+            "result": "PASS"
+        },
+        {
+            "name": "Shift edits use optimistic versioning and persist only approved fields",
+            "result": "PASS"
+        },
+        {
+            "name": "Stale shift version cannot overwrite current shift",
+            "result": "PASS"
+        },
+        {
+            "name": "Shift with equal start and end is rejected as ambiguous zero or 24-hour duration",
+            "result": "PASS"
+        },
+        {
+            "name": "Shift rejects invalid local clock values",
+            "result": "PASS"
+        },
+        {
+            "name": "Historical timesheet remains readable after employee deactivation and end date",
+            "result": "PASS"
+        },
+        {
+            "name": "Cairo spring DST transition keeps the overnight shift on its local start date and counts elapsed UTC minutes",
+            "result": "PASS"
+        },
+        {
+            "name": "M15 schedule and adjustment factories persist a consistent pending graph without fabricating a review",
+            "result": "PASS"
+        },
+        {
+            "name": "Exact schedule creation-key replay returns the original schedule",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed schedule payload cannot reuse an existing creation key",
+            "result": "PASS"
+        },
+        {
+            "name": "Schedule creation requires the employee branch permission and scope",
+            "result": "PASS"
+        },
+        {
+            "name": "Exact punch creation-key replay does not duplicate an event",
+            "result": "PASS"
+        },
+        {
+            "name": "Duplicate biometric event identity is deduplicated even when a replay uses another import key",
+            "result": "PASS"
+        },
+        {
+            "name": "Changed punch payload cannot reuse an existing creation key",
+            "result": "PASS"
+        },
+        {
+            "name": "Conflicting repeated check-in is rejected without a second attendance event",
+            "result": "PASS"
+        },
+        {
+            "name": "Punch recording denies an actor without the employee branch scope",
+            "result": "PASS"
+        },
+        {
+            "name": "Future attendance punches are rejected",
+            "result": "PASS"
+        },
+        {
+            "name": "Idempotency collisions and conflicting or future punches leave no extra attendance rows",
+            "result": "PASS"
+        },
+        {
+            "name": "CSV attendance import writes one authorized event through the real punch action",
+            "result": "PASS"
+        },
+        {
+            "name": "CSV import denies a conflicting row after an earlier valid row",
+            "result": "PASS"
+        },
+        {
+            "name": "Denied CSV import rolls back every punch, idempotency receipt, and audit event from the same file",
+            "result": "PASS"
+        },
+        {
+            "name": "Pending correction is excluded; Cairo-local punches calculate late, early, and break-adjusted time from originals",
+            "result": "PASS"
+        },
+        {
+            "name": "Attendance owner read contract returns the same factual, branch-authorized timesheet",
+            "result": "PASS"
+        },
+        {
+            "name": "Attendance exposes only factual intervals for authorized labor reconciliation, without pay or cost data",
+            "result": "PASS"
+        },
+        {
+            "name": "Adjustment requester cannot approve their own correction",
+            "result": "PASS"
+        },
+        {
+            "name": "Latest of multiple independently approved corrections controls facts while both immutable requests remain",
+            "result": "PASS"
+        },
+        {
+            "name": "Resolved adjustment cannot be changed or re-approved",
+            "result": "PASS"
+        },
+        {
+            "name": "Approved overtime is a factual label bounded by recorded elapsed work and does not invent worked time or wages",
+            "result": "PASS"
+        },
+        {
+            "name": "Overtime request cannot exceed actual time beyond the scheduled shift",
+            "result": "PASS"
+        },
+        {
+            "name": "Approved leave is visible and is not classified as an absence",
+            "result": "PASS"
+        },
+        {
+            "name": "One-sided punch is exposed as a missing-punch exception rather than inferred absence",
+            "result": "PASS"
+        },
+        {
+            "name": "Approved correction resolves the missing-punch exception without changing the original punch",
+            "result": "PASS"
+        },
+        {
+            "name": "Scheduled day without punches or approved leave is exposed as absence",
+            "result": "PASS"
+        },
+        {
+            "name": "Overnight shift across Cairo month boundary is assigned to its schedule start date exactly once",
+            "result": "PASS"
+        },
+        {
+            "name": "Locked timesheet persists a verifiable canonical SHA-256 snapshot digest",
+            "result": "PASS"
+        },
+        {
+            "name": "Authorized export contains factual locked attendance and no payroll, wage, or costing fields",
+            "result": "PASS"
+        },
+        {
+            "name": "October timesheet lock rejects a later punch mutation for its overnight schedule spill into November",
+            "result": "PASS"
+        },
+        {
+            "name": "October timesheet lock prevents adding a schedule to its closed month",
+            "result": "PASS"
+        },
+        {
+            "name": "Locked start-month prevents a later correction to an overnight schedule",
+            "result": "PASS"
+        },
+        {
+            "name": "Attendance export requires employee branch authority and export permission",
+            "result": "PASS"
+        },
+        {
+            "name": "Overnight original punches remain append-only after timesheet lock",
+            "result": "PASS"
+        },
+        {
+            "name": "Attendance actions append auditable actor-attributed history",
+            "result": "PASS"
+        },
+        {
+            "name": "Explicit attendance demo seeder persists one planned graph idempotently without punches, decisions, timesheets, privileges, or authority",
+            "result": "PASS"
+        },
+        {
+            "name": "All fixture rows roll back and original data counts remain unchanged.",
+            "result": "PASS"
+        }
+    ],
+    "failure": null
+}

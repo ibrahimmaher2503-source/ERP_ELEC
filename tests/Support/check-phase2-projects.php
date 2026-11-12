@@ -22,19 +22,34 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
+$root = dirname(__DIR__, 2);
+require_once $root.'/tests/Support/OptimizationRegressionDatabaseGuard.php';
+$environment = ['APP_ENV' => (string) (getenv('APP_ENV') ?: ''),
+    'DB_HOST' => (string) (getenv('DB_HOST') ?: ''),
+    'DB_PORT' => (string) (getenv('E2E_DB_PORT') ?: (getenv('DB_PORT') ?: '')),
+    'DB_DATABASE' => (string) (getenv('DB_DATABASE') ?: ''),
+    'DB_USERNAME' => (string) (getenv('DB_USERNAME') ?: ''),
+    'E2E_CLUSTER_MARKER' => (string) (getenv('E2E_CLUSTER_MARKER') ?: ''),
+    'E2E_CLUSTER_TOKEN' => (string) (getenv('E2E_CLUSTER_TOKEN') ?: '')];
+$target = Tests\Support\OptimizationRegressionDatabaseGuard::target($root, $environment);
+if ((int) $target['port'] !== 55460 || ! is_string($target['nonce']) || $target['nonce'] === '') {
+    throw new RuntimeException('ABORT before writes: the fresh owned 55460 PostgreSQL target and token are required.');
+}
+if (! hash_equals((string) $target['nonce'], (string) ($environment['E2E_CLUSTER_TOKEN'] ?? ''))) {
+    throw new RuntimeException('ABORT before writes: E2E_CLUSTER_TOKEN does not match the owned 55460 cluster marker.');
+}
 putenv('APP_ENV=testing');
 $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = 'testing';
-$root = dirname(__DIR__, 2);
 require $root.'/vendor/autoload.php';
 $app = require $root.'/bootstrap/app.php';
 $app->loadEnvironmentFrom('.env.testing');
 $app->make(Kernel::class)->bootstrap();
 
-$db = DB::selectOne('select current_database() as db, inet_server_addr()::text as address, inet_server_port() as port');
-if (DB::connection()->getDriverName() !== 'pgsql' || $db->db !== 'erp_elec_new_test'
-    || ! in_array($db->address, ['127.0.0.1', '127.0.0.1/32'], true) || ! in_array((int) $db->port, [5443, 55442], true)) {
-    throw new RuntimeException('ABORT before writes: M07 check requires isolated PostgreSQL erp_elec_new_test on loopback port 5443 or disposable 55442.');
-}
+$identity = DB::selectOne("select current_database() as database, host(inet_server_addr()) as server_address, inet_server_port() as port,
+    current_setting('data_directory') as data_directory, current_user as current_user, current_setting('server_version_num') as server_version_num,
+    (select owner.rolname from pg_database d join pg_roles owner on owner.oid=d.datdba where d.datname=current_database()) as database_owner");
+$receiptRow = DB::table('codex_test_guard.ownership_receipts')->where('database', $identity->database)->first(['nonce']);
+Tests\Support\OptimizationRegressionDatabaseGuard::verify($target, $identity, $receiptRow);
 
 $assertionCount = 0;
 $pass = static function (bool $ok, string $message) use (&$assertionCount): void {

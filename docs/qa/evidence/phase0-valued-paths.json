@@ -5,10 +5,10 @@
         "synthetic actors and masters": {
             "status": "PASS",
             "evidence": {
-                "branch_id": 50,
-                "warehouse_id": 23,
-                "product_id": 222,
-                "supplier_id": 56,
+                "branch_id": 1,
+                "warehouse_id": 1,
+                "product_id": 1,
+                "supplier_id": 1,
                 "actor_count": 3,
                 "only_synthetic": true
             }
@@ -32,7 +32,7 @@
                 "bank_amount": "5.00",
                 "opening_fifo_quantity": "2.00000000",
                 "opening_fifo_value": "20.00",
-                "issue_document_id": 21,
+                "issue_document_id": 1,
                 "issue_movement_id": 2,
                 "issue_fifo_quantity": "1.50000000",
                 "issue_fifo_cost": "15.00",
@@ -60,8 +60,8 @@
                     "later_dependency": true
                 },
                 "same_branch_transfer": {
-                    "document_id": 23,
-                    "destination_id": 24,
+                    "document_id": 3,
+                    "destination_id": 2,
                     "quantity": "2.00000000",
                     "transit_value": "11.00",
                     "received_fifo_value": "11.00",
@@ -70,8 +70,8 @@
                     "journal_count": 4
                 },
                 "cross_branch_transfer": {
-                    "document_id": 24,
-                    "destination_id": 25,
+                    "document_id": 4,
+                    "destination_id": 3,
                     "quantity": "1.00000000",
                     "transit_value": "4.00",
                     "received_fifo_value": "4.00",
@@ -119,18 +119,18 @@
         "official quotation issuance written acceptance and controlled draft conversion": {
             "status": "PASS",
             "evidence": {
-                "quotation_id": 63,
+                "quotation_id": 1,
                 "issue_id": 1,
-                "official_number": "QT-2026-000001",
-                "official_sha256": "1fa096d0f297dd3456685d45861fad11e6f271bd49c6352a5f2612745aec2dc9",
+                "official_number": "QT-2024-000001",
+                "official_sha256": "c3ebbda1c438057e129e794d2e06dd78d029df2eaed509a1782e9ddc3a8dbdd7",
                 "product_ids": [
-                    223,
-                    224
+                    2,
+                    3
                 ],
                 "tax": {
                     "net": "40.00",
                     "tax": "5.60",
-                    "date": "2026-10-29",
+                    "date": "2024-06-05",
                     "mode": "exclusive",
                     "lines": [
                         {
@@ -140,11 +140,11 @@
                             "total": "22.80",
                             "tax_raw": "2.80000000000000000000000000000000",
                             "quantity": "2.00000000",
-                            "tax_code": "FA-SALE-eh2XD",
+                            "tax_code": "FA-SALE-7RQU3",
                             "gross_raw": "20.00000000000000000000000000000000",
                             "tax_scale": 2,
                             "treatment": "percentage",
-                            "product_id": 223,
+                            "product_id": 2,
                             "unit_price": "10.00000000",
                             "tax_rule_id": 1,
                             "taxable_raw": "20.00000000000000000000000000000000",
@@ -165,11 +165,11 @@
                             "total": "22.80",
                             "tax_raw": "2.80000000000000000000000000000000",
                             "quantity": "2.00000000",
-                            "tax_code": "FA-SALE-eh2XD",
+                            "tax_code": "FA-SALE-7RQU3",
                             "gross_raw": "20.00000000000000000000000000000000",
                             "tax_scale": 2,
                             "treatment": "percentage",
-                            "product_id": 224,
+                            "product_id": 3,
                             "unit_price": "10.00000000",
                             "tax_rule_id": 1,
                             "taxable_raw": "20.00000000000000000000000000000000",
@@ -189,7 +189,7 @@
                     "rounding": "half_away_from_zero_largest_remainder",
                     "tax_totals": [
                         {
-                            "code": "FA-SALE-eh2XD",
+                            "code": "FA-SALE-7RQU3",
                             "rate": "14.00000",
                             "tax_scale": 2,
                             "treatment": "percentage",
@@ -212,14 +212,14 @@
                 "altered_acceptance_rejected": true,
                 "source_lock_held": true,
                 "other_source_lock_available": true,
-                "converted_sales_order_id": 38,
+                "converted_sales_order_id": 1,
                 "conversion_status": "draft",
                 "conversion_retry_idempotent": true,
                 "altered_key_rejected": true,
                 "altered_branch_rejected": true,
                 "no_conversion_side_effects": true,
-                "submitted_review_id": 7,
-                "sales_order_issue_order_id": 38,
+                "submitted_review_id": 1,
+                "sales_order_issue_order_id": 1,
                 "allocation_count": 2,
                 "backorder_reservations": [
                     {
@@ -233,7 +233,7 @@
                 ],
                 "approval_replay_idempotent": true,
                 "altered_warehouse_rejected": true,
-                "supply_adjustment_id": 29,
+                "supply_adjustment_id": 9,
                 "confirmed_deliveries": [
                     1,
                     2
@@ -247,11 +247,11 @@
         "approved PO official issuance PDF and reported-tax rejection": {
             "status": "PASS",
             "evidence": {
-                "order_id": 6,
+                "order_id": 1,
                 "official_number": "PO-2024-000001",
-                "document_id": "cd764c80-6e76-46a0-8e31-5ecd1ac806b9",
-                "pdf_bytes": 47969,
-                "sha256": "1ad5aea0ab4d974cc8be027e18ef4743cbd4ca526e764c797ddf9b4b8e5e2003",
+                "document_id": "b7de693b-a41c-47d3-b6ae-57fe265407dd",
+                "pdf_bytes": 47678,
+                "sha256": "25196044c0880dbad36c0a564e39b1ae0361a86cb33635b512ecaae8827f5f9a",
                 "net": "1.01",
                 "tax": "0.14",
                 "total": "1.15",
@@ -269,7 +269,7 @@
             "evidence": {
                 "receipt_id": 1,
                 "status": "integration_pending",
-                "denied_actor": 194,
+                "denied_actor": 3,
                 "movement_count_before_after": [
                     10,
                     10

@@ -5,6 +5,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { spawnSync } = require('node:child_process');
 const { test, expect } = require('../support/test.cjs');
+const { actorContext } = require('../support/actor-context.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const bootstrapPath = process.env.E2E_BOOTSTRAP_FILE || path.join(root, '.tmp/e2e-automation/bootstrap.json');
@@ -48,10 +49,7 @@ test('M08 technician execution reaches independently verified closed work order'
   const scenario = run.fixtures;
   expect(scenario?.work_order_id).toBeTruthy();
   expect(scenario?.expected?.status).toBe('work_completed');
-  const state = run.actor_states?.reviewer;
-  if (!state) throw new Error('Runner did not provide reviewer authentication state.');
-  const statePath = path.isAbsolute(state) ? state : path.resolve(root, state);
-  const context = await browser.newContext({ baseURL: process.env.E2E_BASE_URL, storageState: statePath, locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+  const context = await actorContext(browser, run, 'reviewer');
   const page = await context.newPage();
   page.setDefaultTimeout(12_000);
   const pageErrors = [];
@@ -63,8 +61,7 @@ test('M08 technician execution reaches independently verified closed work order'
     expect(await page.locator('html').getAttribute('dir')).toBe('rtl');
     await expect(page.getByRole('button', { name: 'اعتماد التحقق الفني' })).toBeVisible();
     const beforeReview = readback({ workOrderId: scenario.work_order_id });
-    const technicianContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-      storageState: actorContextPath(run, 'technician'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const technicianContext = await actorContext(browser, run, 'technician');
     try {
       const technicianPage = await technicianContext.newPage();
       await gotoReady(technicianPage, url);
@@ -94,8 +91,7 @@ test('M08 technician execution reaches independently verified closed work order'
     expect(evidence.work_order.completion_count).toBe(1);
     expect(evidence.work_order.visit_count).toBe(1);
     expect(evidence.work_order.labor_count).toBe(1);
-    const smokeContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-      storageState: actorContextPath(run, 'smoke'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const smokeContext = await actorContext(browser, run, 'smoke');
     try {
       const deniedReport = await smokeContext.request.get(`/maintenance/work-orders/${scenario.work_order_id}/reports/${evidence.work_order.completion_id}`);
       expect(deniedReport.status()).toBe(403);
@@ -115,12 +111,6 @@ test('M08 technician execution reaches independently verified closed work order'
     await context.close();
   }
 });
-
-function actorContextPath(run, key) {
-  const state = run.actor_states?.[key];
-  if (!state) throw new Error(`Runner did not provide ${key} authentication state.`);
-  return path.isAbsolute(state) ? state : path.resolve(root, state);
-}
 
 async function gotoReady(page, url) {
   const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -190,10 +180,9 @@ test('M09 customer-owned nonbillable repair requires independent goodwill author
   expect(Number(run.dbPort)).toBe(55460);
   const scenario = run.fixtures?.workshop;
   expect(scenario?.job_id).toBeTruthy();
-  const contextOptions = { baseURL: process.env.E2E_BASE_URL, locale: 'ar-EG', timezoneId: 'Africa/Cairo' };
-  const dispatchContext = await browser.newContext({ ...contextOptions, storageState: actorContextPath(run, 'dispatcher') });
-  const techContext = await browser.newContext({ ...contextOptions, storageState: actorContextPath(run, 'technician') });
-  const reviewContext = await browser.newContext({ ...contextOptions, storageState: actorContextPath(run, 'reviewer') });
+  const dispatchContext = await actorContext(browser, run, 'dispatcher');
+  const techContext = await actorContext(browser, run, 'technician');
+  const reviewContext = await actorContext(browser, run, 'reviewer');
   const dispatcher = await dispatchContext.newPage();
   const technician = await techContext.newPage();
   const reviewer = await reviewContext.newPage();
@@ -280,8 +269,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
   const f = run.fixtures?.financial;
   expect(f?.supplier_invoice_id).toBeTruthy();
   expect(f?.customer_invoice_id).toBeTruthy();
-  const context = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-    storageState: actorContextPath(run, 'dispatcher'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+  const context = await actorContext(browser, run, 'dispatcher');
   const page = await context.newPage();
   page.setDefaultTimeout(12_000);
   page.on('dialog', dialog => { dialog.accept().catch(() => {}); });
@@ -324,8 +312,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
     const rejectedOrderUrl = new URL(page.url()).pathname;
     await awaitLivewire(page, () => page.getByRole('button', { name: 'إرسال للاعتماد' }).first().click());
     await expect(page.locator('body')).toContainText('الحالة: بانتظار الاعتماد');
-    const reviewerContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-      storageState: actorContextPath(run, 'reviewer'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const reviewerContext = await actorContext(browser, run, 'reviewer');
     const reviewerPage = await reviewerContext.newPage();
     reviewerPage.setDefaultTimeout(12_000);
     try {
@@ -402,8 +389,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
     let returned = readback({ financial: true }).financial.trade_return;
     expect(returned.status).toBe('draft');
     expect(returned.movements).toBe(0);
-    const approverContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-      storageState: actorContextPath(run, 'reviewer'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const approverContext = await actorContext(browser, run, 'reviewer');
     const approverPage = await approverContext.newPage();
     approverPage.setDefaultTimeout(12_000);
     approverPage.on('dialog', dialog => { dialog.accept().catch(() => {}); });
@@ -445,8 +431,7 @@ test('M05 receipt posts real FIFO/GRNI, Sales delivery consumes FIFO, and browse
     const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
     expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport + 4);
 
-    const outsiderContext = await browser.newContext({ baseURL: process.env.E2E_BASE_URL,
-      storageState: actorContextPath(run, 'outsider'), locale: 'ar-EG', timezoneId: 'Africa/Cairo' });
+    const outsiderContext = await actorContext(browser, run, 'outsider');
     try {
       const deniedPdf = await outsiderContext.request.get(`/financial/documents/customer-invoice/${f.customer_invoice_id}`);
       const deniedM09 = run.fixtures.workshop?.job_id

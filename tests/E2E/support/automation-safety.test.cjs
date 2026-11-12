@@ -5,10 +5,92 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test } = require('node:test');
+const { chromium } = require('playwright');
 const { runtimeEnvironment } = require('../bootstrap.cjs');
+const { actorContext } = require('./actor-context.cjs');
+const { closeOwnedBrowserServer } = require('./owned-browser-cleanup.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const privateRoot = path.join(root, '.tmp/e2e-automation');
+
+test('fresh actor session is reused without a login', async () => {
+  const probe = { request: { get: async () => ({ status: () => 200 }) }, close: async () => {} };
+  let contexts = 0;
+  const browser = { newContext: async () => { contexts++; return probe; } };
+  const run = ownedActorRun();
+  const keys = ['E2E_BASE_URL', 'E2E_RUN_TOKEN'];
+  const previous = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  process.env.E2E_BASE_URL = run.baseUrl;
+  process.env.E2E_RUN_TOKEN = run.runToken;
+  try {
+    const context = await actorContext(browser, run, 'reviewer');
+    assert.equal(context, probe);
+    assert.equal(contexts, 2);
+  } finally {
+    keys.forEach(key => previous[key] === undefined ? delete process.env[key] : process.env[key] = previous[key]);
+    fs.rmSync(run.runtime, { recursive: true, force: true });
+  }
+});
+
+test('expired actor session renews once with in-memory credentials', async () => {
+  const statePath = path.join(privateRoot, 'safety-check-actor', 'actors', 'reviewer.json');
+  fs.mkdirSync(path.dirname(statePath), { recursive: true });
+  let contexts = 0;
+  let savedState;
+  const browser = { newContext: async options => {
+    contexts++;
+    if (contexts === 1) return { request: { get: async () => ({ status: () => 302 }) }, close: async () => {} };
+    if (contexts === 2) return {
+      newPage: async () => ({ setDefaultTimeout() {}, setDefaultNavigationTimeout() {}, goto: async () => {},
+        locator: selector => ({ fill: async value => { if (selector.includes('email')) assert.equal(value, 'actor@example.test'); else assert.equal(value, 'test-password'); }, click: async () => {}, waitFor: async () => {} }),
+        waitForURL: async () => {}, click: async () => {}, waitFor: async () => {} }),
+      storageState: async ({ path: target }) => { savedState = target; }, close: async () => {},
+    };
+    return { renewed: true, options };
+  } };
+  const run = ownedActorRun(statePath);
+  try {
+    const context = await actorContext(browser, run, 'reviewer', { root, env: ownedActorEnv(run, { reviewer: { email: 'actor@example.test', password: 'test-password' } }) });
+    assert.deepEqual(context, { renewed: true, options: { baseURL: 'http://127.0.0.1:9001', storageState: statePath, locale: 'ar-EG', timezoneId: 'Africa/Cairo' } });
+    assert.equal(savedState, statePath);
+    assert.equal(contexts, 3);
+  } finally {
+    fs.rmSync(path.join(privateRoot, 'safety-check-actor'), { recursive: true, force: true });
+  }
+});
+
+test('timed out browser-server cleanup kills only that server process', async () => {
+  const killed = [];
+  const ownedProcess = { exitCode: null, killed: false, kill(signal) { killed.push({ pid: 43210, signal }); this.killed = true; } };
+  await assert.rejects(closeOwnedBrowserServer({ process: () => ownedProcess, close: () => new Promise(() => {}) }, 5), /cleanup exceeded 5ms/);
+  assert.deepEqual(killed, [{ pid: 43210, signal: 'SIGKILL' }]);
+});
+
+test('closing an owned Chromium server disconnects its client without a leak', async () => {
+  const executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH || 'C:/Users/N/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe';
+  if (!fs.existsSync(executablePath)) return;
+  const server = await chromium.launchServer({ headless: true, executablePath, timeout: 15_000 });
+  const child = server.process();
+  try {
+    const browser = await chromium.connect(server.wsEndpoint(), { timeout: 10_000 });
+    await browser.close();
+    await closeOwnedBrowserServer(server, 2_000);
+    assert.notEqual(child.exitCode, null);
+  } finally {
+    if (child.exitCode === null && !child.killed) child.kill('SIGKILL');
+  }
+});
+
+function ownedActorRun(statePath = path.join(privateRoot, 'safety-check-actor', 'actors', 'reviewer.json')) {
+  fs.mkdirSync(path.dirname(statePath), { recursive: true });
+  fs.writeFileSync(statePath, '{}');
+  return { dbName: 'erp_elec_new_test', dbPort: 55460, baseUrl: 'http://127.0.0.1:9001', runToken: 'owned-token',
+    runtime: path.join(privateRoot, 'safety-check-actor'), actor_states: { reviewer: statePath } };
+}
+
+function ownedActorEnv(run, credentials = {}) {
+  return { E2E_BASE_URL: run.baseUrl, E2E_RUN_TOKEN: run.runToken, E2E_ACTOR_CREDENTIALS: JSON.stringify(credentials) };
+}
 
 test('bootstrap environment is an allowlist and excludes unrelated secrets', () => {
   const key = 'E2E_AUTOMATION_SENTINEL_SECRET';
