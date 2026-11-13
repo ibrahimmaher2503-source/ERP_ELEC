@@ -156,7 +156,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Reset links and redirects must use the configured domain, never the request Host header.
-        if ($this->app->environment('production')) {
+        if (str_starts_with((string) config('app.url'), 'https://')) {
             URL::forceRootUrl((string) config('app.url'));
             URL::forceScheme('https');
         }

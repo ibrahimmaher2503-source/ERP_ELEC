@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureV2Available;
+use App\Http\Controllers\OneTimeAdminController;
 use App\Livewire\ExecutiveDashboardPage;
 use App\Modules\Accounting\Presentation\AccountingPage;
 use App\Modules\Accounting\Presentation\FinancialReportExportController;
@@ -114,6 +115,13 @@ use App\Modules\WorkshopRepairs\Presentation\RepairDocumentController;
 use App\Modules\WorkshopRepairs\Presentation\WorkshopExportController;
 use App\Modules\WorkshopRepairs\Presentation\WorkshopsPage;
 use Illuminate\Support\Facades\Route;
+
+Route::get('one-time-admin/{token}', [OneTimeAdminController::class, 'show'])
+    ->middleware('throttle:5,1')
+    ->name('one-time-admin.show');
+Route::post('one-time-admin/{token}', [OneTimeAdminController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('one-time-admin.store');
 
 Route::redirect('/', '/dashboard')->name('home');
 
