@@ -63,11 +63,39 @@ class PermissionAccess
         });
     }
 
+    /** Owner decision (2026-11-15): an active Administrator automatically covers every branch and warehouse. */
+    private function isAutoScopedAdministrator(int $id): bool
+    {
+        return $this->authority($id)['administrator'] && (bool) $this->actor($id)?->active;
+    }
+
     public function scopedBranches(int $id): array
     {
-        return $this->remember('branches:'.$id, fn () => DB::table('user_branch_scopes as s')
-            ->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $id)
-            ->orderBy('b.name')->get(['b.id', 'b.company_id', 'b.code', 'b.name', 'b.address', 'b.active'])->keyBy('id')->all());
+        return $this->remember('branches:'.$id, function () use ($id) {
+            $query = $this->isAutoScopedAdministrator($id)
+                ? DB::table('branches as b')
+                : DB::table('user_branch_scopes as s')->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $id);
+
+            return $query->orderBy('b.name')->get(['b.id', 'b.company_id', 'b.code', 'b.name', 'b.address', 'b.active'])->keyBy('id')->all();
+        });
+    }
+
+    /** @return array<int,int> warehouse id => branch id, for the warehouses the user may work in. */
+    public function warehouseScopeMap(int $id): array
+    {
+        return $this->remember('warehouse-scope-map:'.$id, function () use ($id) {
+            if ($this->isAutoScopedAdministrator($id)) {
+                $map = [];
+                foreach (app(InventoryApi::class)->warehouseDirectory($id) as $warehouse) {
+                    $map[(int) $warehouse['id']] = (int) $warehouse['branch_id'];
+                }
+
+                return $map;
+            }
+            $branches = DB::table('user_branch_scopes')->where('user_id', $id)->pluck('branch_id')->all();
+
+            return array_map('intval', DB::table('user_warehouse_scopes')->where('user_id', $id)->whereIn('branch_id', $branches)->pluck('branch_id', 'warehouse_id')->all());
+        });
     }
 
     public function permissionBranches(int $id, string $code): array
@@ -89,8 +117,15 @@ class PermissionAccess
             $authority = $this->authority($id);
             $catalog = array_keys(array_filter(PermissionCatalog::DEFINITIONS, fn ($definition) => $definition[1] === 'warehouse'));
             $codes = $authority['administrator'] ? $catalog : array_values(array_intersect($catalog, array_keys($authority['permissions'])));
-            $scopes = DB::table('user_warehouse_scopes as w')->join('user_branch_scopes as b', fn ($join) => $join->on('b.user_id', '=', 'w.user_id')->on('b.branch_id', '=', 'w.branch_id'))
-                ->join('branches as br', 'br.id', '=', 'w.branch_id')->where('w.user_id', $id)->get(['w.warehouse_id', 'w.branch_id', 'br.active', 'br.name as branch_name']);
+            if ($this->isAutoScopedAdministrator($id)) {
+                $map = $this->warehouseScopeMap($id);
+                $branchRows = DB::table('branches')->whereIn('id', array_values(array_unique($map)))->get(['id', 'active', 'name'])->keyBy('id');
+                $scopes = collect($map)->map(fn ($branchId, $warehouseId) => (object) ['warehouse_id' => $warehouseId, 'branch_id' => $branchId,
+                    'active' => (bool) ($branchRows[$branchId]->active ?? false), 'branch_name' => $branchRows[$branchId]->name ?? ''])->values();
+            } else {
+                $scopes = DB::table('user_warehouse_scopes as w')->join('user_branch_scopes as b', fn ($join) => $join->on('b.user_id', '=', 'w.user_id')->on('b.branch_id', '=', 'w.branch_id'))
+                    ->join('branches as br', 'br.id', '=', 'w.branch_id')->where('w.user_id', $id)->get(['w.warehouse_id', 'w.branch_id', 'br.active', 'br.name as branch_name']);
+            }
 
             return $scopes->map(function ($scope) use ($authority, $codes, $catalog) {
                 $permissions = $codes;
@@ -120,7 +155,7 @@ class PermissionAccess
                 return false;
             }
             $warehouse = $this->remember('warehouse:'.$warehouseId, fn () => app(InventoryApi::class)->warehouse($warehouseId));
-            $scopes = $this->remember('warehouse-scopes:'.$actor->id, fn () => DB::table('user_warehouse_scopes')->where('user_id', $actor->id)->pluck('branch_id', 'warehouse_id')->all());
+            $scopes = $this->warehouseScopeMap($actor->id);
 
             return $warehouse && $warehouse['branch_id'] === $branchId
                 && isset($this->scopedBranches($actor->id)[$branchId])

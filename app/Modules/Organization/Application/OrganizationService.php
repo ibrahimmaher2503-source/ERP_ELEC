@@ -186,18 +186,18 @@ final class OrganizationService implements OrganizationApi
     {
         $this->actor($request->actorId);
         $this->query($request->scopeBranchId, $request->warehouseIds, $request->filters, $request->page, $request->pageSize);
-        $ids = DB::table('user_warehouse_scopes')->where('user_id', $request->actorId);
+        $map = app(PermissionAccess::class)->warehouseScopeMap($request->actorId);
         if ($request->scopeBranchId !== null) {
-            $ids->where('branch_id', $request->scopeBranchId);
+            $map = array_filter($map, fn ($branchId) => $branchId === $request->scopeBranchId);
         }
         if ($request->warehouseIds !== []) {
-            $ids->whereIn('warehouse_id', $request->warehouseIds);
+            $map = array_intersect_key($map, array_flip($request->warehouseIds));
         }
-        $branches = DB::table('user_branch_scopes')->where('user_id', $request->actorId)->pluck('branch_id');
-        $ids->whereIn('branch_id', $branches);
-        $total = (clone $ids)->count();
+        $ids = array_keys($map);
+        sort($ids);
+        $total = count($ids);
 
-        return new ListAllowedWarehousesResult($ids->orderBy('warehouse_id')->forPage($request->page, $request->pageSize)->pluck('warehouse_id')->map(fn ($id) => (int) $id)->all(), $request->page, $request->pageSize, $total);
+        return new ListAllowedWarehousesResult(array_map('intval', array_slice($ids, ($request->page - 1) * $request->pageSize, $request->pageSize)), $request->page, $request->pageSize, $total);
     }
 
     public function listBranchesForPermission(AuthorizeRequest $request): array

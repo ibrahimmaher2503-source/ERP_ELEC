@@ -545,8 +545,11 @@ class OptimizationRegressionTest extends TestCase
         $branch = Branch::factory()->create();
         $actor = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
         $warehouse = Warehouse::factory()->create(['branch_id' => $branch->id]);
-        $adminRoleId = DB::table('roles')->where('code', 'Administrator')->value('id');
-        DB::table('user_roles')->insert(['user_id' => $actor->id, 'role_id' => $adminRoleId, 'created_at' => now(), 'updated_at' => now()]);
+        $roleId = DB::table('roles')->where('code', 'WarehouseManager')->value('id');
+        foreach (['M06.issue_post', 'M06.movement_view', 'M06.export'] as $code) {
+            DB::table('role_permissions')->insertOrIgnore(['role_id' => $roleId, 'permission_code' => $code, 'created_at' => now(), 'updated_at' => now()]);
+        }
+        DB::table('user_roles')->insert(['user_id' => $actor->id, 'role_id' => $roleId, 'created_at' => now(), 'updated_at' => now()]);
         DB::table('user_branch_scopes')->insert(['user_id' => $actor->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
         DB::table('user_warehouse_scopes')->insert(['user_id' => $actor->id, 'warehouse_id' => $warehouse->id, 'branch_id' => $branch->id, 'created_at' => now(), 'updated_at' => now()]);
 
@@ -565,6 +568,20 @@ class OptimizationRegressionTest extends TestCase
         $this->assertSame([], $api->inventoryScopes($actor->id), 'Warehouse scope revocation must invalidate the request snapshot.');
         DB::rollBack();
         $this->assertCount(1, $api->inventoryScopes($actor->id), 'Rollback must restore the warehouse scope in the same request.');
+    }
+
+    public function test_administrator_covers_every_branch_and_warehouse_without_scope_rows(): void
+    {
+        $branch = Branch::factory()->create();
+        $warehouse = Warehouse::factory()->create(['branch_id' => $branch->id]);
+        $actor = User::factory()->create(['active' => true, 'email_verified_at' => now()]);
+        $adminRoleId = DB::table('roles')->where('code', 'Administrator')->value('id');
+        DB::table('user_roles')->insert(['user_id' => $actor->id, 'role_id' => $adminRoleId, 'created_at' => now(), 'updated_at' => now()]);
+
+        $api = app(OrganizationApi::class);
+        $this->assertSame(0, DB::table('user_branch_scopes')->where('user_id', $actor->id)->count());
+        $this->assertContains($warehouse->id, array_column($api->inventoryScopes($actor->id), 'warehouse_id'));
+        $this->assertContains($branch->id, array_column($api->listBranchesForPermission(new AuthorizeRequest($actor->id, 'M05.requisition_view')), 'id'));
     }
 
     public function test_populated_maintenance_rows_render_server_side_mobile_labels(): void
