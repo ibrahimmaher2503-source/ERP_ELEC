@@ -66,7 +66,7 @@
                             <td role="cell" data-label="التسليم المطلوب" class="px-4 py-3 tabular-nums"><bdi>{{ $record->requested_delivery_date?->format('Y/m/d') ?? 'غير محدد' }}</bdi></td>
                             <td role="cell" data-label="الحالة / العمليات" class="px-4 py-3"><div>@include('sales.orders.partials.workflow-statuses', ['record' => $record, 'compact' => true])</div></td>
                             <td role="cell" data-label="الصافي قبل الضرائب" class="px-4 py-3 tabular-nums"><bdi>{{ \App\Modules\Sales\Application\DraftAmounts::display($record->calculation['net'] ?? null) }} ج.م</bdi></td>
-                            <td role="cell" data-label="المنشئ" class="px-4 py-3 text-slate-600">{{ $record->created_by ? 'مستخدم #'.$record->created_by : 'غير محدد' }}</td>
+                            <td role="cell" data-label="المنشئ" class="px-4 py-3 text-slate-600">{{ $record->created_by ? \App\Modules\Organization\Presentation\UserNames::name($record->created_by) : 'غير محدد' }}</td>
                             <td role="cell" data-label="الإجراءات" class="px-4 py-3"><div class="flex items-center gap-1">
                                 <flux:button size="xs" variant="ghost" icon="eye" :href="route('sales-orders.show', ['order' => $record->id])" wire:navigate aria-label="عرض أمر البيع" />
                                 @if($record->editable() && $can('edit', (int) $record->branch_id))<flux:button size="xs" variant="ghost" icon="pencil-square" :href="route('sales-orders.edit', ['order' => $record->id])" wire:navigate aria-label="تعديل المسودة" />@endif

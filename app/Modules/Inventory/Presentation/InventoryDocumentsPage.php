@@ -29,6 +29,9 @@ final class InventoryDocumentsPage extends Component
         $q = app(InventoryQuery::class)->documents(Auth::id(), $this->kind);
         $ids = array_column(app(OrganizationApi::class)->inventoryScopes(Auth::id()), 'warehouse_id');
 
-        return view('inventory.documents', ['title' => InventoryDocuments::KINDS[$this->kind], 'rows' => $q->orderByDesc('id')->paginate(15), 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', $ids)->get()])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
+        $page = $q->orderByDesc('id')->paginate(15);
+        $lineStats = DB::table('inventory_document_lines')->whereIn('document_id', $page->pluck('id'))->selectRaw('document_id, count(*) as items, sum(quantity) as total')->groupBy('document_id')->get()->keyBy('document_id');
+
+        return view('inventory.documents', ['lineStats' => $lineStats, 'title' => InventoryDocuments::KINDS[$this->kind], 'rows' => $page, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', $ids)->get()])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
     }
 }

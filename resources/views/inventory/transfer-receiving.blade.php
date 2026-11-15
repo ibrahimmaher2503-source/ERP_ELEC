@@ -18,5 +18,5 @@
       <flux:button type="submit" variant="primary" wire:loading.attr="disabled" wire:confirm="ترحيل الكميات المستلمة وتسجيل الفروقات؟ لا يمكن تعديل الحدث بعد تسجيله.">تسجيل دفعة الاستلام</flux:button>
     </form>
     @endif
-    <ol class="mt-4 divide-y divide-slate-100">@forelse($transferReceipts as $receipt)<li class="py-3 text-sm">دفعة #{{ $receipt->id }} · مستخدم #{{ $receipt->actor_id }} · {{ \Carbon\CarbonImmutable::parse($receipt->occurred_at)->timezone('Africa/Cairo')->format('Y-m-d H:i') }}<p>{{ $receipt->reason }}</p><p>{{ $receipt->evidence }}</p></li>@empty<li class="py-3 text-sm text-slate-500">لم تسجل دفعات استلام بعد.</li>@endforelse</ol>
+    <ol class="mt-4 divide-y divide-slate-100">@forelse($transferReceipts as $receipt)<li class="py-3 text-sm">دفعة #{{ $receipt->id }} · <x-erp.user-name :id="$receipt->actor_id" /> · {{ \Carbon\CarbonImmutable::parse($receipt->occurred_at)->timezone('Africa/Cairo')->format('Y-m-d H:i') }}<p>{{ $receipt->reason }}</p><p>{{ $receipt->evidence }}</p></li>@empty<li class="py-3 text-sm text-slate-500">لم تسجل دفعات استلام بعد.</li>@endforelse</ol>
 </x-erp.section-card>

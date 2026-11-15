@@ -118,6 +118,9 @@ final class InventoryDocumentPage extends Component
             $this->reload();
         } else {
             abort_unless(app(InventoryAccess::class)->ids(Auth::id(), app(InventoryDocuments::class)->permission($kind, 'create')) !== [], 403);
+            if ($kind === 'opening') {
+                $this->form['reason'] = 'رصيد افتتاحي';
+            }
         }
     }
 

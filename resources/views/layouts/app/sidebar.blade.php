@@ -103,7 +103,7 @@
                     <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المخزون</h2>
                     @if($inventoryNavigation ?? [])
                     <flux:sidebar.group heading="المخزون" icon="archive-box" expandable :expanded="request()->routeIs('inventory.*')">
-                        @foreach(['dashboard'=>'لوحة المخزون','balances'=>'الأرصدة','receipts'=>'الاستلام والأرصدة الافتتاحية','issues'=>'الصرف','transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','reservations'=>'الحجوزات','movements'=>'سجل الحركات','warehouses'=>'المستودعات'] as $destination=>$label)
+                        @foreach(['dashboard'=>'لوحة المخزون','balances'=>'الأرصدة','receipts'=>'الاستلام والأرصدة الافتتاحية','issues'=>'الصرف','transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','reservations'=>'الحجوزات','movements'=>'سجل الحركات','serials'=>'الأرقام المسلسلة','isolations'=>'المخزون غير المتاح','corrections'=>'تصحيح الحركات','warehouses'=>'المستودعات'] as $destination=>$label)
                         @if($inventoryNavigation[$destination] ?? false)<flux:sidebar.item :href="route('inventory.'.$destination)" :current="request()->routeIs('inventory.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endif
                         @endforeach
                     </flux:sidebar.group>
