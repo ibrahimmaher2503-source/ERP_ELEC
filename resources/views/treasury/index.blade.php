@@ -26,6 +26,7 @@
                 @endif
                 <flux:input wire:model="form.date" type="date" label="التاريخ" required/><flux:input wire:model="form.amount" inputmode="decimal" label="المبلغ ج.م" required/><flux:input wire:model="form.reference" label="المرجع" required/>
             @endif
+            @if($screen!=='accounts')@php($amt=trim((string)($form['amount'] ?? '')))<p class="md:col-span-3 rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-900" aria-live="polite">@if($amt==='')أدخل المبلغ ليظهر ملخص العملية هنا.@else سيتم @if($screen==='collections')تسجيل تحصيل @elseif($screen==='payments')تجهيز دفعة @else تحويل @endif بمبلغ <strong><bdi>{{ $amt }}</bdi> ج.م</strong> بتاريخ <bdi>{{ $form['date'] ?? '' }}</bdi>. راجع الحساب والطرف قبل الحفظ.@endif</p>@endif
             <div class="md:col-span-3"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">{{ $screen==='payments'?'تجهيز الدفعة':($screen==='collections'?'تسجيل التحصيل':'تنفيذ التحويل') }}</flux:button></div>
         </form>
     </x-ui.panel>

@@ -15,7 +15,7 @@
         <div class="erp-kpi-summary grid grid-cols-2 gap-3"><x-erp.stat-card label="القيمة الأصلية" :value="$totals['original'].' ج.م'" icon="document-text"/><x-erp.stat-card label="الرصيد المتبقي" :value="$totals['remaining'].' ج.م'" icon="calculator"/></div>
     @endif
     @if($screen==='supplier-invoices' && $access->branches(auth()->id(),'supplier_invoice_manage')!==[])
-        <x-ui.panel><h2 class="mb-1 font-semibold">فاتورة مورد جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر المورد، ثم أمر الشراء المستلَم، ثم الأصناف المستلمة التي وصلت فاتورتها. يُقترح سعر الأمر ويمكنك تعديله لسعر الفاتورة.</p>
+        <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['supplier_id'] ?? '') !== '' || $supplierSearch !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> فاتورة مورد جديدة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">فاتورة مورد جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر المورد، ثم أمر الشراء المستلَم، ثم الأصناف المستلمة التي وصلت فاتورتها. يُقترح سعر الأمر ويمكنك تعديله لسعر الفاتورة.</p>
         <form wire:submit="createSupplier" class="space-y-4">
             @php($receiptOrders = collect($receipts)->groupBy('order_id'))
             <div class="grid gap-3 md:grid-cols-2">
@@ -31,9 +31,9 @@
             <div class="grid gap-3 md:grid-cols-4"><flux:input wire:model="form.supplier_invoice_number" label="٤) رقم فاتورة المورد" required/><flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><flux:select wire:model="form.tax_mode" label="الأسعار"><option value="exclusive">غير شاملة الضريبة</option><option value="inclusive">شاملة الضريبة</option></flux:select></div>
             <flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة ومطابقتها مع الاستلام</flux:button>
             @endif
-        </form></x-ui.panel>
+        </form></x-ui.panel></div></details>
     @elseif($screen==='customer-invoices' && $access->branches(auth()->id(),'customer_invoice_manage')!==[])
-        <x-ui.panel><h2 class="mb-1 font-semibold">فاتورة عميل جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر العميل، ثم الأمر الذي سُلّم، ثم البنود والكميات التي تريد فوترتها. المسودة لا تُرحَّل قبل اعتمادها.</p>
+        <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['customer_id'] ?? '') !== '' || $customerSearch !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> فاتورة عميل جديدة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">فاتورة عميل جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر العميل، ثم الأمر الذي سُلّم، ثم البنود والكميات التي تريد فوترتها. المسودة لا تُرحَّل قبل اعتمادها.</p>
         <form wire:submit="createCustomer" class="space-y-4">
             @php($orders = collect($invoiceable)->groupBy('order_id'))
             <div class="grid gap-3 md:grid-cols-2">
@@ -48,13 +48,13 @@
                 <flux:error name="picked" /></div>
             <div class="grid gap-3 md:grid-cols-3"><flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><div class="self-end"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة</flux:button></div></div>
             @endif
-        </form></x-ui.panel>
+        </form></x-ui.panel></div></details>
     @elseif($screen==='credit-notes' && $access->branches(auth()->id(),'credit_note_manage')!==[])
-        <x-ui.panel><h2 class="mb-1 font-semibold">إشعار تعديل على فاتورة مرحّلة</h2><p class="mb-3 text-xs text-slate-500">اختر نوع الفاتورة ثم الفاتورة نفسها من القائمة، وأدخل القيمة وسبب التعديل.</p><form wire:submit="createCredit" class="grid gap-3 md:grid-cols-3">
+        <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['invoice_id'] ?? '') !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> إشعار تعديل على فاتورة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">إشعار تعديل على فاتورة مرحّلة</h2><p class="mb-3 text-xs text-slate-500">اختر نوع الفاتورة ثم الفاتورة نفسها من القائمة، وأدخل القيمة وسبب التعديل.</p><form wire:submit="createCredit" class="grid gap-3 md:grid-cols-3">
             <flux:select wire:model.live="form.kind" label="١) الإشعار على فاتورة"><option value="supplier">مورد</option><option value="customer">عميل</option></flux:select><flux:select wire:model="form.invoice_id" label="٢) الفاتورة الأصلية" required><option value="">اختر الفاتورة ({{ count($creditInvoices) }})</option>@foreach($creditInvoices as $ci)<option value="{{ $ci->id }}">{{ $ci->party }} · {{ $ci->invoice_date }} · {{ $ci->total_amount }} ج.م · #{{ $ci->id }}</option>@endforeach</flux:select>
             <flux:input wire:model="form.note_date" type="date" label="تاريخ الإشعار" required/><flux:input wire:model="form.amount" inputmode="decimal" label="القيمة ج.م" required/><flux:input wire:model="form.reason" label="سبب التصحيح" required/>
             <div class="erp-form-actions"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الإشعار</flux:button></div>
-        </form></x-ui.panel>
+        </form></x-ui.panel></div></details>
     @endif
     <x-ui.panel>
         <div @class(['overflow-x-auto', 'financial-open-items-table'=>in_array($screen,['ap','ar','aging'],true)])><table>
