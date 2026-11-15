@@ -33,7 +33,7 @@
                         <tr role="row">
                             <th role="columnheader" class="p-4 text-start">#</th>
                             <th role="columnheader" class="p-4 text-start">الاسم</th>
-                            <th role="columnheader" class="p-4 text-start">الكود</th>
+                            @if ($kind !== 'unit')<th role="columnheader" class="p-4 text-start">الكود</th>@endif
                             @if ($kind === 'category')<th role="columnheader" class="p-4 text-start">المنتجات</th>@endif
                             <th role="columnheader" class="p-4 text-start">الحالة</th>
                             <th role="columnheader" class="p-4 text-start">الإجراءات</th>
@@ -47,7 +47,7 @@
                                     <button type="button" class="text-start font-medium hover:text-blue-700" wire:click="showDetails({{ $record->id }})" aria-label="عرض تفاصيل {{ $record->name }}">{{ $record->name }}</button>
                                     @if ($kind === 'category' && $record->parent)<div class="mt-1 text-xs text-slate-500">تابع لـ {{ $record->parent->name }}</div>@endif
                                 </div></td>
-                                <td role="cell" data-label="الكود" class="p-4"><div><bdi>{{ $record->code }}</bdi></div></td>
+                                @if ($kind !== 'unit')<td role="cell" data-label="الكود" class="p-4"><div><bdi>{{ $record->code }}</bdi></div></td>@endif
                                 @if ($kind === 'category')<td role="cell" data-label="المنتجات" class="p-4"><div>{{ $record->products_count }}</div></td>@endif
                                 <td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$record->active" /></div></td>
                                 <td role="cell" data-label="الإجراءات" class="p-4"><div>
@@ -58,7 +58,7 @@
                                 </div></td>
                             </tr>
                         @empty
-                            <tr role="row"><td colspan="{{ $kind === 'category' ? 6 : 5 }}" class="p-8"><x-ui.empty-state title="لا توجد سجلات للعرض" description="جرّب تغيير البحث أو حالة السجلات." /></td></tr>
+                            <tr role="row"><td colspan="{{ $kind === 'category' ? 6 : ($kind === 'unit' ? 4 : 5) }}" class="p-8"><x-ui.empty-state title="لا توجد سجلات للعرض" description="جرّب تغيير البحث أو حالة السجلات." /></td></tr>
                         @endforelse
                     </tbody>
                 </table></x-ui.responsive-table>
@@ -74,7 +74,7 @@
                 </div>
                 <dl class="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-1">
                     <x-erp.information-row label="الاسم">{{ $selected->name }}</x-erp.information-row>
-                    <x-erp.information-row label="الكود"><bdi>{{ $selected->code }}</bdi></x-erp.information-row>
+                    @if ($kind !== 'unit')<x-erp.information-row label="الكود"><bdi>{{ $selected->code }}</bdi></x-erp.information-row>@endif
                     <x-erp.information-row label="الحالة"><x-erp.status-badge :active="$selected->active" /></x-erp.information-row>
                     @if ($kind === 'category')
                         <x-erp.information-row label="الفئة الأم">{{ $selected->parent?->name ?: 'بدون فئة أم' }}</x-erp.information-row>
@@ -94,7 +94,7 @@
         <form wire:submit="save" class="space-y-5">
             <x-ui.validation-summary />
             <flux:heading size="lg">{{ $editingId ? 'تعديل سجل' : 'إضافة سجل' }} · {{ $kindLabel }}</flux:heading>
-            <flux:input wire:model="form.code" label="الكود" required maxlength="50" />
+            @if ($kind !== 'unit')<flux:input wire:model="form.code" label="الكود" required maxlength="50" />@endif
             <flux:input wire:model="form.name" label="الاسم" required maxlength="200" />
             @if ($kind === 'category')
                 <flux:select wire:model="form.parent_id" label="الفئة الأم">

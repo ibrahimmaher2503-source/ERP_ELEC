@@ -100,6 +100,16 @@ class MastersPage extends Component
         $this->authorizeManage();
         abort_unless(($this->editingId === null) === ($this->version === null), 422);
 
+        if ($this->kind === 'unit' && trim((string) ($this->form['code'] ?? '')) === '') {
+            // Units are identified by name; the internal code is generated and never shown.
+            $model = $this->modelClass();
+            $n = $model::query()->count() + 1;
+            while ($model::query()->where('code', 'U-'.str_pad((string) $n, 4, '0', STR_PAD_LEFT))->exists()) {
+                $n++;
+            }
+            $this->form['code'] = 'U-'.str_pad((string) $n, 4, '0', STR_PAD_LEFT);
+        }
+
         try {
             $input = match ($this->kind) {
                 'category' => ['code' => $this->form['code'] ?? null, 'name' => $this->form['name'] ?? null, 'parent_id' => ($this->form['parent_id'] ?? '') === '' ? null : $this->form['parent_id'], 'active' => $this->form['active'] ?? null],
