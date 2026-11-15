@@ -1,5 +1,6 @@
 <div class="space-y-5" data-erp-archetype="detail">
     <x-page.heading title="مقدمات العملاء" description="تطبيق الأرصدة المحصلة فعليًا أو ردها، مع الاحتفاظ بالمصدر والقيد والتاريخ" />
+    <x-erp.finance-banner />
     @if(session('status'))<flux:callout role="status" variant="success">{{ session('status') }}</flux:callout>@endif
     <x-ui.validation-summary />
     <x-ui.panel><div class="grid gap-4 sm:grid-cols-2"><flux:select label="الفرع" wire:model.live="branch"><option value="">اختر الفرع</option>@foreach($branches as $b)<option value="{{ $b['id'] }}">{{ $b['name'] }}</option>@endforeach</flux:select><flux:select label="المقدم المحصل" wire:model.live="advanceId"><option value="">اختر المقدم</option>@foreach($advances as $a)@if((int)$a->branch_id===(int)$branch)<option value="{{ $a->id }}">#{{ $a->id }} · عميل #{{ $a->customer_id }} · متبقٍ {{ $a->remaining }} ج.م</option>@endif@endforeach</flux:select></div></x-ui.panel>

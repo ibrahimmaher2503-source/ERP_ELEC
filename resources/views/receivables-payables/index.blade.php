@@ -1,5 +1,6 @@
 <div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="financial-workspace space-y-5">
-    <x-page.heading :title="$nav[$screen][0]" description="تشغيل الذمم من المستندات المصدرية المرحّلة فقط" :breadcrumbs="['الذمم المدينة والدائنة', $nav[$screen][0]]" />
+    <x-page.heading :title="$nav[$screen][0]" description="تشغيل الذمم من المستندات المصدرية المرحّلة فقط" :breadcrumbs="['المالية', $nav[$screen][0]]" />
+    <x-erp.finance-banner />
     @if($access->branches(auth()->id(),'ar_view')!==[] || $access->branches(auth()->id(),'ap_view')!==[])<flux:button :href="route('financial.party-credits')" wire:navigate>رد الأرصدة الدائنة</flux:button>@endif
     @if(session('financial_message'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('financial_message') }}</flux:callout>@endif
     <x-ui.validation-summary />

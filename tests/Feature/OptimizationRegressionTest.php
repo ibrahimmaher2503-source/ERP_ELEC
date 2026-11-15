@@ -983,7 +983,7 @@ class OptimizationRegressionTest extends TestCase
             ->assertSee('تعديل الحساب')
             ->call('newRecord')
             ->assertSet('selected', null)
-            ->assertSee('إضافة سجل');
+            ->assertSee('إضافة حساب جديد');
 
         $journalId = (int) DB::table('accounting_journals')->insertGetId([
             'creation_key' => (string) Str::uuid(),

@@ -5,6 +5,7 @@ namespace App\Modules\Accounting\Application;
 use App\Modules\Organization\Application\Contracts\AuthorizeRequest;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use Illuminate\Support\Facades\DB;
 
 final class AccountingAccess
 {
@@ -40,6 +41,12 @@ final class AccountingAccess
         } catch (ContractException $error) {
             abort($error->getCode() === 403 ? 403 : 503, 'إقفال الشركة يتطلب صلاحية تقارير جميع الفروع وبياناتها المكتملة.');
         }
+    }
+
+    /** True once the company activated financial posting (go-live date, taxes and approved openings). */
+    public function activated(): bool
+    {
+        return (bool) DB::table('accounting_activation')->where('id', 1)->value('activated_at');
     }
 
     public function navigation(int $actor): array

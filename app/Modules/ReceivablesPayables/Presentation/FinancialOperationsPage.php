@@ -143,7 +143,7 @@ final class FinancialOperationsPage extends Component
         $remaining = array_column($this->invoiceableLines(), 'remaining', 'delivery_line_id');
         $lines = [];
         foreach ($this->picked as $lineId => $choice) {
-            if (! empty($choice['on'])) {
+            if (! empty($choice['on']) && isset($remaining[(int) $lineId])) {
                 $qty = trim((string) ($choice['qty'] ?? ''));
                 $lines[] = ['delivery_line_id' => (int) $lineId, 'quantity' => $qty !== '' ? $qty : (string) ($remaining[(int) $lineId] ?? '')];
             }

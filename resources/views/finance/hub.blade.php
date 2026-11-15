@@ -36,6 +36,7 @@
 @endphp
 <div data-erp-archetype="dashboard" class="space-y-8">
     <x-page.heading title="المالية" description="ابدأ من المهمة التي تريد إنجازها، ولا تحتاج حفظ أي رقم داخلي" :breadcrumbs="['المالية']" />
+    <x-erp.finance-banner />
 
     @if(! $daily && ! $follow && ! $reports && ! $accountant)
         <x-ui.empty-state title="لا توجد صفحات مالية متاحة لحسابك" description="اطلب من مدير النظام صلاحيات المالية وربطك بفرع." icon="lock-closed" />

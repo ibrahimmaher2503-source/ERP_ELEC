@@ -1,5 +1,6 @@
 <div class="space-y-5" data-erp-archetype="{{ $detail?'detail':'list' }}">
     <x-page.heading title="كشوف البنك والمطابقة" description="مطابقة حركات الفرع الفعلية مع ملف البنك، مع حفظ الفروق والمراجعات دون قيود تسوية تلقائية" />
+    <x-erp.finance-banner />
     @if(session('status'))<flux:callout variant="success" role="status">{{ session('status') }}</flux:callout>@endif
     <x-ui.validation-summary />
     @if($detail)
