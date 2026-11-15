@@ -8,7 +8,7 @@
         <h2 class="mb-4">{{ $screen==='accounts'?'إعداد حساب تشغيلي':($screen==='payments'?'إعداد طلب دفع':($screen==='collections'?'تنفيذ تحصيل':'تنفيذ تحويل مباشر')) }}</h2>
         <form wire:submit="save" class="grid gap-3 md:grid-cols-3">
             @if($screen==='accounts')
-                <flux:input wire:model="form.code" label="الكود" required/><flux:input wire:model="form.name" label="الاسم" required/><flux:select wire:model="form.kind" label="النوع"><option value="bank">بنك</option><option value="cash">خزينة نقدية</option></flux:select>
+                <x-erp.code-input prefix="TR" wire:model="form.code" label="الكود" required /><flux:input wire:model="form.name" label="الاسم" required/><flux:select wire:model="form.kind" label="النوع"><option value="bank">بنك</option><option value="cash">خزينة نقدية</option></flux:select>
                 <flux:select wire:model="form.gl_account_id" label="حساب الأستاذ" required><option value="">اختر الحساب المطابق</option>@foreach($glAccounts as $item)<option value="{{ $item->id }}">{{ $item->code }} · {{ $item->name }}</option>@endforeach</flux:select>
             @else
                 <flux:select wire:model="form.branch_id" label="الفرع" required><option value="">اختر الفرع</option>@foreach($branches as $item)<option value="{{ $item['id'] }}">{{ $item['name'] }}</option>@endforeach</flux:select>

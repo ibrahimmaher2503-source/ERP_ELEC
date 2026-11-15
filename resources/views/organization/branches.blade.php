@@ -48,7 +48,7 @@
         <form wire:submit="save" class="space-y-5">
             <x-ui.validation-summary />
             <flux:heading size="lg">{{ $editingId ? 'تعديل الفرع' : 'إضافة فرع' }}</flux:heading>
-            <flux:input wire:model="form.code" label="كود الفرع" description="كود فريد للفرع، بحد أقصى 50 حرفًا." required maxlength="50" />
+            <x-erp.code-input prefix="BR" wire:model="form.code" label="كود الفرع" description="كود فريد للفرع، بحد أقصى 50 حرفًا." required maxlength="50" />
             <flux:input wire:model="form.name" label="اسم الفرع" required maxlength="200" />
             <flux:textarea wire:model="form.address" label="العنوان" maxlength="2000" />
             <flux:input wire:model="form.manager_name" label="مدير الفرع" maxlength="200" />

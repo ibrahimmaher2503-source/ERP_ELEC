@@ -94,7 +94,7 @@
         <form wire:submit="save" class="space-y-5">
             <x-ui.validation-summary />
             <flux:heading size="lg">{{ $editingId ? 'تعديل سجل' : 'إضافة سجل' }} · {{ $kindLabel }}</flux:heading>
-            @if ($kind !== 'unit')<flux:input wire:model="form.code" label="الكود" required maxlength="50" />@endif
+            @if ($kind !== 'unit')<x-erp.code-input :prefix="$kind === 'brand' ? 'BRD' : 'CAT'" wire:model="form.code" label="الكود" required maxlength="50" />@endif
             <flux:input wire:model="form.name" label="الاسم" required maxlength="200" />
             @if ($kind === 'category')
                 <flux:select wire:model="form.parent_id" label="الفئة الأم">

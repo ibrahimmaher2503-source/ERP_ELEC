@@ -129,7 +129,7 @@
                     <p class="text-sm text-slate-500">الزيارات السابقة تحتفظ بنسخة الفحص المسجلة وقت جدولتها.</p>
                     <div class="grid gap-4 md:grid-cols-3">
                         <flux:select label="الفرع" wire:model="template.branch_id" :disabled="$templateId !== null"><option value="">اختر الفرع</option>@foreach($templateBranches as $b)<option value="{{ $b['id'] }}">{{ $b['name'] }}</option>@endforeach</flux:select>
-                        <flux:input label="كود القالب" wire:model="template.code"/>
+                        <x-erp.code-input prefix="TPL" label="كود القالب" wire:model="template.code" />
                         <flux:input label="عنوان القالب" wire:model="template.title"/>
                     </div>
                     @foreach($template['items'] as $i=>$item)

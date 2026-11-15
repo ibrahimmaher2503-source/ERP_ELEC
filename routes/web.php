@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Middleware\EnsureV2Available;
 use App\Http\Controllers\OneTimeAdminController;
+use App\Http\Middleware\EnsureV2Available;
 use App\Livewire\ExecutiveDashboardPage;
 use App\Modules\Accounting\Presentation\AccountingPage;
 use App\Modules\Accounting\Presentation\FinancialReportExportController;

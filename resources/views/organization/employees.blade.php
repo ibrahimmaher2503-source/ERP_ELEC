@@ -112,7 +112,7 @@
                     <option value="">اختر الفرع</option>
                     @foreach($manageBranches as $b)<option value="{{ $b['id'] }}">{{ $b['name'] }}</option>@endforeach
                 </flux:select>
-                <flux:input label="كود الموظف" wire:model="form.code" :disabled="(bool)$employeeId" required maxlength="50" />
+                <x-erp.code-input prefix="EMP" label="كود الموظف" wire:model="form.code" :disabled="(bool)$employeeId" required maxlength="50" />
             </div>
             <flux:input label="المسمى الوظيفي (اختياري)" wire:model="form.job_title" maxlength="200" list="employee-job-titles" />
             <datalist id="employee-job-titles">@foreach($jobTitles as $title)<option value="{{ $title }}"></option>@endforeach</datalist>

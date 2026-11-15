@@ -12,7 +12,7 @@
             <x-erp.section-card title="المعلومات الأساسية" icon="identification"><div class="grid gap-4 md:grid-cols-3">
                 <flux:input wire:model.live.debounce.300ms="form.name" label="الاسم القانوني بالعربية" required maxlength="200" />
                 <flux:input wire:model.live="form.name_en" label="الاسم القانوني بالإنجليزية" maxlength="200" />
-                <flux:input wire:model.live="form.code" :label="'كود '.$ui->singular" required :readonly="$recordId !== null" :placeholder="$ui->supplier ? 'SUP-0001' : 'C-0001'" dir="ltr" />
+                <x-erp.code-input :prefix="$ui->supplier ? 'SUP' : 'C'" wire:model.live="form.code" :label="'كود '.$ui->singular" required :readonly="$recordId !== null" :placeholder="$ui->supplier ? 'SUP-0001' : 'C-0001'" dir="ltr" />
                 <flux:input wire:model.live="form.trading_name" label="الاسم التجاري" />
                 <flux:select wire:model.live="form.entity_type" label="الكيان القانوني" required><option value="organization">شركة / مؤسسة</option><option value="individual">فرد</option></flux:select>
                 @if($ui->supplier)
