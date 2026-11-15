@@ -29,6 +29,24 @@ final class SalesDeliveryService implements SalesDeliverySources
         return app(SalesReturns::class)->authorizeMovement($actor, $order, $line);
     }
 
+    public function confirmedDeliveryLines(int $actor, int $customerId): array
+    {
+        $branches = app(SalesOrderAccess::class)->branchIds($actor, 'view');
+        if ($branches === []) {
+            return [];
+        }
+
+        return DB::table('sales_delivery_instruction_lines as dl')
+            ->join('sales_delivery_instructions as d', 'd.id', '=', 'dl.instruction_id')
+            ->join('sales_order_lines as l', 'l.id', '=', 'dl.line_id')
+            ->join('sales_orders as o', 'o.id', '=', 'l.sales_order_id')
+            ->where('d.status', 'confirmed')->where('o.customer_id', $customerId)->whereIn('o.branch_id', $branches)
+            ->orderByDesc('d.id')->orderBy('l.position')->limit(300)
+            ->get(['dl.id as delivery_line_id', 'dl.quantity as delivered_quantity', 'd.id as delivery_id', 'd.reference as delivery_reference',
+                'd.confirmed_at', 'o.id as order_id', 'o.number as order_number', 'l.product_id', 'l.description'])
+            ->map(fn ($row) => (array) $row)->all();
+    }
+
     public function customerInvoiceSource(int $actor, array $deliveryLineIds): array
     {
         abort_unless(DB::transactionLevel() > 0 && $deliveryLineIds !== [], 422);

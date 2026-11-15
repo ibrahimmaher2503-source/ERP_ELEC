@@ -44,9 +44,9 @@ final class AccountingAccess
 
     public function navigation(int $actor): array
     {
-        return array_filter(['setup' => 'إعداد التفعيل المالي', 'dashboard' => 'لوحة المحاسبة', 'accounts' => 'دليل الحسابات', 'periods' => 'الفترات المالية', 'journals' => 'القيود اليومية',
+        return array_filter(['setup' => 'تجهيز النظام المالي', 'dashboard' => 'ملخص المحاسبة', 'accounts' => 'دليل الحسابات', 'periods' => 'الفترات المالية', 'journals' => 'القيود اليومية',
             'ledger' => 'الأستاذ العام', 'trial-balance' => 'ميزان المراجعة', 'income-statement' => 'قائمة الدخل', 'balance-sheet' => 'الميزانية',
-            'grni' => 'مصادقة استلامات بانتظار الفوترة', 'ppv' => 'فروق سعر الشراء', 'reconciliation' => 'المصالحات المالية', 'closing' => 'إقفال الفترات'], fn ($label, $screen) => match ($screen) {
+            'grni' => 'استلامات لم تُفوتر بعد', 'ppv' => 'فروق أسعار الشراء', 'reconciliation' => 'مطابقة الحسابات', 'closing' => 'إقفال الفترة المالية'], fn ($label, $screen) => match ($screen) {
                 'setup' => $this->allows($actor, 'setup_view'), 'accounts' => $this->allows($actor, 'account_view'), 'periods' => $this->allows($actor, 'period_view'), default => $this->branches($actor) !== []
             }, ARRAY_FILTER_USE_BOTH);
     }

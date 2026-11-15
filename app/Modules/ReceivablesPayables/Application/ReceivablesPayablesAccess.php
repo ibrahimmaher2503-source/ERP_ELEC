@@ -41,7 +41,7 @@ final class ReceivablesPayablesAccess
     {
         $items = ['supplier-invoices' => ['فواتير الموردين', 'supplier_invoice_view'], 'ap' => ['حسابات الموردين', 'ap_view'],
             'customer-invoices' => ['فواتير العملاء', 'customer_invoice_view'], 'ar' => ['حسابات العملاء', 'ar_view'],
-            'credit-notes' => ['الإشعارات الدائنة', 'credit_note_manage'], 'advances' => ['مقدمات العملاء', 'ar_view'], 'aging' => ['الأعمار والتخصيصات', 'ap_view']];
+            'credit-notes' => ['إشعارات الخصم والمرتجع', 'credit_note_manage'], 'advances' => ['مقدمات العملاء', 'ar_view'], 'aging' => ['أعمار الديون', 'ap_view']];
 
         return array_filter($items, fn ($item) => $this->branches($actor, $item[1]) !== []);
     }

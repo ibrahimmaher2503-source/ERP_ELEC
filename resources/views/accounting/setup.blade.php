@@ -1,8 +1,18 @@
 <div data-erp-archetype="form" class="space-y-6">
-    <x-page.heading title="إعداد التفعيل المالي" description="إعداد واحد للشركة · ج.م · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المحاسبة والمالية', 'إعداد التفعيل المالي']" />
-    <nav class="erp-section-nav flex flex-wrap gap-2" aria-label="المحاسبة">@foreach($nav as $destination => $label)<flux:button :href="route('accounting.'.$destination)" :variant="$destination==='setup'?'primary':'outline'" wire:navigate>{{ $label }}</flux:button>@endforeach</nav>
+    <x-page.heading title="تجهيز النظام المالي" description="إعداد واحد للشركة · ج.م · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المالية', 'تجهيز النظام المالي']" />
     @if(session('financial_message'))<p role="status" class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">{{ session('financial_message') }}</p>@endif
     <x-ui.validation-summary />
+    @php
+        $steps = [
+            ['١', 'التاريخ والحسابات', 'حدد تاريخ التشغيل واربط حسابات الأستاذ المطلوبة', '#financial-configuration', ! collect($blockers)->contains(fn ($b) => str_contains($b, 'تاريخ التشغيل') || str_contains($b, 'ربط الحساب'))],
+            ['٢', 'الضريبة', 'سجّل التحقق من المعاملة الضريبية للشركة', '#financial-taxes', (bool) $setup['tax_validated']],
+            ['٣', 'الأرصدة الافتتاحية', 'أدخل الأرصدة وطابقها ثم اعتمدها (يعتمدها مستخدم آخر)', '#financial-openings', $batch && $batch->status === 'approved'],
+            ['٤', 'التفعيل', 'بعد اكتمال الخطوات السابقة يُفتح الترحيل المالي', '#financial-openings', (bool) $setup['activated_at']],
+        ];
+        $firstOpen = collect($steps)->search(fn ($step) => ! $step[4]);
+    @endphp
+    <section aria-label="خطوات تجهيز النظام المالي" class="rounded-xl border border-slate-200 bg-white p-4"><h2 class="mb-3 text-sm font-semibold text-slate-600">خطوات التجهيز @if($firstOpen !== false)<span class="font-normal text-slate-500">· الخطوة التالية: {{ $steps[$firstOpen][1] }}</span>@else<span class="font-normal text-emerald-700">· اكتملت كل الخطوات</span>@endif</h2>
+        <ol class="grid gap-3 md:grid-cols-4">@foreach($steps as $i => [$n, $title, $desc, $href, $done])<li><a href="{{ $href }}" @class(['block h-full rounded-lg border p-3 text-sm', 'border-emerald-200 bg-emerald-50' => $done, 'border-blue-300 bg-blue-50' => ! $done && $firstOpen === $i, 'border-slate-200' => ! $done && $firstOpen !== $i])><span class="flex items-center gap-2 font-semibold"><span class="grid size-6 place-items-center rounded-full text-xs {{ $done ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-700' }}">{{ $done ? '✓' : $n }}</span>{{ $title }}</span><span class="mt-1 block text-xs text-slate-600">{{ $desc }}</span></a></li>@endforeach</ol></section>
     <nav class="erp-form-nav" aria-label="خطوات تجهيز التشغيل المالي"><a href="#financial-configuration">التاريخ والحسابات</a><a href="#financial-taxes">الضريبة</a><a href="#financial-openings">الأرصدة والاعتماد</a></nav>
     <div class="rounded border p-4 {{ $setup['activated_at']?'border-emerald-200 bg-emerald-50':'border-amber-200 bg-amber-50' }}" role="status">
         <h2 class="font-semibold">{{ $setup['activated_at']?'الترحيل المالي مفعل':'الترحيل المالي مغلق' }}</h2>

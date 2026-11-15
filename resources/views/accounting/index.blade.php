@@ -1,11 +1,10 @@
 <div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="space-y-5">
-<x-page.heading :title="$nav[$screen]" description="المحاسبة والمالية · الجنيه المصري ج.م" :breadcrumbs="['المحاسبة والمالية', $nav[$screen]]" />
-<div class="erp-section-nav flex flex-wrap gap-2">@foreach($nav as $destination=>$label)<flux:button :href="route('accounting.'.$destination)" :variant="$screen===$destination?'primary':'outline'" wire:navigate>{{ $label }}</flux:button>@endforeach</div>
+<x-page.heading :title="$nav[$screen]" description="الجنيه المصري ج.م" :breadcrumbs="['المالية', $nav[$screen]]" />
 @if(session('accounting_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('accounting_message') }}</div>@endif
 <x-ui.validation-summary />
 @if($screen==='dashboard')
 <div class="erp-kpi-summary grid gap-4 sm:grid-cols-2 xl:grid-cols-4">@foreach(['draft'=>'مسودات القيود','submitted'=>'بانتظار المراجعة','approved'=>'معتمدة وغير مرحلة','posted'=>'قيود مرحلة'] as $state=>$label)<x-erp.stat-card :label="$label" :value="$stats[$state]??0" icon="document-text" />@endforeach</div>
-<x-ui.panel><h2>حالة السجل المالي</h2><p class="mt-3 text-sm text-slate-600">الأرصدة والقوائم المالية غير متاحة حتى اكتمال الترحيل والأرصدة الافتتاحية وتاريخ التشغيل. أعداد القيود أعلاه تخص الفروع المصرح بها، ولا تمثل أرصدة مالية.</p></x-ui.panel>
+<x-ui.panel><h2>القوائم المالية والأرصدة</h2><p class="mt-3 text-sm leading-7 text-slate-600">لا تظهر الأرصدة والقوائم المالية قبل تفعيل الترحيل المالي: تاريخ التشغيل، الضريبة، ثم الأرصدة الافتتاحية المعتمدة. الأرقام أعلاه أعداد قيود فقط وليست أرصدة.</p>@if(auth()->check() && isset($nav['setup']))<flux:button class="mt-4" variant="primary" icon="arrow-left" :href="route('accounting.setup')" wire:navigate>اذهب إلى خطوات التجهيز</flux:button>@endif</x-ui.panel>
 @else
 <x-ui.panel>
 <div class="mb-4 flex flex-wrap items-end justify-between gap-3"><h2>{{ $journalRecord ? 'تفاصيل القيد #'.$journalRecord->id : ($this->selected ? 'تعديل الحساب' : 'إضافة سجل') }}</h2><flux:button wire:click="newRecord" icon="plus">سجل جديد</flux:button></div>

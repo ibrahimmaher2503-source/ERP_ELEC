@@ -17,6 +17,9 @@ interface PurchasingApi
     /** Locked, posted receipt evidence for M12 matching. Must be called inside the shared transaction. */
     public function supplierInvoiceSource(int $actor, array $receiptLineIds): array;
 
+    /** Read-only list of a supplier's posted receipt lines in the actor's authorized branches, for choosing what to invoice. */
+    public function postedReceiptLines(int $actor, int $supplierId): array;
+
     /** Evidence for a supplier return that is being approved in the current transaction. */
     public function authorizeReturn(int $actor, int $receipt, int $line): array;
 

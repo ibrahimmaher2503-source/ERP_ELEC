@@ -81,6 +81,25 @@ final class PurchasingService implements PurchasingApi
         return app(PurchaseReturns::class)->authorizeMovement($actor, $receipt, $line);
     }
 
+    public function postedReceiptLines(int $actor, int $supplierId): array
+    {
+        $branches = array_column(app(PurchasingAccess::class)->branches($actor, 'receipt_view'), 'id');
+        if ($branches === []) {
+            return [];
+        }
+
+        return DB::table('purchasing_receipt_lines as rl')
+            ->join('purchasing_receipts as r', 'r.id', '=', 'rl.receipt_id')
+            ->join('purchasing_receipt_postings as rp', 'rp.line_id', '=', 'rl.id')
+            ->join('purchasing_order_lines as ol', 'ol.id', '=', 'rl.order_line_id')
+            ->join('purchasing_orders as o', 'o.id', '=', 'ol.order_id')
+            ->where('r.status', 'posted')->where('o.supplier_id', $supplierId)->whereIn('r.branch_id', $branches)
+            ->orderByDesc('r.id')->orderBy('rl.id')->limit(300)
+            ->get(['rl.id as receipt_line_id', 'rl.quantity as received_quantity', 'r.id as receipt_id', 'r.receipt_date', 'r.branch_id',
+                'o.id as order_id', 'o.official_number as order_number', 'ol.id as order_line_id', 'ol.product_name', 'ol.unit_price'])
+            ->map(fn ($row) => (array) $row)->all();
+    }
+
     public function supplierInvoiceSource(int $actor, array $receiptLineIds): array
     {
         abort_unless(DB::transactionLevel() > 0 && $receiptLineIds !== [], 422);

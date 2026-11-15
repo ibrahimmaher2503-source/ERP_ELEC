@@ -139,6 +139,7 @@
                 <div class="erp-nav-section grid gap-1">
                     <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المالية</h2>
                     @php($orderNav = static function (array $items, array $order): array { uksort($items, static fn ($a, $b) => ((($i = array_search($a, $order, true)) === false ? 99 : $i) <=> (($j = array_search($b, $order, true)) === false ? 99 : $j))); return $items; })
+                    @if(app(\App\Modules\Accounting\Application\AccountingAccess::class)->navigation(auth()->id()) || app(\App\Modules\ReceivablesPayables\Application\ReceivablesPayablesAccess::class)->navigation(auth()->id()) || app(\App\Modules\Treasury\Application\TreasuryAccess::class)->navigation(auth()->id()))<flux:sidebar.item icon="squares-2x2" :href="route('finance.hub')" :current="request()->routeIs('finance.hub')" wire:navigate>ابدأ من هنا: مهام المالية</flux:sidebar.item>@endif
                     @php($accountingNavigation = app(\App\Modules\Accounting\Application\AccountingAccess::class)->navigation(auth()->id()))
                     @if($accountingNavigation)
                     <flux:sidebar.group heading="المحاسبة والمالية" icon="calculator" expandable :expanded="request()->routeIs('accounting.*')">

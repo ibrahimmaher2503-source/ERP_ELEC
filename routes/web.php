@@ -3,6 +3,7 @@
 use App\Http\Controllers\OneTimeAdminController;
 use App\Http\Middleware\EnsureV2Available;
 use App\Livewire\ExecutiveDashboardPage;
+use App\Livewire\FinanceHubPage;
 use App\Modules\Accounting\Presentation\AccountingPage;
 use App\Modules\Accounting\Presentation\FinancialReportExportController;
 use App\Modules\Accounting\Presentation\FinancialReportsPage;
@@ -300,6 +301,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('maintenance/documents/{document}', [MaintenanceDownloadController::class, 'document'])->whereNumber('document')->name('maintenance.documents');
     Route::get('maintenance/work-orders/{workOrder}/reports/{completion}', [MaintenanceDownloadController::class, 'report'])->whereNumber(['workOrder', 'completion'])->name('maintenance.report');
     Route::get('dashboard', ExecutiveDashboardPage::class)->name('dashboard');
+    Route::get('finance', FinanceHubPage::class)->name('finance.hub');
     Route::get('organization/company', CompanyPage::class)->name('organization.company');
     Route::get('organization/document-numbering', DocumentNumberingPage::class)->name('organization.document-numbering');
     Route::get('organization/company/logo', CompanyLogoController::class)->name('organization.company.logo');

@@ -12,4 +12,7 @@ interface SalesDeliverySources
 
     /** Locked confirmed delivery and frozen commercial evidence for M12 billing. */
     public function customerInvoiceSource(int $actor, array $deliveryLineIds): array;
+
+    /** Read-only list of a customer's confirmed delivery lines in the actor's authorized branches, for choosing what to invoice. */
+    public function confirmedDeliveryLines(int $actor, int $customerId): array;
 }

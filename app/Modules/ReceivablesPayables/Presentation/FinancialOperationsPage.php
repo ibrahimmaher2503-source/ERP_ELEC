@@ -2,10 +2,17 @@
 
 namespace App\Modules\ReceivablesPayables\Presentation;
 
+use App\Modules\Parties\Application\Contracts\CustomersApi;
+use App\Modules\Parties\Application\Contracts\SearchCustomersRequest;
+use App\Modules\Parties\Application\Contracts\SearchSuppliersRequest;
+use App\Modules\Parties\Application\Contracts\SuppliersApi;
+use App\Modules\Purchasing\Application\Contracts\PurchasingApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\ReceivablesPayables\Application\ReceivablesPayablesAccess;
+use App\Modules\Sales\Application\Contracts\SalesDeliverySources;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -22,6 +29,42 @@ final class FinancialOperationsPage extends Component
     public string $creationKey = '';
 
     public array $form = [];
+
+    public string $customerSearch = '';
+
+    public string $supplierSearch = '';
+
+    public string $receiptChoice = '';
+
+    /** @var array<int,array{on:bool,qty:string,price:string}> receipt line id => chosen quantity and price */
+    public array $receiptPicked = [];
+
+    public function updatedFormSupplierId(): void
+    {
+        $this->receiptChoice = '';
+        $this->receiptPicked = [];
+    }
+
+    public function updatedReceiptChoice(): void
+    {
+        $this->receiptPicked = [];
+    }
+
+    public string $orderChoice = '';
+
+    /** @var array<int,array{on:bool,qty:string}> delivery line id => chosen quantity */
+    public array $picked = [];
+
+    public function updatedFormCustomerId(): void
+    {
+        $this->orderChoice = '';
+        $this->picked = [];
+    }
+
+    public function updatedOrderChoice(): void
+    {
+        $this->picked = [];
+    }
 
     public function mount(string $screen): void
     {
@@ -41,23 +84,105 @@ final class FinancialOperationsPage extends Component
 
     public function createSupplier(): void
     {
+        $available = collect($this->invoiceableReceipts())->keyBy('receipt_line_id');
+        $byOrderLine = [];
+        foreach ($this->receiptPicked as $receiptLineId => $choice) {
+            if (empty($choice['on']) || ! $available->has((int) $receiptLineId)) {
+                continue;
+            }
+            $row = $available[(int) $receiptLineId];
+            $qty = trim((string) ($choice['qty'] ?? ''));
+            $qty = $qty !== '' ? $qty : (string) $row['remaining'];
+            $price = trim((string) ($choice['price'] ?? ''));
+            $price = $price !== '' ? $price : rtrim(rtrim((string) $row['unit_price'], '0'), '.');
+            $key = (int) $row['order_line_id'];
+            $byOrderLine[$key] ??= ['order_line_id' => $key, 'quantity' => '0', 'unit_price' => $price, 'discount_amount' => '0.00', 'matches' => []];
+            $byOrderLine[$key]['quantity'] = bcadd($byOrderLine[$key]['quantity'], $qty, 8);
+            $byOrderLine[$key]['matches'][] = ['receipt_line_id' => (int) $receiptLineId, 'quantity' => $qty];
+        }
+        if ($byOrderLine === []) {
+            throw ValidationException::withMessages(['receiptPicked' => 'اختر بندًا واحدًا على الأقل من الاستلامات.']);
+        }
         $id = app(ReceivablesPayablesApi::class)->createSupplierInvoice(auth()->id(), ['creation_key' => $this->creationKey,
             'supplier_id' => $this->form['supplier_id'], 'supplier_invoice_number' => $this->form['supplier_invoice_number'],
             'invoice_date' => $this->form['invoice_date'], 'due_date' => $this->form['due_date'], 'tax_mode' => $this->form['tax_mode'],
-            'lines' => [['order_line_id' => $this->form['order_line_id'], 'quantity' => $this->form['quantity'],
-                'unit_price' => $this->form['unit_price'], 'discount_amount' => $this->form['discount_amount'],
-                'matches' => [['receipt_line_id' => $this->form['receipt_line_id'], 'quantity' => $this->form['quantity']]]]]]);
+            'lines' => array_values($byOrderLine)]);
         $this->resetForm();
+        $this->receiptPicked = [];
+        $this->receiptChoice = '';
         session()->flash('financial_message', 'تم إنشاء مسودة فاتورة المورد #'.$id.' من الاستلام المرحّل المحدد.');
+    }
+
+    /** Posted receipt lines that still have a quantity left to invoice. */
+    private function invoiceableReceipts(): array
+    {
+        $supplierId = (int) ($this->form['supplier_id'] ?? 0);
+        if ($supplierId <= 0) {
+            return [];
+        }
+        $rows = app(PurchasingApi::class)->postedReceiptLines(auth()->id(), $supplierId);
+        if ($rows === []) {
+            return [];
+        }
+        $matched = DB::table('rp_supplier_invoice_matches')->whereIn('receipt_line_id', array_column($rows, 'receipt_line_id'))
+            ->selectRaw('receipt_line_id, coalesce(sum(quantity),0) as quantity')->groupBy('receipt_line_id')->pluck('quantity', 'receipt_line_id')->all();
+        $out = [];
+        foreach ($rows as $row) {
+            $remaining = bcsub((string) $row['received_quantity'], (string) ($matched[$row['receipt_line_id']] ?? '0'), 8);
+            if (bccomp($remaining, '0', 8) > 0) {
+                $row['remaining'] = rtrim(rtrim($remaining, '0'), '.');
+                $out[] = $row;
+            }
+        }
+
+        return $out;
     }
 
     public function createCustomer(): void
     {
+        $remaining = array_column($this->invoiceableLines(), 'remaining', 'delivery_line_id');
+        $lines = [];
+        foreach ($this->picked as $lineId => $choice) {
+            if (! empty($choice['on'])) {
+                $qty = trim((string) ($choice['qty'] ?? ''));
+                $lines[] = ['delivery_line_id' => (int) $lineId, 'quantity' => $qty !== '' ? $qty : (string) ($remaining[(int) $lineId] ?? '')];
+            }
+        }
+        if ($lines === []) {
+            throw ValidationException::withMessages(['picked' => 'اختر بندًا واحدًا على الأقل من بنود التسليم.']);
+        }
         $id = app(ReceivablesPayablesApi::class)->createCustomerInvoice(auth()->id(), ['creation_key' => $this->creationKey,
             'customer_id' => $this->form['customer_id'], 'invoice_date' => $this->form['invoice_date'], 'due_date' => $this->form['due_date'],
-            'lines' => [['delivery_line_id' => $this->form['delivery_line_id'], 'quantity' => $this->form['quantity']]]]);
+            'lines' => $lines]);
         $this->resetForm();
+        $this->picked = [];
+        $this->orderChoice = '';
         session()->flash('financial_message', 'تم إنشاء مسودة فاتورة العميل #'.$id.' من التسليم المؤكد المحدد.');
+    }
+
+    /** Confirmed delivery lines that still have a quantity left to invoice, grouped for the picker. */
+    private function invoiceableLines(): array
+    {
+        $customerId = (int) ($this->form['customer_id'] ?? 0);
+        if ($customerId <= 0) {
+            return [];
+        }
+        $rows = app(SalesDeliverySources::class)->confirmedDeliveryLines(auth()->id(), $customerId);
+        if ($rows === []) {
+            return [];
+        }
+        $invoiced = DB::table('rp_customer_invoice_lines')->whereIn('delivery_line_id', array_column($rows, 'delivery_line_id'))
+            ->selectRaw('delivery_line_id, coalesce(sum(quantity),0) as quantity')->groupBy('delivery_line_id')->pluck('quantity', 'delivery_line_id')->all();
+        $out = [];
+        foreach ($rows as $row) {
+            $remaining = bcsub((string) $row['delivered_quantity'], (string) ($invoiced[$row['delivery_line_id']] ?? '0'), 8);
+            if (bccomp($remaining, '0', 8) > 0) {
+                $row['remaining'] = rtrim(rtrim($remaining, '0'), '.');
+                $out[] = $row;
+            }
+        }
+
+        return $out;
     }
 
     public function createCredit(): void
@@ -127,6 +252,18 @@ final class FinancialOperationsPage extends Component
         };
         $totals = ['original' => $rows->sum('original_amount'), 'remaining' => $rows->sum('remaining_amount')];
 
-        return view('receivables-payables.index', compact('access', 'nav', 'branches', 'rows', 'totals'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
+        $customers = $this->screen === 'customer-invoices' ? app(CustomersApi::class)->searchCustomers(new SearchCustomersRequest(auth()->id(), mb_substr($this->customerSearch, 0, 150), 30)) : [];
+        $invoiceable = $this->screen === 'customer-invoices' ? $this->invoiceableLines() : [];
+        $creditInvoices = [];
+        if ($this->screen === 'credit-notes') {
+            $table = ($this->form['kind'] ?? 'supplier') === 'customer' ? 'rp_customer_invoices' : 'rp_supplier_invoices';
+            $nameColumn = $table === 'rp_customer_invoices' ? 'customer_name' : 'supplier_name';
+            $creditInvoices = DB::table($table)->whereIn('branch_id', $ids)->whereNotIn('status', ['draft', 'cancelled'])
+                ->orderByDesc('id')->limit(200)->get(['id', $nameColumn.' as party', 'invoice_date', 'total_amount'])->all();
+        }
+        $suppliers = $this->screen === 'supplier-invoices' ? app(SuppliersApi::class)->searchSuppliers(new SearchSuppliersRequest(auth()->id(), mb_substr($this->supplierSearch, 0, 150), 30)) : [];
+        $receipts = $this->screen === 'supplier-invoices' ? $this->invoiceableReceipts() : [];
+
+        return view('receivables-payables.index', compact('access', 'nav', 'branches', 'rows', 'totals', 'customers', 'invoiceable', 'suppliers', 'receipts', 'creditInvoices'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
     }
 }

@@ -31,8 +31,8 @@ final class TreasuryAccess
 
     public function navigation(int $actor): array
     {
-        return array_filter(['accounts' => ['البنك والخزينة', 'account_view'], 'payments' => ['مدفوعات الموردين', 'payment_prepare'],
-            'collections' => ['متحصلات العملاء', 'collection_execute'], 'transfers' => ['التحويل بين البنك والخزينة', 'transfer_execute'], 'statements' => ['كشوف البنك والمطابقة', 'statement_view']],
+        return array_filter(['accounts' => ['حسابات البنك والخزينة', 'account_view'], 'payments' => ['سداد الموردين', 'payment_prepare'],
+            'collections' => ['تحصيل من العملاء', 'collection_execute'], 'transfers' => ['تحويل بين حسابات البنك والخزينة', 'transfer_execute'], 'statements' => ['كشوف البنك والمطابقة', 'statement_view']],
             fn ($item) => $item[1] === 'account_view' ? $this->allows($actor, $item[1]) : $this->branches($actor, $item[1]) !== []);
     }
 

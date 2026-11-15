@@ -1,7 +1,6 @@
 <div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="financial-workspace space-y-5">
     <x-page.heading :title="$nav[$screen][0]" description="تشغيل الذمم من المستندات المصدرية المرحّلة فقط" :breadcrumbs="['الذمم المدينة والدائنة', $nav[$screen][0]]" />
     @if($access->branches(auth()->id(),'ar_view')!==[] || $access->branches(auth()->id(),'ap_view')!==[])<flux:button :href="route('financial.party-credits')" wire:navigate>رد الأرصدة الدائنة</flux:button>@endif
-    <nav class="erp-module-nav flex flex-wrap gap-2" aria-label="صفحات الذمم والفواتير" x-data x-init="$nextTick(() => $el.querySelector('[aria-current]')?.scrollIntoView({ block: 'nearest', inline: 'center' }))">@foreach($nav as $destination=>$item)<flux:button :href="route('financial.'.$destination)" :variant="$screen===$destination?'primary':'outline'" :aria-current="$screen===$destination?'page':null" size="sm" wire:navigate>{{ $item[0] }}</flux:button>@endforeach</nav>
     @if(session('financial_message'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('financial_message') }}</flux:callout>@endif
     <x-ui.validation-summary />
     <x-ui.panel>
@@ -16,24 +15,43 @@
         <div class="erp-kpi-summary grid grid-cols-2 gap-3"><x-erp.stat-card label="القيمة الأصلية" :value="$totals['original'].' ج.م'" icon="document-text"/><x-erp.stat-card label="الرصيد المتبقي" :value="$totals['remaining'].' ج.م'" icon="calculator"/></div>
     @endif
     @if($screen==='supplier-invoices' && $access->branches(auth()->id(),'supplier_invoice_manage')!==[])
-        <x-ui.panel><h2 class="mb-3 font-semibold">فاتورة مورد من استلام مرحّل</h2><p class="mb-4 text-sm text-slate-600">أدخل معرفات المصدر الظاهرة في أمر الشراء والاستلام. المطابقة والكمية والسعر والضريبة يعاد التحقق منها داخل M05 وM11.</p>
-            <form wire:submit="createSupplier" class="grid gap-3 md:grid-cols-3 xl:grid-cols-4">
-                <flux:input wire:model="form.supplier_id" type="number" min="1" label="معرف المورد" required/><flux:input wire:model="form.supplier_invoice_number" label="رقم فاتورة المورد" required/>
-                <flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/>
-                <flux:select wire:model="form.tax_mode" label="معالجة السعر"><option value="exclusive">غير شامل الضريبة</option><option value="inclusive">شامل الضريبة</option></flux:select>
-                <flux:input wire:model="form.order_line_id" type="number" min="1" label="بند أمر الشراء" required/><flux:input wire:model="form.receipt_line_id" type="number" min="1" label="بند الاستلام المرحّل" required/>
-                <flux:input wire:model="form.quantity" inputmode="decimal" label="الكمية المطابقة" required/><flux:input wire:model="form.unit_price" inputmode="decimal" label="سعر الفاتورة" required/><flux:input wire:model="form.discount_amount" inputmode="decimal" label="خصم البند" required/>
-                <div class="md:col-span-3 xl:col-span-4"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء المسودة والمطابقة المصدرية</flux:button></div>
-            </form>
-        </x-ui.panel>
+        <x-ui.panel><h2 class="mb-1 font-semibold">فاتورة مورد جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر المورد، ثم أمر الشراء المستلَم، ثم الأصناف المستلمة التي وصلت فاتورتها. يُقترح سعر الأمر ويمكنك تعديله لسعر الفاتورة.</p>
+        <form wire:submit="createSupplier" class="space-y-4">
+            @php($receiptOrders = collect($receipts)->groupBy('order_id'))
+            <div class="grid gap-3 md:grid-cols-2">
+                <div><flux:input wire:model.live.debounce.300ms="supplierSearch" icon="magnifying-glass" label="١) ابحث عن المورد" placeholder="اسم المورد أو كوده" clearable />
+                    <flux:select wire:model.live="form.supplier_id" label="المورد" class="mt-2" required><option value="">اختر المورد ({{ count($suppliers) }} نتيجة)</option>@foreach($suppliers as $s)<option value="{{ $s->id }}">{{ $s->name }} · {{ $s->code }}</option>@endforeach</flux:select></div>
+                <div class="self-end"><flux:select wire:model.live="receiptChoice" label="٢) أمر الشراء المستلَم" :disabled="$form['supplier_id']===''"><option value="">{{ $form['supplier_id']==='' ? 'اختر المورد أولًا' : ($receiptOrders->isEmpty() ? 'لا توجد استلامات مرحّلة متبقية للفوترة' : 'اختر الأمر') }}</option>@foreach($receiptOrders as $orderId=>$group)<option value="{{ $orderId }}">أمر {{ $group->first()['order_number'] ?? '#'.$orderId }} · {{ $group->count() }} بند متبقٍ</option>@endforeach</flux:select></div>
+            </div>
+            @if($receiptChoice!=='' && $receiptOrders->has((int)$receiptChoice))
+            <div><h3 class="mb-2 text-sm font-semibold text-slate-600">٣) اختر الأصناف والكميات والسعر</h3>
+                <div class="overflow-x-auto rounded-lg border border-slate-200"><table class="w-full text-sm"><thead class="bg-slate-50 text-slate-500"><tr><th class="w-10 p-3"></th><th class="p-3 text-start">الصنف</th><th class="p-3 text-start">تاريخ الاستلام</th><th class="p-3 text-start">المتبقي للفوترة</th><th class="w-36 p-3 text-start">الكمية</th><th class="w-36 p-3 text-start">سعر الفاتورة</th></tr></thead><tbody class="divide-y divide-slate-100">
+                @foreach($receiptOrders[(int)$receiptChoice] as $line)<tr wire:key="rl-{{ $line['receipt_line_id'] }}"><td class="p-3"><flux:checkbox wire:model.live="receiptPicked.{{ $line['receipt_line_id'] }}.on" aria-label="اختيار البند" /></td><td class="p-3 font-medium">{{ $line['product_name'] }}</td><td class="p-3 text-slate-500"><bdi>{{ $line['receipt_date'] }}</bdi></td><td class="p-3 tabular-nums">{{ $line['remaining'] }}</td><td class="p-3"><flux:input wire:model="receiptPicked.{{ $line['receipt_line_id'] }}.qty" inputmode="decimal" size="sm" placeholder="{{ $line['remaining'] }}" :disabled="empty($receiptPicked[$line['receipt_line_id']]['on'])" /></td><td class="p-3"><flux:input wire:model="receiptPicked.{{ $line['receipt_line_id'] }}.price" inputmode="decimal" size="sm" placeholder="{{ rtrim(rtrim((string)$line['unit_price'],'0'),'.') }}" :disabled="empty($receiptPicked[$line['receipt_line_id']]['on'])" /></td></tr>@endforeach</tbody></table></div>
+                <flux:error name="receiptPicked" /></div>
+            <div class="grid gap-3 md:grid-cols-4"><flux:input wire:model="form.supplier_invoice_number" label="٤) رقم فاتورة المورد" required/><flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><flux:select wire:model="form.tax_mode" label="الأسعار"><option value="exclusive">غير شاملة الضريبة</option><option value="inclusive">شاملة الضريبة</option></flux:select></div>
+            <flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة ومطابقتها مع الاستلام</flux:button>
+            @endif
+        </form></x-ui.panel>
     @elseif($screen==='customer-invoices' && $access->branches(auth()->id(),'customer_invoice_manage')!==[])
-        <x-ui.panel><h2 class="mb-3 font-semibold">فاتورة عميل من تسليم مؤكد</h2><form wire:submit="createCustomer" class="grid gap-3 md:grid-cols-3">
-            <flux:input wire:model="form.customer_id" type="number" min="1" label="معرف العميل" required/><flux:input wire:model="form.delivery_line_id" type="number" min="1" label="بند التسليم المؤكد" required/><flux:input wire:model="form.quantity" inputmode="decimal" label="الكمية المفوترة" required/>
-            <flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><div class="erp-form-actions"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة</flux:button></div>
+        <x-ui.panel><h2 class="mb-1 font-semibold">فاتورة عميل جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر العميل، ثم الأمر الذي سُلّم، ثم البنود والكميات التي تريد فوترتها. المسودة لا تُرحَّل قبل اعتمادها.</p>
+        <form wire:submit="createCustomer" class="space-y-4">
+            @php($orders = collect($invoiceable)->groupBy('order_id'))
+            <div class="grid gap-3 md:grid-cols-2">
+                <div><flux:input wire:model.live.debounce.300ms="customerSearch" icon="magnifying-glass" label="١) ابحث عن العميل" placeholder="اسم العميل أو كوده" clearable />
+                    <flux:select wire:model.live="form.customer_id" label="العميل" class="mt-2" required><option value="">اختر العميل ({{ count($customers) }} نتيجة)</option>@foreach($customers as $c)<option value="{{ $c->id }}">{{ $c->name }} · {{ $c->code }}</option>@endforeach</flux:select></div>
+                <div class="self-end"><flux:select wire:model.live="orderChoice" label="٢) أمر البيع المسلَّم" :disabled="$form['customer_id']===''"><option value="">{{ $form['customer_id']==='' ? 'اختر العميل أولًا' : ($orders->isEmpty() ? 'لا توجد تسليمات مؤكدة متبقية للفوترة' : 'اختر الأمر') }}</option>@foreach($orders as $orderId=>$group)<option value="{{ $orderId }}">أمر {{ $group->first()['order_number'] ?? '#'.$orderId }} · {{ $group->count() }} بند متبقٍ</option>@endforeach</flux:select></div>
+            </div>
+            @if($orderChoice!=='' && $orders->has((int)$orderChoice))
+            <div><h3 class="mb-2 text-sm font-semibold text-slate-600">٣) اختر البنود والكميات</h3>
+                <div class="overflow-x-auto rounded-lg border border-slate-200"><table class="w-full text-sm"><thead class="bg-slate-50 text-slate-500"><tr><th class="w-10 p-3"></th><th class="p-3 text-start">البند</th><th class="p-3 text-start">التسليم</th><th class="p-3 text-start">المتبقي للفوترة</th><th class="w-40 p-3 text-start">الكمية المفوترة</th></tr></thead><tbody class="divide-y divide-slate-100">
+                @foreach($orders[(int)$orderChoice] as $line)<tr wire:key="dl-{{ $line['delivery_line_id'] }}"><td class="p-3"><flux:checkbox wire:model.live="picked.{{ $line['delivery_line_id'] }}.on" aria-label="اختيار البند" /></td><td class="p-3 font-medium">{{ $line['description'] }}</td><td class="p-3 text-slate-500">{{ $line['delivery_reference'] }}</td><td class="p-3 tabular-nums">{{ $line['remaining'] }}</td><td class="p-3"><flux:input wire:model="picked.{{ $line['delivery_line_id'] }}.qty" inputmode="decimal" size="sm" placeholder="{{ $line['remaining'] }}" :disabled="empty($picked[$line['delivery_line_id']]['on'])" /></td></tr>@endforeach</tbody></table></div>
+                <flux:error name="picked" /></div>
+            <div class="grid gap-3 md:grid-cols-3"><flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><div class="self-end"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة</flux:button></div></div>
+            @endif
         </form></x-ui.panel>
     @elseif($screen==='credit-notes' && $access->branches(auth()->id(),'credit_note_manage')!==[])
-        <x-ui.panel><h2 class="mb-3 font-semibold">إشعار مرتبط بفاتورة مرحّلة</h2><form wire:submit="createCredit" class="grid gap-3 md:grid-cols-3">
-            <flux:select wire:model="form.kind" label="النوع"><option value="supplier">مورد</option><option value="customer">عميل</option></flux:select><flux:input wire:model="form.invoice_id" type="number" min="1" label="معرف الفاتورة الأصلية" required/>
+        <x-ui.panel><h2 class="mb-1 font-semibold">إشعار تعديل على فاتورة مرحّلة</h2><p class="mb-3 text-xs text-slate-500">اختر نوع الفاتورة ثم الفاتورة نفسها من القائمة، وأدخل القيمة وسبب التعديل.</p><form wire:submit="createCredit" class="grid gap-3 md:grid-cols-3">
+            <flux:select wire:model.live="form.kind" label="١) الإشعار على فاتورة"><option value="supplier">مورد</option><option value="customer">عميل</option></flux:select><flux:select wire:model="form.invoice_id" label="٢) الفاتورة الأصلية" required><option value="">اختر الفاتورة ({{ count($creditInvoices) }})</option>@foreach($creditInvoices as $ci)<option value="{{ $ci->id }}">{{ $ci->party }} · {{ $ci->invoice_date }} · {{ $ci->total_amount }} ج.م · #{{ $ci->id }}</option>@endforeach</flux:select>
             <flux:input wire:model="form.note_date" type="date" label="تاريخ الإشعار" required/><flux:input wire:model="form.amount" inputmode="decimal" label="القيمة ج.م" required/><flux:input wire:model="form.reason" label="سبب التصحيح" required/>
             <div class="erp-form-actions"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الإشعار</flux:button></div>
         </form></x-ui.panel>

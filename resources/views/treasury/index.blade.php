@@ -1,11 +1,10 @@
 <div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="space-y-5">
     <x-page.heading :title="$nav[$screen][0]" description="حركات نقدية وبنكية فعلية مرتبطة بالذمم والأستاذ العام" :breadcrumbs="['الخزينة', $nav[$screen][0]]" />
-    <div class="erp-section-nav flex flex-wrap gap-2">@foreach($nav as $destination=>$item)<flux:button :href="route('treasury.'.$destination)" :variant="$screen===$destination?'primary':'outline'" size="sm" wire:navigate>{{ $item[0] }}</flux:button>@endforeach</div>
     @if(session('treasury_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('treasury_message') }}</div>@endif
     <x-ui.validation-summary />
     <x-ui.panel>
         @if($screen==='accounts')<p class="mb-3 text-sm text-slate-600">كود جديد يضيف حسابًا أو خزينة أخرى، ونفس الكود يعدل الاسم. لربط رصيد افتتاحي بحساب، اجعل مرجع الرصيد هو كود الحساب.</p>@endif
-        <h2 class="mb-4">{{ $screen==='accounts'?'إعداد حساب تشغيلي':($screen==='payments'?'إعداد طلب دفع':($screen==='collections'?'تنفيذ تحصيل':'تنفيذ تحويل مباشر')) }}</h2>
+        <h2 class="mb-4">{{ $screen==='accounts'?'إعداد حساب تشغيلي':($screen==='payments'?'سداد لمورد':($screen==='collections'?'تحصيل من عميل':'تحويل بين حسابين')) }}</h2>
         <form wire:submit="save" class="grid gap-3 md:grid-cols-3">
             @if($screen==='accounts')
                 <x-erp.code-input prefix="TR" wire:model="form.code" label="الكود" required /><flux:input wire:model="form.name" label="الاسم" required/><flux:select wire:model="form.kind" label="النوع"><option value="bank">بنك</option><option value="cash">خزينة نقدية</option></flux:select>
@@ -13,10 +12,10 @@
             @else
                 <flux:select wire:model="form.branch_id" label="الفرع" required><option value="">اختر الفرع</option>@foreach($branches as $item)<option value="{{ $item['id'] }}">{{ $item['name'] }}</option>@endforeach</flux:select>
                 @if($screen==='payments')
-                    <flux:select wire:model="form.supplier_id" label="المورد" required><option value="">اختر من بنود AP</option>@foreach($openItems->where('party_type','supplier')->unique('party_id') as $item)<option value="{{ $item['party_id'] }}">{{ $partyNames['supplier'][$item['party_id']] ?? 'مورد #'.$item['party_id'] }}</option>@endforeach</flux:select>
+                    <flux:select wire:model="form.supplier_id" label="المورد" required><option value="">اختر من الموردين الذين لهم فواتير مفتوحة</option>@foreach($openItems->where('party_type','supplier')->unique('party_id') as $item)<option value="{{ $item['party_id'] }}">{{ $partyNames['supplier'][$item['party_id']] ?? 'مورد #'.$item['party_id'] }}</option>@endforeach</flux:select>
                     <flux:select wire:model="form.account_id" label="حساب الدفع" required><option value="">اختر الحساب</option>@foreach($accounts as $item)<option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</flux:select>
                 @elseif($screen==='collections')
-                    <flux:select wire:model="form.customer_id" label="العميل" required><option value="">اختر من بنود AR</option>@foreach($openItems->where('party_type','customer')->unique('party_id') as $item)<option value="{{ $item['party_id'] }}">{{ $partyNames['customer'][$item['party_id']] ?? 'عميل #'.$item['party_id'] }}</option>@endforeach</flux:select>
+                    <flux:select wire:model="form.customer_id" label="العميل" required><option value="">اختر من العملاء الذين لهم فواتير مفتوحة</option>@foreach($openItems->where('party_type','customer')->unique('party_id') as $item)<option value="{{ $item['party_id'] }}">{{ $partyNames['customer'][$item['party_id']] ?? 'عميل #'.$item['party_id'] }}</option>@endforeach</flux:select>
                     <flux:select wire:model="form.account_id" label="حساب التحصيل" required><option value="">اختر الحساب</option>@foreach($accounts as $item)<option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</flux:select>
                     <flux:select wire:model="form.open_item_id" label="الفاتورة (اختياري للدفعة المقدمة)"><option value="">دون تخصيص لفاتورة</option>@foreach($openItems->where('party_type','customer') as $item)<option value="{{ $item['id'] }}">{{ $item['source_number'] }} · {{ $item['remaining_amount'] }} ج.م</option>@endforeach</flux:select>
                     <flux:input wire:model="form.allocation_amount" inputmode="decimal" label="المبلغ المخصص للفاتورة"/>
@@ -27,7 +26,7 @@
                 @endif
                 <flux:input wire:model="form.date" type="date" label="التاريخ" required/><flux:input wire:model="form.amount" inputmode="decimal" label="المبلغ ج.م" required/><flux:input wire:model="form.reference" label="المرجع" required/>
             @endif
-            <div class="md:col-span-3"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">{{ $screen==='payments'?'إعداد طلب الدفع':'حفظ وتنفيذ' }}</flux:button></div>
+            <div class="md:col-span-3"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">{{ $screen==='payments'?'تجهيز الدفعة':($screen==='collections'?'تسجيل التحصيل':'تنفيذ التحويل') }}</flux:button></div>
         </form>
     </x-ui.panel>
     @if($screen==='payments')

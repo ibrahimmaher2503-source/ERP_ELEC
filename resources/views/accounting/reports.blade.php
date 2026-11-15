@@ -1,10 +1,5 @@
 <div data-erp-archetype="report" class="space-y-5">
     <x-page.heading :title="$nav[$screen]" description="بيانات مالية مرحّلة فعلياً بالجنيه المصري" :breadcrumbs="['المحاسبة والمالية', $nav[$screen]]" />
-    <div class="erp-section-nav flex flex-wrap gap-2">
-        @foreach($nav as $destination=>$label)
-            <flux:button :href="route('accounting.'.$destination)" :variant="$screen===$destination?'primary':'outline'" size="sm" wire:navigate>{{ $label }}</flux:button>
-        @endforeach
-    </div>
     @if(session('accounting_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('accounting_message') }}</div>@endif
     <x-ui.validation-summary />
 
