@@ -1,4 +1,4 @@
-<div data-erp-archetype="report" class="space-y-5">
+<div data-erp-archetype="report" class="erp-finance space-y-5">
     <x-page.heading :title="$nav[$screen]" description="{{ ['income-statement'=>'هل ربحت أم خسرت في الفترة: الإيرادات ناقص المصروفات','balance-sheet'=>'ما تملكه وما عليك وصافي حقوق الملكية في تاريخ محدد','trial-balance'=>'أرصدة كل الحسابات للتأكد أن المدين يساوي الدائن','ledger'=>'كل حركات حساب بعينه مع الرصيد'][$screen] ?? 'بيانات مالية مرحّلة فعلياً' }} · بالجنيه المصري" :breadcrumbs="['المالية', $nav[$screen]]" />
     <x-erp.finance-banner />
     @if(session('accounting_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('accounting_message') }}</div>@endif

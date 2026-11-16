@@ -1,4 +1,4 @@
-<div data-erp-archetype="details" class="space-y-4">
+<div data-erp-archetype="details" class="erp-finance space-y-4">
     <x-page.heading title="تفاصيل حركة الخزينة" description="سجل حركة منفذة للقراءة فقط" />
     <x-ui.validation-summary />
     <x-ui.panel><dl class="grid gap-4 sm:grid-cols-2">

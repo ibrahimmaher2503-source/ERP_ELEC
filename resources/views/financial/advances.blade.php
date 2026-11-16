@@ -1,4 +1,4 @@
-<div class="space-y-5" data-erp-archetype="detail">
+<div class="erp-finance space-y-5" data-erp-archetype="detail">
     <x-page.heading title="مقدمات العملاء" description="تطبيق الأرصدة المحصلة فعليًا أو ردها، مع الاحتفاظ بالمصدر والقيد والتاريخ" />
     <x-erp.finance-banner />
     @if(session('status'))<flux:callout role="status" variant="success">{{ session('status') }}</flux:callout>@endif

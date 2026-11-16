@@ -1168,3 +1168,69 @@ details[open] > .erp-import-summary::after { content: '−'; }
     .workshop-overview-totals { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; }
     .workshop-overview-totals strong { font-size: 1.375rem; }
 }
+
+/* Finance area: one calm, dense vocabulary for tables, toolbars, forms and empty states (scoped, other modules keep their approved look) */
+.erp-finance { --fin-row-border: #edf2f9; --fin-head-bg: #f5f8fc; --fin-hover: #f7faff; }
+.erp-finance .erp-page-heading { padding-block-end: 1rem; margin-block-end: .25rem; border-bottom: 1px solid var(--erp-border); }
+.erp-finance .erp-page-heading h1 { font-size: 1.5rem !important; line-height: 1.35; font-weight: 700; color: var(--erp-ink); }
+.erp-finance .erp-page-heading nav { margin-block-end: .125rem; }
+
+.erp-finance .erp-panel { padding: 1.25rem 1.5rem; border-color: var(--erp-border); border-radius: .875rem; box-shadow: 0 1px 2px rgb(23 43 77 / .04); }
+.erp-finance .erp-panel:has(table), .erp-finance .erp-panel:has(.erp-filter-disclosure) { padding: 0; overflow: hidden; }
+.erp-finance .erp-panel > h2, .erp-finance .erp-panel > form > h2 { font-size: 1rem; font-weight: 700; color: var(--erp-ink); margin-block-end: .5rem; }
+.erp-finance .erp-panel > p.text-xs, .erp-finance .erp-panel > p.text-sm { color: var(--erp-muted); line-height: 1.7; max-width: 70ch; }
+
+/* toolbar-style filters: no second box, one hairline under it */
+.erp-finance .erp-filter-disclosure { padding: 1rem 1.5rem .75rem; margin: 0; border: 0; border-bottom: 1px solid var(--fin-row-border); border-radius: 0; background: #fbfcfe; }
+.erp-finance .erp-filter-status p { display: none; }
+.erp-finance .erp-filter-status { min-height: 0; margin: 0; }
+.erp-finance .erp-filter-loading { margin: 0; }
+
+/* tables */
+.erp-finance .erp-responsive-table { max-height: 70vh; }
+.erp-finance table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .875rem; }
+.erp-finance thead, .erp-finance thead tr { background: transparent !important; }
+.erp-finance thead th { background: var(--fin-head-bg) !important; color: var(--erp-muted); font-size: .75rem; font-weight: 600; letter-spacing: 0; padding: .625rem 1rem; border: 0 !important; border-bottom: 1px solid var(--erp-border) !important; white-space: nowrap; text-align: start; }
+.erp-finance thead th button { font: inherit; color: inherit; }
+.erp-finance tbody td { padding: .75rem 1rem; border: 0 !important; border-bottom: 1px solid var(--fin-row-border) !important; vertical-align: middle; font-variant-numeric: tabular-nums; color: var(--erp-ink); }
+.erp-finance tbody tr:last-child td { border-bottom: 0 !important; }
+.erp-finance tbody tr:hover td { background: var(--fin-hover); }
+.erp-finance tbody td a { color: var(--erp-primary-strong); font-weight: 600; }
+.erp-finance tfoot td { padding: .75rem 1rem; font-weight: 700; background: var(--fin-head-bg); }
+
+/* KPI cards: quiet, information first */
+.erp-finance .erp-stat-card { padding: .875rem 1.125rem !important; box-shadow: none; }
+.erp-finance .erp-stat-card p:first-child { font-size: .75rem; font-weight: 600; color: var(--erp-muted); }
+.erp-finance .erp-stat-card p + p { margin-block-start: .25rem; font-size: 1.375rem; font-weight: 700; color: var(--erp-ink); }
+.erp-finance .erp-stat-card > div > div:last-child { width: 2.25rem; height: 2.25rem; border-radius: .5rem; }
+.erp-finance .erp-stat-card svg { width: 1.125rem; height: 1.125rem; }
+
+/* forms */
+.erp-finance label, .erp-finance [data-flux-label] { font-size: .8125rem; font-weight: 600; color: #3a4a63; }
+.erp-finance form { row-gap: 1rem; }
+.erp-finance details > summary { min-height: 2.75rem; }
+.erp-finance .erp-form-actions { align-self: end; }
+
+/* empty states teach, they do not shout */
+.erp-finance .erp-empty-state { padding: 2.25rem 1rem; gap: .5rem; }
+.erp-finance .erp-empty-state > svg { box-sizing: content-box; width: 1.5rem; height: 1.5rem; padding: .75rem; border-radius: 999px; background: var(--fin-head-bg); color: var(--erp-primary); }
+.erp-finance .erp-empty-state [data-flux-heading] { font-size: .9375rem; font-weight: 700; }
+.erp-finance .erp-empty-state [data-flux-text] { font-size: .8125rem; color: var(--erp-muted); }
+
+@media (max-width: 767px) {
+    .erp-finance .erp-panel { padding: 1rem; }
+    .erp-finance .erp-filter-disclosure { padding: .875rem 1rem .5rem; }
+    .erp-finance .erp-page-heading h1 { font-size: 1.25rem !important; }
+}
+.erp-finance .erp-panel:has(table) > :not(.erp-filter-disclosure):not(.erp-responsive-table):not(.overflow-x-auto):not(.erp-mobile-table-tools) { padding: .875rem 1.5rem; }
+.erp-finance .erp-panel:has(table) > .overflow-x-auto:has(> .erp-responsive-table) { padding: 0; }
+.erp-finance .erp-panel > .overflow-x-auto { margin: 0; }
+/* filters that sit alone read as a toolbar, not as another card */
+.erp-finance .erp-panel:has(.erp-filter-disclosure):not(:has(table)) { padding: 0; border: 0; background: transparent; box-shadow: none; overflow: visible; }
+.erp-finance .erp-panel:has(.erp-filter-disclosure):not(:has(table)) .erp-filter-disclosure { padding: 0 0 .25rem; border: 0; background: transparent; }
+/* the activation notice informs, it does not shout */
+.erp-finance [data-flux-callout] { padding: .625rem .875rem; border-radius: .75rem; font-size: .8125rem; }
+.erp-finance [data-flux-callout] [data-flux-callout-heading] { font-size: .8125rem; }
+@media (max-width: 767px) {
+    .erp-finance td[colspan] .erp-empty-state { width: calc(100vw - 5rem); position: sticky; inset-inline-start: 0; margin-inline: auto; }
+}

@@ -1,4 +1,4 @@
-<div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="space-y-5">
+<div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="erp-finance space-y-5">
 <x-page.heading :title="$nav[$screen]" description="الجنيه المصري ج.م" :breadcrumbs="['المالية', $nav[$screen]]" />
     <x-erp.finance-banner />
 @if(session('accounting_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('accounting_message') }}</div>@endif

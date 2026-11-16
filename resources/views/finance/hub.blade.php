@@ -34,7 +34,7 @@
         ['accounting.setup', isset($acc['setup']), 'تجهيز النظام المالي', 'تاريخ التشغيل والضرائب والأرصدة الافتتاحية'],
     ], fn ($t) => $t[1]);
 @endphp
-<div data-erp-archetype="dashboard" class="space-y-8">
+<div data-erp-archetype="dashboard" class="erp-finance space-y-8">
     <x-page.heading title="المالية" description="ابدأ من المهمة التي تريد إنجازها، ولا تحتاج حفظ أي رقم داخلي" :breadcrumbs="['المالية']" />
     <x-erp.finance-banner />
 

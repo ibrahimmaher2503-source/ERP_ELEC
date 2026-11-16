@@ -1,4 +1,4 @@
-<div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="space-y-5">
+<div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="erp-finance space-y-5">
     <x-page.heading :title="$nav[$screen][0]" description="حركات نقدية وبنكية فعلية مرتبطة بالذمم والأستاذ العام" :breadcrumbs="['المالية', $nav[$screen][0]]" />
     <x-erp.finance-banner />
     @if(session('treasury_message'))<div role="status" class="rounded border border-emerald-200 bg-emerald-50 p-3 text-emerald-800">{{ session('treasury_message') }}</div>@endif

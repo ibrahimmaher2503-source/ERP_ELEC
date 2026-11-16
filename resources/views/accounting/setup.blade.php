@@ -1,4 +1,4 @@
-<div data-erp-archetype="form" class="space-y-6">
+<div data-erp-archetype="form" class="erp-finance space-y-6">
     <x-page.heading title="تجهيز النظام المالي" description="إعداد واحد للشركة · ج.م · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المالية', 'تجهيز النظام المالي']" />
     @if(session('financial_message'))<p role="status" class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">{{ session('financial_message') }}</p>@endif
     <x-ui.validation-summary />

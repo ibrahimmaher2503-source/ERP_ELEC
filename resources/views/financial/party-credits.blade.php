@@ -1,4 +1,4 @@
-<div class="space-y-5" data-erp-archetype="detail">
+<div class="erp-finance space-y-5" data-erp-archetype="detail">
     <x-page.heading title="رد الأرصدة الدائنة" description="رد فعلي مرتبط برصيد إشعار دائن مرحّل، مع الاحتفاظ بالمصدر والتاريخ والقيد" />
     <x-erp.finance-banner />
     @if(session('status'))<flux:callout role="status" variant="success">{{ session('status') }}</flux:callout>@endif

@@ -1,4 +1,4 @@
-<div data-erp-archetype="details" class="space-y-5">
+<div data-erp-archetype="details" class="erp-finance space-y-5">
     <x-page.heading :title="$type==='supplier'?'تفاصيل فاتورة المورد':'تفاصيل فاتورة العميل'" :description="($row->official_number??($type==='supplier'?$row->supplier_invoice_number:'#'.$row->id)).' · '.$row->status" :breadcrumbs="['الذمم المدينة والدائنة',$type==='supplier'?'فواتير الموردين':'فواتير العملاء','التفاصيل']" />
     <div class="erp-section-nav flex flex-wrap gap-2"><flux:button :href="route('financial.'.($type==='supplier'?'supplier-invoices':'customer-invoices'))" wire:navigate>العودة إلى السجل</flux:button>@if($row->official_document_id)<flux:button :href="route('financial.documents',[$type.'-invoice',$row->id])" icon="arrow-down-tray">PDF الرسمي</flux:button>@endif</div>
     <div class="erp-kpi-summary grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
