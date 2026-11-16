@@ -1234,3 +1234,9 @@ details[open] > .erp-import-summary::after { content: '−'; }
 @media (max-width: 767px) {
     .erp-finance td[colspan] .erp-empty-state { width: calc(100vw - 5rem); position: sticky; inset-inline-start: 0; margin-inline: auto; }
 }
+@media (max-width: 767px) {
+    .erp-finance table:has(td[colspan] .erp-empty-state) { display: block; min-width: 0 !important; width: 100%; }
+    .erp-finance table:has(td[colspan] .erp-empty-state) thead { display: none; }
+    .erp-finance table:has(td[colspan] .erp-empty-state) :is(tbody, tr, td) { display: block; width: 100%; }
+    .erp-finance td[colspan] .erp-empty-state { width: auto; position: static; }
+}
