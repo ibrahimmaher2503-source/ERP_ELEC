@@ -2,6 +2,7 @@
 
 namespace App\Modules\WorkshopRepairs\Presentation;
 
+use App\Modules\Accounting\Domain\FinancialDecimal;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Organization\Application\Contracts\AuthorizeRequest;
 use App\Modules\Organization\Application\Contracts\ContractException;
@@ -113,7 +114,24 @@ final class JobPage extends Component
     #[Locked]
     public ?int $collectionMovementId = null;
 
+    #[Locked]
+    public string $depositKey;
+
+    #[Locked]
+    public string $applyKey;
+
+    #[Locked]
+    public string $refundKey;
+
     public array $collection = ['account_id' => '', 'amount' => '', 'date' => '', 'reference' => ''];
+
+    public array $deposit = ['account_id' => '', 'amount' => '', 'date' => '', 'reference' => ''];
+
+    public array $applyAdvance = ['advance_id' => '', 'amount' => '', 'date' => ''];
+
+    public array $refundAdvance = ['advance_id' => '', 'account_id' => '', 'amount' => '', 'date' => '', 'reference' => ''];
+
+    public array $cancellationForm = ['reason' => '', 'customer_agreement' => '', 'fee_amount' => '0.00', 'product_id' => '', 'date' => '', 'tax_treatment' => 'exempt_0', 'tax_exempt_reason' => 'رسوم تشخيص وإلغاء متفق عليها بدون ضريبة'];
 
     public string $expenseJournal = '';
 
@@ -123,7 +141,7 @@ final class JobPage extends Component
 
     public array $diagnosis = ['fault_classification' => '', 'diagnosis' => '', 'planned_work' => '', 'estimated_minutes' => '', 'estimated_completion' => '', 'required_tests' => [['name' => '', 'required' => true]]];
 
-    public array $estimate = ['product_id' => '', 'date' => '', 'valid_until' => '', 'warranty_days' => '0', 'warranty_conditions' => '', 'parts_amount' => '', 'labor_amount' => '', 'other_amount' => '', 'parts_selling' => '', 'labor_selling' => '', 'other_selling' => '', 'discount_amount' => '0.00', 'billable_amount' => '', 'pricing_reference' => ''];
+    public array $estimate = ['product_id' => '', 'date' => '', 'valid_until' => '', 'warranty_days' => '0', 'warranty_conditions' => '', 'parts_amount' => '', 'labor_amount' => '', 'other_amount' => '', 'parts_selling' => '', 'labor_selling' => '', 'other_selling' => '', 'discount_amount' => '0.00', 'billable_amount' => '', 'pricing_reference' => '', 'tax_treatment' => 'vat_14', 'tax_exempt_reason' => ''];
 
     public array $record = ['started_at' => '', 'ended_at' => '', 'work_performed' => '', 'observations' => '', 'work_type' => 'repair'];
 
@@ -163,9 +181,15 @@ final class JobPage extends Component
         if ($w->estimated_completion) {
             $this->diagnosis['estimated_completion'] = CarbonImmutable::parse($w->estimated_completion)->setTimezone('Africa/Cairo')->format('Y-m-d\TH:i');
         }
-        foreach (['recordKey', 'reserveKey', 'issueKey', 'returnKey', 'invoiceKey', 'deliveryKey', 'transferKey', 'collectionKey'] as $key) {
+        foreach (['recordKey', 'reserveKey', 'issueKey', 'returnKey', 'invoiceKey', 'deliveryKey', 'transferKey', 'collectionKey', 'depositKey', 'applyKey', 'refundKey'] as $key) {
             $this->$key = (string) Str::uuid();
         }
+        $today = now('Africa/Cairo')->toDateString();
+        $this->deposit['date'] = $today;
+        $this->applyAdvance['date'] = $today;
+        $this->refundAdvance['date'] = $today;
+        $this->cancellationForm['date'] = $today;
+        $this->collection['date'] = $today;
     }
 
     private function refreshVersion(): void
@@ -399,7 +423,57 @@ final class JobPage extends Component
         $this->collectionMovementId = $result['movement_id'];
         $this->collectionKey = (string) Str::uuid();
         $this->reset('collection');
+        $this->collection['date'] = now('Africa/Cairo')->toDateString();
         session()->flash('workshop_notice', 'تم تحصيل المبلغ وتخصيصه على فاتورة الإصلاح وحفظ سند القبض.');
+    }
+
+    public function recordDeposit(): void
+    {
+        app(WorkshopFinance::class)->collectDeposit(auth()->id(), $this->jobId, $this->depositKey, $this->deposit);
+        $this->depositKey = (string) Str::uuid();
+        $this->reset('deposit');
+        $this->deposit['date'] = now('Africa/Cairo')->toDateString();
+        session()->flash('workshop_notice', 'تم تسجيل العربون وربطه بأمر الإصلاح وإصدار سند القبض.');
+    }
+
+    public function applyDeposit(): void
+    {
+        app(WorkshopFinance::class)->applyDeposit(
+            auth()->id(),
+            $this->jobId,
+            (int) $this->applyAdvance['advance_id'],
+            $this->applyKey,
+            (string) $this->applyAdvance['date'],
+            (string) $this->applyAdvance['amount']
+        );
+        $this->applyKey = (string) Str::uuid();
+        $this->reset('applyAdvance');
+        $this->applyAdvance['date'] = now('Africa/Cairo')->toDateString();
+        session()->flash('workshop_notice', 'تم تطبيق العربون على فاتورة الإصلاح وترحيل القيد.');
+    }
+
+    public function refundDeposit(): void
+    {
+        app(WorkshopFinance::class)->refundDeposit(
+            auth()->id(),
+            $this->jobId,
+            (int) $this->refundAdvance['advance_id'],
+            (int) $this->refundAdvance['account_id'],
+            (string) $this->refundAdvance['amount'],
+            (string) $this->refundAdvance['date'],
+            $this->refundKey,
+            (string) $this->refundAdvance['reference']
+        );
+        $this->refundKey = (string) Str::uuid();
+        $this->reset('refundAdvance');
+        $this->refundAdvance['date'] = now('Africa/Cairo')->toDateString();
+        session()->flash('workshop_notice', 'تم رد المبلغ للعميل من الخزينة وربط الحركة بأمر الإصلاح.');
+    }
+
+    public function cancelAfterDiagnosis(): void
+    {
+        app(WorkshopExecution::class)->cancelAfterDiagnosis(auth()->id(), $this->jobId, $this->version, $this->cancellationForm);
+        $this->refreshVersion();
     }
 
     public function recognizeLabor(): void
@@ -467,7 +541,7 @@ final class JobPage extends Component
         }
         $canCosts = $access->allows($actor, $w->branch_id, 'cost_view');
         $canBillingHandoff = $access->billingHandoff($actor, $w->branch_id);
-        $needsCatalog = ($this->tab === 'estimate' && $canCosts && $access->allows($actor, $w->branch_id, 'estimate_manage'))
+        $needsCatalog = ($this->tab === 'estimate' && (($canCosts && $access->allows($actor, $w->branch_id, 'estimate_manage')) || $access->allows($actor, $w->branch_id, 'customer_acceptance')))
             || ($this->tab === 'parts' && ($access->allows($actor, $w->branch_id, 'parts_request') || $access->allows($actor, $w->branch_id, 'parts_alternative_approve')));
         $catalogAvailable = false;
         if ($needsCatalog) {
@@ -481,7 +555,7 @@ final class JobPage extends Component
         }
         $products = $catalogAvailable ? app(ProductsApi::class)->listMasters(new ListMastersRequest($actor, 'products', mb_substr($this->productSearch, 0, 200), true, 1, 100))->items : [];
         if ($catalogAvailable) {
-            foreach (array_unique(array_filter([$this->part['product_id'], $this->estimate['product_id'], $this->alternativeProduct])) as $id) {
+            foreach (array_unique(array_filter([$this->part['product_id'], $this->estimate['product_id'], $this->alternativeProduct, $this->cancellationForm['product_id']])) as $id) {
                 if (! collect($products)->contains('id', (int) $id)) {
                     $products[] = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $id))->product;
                 }
@@ -526,6 +600,44 @@ final class JobPage extends Component
             }
         }
 
-        return view('workshops.job', compact('w', 'access', 'requirements', 'estimates', 'canCosts', 'canBillingHandoff', 'catalogAvailable', 'stockControls', 'users', 'technicians', 'partLabels', 'collectionAccounts', 'canValidateInvoice', 'canPostInvoice') + ['offerNet' => $this->sellingNet(), 'quotes' => DB::table('workshop_quotes')->where('job_id', $w->id)->get(), 'quoteApprovals' => DB::table('workshop_quote_approvals')->whereIn('estimate_id', $estimates->pluck('id'))->get(), 'deliveries' => DB::table('workshop_deliveries')->where('job_id', $w->id)->get(), 'availability' => $this->tab === 'parts' && ! empty($this->part['product_id']) && ! empty($this->part['warehouse_id']) ? app(InventoryApi::class)->getAvailability($actor, (int) $this->part['warehouse_id'], (int) $this->part['product_id']) : null, 'intake' => DB::table('workshop_intakes')->find($w->intake_id), 'workshops' => $access->query($actor, 'workshops')->where('branch_id', $w->branch_id)->where('active', true)->get(), 'products' => $products, 'warehouses' => $this->tab === 'parts' ? app(InventoryApi::class)->reservationWarehouses($actor, $w->branch_id) : [], 'records' => DB::table('workshop_work_records')->where('job_id', $w->id)->get(), 'laborEntries' => $canCosts ? DB::table('workshop_labor_entries')->where('job_id', $w->id)->get() : collect(), 'customerParts' => DB::table('workshop_customer_parts')->where('job_id', $w->id)->get(), 'rates' => $canCosts ? DB::table('workshop_rates')->where('branch_id', $w->branch_id)->get() : collect(), 'tests' => DB::table('workshop_tests')->where('job_id', $w->id)->get(), 'reservations' => DB::table('workshop_part_reservations')->whereIn('requirement_id', $ids)->get(), 'issues' => DB::table('workshop_part_issues')->whereIn('requirement_id', $ids)->get($canCosts ? ['*'] : ['id', 'requirement_id', 'reservation_id', 'quantity', 'movement_id', 'serials']), 'costs' => $this->tab === 'costs' ? app(WorkshopFinance::class)->costs($actor, $w->id) : null, 'invoice' => in_array($w->status, ['verified', 'delivered']) && $canBillingHandoff ? app(WorkshopFinance::class)->invoice($actor, $w->id) : null, 'history' => DB::table('workshop_activities')->where('job_id', $w->id)->orderBy('id')->get(), 'verifications' => DB::table('workshop_verifications')->where('job_id', $w->id)->get()]);
+        $offerNet = $this->sellingNet();
+        $offerTaxTreatment = (string) ($this->estimate['tax_treatment'] ?? 'vat_14');
+        $offerTaxPreview = $offerNet === null ? null : match ($offerTaxTreatment) {
+            'exempt_0' => '0.00',
+            'vat_14' => FinancialDecimal::round(bcmul($offerNet, '0.14', 10)),
+            default => null,
+        };
+        $offerTotalPreview = $offerNet !== null && $offerTaxPreview !== null ? bcadd($offerNet, $offerTaxPreview, 2) : null;
+        $canSelfApprove = app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops');
+
+        $cancellation = DB::table('workshop_cancellations')->where('job_id', $w->id)->first();
+        $invoice = (in_array($w->status, ['verified', 'delivered']) || ($cancellation && bccomp((string) $cancellation->fee_amount, '0', 2) > 0)) && $canBillingHandoff
+            ? app(WorkshopFinance::class)->invoice($actor, $w->id)
+            : null;
+        $financialLedger = ['available' => false, 'advances' => [], 'collections' => [], 'totals' => null];
+        $canApplyAdvance = false;
+        $canRefundAdvance = false;
+        $refundAccounts = [];
+        $customerAdvanceMapped = false;
+        if ($this->tab === 'billing') {
+            $financialLedger = $canBillingHandoff ? app(WorkshopFinance::class)->ledger($actor, $w->id) : $financialLedger;
+            $customerAdvanceMapped = DB::table('accounting_account_mappings')->where('purpose', 'customer_advance')->exists();
+            foreach (['canApplyAdvance' => 'M12.advance_apply', 'canRefundAdvance' => 'M13.advance_refund'] as $flag => $permission) {
+                try {
+                    app(OrganizationApi::class)->authorize(new AuthorizeRequest($actor, $permission, $w->branch_id));
+                    $$flag = true;
+                } catch (ContractException) {
+                }
+            }
+            if ($canRefundAdvance) {
+                try {
+                    $refundAccounts = app(TreasuryApi::class)->advanceRefundAccounts($actor, $w->branch_id);
+                } catch (\Throwable) {
+                    $refundAccounts = [];
+                }
+            }
+        }
+
+        return view('workshops.job', compact('w', 'access', 'requirements', 'estimates', 'canCosts', 'canBillingHandoff', 'catalogAvailable', 'stockControls', 'users', 'technicians', 'partLabels', 'collectionAccounts', 'canValidateInvoice', 'canPostInvoice', 'offerNet', 'offerTaxPreview', 'offerTotalPreview', 'canSelfApprove', 'cancellation', 'financialLedger', 'canApplyAdvance', 'canRefundAdvance', 'refundAccounts', 'customerAdvanceMapped') + ['quotes' => DB::table('workshop_quotes')->where('job_id', $w->id)->get(), 'quoteApprovals' => DB::table('workshop_quote_approvals')->whereIn('estimate_id', $estimates->pluck('id'))->get(), 'deliveries' => DB::table('workshop_deliveries')->where('job_id', $w->id)->get(), 'availability' => $this->tab === 'parts' && ! empty($this->part['product_id']) && ! empty($this->part['warehouse_id']) ? app(InventoryApi::class)->getAvailability($actor, (int) $this->part['warehouse_id'], (int) $this->part['product_id']) : null, 'intake' => DB::table('workshop_intakes')->find($w->intake_id), 'workshops' => $access->query($actor, 'workshops')->where('branch_id', $w->branch_id)->where('active', true)->get(), 'products' => $products, 'warehouses' => $this->tab === 'parts' ? app(InventoryApi::class)->reservationWarehouses($actor, $w->branch_id) : [], 'records' => DB::table('workshop_work_records')->where('job_id', $w->id)->get(), 'laborEntries' => $canCosts ? DB::table('workshop_labor_entries')->where('job_id', $w->id)->get() : collect(), 'customerParts' => DB::table('workshop_customer_parts')->where('job_id', $w->id)->get(), 'rates' => $canCosts ? DB::table('workshop_rates')->where('branch_id', $w->branch_id)->get() : collect(), 'tests' => DB::table('workshop_tests')->where('job_id', $w->id)->get(), 'reservations' => DB::table('workshop_part_reservations')->whereIn('requirement_id', $ids)->get(), 'issues' => DB::table('workshop_part_issues')->whereIn('requirement_id', $ids)->get($canCosts ? ['*'] : ['id', 'requirement_id', 'reservation_id', 'quantity', 'movement_id', 'serials']), 'costs' => $this->tab === 'costs' ? app(WorkshopFinance::class)->costs($actor, $w->id) : null, 'profitability' => $this->tab === 'costs' ? app(WorkshopFinance::class)->profitability($actor, $w->id) : null, 'invoice' => $invoice, 'history' => DB::table('workshop_activities')->where('job_id', $w->id)->orderBy('id')->get(), 'verifications' => DB::table('workshop_verifications')->where('job_id', $w->id)->get()]);
     }
 }

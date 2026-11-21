@@ -22,9 +22,13 @@
 
     <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_17rem]">
         <x-ui.panel class="!p-0 overflow-hidden">
-            <x-ui.filters class="p-5 !mb-0 border-b border-[#E5E8EE]" id="product-filters" target="search,brandFilter,statusFilter,typeFilter,unitFilter,categoryFilter" :reset="['search' => '', 'brandFilter' => '', 'statusFilter' => '', 'typeFilter' => '', 'unitFilter' => '', 'categoryFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث عن صنف" placeholder="الاسم أو رمز الصنف أو الباركود..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <x-ui.filters class="p-5 !mb-0 border-b border-[#E5E8EE]" id="product-filters" target="search,brandFilter,statusFilter,typeFilter,unitFilter,categoryFilter" :reset="['search' => '', 'brandFilter' => '', 'statusFilter' => '', 'typeFilter' => '', 'unitFilter' => '', 'categoryFilter' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" label="البحث السريع (اسم، كود، طراز، أمبير، كيلو)" placeholder="مثال: قاطع 100A أو 36kA أو MCCB أو رمز الصنف..." /></x-slot:search><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
 
-                    <flux:select wire:model.live="brandFilter" label="العلامة التجارية">
+                    <flux:select wire:model.live="categoryFilter" label="التصنيف">
+                        <option value="">كل التصنيفات</option>
+                        @foreach ($categories as $cat)<option value="{{ $cat->id }}">{{ $cat->parent_id ? '↳ ' : '' }}{{ $cat->name }}</option>@endforeach
+                    </flux:select>
+                    <flux:select wire:model.live="brandFilter" label="الماركة / العلامة التجارية">
                         <option value="">كل العلامات التجارية</option>
                         @foreach ($brands as $brand)<option value="{{ $brand->id }}">{{ $brand->name }}</option>@endforeach
                     </flux:select>
@@ -71,9 +75,12 @@
                         </tr>
                     </thead>
                     <tbody role="rowgroup" class="divide-y divide-slate-100">
+                        @php($productsApi = app(\App\Modules\Products\Application\Contracts\ProductsApi::class))
+                        @php($canPrices = app(\App\Modules\Products\Application\ProductAccess::class)->allows(auth()->id(), 'M02.price_view'))
                         @forelse ($products as $product)
                             @php($productImage = isset($canMedia) && $canMedia ? $product->media->first(fn ($file) => $file->is_image) : null)
-                            <tr role="row" wire:key="product-{{ $product->id }}">
+                            @php($spec = $productsApi->extractGuidedSpec(['model' => $product->model, 'attributes' => $product->attributes]))
+                            <tr role="row" wire:key="product-{{ $product->id }}" class="hover:bg-slate-50/70">
                                 <td role="cell" data-label="التحديد" class="p-4"><div><flux:checkbox wire:model.live="selected" value="{{ $product->id }}" :aria-label="'تحديد '.$product->name" /></div></td>
                                 <td role="cell" data-label="الصف" class="p-4 text-slate-500"><div>{{ $products->firstItem() + $loop->index }}</div></td>
                                 <td role="cell" data-label="الصنف" class="p-4"><div>
@@ -83,7 +90,18 @@
                                         @else
                                             <span class="flex size-10 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-slate-400"><flux:icon name="cube" class="size-5" /></span>
                                         @endif
-                                        <span class="min-w-0"><span class="block truncate">{{ $product->name }}</span><span class="mt-1 block text-xs font-normal text-slate-500">{{ $product->short_description ?: '—' }}</span></span>
+                                        <span class="min-w-0">
+                                            <span class="block truncate">{{ $product->name }}</span>
+                                            <span class="mt-1 flex flex-wrap items-center gap-1">
+                                                @if(!empty($spec['spec_model']))<span class="orders-badge" data-size="sm" data-tone="neutral"><bdi>{{ $spec['spec_model'] }}</bdi></span>@endif
+                                                @if(!empty($spec['spec_type']))<span class="orders-badge" data-size="sm" data-tone="neutral">النوع: <bdi>{{ $spec['spec_type'] }}</bdi></span>@endif
+                                                @if(!empty($spec['spec_ampere']))<span class="orders-badge" data-size="sm" data-tone="info"><bdi>{{ $spec['spec_ampere'] }}</bdi></span>@endif
+                                                @if(!empty($spec['spec_kilo']))<span class="orders-badge" data-size="sm" data-tone="info"><bdi>{{ $spec['spec_kilo'] }}</bdi></span>@endif
+                                                @if(empty($spec['spec_model']) && empty($spec['spec_ampere']) && empty($spec['spec_kilo']))
+                                                    <span class="text-xs font-normal text-slate-500">{{ $product->short_description ?: '—' }}</span>
+                                                @endif
+                                            </span>
+                                        </span>
                                     </a>
                                 </div></td>
                                 <td role="cell" data-label="رمز الصنف" class="p-4"><div><bdi class="font-medium">{{ $product->sku }}</bdi></div></td>
@@ -93,12 +111,15 @@
                                 <td role="cell" data-label="الوحدة الأساسية" class="p-4"><div>{{ $product->baseUnit?->name ?: '—' }}</div></td>
                                 <td role="cell" data-label="النوع" class="p-4 text-xs"><div>{{ ['serialized_equipment' => 'معدات برقم تسلسلي', 'bulk' => 'مواد بالكمية', 'service' => 'خدمة'][$product->kind] ?? '—' }}</div></td>
                                 <td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$product->active" /></div></td>
-                                <td role="cell" data-label="الإجراءات" class="p-4"><div>
+                                <td role="cell" data-label="الإجراءات" class="p-4"><div class="flex items-center gap-1">
+                                    @if ($canUpdate)<flux:button :href="route('products.edit', $product->id)" variant="ghost" size="xs" icon="pencil-square" wire:navigate aria-label="تعديل {{ $product->name }}" />@endif
+                                    @if ($canPrices && \Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $product->id)" variant="ghost" size="xs" icon="banknotes" wire:navigate aria-label="أسعار {{ $product->name }}" />@endif
                                     <flux:dropdown>
                                         <flux:button icon="ellipsis-horizontal" variant="ghost" size="sm" aria-label="إجراءات {{ $product->name }}" />
                                         <flux:menu>
                                             <flux:menu.item :href="route('products.show', $product->id)" icon="eye" wire:navigate>تفاصيل الصنف</flux:menu.item>
                                             @if ($canUpdate)<flux:menu.item :href="route('products.edit', $product->id)" icon="pencil-square" wire:navigate>تعديل البيانات</flux:menu.item>@endif
+                                            @if ($canPrices && \Illuminate\Support\Facades\Route::has('products.prices'))<flux:menu.item :href="route('products.prices', $product->id)" icon="banknotes" wire:navigate>أسعار البيع المعتمدة</flux:menu.item>@endif
                                             @if ($canStatus)<flux:menu.item wire:click="changeStatus({{ $product->id }}, {{ $product->version }})" icon="power">{{ $product->active ? 'تعطيل الصنف' : 'تفعيل الصنف' }}</flux:menu.item>@endif
                                         </flux:menu>
                                     </flux:dropdown>

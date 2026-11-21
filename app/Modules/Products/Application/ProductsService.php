@@ -22,7 +22,7 @@ use Illuminate\Validation\ValidationException;
 
 class ProductsService implements ProductsApi
 {
-    private const FIELDS = ['id', 'sku', 'name', 'name_en', 'short_description', 'kind', 'tracking', 'base_unit_id', 'purchase_unit_id', 'sales_unit_id', 'category_id', 'brand_id', 'model', 'barcode', 'active', 'version'];
+    private const FIELDS = ['id', 'sku', 'name', 'name_en', 'short_description', 'kind', 'tracking', 'base_unit_id', 'purchase_unit_id', 'sales_unit_id', 'category_id', 'brand_id', 'model', 'barcode', 'active', 'version', 'attributes'];
 
     private function authorizeInventory(int $actor): void
     {
@@ -115,5 +115,61 @@ class ProductsService implements ProductsApi
         }
 
         return new ConvertQuantityResult($result, $product->base_unit_id);
+    }
+
+    public function extractGuidedSpec(array $product): array
+    {
+        $attrs = [];
+        foreach ((array) ($product['attributes'] ?? []) as $row) {
+            if (is_array($row) && isset($row['name'], $row['value'])) {
+                $attrs[trim((string) $row['name'])] = trim((string) $row['value']);
+            }
+        }
+        $type = $attrs['النوع'] ?? $attrs['عدد الأقطاب'] ?? $attrs['الفئة'] ?? $attrs['عدد القلوب'] ?? $attrs['التغذية'] ?? '';
+        $ampere = $attrs['التيار المقنن'] ?? $attrs['نطاق التيار'] ?? $attrs['مقطع الموصل'] ?? $attrs['مقطع التوصيل'] ?? '';
+        $kilo = $attrs['قدرة القطع'] ?? $attrs['القدرة'] ?? $attrs['منحنى الفصل'] ?? $attrs['جهد الملف'] ?? '';
+
+        return [
+            'spec_model' => trim((string) ($product['model'] ?? '')),
+            'spec_type' => $type,
+            'spec_ampere' => $ampere,
+            'spec_kilo' => $kilo,
+        ];
+    }
+
+    public function guidedCatalog(int $actor, string $search = '', ?int $categoryId = null, ?int $brandId = null): array
+    {
+        app(ProductAccess::class)->authorize($actor, 'M02.product_view');
+        $search = mb_substr(str_replace("\0", '', trim($search)), 0, 200);
+        $categories = Category::where('active', true)->orderBy('name')->get(['id', 'code', 'name', 'parent_id'])->map(fn ($c) => $c->only(['id', 'code', 'name', 'parent_id']))->all();
+        $brands = Brand::where('active', true)->orderBy('name')->get(['id', 'code', 'name'])->map(fn ($b) => $b->only(['id', 'code', 'name']))->all();
+
+        $query = Product::where('active', true);
+        if ($categoryId !== null && $categoryId > 0) {
+            $childIds = collect($categories)->where('parent_id', $categoryId)->pluck('id')->all();
+            $query->whereIn('category_id', array_merge([$categoryId], $childIds));
+        }
+        if ($brandId !== null && $brandId > 0) {
+            $query->where('brand_id', $brandId);
+        }
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ilike', '%'.$search.'%')
+                    ->orWhere('sku', 'ilike', '%'.$search.'%')
+                    ->orWhere('model', 'ilike', '%'.$search.'%');
+            });
+        }
+
+        $products = $query->orderBy('id')->limit(100)->get()->map(function (Product $p) {
+            $row = $p->only(self::FIELDS);
+
+            return $row + $this->extractGuidedSpec($row);
+        })->all();
+
+        return [
+            'categories' => $categories,
+            'brands' => $brands,
+            'products' => $products,
+        ];
     }
 }

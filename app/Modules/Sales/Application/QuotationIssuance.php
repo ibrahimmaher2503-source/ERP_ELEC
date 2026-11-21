@@ -3,6 +3,7 @@
 namespace App\Modules\Sales\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Accounting\Application\TaxCalculator;
 use App\Modules\Sales\Domain\Quotation;
 use App\Modules\Sales\Domain\QuotationChanged;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
@@ -56,17 +57,30 @@ final class QuotationIssuance
                 $rows[] = [$line->product_snapshot['sku'], $line->description, $line->product_snapshot['unit_name'], $line->quantity, $price,
                     bcadd($draft['lines'][$i]['discount'], '0', 8)];
             }
-            $tax = app(AccountingApi::class)->calculateTax($actor, 'sale', $r->quotation_date->toDateString(), 'exclusive',
-                $taxLines, bcadd($draft['quotation_discount'], '0', 32));
+            $taxTreatment = $r->tax_treatment ?? 'rule';
+            $tax = app(AccountingApi::class)->calculateTax(
+                $actor,
+                'sale',
+                $r->quotation_date->toDateString(),
+                'exclusive',
+                $taxLines,
+                bcadd($draft['quotation_discount'], '0', 32),
+                ['treatment' => $taxTreatment, 'reason' => $r->tax_exempt_reason]
+            );
             if (! $tax['production_validated']) {
                 throw ValidationException::withMessages(['readiness' => 'يلزم التحقق من المعاملة الضريبية قبل الإصدار.']);
             }
             $snapshot = app(QuotationApprovals::class)->snapshot($r);
+            $fields = ['العميل' => $r->customer_snapshot['name'], 'صالح حتى' => $r->valid_until->toDateString(),
+                'المشروع' => $r->project_name ?? '', 'مرجع طلب السعر' => $r->rfq_reference ?? '',
+                'المعاملة الضريبية' => TaxCalculator::treatmentLabel($taxTreatment)];
+            if ($taxTreatment === 'exempt_0' && $r->tax_exempt_reason) {
+                $fields['سبب عدم احتساب الضريبة'] = $r->tax_exempt_reason;
+            }
+            $fields += ['خصم العرض' => bcadd($draft['quotation_discount'], '0', 8),
+                'شروط السداد' => $r->payment_terms ?? '', 'شروط التسليم' => $r->delivery_terms ?? '', 'ملاحظات' => $r->notes ?? ''];
             $doc = app(OfficialDocuments::class)->issue($actor, 'quotation', (string) $id, $r->revision, $r->quotation_date->toDateString(), [
-                'title' => 'عرض سعر', 'signature_area' => true, 'fields' => ['العميل' => $r->customer_snapshot['name'], 'صالح حتى' => $r->valid_until->toDateString(),
-                    'المشروع' => $r->project_name ?? '', 'مرجع طلب السعر' => $r->rfq_reference ?? '',
-                    'خصم العرض' => bcadd($draft['quotation_discount'], '0', 8),
-                    'شروط السداد' => $r->payment_terms ?? '', 'شروط التسليم' => $r->delivery_terms ?? '', 'ملاحظات' => $r->notes ?? ''],
+                'title' => 'عرض سعر', 'signature_area' => true, 'fields' => $fields,
                 'columns' => ['الكود', 'الصنف', 'الوحدة', 'الكمية', 'سعر الوحدة', 'خصم البند'], 'rows' => $rows, 'tax' => $tax,
                 'totals' => ['الصافي' => $tax['net'], 'الضريبة' => $tax['tax'], 'الإجمالي' => $tax['total']],
             ]);

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Treasury\Presentation;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Parties\Application\Contracts\CustomersApi;
 use App\Modules\Parties\Application\Contracts\GetCustomerRequest;
 use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
@@ -93,7 +94,9 @@ final class TreasuryPage extends Component
             'customer' => $this->partyNames('customer', $openItems->where('party_type', 'customer')->pluck('party_id')->all()),
         ] : ['supplier' => [], 'customer' => []];
 
-        return view('treasury.index', compact('access', 'nav', 'accounts', 'branches', 'openItems', 'rows', 'glAccounts', 'partyNames'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
+        $canSelfApproveTreasury = app(OrganizationApi::class)->allowsSelfApproval((int) auth()->id(), 'treasury_ar_ap');
+
+        return view('treasury.index', compact('access', 'nav', 'accounts', 'branches', 'openItems', 'rows', 'glAccounts', 'partyNames', 'canSelfApproveTreasury'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
     }
 
     /** @return array<int, string> Display names keyed by party id; ids that cannot be resolved are omitted. */

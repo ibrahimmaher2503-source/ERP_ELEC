@@ -74,7 +74,11 @@ final class ReceiptPage extends Component
         $this->form['lines'] = DB::table('purchasing_order_lines')->where('order_id', $doc->id)->orderBy('id')->get()->map(function ($line) {
             $allocated = (string) DB::table('purchasing_receipt_lines')->where('order_line_id', $line->id)->sum('quantity');
 
-            return ['order_line_id' => $line->id, 'quantity' => bcsub($line->quantity, $allocated, 8), 'serial_text' => ''];
+            return [
+                'order_line_id' => $line->id,
+                'quantity' => bcsub($line->quantity, $allocated, 8),
+                'serial_text' => bccomp($allocated, '0', 8) === 0 ? trim((string) ($line->serial_reference ?? '')) : '',
+            ];
         })->filter(fn ($line) => bccomp($line['quantity'], '0', 8) > 0)->values()->all();
         if ($this->form['lines'] === []) {
             app(SupplierOffers::class)->fail('كمية الأمر مخصصة بالكامل لاستلامات مرحلة أو مسودات أخرى.');

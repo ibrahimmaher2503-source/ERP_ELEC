@@ -2,9 +2,13 @@
 
 namespace App\Modules\WorkshopRepairs\Application;
 
+use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use App\Modules\Products\Application\Contracts\GetProductRequest;
+use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use Carbon\CarbonImmutable;
@@ -112,7 +116,10 @@ final class WorkshopExecution
             $w = $a->work($actor, $job, 'verify', $version);
             $a->project($actor, $w);
             abort_unless($w->status === 'testing', 409);
-            abort_if($actor === $w->technician_id, 403, 'التحقق الفني يتطلب مشرفاً مستقلاً.');
+            $selfApproved = $actor === $w->technician_id;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'), 403, 'التحقق الفني يتطلب مشرفاً مستقلاً.');
+            }
             $plans = json_decode($w->required_tests, true);
             abort_unless($plans && collect($plans)->contains('required', true), 409);
             foreach ($plans as $plan) {
@@ -128,7 +135,7 @@ final class WorkshopExecution
             }
             $doc = app(OfficialDocuments::class)->issue($actor, 'workshop_report', (string) $job, 1, now('Africa/Cairo')->toDateString(), ['title' => 'تقرير إصلاح واختبار معدة', 'fields' => ['أمر الإصلاح' => $w->number, 'العميل' => $w->customer_name, 'التشخيص' => $w->diagnosis, 'الحالة النهائية' => $finalCondition, 'الأعطال المتبقية' => $remainingFaults], 'columns' => ['الفحص', 'النتيجة', 'الملاحظات'], 'rows' => DB::table('workshop_tests')->where('job_id', $job)->orderBy('id')->get()->map(fn ($r) => [$r->name, $r->outcome, $r->results])->all(), 'totals' => []]);
             DB::table('workshop_verifications')->insert(['job_id' => $job, 'verified_by' => $actor, 'final_condition' => $finalCondition, 'remaining_faults' => $remainingFaults, 'document_id' => $doc['id']]);
-            $a->touch($actor, $w, 'job.verified', ['document_id' => $doc['id']], ['status' => 'verified']);
+            $a->touch($actor, $w, 'job.verified', ['document_id' => $doc['id'], 'self_approved' => $selfApproved], ['status' => 'verified']);
             $i = DB::table('workshop_intakes')->lockForUpdate()->find($w->intake_id);
             DB::table('workshop_intakes')->where('id', $i->id)->update(['status' => 'ready', 'version' => $i->version + 1, 'updated_at' => now()]);
             $a->custody($actor, $i, $i->location, 'ready', 'تحقق فني مستقل', (string) Str::uuid(), $finalCondition);
@@ -196,6 +203,108 @@ final class WorkshopExecution
             $destination = ($i->customer_owned ? 'العميل: ' : ($d['unrepaired'] ? 'معدات الشركة غير المتاحة: ' : 'إعادة للخدمة: ')).$d['recipient'];
             DB::table('workshop_intakes')->where('id', $i->id)->update(['status' => $status, 'location' => $destination, 'version' => $i->version + 1, 'updated_at' => now()]);
             $a->custody($actor, $i, $destination, $status, $d['acknowledgment'], $key, $d['final_condition']);
+
+            return $id;
+        }, 5);
+    }
+
+    public function cancelAfterDiagnosis(int $actor, int $job, int $version, array $input): int
+    {
+        $d = Validator::make($input, [
+            'reason' => 'required|string|min:5|max:5000',
+            'customer_agreement' => 'required|string|min:5|max:5000',
+            'fee_amount' => 'required|string',
+            'date' => 'required|date_format:Y-m-d',
+            'product_id' => 'nullable|integer|min:1',
+            'tax_treatment' => 'nullable|in:rule,vat_14,exempt_0',
+            'tax_exempt_reason' => 'nullable|string|max:2000',
+        ])->validate();
+
+        $fee = bcadd(Decimal::value($d['fee_amount'], 2), '0', 2);
+        abort_unless(bccomp($fee, '0', 2) >= 0, 422, 'رسوم الإلغاء لا تقبل قيمة سالبة.');
+
+        return DB::transaction(function () use ($actor, $job, $version, $d, $fee): int {
+            $a = app(WorkshopActions::class);
+            $w = $a->work($actor, $job, 'customer_acceptance', $version);
+            $a->project($actor, $w);
+
+            abort_unless($w->diagnosis !== null && trim((string) $w->diagnosis) !== '', 409, 'يلزم تسجيل التشخيص قبل إلغاء الإصلاح بعد التشخيص.');
+            abort_unless(in_array($w->status, ['inspection', 'waiting_approval', 'rejected', 'approved'], true), 409, 'حالة الأمر لا تسمح بتسجيل إلغاء بعد التشخيص.');
+            abort_if(DB::table('workshop_cancellations')->where('job_id', $job)->exists(), 409, 'تم تسجيل إلغاء هذا الأمر بالفعل.');
+
+            app(WorkshopParts::class)->reconciled($actor, $job);
+            $intake = DB::table('workshop_intakes')->lockForUpdate()->find($w->intake_id);
+            abort_unless($intake, 404);
+
+            $productId = null;
+            $taxTreatment = 'exempt_0';
+            $taxExemptReason = null;
+            $taxAmount = '0.00';
+            $total = '0.00';
+            $taxSnapshot = null;
+
+            if (bccomp($fee, '0', 2) > 0) {
+                abort_unless($intake->customer_owned && $w->billing_mode !== 'contract', 422, 'رسوم الإلغاء للعميل متاحة لأوامر إصلاح معدات العملاء خارج عقود الخدمة فقط.');
+                abort_if(empty($d['product_id']), 422, 'اختر بند خدمة رسوم التشخيص والإلغاء من دليل الأصناف.');
+
+                $product = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $d['product_id']))->product;
+                abort_unless($product['active'] && $product['kind'] === 'service', 422, 'اختر خدمة نشطة لرسوم التشخيص والإلغاء.');
+
+                $productId = (int) $d['product_id'];
+                $taxTreatment = (string) ($d['tax_treatment'] ?: 'exempt_0');
+                $taxExemptReason = ($d['tax_exempt_reason'] ?? null) !== null ? trim((string) $d['tax_exempt_reason']) : null;
+                $tax = app(AccountingApi::class)->calculateTax(
+                    $actor,
+                    'sale',
+                    $d['date'],
+                    'exclusive',
+                    [['product_id' => $productId, 'quantity' => '1', 'unit_price' => $fee]],
+                    '0',
+                    ['treatment' => $taxTreatment, 'reason' => $taxExemptReason]
+                );
+                $taxAmount = bcadd((string) $tax['lines'][0]['tax'], '0', 2);
+                $total = bcadd($fee, $taxAmount, 2);
+                $taxSnapshot = json_encode($tax['lines'][0] + ['approved_tax_date' => $d['date']], JSON_THROW_ON_ERROR);
+            }
+
+            $id = DB::table('workshop_cancellations')->insertGetId([
+                'job_id' => $job,
+                'product_id' => $productId,
+                'fee_amount' => $fee,
+                'tax_treatment' => $taxTreatment,
+                'tax_exempt_reason' => $taxExemptReason,
+                'tax_amount' => $taxAmount,
+                'total_amount' => $total,
+                'tax_snapshot' => $taxSnapshot,
+                'reason' => trim($d['reason']),
+                'customer_agreement' => trim($d['customer_agreement']),
+                'cancelled_by' => $actor,
+                'created_at' => now(),
+            ]);
+
+            $a->touch(
+                $actor,
+                $w,
+                'job.cancelled_after_diagnosis',
+                [
+                    'cancellation_id' => $id,
+                    'fee_amount' => $fee,
+                    'tax_amount' => $taxAmount,
+                    'total_amount' => $total,
+                    'tax_treatment' => $taxTreatment,
+                    'tax_exempt_reason' => $taxExemptReason,
+                    'reason' => trim($d['reason']),
+                    'evidence' => trim($d['customer_agreement']),
+                ],
+                ['status' => 'rejected']
+            );
+
+            DB::table('workshop_intakes')->where('id', $intake->id)->update([
+                'status' => 'not_repairable',
+                'version' => $intake->version + 1,
+                'updated_at' => now(),
+            ]);
+            $a->custody($actor, $intake, $intake->location, 'not_repairable', 'إلغاء الإصلاح بعد التشخيص: '.trim($d['reason']), (string) Str::uuid(), $intake->arrival_condition);
 
             return $id;
         }, 5);

@@ -40,6 +40,8 @@ interface ReceivablesPayablesApi
 
     public function workshopBillingHandoff(int $actor, int $job, int $branch): ?array;
 
+    public function workshopFinancialLedger(int $actor, int $job, int $branch): array;
+
     /** M08 closure projection, no AR amounts or authority granted. */
     public function serviceBillingHandoff(int $actor, int $work, int $branch): ?array;
 
@@ -71,7 +73,7 @@ interface ReceivablesPayablesApi
     /** Persist allocations and settlement status in the same transaction as the Treasury movement. */
     public function completeSettlement(int $actor, int $movementId, string $partyType, array $allocations): void;
 
-    public function recordCustomerAdvance(int $actor, int $movementId, int $branch, int $customer, string $amount): void;
+    public function recordCustomerAdvance(int $actor, int $movementId, int $branch, int $customer, string $amount, ?int $workshopJobId = null): void;
 
     public function createCreditNote(int $actor, array $data): int;
 

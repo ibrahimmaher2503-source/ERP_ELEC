@@ -3,6 +3,7 @@
 namespace App\Modules\WorkshopRepairs\Application;
 
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,10 @@ final class WorkshopParts
             $a->executable($w);
             $r = DB::table('workshop_part_requirements')->where('job_id', $job)->find($original);
             abort_unless($r && $r->product_id !== $product, 422);
-            abort_if($r->created_by === $actor, 403, 'البديل يحتاج موافقة شخص مستقل عن طالب القطعة.');
+            $selfApproved = $r->created_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'), 403, 'البديل يحتاج موافقة شخص مستقل عن طالب القطعة.');
+            }
             abort_if(DB::table('workshop_part_reservations')->where('requirement_id', $original)->exists()
                 || DB::table('workshop_part_alternatives')->where('original_requirement_id', $original)->exists(), 409, 'البديل قبل تخصيص أي حجز أو صرف للطلب الأصلي.');
             $source = app(ProductsApi::class)->inventoryProduct($actor, $r->product_id);
@@ -27,6 +31,7 @@ final class WorkshopParts
             abort_unless($source['base_unit_id'] === $replacement['base_unit_id'], 422, 'البديل يجب أن يستخدم وحدة الأساس نفسها.');
             $id = $this->requirement($actor, $job, $version, ['product_id' => $product, 'warehouse_id' => $r->warehouse_id, 'quantity' => $r->quantity]);
             DB::table('workshop_part_alternatives')->insert(['original_requirement_id' => $original, 'replacement_requirement_id' => $id, 'approved_by' => $actor, 'reason' => $reason]);
+            $a->audit($actor, $w->intake_id, $job, 'part.alternative_approved', ['original_requirement_id' => $original, 'replacement_requirement_id' => $id, 'self_approved' => $selfApproved]);
 
             return $id;
         }, 5);

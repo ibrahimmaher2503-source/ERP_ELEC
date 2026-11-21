@@ -3,6 +3,7 @@
 namespace App\Modules\Sales\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Accounting\Application\TaxCalculator;
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
 use App\Modules\Products\Application\Contracts\ConvertQuantityRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
@@ -66,6 +67,12 @@ final class ApproveSalesOrder
                         : $original['quotation'][$field] === $r->$field;
                     abort_unless($equal, 409, 'تغيرت شروط الإصدار المقبول.');
                 }
+                abort_unless(
+                    ($r->tax_treatment ?? 'rule') === ($original['quotation']['tax_treatment'] ?? 'rule')
+                    && ($r->tax_exempt_reason ?? null) === ($original['quotation']['tax_exempt_reason'] ?? null),
+                    409,
+                    'تغيرت المعاملة الضريبية عن الإصدار المقبول.'
+                );
                 $tax = json_decode($issue->tax_snapshot, true, 512, JSON_THROW_ON_ERROR);
                 $commercialReference = $acceptance->reference;
             } else {
@@ -87,7 +94,16 @@ final class ApproveSalesOrder
                 $taxLines[] = ['product_id' => $line->product_id, 'quantity' => $line->quantity, 'unit_price' => $line->requested_price ?? $line->suggested_price, 'discount' => bcadd($draft['lines'][$i]['discount'], '0', 32)];
                 abort_unless(isset($warehouses[$line->id]) && ctype_digit((string) $warehouses[$line->id]), 422, 'اختر مستودع حجز لكل بند.');
             }
-            $currentTax = app(AccountingApi::class)->calculateTax($actor, 'sale', $r->order_date->toDateString(), 'exclusive', $taxLines, bcadd($draft['quotation_discount'], '0', 32));
+            $taxTreatment = $r->tax_treatment ?? 'rule';
+            $currentTax = app(AccountingApi::class)->calculateTax(
+                $actor,
+                'sale',
+                $r->order_date->toDateString(),
+                'exclusive',
+                $taxLines,
+                bcadd($draft['quotation_discount'], '0', 32),
+                ['treatment' => $taxTreatment, 'reason' => $r->tax_exempt_reason]
+            );
             if (! $currentTax['production_validated']) {
                 throw ValidationException::withMessages(['readiness' => 'يلزم التحقق من المعاملة الضريبية قبل اعتماد المبالغ الرسمية.']);
             }
@@ -107,9 +123,26 @@ final class ApproveSalesOrder
             // the rules and calculation date actually validated for its own date.
             $tax = $currentTax;
             app(SalesOrderCreditLimit::class)->require($actor, $r, $tax['total'], (int) $review->requested_by);
+            $fields = ['العميل' => $r->customer_snapshot['name'], 'مرجع العميل أو القبول' => $commercialReference, 'شروط السداد' => $r->payment_terms ?? '', 'شروط التسليم' => $r->delivery_terms ?? '', 'المعاملة الضريبية' => TaxCalculator::treatmentLabel($taxTreatment)];
+            if ($taxTreatment === 'exempt_0' && $r->tax_exempt_reason) {
+                $fields['سبب عدم احتساب الضريبة'] = $r->tax_exempt_reason;
+            }
             $doc = app(OfficialDocuments::class)->issue($actor, 'sales_order', (string) $id, 1, $r->order_date->toDateString(), [
-                'title' => 'أمر بيع', 'fields' => ['العميل' => $r->customer_snapshot['name'], 'مرجع العميل أو القبول' => $commercialReference, 'شروط السداد' => $r->payment_terms ?? '', 'شروط التسليم' => $r->delivery_terms ?? ''],
-                'columns' => ['الصنف', 'الوحدة', 'الكمية'], 'rows' => $r->lines->map(fn ($l) => [$l->description, $l->product_snapshot['unit_name'], $l->quantity])->all(),
+                'title' => 'أمر بيع', 'fields' => $fields,
+                'columns' => ['الصنف', 'الوحدة', 'الكمية'],
+                'rows' => $r->lines->map(function ($l) {
+                    $details = array_filter([
+                        $l->spec_model ? 'الطراز: '.$l->spec_model : null,
+                        $l->spec_type ? 'النوع: '.$l->spec_type : null,
+                        $l->spec_ampere ? 'الأمبير: '.$l->spec_ampere : null,
+                        $l->spec_kilo ? 'الكيلو: '.$l->spec_kilo : null,
+                        $l->serial_reference ? 'السيريال: '.$l->serial_reference : null,
+                        $l->accessories_note ? 'الملحقات: '.$l->accessories_note : null,
+                    ]);
+                    $desc = $details === [] ? $l->description : ($l->description.' ('.implode(' · ', $details).')');
+
+                    return [$desc, $l->product_snapshot['unit_name'], $l->quantity];
+                })->all(),
                 'tax' => $tax, 'totals' => ['الصافي' => $tax['net'], 'الضريبة' => $tax['tax'], 'الإجمالي' => $tax['total']],
             ]);
             DB::table('sales_order_issues')->insert(['order_id' => $id, 'review_id' => $review->id, 'document_id' => $doc['id'],
@@ -123,7 +156,7 @@ final class ApproveSalesOrder
                 DB::table('sales_order_allocations')->insert(['order_id' => $id, 'line_id' => $line->id, 'base_quantity' => $base[$line->id], 'warehouse_id' => (int) $warehouses[$line->id], 'reservation_id' => $reservation['id']]);
             }
             $review->update(['status' => 'approved', 'decided_by' => $actor, 'decided_at' => now()]);
-            event(new SalesOrderChanged($actor, $id, 'approved_and_reserved', null, ['number' => $doc['number'], 'document_id' => $doc['id'], 'review_id' => $review->id]));
+            event(new SalesOrderChanged($actor, $id, 'approved_and_reserved', null, ['number' => $doc['number'], 'document_id' => $doc['id'], 'review_id' => $review->id, 'self_approved' => $actor === (int) $review->requested_by]));
         });
     }
 }

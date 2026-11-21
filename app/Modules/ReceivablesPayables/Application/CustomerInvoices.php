@@ -3,6 +3,7 @@
 namespace App\Modules\ReceivablesPayables\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Accounting\Application\TaxCalculator;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
 use App\Modules\Parties\Application\Contracts\CustomersApi;
 use App\Modules\Parties\Application\Contracts\GetCustomerRequest;
@@ -20,7 +21,10 @@ final class CustomerInvoices
     {
         Validator::make($data, [
             'creation_key' => 'required|uuid', 'customer_id' => 'required|integer|min:1', 'invoice_date' => 'required|date_format:Y-m-d',
-            'due_date' => 'required|date_format:Y-m-d|after_or_equal:invoice_date', 'lines' => 'required|array|min:1|max:500',
+            'due_date' => 'required|date_format:Y-m-d|after_or_equal:invoice_date',
+            'tax_treatment' => 'sometimes|nullable|in:inherit,rule,vat_14,exempt_0',
+            'tax_exempt_reason' => 'nullable|string|max:2000',
+            'lines' => 'required|array|min:1|max:500',
             'lines.*.delivery_line_id' => 'required|integer|min:1', 'lines.*.quantity' => 'required|string',
         ])->validate();
 
@@ -47,9 +51,26 @@ final class CustomerInvoices
                 $this->fail('هوية العميل لا تطابق أمر البيع والتسليم.');
             }
             app(AccountingApi::class)->requirePostingDate($data['invoice_date']);
-            $id = DB::table('rp_customer_invoices')->insertGetId(['creation_key' => $data['creation_key'], 'branch_id' => $source['branch_id'], 'project_id' => $project,
+
+            $orderTreatment = (string) ($source['tax_treatment'] ?? 'rule');
+            $orderReason = $source['tax_exempt_reason'] ?? null;
+            $requested = (string) ($data['tax_treatment'] ?? 'inherit');
+            $effectiveTreatment = $requested === 'inherit' ? $orderTreatment : $requested;
+            $effectiveReason = $effectiveTreatment === 'exempt_0'
+                ? trim((string) ($data['tax_exempt_reason'] ?? ($requested === 'inherit' ? ($orderReason ?? '') : '')))
+                : null;
+            if ($effectiveTreatment === 'exempt_0' && ($effectiveReason === null || mb_strlen($effectiveReason) < 5)) {
+                $this->fail('يجب كتابة سبب واضح (5 أحرف على الأقل) عند اختيار "بدون ضريبة".');
+            }
+            $overrodeOrderTax = $effectiveTreatment !== $orderTreatment;
+
+            $id = DB::table('rp_customer_invoices')->insertGetId([
+                'creation_key' => $data['creation_key'], 'branch_id' => $source['branch_id'], 'project_id' => $project,
                 'customer_id' => $customer->id, 'customer_name' => $customer->name, 'invoice_date' => $data['invoice_date'], 'due_date' => $data['due_date'],
-                'created_by' => $actor, 'source_snapshot' => json_encode($source, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), 'created_at' => now(), 'updated_at' => now()]);
+                'tax_treatment' => $effectiveTreatment, 'tax_exempt_reason' => $effectiveReason,
+                'created_by' => $actor, 'source_snapshot' => json_encode($source, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+                'created_at' => now(), 'updated_at' => now(),
+            ]);
             $net = '0.00';
             $tax = '0.00';
             foreach ($data['lines'] as $input) {
@@ -73,20 +94,51 @@ final class CustomerInvoices
                 $frozen = $sourceLine['tax'];
                 $cumulativeNet = bccomp($cumulativeQty, $sourceLine['ordered_quantity'], 8) === 0 ? $frozen['net']
                     : Decimal::round(bcdiv(bcmul($frozen['net'], $cumulativeQty, Decimal::SCALE), $sourceLine['ordered_quantity'], Decimal::SCALE));
-                $cumulativeTax = bccomp($cumulativeQty, $sourceLine['ordered_quantity'], 8) === 0 ? $frozen['tax']
-                    : Decimal::round(bcdiv(bcmul($frozen['tax'], $cumulativeQty, Decimal::SCALE), $sourceLine['ordered_quantity'], Decimal::SCALE));
                 $lineNet = bcsub($cumulativeNet, $priorOrder->net, 2);
-                $lineTax = bcsub($cumulativeTax, $priorOrder->tax, 2);
-                DB::table('rp_customer_invoice_lines')->insert(['invoice_id' => $id, 'sales_order_line_id' => $sourceLine['order_line_id'],
+
+                if (! $overrodeOrderTax) {
+                    $cumulativeTax = bccomp($cumulativeQty, $sourceLine['ordered_quantity'], 8) === 0 ? $frozen['tax']
+                        : Decimal::round(bcdiv(bcmul($frozen['tax'], $cumulativeQty, Decimal::SCALE), $sourceLine['ordered_quantity'], Decimal::SCALE));
+                    $lineTax = bcsub($cumulativeTax, $priorOrder->tax, 2);
+                    $lineTaxRuleId = $frozen['tax_rule_id'] ?? null;
+                    $lineSnapshot = $frozen;
+                } elseif ($effectiveTreatment === 'exempt_0') {
+                    $lineTax = '0.00';
+                    $lineTaxRuleId = null;
+                    $lineSnapshot = array_replace($frozen, [
+                        'tax_rule_id' => null, 'tax_code' => 'DOC-NO-TAX', 'rate' => '0.00000', 'treatment' => 'exempt',
+                        'net' => $lineNet, 'tax' => '0.00', 'total' => $lineNet,
+                        'document_tax_choice' => 'exempt_0', 'tax_exempt_reason' => $effectiveReason, 'overrode_order_tax' => true,
+                    ]);
+                } else {
+                    $calc = app(AccountingApi::class)->calculateTax(
+                        $actor,
+                        'sale',
+                        $data['invoice_date'],
+                        'exclusive',
+                        [['product_id' => $sourceLine['product_id'], 'quantity' => '1', 'unit_price' => $lineNet, 'discount' => '0']],
+                        '0',
+                        ['treatment' => $effectiveTreatment]
+                    );
+                    $lineTax = $calc['lines'][0]['tax'];
+                    $lineTaxRuleId = $calc['lines'][0]['tax_rule_id'] ?? null;
+                    $lineSnapshot = $calc['lines'][0] + ['overrode_order_tax' => true];
+                }
+
+                DB::table('rp_customer_invoice_lines')->insert([
+                    'invoice_id' => $id, 'sales_order_line_id' => $sourceLine['order_line_id'],
                     'delivery_line_id' => $input['delivery_line_id'], 'product_id' => $sourceLine['product_id'], 'description' => $sourceLine['description'],
                     'quantity' => $input['quantity'], 'net_amount' => $lineNet, 'tax_amount' => $lineTax, 'total_amount' => bcadd($lineNet, $lineTax, 2),
-                    'tax_rule_id' => $frozen['tax_rule_id'], 'tax_snapshot' => json_encode($frozen, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE)]);
+                    'tax_rule_id' => $lineTaxRuleId, 'tax_snapshot' => json_encode($lineSnapshot, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+                ]);
                 $net = bcadd($net, $lineNet, 2);
                 $tax = bcadd($tax, $lineTax, 2);
             }
             DB::table('rp_customer_invoices')->where('id', $id)->update(['net_amount' => $net, 'tax_amount' => $tax, 'total_amount' => bcadd($net, $tax, 2)]);
-            app(RecordAudit::class)->execute($actor, 'customer_invoice', $id, 'customer_invoice.created', null,
-                ['customer_id' => $customer->id, 'total' => bcadd($net, $tax, 2)], 'succeeded', 'ReceivablesPayables');
+            app(RecordAudit::class)->execute($actor, 'customer_invoice', $id, 'customer_invoice.created', null, [
+                'customer_id' => $customer->id, 'total' => bcadd($net, $tax, 2),
+                'tax_treatment' => $effectiveTreatment, 'tax_exempt_reason' => $effectiveReason, 'overrode_order_tax' => $overrodeOrderTax,
+            ], 'succeeded', 'ReceivablesPayables');
 
             return $id;
         }, 5);
@@ -146,8 +198,13 @@ final class CustomerInvoices
             }
             $journal = app(AccountingApi::class)->postSourceDocument($actor, (int) $row->created_by, (int) $row->branch_id, $row->invoice_date,
                 'customer-invoice:'.$id, 'فاتورة عميل #'.$id, $journalLines, $row->project_id === null ? null : (int) $row->project_id);
+            $taxTreatment = $row->tax_treatment ?? 'rule';
+            $fields = ['العميل' => $row->customer_name, 'المعاملة الضريبية' => TaxCalculator::treatmentLabel($taxTreatment)];
+            if ($taxTreatment === 'exempt_0' && $row->tax_exempt_reason) {
+                $fields['سبب عدم احتساب الضريبة'] = $row->tax_exempt_reason;
+            }
             $document = app(OfficialDocuments::class)->issue($actor, 'customer_invoice', (string) $id, 1, $row->invoice_date,
-                ['title' => 'فاتورة عميل', 'fields' => ['العميل' => $row->customer_name], 'columns' => ['البيان', 'الصافي', 'الضريبة', 'الإجمالي'],
+                ['title' => 'فاتورة عميل', 'fields' => $fields, 'columns' => ['البيان', 'الصافي', 'الضريبة', 'الإجمالي'],
                     'rows' => DB::table('rp_customer_invoice_lines')->where('invoice_id', $id)->orderBy('id')->get()
                         ->map(fn ($line) => [$line->description, $line->net_amount, $line->tax_amount, $line->total_amount])->all(),
                     'totals' => ['الصافي' => $row->net_amount, 'الضريبة' => $row->tax_amount, 'الإجمالي' => $row->total_amount]]);

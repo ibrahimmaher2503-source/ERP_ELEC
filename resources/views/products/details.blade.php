@@ -13,12 +13,41 @@
     <x-page.heading :title="$product->name" description="بيانات تعريف الصنف ومواصفاته" :breadcrumbs="['المنتجات', 'الأصناف', 'تفاصيل الصنف']">
         <x-slot:actions>
             @if ($canUpdate)<flux:button :href="route('products.edit', $product->id)" variant="primary" icon="pencil-square" wire:navigate>تعديل الصنف</flux:button>@endif
+            @if ($canPrices && \Illuminate\Support\Facades\Route::has('products.prices'))<flux:button :href="route('products.prices', $product->id)" icon="banknotes" wire:navigate>إدارة الأسعار</flux:button>@endif
             <flux:button :href="route('products.index')" icon="arrow-right" wire:navigate>العودة للأصناف</flux:button>
         </x-slot:actions>
     </x-page.heading>
     <x-ui.validation-summary />
 
     @if (session('status'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('status') }}</flux:callout>@endif
+
+    <section class="orders-summary" aria-label="ملخص المواصفات الكهربائية للصنف">
+        <div>
+            <span>التصنيف والماركة</span>
+            <strong>{{ $product->category?->name ?: 'بدون تصنيف' }}</strong>
+            <small>{{ $product->brand?->name ?: 'بدون علامة تجارية' }}</small>
+        </div>
+        <div>
+            <span>الطراز / الموديل</span>
+            <strong><bdi>{{ $guidedSpecs['spec_model'] ?: ($product->model ?: 'غير محدد') }}</bdi></strong>
+            <small>SKU: <bdi>{{ $product->sku }}</bdi></small>
+        </div>
+        <div>
+            <span>النوع / الأقطاب</span>
+            <strong><bdi>{{ $guidedSpecs['spec_type'] ?: 'غير محدد' }}</bdi></strong>
+            <small>{{ $kindLabels[$product->kind] ?? '—' }}</small>
+        </div>
+        <div>
+            <span>الأمبير / المقطع</span>
+            <strong><bdi>{{ $guidedSpecs['spec_ampere'] ?: 'غير محدد' }}</bdi></strong>
+            <small>الوحدة: {{ $product->baseUnit?->name ?: '—' }}</small>
+        </div>
+        <div>
+            <span>أمر الكيلو (kA / kW)</span>
+            <strong><bdi>{{ $guidedSpecs['spec_kilo'] ?: 'غير محدد' }}</bdi></strong>
+            <small><x-erp.status-badge :active="$product->active" /></small>
+        </div>
+    </section>
 
     <div class="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div class="space-y-5">
@@ -112,13 +141,51 @@
                     @endif
 
                     <section x-show="activeTab === 'prices'" x-cloak style="display: none" aria-label="الأسعار">
-                        <flux:heading size="lg">الأسعار</flux:heading>
-                        <div class="mt-4"><x-ui.empty-state title="الأسعار تُدار في صفحة الأسعار" description="تظهر الأسعار المعتمدة وسجلها في صفحة أسعار الصنف." icon="banknotes">@if(\Illuminate\Support\Facades\Route::has('products.prices') && app(\App\Modules\Products\Application\ProductAccess::class)->allows(auth()->id(), 'M02.price_view'))<flux:button :href="route('products.prices', $product->id)" size="sm" wire:navigate>فتح صفحة الأسعار</flux:button>@endif</x-ui.empty-state></div>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <flux:heading size="lg">الأسعار المعتمدة وسجل التسعير</flux:heading>
+                            @if($canPrices && \Illuminate\Support\Facades\Route::has('products.prices'))
+                                <flux:button :href="route('products.prices', $product->id)" size="sm" variant="primary" icon="banknotes" wire:navigate>إضافة / إدارة الأسعار</flux:button>
+                            @endif
+                        </div>
+                        @if($canPrices && isset($prices) && $prices->isNotEmpty())
+                            <div class="mt-4 overflow-x-auto rounded-lg border border-slate-200">
+                                <table class="w-full text-start text-sm">
+                                    <thead class="bg-slate-50 text-slate-600">
+                                        <tr>
+                                            <th class="p-3 text-start">الوحدة</th>
+                                            <th class="p-3 text-start">السعر (ج.م)</th>
+                                            <th class="p-3 text-start">يسري من</th>
+                                            <th class="p-3 text-start">يسري حتى</th>
+                                            <th class="p-3 text-start">المرجع</th>
+                                            <th class="p-3 text-start">الحالة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        @foreach($prices as $price)
+                                            <tr wire:key="detail-price-{{ $price->id }}">
+                                                <td class="p-3">{{ $price->unit_name ?? $price->unit_id }}</td>
+                                                <td class="p-3 font-semibold tabular-nums"><bdi>{{ $price->amount }}</bdi> ج.م</td>
+                                                <td class="p-3 tabular-nums"><bdi>{{ $price->starts_on }}</bdi></td>
+                                                <td class="p-3 tabular-nums"><bdi>{{ $price->ends_on ?? 'مفتوح' }}</bdi></td>
+                                                <td class="p-3">{{ $price->reference }}</td>
+                                                <td class="p-3">
+                                                    <span class="orders-badge" data-size="sm" data-tone="{{ $price->status === 'approved' ? 'success' : ($price->status === 'draft' ? 'warning' : 'neutral') }}">
+                                                        {{ ['draft' => 'مسودة', 'approved' => 'معتمد', 'withdrawn' => 'مسحوب'][$price->status] ?? $price->status }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="mt-4"><x-ui.empty-state title="لا توجد أسعار مسجلة" description="تظهر الأسعار المعتمدة وسجلها هنا؛ يمكنك إضافة سعر جديد من صفحة أسعار الصنف." icon="banknotes">@if(\Illuminate\Support\Facades\Route::has('products.prices') && $canPrices)<flux:button :href="route('products.prices', $product->id)" size="sm" wire:navigate>فتح صفحة الأسعار</flux:button>@endif</x-ui.empty-state></div>
+                        @endif
                     </section>
 
                     <section x-show="activeTab === 'inventory'" x-cloak style="display: none" aria-label="المخزون">
                         <flux:heading size="lg">المخزون</flux:heading>
-                        <div class="mt-4"><x-ui.empty-state title="المخزون يُعرض في صفحة الأرصدة" description="تظهر أرصدة الأصناف وحركاتها في صفحة أرصدة المخزون." icon="building-storefront">@if(\Illuminate\Support\Facades\Route::has('inventory.balances'))<flux:button :href="route('inventory.balances')" size="sm" wire:navigate>فتح صفحة الأرصدة</flux:button>@endif</x-ui.empty-state></div>
+                        <div class="mt-4"><x-ui.empty-state title="المخزون يُعرض في صفحة الأرصدة" description="تظهر أرصدة الأصناف وحركاتها في صفحة أرصدة المخزون." icon="building-storefront">@if(\Illuminate\Support\Facades\Route::has('inventory.balances') && app(\App\Modules\Inventory\Application\InventoryAccess::class)->ids(auth()->id(), 'balance_view') !== [])<flux:button :href="route('inventory.balances', ['search' => $product->sku])" size="sm" wire:navigate>فتح صفحة الأرصدة</flux:button>@endif</x-ui.empty-state></div>
                     </section>
 
                     @if (isset($audit))

@@ -1,12 +1,21 @@
 @php
+    use App\Modules\Sales\Presentation\SalesOrderDisplay as D;
     $compact = $compact ?? false;
-    $workflowProgress = $progress ?? app(\App\Modules\Sales\Application\SalesOrderProgress::class)->read(auth()->id(), $record);
-    $reservationLabel = ['not_requested' => 'لم يطلب حجز', 'reserved' => 'محجوز', 'backorder' => 'طلب مؤجل', 'fulfilled' => 'نفذ الحجز', 'restricted' => 'الحجز محجوب بالنطاق'][$workflowProgress['reservation']];
-    $deliveryLabel = ['not_started' => 'لم يبدأ التسليم', 'partial' => 'تسليم جزئي', 'fulfilled' => 'مسلم بالكامل'][$workflowProgress['delivery']];
+    $showAll = $showAll ?? false;
+    $workflowProgress = ($record->status === 'approved' || $showAll)
+        ? ($progress ?? app(\App\Modules\Sales\Application\SalesOrderProgress::class)->read(auth()->id(), $record))
+        : null;
 @endphp
-<div @class(['flex flex-wrap items-center gap-1.5', 'text-[11px]' => $compact, 'text-xs' => !$compact])>
+<div class="flex flex-wrap items-center gap-1.5">
     @include('sales.orders.partials.status', ['status' => $record->status])
-    <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="cube" class="size-3.5" />{{ $reservationLabel }}</span>
-    <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="truck" class="size-3.5" />{{ $deliveryLabel }}</span>
-    <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600"><flux:icon name="document-text" class="size-3.5" />{{ ['restricted' => 'الفواتير محجوبة بالصلاحية', 'none' => 'لا توجد فاتورة', 'requested' => 'فاتورة قيد الإعداد', 'invoiced' => 'صدرت فاتورة'][$workflowProgress['invoicing']] }}</span>
+    @if($workflowProgress)
+        @php
+            [$resLabel, $resTone] = D::reservation($workflowProgress['reservation'] ?? 'not_requested');
+            [$delLabel, $delTone] = D::delivery($workflowProgress['delivery'] ?? 'not_started');
+            [$invLabel, $invTone] = D::invoicing($workflowProgress['invoicing'] ?? 'none');
+        @endphp
+        <span class="orders-badge" @if($compact) data-size="sm" @endif data-tone="{{ $resTone }}">{{ $resLabel }}</span>
+        <span class="orders-badge" @if($compact) data-size="sm" @endif data-tone="{{ $delTone }}">{{ $delLabel }}</span>
+        <span class="orders-badge" @if($compact) data-size="sm" @endif data-tone="{{ $invTone }}">{{ $invLabel }}</span>
+    @endif
 </div>

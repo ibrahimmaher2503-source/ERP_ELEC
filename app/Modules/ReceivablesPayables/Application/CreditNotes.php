@@ -4,6 +4,7 @@ namespace App\Modules\ReceivablesPayables\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use App\Modules\System\Application\RecordAudit;
@@ -68,10 +69,12 @@ final class CreditNotes
             $note = DB::table('rp_credit_notes')->lockForUpdate()->find($id);
             abort_unless($note, 404);
             app(ReceivablesPayablesAccess::class)->authorize($actor, 'credit_note_approve', $note->branch_id);
-            if ($note->status !== 'draft' || (int) $note->created_by === $actor) {
+            $selfApproved = (int) $note->created_by === $actor;
+            if ($note->status !== 'draft' || ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'treasury_ar_ap'))) {
                 abort(409, 'اعتماد الإشعار يجب أن يكون مستقلاً.');
             }
             DB::table('rp_credit_notes')->where('id', $id)->update(['status' => 'approved', 'approved_by' => $actor, 'approved_at' => now()]);
+            app(RecordAudit::class)->execute($actor, 'credit_note', $id, 'credit_note.approved', ['status' => 'draft'], ['status' => 'approved', 'self_approved' => $selfApproved], 'succeeded', 'ReceivablesPayables');
         });
     }
 

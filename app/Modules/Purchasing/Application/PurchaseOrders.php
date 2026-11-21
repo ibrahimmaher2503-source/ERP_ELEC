@@ -4,6 +4,7 @@ namespace App\Modules\Purchasing\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
@@ -41,6 +42,12 @@ final class PurchaseOrders
                 'lines.*.quantity' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
                 'lines.*.unit_price' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
                 'lines.*.discount_amount' => ['required', 'string', 'regex:/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,8})?$/D'],
+                'lines.*.spec_model' => 'nullable|string|max:200|not_regex:/\x00/',
+                'lines.*.spec_type' => 'nullable|string|max:200|not_regex:/\x00/',
+                'lines.*.spec_ampere' => 'nullable|string|max:120|not_regex:/\x00/',
+                'lines.*.spec_kilo' => 'nullable|string|max:120|not_regex:/\x00/',
+                'lines.*.serial_reference' => 'nullable|string|max:4000|not_regex:/\x00/',
+                'lines.*.accessories_note' => 'nullable|string|max:4000|not_regex:/\x00/',
             ])->validate();
             app(PurchasingAccess::class)->authorize($actor, $id ? 'order_update' : 'order_create', (int) $v['branch_id']);
             try {
@@ -88,7 +95,24 @@ final class PurchaseOrders
                 if ($award && (! $source || bccomp($l['quantity'], $source->quantity, 8) !== 0 || bccomp($l['unit_price'], $source->unit_price, 8) !== 0 || bccomp($l['discount_amount'], $source->discount_amount, 8) !== 0)) {
                     $helper->fail('البيانات تختلف عن الترسية المعتمدة؛ يلزم قرار تعديل تجاري مستقل.');
                 }
-                $lines[] = ['product_id' => $p['id'], 'unit_id' => $p['base_unit_id'], 'sku' => $p['sku'], 'product_name' => $p['name'], 'offer_line_id' => $source?->id, 'quantity' => bcadd($l['quantity'], '0', 8), 'unit_price' => bcadd($l['unit_price'], '0', 8), 'discount_amount' => bcadd($l['discount_amount'], '0', 8), 'net_amount' => $amount];
+                $defaults = app(ProductsApi::class)->extractGuidedSpec($p);
+                $lines[] = [
+                    'product_id' => $p['id'],
+                    'unit_id' => $p['base_unit_id'],
+                    'sku' => $p['sku'],
+                    'product_name' => $p['name'],
+                    'offer_line_id' => $source?->id,
+                    'quantity' => bcadd($l['quantity'], '0', 8),
+                    'unit_price' => bcadd($l['unit_price'], '0', 8),
+                    'discount_amount' => bcadd($l['discount_amount'], '0', 8),
+                    'net_amount' => $amount,
+                    'spec_model' => trim((string) ($l['spec_model'] ?? '')) ?: ($defaults['spec_model'] ?: null),
+                    'spec_type' => trim((string) ($l['spec_type'] ?? '')) ?: ($defaults['spec_type'] ?: null),
+                    'spec_ampere' => trim((string) ($l['spec_ampere'] ?? '')) ?: ($defaults['spec_ampere'] ?: null),
+                    'spec_kilo' => trim((string) ($l['spec_kilo'] ?? '')) ?: ($defaults['spec_kilo'] ?: null),
+                    'serial_reference' => trim((string) ($l['serial_reference'] ?? '')) ?: null,
+                    'accessories_note' => trim((string) ($l['accessories_note'] ?? '')) ?: null,
+                ];
                 $net = bcadd($net, $amount, 8);
                 if (bccomp($net, '999999999999999999999999.99999999', 8) > 0) {
                     $helper->fail('إجمالي الأمر يتجاوز الدقة المالية المدعومة.');
@@ -100,8 +124,11 @@ final class PurchaseOrders
             }
             $header = ['order_date' => $v['order_date'], 'expected_date' => ($v['expected_date'] ?? null) ?: null, 'currency' => $v['currency'], 'tax_mode' => $v['tax_mode'] ?? 'exclusive', 'payment_terms' => ($v['payment_terms'] ?? null) ?: null, 'notes' => ($v['notes'] ?? null) ?: null, 'net_amount' => $net, 'reported_tax' => $tax];
             if ($old) {
-                if ($old->created_by !== $actor || $old->branch_id !== (int) $v['branch_id'] || $old->supplier_id !== $supplier->id || $old->award_id !== $award?->id || $old->creation_key !== $v['creation_key']) {
+                if ($old->created_by !== $actor || $old->creation_key !== $v['creation_key']) {
                     $helper->fail('هوية أمر الشراء غير قابلة للتغيير.');
+                }
+                if ($old->status !== 'draft' && ($old->branch_id !== (int) $v['branch_id'] || $old->supplier_id !== $supplier->id || $old->award_id !== $award?->id)) {
+                    $helper->fail('هوية أمر الشراء غير قابلة للتغيير بعد الإرسال.');
                 }
                 if (! $id) {
                     $same = collect($header)->every(fn ($value, $key) => (string) ($old->$key ?? '') === (string) ($value ?? ''));
@@ -115,7 +142,7 @@ final class PurchaseOrders
                 if ($old->status !== 'draft' || $old->version !== $version) {
                     $helper->fail('أمر الشراء ليس مسودة أو نسخته قديمة.');
                 }
-                DB::table('purchasing_orders')->where('id', $id)->update($header + ['version' => $version + 1, 'updated_at' => now()]);
+                DB::table('purchasing_orders')->where('id', $id)->update($header + ['branch_id' => $v['branch_id'], 'supplier_id' => $supplier->id, 'supplier_name' => $supplier->name, 'award_id' => $award?->id, 'version' => $version + 1, 'updated_at' => now()]);
                 DB::table('purchasing_order_lines')->where('order_id', $id)->delete();
             } else {
                 $id = DB::table('purchasing_orders')->insertGetId($header + ['creation_key' => $v['creation_key'], 'branch_id' => $v['branch_id'], 'supplier_id' => $supplier->id, 'supplier_name' => $supplier->name, 'award_id' => $award?->id, 'created_by' => $actor, 'status' => 'draft', 'version' => 1, 'created_at' => now(), 'updated_at' => now()]);
@@ -147,7 +174,8 @@ final class PurchaseOrders
             if ($doc->status !== $source) {
                 $helper->fail('الحالة الحالية لا تسمح بالإجراء.');
             }
-            if (in_array($action, ['approve', 'reject']) && $doc->created_by === $actor) {
+            $selfApproved = in_array($action, ['approve', 'reject']) && $doc->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'purchasing')) {
                 $helper->fail('الاعتماد الذاتي ممنوع.');
             }
             if (in_array($action, ['submit', 'reopen']) && $doc->created_by !== $actor) {
@@ -193,7 +221,7 @@ final class PurchaseOrders
                 $after += ['approved_by' => $actor, 'approved_at' => now()];
             }
             DB::table('purchasing_orders')->where('id', $id)->update($after);
-            $helper->audit($actor, 'purchase_order', $id, 'order.'.$action, (array) $doc, $after);
+            $helper->audit($actor, 'purchase_order', $id, 'order.'.$action, (array) $doc, $after + ['self_approved' => $selfApproved]);
         });
     }
 
@@ -226,7 +254,16 @@ final class PurchaseOrders
                 if (! $product['active'] || $product['base_unit_id'] !== $line->unit_id) {
                     app(SupplierOffers::class)->fail('صنف غير مؤهل للإصدار.');
                 }
-                $rows[] = [$line->sku, $line->product_name, $line->quantity, $line->unit_price, $line->discount_amount];
+                $details = array_filter([
+                    $line->spec_model ? 'الطراز: '.$line->spec_model : null,
+                    $line->spec_type ? 'النوع: '.$line->spec_type : null,
+                    $line->spec_ampere ? 'الأمبير: '.$line->spec_ampere : null,
+                    $line->spec_kilo ? 'الكيلو: '.$line->spec_kilo : null,
+                    $line->serial_reference ? 'السيريال: '.$line->serial_reference : null,
+                    $line->accessories_note ? 'الملحقات: '.$line->accessories_note : null,
+                ]);
+                $displayName = $details === [] ? $line->product_name : ($line->product_name.' ('.implode(' · ', $details).')');
+                $rows[] = [$line->sku, $displayName, $line->quantity, $line->unit_price, $line->discount_amount];
             }
             $document = app(OfficialDocuments::class)->issue($actor, 'purchase_order', (string) $id, 1, $order->order_date,
                 ['title' => 'أمر شراء', 'fields' => ['المورد' => $supplier->name, 'شروط السداد' => $order->payment_terms ?? '', 'ملاحظات' => $order->notes ?? ''],

@@ -39,7 +39,9 @@ final class SalesOrderApprovalPolicy
     {
         app(SalesOrderAccess::class)->authorize($actor, 'view', $branch);
         app(SalesOrderAccess::class)->authorize($actor, $exception ? 'exception_approve' : 'approve', $branch);
-        abort_if($actor === $requester, 403, 'الموافقة الذاتية لأوامر البيع غير مسموحة.');
+        if ($actor === $requester) {
+            abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'sales_orders'), 403, 'الموافقة الذاتية لأوامر البيع غير مسموحة.');
+        }
         if ($exception) {
             $policy = DB::table('sales_order_policies')->where('id', 1)->first();
             if (! $policy) {

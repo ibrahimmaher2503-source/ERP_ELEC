@@ -29,7 +29,18 @@
   </x-ui.panel>
   <div class="grid gap-4 xl:grid-cols-2">
    <x-ui.panel class="quote-section"><h2>الشروط والملاحظات</h2><div class="space-y-3"><p class="text-xs text-amber-800">اختر قالبًا تجاريًا معتمدًا أو أدخل شروطًا استثنائية مع تسجيل السبب.</p><flux:select wire:model.live="form.payment_term_id" label="قالب الدفع المعتمد"><option value="">شروط استثنائية / غير محدد</option>@foreach($terms->where('kind','payment') as $term)<option value="{{ $term->id }}">{{ $term->name }} · {{ $term->revision }}</option>@endforeach</flux:select><flux:select wire:model.live="form.delivery_term_id" label="قالب التسليم المعتمد"><option value="">شروط استثنائية / غير محدد</option>@foreach($terms->where('kind','delivery') as $term)<option value="{{ $term->id }}">{{ $term->name }} · {{ $term->revision }}</option>@endforeach</flux:select><flux:textarea wire:model="form.payment_terms" :readonly="!empty($form['payment_term_id'])" label="شروط الدفع المقترحة" rows="2" /><flux:textarea wire:model="form.delivery_terms" :readonly="!empty($form['delivery_term_id'])" label="شروط التسليم المقترحة" rows="2" /><flux:textarea wire:model="form.notes" label="ملاحظات داخلية" rows="3" /><flux:textarea wire:model="form.exception_reason" label="أسباب الاستثناءات التجارية" rows="2" /></div></x-ui.panel>
-   <x-ui.panel class="quote-section"><h2>ملخص عرض السعر</h2><div class="mb-4 grid grid-cols-2 gap-3"><flux:select wire:model.live="form.discount_mode" label="نوع خصم العرض"><option value="percent">نسبة %</option><option value="fixed">مبلغ ثابت ج.م</option></flux:select><flux:input wire:model.live.debounce.400ms="form.discount_value" label="قيمة خصم العرض" inputmode="decimal" /></div>@include('sales.quotations.partials.amounts')</x-ui.panel>
+   <x-ui.panel class="quote-section"><h2>ملخص عرض السعر</h2><div class="mb-4 grid grid-cols-2 gap-3"><flux:select wire:model.live="form.discount_mode" label="نوع خصم العرض"><option value="percent">نسبة %</option><option value="fixed">مبلغ ثابت ج.م</option></flux:select><flux:input wire:model.live.debounce.400ms="form.discount_value" label="قيمة خصم العرض" inputmode="decimal" /></div>
+    <div class="mb-4 space-y-3 border-t border-slate-100 pt-3">
+     <flux:select wire:model.live="form.tax_treatment" label="المعاملة الضريبية للعرض">
+      @if(($form['tax_treatment'] ?? 'vat_14') === 'rule')<option value="rule">وفق القاعدة الضريبية للشركة</option>@endif
+      <option value="vat_14">خاضع لضريبة 14%</option>
+      <option value="exempt_0">بدون ضريبة (0%)</option>
+     </flux:select>
+     @if(($form['tax_treatment'] ?? 'vat_14') === 'exempt_0')
+      <flux:textarea wire:model="form.tax_exempt_reason" label="سبب اختيار بدون ضريبة (إلزامي)" rows="2" placeholder="اكتب السبب الواضح لعدم احتساب الضريبة (5 أحرف على الأقل)…" required />
+     @endif
+    </div>
+    @include('sales.quotations.partials.amounts')</x-ui.panel>
   </div>
   <div class="quote-savebar flex items-center justify-between gap-3"><span class="text-sm text-slate-500">لا يوجد حفظ تلقائي</span><flux:button type="submit" variant="primary" icon="bookmark-square" wire:loading.attr="disabled">حفظ المسودة</flux:button></div>
  </form>

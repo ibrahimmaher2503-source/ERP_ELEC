@@ -47,7 +47,7 @@ final class TreasuryOperations
                 if ($proof['party_type'] !== null) {
                     app(ReceivablesPayablesApi::class)->prepareCashReversal($actor, (int) $original->id, $date);
                 }
-                if (in_array($original->kind, ['customer_collection', 'transfer_in', 'supplier_credit_refund'], true)) {
+                if (in_array($original->kind, ['customer_collection', 'transfer_in', 'supplier_credit_refund', 'partner_contribution'], true)) {
                     $this->requireFunds($this->account((int) $original->account_id), (int) $original->branch_id, $date, $original->amount);
                 }
             }
@@ -59,7 +59,7 @@ final class TreasuryOperations
                 $ids[(int) $original->id] = (int) DB::selectOne("select nextval(pg_get_serial_sequence('treasury_movements','id')) id")->id;
             }
             foreach ($originals as $index => $original) {
-                $in = ! in_array($original->kind, ['customer_collection', 'transfer_in', 'supplier_credit_refund'], true);
+                $in = ! in_array($original->kind, ['customer_collection', 'transfer_in', 'supplier_credit_refund', 'partner_contribution'], true);
                 DB::table('treasury_movements')->insert(['id' => $ids[(int) $original->id], 'idempotency_key' => $index === 0 ? $key : $this->pairedKey($key),
                     'branch_id' => $original->branch_id, 'account_id' => $original->account_id, 'kind' => $in ? 'cash_correction_in' : 'cash_correction_out',
                     'original_movement_id' => $original->id, 'movement_date' => $date, 'amount' => $original->amount, 'party_id' => $original->party_id,
@@ -207,11 +207,14 @@ final class TreasuryOperations
             $row = DB::table('treasury_payment_requests')->lockForUpdate()->find($id);
             abort_unless($row, 404);
             app(TreasuryAccess::class)->authorize($actor, 'payment_approve', $row->branch_id);
-            if ($row->status !== 'prepared' || (int) $row->version !== $version || (int) $row->created_by === $actor) {
+            $selfApproved = (int) $row->created_by === $actor;
+            if ($row->status !== 'prepared' || (int) $row->version !== $version || ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'treasury_ar_ap'))) {
                 abort(409, 'اعتماد الدفع يجب أن يكون مستقلاً وعلى الإصدار الحالي.');
             }
             DB::table('treasury_payment_requests')->where('id', $id)->update(['status' => 'approved', 'approved_by' => $actor,
                 'approved_at' => now(), 'version' => $version + 1, 'updated_at' => now()]);
+            app(RecordAudit::class)->execute($actor, 'treasury_payment_request', $id, 'supplier_payment.approved',
+                ['status' => 'prepared'], ['status' => 'approved', 'self_approved' => $selfApproved], 'succeeded', 'Treasury');
         });
     }
 
@@ -272,7 +275,7 @@ final class TreasuryOperations
     {
         Validator::make($data, ['idempotency_key' => 'required|uuid', 'branch_id' => 'required|integer|min:1', 'customer_id' => 'required|integer|min:1',
             'account_id' => 'required|integer|min:1', 'date' => 'required|date_format:Y-m-d', 'amount' => 'required|string', 'reference' => 'required|string|max:200',
-            'allow_advance' => 'sometimes|boolean'])->validate();
+            'allow_advance' => 'sometimes|boolean', 'workshop_job_id' => 'sometimes|nullable|integer|min:1'])->validate();
         Decimal::value($data['amount'], 2);
 
         return DB::transaction(function () use ($actor, $data, $allocations) {
@@ -322,7 +325,8 @@ final class TreasuryOperations
                 app(ReceivablesPayablesApi::class)->completeSettlement($actor, $movement, 'customer', $allocations);
             }
             if (bccomp($advance, '0', 2) > 0) {
-                app(ReceivablesPayablesApi::class)->recordCustomerAdvance($actor, $movement, (int) $data['branch_id'], (int) $data['customer_id'], $advance);
+                $workshopJobId = empty($data['workshop_job_id']) ? null : (int) $data['workshop_job_id'];
+                app(ReceivablesPayablesApi::class)->recordCustomerAdvance($actor, $movement, (int) $data['branch_id'], (int) $data['customer_id'], $advance, $workshopJobId);
             }
 
             return ['movement_id' => $movement, 'journal_id' => $journal, 'number' => $document['number']];
@@ -371,6 +375,134 @@ final class TreasuryOperations
         }, 5);
     }
 
+    public function recordPartnerMovement(int $actor, array $data): array
+    {
+        $v = Validator::make($data, [
+            'idempotency_key' => 'required|uuid',
+            'branch_id' => 'required|integer|min:1',
+            'account_id' => 'required|integer|min:1',
+            'partner_gl_account_id' => 'required|integer|min:1',
+            'partner_name' => 'required|string|max:200',
+            'kind' => 'required|in:partner_contribution,partner_drawing',
+            'date' => 'required|date_format:Y-m-d',
+            'amount' => 'required|string',
+            'reference' => 'required|string|min:3|max:200',
+        ])->validate();
+        $amount = bcadd(Decimal::value($v['amount'], 2), '0', 2);
+        if (bccomp($amount, '0', 2) <= 0) {
+            $this->fail('مبلغ حركة الشريك يجب أن يكون موجباً.');
+        }
+
+        return DB::transaction(function () use ($actor, $v, $amount) {
+            app(AccountingApi::class)->lockPosting();
+            $existing = DB::table('treasury_movements')->where('idempotency_key', $v['idempotency_key'])->first();
+            if ($existing) {
+                abort_unless(
+                    $existing->kind === $v['kind']
+                    && (int) $existing->branch_id === (int) $v['branch_id']
+                    && (int) $existing->account_id === (int) $v['account_id']
+                    && $existing->movement_date === $v['date']
+                    && bccomp($existing->amount, $amount, 2) === 0
+                    && $existing->reference === $v['reference'],
+                    409,
+                    'مفتاح العملية مستخدم لحركة مختلفة.'
+                );
+                $docNumber = $existing->official_document_id
+                    ? (string) DB::table('system_official_documents')->where('id', $existing->official_document_id)->value('official_number')
+                    : '';
+
+                return [
+                    'movement_id' => (int) $existing->id,
+                    'journal_id' => (int) $existing->journal_id,
+                    'official_document_id' => $existing->official_document_id,
+                    'number' => $docNumber,
+                ];
+            }
+
+            app(TreasuryAccess::class)->authorize($actor, 'partner_cash', (int) $v['branch_id']);
+            $account = $this->account((int) $v['account_id']);
+            $isContribution = $v['kind'] === 'partner_contribution';
+            if (! $isContribution) {
+                $this->requireFunds($account, (int) $v['branch_id'], $v['date'], $amount);
+            }
+
+            $lines = $isContribution
+                ? [
+                    ['purpose' => $account->kind, 'debit' => $amount, 'credit' => '0.00'],
+                    ['account_id' => (int) $v['partner_gl_account_id'], 'debit' => '0.00', 'credit' => $amount],
+                ]
+                : [
+                    ['account_id' => (int) $v['partner_gl_account_id'], 'debit' => $amount, 'credit' => '0.00'],
+                    ['purpose' => $account->kind, 'debit' => '0.00', 'credit' => $amount],
+                ];
+
+            $description = ($isContribution ? 'إيداع / مساهمة شريك: ' : 'مسحوبات / صرف شريك: ').$v['partner_name'].' — '.$v['reference'];
+            $journal = app(AccountingApi::class)->postAccountJournal(
+                $actor,
+                $actor,
+                (int) $v['branch_id'],
+                $v['date'],
+                'partner-movement:'.$v['idempotency_key'],
+                $description,
+                $lines
+            );
+
+            $document = app(OfficialDocuments::class)->issue(
+                $actor,
+                $v['kind'],
+                $v['idempotency_key'],
+                1,
+                $v['date'],
+                [
+                    'title' => $isContribution ? 'سند إيداع / مساهمة شريك' : 'سند صرف / مسحوبات شريك',
+                    'fields' => ['الشريك' => $v['partner_name'], 'الحساب' => $account->name, 'المرجع' => $v['reference']],
+                    'columns' => ['المبلغ EGP'],
+                    'rows' => [[$amount]],
+                    'totals' => ['الإجمالي' => $amount],
+                ]
+            );
+
+            $movement = DB::table('treasury_movements')->insertGetId([
+                'idempotency_key' => $v['idempotency_key'],
+                'branch_id' => (int) $v['branch_id'],
+                'account_id' => $account->id,
+                'kind' => $v['kind'],
+                'movement_date' => $v['date'],
+                'party_id' => null,
+                'amount' => $amount,
+                'reference' => $v['reference'],
+                'journal_id' => $journal,
+                'official_document_id' => $document['id'],
+                'executed_by' => $actor,
+                'executed_at' => now(),
+            ]);
+
+            app(RecordAudit::class)->execute(
+                $actor,
+                'treasury_movement',
+                $movement,
+                'partner_movement.executed',
+                null,
+                [
+                    'kind' => $v['kind'],
+                    'partner_name' => $v['partner_name'],
+                    'journal_id' => $journal,
+                    'document_id' => $document['id'],
+                    'amount' => $amount,
+                ],
+                'succeeded',
+                'Treasury'
+            );
+
+            return [
+                'movement_id' => $movement,
+                'journal_id' => $journal,
+                'official_document_id' => $document['id'],
+                'number' => $document['number'],
+            ];
+        }, 5);
+    }
+
     private function account(int $id): object
     {
         $account = DB::table('treasury_accounts')->where('active', true)->lockForUpdate()->find($id);
@@ -393,7 +525,7 @@ final class TreasuryOperations
     {
         $opening = $this->openingBalance($account, $branch, $date);
         $movement = (string) DB::table('treasury_movements')->where('account_id', $account->id)->where('branch_id', $branch)
-            ->where('movement_date', '<=', $date)->selectRaw("coalesce(sum(case when kind in ('customer_collection','transfer_in','supplier_credit_refund','cash_correction_in') then amount else -amount end),0)::numeric(20,2) balance")->value('balance');
+            ->where('movement_date', '<=', $date)->selectRaw("coalesce(sum(case when kind in ('customer_collection','transfer_in','supplier_credit_refund','cash_correction_in','partner_contribution') then amount else -amount end),0)::numeric(20,2) balance")->value('balance');
         if (bccomp(bcadd($opening, $movement, 2), $amount, 2) < 0) {
             $this->fail('الرصيد الفعلي للحساب لا يكفي لتنفيذ الحركة.');
         }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\ReceivablesPayables\Presentation;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Parties\Application\Contracts\CustomersApi;
 use App\Modules\Parties\Application\Contracts\SearchCustomersRequest;
 use App\Modules\Parties\Application\Contracts\SearchSuppliersRequest;
@@ -59,11 +60,23 @@ final class FinancialOperationsPage extends Component
     {
         $this->orderChoice = '';
         $this->picked = [];
+        $this->form['tax_treatment'] = 'inherit';
+        $this->form['tax_exempt_reason'] = '';
     }
 
     public function updatedOrderChoice(): void
     {
         $this->picked = [];
+        if ($this->orderChoice === '') {
+            $this->form['tax_treatment'] = 'inherit';
+            $this->form['tax_exempt_reason'] = '';
+
+            return;
+        }
+        $first = collect($this->invoiceableLines())->firstWhere('order_id', (int) $this->orderChoice);
+        $orderTax = $first['tax_treatment'] ?? 'rule';
+        $this->form['tax_treatment'] = in_array($orderTax, ['vat_14', 'exempt_0'], true) ? $orderTax : 'inherit';
+        $this->form['tax_exempt_reason'] = (string) ($first['tax_exempt_reason'] ?? '');
     }
 
     public function mount(string $screen): void
@@ -77,7 +90,8 @@ final class FinancialOperationsPage extends Component
         $this->creationKey = (string) Str::uuid();
         $today = now('Africa/Cairo')->toDateString();
         $this->form = ['supplier_id' => '', 'supplier_invoice_number' => '', 'invoice_date' => $today, 'due_date' => $today,
-            'tax_mode' => 'exclusive', 'order_line_id' => '', 'receipt_line_id' => '', 'delivery_line_id' => '', 'customer_id' => '',
+            'tax_mode' => 'exclusive', 'tax_treatment' => 'inherit', 'tax_exempt_reason' => '',
+            'order_line_id' => '', 'receipt_line_id' => '', 'delivery_line_id' => '', 'customer_id' => '',
             'quantity' => '', 'unit_price' => '', 'discount_amount' => '0.00', 'kind' => 'supplier', 'invoice_id' => '',
             'note_date' => $today, 'reason' => '', 'amount' => ''];
     }
@@ -153,6 +167,8 @@ final class FinancialOperationsPage extends Component
         }
         $id = app(ReceivablesPayablesApi::class)->createCustomerInvoice(auth()->id(), ['creation_key' => $this->creationKey,
             'customer_id' => $this->form['customer_id'], 'invoice_date' => $this->form['invoice_date'], 'due_date' => $this->form['due_date'],
+            'tax_treatment' => $this->form['tax_treatment'] ?? 'inherit',
+            'tax_exempt_reason' => ($this->form['tax_treatment'] ?? 'inherit') === 'exempt_0' ? ($this->form['tax_exempt_reason'] ?? '') : null,
             'lines' => $lines]);
         $this->resetForm();
         $this->picked = [];
@@ -263,7 +279,8 @@ final class FinancialOperationsPage extends Component
         }
         $suppliers = $this->screen === 'supplier-invoices' ? app(SuppliersApi::class)->searchSuppliers(new SearchSuppliersRequest(auth()->id(), mb_substr($this->supplierSearch, 0, 150), 30)) : [];
         $receipts = $this->screen === 'supplier-invoices' ? $this->invoiceableReceipts() : [];
+        $canSelfApproveCredit = $this->screen === 'credit-notes' && app(OrganizationApi::class)->allowsSelfApproval(auth()->id(), 'treasury_ar_ap');
 
-        return view('receivables-payables.index', compact('access', 'nav', 'branches', 'rows', 'totals', 'customers', 'invoiceable', 'suppliers', 'receipts', 'creditInvoices'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
+        return view('receivables-payables.index', compact('access', 'nav', 'branches', 'rows', 'totals', 'customers', 'invoiceable', 'suppliers', 'receipts', 'creditInvoices', 'canSelfApproveCredit'))->layout('layouts::app', ['title' => $nav[$this->screen][0]]);
     }
 }

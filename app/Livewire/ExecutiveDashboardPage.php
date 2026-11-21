@@ -24,7 +24,8 @@ final class ExecutiveDashboardPage extends Component
     {
         $analytics = app(ExecutiveDashboard::class)->read(auth()->id(), $this->branch === '' ? null : (int) $this->branch, $this->from, $this->to);
         $branchIds = app(OrganizationApi::class)->projectScopedBranches(auth()->id());
+        $branchOptions = app(OrganizationApi::class)->projectScopedBranchOptions(auth()->id());
 
-        return view('dashboard', compact('analytics', 'branchIds'));
+        return view('dashboard', compact('analytics', 'branchIds', 'branchOptions'));
     }
 }

@@ -23,7 +23,7 @@ final class PurchaseReceiptPosting
         if ($receipt->status === 'posted') {
             return ['receipt' => (array) $receipt, 'already_posted' => true];
         }
-        if ($receipt->status !== 'integration_pending' || $receipt->created_by === $actor) {
+        if ($receipt->status !== 'integration_pending' || ($receipt->created_by === $actor && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'purchasing'))) {
             $helper->fail('يلزم استلام مثبت واعتماد ترحيل من شخص مستقل عن مُعد الاستلام.');
         }
         $order = app(PurchaseOrders::class)->record($actor, $receipt->order_id);

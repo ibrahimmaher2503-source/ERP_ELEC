@@ -10,11 +10,16 @@
         <flux:callout variant="warning" heading="لا توجد أدوار مسندة لهذا الحساب">الحساب يستفيد فقط من المنح المباشرة الحالية. تعديل مصفوفة أي دور لن يؤثر عليه حتى يتم إسناد ذلك الدور إليه.</flux:callout>
     @endif
     @if ($self)
-        <flux:callout>لا يمكن تعديل أدوار أو نطاقات وصول حسابك الحالي من هذه الصفحة.</flux:callout>
+        <flux:callout>لا يمكن تعديل أدوار أو نطاقات وصول حسابك الحالي من هذه الصفحة لأسباب أمنية؛ يقوم بذلك مدير نظام آخر مفوّض.</flux:callout>
     @elseif (! $targetActive)
         <flux:callout>الحساب غير نشط؛ تعيين أدوار أو نطاقات جديدة معطل. يمكن مراجعة المنح الحالية أو سحبها.</flux:callout>
     @endif
     <x-erp.section-card title="نطاقات المستودعات">
+        @if ($isAutoScopedAdmin)
+            <flux:callout class="mb-3">هذا الحساب يحمل دور مدير النظام النشط، لذلك يشمل جميع الفروع والمستودعات تلقائيًا دون الحاجة لإضافة نطاقات مستودع يدوية.</flux:callout>
+        @elseif ($missingWarehouseScopeWarning)
+            <flux:callout variant="warning" class="mb-3" heading="تنبيه: نطاق المستودع مطلوب">هذا الحساب لديه صلاحيات مخزون في دوره أو منحه المباشرة، لكن لم يُمنح أي مستودع بعد؛ لن تفتح شاشات أرصدة وحركات المخزون حتى يُمنح نطاق الفرع والمستودع.</flux:callout>
+        @endif
         <form wire:submit="grantWarehouse" class="flex flex-wrap items-end gap-3">
             <flux:select wire:model="selectedWarehouse" label="المستودع" :disabled="$self || !$targetActive"><option value="">اختر المستودع بعد منح نطاق فرعه</option>@foreach($warehouses as $w)<option value="{{ $w['id'] }}" @disabled(!$w['active'])>{{ $w['name'] }}</option>@endforeach</flux:select>
             <flux:button type="submit" icon="plus" :disabled="$self || !$targetActive">منح النطاق</flux:button>
@@ -39,7 +44,7 @@
                 <div class="mt-4 divide-y divide-slate-100">
                     @forelse ($roles as $role)
                         <div wire:key="access-role-{{ $role->id }}" class="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
-                            <div class="min-w-0"><p class="font-medium">{{ $role->name }}</p><p class="mt-1 text-xs text-slate-500">إسناد دور فقط · لا يحدد نطاق فرع أو مخزن</p></div>
+                            <div class="min-w-0"><p class="font-medium">{{ $role->name }}</p><p class="mt-1 text-xs text-slate-500">{{ $role->code === 'Administrator' ? 'يشمل جميع الصلاحيات ونطاقات الفروع والمستودعات تلقائيًا أثناء نشاط الحساب' : 'إسناد دور فقط · لا يحدد نطاق فرع أو مخزن' }}</p></div>
                             <flux:button variant="danger" size="sm" icon="user-minus" :disabled="$self" wire:click="revokeRole({{ $role->id }})" wire:confirm="هل تريد إزالة هذا الدور من المستخدم؟">إزالة</flux:button>
                         </div>
                     @empty
@@ -50,6 +55,9 @@
 
             <x-ui.panel class="!p-4">
                 <flux:heading size="lg">نطاقات الفروع</flux:heading>
+                @if ($isAutoScopedAdmin)
+                    <p class="mt-2 text-xs text-blue-700">هذا الحساب يغطي جميع الفروع تلقائيًا كمدير نظام نشط.</p>
+                @endif
                 @if ($branches->isNotEmpty())
                     <form wire:submit="grantScope" class="mt-4 flex flex-wrap items-end gap-3">
                         <div class="min-w-44 flex-1"><flux:select wire:model="selectedBranch" label="إضافة فرع" :disabled="$self || ! $targetActive"><option value="">اختر فرعًا</option>@foreach ($branches as $branch)<option value="{{ $branch->id }}" @disabled(! $branch->active)>{{ $branch->name }}{{ $branch->active ? '' : ' · غير نشط' }}</option>@endforeach</flux:select></div>

@@ -4,6 +4,7 @@ namespace App\Modules\Inventory\Application;
 
 use App\Modules\Accounting\Domain\FinancialDecimal;
 use App\Modules\Inventory\Domain\InventoryChanged;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -169,7 +170,8 @@ final class InventoryDocuments
             if ($action === 'cancel' && ! in_array($doc->status, ['draft', 'submitted', 'approved'], true)) {
                 InventoryActions::fail('لا يمكن إلغاء مخزون مرحل أو قيد النقل.');
             }
-            if ($action === 'approve' && $doc->created_by === $actor) {
+            $selfApproved = $action === 'approve' && $doc->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'inventory')) {
                 InventoryActions::fail('لا يمكن لمنشئ المستند اعتماد مستنده.');
             }
             if ($doc->kind === 'receipt' && $action !== 'cancel') {
@@ -250,7 +252,7 @@ final class InventoryDocuments
                 $update['posted_at'] = now();
             }
             DB::table('inventory_documents')->where('id', $id)->update($update);
-            event(new InventoryChanged($actor, 'inventory_document', $id, $action, (array) $doc, $update));
+            event(new InventoryChanged($actor, 'inventory_document', $id, $action, (array) $doc, $update + ['self_approved' => $selfApproved]));
 
             return (array) DB::table('inventory_documents')->where('id', $id)->first();
         });

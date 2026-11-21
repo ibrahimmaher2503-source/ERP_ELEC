@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 /** Apply the caller's authorization scopes before executing this owner-local read. */
 final class PurchaseOrderProjection
 {
-    public const RECEIVING_STATUSES = ['not_received' => 'لم يستلم', 'partially_received' => 'استلام جزئي', 'received' => 'مستلم بالكامل'];
+    public const RECEIVING_STATUSES = [
+        'not_received' => 'لم يستلم',
+        'partially_received' => 'استلام جزئي',
+        'received' => 'مستلم بالكامل',
+    ];
 
     public function query(): Builder
     {
@@ -29,15 +33,46 @@ final class PurchaseOrderProjection
         return "CASE WHEN $received=0 THEN 'not_received' WHEN $received<$ordered THEN 'partially_received' ELSE 'received' END";
     }
 
-    public function filter(Builder $query, string $status = '', string $search = ''): void
-    {
+    public function filter(
+        Builder $query,
+        string $status = '',
+        string $search = '',
+        string $receiving = '',
+        string $branch = '',
+        string $from = '',
+        string $to = '',
+        string $issued = '',
+    ): void {
         if (isset(self::RECEIVING_STATUSES[$status])) {
             $query->whereRaw('('.$this->receivingExpression().') = ?', [$status]);
         } elseif ($status !== '') {
             $query->where('purchasing_orders.status', $status);
         }
+
+        if ($receiving !== '' && isset(self::RECEIVING_STATUSES[$receiving])) {
+            $query->whereRaw('('.$this->receivingExpression().') = ?', [$receiving]);
+        }
+
+        if ($branch !== '' && ctype_digit($branch)) {
+            $query->where('purchasing_orders.branch_id', (int) $branch);
+        }
+
+        if ($from !== '') {
+            $query->where('purchasing_orders.order_date', '>=', $from);
+        }
+
+        if ($to !== '') {
+            $query->where('purchasing_orders.order_date', '<=', $to);
+        }
+
+        if ($issued === 'issued') {
+            $query->whereExists(fn ($sub) => $sub->selectRaw('1')->from('purchasing_order_issues')->whereColumn('order_id', 'purchasing_orders.id'));
+        } elseif ($issued === 'not_issued') {
+            $query->whereNotExists(fn ($sub) => $sub->selectRaw('1')->from('purchasing_order_issues')->whereColumn('order_id', 'purchasing_orders.id'));
+        }
+
         if ($search !== '') {
-            $term = '%'.mb_substr($search, 0, 200).'%';
+            $term = '%'.str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], mb_substr(trim($search), 0, 200)).'%';
             $query->where(fn ($q) => $q->where('supplier_name', 'ilike', $term)
                 ->orWhereRaw('purchasing_orders.id::text ilike ?', [$term])
                 ->orWhereIn('purchasing_orders.id', DB::table('purchasing_order_issues')->where('official_number', 'ilike', $term)->select('order_id')));

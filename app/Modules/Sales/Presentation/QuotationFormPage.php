@@ -2,6 +2,7 @@
 
 namespace App\Modules\Sales\Presentation;
 
+use App\Modules\Accounting\Domain\FinancialDecimal;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Sales\Application\Contracts\QuotationPricing;
@@ -58,12 +59,14 @@ class QuotationFormPage extends Component
             $r = Quotation::with('lines')->findOrFail($quotation);
             abort_unless($r->editable(), 422, 'هذا العرض غير قابل للتعديل.');
             $this->version = $r->version;
-            $this->form = $r->only(['customer_id', 'project_name', 'rfq_reference', 'discount_mode', 'discount_value', 'payment_terms', 'delivery_terms', 'payment_term_id', 'delivery_term_id', 'notes', 'exception_reason']);
+            $this->form = $r->only(['customer_id', 'project_name', 'rfq_reference', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason', 'payment_terms', 'delivery_terms', 'payment_term_id', 'delivery_term_id', 'notes', 'exception_reason']);
+            $this->form['tax_treatment'] ??= 'rule';
+            $this->form['tax_exempt_reason'] ??= '';
             $this->form['quotation_date'] = $r->quotation_date->toDateString();
             $this->form['valid_until'] = $r->valid_until?->toDateString() ?? '';
             $this->lines = $r->lines->map(fn ($l) => $l->only(['product_id', 'unit_id', 'description', 'quantity', 'suggested_price', 'requested_price', 'discount_mode', 'discount_value', 'override_reason']) + ['sku' => $l->product_snapshot['sku']])->all();
         } else {
-            $this->form = ['customer_id' => '', 'quotation_date' => now('Africa/Cairo')->toDateString(), 'valid_until' => '', 'project_name' => '', 'rfq_reference' => '', 'discount_mode' => 'percent', 'discount_value' => '0', 'payment_term_id' => '', 'delivery_term_id' => '', 'payment_terms' => '', 'delivery_terms' => '', 'notes' => '', 'exception_reason' => ''];
+            $this->form = ['customer_id' => '', 'quotation_date' => now('Africa/Cairo')->toDateString(), 'valid_until' => '', 'project_name' => '', 'rfq_reference' => '', 'discount_mode' => 'percent', 'discount_value' => '0', 'tax_treatment' => 'vat_14', 'tax_exempt_reason' => '', 'payment_term_id' => '', 'delivery_term_id' => '', 'payment_terms' => '', 'delivery_terms' => '', 'notes' => '', 'exception_reason' => ''];
             $policy = QuotationPolicy::find(1);
             if ($policy) {
                 $this->form['valid_until'] = now('Africa/Cairo')->addDays((int) $policy->settings['validity_default'])->toDateString();
@@ -227,6 +230,14 @@ class QuotationFormPage extends Component
         try {
             $amounts = app(DraftAmounts::class)->calculate($this->lines, $this->form['discount_mode'], $this->form['discount_value']);
             $amountErrors = [];
+            $taxChoice = (string) ($this->form['tax_treatment'] ?? 'vat_14');
+            if ($amounts['net'] !== null && in_array($taxChoice, ['vat_14', 'exempt_0'], true)) {
+                $roundedNet = FinancialDecimal::round($amounts['net']);
+                $previewTax = $taxChoice === 'exempt_0' ? '0.00' : FinancialDecimal::round(bcmul($amounts['net'], '0.14', 10));
+                $amounts['tax'] = $previewTax;
+                $amounts['total'] = bcadd($roundedNet, $previewTax, 2);
+                $amounts['preview'] = true;
+            }
         } catch (ValidationException $e) {
             $amounts = ['lines' => [], 'gross' => null, 'line_discounts' => null, 'quotation_discount' => null, 'net' => null, 'tax' => null, 'total' => null];
             $amountErrors = $e->validator->errors()->all();

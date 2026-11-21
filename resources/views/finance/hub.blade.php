@@ -17,6 +17,7 @@
         ['treasury.accounts', isset($tre['accounts']), 'البنك والخزينة', 'حساباتك النقدية وأرصدتها'],
         ['treasury.statements', isset($tre['statements']), 'كشوف البنك والمطابقة', 'طابق كشف البنك مع حركاتك'],
         ['financial.advances', isset($fin['advances']), 'مقدمات العملاء', 'دفعات مقدمة من العملاء'],
+        ['accounting.partners', isset($acc['partners']), 'جاري الشركاء', 'مساهمات ومسحوبات ومصروفات الشركاء'],
     ], fn ($t) => $t[1]);
     $reports = array_filter([
         ['accounting.income-statement', isset($acc['income-statement']), 'قائمة الدخل', 'هل ربحت أم خسرت في فترة'],

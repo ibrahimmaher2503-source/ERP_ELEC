@@ -4,6 +4,16 @@
     <div class="erp-kpi-summary grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <x-erp.stat-card label="الصافي" :value="$row->net_amount.' ج.م'" icon="calculator"/><x-erp.stat-card label="الضريبة" :value="$row->tax_amount.' ج.م'" icon="document-text"/><x-erp.stat-card label="الإجمالي" :value="$row->total_amount.' ج.م'" icon="banknotes"/><x-erp.stat-card label="المتبقي" :value="($openItem?->remaining_amount??'—').' ج.م'" icon="clock"/>
     </div>
+    @if($type==='customer')
+        <x-ui.panel>
+            <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                <span>المعاملة الضريبية: <strong>{{ \App\Modules\Accounting\Application\TaxCalculator::treatmentLabel($row->tax_treatment ?? 'rule') }}</strong></span>
+                @if(($row->tax_treatment ?? 'rule') === 'exempt_0' && $row->tax_exempt_reason)
+                    <span>سبب عدم احتساب الضريبة: <strong>{{ $row->tax_exempt_reason }}</strong></span>
+                @endif
+            </div>
+        </x-ui.panel>
+    @endif
     <x-ui.panel><h2 class="mb-3 font-semibold">بنود الفاتورة المجمدة</h2><div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="overflow-x-auto"><table><thead><tr><th>الوصف</th><th>الكمية</th><th>الصافي</th><th>الضريبة</th><th>الإجمالي</th></tr></thead><tbody>@foreach($lines as $line)<tr><td>{{ $line->description }}</td><td>{{ $line->quantity }}</td><td>{{ $line->net_amount }}</td><td>{{ $line->tax_amount }}</td><td>{{ $line->total_amount }}</td></tr>@endforeach</tbody></table></div></x-ui.panel>
     @if($type==='supplier')<x-ui.panel><h2 class="mb-3 font-semibold">المطابقة مع الاستلامات</h2><div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="overflow-x-auto"><table><thead><tr><th>البند</th><th>بند الاستلام</th><th>الكمية</th><th>قيمة استلامات بانتظار الفوترة</th></tr></thead><tbody>@foreach($matches as $match)<tr><td>{{ $match->description }}</td><td>#{{ $match->receipt_line_id }}</td><td>{{ $match->quantity }}</td><td>{{ $match->grni_amount }}</td></tr>@endforeach</tbody></table></div></x-ui.panel>@endif
 </div>

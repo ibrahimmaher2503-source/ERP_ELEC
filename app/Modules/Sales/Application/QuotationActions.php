@@ -43,6 +43,8 @@ final class QuotationActions
                 'payment_term_id' => ['nullable', 'integer', 'min:1'], 'delivery_term_id' => ['nullable', 'integer', 'min:1'],
                 'payment_terms' => ['nullable', 'string', 'max:4000'], 'delivery_terms' => ['nullable', 'string', 'max:4000'],
                 'notes' => ['nullable', 'string', 'max:10000'], 'exception_reason' => ['nullable', 'string', 'max:2000'],
+                'tax_treatment' => ['sometimes', Rule::in(['rule', 'vat_14', 'exempt_0'])],
+                'tax_exempt_reason' => [($input['tax_treatment'] ?? 'rule') === 'exempt_0' ? 'required' : 'nullable', 'string', ...($input['tax_treatment'] ?? 'rule') === 'exempt_0' ? ['min:5', 'max:2000'] : ['max:2000']],
                 'lines' => ['required', 'array', 'min:1', 'max:500'], 'lines.*' => ['array'],
                 'lines.*.product_id' => ['required', 'integer', 'min:1'], 'lines.*.unit_id' => ['required', 'integer', 'min:1'],
                 'lines.*.quantity' => ['required', 'string'], 'lines.*.requested_price' => ['nullable', 'string'],
@@ -81,7 +83,9 @@ final class QuotationActions
             }
             $calculation = app(DraftAmounts::class)->calculate($lines, $data['discount_mode'], $data['discount_value']);
             unset($data['lines']);
-            $before = $id === null ? null : $r->only(['version', 'status', 'discount_mode', 'discount_value']);
+            $data['tax_treatment'] ??= 'rule';
+            $data['tax_exempt_reason'] = $data['tax_treatment'] === 'exempt_0' ? trim((string) ($data['tax_exempt_reason'] ?? '')) : null;
+            $before = $id === null ? null : $r->only(['version', 'status', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason']);
             $r->fill($data);
             $r->customer_snapshot = $customer;
             $r->calculation = $calculation;
@@ -98,7 +102,7 @@ final class QuotationActions
             $r->save();
             $r->lines()->delete();
             $r->lines()->createMany($lines);
-            event(new QuotationChanged($actor, $r->id, $id === null ? 'draft_created' : 'draft_updated', $before, $r->only(['version', 'status', 'discount_mode', 'discount_value'])));
+            event(new QuotationChanged($actor, $r->id, $id === null ? 'draft_created' : 'draft_updated', $before, $r->only(['version', 'status', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason'])));
 
             foreach ($lines as $position => $line) {
                 $old = $oldLines[$position] ?? null;

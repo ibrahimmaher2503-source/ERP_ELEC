@@ -79,7 +79,7 @@
         <div class="dashboard-filter-fields">
             <flux:select label="نطاق مؤشرات الفرع" wire:model.live="branch">
                 <option value="">كل الفروع المسموحة لكل وحدة</option>
-                @foreach($branchIds as $id)<option value="{{ $id }}">الفرع #{{ $id }}</option>@endforeach
+                @foreach($branchOptions as $b)<option value="{{ $b['id'] }}">{{ $b['name'] }}</option>@endforeach
             </flux:select>
             <flux:input type="date" label="المؤشرات من تاريخ" wire:model.live="from" />
             <flux:input type="date" label="المؤشرات حتى تاريخ" wire:model.live="to" />
@@ -95,6 +95,19 @@
                 <div><h2>الملخص المالي</h2><p>ثلاث قراءات مستقلة لأعمالك، بالجنيه المصري</p></div>
                 <span class="dashboard-period"><bdi>{{ $analytics['from'] }}</bdi><span aria-label="إلى">←</span><bdi>{{ $analytics['to'] }}</bdi></span>
             </div>
+            @if(! ($analytics['financial_ready'] ?? true))
+                <flux:callout icon="exclamation-triangle" variant="warning" role="status" class="my-4">
+                    <flux:callout.heading>التشغيل المالي غير مفعّل بعد — الأرصدة غير متاحة (ليست صفرًا حقيقيًا)</flux:callout.heading>
+                    <flux:callout.text>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <span>لن تظهر أرصدة الإيراد والمصروف والفواتير والنقدية من المصدر المحاسبي قبل استكمال التفعيل المالي.</span>
+                            @if($analytics['can_setup_finance'] ?? false)
+                                <flux:button size="sm" variant="primary" :href="route('accounting.setup')" wire:navigate>استكمال إعداد التفعيل المالي</flux:button>
+                            @endif
+                        </div>
+                    </flux:callout.text>
+                </flux:callout>
+            @endif
             <div class="dashboard-finance-grid">
             @foreach(['accounting' => ['الأداء المالي · الأستاذ', 'chart-bar'], 'receivables' => ['الفواتير المرحلة', 'document-currency-dollar'], 'treasury' => ['البنك والنقدية', 'banknotes']] as $key => [$title, $icon])
                 @php($section = $analytics['sections'][$key])
@@ -116,6 +129,14 @@
                             @endforeach
                         </dl>
                         <p class="dashboard-basis">{{ $section['basis'] }}</p>
+                    @elseif($section['status'] === 'not_activated')
+                        <div class="dashboard-unavailable flex-col gap-2">
+                            <span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-800">غير متاح</span>
+                            <p>{{ $section['reason'] }}</p>
+                            @if($section['route'])
+                                <a href="{{ route($section['route']) }}" wire:navigate class="text-xs font-semibold text-blue-700 underline">فتح إعداد التفعيل المالي ←</a>
+                            @endif
+                        </div>
                     @else
                         <div class="dashboard-unavailable"><flux:icon.lock-closed class="size-5" /><p>{{ $section['reason'] }}</p></div>
                     @endif

@@ -14,7 +14,7 @@ final class QuotationApprovals
 {
     public function snapshot(Quotation $r): array
     {
-        return ['quotation' => $r->only(['customer_id', 'customer_snapshot', 'project_name', 'rfq_reference', 'quotation_date', 'valid_until', 'currency', 'revision', 'discount_mode', 'discount_value', 'payment_terms', 'delivery_terms', 'payment_term_id', 'delivery_term_id', 'notes', 'exception_reason']), 'lines' => $r->lines->map(fn ($l) => $l->only(['position', 'product_id', 'unit_id', 'product_snapshot', 'description', 'quantity', 'suggested_price', 'requested_price', 'price_source', 'discount_mode', 'discount_value', 'override_reason']))->all()];
+        return ['quotation' => $r->only(['customer_id', 'customer_snapshot', 'project_name', 'rfq_reference', 'quotation_date', 'valid_until', 'currency', 'revision', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason', 'payment_terms', 'delivery_terms', 'payment_term_id', 'delivery_term_id', 'notes', 'exception_reason']), 'lines' => $r->lines->map(fn ($l) => $l->only(['position', 'product_id', 'unit_id', 'product_snapshot', 'description', 'quantity', 'suggested_price', 'requested_price', 'price_source', 'discount_mode', 'discount_value', 'override_reason']))->all()];
     }
 
     public function hash(Quotation $r): string

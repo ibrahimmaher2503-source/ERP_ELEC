@@ -131,6 +131,14 @@ final class OpeningBalances
         if (($noBalances && $lines !== []) || (! $noBalances && $lines === [])) {
             $errors[] = 'أدخل الأرصدة الفعلية أو صرح صراحة بعدم وجود أرصدة مع مستند مؤيد واعتماد مستقل.';
         }
+        $labels = [
+            'ap' => 'الموردين',
+            'ar' => 'العملاء',
+            'cash' => 'النقدية',
+            'bank' => 'البنوك',
+            'inventory' => 'المخزون',
+            'grni' => 'الاستلامات غير المفوترة',
+        ];
         foreach ($groups as $branch => $group) {
             if (bccomp($group['debit'], $group['credit'], 2) !== 0) {
                 $errors[] = 'قيد افتتاح غير متوازن للفرع #'.$branch;
@@ -142,13 +150,13 @@ final class OpeningBalances
                     $gl = bcsub('0', $gl, 2);
                 }
                 if (bccomp($gl, $detail, 2) !== 0) {
-                    $errors[] = 'اختلاف '.$purpose.' بين الأستاذ العام والتفاصيل للفرع #'.$branch;
+                    $errors[] = 'اختلاف رصيد '.($labels[$purpose] ?? $purpose).' بين الأستاذ العام والتفاصيل للفرع #'.$branch;
                 }
             }
             // Unmatched استلامات بانتظار الفوترة has no detailed producer; settle it as supplier payables before go-live.
             foreach (['grni'] as $purpose) {
                 if (bccomp($group['gl'][$maps[$purpose] ?? 0] ?? '0', '0', 2) !== 0) {
-                    $errors[] = 'الرصيد الافتتاحي '.$purpose.' يتطلب تفاصيل من منتجه، غير مدعوم في مسار الافتتاح الحالي.';
+                    $errors[] = 'الرصيد الافتتاحي لحساب '.($labels[$purpose] ?? $purpose).' يتطلب تفاصيل من مصدره، وغير مدعوم في مسار الافتتاح الحالي.';
                 }
             }
         }
@@ -194,8 +202,12 @@ final class OpeningBalances
             abort_unless($batch, 404);
             if ($setup->activated_at || $batch->configuration_version !== $setup->version || $batch->version !== $version
                 || $batch->status !== ($action === 'submit' ? 'draft' : 'submitted')
-                || ($action === 'submit' && $batch->created_by !== $actor) || ($action === 'approve' && ($batch->created_by === $actor || $setup->configured_by === $actor))) {
-                FinancialActivation::fail('نسخة أو حالة غير صالحة، أو اعتماد ذاتي. يلزم مراجع مستقل عن مُعد الأرصدة والإعداد.');
+                || ($action === 'submit' && $batch->created_by !== $actor)) {
+                FinancialActivation::fail('نسخة أو حالة غير صالحة لخطوة الافتتاح.');
+            }
+            $selfApproved = $action === 'approve' && ($batch->created_by === $actor || $setup->configured_by === $actor);
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'accounting')) {
+                FinancialActivation::fail('اعتماد ذاتي غير مسموح. يلزم مراجع مستقل عن مُعد الأرصدة والإعداد، أو تفعيل سياسة الاعتماد الذاتي.');
             }
             if ((int) DB::table('accounting_opening_batches')->max('id') !== $id) {
                 FinancialActivation::fail('توجد حزمة أحدث يجب مراجعتها.');
@@ -208,7 +220,7 @@ final class OpeningBalances
             $after = ['status' => $action === 'submit' ? 'submitted' : 'approved', 'version' => $version + 1, 'updated_at' => now()];
             $after += $action === 'approve' ? ['approved_by' => $actor, 'approved_at' => now()] : ['submitted_at' => now()];
             DB::table('accounting_opening_batches')->where('id', $id)->update($after);
-            app(FinancialActivation::class)->audit($actor, $id, 'opening.'.$action, (array) $batch, $after);
+            app(FinancialActivation::class)->audit($actor, $id, 'opening.'.$action, (array) $batch, $after + ['self_approved' => $selfApproved]);
         });
     }
 

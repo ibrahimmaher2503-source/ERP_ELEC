@@ -4,6 +4,7 @@ namespace App\Modules\ServiceContracts\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -126,7 +127,8 @@ final class ServiceContractBilling
             abort_unless($s, 404);
             [$c, , $d] = $this->terms($actor, (int) $s->contract_id, 'billing_approve');
             abort_unless($s->status === 'proposed' && (int) $s->version === $version, 409);
-            abort_unless((int) $s->created_by !== $actor, 403, 'اعتماد استحقاق الفوترة مستقل.');
+            $selfApproved = (int) $s->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'اعتماد استحقاق الفوترة مستقل.');
             $this->taxMode($d, $s->tax_mode);
             $items = [['product_id' => (int) $s->product_id, 'description' => $s->description, 'quantity' => '1', 'unit_price' => $s->amount, 'discount_amount' => '0.00']];
             if ($s->kind === 'claim') {
@@ -153,7 +155,7 @@ final class ServiceContractBilling
             $line = $lines[0]['tax'] + ['lines' => $lines];
             DB::table('service_contract_billing_sources')->where('id', $source)->update(['status' => 'approved', 'approved_by' => $actor, 'approved_at' => now(), 'version' => $version + 1,
                 'net_amount' => $net, 'tax_amount' => $taxAmount, 'total_amount' => bcadd($net, $taxAmount, 2), 'tax_snapshot' => json_encode($line, JSON_THROW_ON_ERROR)]);
-            app(ServiceContractActions::class)->audit($actor, $c, 'billing.source_approved', ['source_id' => $source]);
+            app(ServiceContractActions::class)->audit($actor, $c, 'billing.source_approved', ['source_id' => $source, 'self_approved' => $selfApproved]);
         }, 3);
     }
 
@@ -231,12 +233,13 @@ final class ServiceContractBilling
             abort_unless($m, 404);
             [$c, , $d] = $this->terms($actor, (int) $m->contract_id, 'billing_approve');
             abort_unless($m->status === 'draft' && (int) $m->version === $version, 409);
-            abort_unless((int) $m->created_by !== $actor, 403);
+            $selfApproved = (int) $m->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403);
             $line = collect($d['boq'])->firstWhere('code', $m->boq_code);
             $prior = (string) DB::table('service_contract_measurements')->where('contract_id', $c->id)->where('boq_code', $m->boq_code)->where('status', 'approved')->sum('quantity');
             abort_unless($line && bccomp(bcadd($prior, $m->quantity, 8), $line['quantity'], 8) <= 0, 422, 'القياس يتجاوز الكمية المتعاقد عليها.');
             DB::table('service_contract_measurements')->where('id', $id)->update(['status' => 'approved', 'approved_by' => $actor, 'approved_at' => now(), 'version' => $version + 1]);
-            app(ServiceContractActions::class)->audit($actor, $c, 'measurement.approved', ['measurement_id' => $id]);
+            app(ServiceContractActions::class)->audit($actor, $c, 'measurement.approved', ['measurement_id' => $id, 'self_approved' => $selfApproved]);
         }, 3);
     }
 
@@ -308,7 +311,8 @@ final class ServiceContractBilling
             abort_unless($claim, 404);
             [$c, , $terms] = $this->terms($actor, (int) $claim->contract_id, 'billing_approve');
             abort_unless($claim->status === 'submitted' && (int) $claim->version === $version, 409);
-            abort_unless((int) $claim->created_by !== $actor, 403);
+            $selfApproved = (int) $claim->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403);
             $amount = '0.00';
             foreach (DB::table('service_contract_claim_lines')->where('claim_id', $id)->get() as $line) {
                 $m = DB::table('service_contract_measurements')->find($line->measurement_id);
@@ -320,7 +324,7 @@ final class ServiceContractBilling
                 'tax_mode' => $claim->tax_mode, 'reference' => $claim->reference, 'creation_key' => $claim->creation_key, 'revenue_purpose' => 'sales', 'created_by' => $claim->created_by]);
             $this->approveSource($actor, $source, 1);
             DB::table('service_contract_claims')->where('id', $id)->update(['status' => 'approved', 'approved_by' => $actor, 'approved_at' => now(), 'version' => $version + 1]);
-            app(ServiceContractActions::class)->audit($actor, $c, 'claim.approved', ['claim_id' => $id, 'billing_source_id' => $source, 'amount' => $amount]);
+            app(ServiceContractActions::class)->audit($actor, $c, 'claim.approved', ['claim_id' => $id, 'billing_source_id' => $source, 'amount' => $amount, 'self_approved' => $selfApproved]);
 
             return $source;
         }, 3);
@@ -364,7 +368,8 @@ final class ServiceContractBilling
                 return (int) $r->journal_id;
             }
             abort_unless($r->status === 'proposed' && (int) $r->version === $version, 409);
-            abort_unless((int) $r->created_by !== $actor, 403);
+            $selfApproved = (int) $r->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403);
             $summary = app(ReceivablesPayablesApi::class)->contractFinancialSummary($actor, (int) $c->id, (int) $c->branch_id, $r->recognition_date);
             $earned = $this->earned((int) $c->id);
             $usedWork = DB::table('service_contract_recognitions')->where('contract_id', $c->id)->where('status', 'posted')
@@ -374,7 +379,7 @@ final class ServiceContractBilling
             $journal = app(AccountingApi::class)->postSourceDocument($actor, (int) $r->created_by, (int) $c->branch_id, $r->recognition_date, 'contract-recognition:'.$id, $r->reference,
                 [['purpose' => 'service_contract_deferred', 'debit' => $r->amount, 'credit' => '0.00'], ['purpose' => 'sales', 'debit' => '0.00', 'credit' => $r->amount]]);
             DB::table('service_contract_recognitions')->where('id', $id)->update(['status' => 'posted', 'approved_by' => $actor, 'approved_at' => now(), 'journal_id' => $journal, 'version' => $version + 1]);
-            app(ServiceContractActions::class)->audit($actor, $c, 'recognition.posted', ['recognition_id' => $id, 'journal_id' => $journal, 'amount' => $r->amount]);
+            app(ServiceContractActions::class)->audit($actor, $c, 'recognition.posted', ['recognition_id' => $id, 'journal_id' => $journal, 'amount' => $r->amount, 'self_approved' => $selfApproved]);
 
             return $journal;
         }, 3);
@@ -422,11 +427,12 @@ final class ServiceContractBilling
                 return (int) $r->journal_id;
             }
             abort_unless($r->status === 'proposed' && (int) $r->version === $version, 409);
-            abort_unless((int) $r->created_by !== $actor, 403);
+            $selfApproved = (int) $r->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403);
             $journal = app(AccountingApi::class)->postSourceDocument($actor, (int) $r->created_by, (int) $c->branch_id, $r->reversal_date, 'contract-recognition-reversal:'.$id, $r->reason,
                 [['purpose' => 'sales', 'debit' => $r->amount, 'credit' => '0.00'], ['purpose' => 'service_contract_deferred', 'debit' => '0.00', 'credit' => $r->amount]]);
             DB::table('service_contract_recognition_reversals')->where('id', $id)->update(['status' => 'posted', 'approved_by' => $actor, 'approved_at' => now(), 'journal_id' => $journal, 'version' => $version + 1]);
-            app(ServiceContractActions::class)->audit($actor, $c, 'recognition.reversed', ['reversal_id' => $id, 'recognition_id' => $r->recognition_id, 'journal_id' => $journal]);
+            app(ServiceContractActions::class)->audit($actor, $c, 'recognition.reversed', ['reversal_id' => $id, 'recognition_id' => $r->recognition_id, 'journal_id' => $journal, 'self_approved' => $selfApproved]);
 
             return $journal;
         }, 3);

@@ -7,7 +7,7 @@
     </x-page.heading>
     @include('workshops.feedback')
     <section class="workshop-summary" aria-label="ملخص أمر الإصلاح">
-        <div><span>العميل / المالك</span><strong>{{ $w->customer_name }}</strong></div>
+        <div><span>العميل / المالك</span><strong>{{ $w->customer_name }}</strong><small>{{ $intake->customer_owned ? 'عهدة عميل — منفصلة عن مخزون الشركة وقيمته' : 'معدة شركة — معزولة من المخزون' }}</small></div>
         <div><span>هوية المعدة</span><strong>{{ $intake->serial_number ?: 'رقم مسلسل غير مسجل' }}</strong><small>{{ $intake->model }}</small></div>
         <div><span>الورشة والفني</span><strong>{{ $workshops->firstWhere('id',$w->workshop_id)?->name ?? 'الورشة غير نشطة' }}</strong><small>{{ collect($users)->firstWhere('id',$w->technician_id)['name'] ?? 'لم يعيّن فني بعد' }}</small></div>
         <div><span>حالة الإصلاح</span>@include('workshops.status',['status'=>$w->status])<small>{{ ['billable'=>'إصلاح مدفوع','partial'=>'مدفوع جزئياً','warranty'=>'إصلاح ضمان','nonbillable'=>'داخلي / مجاملة','contract'=>'ضمن عقد خدمة'][$w->billing_mode] ?? $w->billing_mode }}</small></div>
@@ -46,7 +46,7 @@
         <flux:button size="sm" :variant="$tab==='history'?'primary':'outline'" :href="route('workshops.jobs.show',['job'=>$w->id,'tab'=>'history'])" wire:navigate>سجل العمليات</flux:button>
         <span class="ms-auto text-xs text-slate-500">الإصدار {{ $version }} · جميع الأوقات بتوقيت القاهرة</span>
     </div>
-    <div class="space-y-5" wire:loading.class="opacity-60" wire:target="assign,diagnose,proposeEstimate,decideEstimate,issueQuote,acceptQuote,authorizeContract,authorizeNonbillable,state,recordWork,recordTest,verify,deliver,requestInvoice,requestPart,reservePart,issuePart,usePart,returnPart">
+    <div class="space-y-5" wire:loading.class="opacity-60" wire:target="assign,diagnose,proposeEstimate,decideEstimate,issueQuote,acceptQuote,authorizeContract,authorizeNonbillable,state,recordWork,recordTest,verify,deliver,requestInvoice,requestPart,reservePart,issuePart,usePart,returnPart,recordDeposit,applyDeposit,refundDeposit,cancelAfterDiagnosis">
         @if($tab==='estimate')
             @include('workshops.offers')
         @elseif(in_array($tab,['delivery','billing']))

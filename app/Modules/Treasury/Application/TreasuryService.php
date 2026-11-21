@@ -34,9 +34,11 @@ final class TreasuryService implements TreasuryApi
         abort_unless(\DB::transactionLevel() > 0, 500);
         Validator::make(compact('date'), ['date' => 'required|date_format:Y-m-d'])->validate();
         $m = \DB::table('treasury_movements')->lockForUpdate()->find($movementId);
-        abort_unless($m && in_array($m->kind, ['customer_collection', 'supplier_payment', 'transfer_in', 'transfer_out', 'customer_advance_refund', 'customer_credit_refund', 'supplier_credit_refund'], true), 409);
+        abort_unless($m && in_array($m->kind, ['customer_collection', 'supplier_payment', 'transfer_in', 'transfer_out', 'customer_advance_refund', 'customer_credit_refund', 'supplier_credit_refund', 'partner_contribution', 'partner_drawing'], true), 409);
         app(TreasuryAccess::class)->authorize($actor, 'cash_correct', (int) $m->branch_id);
-        abort_unless((int) $m->executed_by !== $actor, 403, 'تصحيح حركة الخزينة مستقل عن منفذها.');
+        if ((int) $m->executed_by === $actor) {
+            abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'treasury_ar_ap'), 403, 'تصحيح حركة الخزينة مستقل عن منفذها.');
+        }
         abort_unless($date >= $m->movement_date, 422, 'التصحيح لا يسبق الحركة الأصلية.');
         $partyType = match ($m->kind) {
             'customer_collection', 'customer_advance_refund', 'customer_credit_refund' => 'customer',
@@ -53,6 +55,7 @@ final class TreasuryService implements TreasuryApi
             'transfer_out' => 'treasury-transfer:'.$canonical->idempotency_key,
             'customer_advance_refund' => 'customer-advance-refund:'.$canonical->idempotency_key,
             'customer_credit_refund', 'supplier_credit_refund' => 'party-credit-refund:'.$canonical->idempotency_key,
+            'partner_contribution', 'partner_drawing' => 'partner-movement:'.$canonical->idempotency_key,
             default => abort(409),
         };
 
@@ -162,6 +165,19 @@ final class TreasuryService implements TreasuryApi
         return app(TreasuryOperations::class)->transfer($actor, $data);
     }
 
+    public function recordPartnerMovement(int $actor, array $data): array
+    {
+        return app(TreasuryOperations::class)->recordPartnerMovement($actor, $data);
+    }
+
+    public function partnerAccounts(int $actor, int $branch): array
+    {
+        app(TreasuryAccess::class)->authorize($actor, 'partner_cash', $branch);
+
+        return \DB::table('treasury_accounts')->where('active', true)->orderBy('name')
+            ->get(['id', 'code', 'name', 'kind'])->map(fn ($row) => (array) $row)->all();
+    }
+
     public function reconciliationValues(int $actor, array $branchIds, string $to): array
     {
         $this->authorizeReconciliation($actor, $branchIds, $to);
@@ -171,7 +187,7 @@ final class TreasuryService implements TreasuryApi
             $opening = (string) \DB::table('treasury_opening_balances')->where('kind', $kind)->whereIn('branch_id', $ids)->where('opening_date', '<=', $to)->sum('amount');
             $movements = \DB::table('treasury_movements as m')->join('treasury_accounts as a', 'a.id', '=', 'm.account_id')
                 ->where('a.kind', $kind)->whereIn('m.branch_id', $ids)->where('m.movement_date', '<=', $to)
-                ->selectRaw("coalesce(sum(case when m.kind in ('customer_collection','transfer_in','supplier_credit_refund','cash_correction_in') then m.amount else -m.amount end),0)::numeric(20,2) amount")->value('amount');
+                ->selectRaw("coalesce(sum(case when m.kind in ('customer_collection','transfer_in','supplier_credit_refund','cash_correction_in','partner_contribution') then m.amount else -m.amount end),0)::numeric(20,2) amount")->value('amount');
             $out[$kind] = bcadd($opening, (string) $movements, 2);
         }
 

@@ -231,14 +231,15 @@ final class AttendanceActions
             abort_unless($r, 404);
             $s = DB::table('attendance_schedules')->find($r->schedule_id);
             app(AttendanceAccess::class)->authorize($actor, (int) $s->branch_id, 'adjustment_approve');
-            abort_unless((int) $r->created_by !== $actor, 403, 'يلزم اعتماد مستقل عن مقدم الطلب.');
+            $selfApproved = (int) $r->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'يلزم اعتماد مستقل عن مقدم الطلب.');
             abort_unless((int) $r->version === $version && $r->status === 'pending', 409);
             $this->unlocked((int) $s->employee_id, $s->work_date);
             if ($approved) {
                 $this->validateAdjustment($s, $r->kind, json_decode($r->data, true, 512, JSON_THROW_ON_ERROR));
             }
             DB::table('attendance_adjustments')->where('id', $id)->update(['status' => $approved ? 'approved' : 'rejected', 'reviewed_by' => $actor, 'reason' => $reason, 'reviewed_at' => now(), 'version' => $version + 1]);
-            $this->audit($actor, $id, $approved ? 'adjustment.approved' : 'adjustment.rejected', ['schedule_id' => $s->id, 'kind' => $r->kind, 'reason' => $reason]);
+            $this->audit($actor, $id, $approved ? 'adjustment.approved' : 'adjustment.rejected', ['schedule_id' => $s->id, 'kind' => $r->kind, 'reason' => $reason, 'self_approved' => $selfApproved]);
         }, 3);
     }
 

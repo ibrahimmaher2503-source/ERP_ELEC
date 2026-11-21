@@ -3,7 +3,11 @@
 namespace App\Modules\Sales\Presentation;
 
 use App\Modules\Inventory\Application\Contracts\InventoryApi;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
+use App\Modules\Parties\Application\Contracts\CustomersApi;
+use App\Modules\Parties\Application\CustomerAccess;
 use App\Modules\Sales\Application\ApproveSalesOrder;
+use App\Modules\Sales\Application\QuotationAccess;
 use App\Modules\Sales\Application\SalesDeliveries;
 use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesOrderActions;
@@ -33,6 +37,8 @@ class SalesOrderDetailsPage extends Component
     public string $cancelReason = '';
 
     public string $rejectReason = '';
+
+    public string $bulkWarehouse = '';
 
     public array $reservationWarehouses = [];
 
@@ -82,6 +88,30 @@ class SalesOrderDetailsPage extends Component
         $record = $this->record();
         app(SalesOrderAccess::class)->authorize(auth()->id(), 'view', (int) $record->branch_id);
         $this->version = (int) $record->version;
+    }
+
+    public function applyWarehouseToAll(): void
+    {
+        $record = $this->record();
+        app(SalesOrderAccess::class)->authorize(auth()->id(), 'view', (int) $record->branch_id);
+        if (! ctype_digit($this->bulkWarehouse)) {
+            return;
+        }
+        foreach ($record->lines as $line) {
+            $this->reservationWarehouses[$line->id] = (int) $this->bulkWarehouse;
+        }
+    }
+
+    public function fillAvailableDeliveries(): void
+    {
+        $record = $this->authorizeRecord('delivery_create');
+        $progress = app(SalesOrderProgress::class)->read(auth()->id(), $record);
+        foreach ($record->lines as $line) {
+            $state = $progress['lines'][$line->id] ?? null;
+            if ($state && $state['outstanding'] !== null && bccomp((string) $state['outstanding'], '0', 8) > 0) {
+                $this->deliveryQuantities[$line->id] = SalesOrderDisplay::inputDecimal((string) $state['outstanding']);
+            }
+        }
     }
 
     public function operate(string $operation): void
@@ -136,10 +166,14 @@ class SalesOrderDetailsPage extends Component
                 $lines[] = ['line_id' => $id, 'quantity' => $quantity];
             }
         }
-        app(SalesDeliveries::class)->create(auth()->id(), $this->orderId,
-            ['creation_key' => $this->deliveryKey, 'reference' => $this->deliveryReference, 'lines' => $lines]);
+        app(SalesDeliveries::class)->create(
+            auth()->id(),
+            $this->orderId,
+            ['creation_key' => $this->deliveryKey, 'reference' => $this->deliveryReference, 'lines' => $lines]
+        );
         $this->deliveryKey = (string) Str::uuid();
         $this->deliveryQuantities = [];
+        $this->deliveryReference = '';
         session()->flash('status', 'تم حفظ طلب التسليم؛ تأكيده يرحل المخزون والتكلفة.');
     }
 
@@ -164,8 +198,12 @@ class SalesOrderDetailsPage extends Component
         $this->authorizeRecord('delivery_create');
         $allocation = DB::table('sales_order_allocations')->where('order_id', $this->orderId)->where('line_id', $line)->first();
         abort_unless($allocation, 404);
-        app(InventoryApi::class)->replenishReservation(auth()->id(), $allocation->reservation_id,
-            (string) ($this->backorderQuantities[$line] ?? ''), Uuid::uuid5(Uuid::NAMESPACE_URL, 'sales-backorder:'.$this->deliveryKey.':'.$line)->toString());
+        app(InventoryApi::class)->replenishReservation(
+            auth()->id(),
+            $allocation->reservation_id,
+            (string) ($this->backorderQuantities[$line] ?? ''),
+            Uuid::uuid5(Uuid::NAMESPACE_URL, 'sales-backorder:'.$this->deliveryKey.':'.$line)->toString()
+        );
         $this->deliveryKey = (string) Str::uuid();
         $this->backorderQuantities[$line] = '';
         session()->flash('status', 'تم تخصيص مخزون متاح للطلب المؤجل.');
@@ -221,13 +259,65 @@ class SalesOrderDetailsPage extends Component
             default => null,
         };
 
+        $sourceQuotation = null;
+        if ($record->source_type === 'quotation') {
+            $sourceQuotation = DB::table('sales_quotation_conversions as c')
+                ->join('sales_quotations as q', 'q.id', '=', 'c.quotation_id')
+                ->where('c.order_id', $record->id)
+                ->first(['c.quotation_id', 'q.number', 'q.draft_key']);
+        }
+
+        $orderIssue = $record->status === 'approved'
+            ? DB::table('sales_order_issues')->where('order_id', $record->id)->first(['approved_by', 'approved_at', 'tax_snapshot'])
+            : null;
+
+        $latestReview = $record->reviews->first();
+        $exceptionDecision = $record->status === 'pending_approval' && $latestReview
+            ? DB::table('sales_order_exception_decisions')->where('review_id', $latestReview->id)->first()
+            : null;
+
+        $deliveryInstructions = DB::table('sales_delivery_instructions')->where('order_id', $record->id)->orderByDesc('id')->get();
+        $deliveryLinesByInstruction = $deliveryInstructions->isNotEmpty()
+            ? DB::table('sales_delivery_instruction_lines')->whereIn('instruction_id', $deliveryInstructions->pluck('id'))->orderBy('id')->get()->groupBy('instruction_id')
+            : collect();
+
+        $warehouseNames = [];
+        $inventoryApi = app(InventoryApi::class);
+        foreach ($progress['lines'] as $lineState) {
+            $wid = (int) ($lineState['warehouse_id'] ?? 0);
+            if ($wid > 0 && ! isset($warehouseNames[$wid])) {
+                try {
+                    $w = $inventoryApi->warehouse($wid);
+                    $warehouseNames[$wid] = $w['name'] ?? ('#'.$wid);
+                } catch (\Throwable) {
+                    $warehouseNames[$wid] = '#'.$wid;
+                }
+            }
+        }
+
+        $customerCredit = null;
+        if ($this->screen === 'review' && $record->status === 'pending_approval') {
+            try {
+                $customerCredit = app(CustomersApi::class)->commercialProfile($actor, (int) $record->customer_id);
+            } catch (\Throwable) {
+                $customerCredit = null;
+            }
+        }
+
         return view('sales.orders.details', [
             'record' => $record,
             'progress' => $progress,
             'commercialReview' => $record->source_type === 'direct' && $record->status === 'pending_approval'
-                ? app(SalesOrderCommercialReview::class)->evaluate($actor, $record) : ['blockers' => [], 'exceptions' => []],
-            'warehouseChoices' => app(InventoryApi::class)->reservationWarehouses($actor, $record->branch_id),
-            'deliveryInstructions' => DB::table('sales_delivery_instructions')->where('order_id', $record->id)->orderByDesc('id')->get(),
+                ? app(SalesOrderCommercialReview::class)->evaluate($actor, $record)
+                : ['blockers' => [], 'exceptions' => []],
+            'warehouseChoices' => $inventoryApi->reservationWarehouses($actor, $record->branch_id),
+            'warehouseNames' => $warehouseNames,
+            'deliveryInstructions' => $deliveryInstructions,
+            'deliveryLinesByInstruction' => $deliveryLinesByInstruction,
+            'sourceQuotation' => $sourceQuotation,
+            'orderIssue' => $orderIssue,
+            'exceptionDecision' => $exceptionDecision,
+            'customerCredit' => $customerCredit,
             'history' => $history,
             'operation' => $operation,
             'blockers' => $operation ? $this->blockers($record, $operation) : [],
@@ -236,7 +326,11 @@ class SalesOrderDetailsPage extends Component
                 'return_create' => $this->blockers($record, 'return_create'),
             ] : [],
             'stale' => (int) $record->version !== $this->version,
-            'isReviewRequester' => (int) ($record->reviews->first()?->requested_by ?? 0) === (int) $actor,
+            'isReviewRequester' => (int) ($latestReview?->requested_by ?? 0) === (int) $actor,
+            'canSelfApprove' => app(OrganizationApi::class)->allowsSelfApproval($actor, 'sales_orders'),
+            'canViewCustomer' => app(CustomerAccess::class)->allows($actor, 'M03.customer_view'),
+            'canViewQuotation' => app(QuotationAccess::class)->allows($actor),
+            'canViewReturns' => $access->allows($actor, 'return_view', (int) $record->branch_id),
             'can' => fn (string $action): bool => $actions->allows($actor, $action, (int) $record->branch_id),
         ])->layout('layouts::app', ['title' => $record->label()]);
     }

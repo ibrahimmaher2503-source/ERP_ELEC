@@ -5,6 +5,7 @@ namespace App\Modules\Accounting\Presentation;
 use App\Modules\Accounting\Application\AccountingAccess;
 use App\Modules\Accounting\Application\AccountingActions;
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
@@ -153,7 +154,8 @@ final class AccountingPage extends Component
         $rows = $q->paginate(20);
         $stats = DB::table('accounting_journals')->whereIn('branch_id', $branchIds)->selectRaw('status,count(*) as total')->groupBy('status')->pluck('total', 'status');
         $journalRecord = $this->screen === 'journals' && $this->selected ? DB::table('accounting_journals')->whereIn('branch_id', $branchIds)->find($this->selected) : null;
+        $canSelfApproveAccounting = app(OrganizationApi::class)->allowsSelfApproval($actor, 'accounting');
 
-        return view('accounting.index', compact('a', 'nav', 'accounts', 'branches', 'rows', 'stats', 'journalRecord'))->layout('layouts::app', ['title' => $nav[$this->screen]]);
+        return view('accounting.index', compact('a', 'nav', 'accounts', 'branches', 'rows', 'stats', 'journalRecord', 'canSelfApproveAccounting'))->layout('layouts::app', ['title' => $nav[$this->screen]]);
     }
 }

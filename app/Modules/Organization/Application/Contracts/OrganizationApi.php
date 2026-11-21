@@ -21,6 +21,9 @@ interface OrganizationApi
     /** Active account and explicit branch scope; does not grant an operation. */
     public function projectScopedBranches(int $actor): array;
 
+    /** @return list<array{id:int,name:string}> */
+    public function projectScopedBranchOptions(int $actor): array;
+
     public function projectBranchMember(int $actor, int $branch): bool;
 
     /** Safe names only, for an authorized project assignment selector. */
@@ -44,6 +47,16 @@ interface OrganizationApi
     public function securityRoles(int $actorId): array;
 
     public function hasRole(int $actorId, int $roleId): bool;
+
+    public function allowsSelfApproval(int $actorId, string $scope): bool;
+
+    /**
+     * Active, verified users and roles holding each permission code (read-only attribution).
+     *
+     * @param  list<string>  $permissionCodes
+     * @return array<string, array{code:string,label:string,roles:list<string>,users:list<array{id:int,name:string}>}>
+     */
+    public function permissionHolders(int $actorId, array $permissionCodes): array;
 
     public function listAllowedWarehouses(ListAllowedWarehousesRequest $request): ListAllowedWarehousesResult;
 }

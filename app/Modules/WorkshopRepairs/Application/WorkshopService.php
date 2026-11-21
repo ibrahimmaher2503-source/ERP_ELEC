@@ -108,17 +108,38 @@ final class WorkshopService implements WorkshopApi
     public function billingSource(int $actor, int $job): array
     {
         $w = app(WorkshopActions::class)->work($actor, $job, 'billing_request');
-        app(RepairOffers::class)->authorized($w);
         app(WorkshopActions::class)->project($actor, $w);
+
+        $cancellation = DB::table('workshop_cancellations')->where('job_id', $job)->first();
+        if ($cancellation && bccomp($cancellation->fee_amount, '0', 2) > 0 && in_array($w->status, ['rejected', 'returned_unrepaired'], true)) {
+            return [
+                'type' => 'workshop_cancellation_fee',
+                'job_id' => $job,
+                'branch_id' => $w->branch_id,
+                'customer_id' => $w->customer_id,
+                'project_id' => $w->project_id,
+                'description' => $w->number.' — رسوم فحص/إلغاء: '.$cancellation->reason,
+                'approval_id' => null,
+                'cancellation_id' => (int) $cancellation->id,
+                'product_id' => (int) $cancellation->product_id,
+                'net_amount' => $cancellation->fee_amount,
+                'tax_amount' => $cancellation->tax_amount,
+                'tax_treatment' => $cancellation->tax_treatment ?? 'exempt_0',
+                'tax_exempt_reason' => $cancellation->tax_exempt_reason,
+                'tax' => json_decode($cancellation->tax_snapshot, true, 512, JSON_THROW_ON_ERROR),
+            ];
+        }
+
+        app(RepairOffers::class)->authorized($w);
         abort_unless(in_array($w->status, ['verified', 'delivered']) && in_array($w->billing_mode, ['billable', 'partial']), 409);
         $e = DB::table('workshop_estimates')->where('job_id', $job)->orderByDesc('revision')->first();
         $approval = $e ? DB::table('workshop_estimate_approvals')->where('estimate_id', $e->id)->where('customer_accepted', true)->first() : null;
         abort_unless($e && $approval && bccomp($e->billable_amount, '0', 2) > 0 && DB::table('workshop_verifications')->where('job_id', $job)->exists(), 409);
 
-        return ['type' => 'workshop_repair', 'job_id' => $job, 'branch_id' => $w->branch_id, 'customer_id' => $w->customer_id, 'project_id' => $w->project_id, 'description' => $w->number.' — '.$w->diagnosis, 'approval_id' => $approval->id, 'product_id' => $e->product_id, 'net_amount' => $e->billable_amount, 'tax_amount' => $e->tax_amount, 'tax' => json_decode($e->tax_snapshot, true, 512, JSON_THROW_ON_ERROR)];
+        return ['type' => 'workshop_repair', 'job_id' => $job, 'branch_id' => $w->branch_id, 'customer_id' => $w->customer_id, 'project_id' => $w->project_id, 'description' => $w->number.' — '.$w->diagnosis, 'approval_id' => $approval->id, 'cancellation_id' => null, 'product_id' => $e->product_id, 'net_amount' => $e->billable_amount, 'tax_amount' => $e->tax_amount, 'tax_treatment' => $e->tax_treatment ?? 'rule', 'tax_exempt_reason' => $e->tax_exempt_reason, 'tax' => json_decode($e->tax_snapshot, true, 512, JSON_THROW_ON_ERROR)];
     }
 
-    public function validateBillingEvidence(int $actor, int $job, int $branch, int $customer, int $approval): void
+    public function validateBillingEvidence(int $actor, int $job, int $branch, int $customer, ?int $approval, ?int $cancellation = null): void
     {
         $allowed = false;
         foreach (['M12.customer_invoice_manage', 'M12.customer_invoice_post'] as $key) {
@@ -132,10 +153,29 @@ final class WorkshopService implements WorkshopApi
         abort_unless($allowed, 403);
         app(WorkshopActions::class)->lock();
         $w = DB::table('workshop_jobs')->lockForUpdate()->find($job);
-        abort_unless($w && $w->branch_id === $branch && $w->customer_id === $customer && in_array($w->status, ['verified', 'delivered']) && in_array($w->billing_mode, ['billable', 'partial']), 409);
+        abort_unless($w && $w->branch_id === $branch && $w->customer_id === $customer, 409);
+
+        if ($cancellation !== null) {
+            abort_unless(in_array($w->status, ['rejected', 'returned_unrepaired'], true), 409);
+            $c = DB::table('workshop_cancellations')->where('id', $cancellation)->where('job_id', $job)->first();
+            abort_unless($c && bccomp($c->fee_amount, '0', 2) > 0, 409);
+
+            return;
+        }
+
+        abort_unless(in_array($w->status, ['verified', 'delivered']) && in_array($w->billing_mode, ['billable', 'partial']) && $approval !== null, 409);
         app(RepairOffers::class)->authorized($w);
         $e = DB::table('workshop_estimates')->where('job_id', $job)->orderByDesc('revision')->first();
         abort_unless($e && DB::table('workshop_estimate_approvals')->where('id', $approval)->where('estimate_id', $e->id)->where('customer_accepted', true)->exists() && DB::table('workshop_verifications')->where('job_id', $job)->exists(), 409);
+    }
+
+    public function validateDepositTarget(int $actor, int $job, int $branch, int $customer): void
+    {
+        $w = DB::table('workshop_jobs')->find($job);
+        abort_unless($w && (int) $w->branch_id === $branch && (int) $w->customer_id === $customer, 422, 'أمر الإصلاح لا يطابق العميل أو الفرع.');
+        abort_unless(in_array($w->billing_mode, ['billable', 'partial'], true), 422, 'العربون مخصص لأوامر الإصلاح المدفوعة فقط.');
+        abort_if(in_array($w->status, ['delivered', 'returned_unrepaired'], true), 409, 'لا يمكن تسجيل عربون بعد تسليم المعدة.');
+        app(WorkshopAccess::class)->authorize($actor, $branch);
     }
 
     public function projectJobs(int $actor, int $project, int $branch): array

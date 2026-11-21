@@ -9,6 +9,7 @@ use App\Modules\Accounting\Presentation\FinancialReportExportController;
 use App\Modules\Accounting\Presentation\FinancialReportsPage;
 use App\Modules\Accounting\Presentation\FinancialSetupPage;
 use App\Modules\Accounting\Presentation\JournalPdfController;
+use App\Modules\Accounting\Presentation\PartnerAccountsPage;
 use App\Modules\Attendance\Presentation\AttendanceExportController;
 use App\Modules\Attendance\Presentation\AttendancePage;
 use App\Modules\FieldMaintenance\Presentation\MaintenanceDownloadController;
@@ -226,6 +227,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('purchasing/orders/{order}/pdf', OrderPdfController::class)->whereNumber('order')->name('purchasing.orders.pdf');
     Route::get('accounting/dashboard', AccountingPage::class)->defaults('screen', 'dashboard')->name('accounting.dashboard');
     Route::get('accounting/accounts', AccountingPage::class)->defaults('screen', 'accounts')->name('accounting.accounts');
+    Route::get('accounting/partners', PartnerAccountsPage::class)->name('accounting.partners');
     Route::get('accounting/periods', AccountingPage::class)->defaults('screen', 'periods')->name('accounting.periods');
     Route::get('accounting/journals', AccountingPage::class)->defaults('screen', 'journals')->name('accounting.journals');
     foreach (['ledger', 'trial-balance', 'income-statement', 'balance-sheet', 'grni', 'ppv', 'reconciliation', 'closing'] as $report) {

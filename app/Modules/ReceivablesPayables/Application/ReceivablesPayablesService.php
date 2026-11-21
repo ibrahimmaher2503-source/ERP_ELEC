@@ -6,6 +6,7 @@ use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Projects\Application\Contracts\ProjectsApi;
 use App\Modules\ReceivablesPayables\Application\Contracts\ReceivablesPayablesApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
+use App\Modules\WorkshopRepairs\Application\Contracts\WorkshopApi;
 use Illuminate\Support\Facades\DB;
 
 final class ReceivablesPayablesService implements ReceivablesPayablesApi
@@ -128,6 +129,11 @@ final class ReceivablesPayablesService implements ReceivablesPayablesApi
         return app(WorkshopInvoices::class)->handoff($actor, $job, $branch);
     }
 
+    public function workshopFinancialLedger(int $actor, int $job, int $branch): array
+    {
+        return app(WorkshopInvoices::class)->ledger($actor, $job, $branch);
+    }
+
     public function serviceBillingHandoff(int $actor, int $work, int $branch): ?array
     {
         return app(ServiceInvoices::class)->handoff($actor, $work, $branch);
@@ -242,12 +248,21 @@ final class ReceivablesPayablesService implements ReceivablesPayablesApi
         app(Settlements::class)->complete($actor, $movementId, $partyType, $allocations);
     }
 
-    public function recordCustomerAdvance(int $actor, int $movementId, int $branch, int $customer, string $amount): void
+    public function recordCustomerAdvance(int $actor, int $movementId, int $branch, int $customer, string $amount, ?int $workshopJobId = null): void
     {
         abort_unless(DB::transactionLevel() > 0 && bccomp($amount, '0', 2) > 0, 422);
         app(ReceivablesPayablesAccess::class)->authorize($actor, 'ar_view', $branch);
-        DB::table('rp_customer_advances')->insert(['movement_id' => $movementId, 'branch_id' => $branch,
-            'customer_id' => $customer, 'original_amount' => $amount, 'created_at' => now()]);
+        if ($workshopJobId !== null) {
+            app(WorkshopApi::class)->validateDepositTarget($actor, $workshopJobId, $branch, $customer);
+        }
+        DB::table('rp_customer_advances')->insert([
+            'movement_id' => $movementId,
+            'branch_id' => $branch,
+            'customer_id' => $customer,
+            'workshop_job_id' => $workshopJobId,
+            'original_amount' => $amount,
+            'created_at' => now(),
+        ]);
     }
 
     public function customerCreditExposure(int $customer, array $orderLines): array

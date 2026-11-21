@@ -2,6 +2,7 @@
 
 namespace App\Modules\Purchasing\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Purchasing\Domain\PurchaseRequisition;
@@ -103,7 +104,8 @@ final class RequisitionActions
             if ($doc->status !== $source) {
                 $this->fail('حالة المستند لا تسمح بهذا الإجراء.');
             }
-            if (in_array($action, ['approve', 'reject']) && $doc->created_by === $actor) {
+            $selfApproved = in_array($action, ['approve', 'reject']) && $doc->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'purchasing')) {
                 $this->fail('لا يمكنك اعتماد أو رفض مستند أنشأته بنفسك.');
             }
             if (in_array($action, ['submit', 'reopen']) && $doc->created_by !== $actor) {
@@ -126,7 +128,7 @@ final class RequisitionActions
             $doc->status = $target;
             $doc->version++;
             $doc->save();
-            event(new PurchasingChanged($actor, $id, 'requisition.'.$action, $before, $doc->toArray()));
+            event(new PurchasingChanged($actor, $id, 'requisition.'.$action, $before, $doc->toArray() + ['self_approved' => $selfApproved]));
 
             return $doc;
         });

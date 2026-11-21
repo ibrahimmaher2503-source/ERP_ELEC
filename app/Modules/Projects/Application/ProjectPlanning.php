@@ -2,6 +2,7 @@
 
 namespace App\Modules\Projects\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Projects\Domain\Project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -110,7 +111,8 @@ final class ProjectPlanning
             if (in_array($p->status, ['closed', 'cancelled', 'on_hold'])) {
                 $this->fail('حالة المشروع لا تسمح بالاعتماد.');
             }$c = DB::table('project_changes')->where('project_id', $id)->where('id', $change)->lockForUpdate()->firstOrFail();
-            abort_unless((int) $c->created_by !== $actor, 403, 'اعتماد الميزانية يتطلب شخصاً مستقلاً.');
+            $selfApproved = (int) $c->created_by === $actor;
+            abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'اعتماد الميزانية يتطلب شخصاً مستقلاً.');
             if ($c->status !== 'pending') {
                 $this->fail('سبق اتخاذ القرار.');
             }$current = (int) DB::table('project_baselines')->where('project_id', $id)->max('revision');
@@ -136,7 +138,7 @@ final class ProjectPlanning
             }$p->version++;
             $p->save();
             DB::table('project_changes')->where('id', $change)->update(['status' => $approve ? 'approved' : 'rejected', 'decided_by' => $actor, 'decided_at' => now(), 'decision_reason' => $reason]);
-            app(ProjectActions::class)->activity($actor, $p, $approve ? 'change.approved' : 'change.rejected', ['revision' => $current], ['change_id' => $change, 'revision' => $approve ? $current + 1 : $current]);
+            app(ProjectActions::class)->activity($actor, $p, $approve ? 'change.approved' : 'change.rejected', ['revision' => $current], ['change_id' => $change, 'revision' => $approve ? $current + 1 : $current, 'self_approved' => $selfApproved]);
         });
     }
 

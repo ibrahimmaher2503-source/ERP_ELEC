@@ -87,7 +87,8 @@ final class WorkshopsPage extends Component
 
     public function saveMember(): void
     {
-        abort_unless($this->workshopId, 422);
+        abort_unless($this->workshopId, 422, 'اختر الورشة أولًا.');
+        $this->validate(['technicianId' => 'required|integer|min:1']);
         app(WorkshopActions::class)->member(auth()->id(), $this->workshopId, $this->version, (int) $this->technicianId, $this->memberActive);
         $this->editWorkshop($this->workshopId);
         session()->flash('workshop_notice', 'تم حفظ عضوية الفني.');
@@ -103,6 +104,12 @@ final class WorkshopsPage extends Component
     public function exception($e, $stopPropagation): void
     {
         if ($e instanceof HttpException && in_array($e->getStatusCode(), [409, 422])) {
+            if ($e->getStatusCode() === 409 && $this->workshopId !== null) {
+                $currentVersion = DB::table('workshops')->where('id', $this->workshopId)->value('version');
+                if ($currentVersion !== null) {
+                    $this->version = (int) $currentVersion;
+                }
+            }
             $this->addError('operation', $e->getMessage() ?: 'تعذر تنفيذ العملية. أعد فتح السجل.');
             $stopPropagation();
         }

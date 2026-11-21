@@ -13,9 +13,20 @@ use Illuminate\Validation\ValidationException;
 
 final class TaxCalculator
 {
-    public function calculate(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0'): array
+    public const DOCUMENT_TREATMENTS = ['rule', 'vat_14', 'exempt_0'];
+
+    public static function treatmentLabel(?string $treatment): string
     {
-        return $this->compute($actor, $transaction, $date, $mode, $lines, $documentDiscount, false);
+        return match ($treatment) {
+            'vat_14' => 'خاضع لضريبة القيمة المضافة 14%',
+            'exempt_0' => 'بدون ضريبة (0%)',
+            default => 'وفق القاعدة الضريبية للشركة',
+        };
+    }
+
+    public function calculate(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0', ?array $documentTax = null): array
+    {
+        return $this->compute($actor, $transaction, $date, $mode, $lines, $documentDiscount, false, $documentTax);
     }
 
     public function tender(int $actor, string $date, string $mode, array $lines, string $documentDiscount = '0'): array
@@ -23,7 +34,7 @@ final class TaxCalculator
         return $this->compute($actor, 'sale', $date, $mode, $lines, $documentDiscount, true);
     }
 
-    private function compute(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount, bool $external): array
+    private function compute(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount, bool $external, ?array $documentTax = null): array
     {
         app(OrganizationApi::class)->authorize(new AuthorizeRequest($actor, 'M11.tax_calculate'));
         Validator::make(compact('transaction', 'date', 'mode', 'lines'), [
@@ -31,6 +42,17 @@ final class TaxCalculator
             'mode' => 'required|in:inclusive,exclusive', 'lines' => 'required|array|min:1|max:500',
             'lines.*.product_id' => $external ? 'present|nullable|integer|min:1' : 'required|integer|min:1',
         ])->validate();
+        $choice = (string) ($documentTax['treatment'] ?? 'rule');
+        $exemptReason = isset($documentTax['reason']) ? trim((string) $documentTax['reason']) : null;
+        if (! in_array($choice, self::DOCUMENT_TREATMENTS, true)) {
+            $this->fail('نوع المعاملة الضريبية للمستند غير صالح.');
+        }
+        if ($choice !== 'rule' && ($external || $transaction !== 'sale')) {
+            $this->fail('اختيار المعاملة الضريبية على مستوى المستند مخصص لمستندات البيع فقط.');
+        }
+        if ($choice === 'exempt_0' && ($exemptReason === null || mb_strlen($exemptReason) < 5 || mb_strlen($exemptReason) > 2000)) {
+            $this->fail('يجب كتابة سبب واضح (5 أحرف على الأقل) عند اختيار "بدون ضريبة".');
+        }
         Decimal::value($documentDiscount, Decimal::SCALE);
         $out = [];
         $net = '0';
@@ -56,21 +78,9 @@ final class TaxCalculator
             }
             $eligible = bcsub($gross, $discount, Decimal::SCALE);
             $net = bcadd($net, $eligible, Decimal::SCALE);
-            $rules = DB::table('accounting_tax_rules as r')->leftJoin('accounting_tax_rule_endings as e', 'e.rule_id', '=', 'r.id')
-                ->whereRaw('coalesce(e.withdrawn,false)=false')->where('r.transaction_type', $transaction)
-                ->where(fn ($q) => $q->where('r.product_id', $line['product_id'])->orWhereNull('r.product_id'))
-                ->where('r.starts_on', '<=', $date)->whereRaw('(coalesce(e.ends_on,r.ends_on) IS NULL OR coalesce(e.ends_on,r.ends_on)>=?::date)', [$date])
-                ->orderByRaw('r.product_id IS NULL')->orderBy('r.id')->get(['r.*']);
-            $specific = $rules->whereNotNull('product_id');
-            $applicable = $specific->isNotEmpty() ? $specific : $rules;
-            if ($applicable->count() !== 1) {
-                $this->fail('يلزم تحديد قاعدة ضريبية واحدة سارية لكل صنف ونوع معاملة. لا توجد نسبة ضريبة افتراضية.');
-            }
-            $rule = $applicable->first();
+            $meta = $this->resolveLineTax($transaction, $date, $line['product_id'], $choice, $exemptReason);
             $out[] = ['product_id' => $line['product_id'] === null ? null : (int) $line['product_id'], 'quantity' => $qty, 'unit_price' => $price,
-                'gross_raw' => $gross, 'line_discount_raw' => $discount, 'eligible_raw' => $eligible,
-                'tax_rule_id' => $rule->id, 'tax_code' => $rule->code, 'rate' => $rule->rate,
-                'treatment' => $rule->treatment, 'tax_scale' => $rule->tax_scale, 'purchase_recoverable' => $rule->purchase_recoverable, 'legal_reference' => $rule->legal_reference];
+                'gross_raw' => $gross, 'line_discount_raw' => $discount, 'eligible_raw' => $eligible] + $meta;
             if (bccomp($eligible, '0', Decimal::SCALE) > 0) {
                 $lastEligible = count($out) - 1;
             }
@@ -143,10 +153,63 @@ final class TaxCalculator
         }
 
         return ['currency' => 'EGP', 'mode' => $mode, 'date' => $date, 'transaction_type' => $transaction,
+            'document_tax_choice' => $choice, 'tax_exempt_reason' => $choice === 'exempt_0' ? $exemptReason : null,
             'rounding' => 'half_away_from_zero_largest_remainder', 'internal_scale' => Decimal::SCALE,
             'configuration_version' => DB::table('accounting_activation')->where('id', 1)->value('version'),
             'production_validated' => (bool) DB::table('accounting_activation')->where('id', 1)->value('tax_validated'),
             'lines' => $out, 'tax_totals' => $taxTotals, 'net' => $totalNet, 'tax' => $totalTax, 'total' => bcadd($totalNet, $totalTax, 2)];
+    }
+
+    private function matchingRules(string $transaction, string $date, ?int $productId)
+    {
+        $rules = DB::table('accounting_tax_rules as r')->leftJoin('accounting_tax_rule_endings as e', 'e.rule_id', '=', 'r.id')
+            ->whereRaw('coalesce(e.withdrawn,false)=false')->where('r.transaction_type', $transaction)
+            ->where(fn ($q) => $q->where('r.product_id', $productId)->orWhereNull('r.product_id'))
+            ->where('r.starts_on', '<=', $date)->whereRaw('(coalesce(e.ends_on,r.ends_on) IS NULL OR coalesce(e.ends_on,r.ends_on)>=?::date)', [$date])
+            ->orderByRaw('r.product_id IS NULL')->orderBy('r.id')->get(['r.*']);
+        $specific = $rules->whereNotNull('product_id');
+
+        return $specific->isNotEmpty() ? $specific : $rules;
+    }
+
+    private function resolveLineTax(string $transaction, string $date, ?int $productId, string $choice, ?string $exemptReason): array
+    {
+        if ($choice === 'exempt_0') {
+            return [
+                'tax_rule_id' => null, 'tax_code' => 'DOC-NO-TAX', 'rate' => '0.00000',
+                'treatment' => 'exempt', 'tax_scale' => 5, 'purchase_recoverable' => false,
+                'legal_reference' => 'خيار ضريبي على مستوى المستند: بدون ضريبة (0%) — السبب: '.$exemptReason,
+                'document_tax_choice' => 'exempt_0', 'tax_exempt_reason' => $exemptReason,
+            ];
+        }
+        $applicable = $this->matchingRules($transaction, $date, $productId);
+        if ($choice === 'vat_14') {
+            $rule = $applicable->count() === 1 ? $applicable->first() : null;
+            $matchesVat14 = $rule !== null && $rule->treatment === 'percentage' && bccomp((string) $rule->rate, '14', 5) === 0;
+
+            return [
+                'tax_rule_id' => $matchesVat14 ? $rule->id : null,
+                'tax_code' => $matchesVat14 ? $rule->code : 'DOC-VAT-14',
+                'rate' => '14.00000',
+                'treatment' => 'percentage',
+                'tax_scale' => $matchesVat14 ? $rule->tax_scale : 5,
+                'purchase_recoverable' => false,
+                'legal_reference' => $matchesVat14 ? $rule->legal_reference : 'خيار ضريبي على مستوى المستند: خاضع لضريبة القيمة المضافة 14%',
+                'document_tax_choice' => 'vat_14',
+                'tax_exempt_reason' => null,
+            ];
+        }
+        if ($applicable->count() !== 1) {
+            $this->fail('يلزم تحديد قاعدة ضريبية واحدة سارية لكل صنف ونوع معاملة. لا توجد نسبة ضريبة افتراضية.');
+        }
+        $rule = $applicable->first();
+
+        return [
+            'tax_rule_id' => $rule->id, 'tax_code' => $rule->code, 'rate' => $rule->rate,
+            'treatment' => $rule->treatment, 'tax_scale' => $rule->tax_scale,
+            'purchase_recoverable' => $rule->purchase_recoverable, 'legal_reference' => $rule->legal_reference,
+            'document_tax_choice' => 'rule', 'tax_exempt_reason' => null,
+        ];
     }
 
     private function fail(string $message): never

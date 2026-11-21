@@ -2,6 +2,7 @@
 
 namespace App\Modules\Products\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\ApprovedPrices;
 use App\Modules\Products\Domain\Product;
 use App\Modules\System\Application\RecordAudit;
@@ -54,8 +55,12 @@ final class SalePrices implements ApprovedPrices
             DB::select('SELECT pg_advisory_xact_lock(40231)');
             $r = DB::table('product_sale_prices')->lockForUpdate()->find($id);
             abort_unless($r, 404);
+            $selfApproved = false;
             if ($action === 'approve') {
-                abort_if($r->created_by === $actor, 403, 'يلزم اعتماد السعر من شخص مستقل.');
+                $selfApproved = $r->created_by === $actor;
+                if ($selfApproved) {
+                    abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'purchasing'), 403, 'يلزم اعتماد السعر من شخص مستقل.');
+                }
                 abort_unless($r->status === 'draft', 409);
                 if (! Product::where('active', true)->whereKey($r->product_id)->exists()) {
                     throw ValidationException::withMessages(['price' => 'الصنف غير نشط.']);
@@ -71,7 +76,7 @@ final class SalePrices implements ApprovedPrices
                 abort_unless(in_array($r->status, ['draft', 'approved'], true), 409);
                 DB::table('product_sale_prices')->where('id', $id)->update(['status' => 'withdrawn']);
             }
-            $this->audit($actor, $id, 'price.'.$action, ['product_id' => $r->product_id, 'amount' => $r->amount]);
+            $this->audit($actor, $id, 'price.'.$action, ['product_id' => $r->product_id, 'amount' => $r->amount, 'self_approved' => $selfApproved]);
         });
     }
 

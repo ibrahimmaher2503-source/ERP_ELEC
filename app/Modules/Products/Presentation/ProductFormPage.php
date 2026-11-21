@@ -25,7 +25,9 @@ class ProductFormPage extends Component
     #[Locked]
     public ?int $version = null;
 
-    public array $form = ['sku' => '', 'name' => '', 'name_en' => '', 'short_description' => '', 'description' => '', 'kind' => '', 'tracking' => '', 'category_id' => '', 'brand_id' => '', 'model' => '', 'base_unit_id' => '', 'purchase_unit_id' => '', 'sales_unit_id' => '', 'barcode' => '', 'active' => true, 'internal_notes' => ''];
+    public array $form = ['sku' => '', 'name' => '', 'name_en' => '', 'short_description' => '', 'description' => '', 'kind' => 'bulk', 'tracking' => 'quantity', 'category_id' => '', 'brand_id' => '', 'model' => '', 'base_unit_id' => '', 'purchase_unit_id' => '', 'sales_unit_id' => '', 'barcode' => '', 'active' => true, 'internal_notes' => ''];
+
+    public array $quickSpecs = ['type' => '', 'ampere' => '', 'kilo' => ''];
 
     public array $conversions = [];
 
@@ -54,6 +56,126 @@ class ProductFormPage extends Component
             }
             $this->specifications = $record->getAttribute('attributes') ?? [];
             $this->conversions = $record->conversions->map(fn ($row) => ['unit_id' => $row->unit_id, 'factor' => $row->factor])->all();
+            $this->hydrateQuickSpecsFromAttributes();
+        } else {
+            $defaultUnit = Unit::where('active', true)->orderByRaw("CASE WHEN dimension = 'count' THEN 0 ELSE 1 END")->orderBy('id')->first();
+            if ($defaultUnit) {
+                $this->form['base_unit_id'] = (string) $defaultUnit->id;
+            }
+        }
+    }
+
+    private function hydrateQuickSpecsFromAttributes(): void
+    {
+        $map = [];
+        foreach ($this->specifications as $row) {
+            if (is_array($row) && isset($row['name'], $row['value'])) {
+                $map[trim((string) $row['name'])] = trim((string) $row['value']);
+            }
+        }
+        $this->quickSpecs['type'] = $map['النوع / الأقطاب'] ?? $map['النوع'] ?? $map['عدد الأقطاب'] ?? '';
+        $this->quickSpecs['ampere'] = $map['التيار المقنن'] ?? $map['نطاق التيار'] ?? $map['مقطع الموصل'] ?? '';
+        $this->quickSpecs['kilo'] = $map['قدرة القطع'] ?? $map['القدرة'] ?? '';
+    }
+
+    private function syncQuickSpecsToAttributes(): void
+    {
+        $mappings = [
+            'type' => ['النوع', ['النوع / الأقطاب', 'النوع', 'عدد الأقطاب']],
+            'ampere' => ['التيار المقنن', ['التيار المقنن', 'نطاق التيار', 'مقطع الموصل']],
+            'kilo' => ['قدرة القطع', ['قدرة القطع', 'القدرة']],
+        ];
+        foreach ($mappings as $key => [$primaryName, $aliases]) {
+            $val = trim((string) ($this->quickSpecs[$key] ?? ''));
+            $foundIndex = null;
+            foreach ($this->specifications as $idx => $spec) {
+                if (in_array(trim((string) ($spec['name'] ?? '')), $aliases, true)) {
+                    $foundIndex = $idx;
+                    break;
+                }
+            }
+            if ($val !== '') {
+                if ($foundIndex !== null) {
+                    $this->specifications[$foundIndex]['value'] = $val;
+                } elseif (count($this->specifications) < 100) {
+                    $this->specifications[] = ['name' => $primaryName, 'value' => $val, 'unit_id' => null];
+                }
+            }
+        }
+        $this->specifications = array_values(array_filter(
+            $this->specifications,
+            fn ($s) => trim((string) ($s['name'] ?? '')) !== '' || trim((string) ($s['value'] ?? '')) !== ''
+        ));
+    }
+
+    public function updatedForm($value, $key): void
+    {
+        if ($key === 'kind' && $this->productId === null) {
+            $this->form['tracking'] = match ((string) $value) {
+                'serialized_equipment' => 'serial',
+                'bulk' => 'quantity',
+                'service' => 'none',
+                default => $this->form['tracking'],
+            };
+        }
+    }
+
+    public function generateSuggestedSku(): void
+    {
+        if ($this->productId !== null) {
+            return;
+        }
+        $cat = ! empty($this->form['category_id']) ? Category::find($this->form['category_id']) : null;
+        $brand = ! empty($this->form['brand_id']) ? Brand::find($this->form['brand_id']) : null;
+        $prefixParts = [];
+        if ($cat && $cat->code) {
+            $cleanCat = preg_replace('/^DEMO(-EG)?-CAT-/', '', $cat->code);
+            $prefixParts[] = substr(preg_replace('/[^A-Z0-9]/', '', strtoupper($cleanCat)), 0, 4) ?: 'PRD';
+        } else {
+            $prefixParts[] = 'ELEC';
+        }
+        if ($brand && $brand->code) {
+            $cleanBrand = preg_replace('/^DEMO(-EG)?-BRAND-/', '', $brand->code);
+            $bPart = substr(preg_replace('/[^A-Z0-9]/', '', strtoupper($cleanBrand)), 0, 4);
+            if ($bPart) {
+                $prefixParts[] = $bPart;
+            }
+        }
+        $nextNum = Product::max('id') + 1;
+        $candidate = implode('-', $prefixParts).'-'.str_pad((string) $nextNum, 4, '0', STR_PAD_LEFT);
+        while (Product::where('sku', $candidate)->exists()) {
+            $nextNum++;
+            $candidate = implode('-', $prefixParts).'-'.str_pad((string) $nextNum, 4, '0', STR_PAD_LEFT);
+        }
+        $this->form['sku'] = $candidate;
+    }
+
+    public function composeSuggestedName(): void
+    {
+        $cat = ! empty($this->form['category_id']) ? Category::find($this->form['category_id']) : null;
+        $brand = ! empty($this->form['brand_id']) ? Brand::find($this->form['brand_id']) : null;
+        $parts = array_filter([
+            $cat?->name,
+            $brand?->name,
+            trim((string) ($this->form['model'] ?? '')),
+            trim((string) ($this->quickSpecs['type'] ?? '')),
+            trim((string) ($this->quickSpecs['ampere'] ?? '')),
+            trim((string) ($this->quickSpecs['kilo'] ?? '')),
+        ]);
+        if ($parts !== []) {
+            $this->form['name'] = mb_substr(implode(' · ', $parts), 0, 200);
+        }
+    }
+
+    public function addPresetAttribute(string $name, string $defaultValue = ''): void
+    {
+        foreach ($this->specifications as $spec) {
+            if (trim((string) ($spec['name'] ?? '')) === $name) {
+                return;
+            }
+        }
+        if (count($this->specifications) < 100) {
+            $this->specifications[] = ['name' => $name, 'value' => $defaultValue, 'unit_id' => null];
         }
     }
 
@@ -91,6 +213,7 @@ class ProductFormPage extends Component
 
     public function save()
     {
+        $this->syncQuickSpecsToAttributes();
         $access = app(ProductAccess::class);
         $input = $this->form;
         if (! $access->allows(auth()->id(), 'M02.notes_update') || ! $access->allows(auth()->id(), 'M02.notes_view')) {

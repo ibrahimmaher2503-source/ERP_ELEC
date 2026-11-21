@@ -4,6 +4,7 @@ namespace App\Modules\Treasury\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\System\Application\RecordAudit;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -208,7 +209,8 @@ final class TreasuryStatementActions
 
         return DB::transaction(function () use ($actor, $statement, $version, $reason) {
             $s = $this->statement($actor, $statement, 'statement_review', $version);
-            abort_unless($s->status === 'imported' && (int) $s->created_by !== $actor, 403, 'مراجعة الكشف مستقلة عن مستورده.');
+            $selfApproved = (int) $s->created_by === $actor;
+            abort_unless($s->status === 'imported' && (! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'treasury_ar_ap')), 403, 'مراجعة الكشف مستقلة عن مستورده.');
             $lines = DB::table('treasury_statement_lines')->where('statement_id', $statement)->orderBy('id')->get();
             $matches = $this->matches($statement);
             $result = $this->reconciliation($s, $lines, $matches, $this->movements($s));
@@ -217,7 +219,7 @@ final class TreasuryStatementActions
                 'snapshot' => $snapshot, 'snapshot_sha256' => hash('sha256', $snapshot)]);
             $complete = $result['unmatched_lines'] === 0 && $result['unmatched_movements'] === 0 && bccomp($result['difference'], '0', 2) === 0;
             DB::table('treasury_statements')->where('id', $statement)->update(['status' => $complete ? 'reconciled' : 'reviewed_with_differences', 'last_review_id' => $id, 'version' => $version + 1]);
-            $this->audit($actor, $s, 'statement.reviewed', ['review_id' => $id, 'snapshot_sha256' => hash('sha256', $snapshot), 'reconciliation' => $result]);
+            $this->audit($actor, $s, 'statement.reviewed', ['review_id' => $id, 'snapshot_sha256' => hash('sha256', $snapshot), 'reconciliation' => $result, 'self_approved' => $selfApproved]);
 
             return $id;
         }, 3);

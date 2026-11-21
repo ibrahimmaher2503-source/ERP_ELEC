@@ -18,7 +18,7 @@
     @if($screen==='supplier-invoices' && $access->branches(auth()->id(),'supplier_invoice_manage')!==[])
         <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['supplier_id'] ?? '') !== '' || $supplierSearch !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> فاتورة مورد جديدة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">فاتورة مورد جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر المورد، ثم أمر الشراء المستلَم، ثم الأصناف المستلمة التي وصلت فاتورتها. يُقترح سعر الأمر ويمكنك تعديله لسعر الفاتورة.</p>
         <form wire:submit="createSupplier" class="space-y-4">
-            @php($receiptOrders = collect($receipts)->groupBy('order_id'))
+            @php $receiptOrders = collect($receipts)->groupBy('order_id'); @endphp
             <div class="grid gap-3 md:grid-cols-2">
                 <div><flux:input wire:model.live.debounce.300ms="supplierSearch" icon="magnifying-glass" label="١) ابحث عن المورد" placeholder="اسم المورد أو كوده" clearable />
                     <flux:select wire:model.live="form.supplier_id" label="المورد" class="mt-2" required><option value="">اختر المورد ({{ count($suppliers) }} نتيجة)</option>@foreach($suppliers as $s)<option value="{{ $s->id }}">{{ $s->name }} · {{ $s->code }}</option>@endforeach</flux:select></div>
@@ -36,7 +36,7 @@
     @elseif($screen==='customer-invoices' && $access->branches(auth()->id(),'customer_invoice_manage')!==[])
         <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['customer_id'] ?? '') !== '' || $customerSearch !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> فاتورة عميل جديدة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">فاتورة عميل جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر العميل، ثم الأمر الذي سُلّم، ثم البنود والكميات التي تريد فوترتها. المسودة لا تُرحَّل قبل اعتمادها.</p>
         <form wire:submit="createCustomer" class="space-y-4">
-            @php($orders = collect($invoiceable)->groupBy('order_id'))
+            @php $orders = collect($invoiceable)->groupBy('order_id'); @endphp
             <div class="grid gap-3 md:grid-cols-2">
                 <div><flux:input wire:model.live.debounce.300ms="customerSearch" icon="magnifying-glass" label="١) ابحث عن العميل" placeholder="اسم العميل أو كوده" clearable />
                     <flux:select wire:model.live="form.customer_id" label="العميل" class="mt-2" required><option value="">اختر العميل ({{ count($customers) }} نتيجة)</option>@foreach($customers as $c)<option value="{{ $c->id }}">{{ $c->name }} · {{ $c->code }}</option>@endforeach</flux:select></div>
@@ -45,8 +45,73 @@
             @if($orderChoice!=='' && $orders->has((int)$orderChoice))
             <div><h3 class="mb-2 text-sm font-semibold text-slate-600">٣) اختر البنود والكميات</h3>
                 <div class="overflow-x-auto rounded-lg border border-slate-200"><table class="w-full text-sm"><thead class="bg-slate-50 text-slate-500"><tr><th class="w-10 p-3"></th><th class="p-3 text-start">البند</th><th class="p-3 text-start">التسليم</th><th class="p-3 text-start">المتبقي للفوترة</th><th class="w-40 p-3 text-start">الكمية المفوترة</th></tr></thead><tbody class="divide-y divide-slate-100">
-                @foreach($orders[(int)$orderChoice] as $line)<tr wire:key="dl-{{ $line['delivery_line_id'] }}"><td class="p-3"><flux:checkbox wire:model.live="picked.{{ $line['delivery_line_id'] }}.on" aria-label="اختيار البند" /></td><td class="p-3 font-medium">{{ $line['description'] }}</td><td class="p-3 text-slate-500">{{ $line['delivery_reference'] }}</td><td class="p-3 tabular-nums">{{ $line['remaining'] }}</td><td class="p-3"><flux:input wire:model="picked.{{ $line['delivery_line_id'] }}.qty" inputmode="decimal" size="sm" placeholder="{{ $line['remaining'] }}" :disabled="empty($picked[$line['delivery_line_id']]['on'])" /></td></tr>@endforeach</tbody></table></div>
+                @foreach($orders[(int)$orderChoice] as $line)<tr wire:key="dl-{{ $line['delivery_line_id'] }}"><td class="p-3"><flux:checkbox wire:model.live="picked.{{ $line['delivery_line_id'] }}.on" aria-label="اختيار البند" /></td><td class="p-3 font-medium">{{ $line['description'] }}</td><td class="p-3 text-slate-500">{{ $line['delivery_reference'] }}</td><td class="p-3 tabular-nums">{{ $line['remaining'] }}</td><td class="p-3"><flux:input wire:model.live.debounce.300ms="picked.{{ $line['delivery_line_id'] }}.qty" inputmode="decimal" size="sm" placeholder="{{ $line['remaining'] }}" :disabled="empty($picked[$line['delivery_line_id']]['on'])" /></td></tr>@endforeach</tbody></table></div>
                 <flux:error name="picked" /></div>
+            @php
+                $orderLinesGroup = $orders[(int) $orderChoice];
+                $firstOrderLine = $orderLinesGroup->first();
+                $orderTaxTreatment = $firstOrderLine['tax_treatment'] ?? 'rule';
+                $selectedLines = $orderLinesGroup->filter(fn ($l) => ! empty($picked[$l['delivery_line_id']]['on']));
+                $selectedQtyTotal = '0';
+                $selectedNetTotal = '0.00';
+                $hasAllLineNets = $selectedLines->isNotEmpty();
+                foreach ($selectedLines as $sl) {
+                    $q = trim((string) ($picked[$sl['delivery_line_id']]['qty'] ?? ''));
+                    $q = $q !== '' ? $q : (string) $sl['remaining'];
+                    if (preg_match('/^\d{1,16}(\.\d{1,8})?$/', $q)) {
+                        $selectedQtyTotal = bcadd($selectedQtyTotal, $q, 8);
+                        if (($sl['order_line_net'] ?? null) !== null && bccomp((string) ($sl['ordered_quantity'] ?? '0'), '0', 8) > 0) {
+                            $lineEstNet = \App\Modules\Accounting\Domain\FinancialDecimal::round(bcdiv(bcmul((string) $sl['order_line_net'], $q, 12), (string) $sl['ordered_quantity'], 12));
+                            $selectedNetTotal = bcadd($selectedNetTotal, $lineEstNet, 2);
+                        } else {
+                            $hasAllLineNets = false;
+                        }
+                    } else {
+                        $hasAllLineNets = false;
+                    }
+                }
+                $selectedQtyDisplay = rtrim(rtrim($selectedQtyTotal, '0'), '.') ?: '0';
+                $selectedCustomerObj = collect($customers)->firstWhere('id', (int) $form['customer_id']);
+                $selectedOrderNum = $firstOrderLine['order_number'] ?? '#'.$orderChoice;
+                $activeInvTaxChoice = ($form['tax_treatment'] ?? 'inherit') === 'inherit' ? $orderTaxTreatment : $form['tax_treatment'];
+                $previewInvTax = ! $hasAllLineNets ? null : match ($activeInvTaxChoice) {
+                    'exempt_0' => '0.00',
+                    'vat_14' => \App\Modules\Accounting\Domain\FinancialDecimal::round(bcmul($selectedNetTotal, '0.14', 10)),
+                    default => null,
+                };
+                $previewInvTotal = $hasAllLineNets && $previewInvTax !== null ? bcadd($selectedNetTotal, $previewInvTax, 2) : null;
+            @endphp
+            <div class="grid gap-3 md:grid-cols-2">
+                <flux:select wire:model.live="form.tax_treatment" label="المعاملة الضريبية للفاتورة">
+                    @if($orderTaxTreatment === 'rule')
+                        <option value="inherit">مطابقة أمر البيع (وفق القاعدة الضريبية)</option>
+                    @endif
+                    <option value="vat_14">خاضع لضريبة 14%</option>
+                    <option value="exempt_0">بدون ضريبة (0%)</option>
+                </flux:select>
+                <div class="self-end text-xs text-slate-600">
+                    معاملة أمر البيع الأصلية: <strong>{{ \App\Modules\Accounting\Application\TaxCalculator::treatmentLabel($orderTaxTreatment) }}</strong>
+                </div>
+            </div>
+            @if($activeInvTaxChoice === 'exempt_0')
+                <flux:textarea wire:model="form.tax_exempt_reason" label="سبب اختيار بدون ضريبة (إلزامي)" rows="2" placeholder="اكتب السبب الواضح لعدم احتساب الضريبة (5 أحرف على الأقل)…" required />
+            @endif
+            <div class="rounded-lg border border-blue-200 bg-blue-50/60 p-3 text-xs text-slate-700">
+                <p class="font-semibold text-blue-900">ملخص ما قبل الحفظ</p>
+                <div class="mt-1.5 flex flex-wrap gap-x-6 gap-y-1">
+                    <span>العميل: <strong>{{ $selectedCustomerObj ? $selectedCustomerObj->name.' ('.$selectedCustomerObj->code.')' : 'العميل #'.$form['customer_id'] }}</strong></span>
+                    <span>الأمر: <strong dir="ltr">{{ $selectedOrderNum }}</strong></span>
+                    <span>البنود المختارة: <strong>{{ $selectedLines->count() }}</strong></span>
+                    <span>إجمالي الكمية: <strong class="tabular-nums">{{ $selectedQtyDisplay }}</strong></span>
+                    @if($hasAllLineNets)
+                        <span>الصافي: <strong class="tabular-nums">{{ $selectedNetTotal }} ج.م</strong></span>
+                    @endif
+                    @if($previewInvTax !== null && $previewInvTotal !== null)
+                        <span>الضريبة المقدرة: <strong class="tabular-nums">{{ $previewInvTax }} ج.م</strong></span>
+                        <span>الإجمالي المقدر: <strong class="tabular-nums text-blue-950">{{ $previewInvTotal }} ج.م</strong></span>
+                    @endif
+                </div>
+            </div>
             <div class="grid gap-3 md:grid-cols-3"><flux:input wire:model="form.invoice_date" type="date" label="تاريخ الفاتورة" required/><flux:input wire:model="form.due_date" type="date" label="تاريخ الاستحقاق" required/><div class="self-end"><flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء مسودة الفاتورة</flux:button></div></div>
             @endif
         </form></x-ui.panel></div></details>
@@ -64,10 +129,10 @@
                 <tbody>@forelse($rows as $row)<tr><td dir="ltr">{{ $row->supplier_invoice_number }}</td><td>{{ $row->supplier_name }}</td><td>{{ $row->invoice_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->total_amount }}</td><td>{{ $row->grni_amount }}</td><td>{{ $row->ppv_amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1">@if($row->status==='draft'&&$access->allows(auth()->id(),'supplier_invoice_manage',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'validate')" size="sm">تحقق</flux:button>@elseif($row->status==='validated')<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'match')" size="sm">مطابقة</flux:button>@elseif($row->status==='matched'&&$access->allows(auth()->id(),'supplier_invoice_post',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'approve')" size="sm">اعتماد</flux:button>@elseif($row->status==='approved'&&$access->allows(auth()->id(),'supplier_invoice_post',$row->branch_id))<flux:button wire:click="supplierStep({{ $row->id }},{{ $row->version }},'post')" wire:confirm="ترحيل الفاتورة وإنشاء AP وقيد رسمي؟" size="sm" variant="primary">ترحيل</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد فواتير موردين" description="تظهر هنا الفواتير المبنية على استلامات مخزون مرحّلة."/></td></tr>@endforelse</tbody>
             @elseif($screen==='customer-invoices')
                 <thead><tr><th>الرقم الرسمي</th><th>العميل</th><th>التاريخ</th><th>الاستحقاق</th><th>الصافي</th><th>الضريبة</th><th>الإجمالي</th><th>الحالة</th><th>الإجراء</th></tr></thead>
-                <tbody>@forelse($rows as $row)<tr><td dir="ltr">{{ $row->official_number??'—' }}</td><td>{{ $row->customer_name }}</td><td>{{ $row->invoice_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->net_amount }}</td><td>{{ $row->tax_amount }}</td><td>{{ $row->total_amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td>@if($row->status==='draft')<flux:button wire:click="customerStep({{ $row->id }},{{ $row->version }},'validate')" size="sm">تحقق</flux:button>@elseif($row->status==='validated'&&$access->allows(auth()->id(),'customer_invoice_post',$row->branch_id))<flux:button wire:click="customerStep({{ $row->id }},{{ $row->version }},'post')" wire:confirm="إصدار الفاتورة وترحيل AR؟" variant="primary" size="sm">إصدار وترحيل</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد فواتير عملاء" description="تظهر هنا الفواتير المبنية على تسليمات مؤكدة."/></td></tr>@endforelse</tbody>
+                <tbody>@forelse($rows as $row)<tr><td dir="ltr">{{ $row->official_number??'—' }}</td><td>{{ $row->customer_name }}@if(($row->tax_treatment ?? 'rule') === 'exempt_0') <span class="ms-1 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">بدون ضريبة</span>@elseif(($row->tax_treatment ?? 'rule') === 'vat_14') <span class="ms-1 rounded bg-blue-50 px-1.5 py-0.5 text-[10px] text-blue-700">14%</span>@endif</td><td>{{ $row->invoice_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->net_amount }}</td><td>{{ $row->tax_amount }}</td><td>{{ $row->total_amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1"><flux:button :href="route('financial.invoices.show', ['customer', $row->id])" wire:navigate size="sm">التفاصيل</flux:button>@if($row->status==='draft')<flux:button wire:click="customerStep({{ $row->id }},{{ $row->version }},'validate')" size="sm">تحقق</flux:button>@elseif($row->status==='validated'&&$access->allows(auth()->id(),'customer_invoice_post',$row->branch_id))<flux:button wire:click="customerStep({{ $row->id }},{{ $row->version }},'post')" wire:confirm="إصدار الفاتورة وترحيل AR؟" variant="primary" size="sm">إصدار وترحيل</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد فواتير عملاء" description="تظهر هنا الفواتير المبنية على تسليمات مؤكدة."/></td></tr>@endforelse</tbody>
             @elseif($screen==='credit-notes')
                 <thead><tr><th>النوع</th><th>الفاتورة الأصلية</th><th>التاريخ</th><th>السبب</th><th>الصافي</th><th>الضريبة</th><th>الإجمالي</th><th>الحالة</th><th>الإجراء</th></tr></thead>
-                <tbody>@forelse($rows as $row)<tr><td>{{ $row->kind === 'supplier' ? 'مورد' : ($row->kind === 'customer' ? 'عميل' : $row->kind) }}</td><td>#{{ $row->original_invoice_id }}</td><td>{{ $row->note_date }}</td><td>{{ $row->reason }}</td><td>{{ $row->net_amount }}</td><td>{{ $row->tax_amount }}</td><td>{{ $row->amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1">@if($row->status==='draft'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id)&&$row->created_by!==auth()->id())<flux:button wire:click="creditStep({{ $row->id }},'approve')" size="sm">اعتماد مستقل</flux:button>@elseif($row->status==='approved'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id))<flux:button wire:click="creditStep({{ $row->id }},'post')" wire:confirm="ترحيل الإشعار وأثره الضريبي والذمة؟" variant="primary" size="sm">ترحيل</flux:button>@elseif($row->status==='posted')<flux:button :href="route('financial.documents',['credit-note',$row->id])" icon="arrow-down-tray" size="sm">PDF</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد إشعارات" description="لا تنشأ التصحيحات إلا مرتبطة بفاتورة مرحّلة."/></td></tr>@endforelse</tbody>
+                <tbody>@forelse($rows as $row)<tr><td>{{ $row->kind === 'supplier' ? 'مورد' : ($row->kind === 'customer' ? 'عميل' : $row->kind) }}</td><td>#{{ $row->original_invoice_id }}</td><td>{{ $row->note_date }}</td><td>{{ $row->reason }}</td><td>{{ $row->net_amount }}</td><td>{{ $row->tax_amount }}</td><td>{{ $row->amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1">@if($row->status==='draft'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id)&&($row->created_by!==auth()->id() || $canSelfApproveCredit))<flux:button wire:click="creditStep({{ $row->id }},'approve')" size="sm">{{ $row->created_by===auth()->id() ? 'اعتماد (ذاتي موثّق)' : 'اعتماد مستقل' }}</flux:button>@elseif($row->status==='approved'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id))<flux:button wire:click="creditStep({{ $row->id }},'post')" wire:confirm="ترحيل الإشعار وأثره الضريبي والذمة؟" variant="primary" size="sm">ترحيل</flux:button>@elseif($row->status==='posted')<flux:button :href="route('financial.documents',['credit-note',$row->id])" icon="arrow-down-tray" size="sm">PDF</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد إشعارات" description="لا تنشأ التصحيحات إلا مرتبطة بفاتورة مرحّلة."/></td></tr>@endforelse</tbody>
             @else
                 <thead><tr><th>النوع</th><th>رقم المصدر</th><th>تاريخ المستند</th><th>الاستحقاق</th><th>الأصلي</th><th>المسدد</th><th>المصحح</th><th>المتبقي</th><th>العمر</th></tr></thead>
                 <tbody>@forelse($rows as $row)<tr><td>{{ $row->party_type === 'supplier' ? 'مورد' : ($row->party_type === 'customer' ? 'عميل' : $row->party_type) }}</td><td dir="ltr">{{ $row->source_number }}</td><td>{{ $row->document_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->original_amount }}</td><td>{{ $row->settled_amount }}</td><td>{{ $row->credited_amount }}</td><td>{{ $row->remaining_amount }}</td><td>{{ max(0,now('Africa/Cairo')->startOfDay()->diffInDays(\Carbon\CarbonImmutable::parse($row->due_date),false)*-1) }} يوم</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد أرصدة" description="لا توجد بنود ذمم ضمن النطاق المحدد."/></td></tr>@endforelse</tbody>

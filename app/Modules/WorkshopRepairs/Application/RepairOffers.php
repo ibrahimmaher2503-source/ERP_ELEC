@@ -2,6 +2,8 @@
 
 namespace App\Modules\WorkshopRepairs\Application;
 
+use App\Modules\Accounting\Application\TaxCalculator;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use Carbon\CarbonImmutable;
@@ -17,11 +19,13 @@ final class RepairOffers
         DB::transaction(function () use ($actor, $job, $version, $reference) {
             $a = app(WorkshopActions::class);
             $w = $a->work($actor, $job, 'estimate_approve', $version);
-            abort_unless($w->billing_mode === 'contract' && $w->contract_id !== null && $actor !== (int) $w->created_by
+            $selfApproved = $actor === (int) $w->created_by;
+            abort_unless($w->billing_mode === 'contract' && $w->contract_id !== null
+                && (! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'))
                 && in_array($w->status, ['inspection', 'waiting_approval']) && $w->diagnosis
                 && collect(json_decode($w->required_tests, true))->contains('required', true), 409, 'يلزم تشخيص وخطة فحص واعتماد تعاقدي مستقل.');
             app(ServiceContractsApi::class)->reserveWork($actor, (int) $w->contract_id, 'WorkshopRepairs', $job);
-            $a->touch($actor, $w, 'contract.authorized', ['contract_id' => $w->contract_id, 'reference' => $reference], ['status' => 'approved']);
+            $a->touch($actor, $w, 'contract.authorized', ['contract_id' => $w->contract_id, 'reference' => $reference, 'self_approved' => $selfApproved], ['status' => 'approved']);
         }, 3);
     }
 
@@ -42,7 +46,10 @@ final class RepairOffers
             $a->project($actor, $w);
             $e = $this->estimate($job, $estimate);
             abort_unless($w->status === 'waiting_approval', 409);
-            abort_if($e->proposed_by === $actor, 403, 'اعتماد السعر يتطلب شخصاً مستقلاً.');
+            $selfApproved = $e->proposed_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'), 403, 'اعتماد السعر يتطلب شخصاً مستقلاً.');
+            }
             $old = DB::table('workshop_quote_approvals')->where('estimate_id', $estimate)->first();
             if ($old) {
                 abort_unless($old->approved_by === $actor && $old->reference === $reference, 409, 'سجل اعتماد السعر ثابت.');
@@ -50,7 +57,7 @@ final class RepairOffers
                 return;
             }
             DB::table('workshop_quote_approvals')->insert(['estimate_id' => $estimate, 'approved_by' => $actor, 'reference' => $reference]);
-            $a->touch($actor, $w, 'quote.pricing_approved', ['estimate_id' => $estimate, 'reference' => $reference]);
+            $a->touch($actor, $w, 'quote.pricing_approved', ['estimate_id' => $estimate, 'reference' => $reference, 'self_approved' => $selfApproved]);
         }, 5);
     }
 
@@ -69,9 +76,15 @@ final class RepairOffers
                 && $e->valid_until >= now('Africa/Cairo')->toDateString(), 409);
             $tax = json_decode($e->tax_snapshot, true, 512, JSON_THROW_ON_ERROR);
             $commercial = json_decode($e->commercial_snapshot, true, 512, JSON_THROW_ON_ERROR);
+            $taxTreatment = $e->tax_treatment ?? 'rule';
+            $fields = ['أمر الإصلاح' => $w->number, 'العميل' => $w->customer_name, 'التشخيص' => $w->diagnosis,
+                'صالح حتى' => $e->valid_until, 'شروط الضمان' => $e->warranty_conditions, 'مدة الضمان بالأيام' => (string) $e->warranty_days,
+                'المعاملة الضريبية' => TaxCalculator::treatmentLabel($taxTreatment)];
+            if ($taxTreatment === 'exempt_0' && $e->tax_exempt_reason) {
+                $fields['سبب عدم احتساب الضريبة'] = $e->tax_exempt_reason;
+            }
             $doc = app(OfficialDocuments::class)->issue($actor, 'workshop_quote', (string) $job, $e->revision, $tax['approved_tax_date'], [
-                'title' => 'عرض إصلاح معدة', 'fields' => ['أمر الإصلاح' => $w->number, 'العميل' => $w->customer_name, 'التشخيص' => $w->diagnosis,
-                    'صالح حتى' => $e->valid_until, 'شروط الضمان' => $e->warranty_conditions, 'مدة الضمان بالأيام' => (string) $e->warranty_days],
+                'title' => 'عرض إصلاح معدة', 'fields' => $fields,
                 'columns' => ['البيان', 'السعر'], 'rows' => [['قطع الغيار', $commercial['selling']['parts_selling']], ['أجور الإصلاح', $commercial['selling']['labor_selling']], ['رسوم أخرى', $commercial['selling']['other_selling']], ['الخصم', $commercial['selling']['discount_amount']]],
                 'totals' => ['الصافي' => $e->billable_amount, 'الضريبة' => $e->tax_amount, 'الإجمالي' => bcadd($e->billable_amount, $e->tax_amount, 2)]]);
             $id = DB::table('workshop_quotes')->insertGetId(['estimate_id' => $estimate, 'job_id' => $job, 'document_id' => $doc['id'], 'issued_by' => $actor]);
@@ -101,7 +114,10 @@ final class RepairOffers
         DB::transaction(function () use ($actor, $job, $version, $kind, $sourceJob, $reference) {
             $a = app(WorkshopActions::class);
             $w = $a->work($actor, $job, 'nonbillable_approve', $version);
-            abort_if($w->created_by === $actor, 403);
+            $selfApproved = $w->created_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'), 403);
+            }
             abort_unless(in_array($w->billing_mode, ['warranty', 'nonbillable']) && in_array($w->status, ['inspection', 'waiting_approval']), 409);
             $i = DB::table('workshop_intakes')->find($w->intake_id);
             abort_unless($w->diagnosis && collect(json_decode($w->required_tests, true))->contains('required', true), 409);
@@ -118,7 +134,7 @@ final class RepairOffers
                 abort_unless($i->customer_owned && $w->billing_mode === 'nonbillable' && $sourceJob === null, 422);
             }
             DB::table('workshop_nonbillable_authorizations')->insert(['job_id' => $job, 'kind' => $kind, 'source_job_id' => $sourceJob, 'reference' => $reference, 'approved_by' => $actor]);
-            $a->touch($actor, $w, 'nonbillable.authorized', ['kind' => $kind, 'source_job_id' => $sourceJob, 'reference' => $reference], ['status' => 'approved']);
+            $a->touch($actor, $w, 'nonbillable.authorized', ['kind' => $kind, 'source_job_id' => $sourceJob, 'reference' => $reference, 'self_approved' => $selfApproved], ['status' => 'approved']);
         }, 5);
     }
 

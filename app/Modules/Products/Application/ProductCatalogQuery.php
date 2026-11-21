@@ -2,6 +2,7 @@
 
 namespace App\Modules\Products\Application;
 
+use App\Modules\Products\Domain\Category;
 use App\Modules\Products\Domain\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
@@ -19,13 +20,21 @@ class ProductCatalogQuery
         $search = mb_substr(str_replace("\0", '', trim((string) ($filters['search'] ?? ''))), 0, 200);
         if ($search !== '') {
             $query->where(function ($q) use ($search) {
-                foreach (['sku', 'name', 'name_en', 'barcode', 'model'] as $field) {
+                foreach (['sku', 'name', 'name_en', 'barcode', 'model', 'short_description'] as $field) {
                     $q->orWhere($field, 'ilike', '%'.$search.'%');
                 }
+                $q->orWhereRaw('attributes::text ilike ?', ['%'.$search.'%']);
                 $q->orWhereHas('brand', fn ($brand) => $brand->where('name', 'ilike', '%'.$search.'%'));
+                $q->orWhereHas('category', fn ($cat) => $cat->where('name', 'ilike', '%'.$search.'%'));
             });
         }
-        foreach (['categoryFilter' => 'category_id', 'brandFilter' => 'brand_id', 'unitFilter' => 'base_unit_id'] as $key => $column) {
+        $catFilter = (string) ($filters['categoryFilter'] ?? '');
+        if ($catFilter !== '') {
+            $catId = ctype_digit($catFilter) ? (int) $catFilter : -1;
+            $childIds = $catId > 0 ? Category::where('parent_id', $catId)->pluck('id')->all() : [];
+            $query->whereIn('category_id', array_merge([$catId], $childIds));
+        }
+        foreach (['brandFilter' => 'brand_id', 'unitFilter' => 'base_unit_id'] as $key => $column) {
             $value = (string) ($filters[$key] ?? '');
             if ($value !== '') {
                 $query->where($column, ctype_digit($value) ? (int) $value : -1);

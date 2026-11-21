@@ -4,6 +4,8 @@ namespace App\Modules\Accounting\Application\Contracts;
 
 interface AccountingApi
 {
+    public function isActivated(): bool;
+
     public function executiveSummary(int $actor, ?int $branch, string $from, string $to): array;
 
     /** Acquire the common posting/close gate before locking any source rows. Same transaction only. */
@@ -16,8 +18,8 @@ interface AccountingApi
 
     public function maintenanceExpense(int $actor, int $journal, int $branch, ?int $project): array;
 
-    /** Selection is server-side by transaction, product and effective date. No rate override. */
-    public function calculateTax(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0'): array;
+    /** Selection is server-side by transaction, product and effective date. Optional explicit document tax treatment ('rule'|'vat_14'|'exempt_0') never alters global rules. */
+    public function calculateTax(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0', ?array $documentTax = null): array;
 
     /** Tender estimates may contain unmapped external BOQ lines. Only dated company-wide tax rules apply to those lines. No posting or rate override. */
     public function calculateTenderTax(int $actor, string $date, string $mode, array $lines, string $documentDiscount = '0'): array;
@@ -31,6 +33,9 @@ interface AccountingApi
 
     /** Post a balanced journal from an approved owner document in the caller's transaction. */
     public function postSourceDocument(int $actor, int $creator, int $branch, string $date, string $sourceKey, string $description, array $lines, ?int $project = null): int;
+
+    /** Post a balanced journal referencing explicit non-control accounts and/or mapped purposes. */
+    public function postAccountJournal(int $actor, int $creator, int $branch, string $date, string $sourceKey, string $description, array $lines, ?int $project = null): int;
 
     public function projectSummary(int $actor, int $project, int $branch): array;
 

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 final class AccountingService implements AccountingApi
 {
+    public function isActivated(): bool
+    {
+        return app(AccountingAccess::class)->activated();
+    }
+
     public function executiveSummary(int $actor, ?int $branch, string $from, string $to): array
     {
         $rows = app(FinancialReports::class)->statement($actor, 'income', $branch, $from, $to)['rows'];
@@ -78,9 +83,9 @@ final class AccountingService implements AccountingApi
         return ['journal_id' => $journal, 'amount' => $amount, 'number' => $j->official_number];
     }
 
-    public function calculateTax(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0'): array
+    public function calculateTax(int $actor, string $transaction, string $date, string $mode, array $lines, string $documentDiscount = '0', ?array $documentTax = null): array
     {
-        return app(TaxCalculator::class)->calculate($actor, $transaction, $date, $mode, $lines, $documentDiscount);
+        return app(TaxCalculator::class)->calculate($actor, $transaction, $date, $mode, $lines, $documentDiscount, $documentTax);
     }
 
     public function requirePostingDate(string $date): void
@@ -112,6 +117,11 @@ final class AccountingService implements AccountingApi
     public function postSourceDocument(int $actor, int $creator, int $branch, string $date, string $sourceKey, string $description, array $lines, ?int $project = null): int
     {
         return app(JournalPosting::class)->sourceDocument($actor, $creator, $branch, $date, $sourceKey, $description, $lines, $project);
+    }
+
+    public function postAccountJournal(int $actor, int $creator, int $branch, string $date, string $sourceKey, string $description, array $lines, ?int $project = null): int
+    {
+        return app(JournalPosting::class)->accountJournal($actor, $creator, $branch, $date, $sourceKey, $description, $lines, $project);
     }
 
     public function projectSummary(int $actor, int $project, int $branch): array

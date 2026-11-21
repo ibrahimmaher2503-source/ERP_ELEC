@@ -2,6 +2,7 @@
 
 namespace App\Modules\Projects\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Projects\Domain\Project;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -73,13 +74,14 @@ final class ProjectDocuments
                 }
             } else {
                 app(ProjectAccess::class)->authorize($actor, $p, 'document_approve');
-                abort_unless((int) $r->uploaded_by !== $actor, 403, 'اعتماد المستند يتطلب شخصاً مستقلاً.');
+                $selfApproved = (int) $r->uploaded_by === $actor;
+                abort_unless(! $selfApproved || app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'اعتماد المستند يتطلب شخصاً مستقلاً.');
                 abort_unless(Storage::disk('local')->exists($r->path) && hash_equals($r->sha256, hash_file('sha256', Storage::disk('local')->path($r->path))), 409, 'فشل التحقق من سلامة مستند الاعتماد.');
                 if ($r->status !== 'review') {
                     $this->fail('المستند ليس قيد المراجعة.');
                 }
             }DB::table('project_document_revisions')->where('id', $revision)->update(['status' => $state, 'version' => $version + 1, 'decided_by' => $state === 'review' ? null : $actor, 'decided_at' => $state === 'review' ? null : now(), 'decision_reason' => $reason]);
-            app(ProjectActions::class)->activity($actor, $p, 'document.'.$state, ['status' => $r->status], ['revision_id' => $revision, 'status' => $state, 'reason' => $reason]);
+            app(ProjectActions::class)->activity($actor, $p, 'document.'.$state, ['status' => $r->status], ['revision_id' => $revision, 'status' => $state, 'reason' => $reason, 'self_approved' => $state === 'review' ? false : $selfApproved]);
         });
     }
 

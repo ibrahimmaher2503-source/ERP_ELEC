@@ -23,45 +23,61 @@
     <form wire:submit="save" class="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_19rem]">
         <x-ui.validation-summary />
         <div class="space-y-5">
-            <x-erp.section-card title="المعلومات الأساسية">
+            <x-erp.section-card title="1. مسار التصنيف والمواصفات الكهربائية (التصنيف ← الماركة ← الطراز ← النوع ← الأمبير ← الكيلو)">
+                <p class="mb-4 text-xs text-slate-500">حدّد التصنيف والماركة والمواصفات الفنية ليظهر الصنف بدقة في الفلترة المتدرجة داخل أوامر البيع والشراء.</p>
                 <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    <flux:input wire:model.live="form.name" label="اسم الصنف" required maxlength="200" />
-                    <flux:input wire:model.live="form.name_en" label="الاسم بالإنجليزية" maxlength="200" dir="ltr" />
-                    <flux:input wire:model.live="form.sku" label="رمز الصنف" required maxlength="50" dir="ltr" :disabled="(bool) $productId" />
-                    <flux:input wire:model.live="form.barcode" label="الباركود" maxlength="100" dir="ltr" />
+                    <flux:select wire:model.live="form.category_id" label="التصنيف (مثل: قواطع / كابلات)">
+                        <option value="">بدون تصنيف</option>
+                        @foreach ($categories as $category)<option value="{{ $category->id }}" @selected((string) ($form['category_id'] ?? '') === (string) $category->id) @disabled(! $category->active && (string) ($form['category_id'] ?? '') !== (string) $category->id)>{{ $category->parent_id ? '↳ ' : '' }}{{ $category->name }}{{ $category->active ? '' : ' · غير نشط' }}</option>@endforeach
+                    </flux:select>
+                    <flux:select wire:model.live="form.brand_id" label="الماركة / العلامة التجارية">
+                        <option value="">بدون علامة تجارية</option>
+                        @foreach ($brands as $brand)<option value="{{ $brand->id }}" @selected((string) ($form['brand_id'] ?? '') === (string) $brand->id) @disabled(! $brand->active && (string) ($form['brand_id'] ?? '') !== (string) $brand->id)>{{ $brand->name }}{{ $brand->active ? '' : ' · غير نشط' }}</option>@endforeach
+                    </flux:select>
+                    <flux:input wire:model.live="form.model" label="الطراز / الموديل" placeholder="مثال: MCCB-NSX100F أو MCB-C60N" maxlength="200" />
+                </div>
+
+                <div class="mt-4 grid gap-4 rounded-xl border border-blue-100 bg-blue-50/35 p-3.5 sm:grid-cols-3">
+                    <flux:input wire:model.live="quickSpecs.type" label="النوع / عدد الأقطاب" placeholder="مثال: ثلاثي 3P / هوائي / حراري" maxlength="200" />
+                    <flux:input wire:model.live="quickSpecs.ampere" label="الأمبير / المقطع" placeholder="مثال: 100 A أو 16 mm²" maxlength="120" />
+                    <flux:input wire:model.live="quickSpecs.kilo" label="أمر الكيلو (kA / kW)" placeholder="مثال: 36 kA أو 15 kW" maxlength="120" />
+                </div>
+            </x-erp.section-card>
+
+            <x-erp.section-card title="2. هوية الصنف والتتبع">
+                <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-xs text-slate-500">يمكنك توليد اسم الصنف ورمزه (SKU) تلقائيًا من التصنيف والماركة والمواصفات أعلاه ثم تعديلهما بحرية.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <flux:button type="button" size="xs" variant="outline" icon="sparkles" wire:click="composeSuggestedName">توليد الاسم من المواصفات</flux:button>
+                        @unless ($productId)
+                            <flux:button type="button" size="xs" variant="outline" icon="hashtag" wire:click="generateSuggestedSku">توليد كود SKU تلقائي</flux:button>
+                        @endunless
+                    </div>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                    <flux:input wire:model.live="form.name" label="اسم الصنف بالعربية" required maxlength="200" placeholder="مثال: قاطع مصبوب MCCB ثلاثي 100 أمبير 36kA" />
+                    <flux:input wire:model.live="form.name_en" label="الاسم بالإنجليزية (اختياري)" maxlength="200" dir="ltr" />
+                    <flux:input wire:model.live="form.sku" label="رمز الصنف (SKU)" required maxlength="50" dir="ltr" :disabled="(bool) $productId" placeholder="مثال: PROT-SCHN-0001" />
+                    <flux:input wire:model.live="form.barcode" label="الباركود (اختياري)" maxlength="100" dir="ltr" />
                     <flux:select wire:model.live="form.kind" label="نوع الصنف" required :disabled="(bool) $productId">
                         <option value="">اختر النوع</option>
                         @foreach ($kindLabels as $value => $label)<option value="{{ $value }}">{{ $label }}</option>@endforeach
                     </flux:select>
-                    <flux:select wire:model.live="form.tracking" label="سياسة التتبع" required :disabled="(bool) $productId">
+                    <flux:select wire:model.live="form.tracking" label="سياسة التتبع المخزني" required :disabled="(bool) $productId">
                         <option value="">اختر سياسة التتبع</option>
                         @foreach ($trackingLabels as $value => $label)<option value="{{ $value }}">{{ $label }}</option>@endforeach
                     </flux:select>
                 </div>
                 <div class="mt-4 grid gap-4">
-                    <flux:input wire:model.live="form.short_description" label="وصف مختصر" maxlength="500" />
-                    <flux:textarea wire:model.live="form.description" label="الوصف والمواصفات" rows="4" maxlength="10000" />
+                    <flux:input wire:model.live="form.short_description" label="وصف مختصر" maxlength="500" placeholder="ملخص سريع يظهر تحت اسم الصنف في الجداول..." />
+                    <flux:textarea wire:model.live="form.description" label="الوصف التفصيلي والمواصفات" rows="3" maxlength="10000" />
                 </div>
                 @if ($productId && $canStatus)
                     <div class="mt-4 max-w-xs"><flux:select wire:model.live="form.active" label="الحالة" required><option value="1">نشط</option><option value="0">غير نشط</option></flux:select></div>
                 @endif
             </x-erp.section-card>
 
-            <x-erp.section-card title="التصنيف والهيكل">
-                <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    <flux:select wire:model.live="form.category_id" label="التصنيف">
-                        <option value="">بدون تصنيف</option>
-                        @foreach ($categories as $category)<option value="{{ $category->id }}" @selected((string) ($form['category_id'] ?? '') === (string) $category->id) @disabled(! $category->active && (string) ($form['category_id'] ?? '') !== (string) $category->id)>{{ $category->parent_id ? '↳ ' : '' }}{{ $category->name }}{{ $category->active ? '' : ' · غير نشط' }}</option>@endforeach
-                    </flux:select>
-                    <flux:select wire:model.live="form.brand_id" label="العلامة التجارية">
-                        <option value="">بدون علامة تجارية</option>
-                        @foreach ($brands as $brand)<option value="{{ $brand->id }}" @selected((string) ($form['brand_id'] ?? '') === (string) $brand->id) @disabled(! $brand->active && (string) ($form['brand_id'] ?? '') !== (string) $brand->id)>{{ $brand->name }}{{ $brand->active ? '' : ' · غير نشط' }}</option>@endforeach
-                    </flux:select>
-                    <flux:input wire:model.live="form.model" label="الموديل" maxlength="200" />
-                </div>
-            </x-erp.section-card>
-
-            <x-erp.section-card title="وحدات التحويل">
+            <x-erp.section-card title="3. وحدات القياس والتحويل">
                 <p class="mb-4 text-sm text-slate-500">أضف وحدات بديلة ومعامل التحويل إلى الوحدة الأساسية.</p>
                 @if ($productId)<flux:callout color="blue" class="mb-4">تُحفظ وحدات التحويل ووحدتا الشراء والبيع مع إنشاء الصنف، ثم تُقفل لحماية الكميات المسجلة.</flux:callout>@endif
                 <div class="mb-4 max-w-sm">
@@ -112,8 +128,13 @@
                 </div>
             </x-erp.section-card>
 
-            <x-erp.section-card title="المواصفات والخصائص">
-                <p class="mb-4 text-sm text-slate-500">سجّل الخصائص المعتمدة لهذا الصنف، مع وحدة قياس عند الحاجة.</p>
+            <x-erp.section-card title="4. خصائص ومواصفات إضافية">
+                <p class="mb-3 text-sm text-slate-500">تُحفظ حقول (النوع والأمبير وأمر الكيلو) تلقائيًا ضمن مواصفات الصنف. يمكنك أيضًا إضافة خصائص فنية إضافية بضغطة واحدة:</p>
+                <div class="mb-4 flex flex-wrap gap-1.5">
+                    @foreach (['منحنى الفصل' => 'C', 'جهد الملف' => '230 VAC', 'مقطع الموصل' => '4 mm²', 'لون العازل' => 'أحمر', 'عدد الخطوط' => '12', 'درجة الحماية' => 'IP65', 'التركيب' => 'سكة DIN'] as $presetName => $presetVal)
+                        <flux:button type="button" size="xs" variant="ghost" icon="plus" wire:click="addPresetAttribute('{{ $presetName }}', '{{ $presetVal }}')" class="rounded-full border border-slate-200 bg-slate-50 hover:bg-blue-50">{{ $presetName }}</flux:button>
+                    @endforeach
+                </div>
                 <div class="space-y-3">
                     @forelse ($specifications as $index => $specification)
                         <div wire:key="attribute-{{ $index }}" class="grid items-end gap-3 rounded-lg border border-slate-200 p-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,.8fr)_auto]">
@@ -126,10 +147,10 @@
                             <flux:button type="button" variant="ghost" icon="trash" aria-label="حذف الخاصية" wire:click="removeAttribute({{ $index }})" />
                         </div>
                     @empty
-                        <p class="rounded-lg border border-dashed border-slate-300 px-4 py-5 text-center text-sm text-slate-500">لا توجد خصائص مضافة.</p>
+                        <p class="rounded-lg border border-dashed border-slate-300 px-4 py-5 text-center text-sm text-slate-500">لا توجد خصائص إضافية مضافة.</p>
                     @endforelse
                 </div>
-                <div class="mt-4"><flux:button type="button" variant="outline" icon="plus" wire:click="addAttribute">إضافة خاصية</flux:button></div>
+                <div class="mt-4"><flux:button type="button" variant="outline" icon="plus" wire:click="addAttribute">إضافة خاصية مخصصة</flux:button></div>
             </x-erp.section-card>
 
             @if ($canMedia)
@@ -174,7 +195,7 @@
                     <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="banknotes" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تُدار أسعار الصنف من صفحة الأسعار بعد حفظ الصنف.</p>@if($productId && \Illuminate\Support\Facades\Route::has('products.prices') && app(\App\Modules\Products\Application\ProductAccess::class)->allows(auth()->id(), 'M02.price_view'))<flux:button :href="route('products.prices', $productId)" size="sm">فتح صفحة الأسعار</flux:button>@endif</div></div>
                 </x-erp.section-card>
                 <x-erp.section-card title="المخزون">
-                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="building-storefront" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تظهر أرصدة المخزون في صفحة الأرصدة.</p>@if(\Illuminate\Support\Facades\Route::has('inventory.balances'))<flux:button :href="route('inventory.balances')" size="sm">فتح صفحة الأرصدة</flux:button>@endif</div></div>
+                    <div class="flex items-start gap-3 text-sm text-slate-600"><flux:icon name="building-storefront" class="mt-0.5 size-5 shrink-0 text-slate-400" /><div class="space-y-2"><p>تظهر أرصدة المخزون في صفحة الأرصدة.</p>@if(\Illuminate\Support\Facades\Route::has('inventory.balances') && app(\App\Modules\Inventory\Application\InventoryAccess::class)->ids(auth()->id(), 'balance_view') !== [])<flux:button :href="route('inventory.balances', array_filter(['search' => $form['sku'] ?? '']))" size="sm" wire:navigate>فتح صفحة الأرصدة</flux:button>@endif</div></div>
                 </x-erp.section-card>
             </div>
         </div>
@@ -190,7 +211,12 @@
                     </div>
                     <dl class="mt-4 space-y-3 border-t border-slate-200 pt-4 text-sm">
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">التصنيف</dt><dd class="text-end font-medium">{{ $selectedCategory?->name ?: '—' }}</dd></div>
-                        <div class="flex justify-between gap-3"><dt class="text-slate-500">النوع</dt><dd class="text-end font-medium">{{ $kindLabels[$form['kind'] ?? ''] ?? '—' }}</dd></div>
+                        <div class="flex justify-between gap-3"><dt class="text-slate-500">الماركة</dt><dd class="text-end font-medium">{{ $brands->firstWhere('id', $form['brand_id'] ?? null)?->name ?: '—' }}</dd></div>
+                        @if (! empty($form['model']))<div class="flex justify-between gap-3"><dt class="text-slate-500">الطراز / الموديل</dt><dd class="text-end font-medium"><bdi>{{ $form['model'] }}</bdi></dd></div>@endif
+                        @if (! empty($quickSpecs['type']))<div class="flex justify-between gap-3"><dt class="text-slate-500">النوع / الأقطاب</dt><dd class="text-end font-medium"><bdi>{{ $quickSpecs['type'] }}</bdi></dd></div>@endif
+                        @if (! empty($quickSpecs['ampere']))<div class="flex justify-between gap-3"><dt class="text-slate-500">الأمبير</dt><dd class="text-end font-medium"><bdi>{{ $quickSpecs['ampere'] }}</bdi></dd></div>@endif
+                        @if (! empty($quickSpecs['kilo']))<div class="flex justify-between gap-3"><dt class="text-slate-500">أمر الكيلو</dt><dd class="text-end font-medium"><bdi>{{ $quickSpecs['kilo'] }}</bdi></dd></div>@endif
+                        <div class="flex justify-between gap-3"><dt class="text-slate-500">النوع المخزني</dt><dd class="text-end font-medium">{{ $kindLabels[$form['kind'] ?? ''] ?? '—' }}</dd></div>
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">التتبع</dt><dd class="text-end font-medium">{{ $trackingLabels[$form['tracking'] ?? ''] ?? '—' }}</dd></div>
                         <div class="flex justify-between gap-3"><dt class="text-slate-500">الوحدة الأساسية</dt><dd class="text-end font-medium">{{ $units->firstWhere('id', $form['base_unit_id'] ?? null)?->name ?: '—' }}</dd></div>
                         @if (! empty($form['barcode']))<div class="flex justify-between gap-3"><dt class="text-slate-500">الباركود</dt><dd class="text-end font-medium"><bdi>{{ $form['barcode'] }}</bdi></dd></div>@endif

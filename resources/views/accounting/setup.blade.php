@@ -1,176 +1,1171 @@
-<div data-erp-archetype="form" class="erp-finance space-y-6">
-    <x-page.heading title="تجهيز النظام المالي" description="إعداد واحد للشركة · ج.م · لا يترحل أي رصيد قبل المصالحة والاعتماد المستقل" :breadcrumbs="['المالية', 'تجهيز النظام المالي']" />
-    @if(session('financial_message'))<p role="status" class="rounded border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">{{ session('financial_message') }}</p>@endif
-    <x-ui.validation-summary />
-    @php
-        $steps = [
-            ['١', 'التاريخ والحسابات', 'حدد تاريخ التشغيل واربط حسابات الأستاذ المطلوبة', '#financial-configuration', ! collect($blockers)->contains(fn ($b) => str_contains($b, 'تاريخ التشغيل') || str_contains($b, 'ربط الحساب'))],
-            ['٢', 'الضريبة', 'سجّل التحقق من المعاملة الضريبية للشركة', '#financial-taxes', (bool) $setup['tax_validated']],
-            ['٣', 'الأرصدة الافتتاحية', 'أدخل الأرصدة وطابقها ثم اعتمدها (يعتمدها مستخدم آخر)', '#financial-openings', $batch && $batch->status === 'approved'],
-            ['٤', 'التفعيل', 'بعد اكتمال الخطوات السابقة يُفتح الترحيل المالي', '#financial-openings', (bool) $setup['activated_at']],
-        ];
-        $firstOpen = collect($steps)->search(fn ($step) => ! $step[4]);
-    @endphp
-    <section aria-label="خطوات تجهيز النظام المالي" class="rounded-xl border border-slate-200 bg-white p-4"><h2 class="mb-3 text-sm font-semibold text-slate-600">خطوات التجهيز @if($firstOpen !== false)<span class="font-normal text-slate-500">· الخطوة التالية: {{ $steps[$firstOpen][1] }}</span>@else<span class="font-normal text-emerald-700">· اكتملت كل الخطوات</span>@endif</h2>
-        <ol class="grid gap-3 md:grid-cols-4">@foreach($steps as $i => [$n, $title, $desc, $href, $done])<li><a href="{{ $href }}" @class(['block h-full rounded-lg border p-3 text-sm', 'border-emerald-200 bg-emerald-50' => $done, 'border-blue-300 bg-blue-50' => ! $done && $firstOpen === $i, 'border-slate-200' => ! $done && $firstOpen !== $i])><span class="flex items-center gap-2 font-semibold"><span class="grid size-6 place-items-center rounded-full text-xs {{ $done ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-700' }}">{{ $done ? '✓' : $n }}</span>{{ $title }}</span><span class="mt-1 block text-xs text-slate-600">{{ $desc }}</span></a></li>@endforeach</ol></section>
-    <nav class="erp-form-nav" aria-label="خطوات تجهيز التشغيل المالي"><a href="#financial-configuration">التاريخ والحسابات</a><a href="#financial-taxes">الضريبة</a><a href="#financial-openings">الأرصدة والاعتماد</a></nav>
-    <div class="rounded border p-4 {{ $setup['activated_at']?'border-emerald-200 bg-emerald-50':'border-amber-200 bg-amber-50' }}" role="status">
-        <h2 class="font-semibold">{{ $setup['activated_at']?'الترحيل المالي مفعل':'الترحيل المالي مغلق' }}</h2>
-        <p class="mt-1 text-sm">{{ $setup['activated_at']?'تاريخ التشغيل والافتتاح ثابتان. العمليات العادية قبل تاريخ التشغيل ممنوعة.':'لم يُحدد تاريخ التشغيل أو أرصدة الشركة تلقائيًا. يمكن متابعة إعداد النظام دون تفعيل الإنتاج.' }}</p>
-        @if(!$setup['activated_at'])<ul class="mt-3 list-inside list-disc text-sm">@foreach($blockers as $blocker)<li>{{ $blocker }}</li>@endforeach @if(!$batch || $batch->status!=='approved')<li>حزمة الأرصدة الافتتاحية الحالية لم تُعتمد بعد.</li>@endif</ul>@endif
-    </div>
+@php
+    $kindNames = [
+        'asset' => 'أصول',
+        'liability' => 'التزامات',
+        'equity' => 'حقوق ملكية',
+        'income' => 'إيرادات',
+        'expense' => 'مصروفات',
+    ];
 
-    <x-ui.panel>
-        <h2 id="financial-configuration" class="text-lg font-semibold">تاريخ التشغيل والحسابات المطلوبة</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">اختر التاريخ الفعلي المعتمد واربط الحسابات من الدليل. حفظ الإعداد لا يفعّل الترحيل. أي تغيير في الإعداد قبل التفعيل يلزم معه إعداد حزمة افتتاح واعتمادها بالنسخة الجديدة.</p>
-        <form wire:submit="saveConfiguration" class="mt-5 space-y-5">
-            <div class="max-w-sm"><flux:input wire:model="configuration.go_live_date" type="date" label="تاريخ التشغيل الفعلي للشركة" :disabled="(bool)$setup['activated_at']" /></div>
-            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                @foreach(\App\Modules\Accounting\Application\FinancialActivation::MAPPINGS as $purpose => [$label,$kind])
-                <flux:select wire:model="configuration.mappings.{{ $purpose }}" :label="$label" :disabled="(bool)$setup['activated_at']">
-                    <option value="">لم يُربط حساب بعد</option>
-                    @foreach($accounts->where('kind',$kind) as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach
-                </flux:select>
-                @endforeach
-            </div>
-            @if(!$setup['activated_at'] && $a->allows(auth()->id(),'setup_manage'))<flux:button type="submit" variant="primary" wire:loading.attr="disabled">حفظ إعداد التشغيل والربط</flux:button>@endif
-        </form>
-        <p class="mt-3 text-sm"><a class="underline" href="{{ route('accounting.accounts') }}" wire:navigate>دليل الحسابات</a> · <a class="underline" href="{{ route('accounting.periods') }}" wire:navigate>الفترات المالية</a></p>
-    </x-ui.panel>
+    $starterNames = [
+        'cash' => 'النقدية بالخزينة',
+        'bank' => 'الحسابات البنكية',
+        'receivable' => 'ذمم العملاء',
+        'inventory' => 'المخزون السلعي',
+        'inventory_transit' => 'مخزون بالطريق بين المستودعات',
+        'tax_input' => 'ضريبة القيمة المضافة - مدخلات',
+        'ap' => 'ذمم الموردين',
+        'grni' => 'استلامات بانتظار الفوترة',
+        'tax_output' => 'ضريبة القيمة المضافة - مخرجات',
+        'sales' => 'إيرادات المبيعات',
+        'cogs' => 'تكلفة البضاعة المباعة',
+        'ppv' => 'فروق أسعار الشراء',
+        'stock_adjustment' => 'تسويات وجرد المخزون',
+        'inventory_issue' => 'مصروف الصرف الداخلي',
+        'rounding' => 'فروق التقريب المسموح بها',
+        'customer_advance' => 'دفعات مقدمة من العملاء',
+        'maintenance_labor' => 'تكلفة عمل الصيانة المعتمدة',
+        'maintenance_labor_accrual' => 'تكلفة عمل صيانة مستحقة',
+        'service_contract_deferred' => 'إيراد عقود خدمة غير مكتسب',
+    ];
 
-    <x-ui.panel>
-        <h2 class="text-lg font-semibold">ربط الدفعات المقدمة من العملاء</h2>
-        <p class="mt-2 text-sm text-slate-600">ربط اختياري مستقل يسمح بإثبات التحصيل غير المخصص كالتزام، ولا يغير الإيراد أو الذمم المدينة.</p>
-        <form wire:submit="saveCustomerAdvanceMapping" class="mt-4 flex max-w-2xl items-end gap-3">
-            <flux:select wire:model="customerAdvanceAccount" label="حساب الدفعات المقدمة" required :disabled="isset($configuration['mappings']['customer_advance'])">
-                <option value="">اختر حساب التزام نشطاً</option>
-                @foreach($accounts->where('kind','liability') as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach
-            </flux:select>
-            @if(!isset($configuration['mappings']['customer_advance']) && $a->allows(auth()->id(),'setup_manage'))<flux:button type="submit">حفظ الربط</flux:button>@endif
-        </form>
-    </x-ui.panel>
+    $displayLabels = [
+        'cash' => 'حساب النقدية (الخزينة)',
+        'bank' => 'حساب البنوك',
+        'receivable' => 'حساب العملاء (الذمم المدينة)',
+        'ap' => 'حساب الموردين (الذمم الدائنة)',
+        'inventory' => 'حساب المخزون السلعي',
+        'inventory_transit' => 'مخزون بالطريق بين المستودعات',
+        'grni' => 'استلامات بانتظار الفوترة',
+        'ppv' => 'فروق أسعار الشراء',
+        'tax_input' => 'حساب ضريبة المدخلات',
+        'tax_output' => 'حساب ضريبة المخرجات',
+        'sales' => 'حساب إيرادات المبيعات',
+        'cogs' => 'حساب تكلفة البضاعة المباعة',
+        'stock_adjustment' => 'حساب تسويات المخزون',
+        'inventory_issue' => 'حساب مصروف الصرف الداخلي',
+        'rounding' => 'حساب فروق التقريب المسموح بها',
+    ];
 
-    <x-ui.panel>
-        <h2 class="text-lg font-semibold">حسابات تكلفة عمل الصيانة</h2>
-        <p class="mt-2 text-sm text-slate-600">روابط اختيارية مستقلة لتكلفة العمل المثبتة بمرجع معتمد. لا تُنشئ أجورًا أو ترحيلًا تلقائيًا.</p>
-        @foreach(['maintenance_labor'=>['تكلفة عمل الصيانة','expense'],'maintenance_labor_accrual'=>['استحقاق تكلفة الصيانة','liability']] as $purpose=>[$label,$kind])
-        <form wire:submit="saveMaintenanceMapping('{{ $purpose }}')" class="mt-4 flex flex-wrap items-end gap-3">
-            <flux:select :label="$label" wire:model="maintenanceMappings.{{ $purpose }}" :disabled="isset($configuration['mappings'][$purpose])"><option value="">اختر حساب ترحيل مستقلًا</option>@foreach($accounts->where('kind',$kind) as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach</flux:select>
-            @if(!isset($configuration['mappings'][$purpose])&&$a->allows(auth()->id(),'setup_manage'))<flux:button type="submit">حفظ الربط</flux:button>@endif
-        </form>
-        @endforeach
-    </x-ui.panel>
+    $mappingGroups = [
+        'الخزينة والعملاء والموردون' => [
+            'cash' => 'لحركة الخزائن النقدية.',
+            'bank' => 'لحسابات البنوك والتحويلات.',
+            'receivable' => 'لمراقبة فواتير العملاء والتحصيل.',
+            'ap' => 'لمراقبة فواتير الموردين والسداد.',
+        ],
+        'المخزون والمشتريات' => [
+            'inventory' => 'لقيمة البضاعة في المستودعات.',
+            'inventory_transit' => 'لبضاعة محوّلة بين المستودعات ولم تُستلم بعد.',
+            'grni' => 'لمشتريات مستلمة بانتظار فاتورة المورد.',
+            'ppv' => 'لفرق السعر بين أمر الشراء وفاتورة المورد.',
+        ],
+        'الضرائب' => [
+            'tax_input' => 'لضريبة المشتريات القابلة للاسترداد.',
+            'tax_output' => 'لضريبة المبيعات المحصلة.',
+        ],
+        'المبيعات والتكاليف والتسويات' => [
+            'sales' => 'لإيرادات المبيعات الرئيسية.',
+            'cogs' => 'لتكلفة البضاعة المباعة عند التسليم.',
+            'stock_adjustment' => 'لفروق الجرد والتسويات المخزنية.',
+            'inventory_issue' => 'لمصروف الصرف الداخلي للصيانة والورش والمشاريع.',
+            'rounding' => 'لفروق التقريب المسموح بها في الفواتير.',
+        ],
+    ];
 
-    <x-ui.panel>
-        <h2 class="text-lg font-semibold">3. إعداد الضرائب</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">لا توجد نسبة عامة تلقائية. القاعدة خاصة بنوع المعاملة، ويمكن تخصيصها لصنف. الخصم التجاري المؤهل يسبق الضريبة. V1 يدعم ضريبة نسبية واحدة أو إعفاء صريح لكل بند؛ المعاملات المركبة أو الثابتة تحتاج قاعدة موثقة إضافية قبل استخدامها.</p>
-        <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="mt-4 overflow-x-auto"><table><thead><tr><th>الكود</th><th>المعاملة</th><th>الصنف</th><th>النسبة</th><th>السريان</th><th>دقة مستند الضريبة</th><th>المرجع</th></tr></thead><tbody>
-            @forelse($taxRules as $rule)<tr><td>{{ $rule->code }} · {{ $rule->name }}</td><td>{{ $rule->transaction_type==='sale'?'بيع':'شراء' }}@if($rule->transaction_type==='purchase')<p class="text-xs">{{ $rule->purchase_recoverable?'قابلة للاسترداد':'غير قابلة للاسترداد' }}</p>@endif</td><td>{{ $rule->product_id ?? 'كل الأصناف غير المخصصة' }}</td><td dir="ltr">{{ $rule->rate }}%</td><td>{{ $rule->withdrawn?'مسحوبة':$rule->starts_on.' / '.($rule->effective_end ?? 'مفتوح') }}</td><td>{{ $rule->tax_scale }}</td><td>{{ $rule->legal_reference }}</td></tr>
-            @empty<tr><td colspan="7"><x-ui.empty-state title="لا توجد قواعد ضريبية" description="أدخل القواعد الفعلية بعد التحقق من المعاملة الضريبية لشركتك. لم تُزرع نسب إنتاج تجريبية." /></td></tr>@endforelse
-        </tbody></table></div>
-        @if($a->allows(auth()->id(),'tax_manage'))
-        <div id="financial-taxes" class="erp-workflow-note mt-5"><div><strong>صيغة مصر: السعر العام للقيمة المضافة 14%</strong><p class="erp-form-hint">قالب للمعاملات الخاضعة للسعر العام. راجع الصنف وتاريخ السريان وقابلية خصم المدخلات. المعاملات الخاصة والإعفاءات لها قواعد مستقلة.</p><a class="text-xs underline" href="https://portal.eta.gov.eg/sites/default/files/2026-08/law.no_.149.of_.2026.pdf" target="_blank" rel="noopener noreferrer">مرجع مصلحة الضرائب: المادة 3 المعدلة بالقانون 149 لسنة 2026</a></div><flux:button type="button" wire:click="prepareEgyptVat" wire:loading.attr="disabled">تعبئة نموذج 14% دون حفظ</flux:button></div>
-        <form wire:submit="addTaxRule" class="mt-5 space-y-4">
-            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                <flux:input wire:model="taxRule.code" label="كود الضريبة" required />
-                <flux:input wire:model="taxRule.name" label="وصف المعاملة" required />
-                <flux:select wire:model.live="taxRule.transaction_type" label="نوع المعاملة"><option value="sale">بيع</option><option value="purchase">شراء</option></flux:select>
-                @if($taxRule['transaction_type']==='purchase')<flux:select wire:model="taxRule.purchase_recoverable" label="قابلية استرداد ضريبة الشراء، وفق المعاملة" required><option value="">حدد المعاملة الفعلية</option><option value="1">قابلة للاسترداد</option><option value="0">غير قابلة للاسترداد، تدخل في تكلفة المخزون</option></flux:select>@endif
-                <flux:input wire:model="taxRule.product_id" label="رقم الصنف (فارغ = قاعدة عامة للمعاملة)" description="لا تعمم النسبة إذا كانت أصنافك تشمل معاملة خاصة أو إعفاء." inputmode="numeric" />
-                <flux:select wire:model="taxRule.treatment" label="المعاملة"><option value="percentage">نسبة</option><option value="exempt">إعفاء بمرجع صريح</option></flux:select>
-                <flux:input wire:model="taxRule.rate" label="النسبة الفعلية %" inputmode="decimal" required />
-                <flux:input wire:model="taxRule.starts_on" type="date" label="ساري من" required />
-                <flux:input wire:model="taxRule.ends_on" type="date" label="ساري حتى، اختياري" />
-                <flux:select wire:model="taxRule.tax_scale" label="دقة مستند الضريبة وفق المرجع"><option value="5">5 خانات</option><option value="2">منزلتان</option></flux:select>
-            </div>
-            <flux:textarea wire:model="taxRule.legal_reference" rows="2" label="مرجع التحقق الفعلي من القاعدة ومتطلبات تقريب المعاملة" required />
-            <flux:button type="submit" wire:loading.attr="disabled">حفظ القاعدة الضريبية</flux:button>
-        </form>
-        <form wire:submit="endTaxRule" class="mt-6 space-y-3 border-t pt-5"><h3 class="font-semibold">إنهاء قاعدة مع حفظ تاريخها</h3><div class="grid gap-3 md:grid-cols-2"><flux:select wire:model="taxEnd.rule_id" label="القاعدة" required><option value="">اختر القاعدة</option>@foreach($taxRules->whereNull('withdrawn') as $rule)<option value="{{ $rule->id }}">#{{ $rule->id }} · {{ $rule->code }} · {{ $rule->starts_on }}</option>@endforeach</flux:select><flux:input wire:model="taxEnd.ends_on" type="date" label="آخر يوم سريان" /></div><flux:textarea wire:model="taxEnd.reason" rows="2" label="سبب التغيير ومرجع التحقق" required />@if(!$setup['activated_at'])<flux:checkbox wire:model="taxEnd.withdraw" label="سحب قاعدة إعداد غير صحيحة قبل التفعيل" />@endif<flux:button type="submit" wire:loading.attr="disabled">تسجيل نهاية أو سحب القاعدة</flux:button></form>
-        @if(!$setup['activated_at'])<form wire:submit="validateTax" class="mt-6 space-y-3 border-t pt-5">
-            <flux:textarea wire:model="taxReference" rows="2" label="مرجع تحقق المعاملة الضريبية للشركة من المسؤول المختص" required />
-            <flux:button type="submit" wire:confirm="تسجيل أن القواعد الفعلية ومتطلبات التقريب قد تحقق منها المختص؟" wire:loading.attr="disabled">تسجيل التحقق الضريبي</flux:button>
-        </form>@endif
-        @endif
-        <p class="mt-4 text-sm {{ $setup['tax_validated']?'text-emerald-800':'text-amber-800' }}">{{ $setup['tax_validated']?'تم تسجيل التحقق الضريبي: '.$setup['tax_validation_reference']:'لم يُسجل التحقق من القواعد الفعلية. الحساب التجريبي لا يجيز الإصدار أو الترحيل الإنتاجي.' }}</p>
-    </x-ui.panel>
+    $optionalDescriptions = [
+        'customer_advance' => 'يُستخدم عند استلام دفعة مقدمة من عميل قبل إصدار فاتورة له.',
+        'maintenance_labor' => 'يُستخدم لتسجيل تكلفة عمل الفنيين المعتمدة في الصيانة الميدانية.',
+        'maintenance_labor_accrual' => 'يُستخدم لإثبات استحقاق تكلفة عمل الصيانة المعتمدة.',
+        'service_contract_deferred' => 'يُستخدم لفواتير أقساط عقود الخدمة قبل إثبات الإيراد المكتسب.',
+    ];
 
-    @if(!$setup['activated_at'] && $a->allows(auth()->id(),'opening_manage'))
-    <x-ui.panel>
-        <h2 id="financial-openings" class="text-lg font-semibold">الأرصدة الافتتاحية والاعتماد</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">الأستاذ العام هو القيد الكامل. الموردون والنقدية والبنوك والصرف من الأقدم أولًا تفاصيل تُصالح معه، ولا تُضاف إلى الأستاذ العام مرة ثانية. لكل طبقة الصرف من الأقدم أولًا مرجع مستقل. لا تستورد المعاملات التاريخية التي كوّنت هذه الأرصدة.</p>
-        <div class="mt-4 flex flex-wrap items-end gap-3">
-            <flux:button wire:click="template" wire:loading.attr="disabled" icon="arrow-down-tray">قالب Excel فارغ</flux:button>
-            <flux:input type="file" wire:model="workbook" accept=".xlsx" label="ملف Excel، حتى 5 MB و500 سطر" />
-            <flux:button wire:click="importPreview" wire:loading.attr="disabled" wire:target="workbook,importPreview">استيراد ومعاينة</flux:button>
-        </div>
-        <p class="mt-2 text-xs text-slate-500">حقول المبالغ والتكاليف نصوص عشرية في Excel. تُرفض الصيغ. يُحذف الملف الأصلي بعد القراءة.</p>
-        <form wire:submit="previewOpening" class="mt-5 space-y-5">
-            <flux:textarea wire:model="evidence" rows="2" label="مرجع كشف الأرصدة الفعلي المعتمد للتحضير" required />
-            <flux:checkbox wire:model="noBalances" label="أصرح صراحة بعدم وجود أرصدة افتتاحية، مع مرجع مؤيد واعتماد مستقل" />
-            @foreach($lines as $i => $line)
-            <fieldset wire:key="opening-line-{{ $creationKey }}-{{ $i }}" class="border-t pt-4">
-                <legend class="px-2 text-sm font-semibold">بند {{ $i+1 }}</legend>
-                <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                    <flux:select wire:model.live="lines.{{ $i }}.kind" label="النوع"><option value="gl">قيد الأستاذ العام</option><option value="ap">تفاصيل مورد</option><option value="ar">تفاصيل عميل</option><option value="cash">تفاصيل نقدية</option><option value="bank">تفاصيل بنك</option><option value="inventory">طبقة الصرف من الأقدم أولًا</option></flux:select>
-                    <flux:input wire:model="lines.{{ $i }}.reference" label="مرجع البند الفريد" required />
-                    <flux:select wire:model="lines.{{ $i }}.branch_id" label="الفرع" required><option value="">اختر الفرع</option>@foreach($branches as $branch)<option value="{{ $branch['id'] }}">{{ $branch['name'] }}</option>@endforeach</flux:select>
-                    @if($line['kind']==='gl')
-                    <flux:select wire:model="lines.{{ $i }}.account_id" label="حساب الأستاذ العام" required><option value="">اختر الحساب</option>@foreach($accounts as $account)<option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>@endforeach</flux:select>
-                    <flux:input wire:model="lines.{{ $i }}.debit" label="مدين ج.م" inputmode="decimal" />
-                    <flux:input wire:model="lines.{{ $i }}.credit" label="دائن ج.م" inputmode="decimal" />
-                    @else
-                    <flux:input wire:model="lines.{{ $i }}.amount" label="قيمة تفصيلية ج.م" inputmode="decimal" required />
-                    @if($line['kind']==='ap')<flux:input wire:model="lines.{{ $i }}.supplier_id" label="رقم المورد" inputmode="numeric" required />@endif
-                    @if($line['kind']==='ar')<flux:input wire:model="lines.{{ $i }}.customer_id" label="رقم العميل" inputmode="numeric" required />@endif
-                    @if($line['kind']==='inventory')
-                    <flux:input wire:model="lines.{{ $i }}.warehouse_id" label="رقم المستودع" inputmode="numeric" required />
-                    <flux:input wire:model="lines.{{ $i }}.product_id" label="رقم الصنف المخزني" inputmode="numeric" required />
-                    <flux:input wire:model="lines.{{ $i }}.quantity" label="الكمية بالوحدة الأساسية" inputmode="decimal" required />
-                    <flux:input wire:model="lines.{{ $i }}.unit_cost" label="تكلفة الوحدة، حتى 16 خانة عشرية" inputmode="decimal" required />
-                    <flux:textarea wire:model="lines.{{ $i }}.serial_text" label="للصنف المسلسل: رقم فعلي لكل وحدة، كل رقم بسطر" rows="3" />
-                    @endif
-                    @endif
-                </div>
-                <flux:button wire:click="removeLine({{ $i }})" class="mt-3" size="sm" icon="trash">حذف البند {{ $i+1 }}</flux:button>
-            </fieldset>
-            @endforeach
-            <div class="flex flex-wrap gap-3"><flux:button wire:click="addLine" icon="plus">إضافة بند</flux:button><flux:button type="submit" wire:loading.attr="disabled">معاينة ومصالحة</flux:button></div>
-        </form>
-        @if($previewReconciliation)
-        <div class="mt-5 space-y-3 border-t pt-4" aria-live="polite"><h3 class="font-semibold">معاينة {{ count($preview) }} بند، لم يُحفظ أو يُرحل شيء بعد</h3>
-            @foreach($previewReconciliation['errors'] as $message)<p class="text-sm text-amber-800">{{ $message }}</p>@endforeach
-            @if($previewReconciliation['balanced'])<p class="text-sm text-emerald-800">قيم الأستاذ العام والتفاصيل متطابقة في المعاينة.</p>@endif
-            <flux:button wire:click="saveOpening" variant="primary" wire:loading.attr="disabled">حفظ حزمة افتتاح للمراجعة</flux:button>
-        </div>
-        @endif
-    </x-ui.panel>
+    $arabicNumerals = [1 => '١', 2 => '٢', 3 => '٣', 4 => '٤'];
+    $openingKindLabels = [
+        'gl' => 'قيد أستاذ عام',
+        'ap' => 'تفاصيل مورد',
+        'ar' => 'تفاصيل عميل',
+        'cash' => 'تفاصيل نقدية',
+        'bank' => 'تفاصيل بنك',
+        'inventory' => 'مخزون افتتاحي (الأقدم أولاً)',
+    ];
+    $batchStatusLabels = [
+        'draft' => 'مسودة',
+        'submitted' => 'بانتظار اعتماد مراجع آخر',
+        'approved' => 'معتمدة وجاهزة للتفعيل',
+        'posted' => 'مُرحّلة ومُفعّلة',
+    ];
+    $batchVersionMatches = $batch && (int) $batch->configuration_version === (int) $setup['version'];
+    $hasActiveCurrentBatch = $batch && $batchVersionMatches && in_array($batch->status, ['submitted', 'approved'], true);
+@endphp
+
+<div data-erp-archetype="form" class="erp-finance erp-setup space-y-5">
+    <x-page.heading
+        title="تجهيز النظام المالي"
+        description="أكمل الخطوات الأربع بالترتيب لتجهيز تاريخ التشغيل والحسابات والضرائب والأرصدة الافتتاحية قبل فتح الترحيل المالي."
+        :breadcrumbs="['المالية', 'تجهيز النظام المالي']"
+    >
+        <x-slot:secondaryActions>
+            @if($a->allows(auth()->id(), 'account_view'))
+                <flux:button :href="route('accounting.accounts')" icon="document-text" wire:navigate>دليل الحسابات</flux:button>
+            @endif
+            @if($a->allows(auth()->id(), 'period_view'))
+                <flux:button :href="route('accounting.periods')" icon="calendar-days" wire:navigate>الفترات المالية</flux:button>
+            @endif
+        </x-slot:secondaryActions>
+    </x-page.heading>
+
+    @if(session('financial_message'))
+        <flux:callout variant="success" icon="check-circle" class="erp-feedback--success" role="status">
+            <flux:callout.text>{{ session('financial_message') }}</flux:callout.text>
+        </flux:callout>
     @endif
 
-    <x-ui.panel>
-        <h2 class="text-lg font-semibold">5. المصالحة و6. اعتماد الافتتاح</h2>
-        @if(!$batch)<div class="mt-4"><x-ui.empty-state title="لا توجد أرصدة افتتاحية مُدخلة" description="لم تُزوّد الشركة بيانات فعلية. أدخل أو استورد كشف الافتتاح ثم اعرض المصالحة وأرسله لمراجع مستقل." /></div>
-        @else
-        <p class="mt-3 text-sm">حزمة #{{ $batch->id }} · {{ ['draft'=>'مسودة','submitted'=>'بانتظار الاعتماد المستقل','approved'=>'معتمدة','posted'=>'مرحلة'][$batch->status] }} · نسخة الإعداد {{ $batch->configuration_version }} · المرجع: {{ $batch->evidence_reference }}</p>
-        @if($batch->configuration_version!==$setup['version'])<p class="mt-3 text-amber-800">تغيرت نسخة الإعداد. يلزم إعداد واعتماد حزمة افتتاح جديدة.</p>@endif
-        @if($batch->no_balances)<p class="mt-3 text-sm">تتضمن الحزمة تصريحًا صريحًا بعدم وجود أرصدة افتتاحية.</p>@endif
-        <div role="region" tabindex="0" aria-label="جدول تفصيلي؛ يمكن التمرير أفقياً لعرض جميع الأعمدة" class="mt-4 overflow-x-auto"><table><thead><tr><th>النوع</th><th>المرجع</th><th>الفرع</th><th>الحساب / المورد / الصنف</th><th>مدين</th><th>دائن</th><th>القيمة التفصيلية</th><th>الكمية</th><th>تكلفة الوحدة</th></tr></thead><tbody>
-        @foreach($savedLines as $line)<tr><td>{{ $line['kind'] }}</td><td>{{ $line['reference'] }}</td><td>{{ $line['branch_id'] }}</td><td>{{ $line['account_id'] ?? $line['supplier_id'] ?? $line['product_id'] ?? '—' }}@if($line['serials'] ?? [])<p class="mt-2 whitespace-pre-line text-xs">أرقام فعلية: {{ implode(', ', $line['serials']) }}</p>@endif</td><td>{{ $line['debit'] }}</td><td>{{ $line['credit'] }}</td><td>{{ $line['amount'] }}</td><td>{{ $line['quantity'] ?? '—' }}</td><td>{{ $line['unit_cost'] ?? '—' }}</td></tr>@endforeach
-        </tbody></table></div>
-        <div class="mt-4 space-y-2">@foreach($reconciliation['errors'] as $message)<p class="text-sm text-amber-800">{{ $message }}</p>@endforeach @if($reconciliation['balanced'])<p class="text-sm text-emerald-800">الأستاذ العام متوازن، وتفاصيل الموردين والنقدية والبنوك والصرف من الأقدم أولًا متطابقة لكل فرع.</p>@endif</div>
-        <div class="mt-4 flex flex-wrap gap-3">
-            @if($batch->status==='draft' && $batch->created_by===auth()->id() && $a->allows(auth()->id(),'opening_manage'))<flux:button wire:click="advance({{ $batch->id }},{{ $batch->version }},'submit')" wire:loading.attr="disabled">إرسال حزمة الافتتاح للاعتماد</flux:button>@endif
-            @if($batch->status==='submitted' && $batch->created_by!==auth()->id() && $setup['configured_by']!==auth()->id() && $a->allows(auth()->id(),'opening_approve'))<flux:button wire:click="advance({{ $batch->id }},{{ $batch->version }},'approve')" wire:confirm="اعتماد الأرصدة الفعلية ومصالحتها بهذه النسخة؟" wire:loading.attr="disabled">اعتماد مستقل للأرصدة الافتتاحية</flux:button>@endif
-        </div>
-        @endif
-    </x-ui.panel>
+    <x-ui.validation-summary />
 
-    <x-ui.panel>
-        <h2 class="text-lg font-semibold">7. تفعيل الترحيل المالي</h2>
-        <p class="mt-2 max-w-3xl text-sm text-slate-600">التفعيل يرحل الافتتاح المعتمد في الأستاذ العام والموردين والخزينة والصرف من الأقدم أولًا معًا. إذا فشل أي جزء، تُلغى العملية كاملة. لا يمحو النظام تاريخًا سابقًا ولا يولد أرقامًا تعويضية أو أرصدة بديلة.</p>
-        @if(!$setup['activated_at'] && $batch?->status==='approved' && $batch->configuration_version===$setup['version'] && $a->allows(auth()->id(),'financial_activate'))
-        <flux:button class="mt-4" variant="primary" wire:click="activate({{ $batch->id }},{{ $batch->version }})" wire:confirm="ترحيل الأرصدة الفعلية المعتمدة وتثبيت تاريخ التشغيل وتفعيل الترحيل؟ هذه عملية مالية غير قابلة للمحو." wire:loading.attr="disabled">ترحيل الافتتاح وتفعيل المالية</flux:button>
-        @else<p class="mt-4 text-sm text-slate-600">{{ $setup['activated_at']?'تم التفعيل ببيانات الشركة المعتمدة.':'التفعيل غير متاح حتى اكتمال الإعداد والمصالحة والاعتماد والصلاحية.' }}</p>@endif
-    </x-ui.panel>
-    <p class="text-xs text-slate-500" wire:loading role="status">جارٍ تنفيذ الطلب، انتظر اكتمال العملية.</p>
+    {{-- Unified Wizard Status & 4-Step Header --}}
+    <section class="erp-setup-wizard-bar" aria-label="تقدم وخطوات تجهيز النظام المالي">
+        @if($setup['activated_at'])
+            <div class="erp-setup-wizard-top is-activated" role="status">
+                <div class="erp-setup-status-main">
+                    <div class="erp-setup-status-title">
+                        <span class="erp-setup-pill is-success">مُفعّل</span>
+                        <h2>الترحيل المالي مفعّل ويعمل</h2>
+                    </div>
+                    <p class="erp-setup-status-meta">
+                        تاريخ التشغيل المعتمد: <strong dir="ltr">{{ $setup['go_live_date'] }}</strong>
+                        · وقت التفعيل (توقيت القاهرة): <strong dir="ltr">{{ \Carbon\Carbon::parse($setup['activated_at'])->timezone('Africa/Cairo')->format('Y-m-d H:i') }}</strong>
+                        · بواسطة: <strong><x-erp.user-name :id="$setup['activated_by']" /></strong>
+                    </p>
+                </div>
+                <div class="erp-setup-status-actions">
+                    <flux:button variant="primary" size="sm" :href="route('finance.hub')" icon="squares-2x2" wire:navigate>مهام المالية</flux:button>
+                </div>
+            </div>
+        @else
+            <div class="erp-setup-wizard-top" role="status">
+                <div class="erp-setup-status-main">
+                    <div class="erp-setup-status-title">
+                        <span class="erp-setup-pill is-warning">الترحيل المالي مغلق</span>
+                        <h2>اكتملت {{ $completedStepsCount }} من 4 خطوات</h2>
+                    </div>
+                    <div class="erp-setup-progress-wrap">
+                        <progress max="4" value="{{ $completedStepsCount }}" aria-label="تقدم خطوات التجهيز ({{ $completedStepsCount }} من 4)"></progress>
+                        <span class="text-xs font-semibold text-slate-600" dir="ltr">{{ $completedStepsCount }}/4</span>
+                    </div>
+                </div>
+                @if($firstIncompleteStep !== null && $firstIncompleteStep !== $activeStep)
+                    <div class="erp-setup-status-actions">
+                        <flux:button type="button" variant="primary" size="sm" wire:click="goToStep({{ $firstIncompleteStep }})">
+                            الانتقال للخطوة {{ $arabicNumerals[$firstIncompleteStep] }}: {{ $stepStates[$firstIncompleteStep]['title'] }}
+                        </flux:button>
+                    </div>
+                @endif
+            </div>
+        @endif
+
+        <nav aria-label="خطوات تجهيز النظام المالي" class="erp-setup-stepper-wrap">
+            <ol class="erp-setup-stepper">
+                @foreach($stepStates as $stepNum => $step)
+                    <li>
+                        <button
+                            type="button"
+                            wire:click="goToStep({{ $stepNum }})"
+                            aria-current="{{ $activeStep === $stepNum ? 'step' : 'false' }}"
+                            @class([
+                                'erp-setup-step-btn',
+                                'is-active' => $activeStep === $stepNum,
+                                'is-done' => $step['done'],
+                            ])
+                        >
+                            <span class="erp-setup-step-head">
+                                <span class="erp-setup-step-num" aria-hidden="true">{{ $step['done'] ? '✓' : $arabicNumerals[$stepNum] }}</span>
+                                <span class="erp-setup-step-title">{{ $step['title'] }}</span>
+                            </span>
+                            <span class="erp-setup-step-desc">{{ $step['desc'] }}</span>
+                            <span @class([
+                                'erp-setup-pill',
+                                'is-success' => $step['tone'] === 'success',
+                                'is-warning' => $step['tone'] === 'warning',
+                                'is-info' => $step['tone'] === 'info',
+                                'is-neutral' => $step['tone'] === 'neutral',
+                            ])>{{ $step['badge'] }}</span>
+                        </button>
+                    </li>
+                @endforeach
+            </ol>
+        </nav>
+    </section>
+
+    @if(!$setup['activated_at'] && $activeStep !== 4)
+        <details class="erp-setup-optional">
+            <summary>
+                <span>لوحة الجاهزية المالية ومن المسؤول عن كل بند ناقص</span>
+                <span class="erp-setup-pill {{ collect($readinessBoard)->every(fn ($i) => $i['done']) ? 'is-success' : 'is-warning' }}">
+                    مكتمل {{ collect($readinessBoard)->where('done', true)->count() }} من {{ count($readinessBoard) }}
+                </span>
+            </summary>
+            <div class="erp-setup-optional-body">
+                <ul class="erp-setup-checklist">
+                    @foreach($readinessBoard as $item)
+                        <li @class(['is-done' => $item['done']])>
+                            <div class="flex items-start gap-3">
+                                <span class="erp-setup-check-icon" aria-hidden="true">{{ $item['done'] ? '✓' : '!' }}</span>
+                                <div class="space-y-0.5">
+                                    <p class="text-sm font-semibold text-[#172b4d]">{{ $item['label'] }}</p>
+                                    <p class="text-xs text-slate-600">{{ $item['detail'] }}</p>
+                                    @if(!$item['done'])
+                                        <p class="text-xs text-slate-700">
+                                            المسؤول (<span class="font-medium">{{ $item['responsible_title'] }}</span> · <bdi dir="ltr">{{ $item['permission_code'] }}</bdi>):
+                                            <strong>{{ $item['holders'] !== [] ? implode('، ', $item['holders']) : 'لا يوجد مستخدم نشط مفوض حالياً — راجع الأدوار والصلاحيات' }}</strong>
+                                        </p>
+                                        @if($item['note'])
+                                            <p class="text-xs text-amber-800">{{ $item['note'] }}</p>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                            @if(!$item['done'])
+                                <flux:button type="button" size="sm" wire:click="goToStep({{ $item['step'] }})">استكمال</flux:button>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </details>
+    @endif
+
+    {{-- STEP 1: Go-Live Date, Period & Required Account Mappings --}}
+    @if($activeStep === 1)
+        <div wire:key="setup-step-1" class="space-y-5">
+            <form wire:submit="saveConfiguration" class="space-y-5">
+                <x-ui.panel class="space-y-4">
+                    <div class="erp-setup-card-header">
+                        <div>
+                            <h2>١. تاريخ التشغيل والفترة المحاسبية</h2>
+                            <p class="text-sm text-slate-600">
+                                يحدد تاريخ التشغيل بداية تسجيل القيود والفواتير الرسمية. أي أرصدة قبل هذا التاريخ تُدخل كأرصدة افتتاحية في الخطوة ٣.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 lg:grid-cols-2 lg:items-stretch">
+                        <div class="erp-setup-peer-box">
+                            <flux:input
+                                wire:model.live="configuration.go_live_date"
+                                type="date"
+                                label="تاريخ التشغيل الفعلي للشركة"
+                                description:trailing="التاريخ الفعلي المعتمد من الإدارة (لا يُحدد تلقائياً من تاريخ الجهاز)."
+                                :disabled="(bool) $setup['activated_at']"
+                            />
+                        </div>
+
+                        <div @class([
+                            'erp-setup-peer-box',
+                            'is-success' => !empty($configuration['go_live_date']) && $coveringPeriod,
+                            'is-warning' => !empty($configuration['go_live_date']) && !$coveringPeriod,
+                        ])>
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <p class="text-sm font-semibold text-[#3a4a63]">الفترة المحاسبية المغطّية لتاريخ التشغيل</p>
+                                @if(!empty($configuration['go_live_date']) && $coveringPeriod)
+                                    <span class="erp-setup-pill is-success">مغطّاة</span>
+                                @elseif(!empty($configuration['go_live_date']))
+                                    <span class="erp-setup-pill is-warning">ناقصة</span>
+                                @endif
+                            </div>
+
+                            @if(empty($configuration['go_live_date']))
+                                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                                    <p class="text-xs leading-6 text-slate-600">اختر تاريخ التشغيل للتحقق من وجود فترة محاسبية مفتوحة تشمله.</p>
+                                    @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'period_open'))
+                                        <flux:button type="button" size="sm" icon="plus" wire:click="openPeriodModal">فتح فترة مالية</flux:button>
+                                    @endif
+                                </div>
+                            @elseif($coveringPeriod)
+                                <div class="space-y-0.5 pt-1">
+                                    <p class="text-sm font-semibold text-emerald-900">توجد فترة مفتوحة تغطي التاريخ المختار</p>
+                                    <p class="text-xs text-emerald-800">
+                                        {{ $coveringPeriod->name }} (<bdi dir="ltr">{{ $coveringPeriod->starts_on }}</bdi> إلى <bdi dir="ltr">{{ $coveringPeriod->ends_on }}</bdi>)
+                                    </p>
+                                </div>
+                            @else
+                                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                                    <div class="space-y-0.5">
+                                        <p class="text-sm font-semibold text-amber-950">لا توجد فترة مفتوحة تشمل التاريخ <bdi dir="ltr">{{ $configuration['go_live_date'] }}</bdi></p>
+                                        <p class="text-xs text-amber-900">افتح فترة محاسبية تغطي هذا التاريخ قبل تفعيل الترحيل المالي.</p>
+                                    </div>
+                                    @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'period_open'))
+                                        <flux:button type="button" size="sm" variant="primary" icon="plus" wire:click="openPeriodModal">فتح فترة مالية الآن</flux:button>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </x-ui.panel>
+
+                <x-ui.panel class="space-y-4">
+                    <div class="erp-setup-card-header">
+                        <div>
+                            <h2>٢. ربط الحسابات المطلوبة (15 حساباً مستقلاً)</h2>
+                            <p class="text-sm text-slate-600">
+                                اربط كل غرض محاسبي بحساب ترحيل نشط مستقل من نفس التصنيف. الحسابات المعلمة بـ «رقابي» تُحدَّث تلقائياً من المخزون والذمم والخزينة ولا تُرحل يدوياً.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'account_manage') && !$hasAccountShortage && $missingExtraStarterCount > 0)
+                                <flux:button type="button" size="sm" icon="plus" wire:click="openBulkAccountsModal">إنشاء حسابات إضافية للشركة</flux:button>
+                            @endif
+                            @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'setup_manage') && $accounts->isNotEmpty())
+                                <flux:button type="button" size="sm" icon="sparkles" wire:click="autofillMappings">ملء الربط الـ 15 تلقائياً للمراجعة</flux:button>
+                            @endif
+                            <span @class(['erp-setup-pill', 'is-success' => $requiredMappedCount === 15, 'is-neutral' => $requiredMappedCount < 15])>
+                                مربوط {{ $requiredMappedCount }} من 15
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="erp-setup-source-note" role="note" aria-label="مصدر اختيارات القوائم">
+                        <p class="text-xs leading-6 text-slate-700">
+                            <strong class="text-[#172b4d]">من أين تأتي اختيارات القوائم أدناه؟</strong>
+                            كل قائمة تعرض الحسابات النشطة (التي تقبل الترحيل) المسجّلة في
+                            @if($a->allows(auth()->id(), 'account_view'))
+                                <a href="{{ route('accounting.accounts') }}" wire:navigate class="font-semibold text-blue-700 underline">دليل الحسابات</a>
+                            @else
+                                <strong>دليل الحسابات</strong>
+                            @endif
+                            والمطابقة لتصنيف الغرض (أصول / التزامات / إيرادات / مصروفات).
+                        </p>
+                    </div>
+
+                    @if($hasAccountShortage && !$setup['activated_at'])
+                        <div class="erp-setup-shortage" role="region" aria-label="نقص في دليل الحسابات">
+                            <div class="space-y-1">
+                                <p class="text-sm font-semibold text-amber-950">
+                                    متاح في دليل الحسابات {{ $accounts->count() }} حسابات فقط بينما المطلوب 15 حساباً مستقلاً
+                                </p>
+                                @if($allAccountsAreDemo)
+                                    <p class="text-xs leading-6 text-amber-900">
+                                        الحسابات الظاهرة حالياً (<bdi dir="ltr">DEMO-EG-...</bdi>) هي 5 حسابات تجريبية عامة للعرض فقط (حساب واحد لكل نوع)، لذلك تتكرر في كل القوائم ولا تكفي للتشغيل الفعلي.
+                                    </p>
+                                @endif
+                                <p class="text-xs leading-6 text-amber-900">
+                                    الأصول: {{ $accountsByKind['asset']['available'] }}/{{ $accountsByKind['asset']['required'] }}
+                                    · الالتزامات: {{ $accountsByKind['liability']['available'] }}/{{ $accountsByKind['liability']['required'] }}
+                                    · الإيرادات: {{ $accountsByKind['income']['available'] }}/{{ $accountsByKind['income']['required'] }}
+                                    · المصروفات: {{ $accountsByKind['expense']['available'] }}/{{ $accountsByKind['expense']['required'] }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                @if($a->allows(auth()->id(), 'account_manage'))
+                                    <flux:button type="button" variant="primary" size="sm" icon="plus" wire:click="openBulkAccountsModal">
+                                        إنشاء دليل الحسابات الأساسي وتجهيز الربط
+                                    </flux:button>
+                                @endif
+                                @if($a->allows(auth()->id(), 'account_view'))
+                                    <flux:button size="sm" :href="route('accounting.accounts')" wire:navigate>
+                                        فتح دليل الحسابات للإضافة يدوياً
+                                    </flux:button>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="space-y-4">
+                        @foreach($mappingGroups as $groupTitle => $groupItems)
+                            @php
+                                $groupSelectedCount = collect(array_keys($groupItems))
+                                    ->filter(fn (string $p) => !empty($configuration['mappings'][$p]))
+                                    ->count();
+                                $groupTotalCount = count($groupItems);
+                            @endphp
+                            <section class="erp-setup-group-box" aria-label="{{ $groupTitle }}">
+                                <header class="erp-setup-group-head">
+                                    <h3 class="erp-setup-group-title">{{ $groupTitle }}</h3>
+                                    <span @class(['erp-setup-pill', 'is-success' => $groupSelectedCount === $groupTotalCount, 'is-neutral' => $groupSelectedCount < $groupTotalCount])>
+                                        محدد {{ $groupSelectedCount }} من {{ $groupTotalCount }}
+                                    </span>
+                                </header>
+                                <div class="erp-setup-group-rows">
+                                    @foreach($groupItems as $purpose => $hint)
+                                        @php
+                                            [$label, $kind] = \App\Modules\Accounting\Application\FinancialActivation::MAPPINGS[$purpose];
+                                            $displayLabel = $displayLabels[$purpose] ?? $label;
+                                            $isControl = \App\Modules\Accounting\Application\FinancialActivation::MAPPINGS[$purpose][2] ?? false;
+                                            $isDup = in_array($purpose, $duplicateMappingPurposes, true);
+                                        @endphp
+                                        <div @class(['erp-setup-map-row', 'is-duplicate' => $isDup])>
+                                            <div class="erp-setup-map-info">
+                                                <div class="flex flex-wrap items-center gap-1.5">
+                                                    <span id="setup-map-label-{{ $purpose }}" class="text-sm font-semibold text-[#172b4d]">{{ $displayLabel }}</span>
+                                                    <span class="erp-setup-pill is-neutral">{{ $kindNames[$kind] ?? $kind }}</span>
+                                                    @if($isControl)
+                                                        <span class="erp-setup-pill is-info">رقابي</span>
+                                                    @endif
+                                                </div>
+                                                <p class="text-xs text-slate-500">{{ $hint }}</p>
+                                            </div>
+                                            <div class="erp-setup-map-control">
+                                                <div class="min-w-0 flex-1">
+                                                    <flux:select
+                                                        wire:model.live="configuration.mappings.{{ $purpose }}"
+                                                        aria-labelledby="setup-map-label-{{ $purpose }}"
+                                                        aria-label="{{ $displayLabel }}"
+                                                        :disabled="(bool) $setup['activated_at']"
+                                                    >
+                                                        <option value="">اختر حساب {{ $kindNames[$kind] ?? $kind }} من دليل الحسابات…</option>
+                                                        @foreach($accounts->where('kind', $kind) as $account)
+                                                            <option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>
+                                                        @endforeach
+                                                    </flux:select>
+                                                </div>
+                                                @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'account_manage'))
+                                                    <button
+                                                        type="button"
+                                                        class="erp-setup-inline-btn"
+                                                        wire:click="openAccountModal('mapping:{{ $purpose }}', '{{ $kind }}', '{{ $starterNames[$purpose] ?? $label }}')"
+                                                    >
+                                                        + جديد
+                                                    </button>
+                                                @endif
+                                            </div>
+                                            @if($isDup)
+                                                <p class="erp-setup-map-dup text-xs font-semibold text-amber-800">هذا الحساب مختار لغرض آخر؛ يلزم حساب مستقل لكل غرض.</p>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </section>
+                        @endforeach
+                    </div>
+
+                    <div class="erp-setup-step-footer">
+                        <div class="flex flex-wrap items-center gap-3">
+                            @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'setup_manage'))
+                                <flux:button type="submit" variant="primary" wire:loading.attr="disabled">حفظ إعداد التشغيل والربط</flux:button>
+                            @endif
+                        </div>
+                        <flux:button type="button" wire:click="goToStep(2)" icon-trailing="arrow-left">التالي: الضرائب</flux:button>
+                    </div>
+                </x-ui.panel>
+            </form>
+        </div>
+
+    {{-- STEP 2: Tax Rules & Company Tax Validation --}}
+    @elseif($activeStep === 2)
+        <div wire:key="setup-step-2" class="space-y-5">
+            <x-ui.panel class="space-y-4">
+                <div class="erp-setup-card-header">
+                    <div>
+                        <h2>١. القواعد الضريبية المسجلة</h2>
+                        <p class="text-sm text-slate-600">
+                            لا توجد نسبة ضريبية تلقائية. أضف قاعدة للمبيعات وقاعدة للمشتريات على الأقل، ويمكنك تخصيص قواعد لأصناف بعينها أو تسجيل إعفاءات صريحة.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span @class(['erp-setup-pill', 'is-success' => $hasSaleRuleAtGoLive, 'is-neutral' => !$hasSaleRuleAtGoLive])>
+                            مبيعات: {{ $hasSaleRuleAtGoLive ? 'متوفرة' : 'ناقصة' }}
+                        </span>
+                        <span @class(['erp-setup-pill', 'is-success' => $hasPurchaseRuleAtGoLive, 'is-neutral' => !$hasPurchaseRuleAtGoLive])>
+                            مشتريات: {{ $hasPurchaseRuleAtGoLive ? 'متوفرة' : 'ناقصة' }}
+                        </span>
+                        <span @class(['erp-setup-pill', 'is-success' => $setup['tax_validated'], 'is-neutral' => !$setup['tax_validated']])>
+                            التوثيق: {{ $setup['tax_validated'] ? 'مكتمل' : 'بانتظار التوثيق' }}
+                        </span>
+                    </div>
+                </div>
+
+                @if($taxRules->isEmpty())
+                    <div class="erp-setup-empty-inline" role="status">
+                        <flux:icon name="receipt-percent" class="size-5 shrink-0 text-blue-700" aria-hidden="true" />
+                        <div>
+                            <p class="text-sm font-semibold text-[#172b4d]">لا توجد قواعد ضريبية مسجلة بعد</p>
+                            <p class="text-xs text-slate-600">استخدم قالب الضريبة المصرية 14% أدناه للمبيعات والمشتريات، أو أدخل قاعدة مخصصة.</p>
+                        </div>
+                    </div>
+                @else
+                    <x-ui.responsive-table label="القواعد الضريبية المسجلة">
+                        <table role="table" class="w-full">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">القاعدة والمرجع</th>
+                                    <th role="columnheader">المعاملة</th>
+                                    <th role="columnheader">النطاق</th>
+                                    <th role="columnheader">النسبة</th>
+                                    <th role="columnheader">السريان</th>
+                                    <th role="columnheader">الدقة</th>
+                                    <th role="columnheader">الحالة</th>
+                                    @if($a->allows(auth()->id(), 'tax_manage'))
+                                        <th role="columnheader">إجراء</th>
+                                    @endif
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                @foreach($taxRules as $rule)
+                                    <tr role="row" wire:key="tax-rule-{{ $rule->id }}">
+                                        <td role="cell" data-label="القاعدة والمرجع">
+                                            <div>
+                                                <strong class="block">{{ $rule->name }}</strong>
+                                                <span class="text-xs text-slate-500" dir="ltr">{{ $rule->code }}</span>
+                                                <p class="mt-0.5 text-xs text-slate-500" title="{{ $rule->legal_reference }}">{{ \Illuminate\Support\Str::limit($rule->legal_reference, 75) }}</p>
+                                            </div>
+                                        </td>
+                                        <td role="cell" data-label="المعاملة">
+                                            <div>
+                                                <span>{{ $rule->transaction_type === 'sale' ? 'مبيعات' : 'مشتريات' }}</span>
+                                                @if($rule->transaction_type === 'purchase')
+                                                    <p class="text-xs text-slate-500">{{ $rule->purchase_recoverable ? 'قابلة للاسترداد' : 'تُحمّل على التكلفة' }}</p>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td role="cell" data-label="النطاق">
+                                            <div>{{ $rule->product_id ? ($productLabels[(int) $rule->product_id] ?? 'صنف #'.$rule->product_id) : 'عام لكل الأصناف' }}</div>
+                                        </td>
+                                        <td role="cell" data-label="النسبة">
+                                            <div dir="ltr">{{ $rule->treatment === 'exempt' ? 'معفاة (0%)' : $rule->rate.'%' }}</div>
+                                        </td>
+                                        <td role="cell" data-label="السريان">
+                                            <div dir="ltr">{{ $rule->starts_on }} → {{ $rule->effective_end ?? 'مفتوح' }}</div>
+                                        </td>
+                                        <td role="cell" data-label="الدقة">
+                                            <div>{{ (int) $rule->tax_scale === 5 ? '5 خانات' : 'منزلتان' }}</div>
+                                        </td>
+                                        <td role="cell" data-label="الحالة">
+                                            <div>
+                                                @if($rule->withdrawn)
+                                                    <span class="erp-setup-pill is-neutral">مسحوبة</span>
+                                                @elseif($rule->effective_end)
+                                                    <span class="erp-setup-pill is-warning">منتهية بتاريخ</span>
+                                                @else
+                                                    <span class="erp-setup-pill is-success">سارية</span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        @if($a->allows(auth()->id(), 'tax_manage'))
+                                            <td role="cell" data-label="إجراء">
+                                                <div>
+                                                    @if(!$rule->withdrawn && ($rule->ending_id ?? null) === null)
+                                                        <flux:button type="button" size="sm" wire:click="openEndTaxModal({{ $rule->id }})">إنهاء / سحب</flux:button>
+                                                    @else
+                                                        <span class="text-xs text-slate-400">مؤرشفة</span>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </x-ui.responsive-table>
+                @endif
+            </x-ui.panel>
+
+            @if($a->allows(auth()->id(), 'tax_manage'))
+                <x-ui.panel class="space-y-4">
+                    <h2>٢. إضافة قاعدة ضريبية جديدة</h2>
+
+                    <div class="erp-workflow-note">
+                        <div class="space-y-1">
+                            <strong>قالب الضريبة المصرية: السعر العام 14%</strong>
+                            <p class="erp-form-hint">
+                                يملأ الحقول بالسعر العام للقيمة المضافة والمرجع القانوني دون حفظ — حدد تاريخ السريان وراجع قابلية الاسترداد ثم احفظ.
+                            </p>
+                            <a class="text-xs underline" href="https://portal.eta.gov.eg/sites/default/files/2026-08/law.no_.149.of_.2026.pdf" target="_blank" rel="noopener noreferrer">
+                                مرجع مصلحة الضرائب: المادة 3 المعدلة بالقانون 149 لسنة 2026
+                            </a>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <flux:button type="button" size="sm" wire:click="prepareEgyptVat('sale')" wire:loading.attr="disabled">تعبئة قالب مبيعات 14%</flux:button>
+                            <flux:button type="button" size="sm" wire:click="prepareEgyptVat('purchase')" wire:loading.attr="disabled">تعبئة قالب مشتريات 14%</flux:button>
+                        </div>
+                    </div>
+
+                    <form wire:submit="addTaxRule" class="space-y-4">
+                        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                            <flux:select wire:model.live="taxRule.transaction_type" label="نوع المعاملة">
+                                <option value="sale">مبيعات</option>
+                                <option value="purchase">مشتريات</option>
+                            </flux:select>
+
+                            @if($taxRule['transaction_type'] === 'purchase')
+                                <flux:select wire:model="taxRule.purchase_recoverable" label="استرداد ضريبة المشتريات" required>
+                                    <option value="">حدد المعاملة الفعلية</option>
+                                    <option value="1">قابلة للاسترداد (تُخصم من الضريبة)</option>
+                                    <option value="0">غير قابلة للاسترداد (تُضاف لتكلفة المخزون)</option>
+                                </flux:select>
+                            @endif
+
+                            <flux:input wire:model="taxRule.code" label="كود القاعدة" placeholder="مثال: EG-VAT14-SALE" dir="ltr" required />
+                            <flux:input wire:model="taxRule.name" label="اسم القاعدة" placeholder="مثال: ضريبة القيمة المضافة 14%" required />
+
+                            <flux:select wire:model.live="taxScope" label="نطاق التطبيق">
+                                <option value="all">عام لكل الأصناف غير المخصصة</option>
+                                <option value="product">صنف محدد فقط</option>
+                            </flux:select>
+
+                            @if($taxScope === 'product')
+                                <div wire:key="tax-scope-product">
+                                    @if($canLookupProducts)
+                                        <flux:select wire:model="taxRule.product_id" label="الصنف المخصص" search-model="taxProductSearch" required>
+                                            <option value="">اختر الصنف…</option>
+                                            @if($taxRule['product_id'] && !collect($taxProducts)->contains('id', (int) $taxRule['product_id']))
+                                                <option value="{{ $taxRule['product_id'] }}">{{ $productLabels[(int) $taxRule['product_id']] ?? '#'.$taxRule['product_id'] }}</option>
+                                            @endif
+                                            @foreach($taxProducts as $product)
+                                                <option value="{{ $product['id'] }}">{{ $product['sku'] }} · {{ $product['name'] }}</option>
+                                            @endforeach
+                                        </flux:select>
+                                    @else
+                                        <flux:input wire:model="taxRule.product_id" label="رقم الصنف" inputmode="numeric" required />
+                                    @endif
+                                </div>
+                            @endif
+
+                            <flux:select wire:model.live="taxRule.treatment" label="طريقة الاحتساب">
+                                <option value="percentage">نسبة مئوية %</option>
+                                <option value="exempt">إعفاء ضريبي صريح (0%)</option>
+                            </flux:select>
+
+                            <flux:input
+                                wire:model="taxRule.rate"
+                                label="النسبة %"
+                                inputmode="decimal"
+                                :readonly="$taxRule['treatment'] === 'exempt'"
+                                required
+                            />
+
+                            <flux:input
+                                wire:model="taxRule.starts_on"
+                                type="date"
+                                label="تاريخ بدء السريان"
+                                description:trailing="يجب أن يشمل تاريخ التشغيل الفعلي."
+                                required
+                            />
+
+                            <flux:input wire:model="taxRule.ends_on" type="date" label="تاريخ الانتهاء (اختياري)" />
+
+                            <flux:select wire:model="taxRule.tax_scale" label="دقة كسور الضريبة">
+                                <option value="5">5 خانات (متوافق مع الفاتورة الإلكترونية)</option>
+                                <option value="2">منزلتان عشريتان (جنيه وقرش)</option>
+                            </flux:select>
+                        </div>
+
+                        <flux:textarea wire:model="taxRule.legal_reference" rows="2" label="المرجع القانوني ومبرر القاعدة" required />
+
+                        <div class="flex flex-wrap gap-3">
+                            <flux:button type="submit" variant="primary" wire:loading.attr="disabled">حفظ القاعدة الضريبية</flux:button>
+                        </div>
+                    </form>
+                </x-ui.panel>
+            @endif
+
+            <x-ui.panel class="space-y-4">
+                <h2>٣. توثيق المراجعة الضريبية للشركة</h2>
+                <p class="text-sm text-slate-600">
+                    سجّل مرجع مراجعة المسؤول الضريبي للتأكيد على أن القواعد ونسب التقريب المطبقة تطابق نشاط الشركة الفعلي.
+                </p>
+
+                @if($setup['tax_validated'])
+                    <flux:callout variant="success" icon="check-circle" class="erp-feedback--success" role="status">
+                        <flux:callout.heading>تم توثيق المراجعة الضريبية</flux:callout.heading>
+                        <flux:callout.text>{{ $setup['tax_validation_reference'] }}</flux:callout.text>
+                    </flux:callout>
+                @elseif(!$setup['activated_at'] && $a->allows(auth()->id(), 'tax_manage'))
+                    @if($taxRules->isEmpty())
+                        <p class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+                            أضف قاعدة ضريبية واحدة على الأقل (مبيعات ومشتريات) لتفعيل توثيق المراجعة الضريبية.
+                        </p>
+                    @else
+                        <form wire:submit="validateTax" class="space-y-4">
+                            <flux:textarea
+                                wire:model="taxReference"
+                                rows="2"
+                                label="مرجع اعتماد المراجعة الضريبية (اسم المحاسب / رقم المذكرة)"
+                                required
+                            />
+                            <flux:button
+                                type="submit"
+                                variant="primary"
+                                wire:confirm="هل تؤكد أن القواعد الضريبية المسجلة ونظام التقريب قد راجعها المسؤول المختص؟"
+                                wire:loading.attr="disabled"
+                            >
+                                تسجيل التحقق الضريبي
+                            </flux:button>
+                        </form>
+                    @endif
+                @endif
+            </x-ui.panel>
+
+            <div class="erp-setup-nav-bar">
+                <flux:button type="button" wire:click="goToStep(1)" icon="arrow-right">السابق: التشغيل والحسابات</flux:button>
+                <flux:button type="button" variant="primary" wire:click="goToStep(3)" icon-trailing="arrow-left">التالي: الأرصدة الافتتاحية</flux:button>
+            </div>
+        </div>
+
+    {{-- STEP 3: Opening Balances & Independent Approval --}}
+    @elseif($activeStep === 3)
+        <div wire:key="setup-step-3" class="space-y-5">
+            @if($batch)
+                <x-ui.panel class="space-y-4">
+                    <div class="erp-setup-card-header">
+                        <div>
+                            <h2>حزمة الأرصدة الافتتاحية الحالية (#{{ $batch->id }})</h2>
+                            <p class="mt-1 text-xs text-slate-500">
+                                المرجع: <strong>{{ $batch->evidence_reference }}</strong>
+                                · أُعدّت بواسطة: <strong><x-erp.user-name :id="$batch->created_by" /></strong>
+                                @if($batch->approved_by)
+                                    · اعتُمدت بواسطة: <strong><x-erp.user-name :id="$batch->approved_by" /></strong>
+                                @endif
+                                · نسخة الإعداد: <strong dir="ltr">{{ $batch->configuration_version }}</strong>
+                            </p>
+                        </div>
+                        <span @class([
+                            'erp-setup-pill',
+                            'is-success' => in_array($batch->status, ['approved', 'posted'], true),
+                            'is-warning' => $batch->status === 'submitted',
+                            'is-neutral' => $batch->status === 'draft',
+                        ])>{{ $batchStatusLabels[$batch->status] ?? $batch->status }}</span>
+                    </div>
+
+                    @if(!$batchVersionMatches)
+                        <flux:callout variant="warning" icon="exclamation-triangle" role="status">
+                            <flux:callout.heading>تغيرت إعدادات التشغيل بعد حفظ هذه الحزمة</flux:callout.heading>
+                            <flux:callout.text>
+                                أُعدّت الحزمة على النسخة {{ $batch->configuration_version }} بينما الإعداد الحالي على النسخة {{ $setup['version'] }}. جهّز حزمة جديدة أدناه لاعتمادها بالنسخة الحالية.
+                            </flux:callout.text>
+                        </flux:callout>
+                    @endif
+
+                    @if($batch->no_balances)
+                        <div class="rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-950">
+                            تتضمن هذه الحزمة تصريحاً صريحاً بالبدء بدون أرصدة افتتاحية (شركة جديدة / أرصدة صفرية).
+                        </div>
+                    @else
+                        <x-ui.responsive-table label="بنود حزمة الأرصدة الافتتاحية">
+                            <table role="table" class="w-full">
+                                <thead role="rowgroup">
+                                    <tr role="row">
+                                        <th role="columnheader">النوع</th>
+                                        <th role="columnheader">المرجع</th>
+                                        <th role="columnheader">الفرع</th>
+                                        <th role="columnheader">الحساب / الطرف / الصنف</th>
+                                        <th role="columnheader">مدين</th>
+                                        <th role="columnheader">دائن</th>
+                                        <th role="columnheader">القيمة التفصيلية</th>
+                                        <th role="columnheader">الكمية</th>
+                                        <th role="columnheader">تكلفة الوحدة</th>
+                                    </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                                    @foreach($savedLines as $line)
+                                        @php
+                                            $detailLabel = match ($line['kind']) {
+                                                'gl' => $accountLabels[(int) ($line['account_id'] ?? 0)] ?? 'حساب #'.$line['account_id'],
+                                                'ap' => $supplierLabels[(int) ($line['supplier_id'] ?? 0)] ?? 'مورد #'.$line['supplier_id'],
+                                                'ar' => $customerLabels[(int) ($line['customer_id'] ?? 0)] ?? 'عميل #'.$line['customer_id'],
+                                                'inventory' => ($warehouseLabels[(int) ($line['warehouse_id'] ?? 0)] ?? 'مستودع #'.$line['warehouse_id']).' · '.($productLabels[(int) ($line['product_id'] ?? 0)] ?? 'صنف #'.$line['product_id']),
+                                                default => '—',
+                                            };
+                                        @endphp
+                                        <tr role="row">
+                                            <td role="cell" data-label="النوع"><div>{{ $openingKindLabels[$line['kind']] ?? $line['kind'] }}</div></td>
+                                            <td role="cell" data-label="المرجع"><div>{{ $line['reference'] }}</div></td>
+                                            <td role="cell" data-label="الفرع"><div>{{ $branchLabels[(int) $line['branch_id']] ?? 'فرع #'.$line['branch_id'] }}</div></td>
+                                            <td role="cell" data-label="الحساب / الطرف / الصنف">
+                                                <div>
+                                                    {{ $detailLabel }}
+                                                    @if(!empty($line['serials']))
+                                                        <p class="mt-1 text-xs text-slate-500">أرقام تسلسلية: {{ implode('، ', $line['serials']) }}</p>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td role="cell" data-label="مدين"><div dir="ltr">{{ $line['debit'] }}</div></td>
+                                            <td role="cell" data-label="دائن"><div dir="ltr">{{ $line['credit'] }}</div></td>
+                                            <td role="cell" data-label="القيمة التفصيلية"><div dir="ltr">{{ $line['amount'] }}</div></td>
+                                            <td role="cell" data-label="الكمية"><div dir="ltr">{{ $line['quantity'] ?? '—' }}</div></td>
+                                            <td role="cell" data-label="تكلفة الوحدة"><div dir="ltr">{{ $line['unit_cost'] ?? '—' }}</div></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </x-ui.responsive-table>
+                    @endif
+
+                    @if($reconciliation['balanced'])
+                        <p class="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+                            المصالحة متطابقة: قيود الأستاذ العام متزنة وتفاصيل الموردين والعملاء والنقدية والبنوك والمخزون متطابقة لكل فرع.
+                        </p>
+                    @else
+                        <div class="rounded-lg border border-amber-200 bg-amber-50 p-3 space-y-1">
+                            @foreach($reconciliation['errors'] as $message)
+                                <p class="text-sm text-amber-900">{{ $message }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="space-y-3">
+                        @if($batch->status === 'draft' && $batchVersionMatches)
+                            @if((int) $batch->created_by === (int) auth()->id() && $a->allows(auth()->id(), 'opening_manage'))
+                                <flux:button type="button" variant="primary" wire:click="advance({{ $batch->id }}, {{ $batch->version }}, 'submit')" wire:loading.attr="disabled">
+                                    إرسال الحزمة للاعتماد المستقل
+                                </flux:button>
+                            @else
+                                <p class="text-xs text-slate-600">
+                                    المسودة محفوظة باسم <x-erp.user-name :id="$batch->created_by" />، وهو من يرسلها للاعتماد المستقل.
+                                </p>
+                            @endif
+                        @elseif($batch->status === 'submitted' && $batchVersionMatches)
+                            @php
+                                $sameAsPreparer = ((int) $batch->created_by === (int) auth()->id()) || ((int) ($setup['configured_by'] ?? 0) === (int) auth()->id());
+                            @endphp
+                            @if((!$sameAsPreparer || $canSelfApproveAccounting) && $a->allows(auth()->id(), 'opening_approve'))
+                                @if($sameAsPreparer)
+                                    <div class="w-full rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+                                        اعتماد ذاتي موثّق — أنت مُعد الإعداد أو حزمة الأرصدة، وتتيح السياسة المفعّلة لدورك اعتماد الحزمة مع تسجيل ذلك صراحةً في سجل التدقيق.
+                                    </div>
+                                @endif
+                                <flux:button
+                                    type="button"
+                                    variant="primary"
+                                    wire:click="advance({{ $batch->id }}, {{ $batch->version }}, 'approve')"
+                                    wire:confirm="هل تؤكد مراجعة الأرصدة الفعلية ومصالحتها واعتمادها بهذه النسخة؟"
+                                    wire:loading.attr="disabled"
+                                >
+                                    {{ $sameAsPreparer ? 'اعتماد الأرصدة الافتتاحية (اعتماد ذاتي موثّق)' : 'اعتماد الأرصدة الافتتاحية' }}
+                                </flux:button>
+                            @elseif($sameAsPreparer)
+                                <flux:callout icon="shield-check" role="status">
+                                    <flux:callout.heading>في انتظار اعتماد مراجع مستقل</flux:callout.heading>
+                                    <flux:callout.text>
+                                        تطبيقاً لمبدأ الرقابة الثنائية، لا يمكن لمن أعدّ الإعداد أو حزمة الأرصدة أن يعتمدها بنفسه. يجب أن يسجل مستخدم آخر لديه صلاحية اعتماد الأرصدة دخوله لمراجعة الحزمة واعتمادها.
+                                        @if($canViewUsers)
+                                            <a href="{{ route('organization.users') }}" wire:navigate class="font-semibold underline">إدارة المستخدمين والصلاحيات</a>
+                                        @endif
+                                    </flux:callout.text>
+                                </flux:callout>
+                            @else
+                                <p class="text-xs text-amber-800">يلزم توفر صلاحية اعتماد الأرصدة الافتتاحية لدى مراجع مستقل عن مُعدّها.</p>
+                            @endif
+                        @elseif($batch->status === 'approved' && $batchVersionMatches && !$setup['activated_at'])
+                            <flux:button type="button" variant="primary" wire:click="goToStep(4)" icon-trailing="arrow-left">
+                                الحزمة معتمدة — انتقل لخطوة التفعيل
+                            </flux:button>
+                        @endif
+                    </div>
+                </x-ui.panel>
+            @endif
+
+            @if(!$setup['activated_at'] && $a->allows(auth()->id(), 'opening_manage'))
+                @if($hasActiveCurrentBatch)
+                    <details class="erp-setup-optional">
+                        <summary>
+                            <span>إعداد حزمة أرصدة جديدة بديلة (استبدال الحزمة الحالية)</span>
+                            <span class="erp-setup-pill is-neutral">اختياري</span>
+                        </summary>
+                        <div class="erp-setup-optional-body">
+                            @include('accounting.partials.opening-batch-editor')
+                        </div>
+                    </details>
+                @else
+                    <x-ui.panel class="space-y-5">
+                        <h2>إعداد حزمة الأرصدة الافتتاحية</h2>
+                        @include('accounting.partials.opening-batch-editor')
+                    </x-ui.panel>
+                @endif
+            @elseif(!$setup['activated_at'] && !$batch)
+                <x-ui.panel>
+                    <x-ui.empty-state
+                        title="لا توجد صلاحية لإعداد الأرصدة الافتتاحية"
+                        description="اطلب من مدير النظام صلاحية إدارة الأرصدة الافتتاحية لإدخال الأرصدة أو تسجيل البدء بدون أرصدة."
+                        icon="lock-closed"
+                    />
+                </x-ui.panel>
+            @endif
+
+            <div class="erp-setup-nav-bar">
+                <flux:button type="button" wire:click="goToStep(2)" icon="arrow-right">السابق: الضرائب</flux:button>
+                <flux:button type="button" variant="primary" wire:click="goToStep(4)" icon-trailing="arrow-left">التالي: المراجعة والتفعيل</flux:button>
+            </div>
+        </div>
+
+    {{-- STEP 4: Final Pre-Flight Checklist & Activation --}}
+    @elseif($activeStep === 4)
+        <div wire:key="setup-step-4" class="space-y-5">
+            @php
+                $readyToActivate = !$setup['activated_at']
+                    && $blockers === []
+                    && $batch
+                    && $batchVersionMatches
+                    && $batch->status === 'approved'
+                    && $reconciliation['balanced'];
+            @endphp
+
+            <x-ui.panel class="space-y-4">
+                <div class="erp-setup-card-header">
+                    <div>
+                        <h2>لوحة الجاهزية النهائية ومن المسؤول عن كل بند ناقص</h2>
+                        <p class="text-sm text-slate-600">توضح هذه القائمة حالة كل متطلب للتشغيل المالي، والأشخاص النشطين المفوضين باستكماله دون تعديل تلقائي أو تفعيل مسبق.</p>
+                    </div>
+                    <span class="erp-setup-pill {{ collect($readinessBoard)->every(fn ($i) => $i['done']) ? 'is-success' : 'is-warning' }}">
+                        مكتمل {{ collect($readinessBoard)->where('done', true)->count() }} من {{ count($readinessBoard) }}
+                    </span>
+                </div>
+                <ul class="erp-setup-checklist">
+                    @foreach($readinessBoard as $item)
+                        <li @class(['is-done' => $item['done']])>
+                            <div class="flex items-start gap-3">
+                                <span class="erp-setup-check-icon" aria-hidden="true">{{ $item['done'] ? '✓' : '!' }}</span>
+                                <div class="space-y-0.5">
+                                    <p class="text-sm font-semibold text-[#172b4d]">{{ $item['label'] }}</p>
+                                    <p class="text-xs text-slate-600">{{ $item['detail'] }}</p>
+                                    <p class="text-xs text-slate-700">
+                                        المسؤول (<span class="font-medium">{{ $item['responsible_title'] }}</span> · <bdi dir="ltr">{{ $item['permission_code'] }}</bdi>):
+                                        <strong>{{ $item['holders'] !== [] ? implode('، ', $item['holders']) : 'لا يوجد مستخدم نشط مفوض حالياً' }}</strong>
+                                    </p>
+                                    @if(!$item['done'] && $item['note'])
+                                        <p class="text-xs text-amber-800">{{ $item['note'] }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            @if(!$item['done'])
+                                <flux:button type="button" size="sm" wire:click="goToStep({{ $item['step'] }})">استكمال</flux:button>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </x-ui.panel>
+
+            <x-ui.panel class="space-y-4">
+                <h2>تفعيل الترحيل المالي</h2>
+                <p class="text-sm text-slate-600">
+                    التفعيل يرحّل حزمة الافتتاح المعتمدة في الأستاذ العام والموردين والعملاء والخزينة والمخزون معاً في معاملة واحدة لا تقبل التجزئة، ويُثبّت تاريخ التشغيل ليبدأ النظام بالعمل الفعلي.
+                </p>
+
+                @if($setup['activated_at'])
+                    <flux:callout variant="success" icon="check-circle" class="erp-feedback--success" role="status">
+                        <flux:callout.heading>تم التفعيل بنجاح</flux:callout.heading>
+                        <flux:callout.text>
+                            الترحيل المالي مفتوح بدءاً من <bdi dir="ltr">{{ $setup['go_live_date'] }}</bdi>. يمكنك الآن إدارة القيود والفواتير والتحصيل من مهام المالية.
+                        </flux:callout.text>
+                    </flux:callout>
+                    <div class="flex flex-wrap gap-2">
+                        <flux:button variant="primary" :href="route('finance.hub')" icon="squares-2x2" wire:navigate>الذهاب لمهام المالية</flux:button>
+                        @if(isset($nav['journals']))
+                            <flux:button :href="route('accounting.journals')" wire:navigate>القيود اليومية</flux:button>
+                        @endif
+                        @if(isset($nav['trial-balance']))
+                            <flux:button :href="route('accounting.trial-balance')" wire:navigate>ميزان المراجعة</flux:button>
+                        @endif
+                    </div>
+                @elseif($readyToActivate && $a->allows(auth()->id(), 'financial_activate'))
+                    <flux:button
+                        type="button"
+                        variant="primary"
+                        wire:click="activate({{ $batch->id }}, {{ $batch->version }})"
+                        wire:confirm="هل تؤكد ترحيل الأرصدة الافتتاحية المعتمدة وتثبيت تاريخ التشغيل وتفعيل الترحيل المالي؟ هذه العملية نهائية ولا يمكن التراجع عنها."
+                        wire:loading.attr="disabled"
+                    >
+                        ترحيل الافتتاح وتفعيل الترحيل المالي
+                    </flux:button>
+                @elseif($readyToActivate)
+                    <flux:callout variant="warning" icon="lock-closed" role="status">
+                        <flux:callout.heading>بانتظار صاحب صلاحية التفعيل المالي</flux:callout.heading>
+                        <flux:callout.text>جميع المتطلبات مكتملة، لكن تفعيل النظام المالي يتطلب صلاحية التفعيل المالي (M11.financial_activate).</flux:callout.text>
+                    </flux:callout>
+                @else
+                    <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
+                        <p class="text-sm text-amber-950">لا يمكن تفعيل الترحيل المالي قبل اكتمال البنود الستة أعلاه.</p>
+                        @if($firstIncompleteStep !== null && $firstIncompleteStep !== 4)
+                            <flux:button type="button" variant="primary" size="sm" wire:click="goToStep({{ $firstIncompleteStep }})">
+                                العودة إلى الخطوة {{ $arabicNumerals[$firstIncompleteStep] }}: {{ $stepStates[$firstIncompleteStep]['title'] }}
+                            </flux:button>
+                        @endif
+                    </div>
+                @endif
+            </x-ui.panel>
+
+            <div class="erp-setup-nav-bar">
+                <flux:button type="button" wire:click="goToStep(3)" icon="arrow-right">السابق: الأرصدة الافتتاحية</flux:button>
+            </div>
+        </div>
+    @endif
+
+    {{-- Secondary Collapsed Disclosure: Optional Module Account Mappings --}}
+    <details class="erp-setup-optional">
+        <summary>
+            <span>إعدادات اختيارية للوحدات المتقدمة (لا تمنع التفعيل المالي)</span>
+            <span class="erp-setup-pill is-neutral">اختياري · مربوط {{ $optionalMappedCount }} من 4</span>
+        </summary>
+        <div class="erp-setup-optional-body space-y-4">
+            <p class="text-sm text-slate-600">
+                تُطلب هذه الحسابات فقط عند استخدام دفعات العملاء المقدمة أو تكاليف عمل الصيانة المعتمدة أو إيراد عقود الخدمة المؤجل. بعد حفظ أي ربط اختياري لا يمكن تغييره لاحقاً.
+            </p>
+            <div class="grid gap-4 md:grid-cols-2">
+                @foreach(\App\Modules\Accounting\Application\FinancialActivation::OPTIONAL_MAPPINGS as $purpose => [$label, $kind])
+                    @php
+                        $isLocked = isset($configuration['mappings'][$purpose]);
+                        $isControl = \App\Modules\Accounting\Application\FinancialActivation::OPTIONAL_MAPPINGS[$purpose][2] ?? false;
+                    @endphp
+                    <form wire:submit="saveOptionalMapping('{{ $purpose }}')" class="erp-setup-map-card space-y-3" wire:key="optional-map-{{ $purpose }}">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                <span class="erp-setup-pill is-neutral">{{ $kindNames[$kind] ?? $kind }}</span>
+                                @if($isControl)
+                                    <span class="erp-setup-pill is-info">رقابي</span>
+                                @endif
+                                @if($isLocked)
+                                    <span class="erp-setup-pill is-success">مثبّت</span>
+                                @endif
+                            </div>
+                            @if(!$isLocked && $a->allows(auth()->id(), 'account_manage'))
+                                <button
+                                    type="button"
+                                    class="erp-setup-inline-link"
+                                    wire:click="openAccountModal('optional:{{ $purpose }}', '{{ $kind }}', '{{ $starterNames[$purpose] ?? $label }}')"
+                                >
+                                    + حساب جديد
+                                </button>
+                            @endif
+                        </div>
+
+                        <flux:select
+                            wire:model="optionalMappings.{{ $purpose }}"
+                            :label="$label"
+                            :description="$optionalDescriptions[$purpose] ?? null"
+                            :disabled="$isLocked"
+                        >
+                            <option value="">اختر حساب ترحيل مستقلًا</option>
+                            @foreach($accounts->where('kind', $kind) as $account)
+                                <option value="{{ $account->id }}">{{ $account->code }} · {{ $account->name }}</option>
+                            @endforeach
+                        </flux:select>
+
+                        @if(!$isLocked && $a->allows(auth()->id(), 'setup_manage'))
+                            <flux:button
+                                type="submit"
+                                size="sm"
+                                wire:confirm="تثبيت هذا الحساب الاختياري؟ لا يمكن تعديل الربط الاختياري بعد حفظه."
+                                wire:loading.attr="disabled"
+                            >
+                                حفظ الربط الاختياري
+                            </flux:button>
+                        @endif
+                    </form>
+                @endforeach
+            </div>
+        </div>
+    </details>
+
+    {{-- Modal 1: Quick Create Single Account --}}
+    <flux:modal wire:model="showAccountModal" class="w-full max-w-lg">
+        <form wire:submit="createQuickAccount" class="space-y-4">
+            <x-ui.validation-summary />
+            <flux:heading size="lg">إنشاء حساب جديد في دليل الحسابات</flux:heading>
+            <p class="text-sm text-slate-600">
+                سيُنشأ الحساب كحساب ترحيل نشط من تصنيف
+                <strong>{{ $kindNames[$newAccount['kind']] ?? $newAccount['kind'] }}</strong>
+                ويُختار تلقائياً في القائمة.
+            </p>
+            <flux:input wire:model="newAccount.code" label="كود الحساب" dir="ltr" required placeholder="مثال: 1104" />
+            <flux:input wire:model="newAccount.name" label="اسم الحساب" required />
+            <flux:select wire:model="newAccount.parent_id" label="الحساب الأب التجميعي (اختياري)">
+                <option value="">بدون أب (حساب رئيسي مباشر)</option>
+                @foreach($parentAccounts->where('kind', $newAccount['kind']) as $parent)
+                    <option value="{{ $parent->id }}">{{ $parent->code }} · {{ $parent->name }}</option>
+                @endforeach
+            </flux:select>
+            <div class="flex flex-wrap gap-3">
+                <flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء الحساب واختياره</flux:button>
+                <flux:button type="button" wire:click="$set('showAccountModal', false)">إلغاء</flux:button>
+            </div>
+        </form>
+    </flux:modal>
+
+    {{-- Modal 2: Bulk Create Missing Required Starter Accounts --}}
+    <flux:modal wire:model="showBulkAccountsModal" class="w-full max-w-3xl">
+        <form wire:submit="createSuggestedAccounts" class="space-y-4">
+            <x-ui.validation-summary />
+            <flux:heading size="lg">إنشاء قالب الدليل المختصر للشركة</flux:heading>
+            <p class="text-sm text-slate-600">
+                راجع الأكواد والأسماء المقترحة للأغراض الـ 15 الإلزامية وكذلك حسابات الشركاء والعربون وإيراد الإصلاح والمصروفات لمراجعتها قبل الحفظ أو الاعتماد.
+            </p>
+            @if($suggestedAccounts === [] && $suggestedExtraAccounts === [])
+                <p class="rounded border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">كل الحسابات المقترحة موجودة أو محددة بالفعل.</p>
+            @else
+                <div class="max-h-[58vh] space-y-4 overflow-y-auto pe-1">
+                    @if($suggestedAccounts !== [])
+                        <h3 class="text-xs font-bold text-slate-600">١. الحسابات الإلزامية للربط (15 غرضاً)</h3>
+                        <div class="space-y-2.5">
+                            @foreach($suggestedAccounts as $idx => $row)
+                                <div wire:key="suggested-acc-{{ $row['purpose'] }}" class="grid gap-3 rounded-lg border border-slate-200 bg-slate-50/70 p-3 sm:grid-cols-[8.5rem_1fr] sm:items-end">
+                                    <div class="flex items-center gap-2 sm:col-span-2">
+                                        <flux:checkbox wire:model="suggestedAccounts.{{ $idx }}.selected" :label="$row['label'].' ('.$kindNames[$row['kind']].')'" />
+                                    </div>
+                                    <flux:input wire:model="suggestedAccounts.{{ $idx }}.code" label="الكود" dir="ltr" required />
+                                    <flux:input wire:model="suggestedAccounts.{{ $idx }}.name" label="اسم الحساب المقترح" required />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if($suggestedExtraAccounts !== [])
+                        <h3 class="pt-2 text-xs font-bold text-slate-600">٢. حسابات إضافية للشركاء والعربون والإصلاح والمصروفات</h3>
+                        <div class="space-y-2.5">
+                            @foreach($suggestedExtraAccounts as $eIdx => $row)
+                                <div wire:key="suggested-extra-{{ $row['key'] }}" class="grid gap-3 rounded-lg border border-slate-200 bg-blue-50/40 p-3 sm:grid-cols-[8.5rem_1fr] sm:items-end">
+                                    <div class="flex items-center gap-2 sm:col-span-2">
+                                        <flux:checkbox wire:model="suggestedExtraAccounts.{{ $eIdx }}.selected" :label="$row['name'].' ('.($kindNames[$row['kind']] ?? $row['kind']).((! ($row['postable'] ?? true)) ? ' · حساب تجميعي أب' : '').')'" />
+                                    </div>
+                                    <flux:input wire:model="suggestedExtraAccounts.{{ $eIdx }}.code" label="الكود" dir="ltr" required />
+                                    <flux:input wire:model="suggestedExtraAccounts.{{ $eIdx }}.name" label="اسم الحساب المقترح" required />
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endif
+            <div class="flex flex-wrap gap-3">
+                @if($suggestedAccounts !== [] || $suggestedExtraAccounts !== [])
+                    <flux:button type="submit" variant="primary" wire:loading.attr="disabled">إنشاء الحسابات المحددة وربطها للمراجعة</flux:button>
+                @endif
+                <flux:button type="button" wire:click="$set('showBulkAccountsModal', false)">إلغاء</flux:button>
+            </div>
+        </form>
+    </flux:modal>
+
+    {{-- Modal 3: Open Financial Period --}}
+    <flux:modal wire:model="showPeriodModal" class="w-full max-w-lg">
+        <form wire:submit="createPeriod" class="space-y-4">
+            <x-ui.validation-summary />
+            <flux:heading size="lg">فتح فترة محاسبية جديدة</flux:heading>
+            <p class="text-sm text-slate-600">يجب أن تقع بداية الفترة ونهايتها حول تاريخ التشغيل الفعلي دون تداخل مع فترة أخرى.</p>
+            <flux:input wire:model="newPeriod.name" label="اسم الفترة المحاسبية" placeholder="مثال: السنة المالية 2026" required />
+            <div class="grid gap-4 sm:grid-cols-2">
+                <flux:input wire:model="newPeriod.starts_on" type="date" label="تاريخ البداية" required />
+                <flux:input wire:model="newPeriod.ends_on" type="date" label="تاريخ النهاية" required />
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <flux:button type="submit" variant="primary" wire:loading.attr="disabled">فتح الفترة</flux:button>
+                <flux:button type="button" wire:click="$set('showPeriodModal', false)">إلغاء</flux:button>
+            </div>
+        </form>
+    </flux:modal>
+
+    {{-- Modal 4: End / Withdraw Tax Rule --}}
+    <flux:modal wire:model="showEndTaxModal" class="w-full max-w-lg">
+        <form wire:submit="endTaxRule" class="space-y-4">
+            <x-ui.validation-summary />
+            <flux:heading size="lg">إنهاء أو سحب قاعدة ضريبية</flux:heading>
+            <p class="text-sm text-slate-600">تظل المستندات الصادرة سابقاً محتفظة بلقطاتها التاريخية دون تعديل.</p>
+            <flux:input wire:model="taxEnd.ends_on" type="date" label="آخر يوم سريان (غير مطلوب عند السحب قبل التفعيل)" />
+            <flux:textarea wire:model="taxEnd.reason" rows="2" label="سبب التغيير ومرجع التحقق" required />
+            @if(!$setup['activated_at'])
+                <flux:checkbox wire:model="taxEnd.withdraw" label="سحب القاعدة بالكامل قبل التفعيل (لأنها أُدخلت بالخطأ)" />
+            @endif
+            <div class="flex flex-wrap gap-3">
+                <flux:button type="submit" variant="primary" wire:loading.attr="disabled">تأكيد التسجيل</flux:button>
+                <flux:button type="button" wire:click="$set('showEndTaxModal', false)">إلغاء</flux:button>
+            </div>
+        </form>
+    </flux:modal>
+
+    <p class="text-xs text-slate-500" wire:loading role="status">جارٍ تنفيذ الطلب، انتظر اكتمال العملية…</p>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Modules\FieldMaintenance\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +34,9 @@ final class MaintenanceCostProposals
 
     public function matching(int $actor, int $proposer, string $kind, int $branch, ?int $work, array $data): int
     {
-        abort_if($actor === $proposer, 403, 'الاعتماد يتطلب شخصًا مستقلًا.');
+        if ($actor === $proposer) {
+            abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'الاعتماد يتطلب شخصًا مستقلًا.');
+        }
         $proposal = DB::table('maintenance_cost_proposals')->where('kind', $kind)->where('branch_id', $branch)->where('work_order_id', $work)->where('created_by', $proposer)->where('payload_hash', $this->hash($data))->orderByDesc('id')->first();
         abort_unless($proposal, 409, 'يلزم تقديم مرجع مطابق من مقدمه الفعلي قبل الاعتماد.');
 

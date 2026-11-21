@@ -3,6 +3,7 @@
 namespace App\Modules\WorkshopRepairs\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Sales\Application\Contracts\QuotationPricing;
@@ -13,7 +14,17 @@ final class WorkshopEstimates
 {
     public function propose(int $actor, int $job, int $version, array $input): int
     {
-        $rules = ['product_id' => 'required|integer', 'date' => 'required|date_format:Y-m-d', 'valid_until' => 'required|date_format:Y-m-d|after_or_equal:date', 'warranty_days' => 'required|integer|min:0|max:3650', 'warranty_conditions' => 'required|string|min:5|max:5000', 'pricing_reference' => 'required|string|min:5|max:5000'];
+        $input['tax_treatment'] ??= 'rule';
+        $hasWarranty = (int) ($input['warranty_days'] ?? 0) > 0;
+        $rules = [
+            'product_id' => 'required|integer', 'date' => 'required|date_format:Y-m-d',
+            'valid_until' => 'required|date_format:Y-m-d|after_or_equal:date',
+            'warranty_days' => 'required|integer|min:0|max:3650',
+            'warranty_conditions' => $hasWarranty ? 'required|string|min:5|max:5000' : 'nullable|string|max:5000',
+            'pricing_reference' => 'required|string|min:5|max:5000',
+            'tax_treatment' => 'required|in:rule,vat_14,exempt_0',
+            'tax_exempt_reason' => ($input['tax_treatment'] ?? 'rule') === 'exempt_0' ? 'required|string|min:5|max:2000' : 'nullable|string|max:2000',
+        ];
         foreach (['parts_amount', 'labor_amount', 'other_amount', 'billable_amount'] as $field) {
             $rules[$field] = ['required', 'string', 'regex:/^\d{1,16}(\.\d{1,2})?$/'];
         }
@@ -21,6 +32,8 @@ final class WorkshopEstimates
             $rules[$field] = ['required', 'string', 'regex:/^\d{1,16}(\.\d{1,2})?$/'];
         }
         $d = Validator::make($input, $rules)->validate();
+        $d['warranty_conditions'] = trim((string) ($d['warranty_conditions'] ?? '')) ?: 'بدون ضمان';
+        $d['tax_exempt_reason'] = $d['tax_treatment'] === 'exempt_0' ? trim((string) ($d['tax_exempt_reason'] ?? '')) : null;
 
         return DB::transaction(function () use ($actor, $job, $version, $d) {
             $a = app(WorkshopActions::class);
@@ -37,13 +50,21 @@ final class WorkshopEstimates
             abort_unless(bccomp($selling, '0', 2) >= 0 && bccomp($selling, $d['billable_amount'], 2) === 0, 422, 'قيمة العرض يجب أن تساوي أسعار البيع بعد الخصم.');
             $price = app(QuotationPricing::class)->suggested($actor, (int) $d['product_id'], (int) $p['base_unit_id'], $d['date']);
             abort_unless($billable ? bccomp($d['billable_amount'], '0', 2) > 0 : bccomp($d['billable_amount'], '0', 2) === 0, 422);
-            $tax = app(AccountingApi::class)->calculateTax($actor, 'sale', $d['date'], 'exclusive', [['product_id' => (int) $d['product_id'], 'quantity' => '1', 'unit_price' => $d['billable_amount'], 'discount_amount' => '0.00']]);
+            $tax = app(AccountingApi::class)->calculateTax(
+                $actor,
+                'sale',
+                $d['date'],
+                'exclusive',
+                [['product_id' => (int) $d['product_id'], 'quantity' => '1', 'unit_price' => $d['billable_amount'], 'discount_amount' => '0.00']],
+                '0',
+                ['treatment' => $d['tax_treatment'], 'reason' => $d['tax_exempt_reason']]
+            );
             $line = $tax['lines'][0];
             $line['approved_tax_date'] = $d['date'];
             $revision = (int) DB::table('workshop_estimates')->where('job_id', $job)->max('revision') + 1;
             $commercial = ['selling' => array_intersect_key($d, array_flip(['parts_selling', 'labor_selling', 'other_selling', 'discount_amount'])), 'price_source' => $price, 'service_unit_id' => $p['base_unit_id'], 'exception' => $price === null || bccomp($price['amount'], $d['billable_amount'], 8) !== 0, 'reference' => $d['pricing_reference']];
             $id = DB::table('workshop_estimates')->insertGetId(array_diff_key($d, array_flip(['date', 'parts_selling', 'labor_selling', 'other_selling', 'discount_amount'])) + ['commercial_snapshot' => json_encode($commercial, JSON_THROW_ON_ERROR), 'job_id' => $job, 'revision' => $revision, 'tax_amount' => $line['tax'], 'tax_snapshot' => json_encode($line, JSON_THROW_ON_ERROR), 'proposed_by' => $actor]);
-            $a->touch($actor, $w, 'estimate.proposed', ['estimate_id' => $id], ['status' => 'waiting_approval']);
+            $a->touch($actor, $w, 'estimate.proposed', ['estimate_id' => $id, 'tax_treatment' => $d['tax_treatment'], 'tax_exempt_reason' => $d['tax_exempt_reason']], ['status' => 'waiting_approval']);
 
             return $id;
         }, 5);
@@ -84,11 +105,14 @@ final class WorkshopEstimates
             $r = DB::table('workshop_rates')->lockForUpdate()->find($rate);
             abort_unless($r, 404);
             app(WorkshopAccess::class)->authorize($actor, $r->branch_id, 'rate_approve');
-            abort_if($r->proposed_by === $actor, 403);
+            $selfApproved = $r->proposed_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'workshops'), 403, 'اعتماد المعدل يتطلب شخصاً مستقلاً.');
+            }
             abort_unless($r->approved_by === null, 409);
             abort_if(DB::table('workshop_rates')->where('branch_id', $r->branch_id)->where('technician_id', $r->technician_id)->whereNotNull('approved_by')->where('effective_from', '<=', $r->effective_to)->where('effective_to', '>=', $r->effective_from)->exists(), 409);
             DB::table('workshop_rates')->where('id', $rate)->update(['approved_by' => $actor]);
-            app(WorkshopActions::class)->audit($actor, null, null, 'rate.approved', ['rate_id' => $rate]);
+            app(WorkshopActions::class)->audit($actor, null, null, 'rate.approved', ['rate_id' => $rate, 'self_approved' => $selfApproved]);
         }, 5);
     }
 }

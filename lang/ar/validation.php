@@ -35,9 +35,29 @@ $fieldNames = [
     'key' => 'مفتاح الطلب', 'creation_key' => 'مفتاح الطلب', 'serials' => 'الأرقام المسلسلة', 'serial_number' => 'الرقم المسلسل',
     'rfq_id' => 'طلب عروض الأسعار', 'award_id' => 'الترسية', 'order_line_id' => 'بند أمر الشراء',
     'receipt_line_id' => 'بند استلام المشتريات', 'delivery_line_id' => 'بند التسليم',
+    'location' => 'موقع العهدة', 'warranty_days' => 'مدة الضمان بالأيام', 'warranty_conditions' => 'شروط الضمان',
+    'pricing_reference' => 'مرجع التسعير أو سبب الاستثناء', 'equipment_description' => 'وصف المعدة',
+    'accessories' => 'الملحقات المستلمة', 'reported_fault' => 'العطل المبلغ',
+    'arrival_condition' => 'الحالة عند الوصول', 'acknowledgment' => 'إقرار الاستلام / التسليم',
+    'receivedAt' => 'وقت الاستلام', 'delivered_at' => 'وقت التسليم', 'recipient' => 'اسم المستلم',
+    'final_condition' => 'الحالة النهائية للمعدة', 'remainingFaults' => 'الأعطال المتبقية',
+    'diagnosis' => 'التشخيص', 'planned_work' => 'خطة الإصلاح', 'fault_classification' => 'تصنيف العطل',
+    'estimated_minutes' => 'الدقائق المقدرة', 'estimated_completion' => 'الإنجاز المتوقع',
+    'required_tests' => 'خطة الاختبارات', 'parts_amount' => 'تكلفة القطع المقدرة',
+    'labor_amount' => 'تكلفة العمل المقدرة', 'other_amount' => 'تكاليف أخرى مقدرة',
+    'billable_amount' => 'قيمة العرض الصافية', 'parts_selling' => 'سعر بيع القطع',
+    'labor_selling' => 'أجر الإصلاح للعميل', 'other_selling' => 'رسوم أخرى',
+    'hourly_cost' => 'تكلفة الساعة', 'effective_from' => 'تاريخ بداية السريان',
+    'effective_to' => 'تاريخ نهاية السريان', 'evidence' => 'الدليل / المرجع',
+    'specialty' => 'التخصص', 'capacity' => 'الطاقة الاستيعابية', 'supervisor_id' => 'المشرف',
+    'schedule' => 'مواعيد العمل', 'work_performed' => 'الأعمال المنفذة',
+    'observations' => 'الملاحظات الفنية', 'work_type' => 'نوع العمل', 'outcome' => 'نتيجة الاختبار',
+    'results' => 'نتائج وملاحظات الاختبار', 'condition' => 'الحالة', 'disposition' => 'حالة قطعة العميل',
+    'technicianId' => 'الفني', 'workshopId' => 'الورشة', 'approvalEvidence' => 'مرجع الاعتماد / الدليل',
+    'tax_treatment' => 'المعاملة الضريبية', 'tax_exempt_reason' => 'سبب عدم الخضوع للضريبة',
 ];
 $attributes = $fieldNames;
-foreach (['form', 'contact', 'address', 'billing', 'shipping', 'shift', 'schedule', 'punch', 'adjustment', 'reservation', 'assignment', 'collection', 'commercial', 'configuration', 'part', 'taxRule', 'acceptance'] as $prefix) {
+foreach (['form', 'contact', 'address', 'billing', 'shipping', 'shift', 'schedule', 'punch', 'adjustment', 'reservation', 'assignment', 'collection', 'commercial', 'configuration', 'part', 'taxRule', 'acceptance', 'estimate', 'diagnosis', 'delivery', 'record', 'test', 'rate', 'customerPart', 'taxEnd'] as $prefix) {
     foreach ($fieldNames as $name => $label) {
         $attributes[$prefix.'.'.$name] = $label;
     }
@@ -47,6 +67,14 @@ foreach (['lines', 'form.lines', 'receiptLines'] as $prefix) {
         $attributes[$prefix.'.*.'.$name] = $label.' في البند :position';
     }
 }
+$attributes['required_tests.*.name'] = 'اسم الاختبار :position';
+$attributes['diagnosis.required_tests.*.name'] = 'اسم الاختبار :position';
+$attributes['schedule.*.day'] = 'يوم العمل :position';
+$attributes['schedule.*.start'] = 'بداية العمل :position';
+$attributes['schedule.*.end'] = 'نهاية العمل :position';
+$attributes['form.schedule.*.day'] = 'يوم العمل :position';
+$attributes['form.schedule.*.start'] = 'بداية العمل :position';
+$attributes['form.schedule.*.end'] = 'نهاية العمل :position';
 
 return [
     'accepted_if' => 'يجب قبول :attribute عندما تكون قيمة :other هي :value.',

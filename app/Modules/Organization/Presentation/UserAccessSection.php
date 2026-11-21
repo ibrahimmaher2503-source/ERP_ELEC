@@ -127,20 +127,34 @@ class UserAccessSection extends Component
         $target = $this->target();
         $access = app(PermissionAccess::class);
         $branches = DB::table('branches')->orderBy('name')->get(['id', 'name', 'active']);
+        $roleIds = DB::table('user_roles')->where('user_id', $this->user)->pluck('role_id');
+        $roles = DB::table('roles')->whereIn('id', $roleIds)->get();
+        $isAutoScopedAdmin = $target->active && $roles->contains('code', 'Administrator');
+        $warehouses = $this->historyOnly ? collect() : collect(app(InventoryApi::class)->warehouseDirectory(Auth::id()));
+        $warehouseNames = $warehouses->pluck('name', 'id');
+        $warehouseScopeMap = $this->historyOnly ? [] : $access->warehouseScopeMap($target->id);
         $effective = [];
         $warehouseScopes = $this->historyOnly ? collect() : DB::table('user_warehouse_scopes')->where('user_id', $target->id)->get();
+        $missingWarehouseScopeWarning = false;
+        $directWarehouseCodes = $this->historyOnly ? [] : DB::table('access_grants')->where('user_id', $target->id)->pluck('permission_code')->all();
         foreach ($this->historyOnly ? [] : PermissionCatalog::DEFINITIONS as $code => [$label, $scope]) {
             if ($code === 'M01.security_admin' && ! $target->email_verified_at) {
                 continue;
             }
             if ($scope === 'warehouse') {
+                if (! $isAutoScopedAdmin && $target->active && $warehouseScopes->isEmpty() && ($access->roleCapability($target->id, $code) || in_array($code, $directWarehouseCodes, true))) {
+                    $missingWarehouseScopeWarning = true;
+                }
                 $warehouseLabels = [];
-                foreach ($warehouseScopes as $w) {
-                    if ($access->allows($target, $code, $w->branch_id, $w->warehouse_id)) {
-                        $warehouseLabels[] = 'مستودع #'.$w->warehouse_id;
+                foreach ($warehouseScopeMap as $warehouseId => $branchId) {
+                    if ($access->allows($target, $code, $branchId, $warehouseId)) {
+                        $warehouseLabels[] = $warehouseNames[$warehouseId] ?? 'مستودع #'.$warehouseId;
                     }
                 }
                 if ($warehouseLabels !== []) {
+                    if ($isAutoScopedAdmin && count($warehouseLabels) > 4) {
+                        $warehouseLabels = ['كل المستودعات تلقائيًا (مدير النظام · '.count($warehouseLabels).')'];
+                    }
                     $effective[] = ['label' => $label, 'scope' => 'branch', 'branches' => $warehouseLabels];
                 }
 
@@ -151,12 +165,13 @@ class UserAccessSection extends Component
                 $effective[] = ['label' => $label, 'scope' => $scope, 'branches' => $branches->whereIn('id', $ids)->pluck('name')->all()];
             }
         }
-        $roleIds = DB::table('user_roles')->where('user_id', $this->user)->pluck('role_id');
 
         $data = [
-            'warehouses' => $this->historyOnly ? collect() : collect(app(InventoryApi::class)->warehouseDirectory(Auth::id())),
+            'warehouses' => $warehouses,
             'warehouseScopes' => $warehouseScopes->pluck('warehouse_id')->all(),
-            'roles' => DB::table('roles')->whereIn('id', $roleIds)->get(),
+            'roles' => $roles,
+            'isAutoScopedAdmin' => $isAutoScopedAdmin,
+            'missingWarehouseScopeWarning' => $missingWarehouseScopeWarning,
             'availableRoles' => DB::table('roles')->whereNotIn('id', $roleIds)->orderBy('id')->get(),
             'branches' => $branches,
             'scopes' => $this->historyOnly ? collect() : DB::table('user_branch_scopes as s')->join('branches as b', 'b.id', '=', 's.branch_id')->where('s.user_id', $this->user)->get(['b.id', 'b.name', 'b.active']),

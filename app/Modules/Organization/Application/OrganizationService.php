@@ -98,6 +98,15 @@ final class OrganizationService implements OrganizationApi
         return array_keys(array_filter(app(PermissionAccess::class)->scopedBranches($actor), fn ($branch) => $branch->active));
     }
 
+    public function projectScopedBranchOptions(int $actor): array
+    {
+        $this->actor($actor);
+        $branches = array_values(array_filter(app(PermissionAccess::class)->scopedBranches($actor), fn ($branch) => $branch->active));
+        usort($branches, fn ($a, $b) => strcmp($a->name, $b->name));
+
+        return array_map(fn ($branch) => ['id' => (int) $branch->id, 'name' => (string) $branch->name], $branches);
+    }
+
     public function projectBranchMember(int $actor, int $branch): bool
     {
         $this->actor($actor);
@@ -111,7 +120,17 @@ final class OrganizationService implements OrganizationApi
             throw new ContractException(ErrorCode::Forbidden, 'يلزم نطاق فرع.');
         }
 
-        return DB::table('users as u')->join('user_branch_scopes as s', 's.user_id', '=', 'u.id')->where('s.branch_id', $branch)->where('u.active', true)->whereNotNull('u.email_verified_at')->orderBy('u.name')->get(['u.id', 'u.name'])->map(fn ($u) => (array) $u)->all();
+        return DB::table('users as u')
+            ->where('u.active', true)
+            ->whereNotNull('u.email_verified_at')
+            ->where(function ($q) use ($branch) {
+                $q->whereExists(fn ($s) => $s->selectRaw('1')->from('user_branch_scopes as bs')->whereColumn('bs.user_id', 'u.id')->where('bs.branch_id', $branch))
+                    ->orWhereExists(fn ($r) => $r->selectRaw('1')->from('user_roles as ur')->join('roles as ro', 'ro.id', '=', 'ur.role_id')->whereColumn('ur.user_id', 'u.id')->where('ro.code', 'Administrator'));
+            })
+            ->orderBy('u.name')
+            ->get(['u.id', 'u.name'])
+            ->map(fn ($u) => (array) $u)
+            ->all();
     }
 
     public function projectParticipantNames(int $actor, int $branch, array $users): array
@@ -223,6 +242,57 @@ final class OrganizationService implements OrganizationApi
         $this->actor($actorId);
 
         return DB::table('user_roles')->where('user_id', $actorId)->where('role_id', $roleId)->exists();
+    }
+
+    public function allowsSelfApproval(int $actorId, string $scope): bool
+    {
+        return app(SelfApprovalPolicy::class)->allows($actorId, $scope);
+    }
+
+    public function permissionHolders(int $actorId, array $permissionCodes): array
+    {
+        $actor = $this->actor($actorId);
+        $access = app(PermissionAccess::class);
+        $allowed = $access->allows($actor, 'M11.setup_view')
+            || $access->allows($actor, 'M01.security_admin')
+            || $access->permissionBranches($actor->id, 'M01.user_view') !== [];
+        if (! $allowed) {
+            throw new ContractException(ErrorCode::Forbidden, 'صلاحية عرض المسؤوليات غير متاحة.');
+        }
+
+        $result = [];
+        foreach (array_unique(array_filter($permissionCodes, fn ($c) => is_string($c) && isset(PermissionCatalog::DEFINITIONS[$c]))) as $code) {
+            $roles = DB::table('roles as r')
+                ->where(function ($q) use ($code): void {
+                    $q->where('r.code', 'Administrator')
+                        ->orWhereExists(fn ($rp) => $rp->selectRaw('1')->from('role_permissions as p')->whereColumn('p.role_id', 'r.id')->where('p.permission_code', $code));
+                })
+                ->orderBy('r.id')
+                ->pluck('r.name')
+                ->all();
+
+            $users = DB::table('users as u')
+                ->where('u.active', true)
+                ->whereNotNull('u.email_verified_at')
+                ->where(function ($q) use ($code): void {
+                    $q->whereExists(fn ($r) => $r->selectRaw('1')->from('user_roles as ur')->join('roles as ro', 'ro.id', '=', 'ur.role_id')->whereColumn('ur.user_id', 'u.id')->where('ro.code', 'Administrator'))
+                        ->orWhereExists(fn ($rp) => $rp->selectRaw('1')->from('user_roles as ur')->join('role_permissions as p', 'p.role_id', '=', 'ur.role_id')->whereColumn('ur.user_id', 'u.id')->where('p.permission_code', $code))
+                        ->orWhereExists(fn ($ag) => $ag->selectRaw('1')->from('access_grants as g')->whereColumn('g.user_id', 'u.id')->where('g.permission_code', $code));
+                })
+                ->orderBy('u.name')
+                ->get(['u.id', 'u.name'])
+                ->map(fn ($u) => ['id' => (int) $u->id, 'name' => (string) $u->name])
+                ->all();
+
+            $result[$code] = [
+                'code' => $code,
+                'label' => PermissionCatalog::DEFINITIONS[$code][0],
+                'roles' => $roles,
+                'users' => $users,
+            ];
+        }
+
+        return $result;
     }
 
     private function actor(int $id): User

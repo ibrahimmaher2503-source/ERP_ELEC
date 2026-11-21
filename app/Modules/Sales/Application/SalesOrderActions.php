@@ -2,6 +2,8 @@
 
 namespace App\Modules\Sales\Application;
 
+use App\Modules\Products\Application\Contracts\GetProductRequest;
+use App\Modules\Products\Application\Contracts\ProductsApi;
 use App\Modules\Sales\Application\Contracts\QuotationPricing;
 use App\Modules\Sales\Domain\SalesOrder;
 use App\Modules\Sales\Domain\SalesOrderChanged;
@@ -28,7 +30,7 @@ final class SalesOrderActions
 
     public function snapshot(SalesOrder $r): array
     {
-        return ['order' => $r->only(['branch_id', 'branch_snapshot', 'customer_id', 'customer_snapshot', 'source_type', 'project_name', 'customer_reference', 'order_date', 'requested_delivery_date', 'currency', 'discount_mode', 'discount_value', 'payment_terms', 'delivery_terms', 'notes', 'calculation']), 'lines' => $r->lines->map(fn ($l) => $l->only(['position', 'product_id', 'unit_id', 'product_snapshot', 'description', 'quantity', 'suggested_price', 'requested_price', 'price_source', 'discount_mode', 'discount_value', 'override_reason']))->all()];
+        return ['order' => $r->only(['branch_id', 'branch_snapshot', 'customer_id', 'customer_snapshot', 'source_type', 'project_name', 'customer_reference', 'order_date', 'requested_delivery_date', 'currency', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason', 'payment_terms', 'delivery_terms', 'notes', 'calculation']), 'lines' => $r->lines->map(fn ($l) => $l->only(['position', 'product_id', 'unit_id', 'product_snapshot', 'description', 'quantity', 'suggested_price', 'requested_price', 'price_source', 'discount_mode', 'discount_value', 'override_reason', 'spec_model', 'spec_type', 'spec_ampere', 'spec_kilo', 'serial_reference', 'accessories_note']))->all()];
     }
 
     public function save(int $actor, array $input, ?int $id = null, ?int $expectedVersion = null): SalesOrder
@@ -41,11 +43,19 @@ final class SalesOrderActions
             'requested_delivery_date' => ['nullable', 'date_format:Y-m-d', 'after_or_equal:order_date'],
             'project_name' => ['nullable', 'string', 'max:200'], 'customer_reference' => ['nullable', 'string', 'max:100'],
             'discount_mode' => ['required', Rule::in(['percent', 'fixed'])], 'discount_value' => ['required', 'string'],
+            'tax_treatment' => ['sometimes', Rule::in(['rule', 'vat_14', 'exempt_0'])],
+            'tax_exempt_reason' => [($input['tax_treatment'] ?? 'rule') === 'exempt_0' ? 'required' : 'nullable', 'string', ...($input['tax_treatment'] ?? 'rule') === 'exempt_0' ? ['min:5', 'max:2000'] : ['max:2000']],
             'payment_terms' => ['nullable', 'string', 'max:4000'], 'delivery_terms' => ['nullable', 'string', 'max:4000'], 'notes' => ['nullable', 'string', 'max:10000'],
             'lines' => ['required', 'array', 'min:1', 'max:500'], 'lines.*' => ['array'], 'lines.*.product_id' => ['required', 'integer', 'min:1'],
             'lines.*.unit_id' => ['required', 'integer', 'min:1'], 'lines.*.quantity' => ['required', 'string'], 'lines.*.requested_price' => ['nullable', 'string'],
             'lines.*.description' => ['nullable', 'string', 'max:4000'], 'lines.*.discount_mode' => ['required', Rule::in(['percent', 'fixed'])],
             'lines.*.discount_value' => ['required', 'string'], 'lines.*.override_reason' => ['nullable', 'string', 'max:2000'],
+            'lines.*.spec_model' => ['nullable', 'string', 'max:200', 'not_regex:/\x00/'],
+            'lines.*.spec_type' => ['nullable', 'string', 'max:200', 'not_regex:/\x00/'],
+            'lines.*.spec_ampere' => ['nullable', 'string', 'max:120', 'not_regex:/\x00/'],
+            'lines.*.spec_kilo' => ['nullable', 'string', 'max:120', 'not_regex:/\x00/'],
+            'lines.*.serial_reference' => ['nullable', 'string', 'max:4000', 'not_regex:/\x00/'],
+            'lines.*.accessories_note' => ['nullable', 'string', 'max:4000', 'not_regex:/\x00/'],
         ])->validate();
         $data['requested_delivery_date'] = ($data['requested_delivery_date'] ?? '') === '' ? null : $data['requested_delivery_date'];
 
@@ -84,12 +94,35 @@ final class SalesOrderActions
                 if ($price !== null) {
                     DraftAmounts::decimal($price['amount'] ?? null, "lines.$i.suggested_price");
                 }
-                $lines[] = ['position' => $i + 1, 'product_id' => $snapshot['id'], 'unit_id' => (int) $line['unit_id'], 'product_snapshot' => $snapshot, 'description' => trim($line['description'] ?? '') ?: $snapshot['name'], 'quantity' => $line['quantity'], 'requested_price' => ($line['requested_price'] ?? '') === '' ? null : $line['requested_price'], 'suggested_price' => $price['amount'] ?? null, 'price_source' => $price, 'discount_mode' => $line['discount_mode'], 'discount_value' => $line['discount_value'], 'override_reason' => $line['override_reason'] ?? null];
+                $productRecord = app(ProductsApi::class)->getProduct(new GetProductRequest($actor, (int) $line['product_id']))->product;
+                $defaults = app(ProductsApi::class)->extractGuidedSpec($productRecord);
+                $lines[] = [
+                    'position' => $i + 1,
+                    'product_id' => $snapshot['id'],
+                    'unit_id' => (int) $line['unit_id'],
+                    'product_snapshot' => $snapshot,
+                    'description' => trim($line['description'] ?? '') ?: $snapshot['name'],
+                    'quantity' => $line['quantity'],
+                    'requested_price' => ($line['requested_price'] ?? '') === '' ? null : $line['requested_price'],
+                    'suggested_price' => $price['amount'] ?? null,
+                    'price_source' => $price,
+                    'discount_mode' => $line['discount_mode'],
+                    'discount_value' => $line['discount_value'],
+                    'override_reason' => $line['override_reason'] ?? null,
+                    'spec_model' => trim((string) ($line['spec_model'] ?? '')) ?: ($defaults['spec_model'] ?: null),
+                    'spec_type' => trim((string) ($line['spec_type'] ?? '')) ?: ($defaults['spec_type'] ?: null),
+                    'spec_ampere' => trim((string) ($line['spec_ampere'] ?? '')) ?: ($defaults['spec_ampere'] ?: null),
+                    'spec_kilo' => trim((string) ($line['spec_kilo'] ?? '')) ?: ($defaults['spec_kilo'] ?: null),
+                    'serial_reference' => trim((string) ($line['serial_reference'] ?? '')) ?: null,
+                    'accessories_note' => trim((string) ($line['accessories_note'] ?? '')) ?: null,
+                ];
             }
             $before = $id === null ? null : $this->snapshot($r->load('lines'));
             $calculation = app(DraftAmounts::class)->calculate($lines, $data['discount_mode'], $data['discount_value']);
             $creationKey = $data['creation_key'] ?? null;
             unset($data['lines'], $data['source_type'], $data['creation_key']);
+            $data['tax_treatment'] ??= 'rule';
+            $data['tax_exempt_reason'] = $data['tax_treatment'] === 'exempt_0' ? trim((string) ($data['tax_exempt_reason'] ?? '')) : null;
             $r->fill($data);
             $r->branch_snapshot = $branch;
             $r->customer_snapshot = $customer;

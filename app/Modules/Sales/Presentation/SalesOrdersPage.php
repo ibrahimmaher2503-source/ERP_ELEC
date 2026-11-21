@@ -2,12 +2,15 @@
 
 namespace App\Modules\Sales\Presentation;
 
+use App\Modules\Parties\Application\CustomerAccess;
 use App\Modules\Sales\Application\SalesOrderAccess;
 use App\Modules\Sales\Application\SalesOrderCatalog;
 use App\Modules\Sales\Application\SalesOrderExportDefinition;
+use App\Modules\Sales\Application\SalesOrderProgress;
 use App\Modules\Sales\Application\SalesOrderQuery;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,20 +18,31 @@ class SalesOrdersPage extends Component
 {
     use WithPagination;
 
+    #[Url(except: '')]
     public string $search = '';
 
+    #[Url(except: '')]
     public string $status = '';
 
+    #[Url(except: '')]
     public string $branch = '';
 
+    #[Url(except: '')]
+    public string $source = '';
+
+    #[Url(except: '')]
     public string $from = '';
 
+    #[Url(except: '')]
     public string $to = '';
 
+    #[Url(except: 'order_date')]
     public string $sort = 'order_date';
 
+    #[Url(except: 'desc')]
     public string $direction = 'desc';
 
+    #[Url(except: 10)]
     public int $perPage = 10;
 
     public function boot(): void
@@ -43,7 +57,13 @@ class SalesOrdersPage extends Component
 
     public function clearFilters(): void
     {
-        $this->reset('search', 'status', 'branch', 'from', 'to');
+        $this->reset('search', 'status', 'branch', 'source', 'from', 'to');
+        $this->resetPage();
+    }
+
+    public function toggleStatus(string $value): void
+    {
+        $this->status = $this->status === $value ? '' : $value;
         $this->resetPage();
     }
 
@@ -61,6 +81,7 @@ class SalesOrdersPage extends Component
             'search' => $this->search,
             'status' => $this->status,
             'branch' => $this->branch,
+            'source' => $this->source,
             'from' => $this->from,
             'to' => $this->to,
         ];
@@ -94,24 +115,46 @@ class SalesOrdersPage extends Component
             $query = null;
         }
         $sort = in_array($this->sort, ['order_date', 'number', 'created_at'], true) ? $this->sort : 'order_date';
-        $scope = app(SalesOrderQuery::class)->query($actor);
+        $records = $query
+            ?->orderBy($sort, $this->direction === 'asc' ? 'asc' : 'desc')
+            ->orderByDesc('id')
+            ->paginate(in_array($this->perPage, [10, 25, 50], true) ? $this->perPage : 10);
+
+        $progressMap = [];
+        if ($records) {
+            $progressReader = app(SalesOrderProgress::class);
+            foreach ($records->items() as $record) {
+                if ($record->status === 'approved') {
+                    $progressMap[$record->id] = $progressReader->read($actor, $record);
+                }
+            }
+        }
+
+        $groupedCounts = app(SalesOrderQuery::class)->query($actor)
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        $stats = [
+            'total' => (int) $groupedCounts->sum(),
+            'draft' => (int) ($groupedCounts['draft'] ?? 0),
+            'pending_approval' => (int) ($groupedCounts['pending_approval'] ?? 0),
+            'approved' => (int) ($groupedCounts['approved'] ?? 0),
+            'cancelled' => (int) ($groupedCounts['cancelled'] ?? 0),
+        ];
+
         $branchOptions = $access->allows($actor, 'view')
             ? app(SalesOrderCatalog::class)->branches($actor, 'view')
             : [];
 
         return view('sales.orders.index', [
             'filtersValid' => $query !== null,
-            'records' => $query
-                ?->orderBy($sort, $this->direction === 'asc' ? 'asc' : 'desc')
-                ->orderByDesc('id')
-                ->paginate(in_array($this->perPage, [10, 25, 50], true) ? $this->perPage : 10),
-            'stats' => [
-                'total' => (clone $scope)->count(),
-                'draft' => (clone $scope)->where('status', 'draft')->count(),
-                'pending_approval' => (clone $scope)->where('status', 'pending_approval')->count(),
-                'cancelled' => (clone $scope)->where('status', 'cancelled')->count(),
-            ],
+            'records' => $records,
+            'progressMap' => $progressMap,
+            'stats' => $stats,
             'branches' => $branchOptions,
+            'canViewCustomer' => app(CustomerAccess::class)->allows($actor, 'M03.customer_view'),
+            'canViewReturns' => $access->allows($actor, 'return_view'),
             'can' => fn (string $action, ?int $branchId = null): bool => $access->allows($actor, $action, $branchId),
         ])->layout('layouts::app', ['title' => 'أوامر البيع']);
     }

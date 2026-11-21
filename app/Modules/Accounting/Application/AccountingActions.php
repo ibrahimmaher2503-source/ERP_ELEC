@@ -2,6 +2,7 @@
 
 namespace App\Modules\Accounting\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Projects\Application\Contracts\ProjectsApi;
 use App\Modules\System\Application\RecordAudit;
 use Illuminate\Support\Facades\DB;
@@ -199,7 +200,11 @@ final class AccountingActions
 
                 return;
             }
-            if (($step === 'submit' && ($j->status !== 'draft' || $j->created_by !== $actor)) || ($step === 'approve' && ($j->status !== 'submitted' || $j->created_by === $actor))) {
+            if (($step === 'submit' && ($j->status !== 'draft' || $j->created_by !== $actor)) || ($step === 'approve' && $j->status !== 'submitted')) {
+                $this->fail('حالة القيد لا تسمح بهذا الإجراء.');
+            }
+            $selfApproved = $step === 'approve' && $j->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'accounting')) {
                 $this->fail('حالة غير صالحة أو محاولة اعتماد ذاتي.');
             }
             $lines = DB::table('accounting_journal_lines')->where('journal_id', $id)->get();
@@ -221,7 +226,7 @@ final class AccountingActions
                 $after += ['approved_by' => $actor, 'approved_at' => now()];
             }
             DB::table('accounting_journals')->where('id', $id)->update($after);
-            $this->audit($actor, 'journal', $id, 'journal.'.$step, (array) $j, $after);
+            $this->audit($actor, 'journal', $id, 'journal.'.$step, (array) $j, $after + ['self_approved' => $selfApproved]);
         });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Treasury\Presentation;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
 use App\Modules\Treasury\Application\TreasuryAccess;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +42,7 @@ final class MovementDetailsPage extends Component
         $permission = match ($row->kind) {
             'customer_collection' => 'collection_execute', 'supplier_payment' => 'payment_prepare',
             'customer_advance_refund' => 'advance_refund', 'customer_credit_refund', 'supplier_credit_refund' => 'credit_refund',
+            'partner_contribution', 'partner_drawing' => 'partner_cash',
             'cash_correction_in', 'cash_correction_out' => 'cash_correct', default => 'transfer_execute',
         };
         $access = app(TreasuryAccess::class);
@@ -49,7 +51,8 @@ final class MovementDetailsPage extends Component
             $access->authorize(auth()->id(), $permission, (int) $row->branch_id);
         }
         $correction = DB::table('treasury_movements')->where('original_movement_id', $row->id)->first();
-        $canCorrect = $canCorrect && $row->original_movement_id === null && $correction === null && (int) $row->executed_by !== auth()->id();
+        $canSelfApprove = app(OrganizationApi::class)->allowsSelfApproval((int) auth()->id(), 'treasury_ar_ap');
+        $canCorrect = $canCorrect && $row->original_movement_id === null && $correction === null && ((int) $row->executed_by !== auth()->id() || $canSelfApprove);
 
         return view('treasury.movement-details', ['movement' => $row, 'canCorrect' => $canCorrect, 'correction' => $correction])->layout('layouts::app', ['title' => 'تفاصيل حركة الخزينة']);
     }

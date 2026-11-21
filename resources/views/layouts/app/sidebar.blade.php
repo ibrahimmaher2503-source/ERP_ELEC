@@ -102,9 +102,16 @@
                 <div class="erp-nav-section grid gap-1">
                     <h2 class="px-3 py-1 text-xs font-semibold text-slate-500">المخزون</h2>
                     @if($inventoryNavigation ?? [])
+                    @php($inventoryIcons = ['dashboard'=>'squares-2x2','balances'=>'cube','receipts'=>'arrow-down-tray','issues'=>'arrow-up-tray','transfers'=>'arrows-right-left','counts'=>'clipboard-document-list','adjustments'=>'adjustments-horizontal','reservations'=>'bookmark-square','movements'=>'clock','serials'=>'qr-code','isolations'=>'no-symbol','corrections'=>'arrow-uturn-left','warehouses'=>'building-storefront'])
+                    @php($inventoryGroups = ['المتابعة والأرصدة' => ['dashboard'=>'لوحة المخزون','balances'=>'الأرصدة','movements'=>'سجل الحركات','reservations'=>'الحجوزات'], 'المستندات المخزنية' => ['transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','issues'=>'الصرف','receipts'=>'الاستلام والأرصدة الافتتاحية'], 'المستودعات والتتبع' => ['warehouses'=>'المستودعات','serials'=>'الأرقام المسلسلة','isolations'=>'المخزون غير المتاح','corrections'=>'تصحيح الحركات']])
                     <flux:sidebar.group heading="المخزون" icon="archive-box" expandable :expanded="request()->routeIs('inventory.*')">
-                        @foreach(['dashboard'=>'لوحة المخزون','balances'=>'الأرصدة','receipts'=>'الاستلام والأرصدة الافتتاحية','issues'=>'الصرف','transfers'=>'التحويلات','counts'=>'الجرد','adjustments'=>'التسويات','reservations'=>'الحجوزات','movements'=>'سجل الحركات','serials'=>'الأرقام المسلسلة','isolations'=>'المخزون غير المتاح','corrections'=>'تصحيح الحركات','warehouses'=>'المستودعات'] as $destination=>$label)
-                        @if($inventoryNavigation[$destination] ?? false)<flux:sidebar.item :href="route('inventory.'.$destination)" :current="request()->routeIs('inventory.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endif
+                        @foreach($inventoryGroups as $groupLabel => $groupItems)
+                            @if(collect(array_keys($groupItems))->contains(fn ($d) => $inventoryNavigation[$d] ?? false))
+                                <p class="inventory-nav-sub">{{ $groupLabel }}</p>
+                                @foreach($groupItems as $destination => $label)
+                                    @if($inventoryNavigation[$destination] ?? false)<flux:sidebar.item :icon="$inventoryIcons[$destination]" :href="route('inventory.'.$destination)" :current="request()->routeIs('inventory.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endif
+                                @endforeach
+                            @endif
                         @endforeach
                     </flux:sidebar.group>
                     @endif
@@ -143,7 +150,7 @@
                     @php($accountingNavigation = app(\App\Modules\Accounting\Application\AccountingAccess::class)->navigation(auth()->id()))
                     @if($accountingNavigation)
                     <flux:sidebar.group heading="المحاسبة والمالية" icon="calculator" expandable :expanded="request()->routeIs('accounting.*')">
-                    @foreach($orderNav($accountingNavigation, ['dashboard','accounts','journals','ledger','trial-balance','income-statement','balance-sheet','reports','periods','grni','ppv','reconciliation','closing','setup']) as $destination=>$label)<flux:sidebar.item :href="route('accounting.'.$destination)" :current="request()->routeIs('accounting.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endforeach
+                    @foreach($orderNav($accountingNavigation, ['dashboard','accounts','partners','journals','ledger','trial-balance','income-statement','balance-sheet','reports','periods','grni','ppv','reconciliation','closing','setup']) as $destination=>$label)<flux:sidebar.item :href="route('accounting.'.$destination)" :current="request()->routeIs('accounting.'.$destination)" wire:navigate>{{ $label }}</flux:sidebar.item>@endforeach
                     </flux:sidebar.group>
                     @endif
                     @php($financialNavigation = app(\App\Modules\ReceivablesPayables\Application\ReceivablesPayablesAccess::class)->navigation(auth()->id()))

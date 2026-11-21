@@ -6,5 +6,5 @@
  <div class="quote-net"><strong>الصافي قبل الضريبة (ج.م)</strong><bdi>{{ $money($amounts['net']??null) }}</bdi></div>
  <div><span>الضريبة</span><bdi>{{ $money($amounts['tax']??null) }}</bdi></div>
  <div><strong>الإجمالي النهائي (ج.م)</strong><bdi>{{ $money($amounts['total']??null) }}</bdi></div>
- <p class="mt-3 text-xs text-slate-500">{{ ($amounts['official']??false) ? 'مبالغ ثابتة من الإصدار الرسمي وقواعد الضريبة المحفوظة.' : 'حساب مسودة دقيق دون تقريب رسمي. يتحقق الإصدار من السعر والخصم والضريبة.' }}</p>
+ <p class="mt-3 text-xs text-slate-500">{{ ($amounts['official']??false) ? 'مبالغ ثابتة من الإصدار الرسمي وقواعد الضريبة المحفوظة.' : (($amounts['preview']??false) ? 'معاينة تقديرية بناءً على المعاملة الضريبية المختارة للمستند قبل الإصدار الرسمي.' : 'حساب مسودة دقيق دون تقريب رسمي. يتحقق الإصدار من السعر والخصم والضريبة.') }}</p>
 </div>

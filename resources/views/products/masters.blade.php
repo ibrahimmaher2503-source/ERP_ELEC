@@ -48,7 +48,10 @@
                                     @if ($kind === 'category' && $record->parent)<div class="mt-1 text-xs text-slate-500">تابع لـ {{ $record->parent->name }}</div>@endif
                                 </div></td>
                                 @if ($kind !== 'unit')<td role="cell" data-label="الكود" class="p-4"><div><bdi>{{ $record->code }}</bdi></div></td>@endif
-                                @if ($kind === 'category')<td role="cell" data-label="المنتجات" class="p-4"><div>{{ $record->products_count }}</div></td>@endif
+                                @if ($kind === 'category')
+                                    @php($treeTotal = $categoryTreeCounts[$record->id] ?? $record->products_count)
+                                    <td role="cell" data-label="المنتجات" class="p-4"><div>{{ $record->products_count }}@if ($treeTotal > $record->products_count) <span class="text-xs text-slate-500">(مع الفروع: {{ $treeTotal }})</span>@endif</div></td>
+                                @endif
                                 <td role="cell" data-label="الحالة" class="p-4"><div><x-erp.status-badge :active="$record->active" /></div></td>
                                 <td role="cell" data-label="الإجراءات" class="p-4"><div>
                                     <div class="flex items-center gap-1">
@@ -77,8 +80,9 @@
                     @if ($kind !== 'unit')<x-erp.information-row label="الكود"><bdi>{{ $selected->code }}</bdi></x-erp.information-row>@endif
                     <x-erp.information-row label="الحالة"><x-erp.status-badge :active="$selected->active" /></x-erp.information-row>
                     @if ($kind === 'category')
+                        @php($selectedTreeTotal = $categoryTreeCounts[$selected->id] ?? $selected->products_count)
                         <x-erp.information-row label="الفئة الأم">{{ $selected->parent?->name ?: 'بدون فئة أم' }}</x-erp.information-row>
-                        <x-erp.information-row label="عدد المنتجات">{{ $selected->products_count }}</x-erp.information-row>
+                        <x-erp.information-row label="عدد المنتجات">{{ $selected->products_count }}@if ($selectedTreeTotal > $selected->products_count) (إجمالي مع الفروع: {{ $selectedTreeTotal }})@endif</x-erp.information-row>
                     @elseif ($kind === 'unit')
                         <x-erp.information-row label="البعد">{{ $dimensions[$selected->dimension] ?? $selected->dimension }}</x-erp.information-row>
                     @endif

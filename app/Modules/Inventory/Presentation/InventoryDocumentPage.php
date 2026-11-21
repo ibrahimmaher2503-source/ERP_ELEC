@@ -150,7 +150,7 @@ final class InventoryDocumentPage extends Component
         }
         $this->version = $r->version;
         $this->creationKey = $r->creation_key;
-        $this->form = ['warehouse_id' => $r->warehouse_id, 'destination_id' => $r->destination_id ?? '', 'reason' => $r->reason, 'lines' => DB::table('inventory_document_lines')->where('document_id', $r->id)->orderBy('id')->get()->map(fn ($l) => ['product_id' => $l->product_id, 'quantity' => $l->quantity, 'unit_cost' => $l->unit_cost ?? '', 'cost_reference' => $l->cost_reference ?? '', 'serials' => implode("\n", json_decode($l->serials, true))])->all()];
+        $this->form = ['warehouse_id' => $r->warehouse_id, 'destination_id' => $r->destination_id ?? '', 'reason' => $r->reason, 'lines' => DB::table('inventory_document_lines')->where('document_id', $r->id)->orderBy('id')->get()->map(fn ($l) => ['product_id' => $l->product_id, 'quantity' => InventoryDisplay::inputQty($l->quantity), 'unit_cost' => $l->unit_cost !== null ? InventoryDisplay::inputQty($l->unit_cost) : '', 'cost_reference' => $l->cost_reference ?? '', 'serials' => implode("\n", json_decode($l->serials, true))])->all()];
     }
 
     public function template()
@@ -235,6 +235,11 @@ final class InventoryDocumentPage extends Component
             }
         }
 
-        return view('inventory.document', ['transferQuantities' => $r && $this->kind === 'transfer' ? app(InventoryTransfers::class)->quantities($r->id) : [], 'transferReceipts' => $r && $this->kind === 'transfer' ? DB::table('inventory_transfer_receipts')->where('document_id', $r->id)->orderByDesc('id')->get() : collect(), 'history' => $r ? app(InventoryHistoryReader::class)->read(Auth::id(), $r->id) : [], 'title' => InventoryDocuments::KINDS[$this->kind], 'record' => $r, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', array_unique($ids))->get(), 'products' => $products, 'lines' => $r ? DB::table('inventory_document_lines')->where('document_id', $r->id)->get() : collect(), 'access' => $access, 'docs' => $docs])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
+        $availability = collect();
+        if (ctype_digit((string) $this->form['warehouse_id']) && $access->allows(Auth::id(), 'balance_view', (int) $this->form['warehouse_id'])) {
+            $availability = DB::table('inventory_balances')->where('warehouse_id', (int) $this->form['warehouse_id'])->whereIn('product_id', array_filter(array_column($this->form['lines'], 'product_id')))->get()->keyBy('product_id');
+        }
+
+        return view('inventory.document', ['availability' => $availability, 'transferQuantities' => $r && $this->kind === 'transfer' ? app(InventoryTransfers::class)->quantities($r->id) : [], 'transferReceipts' => $r && $this->kind === 'transfer' ? DB::table('inventory_transfer_receipts')->where('document_id', $r->id)->orderByDesc('id')->get() : collect(), 'history' => $r ? app(InventoryHistoryReader::class)->read(Auth::id(), $r->id) : [], 'title' => InventoryDocuments::KINDS[$this->kind], 'record' => $r, 'warehouses' => DB::table('inventory_warehouses')->whereIn('id', array_unique($ids))->get(), 'products' => $products, 'lines' => $r ? DB::table('inventory_document_lines')->where('document_id', $r->id)->orderBy('id')->get() : collect(), 'access' => $access, 'docs' => $docs])->layout('layouts::app', ['title' => InventoryDocuments::KINDS[$this->kind]]);
     }
 }

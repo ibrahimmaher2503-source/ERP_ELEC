@@ -74,17 +74,27 @@ final class WorkshopActions
             $this->lock();
             app(WorkshopAccess::class)->authorize($actor, (int) $d['branch_id'], 'manage');
             $old = $id ? DB::table('workshops')->lockForUpdate()->find($id) : null;
-            abort_unless(! $id || ($old && $old->version === $version && $old->branch_id === (int) $d['branch_id']), 409);
-            abort_unless(in_array((int) $d['supervisor_id'], array_column(app(OrganizationApi::class)->projectAssignees($actor, (int) $d['branch_id']), 'id'), true), 422);
+            abort_unless(! $id || ($old && $old->version === $version && $old->branch_id === (int) $d['branch_id']), 409, 'تغيرت بيانات الورشة من جلسة أخرى. أعد اختيار الورشة من الجدول لتحديث النسخة ثم أعد المحاولة.');
+            abort_unless(in_array((int) $d['supervisor_id'], array_column(app(OrganizationApi::class)->projectAssignees($actor, (int) $d['branch_id']), 'id'), true), 422, 'المشرف المختار غير نشط أو خارج نطاق فرع هذه الورشة.');
             if (! empty($d['warehouse_id'])) {
                 $warehouse = app(InventoryApi::class)->warehouse((int) $d['warehouse_id']);
-                abort_unless($warehouse && $warehouse['active'] && $warehouse['branch_id'] === (int) $d['branch_id'], 422);
-                abort_unless(in_array((int) $d['warehouse_id'], array_column(app(InventoryApi::class)->reservationWarehouses($actor, (int) $d['branch_id']), 'id'), true), 403);
+                abort_unless($warehouse && $warehouse['active'] && $warehouse['branch_id'] === (int) $d['branch_id'], 422, 'المستودع المختار غير نشط أو لا يتبع فرع الورشة.');
+                abort_unless(in_array((int) $d['warehouse_id'], array_column(app(InventoryApi::class)->reservationWarehouses($actor, (int) $d['branch_id']), 'id'), true), 403, 'لا تملك صلاحية حجز المخزون للمستودع المختار.');
             }
             $d['schedule'] = json_encode($d['schedule'], JSON_THROW_ON_ERROR);
             if ($old) {
                 if (! $d['active']) {
-                    abort_if(DB::table('workshop_jobs')->where('workshop_id', $id)->whereNotIn('status', ['delivered', 'returned_unrepaired'])->exists(), 409, 'توجد إصلاحات مفتوحة.');
+                    $openJobs = DB::table('workshop_jobs')
+                        ->where('workshop_id', $id)
+                        ->whereNotIn('status', ['delivered', 'returned_unrepaired'])
+                        ->orderBy('id')
+                        ->pluck('number')
+                        ->all();
+                    if ($openJobs !== []) {
+                        $list = implode('، ', array_slice($openJobs, 0, 5));
+                        $more = count($openJobs) > 5 ? ' وغيرها ('.count($openJobs).' أوامر مفتوحة)' : '';
+                        abort(409, 'لا يمكن تعطيل الورشة لوجود أوامر إصلاح مفتوحة: '.$list.$more.'. أعد إسناد الأوامر أو أتمّ التسليم/الإعادة أولًا.');
+                    }
                 }
                 DB::table('workshops')->where('id', $id)->update($d + ['version' => $version + 1, 'updated_at' => now()]);
             } else {
@@ -103,15 +113,26 @@ final class WorkshopActions
             $w = DB::table('workshops')->lockForUpdate()->find($workshop);
             abort_unless($w, 404);
             app(WorkshopAccess::class)->authorize($actor, $w->branch_id, 'assign');
-            abort_unless($w->version === $version, 409);
+            abort_unless($w->version === $version, 409, 'تغيرت بيانات الورشة من جلسة أخرى. أعد اختيار الورشة من الجدول لتحديث النسخة ثم أعد المحاولة.');
             if ($active) {
-                abort_unless(in_array($technician, array_column(app(OrganizationApi::class)->projectAssignees($actor, $w->branch_id), 'id'), true), 422);
+                abort_unless(in_array($technician, array_column(app(OrganizationApi::class)->projectAssignees($actor, $w->branch_id), 'id'), true), 422, 'الفني المختار غير نشط أو خارج نطاق فرع هذه الورشة.');
                 app(WorkshopAccess::class)->authorize($technician, $w->branch_id, 'execute');
             } else {
-                abort_unless(DB::table('workshop_members')->where('workshop_id', $workshop)->where('technician_id', $technician)->exists(), 404);
+                abort_unless(DB::table('workshop_members')->where('workshop_id', $workshop)->where('technician_id', $technician)->exists(), 404, 'لا توجد عضوية مسجلة لهذا الفني في هذه الورشة.');
             }
             if (! $active) {
-                abort_if(DB::table('workshop_jobs')->where('workshop_id', $workshop)->where('technician_id', $technician)->whereNotIn('status', ['delivered', 'returned_unrepaired'])->exists(), 409);
+                $openJobs = DB::table('workshop_jobs')
+                    ->where('workshop_id', $workshop)
+                    ->where('technician_id', $technician)
+                    ->whereNotIn('status', ['delivered', 'returned_unrepaired'])
+                    ->orderBy('id')
+                    ->pluck('number')
+                    ->all();
+                if ($openJobs !== []) {
+                    $list = implode('، ', array_slice($openJobs, 0, 5));
+                    $more = count($openJobs) > 5 ? ' وغيرها ('.count($openJobs).' أوامر مفتوحة)' : '';
+                    abort(409, 'لا يمكن تعطيل عضوية الفني لوجود أوامر إصلاح مفتوحة مسندة إليه: '.$list.$more.'. أعد إسناد الأمر لفني آخر أو أتمّ التسليم/الإعادة أولًا.');
+                }
             }
             $old = DB::table('workshop_members')->where('workshop_id', $workshop)->where('technician_id', $technician)->first();
             if ($old) {

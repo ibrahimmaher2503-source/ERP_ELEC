@@ -214,12 +214,44 @@ class MastersPage extends Component
             $selected = $selectedQuery->find($this->selectedId);
         }
 
+        $categoryTreeCounts = [];
+        if ($this->kind === 'category') {
+            $allCategories = Category::query()->withCount('products')->get(['id', 'parent_id']);
+            $childrenByParent = [];
+            $directCounts = [];
+            foreach ($allCategories as $cat) {
+                $directCounts[(int) $cat->id] = (int) $cat->products_count;
+                if ($cat->parent_id !== null) {
+                    $childrenByParent[(int) $cat->parent_id][] = (int) $cat->id;
+                }
+            }
+            $sumTree = static function (int $id, array $visiting = []) use (&$sumTree, &$categoryTreeCounts, $childrenByParent, $directCounts): int {
+                if (isset($categoryTreeCounts[$id])) {
+                    return $categoryTreeCounts[$id];
+                }
+                if (in_array($id, $visiting, true)) {
+                    return 0;
+                }
+                $visiting[] = $id;
+                $total = $directCounts[$id] ?? 0;
+                foreach ($childrenByParent[$id] ?? [] as $childId) {
+                    $total += $sumTree($childId, $visiting);
+                }
+
+                return $categoryTreeCounts[$id] = $total;
+            };
+            foreach ($allCategories as $cat) {
+                $sumTree((int) $cat->id);
+            }
+        }
+
         return view('products.masters', [
             'records' => $query->orderBy('name')->orderBy('id')->paginate(10),
             'stats' => $stats,
             'selected' => $selected,
             'canManage' => app(ProductAccess::class)->allows((int) Auth::id(), $this->managePermission()),
             'parentChoices' => $this->parentChoices(),
+            'categoryTreeCounts' => $categoryTreeCounts,
             'kindLabel' => ['category' => 'الفئات', 'brand' => 'العلامات التجارية', 'unit' => 'الوحدات'][$this->kind],
             'dimensions' => ['length' => 'طول', 'mass' => 'كتلة', 'volume' => 'حجم', 'count' => 'عدد', 'time' => 'زمن'],
         ])->layout('layouts::app', ['title' => ['category' => 'فئات المنتجات', 'brand' => 'العلامات التجارية', 'unit' => 'وحدات القياس'][$this->kind]]);

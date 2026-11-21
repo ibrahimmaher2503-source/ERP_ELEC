@@ -44,6 +44,10 @@ interface TreasuryApi
 
     public function transfer(int $actor, array $data): array;
 
+    public function recordPartnerMovement(int $actor, array $data): array;
+
+    public function partnerAccounts(int $actor, int $branch): array;
+
     public function reconciliationValues(int $actor, array $branchIds, string $to): array;
 
     /** Immutable source IDs/dates for M12's dated settlement/advance projection. M11 report scope required. */

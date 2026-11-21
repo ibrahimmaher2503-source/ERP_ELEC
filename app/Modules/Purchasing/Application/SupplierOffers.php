@@ -2,6 +2,7 @@
 
 namespace App\Modules\Purchasing\Application;
 
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Parties\Application\Contracts\GetSupplierRequest;
 use App\Modules\Parties\Application\Contracts\SupplierContractException;
 use App\Modules\Parties\Application\Contracts\SuppliersApi;
@@ -193,7 +194,8 @@ final class SupplierOffers
             $row = DB::table('purchasing_awards')->where('id', $id)->lockForUpdate()->first();
             abort_unless($row, 404);
             app(PurchasingAccess::class)->authorize($actor, 'award_approve', $row->branch_id);
-            if ($row->created_by === $actor) {
+            $selfApproved = $row->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'purchasing')) {
                 $this->fail('لا يمكنك اعتماد مقترحك بنفسك.');
             }
             if ($row->version !== $version || $row->status !== 'proposed') {
@@ -208,7 +210,7 @@ final class SupplierOffers
             }
             $after = ['status' => $approve ? 'approved' : 'rejected', 'approved_by' => $actor, 'version' => $version + 1, 'updated_at' => now()];
             DB::table('purchasing_awards')->where('id', $id)->update($after);
-            $this->audit($actor, 'supplier_award', $id, 'award.'.$after['status'], (array) $row, $after);
+            $this->audit($actor, 'supplier_award', $id, 'award.'.$after['status'], (array) $row, $after + ['self_approved' => $selfApproved]);
         });
     }
 

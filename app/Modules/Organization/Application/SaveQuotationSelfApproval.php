@@ -30,6 +30,12 @@ final class SaveQuotationSelfApproval
             } else {
                 DB::table('quotation_self_approval_policies')->insert($data + ['created_at' => now()]);
             }
+            $existingUnified = DB::table('organization_self_approval_policies')->where('target_type', $type)->where('target_id', $target)->where('scope', 'quotations')->lockForUpdate()->first();
+            if ($existingUnified) {
+                DB::table('organization_self_approval_policies')->where('id', $existingUnified->id)->update(['enabled' => $enabled, 'version' => (int) $existingUnified->version + 1, 'updated_by' => $actor->id, 'updated_at' => now()]);
+            } else {
+                DB::table('organization_self_approval_policies')->insert(['target_type' => $type, 'target_id' => $target, 'scope' => 'quotations', 'enabled' => $enabled, 'version' => 1, 'updated_by' => $actor->id, 'created_at' => now(), 'updated_at' => now()]);
+            }
             $guard->audit($actor, $type === 'user' ? $target : $actor->id, 'quotation.self_approval_policy_changed', ['target_type' => $type, 'target_id' => $target, 'enabled' => $old?->enabled ?? false], ['target_type' => $type, 'target_id' => $target, 'role_id' => $type === 'role' ? $target : null, 'enabled' => $enabled, 'version' => $data['version']]);
         });
     }

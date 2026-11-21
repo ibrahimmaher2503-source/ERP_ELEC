@@ -91,7 +91,7 @@ final class SalesOrderCommercialReview
             DB::table('sales_order_exception_decisions')->insert(['review_id' => $review->id, 'policy_version' => $policy->version,
                 'content_hash' => $hash, 'exceptions' => json_encode($evaluation['exceptions'], JSON_THROW_ON_ERROR),
                 'decided_by' => $actor, 'reason' => $reason, 'decided_at' => now()]);
-            event(new SalesOrderChanged($actor, $id, 'commercial_exceptions_approved', null, ['review_id' => $review->id, 'policy_version' => $policy->version, 'reason' => $reason]));
+            event(new SalesOrderChanged($actor, $id, 'commercial_exceptions_approved', null, ['review_id' => $review->id, 'policy_version' => $policy->version, 'reason' => $reason, 'self_approved' => $actor === (int) $review->requested_by]));
         });
     }
 

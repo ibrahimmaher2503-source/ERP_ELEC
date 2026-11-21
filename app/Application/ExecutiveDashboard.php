@@ -4,6 +4,7 @@ namespace App\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\FieldMaintenance\Application\Contracts\FieldMaintenanceApi;
+use App\Modules\Organization\Application\Contracts\AuthorizeRequest;
 use App\Modules\Organization\Application\Contracts\ContractException;
 use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Projects\Application\Contracts\ProjectsApi;
@@ -25,6 +26,13 @@ final class ExecutiveDashboard
             abort($e->getCode());
         }
         abort_unless($branch === null || in_array($branch, $scopes, true), 403);
+        $financialReady = app(AccountingApi::class)->isActivated();
+        $canSetupFinance = false;
+        try {
+            app(OrganizationApi::class)->authorize(new AuthorizeRequest($actor, 'M11.setup_view'));
+            $canSetupFinance = true;
+        } catch (ContractException) {
+        }
         $sections = [];
         $unavailable = ['status' => 'unavailable', 'reason' => 'البيانات تتطلب صلاحية الوحدة ونطاق فرع مسموحًا.'];
         foreach (['sales' => [SalesOrdersApi::class, 'sales-orders.index'], 'maintenance' => [FieldMaintenanceApi::class, 'maintenance.dashboard'],
@@ -40,6 +48,15 @@ final class ExecutiveDashboard
                 $sections[$key] = $unavailable;
             }
         }
+        foreach (['accounting', 'receivables', 'treasury'] as $financialKey) {
+            if ($sections[$financialKey]['status'] === 'available' && ! $financialReady) {
+                $sections[$financialKey] = [
+                    'status' => 'not_activated',
+                    'route' => $canSetupFinance ? 'accounting.setup' : null,
+                    'reason' => 'غير متاح قبل اكتمال إعداد التفعيل المالي (تاريخ التشغيل، دليل الحسابات، الربط، التحقق الضريبي، والأرصدة الافتتاحية المعتمدة). عدم التفعيل يعني «غير متاح» لا «صفرًا حقيقيًا».',
+                ];
+            }
+        }
         $projects = app(ProjectsApi::class)->executiveSummary($actor, $branch, $from, $to);
         if ($sections['receivables']['status'] === 'available') {
             $sections['receivables']['route'] = array_key_exists('customer_invoiced', $sections['receivables']['metrics']) ? 'financial.ar' : 'financial.ap';
@@ -48,6 +65,6 @@ final class ExecutiveDashboard
             $sections[$key] = $projects[$key] === null ? $unavailable : ['status' => 'available', 'route' => $route] + $projects[$key];
         }
 
-        return ['from' => $from, 'to' => $to, 'branch_id' => $branch, 'sections' => $sections];
+        return ['from' => $from, 'to' => $to, 'branch_id' => $branch, 'financial_ready' => $financialReady, 'can_setup_finance' => $canSetupFinance, 'sections' => $sections];
     }
 }

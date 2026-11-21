@@ -3,6 +3,7 @@
 namespace App\Modules\Projects\Application;
 
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Sales\Application\Contracts\QuotationsApi;
 use App\Modules\ServiceContracts\Application\Contracts\ServiceContractsApi;
 use Illuminate\Support\Facades\DB;
@@ -106,10 +107,13 @@ final class TenderAwards
             $p = DB::table('project_tender_handoff_plans')->where('tender_id', $id)->find($plan);
             abort_unless($p, 404);
             $this->source($actor, $id, $p->result_id);
-            abort_if($p->proposed_by === $actor, 403, 'اعتماد خطة التحويل مستقل.');
+            $selfApproved = $p->proposed_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'اعتماد خطة التحويل مستقل.');
+            }
             abort_if(DB::table('project_tender_handoff_approvals')->where('plan_id', $plan)->exists(), 409);
             DB::table('project_tender_handoff_approvals')->insert(['plan_id' => $plan, 'approved_by' => $actor, 'reference' => $reference]);
-            $a->touch($actor, $t, 'handoff.approved', ['plan_id' => $plan, 'reference' => $reference]);
+            $a->touch($actor, $t, 'handoff.approved', ['plan_id' => $plan, 'reference' => $reference, 'self_approved' => $selfApproved]);
         }, 5);
     }
 

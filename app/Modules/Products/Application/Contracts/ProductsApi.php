@@ -17,4 +17,8 @@ interface ProductsApi
     public function findByBarcode(FindByBarcodeRequest $request): FindByBarcodeResult;
 
     public function convertQuantity(ConvertQuantityRequest $request): ConvertQuantityResult;
+
+    public function guidedCatalog(int $actor, string $search = '', ?int $categoryId = null, ?int $brandId = null): array;
+
+    public function extractGuidedSpec(array $product): array;
 }

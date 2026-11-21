@@ -37,7 +37,8 @@ final class ConvertAcceptedQuotation
             abort_unless($r->valid_until && $r->valid_until->toDateString() >= now('Africa/Cairo')->toDateString(), 422, 'انتهت صلاحية العرض قبل التحويل.');
             $snapshot = json_decode($issue->commercial_snapshot, true, 512, JSON_THROW_ON_ERROR);
             $quote = $snapshot['quotation'];
-            $input = array_intersect_key($quote, array_flip(['customer_id', 'project_name', 'discount_mode', 'discount_value', 'payment_terms', 'delivery_terms', 'notes']));
+            $input = array_intersect_key($quote, array_flip(['customer_id', 'project_name', 'discount_mode', 'discount_value', 'tax_treatment', 'tax_exempt_reason', 'payment_terms', 'delivery_terms', 'notes']));
+            $input['tax_treatment'] ??= 'rule';
             $input += ['creation_key' => $key, 'branch_id' => $branch, 'order_date' => now('Africa/Cairo')->toDateString(),
                 'customer_reference' => $acceptance->reference, 'lines' => []];
             foreach ($snapshot['lines'] as $line) {

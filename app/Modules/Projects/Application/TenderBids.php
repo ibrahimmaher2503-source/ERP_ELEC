@@ -4,6 +4,7 @@ namespace App\Modules\Projects\Application;
 
 use App\Modules\Accounting\Application\Contracts\AccountingApi;
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Products\Application\Contracts\ConvertQuantityRequest;
 use App\Modules\Products\Application\Contracts\GetProductRequest;
 use App\Modules\Products\Application\Contracts\ProductsApi;
@@ -141,13 +142,16 @@ final class TenderBids
             abort_unless($revision, 409);
             $r = DB::table('project_tender_'.$kind)->where('tender_id', $id)->find($revision);
             abort_unless($r, 409);
-            abort_if($r->prepared_by === $actor, 403, 'الاعتماد يتطلب شخصاً مستقلاً عن المُعد.');
+            $selfApproved = $r->prepared_by === $actor;
+            if ($selfApproved) {
+                abort_unless(app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other'), 403, 'الاعتماد يتطلب شخصاً مستقلاً عن المُعد.');
+            }
             if ($kind === 'financial') {
                 abort_unless($r->technical_id === $t->technical_id, 409);
             }
             abort_if(DB::table('project_tender_approvals')->where('kind', $kind)->where($kind.'_id', $revision)->exists(), 409, 'النسخة معتمدة بالفعل.');
             DB::table('project_tender_approvals')->insert(['tender_id' => $id, 'kind' => $kind, $kind.'_id' => $revision, 'approved_by' => $actor, 'reference' => $reference]);
-            $a->touch($actor, $t, $kind.'.approved', [$kind.'_id' => $revision, 'reference' => $reference]);
+            $a->touch($actor, $t, $kind.'.approved', [$kind.'_id' => $revision, 'reference' => $reference, 'self_approved' => $selfApproved]);
         }, 5);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Accounting\Application;
 
 use App\Modules\Accounting\Domain\FinancialDecimal as Decimal;
+use App\Modules\Organization\Application\Contracts\OrganizationApi;
 use App\Modules\Projects\Application\Contracts\ProjectsApi;
 use App\Modules\System\Application\Contracts\OfficialDocuments;
 use App\Modules\Treasury\Application\Contracts\TreasuryApi;
@@ -109,6 +110,42 @@ final class JournalPosting
         return $this->source($actor, $creator, $actor, $branch, $date, $key, $description, $resolved, null, false, $project);
     }
 
+    public function accountJournal(int $actor, int $creator, int $branch, string $date, string $key, string $description, array $lines, ?int $project = null): int
+    {
+        abort_unless(DB::transactionLevel() > 0 && $lines !== [], 422);
+        app(AccountingAccess::class)->authorize($actor, 'source_post', $branch);
+        app(FinancialActivation::class)->requirePostingDate($date);
+        $maps = DB::table('accounting_account_mappings')->pluck('account_id', 'purpose');
+        $controlIds = app(FinancialControlAccounts::class)->ids();
+        $resolved = [];
+        foreach ($lines as $line) {
+            if (! empty($line['account_id'])) {
+                $accountId = (int) $line['account_id'];
+                if (in_array($accountId, $controlIds, true)) {
+                    FinancialActivation::fail('الحسابات الرقابية تُرحل من مصدرها المعتمد فقط.');
+                }
+                $account = DB::table('accounting_accounts')->where('active', true)->where('postable', true)->find($accountId);
+                if (! $account) {
+                    FinancialActivation::fail('الحساب المحدد غير نشط أو غير قابل للترحيل.');
+                }
+            } else {
+                $purpose = (string) ($line['purpose'] ?? '');
+                if (! isset($maps[$purpose])) {
+                    FinancialActivation::fail('يلزم ربط الحساب التشغيلي: '.$purpose);
+                }
+                $accountId = (int) $maps[$purpose];
+            }
+            $debit = Decimal::round($line['debit'] ?? '0');
+            $credit = Decimal::round($line['credit'] ?? '0');
+            if (($debit === '0.00') === ($credit === '0.00')) {
+                FinancialActivation::fail('كل سطر مصدر يجب أن يكون مديناً أو دائناً فقط.');
+            }
+            $resolved[] = ['account_id' => $accountId, 'debit' => $debit, 'credit' => $credit, 'reference' => $line['reference'] ?? $description];
+        }
+
+        return $this->source($actor, $creator, $actor, $branch, $date, $key, $description, $resolved, null, false, $project);
+    }
+
     public function reverse(int $actor, int $journal, string $date, string $reason): int
     {
         Validator::make(compact('date', 'reason'), [
@@ -148,7 +185,10 @@ final class JournalPosting
     {
         abort_unless(DB::transactionLevel() > 0, 500);
         if ($independentApproval && $creator === $approver) {
-            FinancialActivation::fail('الاعتماد الذاتي غير مسموح للترحيل من المصدر.');
+            $scope = $opening !== null ? 'accounting' : (str_starts_with($key, 'purchase-receipt:') ? 'purchasing' : 'inventory');
+            if (! app(OrganizationApi::class)->allowsSelfApproval($approver, $scope)) {
+                FinancialActivation::fail('الاعتماد الذاتي غير مسموح للترحيل من المصدر.');
+            }
         }
         $existing = DB::table('accounting_journals')->where('source_key', $key)->first();
         if ($existing) {
@@ -172,12 +212,12 @@ final class JournalPosting
         }
         DB::table('accounting_journals')->where('id', $id)->update(['status' => 'submitted', 'version' => 2]);
         DB::table('accounting_journals')->where('id', $id)->update(['status' => 'approved', 'version' => 3, 'approved_by' => $approver, 'approved_at' => now()]);
-        $this->finish($actor, $id);
+        $this->finish($actor, $id, $creator === $approver);
 
         return $id;
     }
 
-    private function finish(int $actor, int $id): void
+    private function finish(int $actor, int $id, bool $selfApproved = false): void
     {
         app(AccountingActions::class)->lock();
         $journal = DB::table('accounting_journals')->lockForUpdate()->find($id);
@@ -206,6 +246,6 @@ final class JournalPosting
                 'columns' => ['الكود', 'الحساب', 'البيان', 'مدين', 'دائن'], 'rows' => $rows, 'totals' => ['المدين' => $dr, 'الدائن' => $cr]]);
         DB::table('accounting_journals')->where('id', $id)->update(['status' => 'posted', 'period_id' => $period->id, 'official_number' => $document['number'],
             'official_document_id' => $document['id'], 'posted_by' => $actor, 'posted_at' => now(), 'version' => $journal->version + 1, 'updated_at' => now()]);
-        app(FinancialActivation::class)->audit($actor, $id, 'journal.posted', null, ['journal_id' => $id, 'source_key' => $journal->source_key, 'number' => $document['number'], 'sha256' => $document['sha256'], 'debit' => $dr, 'credit' => $cr]);
+        app(FinancialActivation::class)->audit($actor, $id, 'journal.posted', null, ['journal_id' => $id, 'source_key' => $journal->source_key, 'number' => $document['number'], 'sha256' => $document['sha256'], 'debit' => $dr, 'credit' => $cr, 'self_approved' => $selfApproved]);
     }
 }

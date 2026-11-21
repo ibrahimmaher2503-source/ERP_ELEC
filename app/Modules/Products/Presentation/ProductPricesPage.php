@@ -19,6 +19,9 @@ final class ProductPricesPage extends Component
     public function mount(int $product): void
     {
         $this->productId = $product;
+        $record = Product::findOrFail($product);
+        $this->form['unit_id'] = (string) ($record->sales_unit_id ?: $record->base_unit_id ?: '');
+        $this->form['starts_on'] = now('Africa/Cairo')->toDateString();
     }
 
     public function boot(): void

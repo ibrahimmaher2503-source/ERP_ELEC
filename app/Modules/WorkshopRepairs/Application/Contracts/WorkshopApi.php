@@ -24,7 +24,9 @@ interface WorkshopApi
 
     public function billingSource(int $actor, int $job): array;
 
-    public function validateBillingEvidence(int $actor, int $job, int $branch, int $customer, int $approval): void;
+    public function validateBillingEvidence(int $actor, int $job, int $branch, int $customer, ?int $approval, ?int $cancellation = null): void;
+
+    public function validateDepositTarget(int $actor, int $job, int $branch, int $customer): void;
 
     public function projectJobs(int $actor, int $project, int $branch): array;
 }

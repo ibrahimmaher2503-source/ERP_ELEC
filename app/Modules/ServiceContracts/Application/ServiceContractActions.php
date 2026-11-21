@@ -141,12 +141,13 @@ final class ServiceContractActions
             abort_if(in_array($c->status, ['terminated', 'completed']), 409);
             $r = DB::table('service_contract_revisions')->find($c->current_revision_id);
             abort_unless($r->status === $from, 409);
-            if ($to === 'approved') {
-                abort_unless((int) $r->created_by !== $actor, 403, 'يلزم اعتماد مستقل عن منشئ المراجعة.');
+            $selfApproved = $to === 'approved' && (int) $r->created_by === $actor;
+            if ($selfApproved && ! app(OrganizationApi::class)->allowsSelfApproval($actor, 'operations_other')) {
+                abort(403, 'يلزم اعتماد مستقل عن منشئ المراجعة.');
             }
             app(ServiceContractTerms::class)->validate($actor, json_decode($r->data, true, 512, JSON_THROW_ON_ERROR));
             DB::table('service_contract_revisions')->where('id', $r->id)->update(['status' => $to] + ($to === 'approved' ? ['approved_by' => $actor] : []));
-            $this->touch($actor, $c, $to);
+            $this->touch($actor, $c, $to, $to === 'approved' ? ['self_approved' => $selfApproved] : []);
         }, 3);
     }
 

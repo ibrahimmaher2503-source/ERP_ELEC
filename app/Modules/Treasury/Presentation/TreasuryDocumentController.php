@@ -16,6 +16,7 @@ final class TreasuryDocumentController
             'supplier_payment' => 'payment_execute', 'customer_collection' => 'collection_execute',
             'customer_advance_refund' => 'advance_refund', default => 'transfer_execute',
             'customer_credit_refund', 'supplier_credit_refund' => 'credit_refund',
+            'partner_contribution', 'partner_drawing' => 'partner_cash',
             'cash_correction_in', 'cash_correction_out' => 'cash_correct',
         };
         app(TreasuryAccess::class)->authorize(auth()->id(), $permission, (int) $row->branch_id);

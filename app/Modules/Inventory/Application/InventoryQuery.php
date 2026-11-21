@@ -12,19 +12,37 @@ final class InventoryQuery
         $search = mb_substr((string) ($filters['search'] ?? ''), 0, 100);
         if ($search !== '') {
             if ($table === 'inventory_reservations') {
-                $query->where('source_id', 'ilike', '%'.$search.'%');
+                $query->where(fn ($q) => $q->where('source_id', 'ilike', '%'.$search.'%')
+                    ->orWhereExists(fn ($b) => $b->selectRaw('1')->from('inventory_balances')
+                        ->whereColumn('inventory_balances.product_id', 'inventory_reservations.product_id')
+                        ->whereColumn('inventory_balances.warehouse_id', 'inventory_reservations.warehouse_id')
+                        ->where(fn ($w) => $w->where('sku', 'ilike', '%'.$search.'%')->orWhere('product_name', 'ilike', '%'.$search.'%'))));
             } else {
                 $query->where(fn ($q) => $q->where('sku', 'ilike', '%'.$search.'%')->orWhere('product_name', 'ilike', '%'.$search.'%'));
             }
         }
-        if ($table === 'inventory_movements' && in_array($filters['operation'] ?? '', ['financial_opening', 'purchase_receipt', 'opening_post', 'issue_post', 'adjustment_post', 'transfer_dispatch', 'transfer_receive', 'reservation_issue', 'correction'], true)) {
-            $query->where('operation', $filters['operation']);
+        if ($table === 'inventory_movements') {
+            if (in_array($filters['operation'] ?? '', [
+                'financial_opening', 'purchase_receipt', 'opening_post', 'issue_post', 'adjustment_post',
+                'transfer_dispatch', 'transfer_receive', 'reservation_issue', 'correction',
+                'project_issue', 'maintenance_issue', 'workshop_issue',
+                'sales_return', 'supplier_return', 'workshop_return', 'maintenance_return',
+            ], true)) {
+                $query->where('operation', $filters['operation']);
+            }
+            if (is_string($filters['date_from'] ?? null) && preg_match('/^\d{4}-\d{2}-\d{2}$/D', $filters['date_from'])) {
+                $query->whereRaw("(posted_at AT TIME ZONE 'Africa/Cairo')::date >= ?::date", [$filters['date_from']]);
+            }
+            if (is_string($filters['date_to'] ?? null) && preg_match('/^\d{4}-\d{2}-\d{2}$/D', $filters['date_to'])) {
+                $query->whereRaw("(posted_at AT TIME ZONE 'Africa/Cairo')::date <= ?::date", [$filters['date_to']]);
+            }
         }
         if ($table === 'inventory_balances') {
             match ($filters['status'] ?? '') {
                 'low' => $query->whereNotNull('minimum')->whereColumn('available', '<', 'minimum'),
                 'empty' => $query->where('available', '0'),
                 'reserved' => $query->where('reserved', '>', '0'),
+                'unavailable' => $query->where('unavailable', '>', '0'),
                 default => null,
             };
             if (ctype_digit((string) ($filters['category'] ?? ''))) {
