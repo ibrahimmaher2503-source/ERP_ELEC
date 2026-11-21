@@ -1,19 +1,79 @@
 <div data-erp-archetype="{{ request()->routeIs('*.dashboard') ? 'dashboard' : (request()->routeIs('*.reports', '*.aging', '*.statements') ? 'report' : (request()->routeIs('*.create', '*.edit') ? 'form' : 'list')) }}" class="erp-finance financial-workspace space-y-5">
-    <x-page.heading :title="$nav[$screen][0]" description="تشغيل الذمم من المستندات المصدرية المرحّلة فقط" :breadcrumbs="['المالية', $nav[$screen][0]]" />
+    <x-page.heading :title="$nav[$screen][0]" description="تشغيل الذمم من المستندات المصدرية المرحّلة فقط" :breadcrumbs="['المالية', $nav[$screen][0]]">
+        <x-slot:actions>
+            @if($access->branches(auth()->id(),'ar_view')!==[] || $access->branches(auth()->id(),'ap_view')!==[])
+                <flux:button size="sm" :href="route('financial.party-credits')" wire:navigate>رد الأرصدة الدائنة</flux:button>
+            @endif
+        </x-slot:actions>
+    </x-page.heading>
     <x-erp.finance-banner />
-    @if($access->branches(auth()->id(),'ar_view')!==[] || $access->branches(auth()->id(),'ap_view')!==[])<flux:button :href="route('financial.party-credits')" wire:navigate>رد الأرصدة الدائنة</flux:button>@endif
+    <nav class="flex flex-wrap items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-2 shadow-2xs" aria-label="شاشات الذمم والفواتير">
+        @foreach($nav as $navKey => $navItem)
+            @if(\Illuminate\Support\Facades\Route::has('financial.'.$navKey))
+                <flux:button
+                    size="sm"
+                    :variant="$screen === $navKey ? 'primary' : 'ghost'"
+                    :href="route('financial.'.$navKey)"
+                    :aria-current="$screen === $navKey ? 'page' : null"
+                    wire:navigate
+                >{{ $navItem[0] }}</flux:button>
+            @endif
+        @endforeach
+    </nav>
     @if(session('financial_message'))<flux:callout variant="success" class="erp-feedback--success" role="status">{{ session('financial_message') }}</flux:callout>@endif
     <x-ui.validation-summary />
     <x-ui.panel>
-        <x-ui.filters id="financial-filters" target="search,branch" :reset="['search' => '', 'branch' => '']"><x-slot:search><flux:input wire:model.live.debounce.300ms="search" label="بحث" placeholder="اسم الطرف أو رقم المستند"/></x-slot:search>
-        <div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_15rem]">
-
-            <flux:select wire:model.live="branch" label="الفرع"><option value="">كل الفروع المصرح بها</option>@foreach($branches as $item)<option value="{{ $item['id'] }}">{{ $item['name'] }}</option>@endforeach</flux:select>
-        </div>
+        <x-ui.filters id="financial-filters" target="search,branch,partyType,agingBucket,openStatus" :reset="['search' => '', 'branch' => '', 'partyType' => '', 'agingBucket' => '', 'openStatus' => 'open']">
+            <x-slot:search><flux:input wire:model.live.debounce.300ms="search" label="بحث" placeholder="اسم الطرف أو رقم المستند المصدري…" clearable /></x-slot:search>
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <flux:select wire:model.live="branch" label="الفرع"><option value="">كل الفروع المصرح بها</option>@foreach($branches as $item)<option value="{{ $item['id'] }}">{{ $item['name'] }}</option>@endforeach</flux:select>
+                @if($screen === 'aging')
+                    <flux:select wire:model.live="partyType" label="نوع الطرف">
+                        <option value="">الموردون والعملاء معاً</option>
+                        <option value="supplier">ذمم الموردين فقط (AP)</option>
+                        <option value="customer">ذمم العملاء فقط (AR)</option>
+                    </flux:select>
+                @endif
+                @if(in_array($screen, ['ap', 'ar'], true))
+                    <flux:select wire:model.live="openStatus" label="حالة الذمة">
+                        <option value="open">البنود المفتوحة (ذات رصيد متبقٍ)</option>
+                        <option value="all">كل البنود (المفتوحة والمسددة)</option>
+                        <option value="settled">البنود المسددة بالكامل فقط</option>
+                    </flux:select>
+                @endif
+                @if(in_array($screen, ['ap', 'ar', 'aging'], true))
+                    <flux:select wire:model.live="agingBucket" label="شريحة العمر والـتأخير">
+                        <option value="">كل شرائح الاستحقاق</option>
+                        @foreach($agingBuckets as $bKey => $bMeta)
+                            <option value="{{ $bKey }}">{{ $bMeta['label'] }} ({{ $bMeta['count'] }})</option>
+                        @endforeach
+                    </flux:select>
+                @endif
+            </div>
         </x-ui.filters>
     </x-ui.panel>
     @if(in_array($screen,['ap','ar','aging'],true))
-        <div class="erp-kpi-summary grid grid-cols-2 gap-3"><x-erp.stat-card label="القيمة الأصلية" :value="$totals['original'].' ج.م'" icon="document-text"/><x-erp.stat-card label="الرصيد المتبقي" :value="$totals['remaining'].' ج.م'" icon="calculator"/></div>
+        <div class="erp-kpi-summary grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <x-erp.stat-card label="القيمة الأصلية للمستندات" :value="$totals['original'].' ج.م'" icon="document-text" tone="blue"/>
+            <x-erp.stat-card label="إجمالي المسدد والمحصّل" :value="$totals['settled'].' ج.م'" icon="check-circle" tone="emerald"/>
+            <x-erp.stat-card label="الرصيد المتبقي القائم" :value="$totals['remaining'].' ج.م'" icon="calculator" tone="purple"/>
+            <x-erp.stat-card label="المتأخر عن تاريخ الاستحقاق" :value="$totals['overdue'].' ج.م'" icon="clock" :tone="bccomp($totals['overdue'], '0.00', 2) === 0 ? 'emerald' : 'red'"/>
+        </div>
+        <div class="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-5" aria-label="توزيع شرائح أعمار الديون">
+            @foreach($agingBuckets as $bKey => $bMeta)
+                <button
+                    type="button"
+                    wire:click="$set('agingBucket', '{{ $agingBucket === $bKey ? '' : $bKey }}')"
+                    class="flex flex-col justify-between rounded-xl border p-3 text-start transition {{ $agingBucket === $bKey ? 'border-blue-600 bg-blue-50/70 ring-1 ring-blue-600' : 'border-slate-200 bg-white hover:border-blue-300' }}"
+                >
+                    <div class="flex items-center justify-between gap-2 text-xs text-slate-500">
+                        <span class="font-medium">{{ $bMeta['label'] }}</span>
+                        <span class="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-700">{{ $bMeta['count'] }} بند</span>
+                    </div>
+                    <p class="mt-2 text-base font-bold tabular-nums text-slate-900" dir="ltr">{{ $bMeta['amount'] }} ج.م</p>
+                </button>
+            @endforeach
+        </div>
     @endif
     @if($screen==='supplier-invoices' && $access->branches(auth()->id(),'supplier_invoice_manage')!==[])
         <details class="group rounded-xl border border-blue-200 bg-white" @if($errors->any() || ($form['supplier_id'] ?? '') !== '' || $supplierSearch !== '') open @endif><summary class="flex cursor-pointer list-none items-center gap-2 p-4 font-semibold text-blue-800"><flux:icon name="plus" class="size-4" /> فاتورة مورد جديدة<span class="ms-auto text-xs font-normal text-slate-500 group-open:hidden">اضغط للفتح</span></summary><div class="border-t border-blue-100"><x-ui.panel class="!border-0 !shadow-none"><h2 class="mb-1 font-semibold">فاتورة مورد جديدة</h2><p class="mb-4 text-xs text-slate-500">اختر المورد، ثم أمر الشراء المستلَم، ثم الأصناف المستلمة التي وصلت فاتورتها. يُقترح سعر الأمر ويمكنك تعديله لسعر الفاتورة.</p>
@@ -134,8 +194,48 @@
                 <thead><tr><th>النوع</th><th>الفاتورة الأصلية</th><th>التاريخ</th><th>السبب</th><th>الصافي</th><th>الضريبة</th><th>الإجمالي</th><th>الحالة</th><th>الإجراء</th></tr></thead>
                 <tbody>@forelse($rows as $row)<tr><td>{{ $row->kind === 'supplier' ? 'مورد' : ($row->kind === 'customer' ? 'عميل' : $row->kind) }}</td><td>#{{ $row->original_invoice_id }}</td><td>{{ $row->note_date }}</td><td>{{ $row->reason }}</td><td>{{ $row->net_amount }}</td><td>{{ $row->tax_amount }}</td><td>{{ $row->amount }}</td><td>{{ ['draft'=>'مسودة','validated'=>'تم التحقق','matched'=>'تمت المطابقة','approved'=>'معتمد','posted'=>'مرحّل','cancelled'=>'ملغي'][$row->status] ?? $row->status }}</td><td class="flex gap-1">@if($row->status==='draft'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id)&&($row->created_by!==auth()->id() || $canSelfApproveCredit))<flux:button wire:click="creditStep({{ $row->id }},'approve')" size="sm">{{ $row->created_by===auth()->id() ? 'اعتماد (ذاتي موثّق)' : 'اعتماد مستقل' }}</flux:button>@elseif($row->status==='approved'&&$access->allows(auth()->id(),'credit_note_approve',$row->branch_id))<flux:button wire:click="creditStep({{ $row->id }},'post')" wire:confirm="ترحيل الإشعار وأثره الضريبي والذمة؟" variant="primary" size="sm">ترحيل</flux:button>@elseif($row->status==='posted')<flux:button :href="route('financial.documents',['credit-note',$row->id])" icon="arrow-down-tray" size="sm">PDF</flux:button>@endif</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد إشعارات" description="لا تنشأ التصحيحات إلا مرتبطة بفاتورة مرحّلة."/></td></tr>@endforelse</tbody>
             @else
-                <thead><tr><th>النوع</th><th>رقم المصدر</th><th>تاريخ المستند</th><th>الاستحقاق</th><th>الأصلي</th><th>المسدد</th><th>المصحح</th><th>المتبقي</th><th>العمر</th></tr></thead>
-                <tbody>@forelse($rows as $row)<tr><td>{{ $row->party_type === 'supplier' ? 'مورد' : ($row->party_type === 'customer' ? 'عميل' : $row->party_type) }}</td><td dir="ltr">{{ $row->source_number }}</td><td>{{ $row->document_date }}</td><td>{{ $row->due_date }}</td><td>{{ $row->original_amount }}</td><td>{{ $row->settled_amount }}</td><td>{{ $row->credited_amount }}</td><td>{{ $row->remaining_amount }}</td><td>{{ max(0,now('Africa/Cairo')->startOfDay()->diffInDays(\Carbon\CarbonImmutable::parse($row->due_date),false)*-1) }} يوم</td></tr>@empty<tr><td colspan="9"><x-ui.empty-state title="لا توجد أرصدة" description="لا توجد بنود ذمم ضمن النطاق المحدد."/></td></tr>@endforelse</tbody>
+                <thead><tr><th>النوع</th><th>رقم المصدر</th><th>تاريخ المستند</th><th>الاستحقاق</th><th>شريحة العمر</th><th>الأصلي</th><th>المسدد</th><th>المصحح</th><th>المتبقي</th><th>التأخير</th><th>المستند</th></tr></thead>
+                <tbody>
+                    @forelse($rows as $row)
+                        <tr>
+                            <td>{{ $row->party_type === 'supplier' ? 'مورد' : ($row->party_type === 'customer' ? 'عميل' : $row->party_type) }}</td>
+                            <td dir="ltr" class="font-medium">{{ $row->source_number }}</td>
+                            <td class="tabular-nums">{{ $row->document_date }}</td>
+                            <td class="tabular-nums">{{ $row->due_date }}</td>
+                            <td>
+                                <span class="inline-flex items-center rounded border px-2 py-0.5 text-xs font-medium {{ ($row->days_overdue ?? 0) === 0 ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : (($row->days_overdue ?? 0) <= 30 ? 'border-blue-200 bg-blue-50 text-blue-700' : (($row->days_overdue ?? 0) <= 60 ? 'border-amber-200 bg-amber-50 text-amber-800' : 'border-red-200 bg-red-50 text-red-700')) }}">
+                                    {{ $row->aging_label ?? '—' }}
+                                </span>
+                            </td>
+                            <td class="tabular-nums">{{ $row->original_amount }}</td>
+                            <td class="tabular-nums">{{ $row->settled_amount }}</td>
+                            <td class="tabular-nums">{{ $row->credited_amount }}</td>
+                            <td class="font-semibold tabular-nums">{{ $row->remaining_amount }}</td>
+                            <td class="tabular-nums">{{ $row->days_overdue ?? max(0,now('Africa/Cairo')->startOfDay()->diffInDays(\Carbon\CarbonImmutable::parse($row->due_date),false)*-1) }} يوم</td>
+                            <td>
+                                @if(in_array($row->source_type ?? '', ['supplier_invoice', 'customer_invoice'], true))
+                                    <flux:button size="xs" variant="ghost" :href="route('financial.invoices.show', [$row->source_type === 'supplier_invoice' ? 'supplier' : 'customer', $row->source_id])" wire:navigate>الفاتورة</flux:button>
+                                @else
+                                    <span class="text-xs text-slate-400">—</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="11"><x-ui.empty-state title="لا توجد أرصدة" description="لا توجد بنود ذمم ضمن النطاق المحدد."/></td></tr>
+                    @endforelse
+                </tbody>
+                @if(count($rows) > 0)
+                    <tfoot>
+                        <tr class="border-t-2 border-slate-200 bg-slate-50 font-bold text-slate-900">
+                            <td colspan="5" class="p-3">إجمالي الذمم المعروضة ({{ count($rows) }} بند)</td>
+                            <td class="p-3 tabular-nums" dir="ltr">{{ $totals['original'] }} ج.م</td>
+                            <td class="p-3 tabular-nums" dir="ltr">{{ $totals['settled'] }} ج.م</td>
+                            <td class="p-3 tabular-nums" dir="ltr">{{ $totals['credited'] }} ج.م</td>
+                            <td class="p-3 tabular-nums text-blue-950" dir="ltr">{{ $totals['remaining'] }} ج.م</td>
+                            <td colspan="2" class="p-3 text-xs text-red-700">متأخر: <bdi dir="ltr">{{ $totals['overdue'] }} ج.م</bdi></td>
+                        </tr>
+                    </tfoot>
+                @endif
             @endif
         </table></div>
         @if(in_array($screen,['ap','ar','aging'],true))
